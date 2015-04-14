@@ -140,7 +140,8 @@ namespace PmaPlus
 
         public Task<IList<string>> GetRolesAsync(User user)
         {
-            _userRepository.GetById(user.Id).Role
+            string role = _userRepository.GetById(user.Id).Role.ToString();
+            return Task.FromResult<IList<string>>(new List<string>() {role});
         }
 
         public Task<bool> IsInRoleAsync(User user, string roleName)
