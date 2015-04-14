@@ -163,6 +163,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\SysAdmin\SysAdminAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Stratup.cs" />
@@ -174,6 +175,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Content Include="Areas\SysAdmin\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -219,6 +221,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\SysAdmin\Controllers\" />
+    <Folder Include="Areas\SysAdmin\Models\" />
+    <Folder Include="Areas\SysAdmin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
