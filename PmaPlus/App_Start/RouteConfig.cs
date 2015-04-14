@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Xml.XPath;
 
 namespace PmaPlus
 {
@@ -16,7 +17,8 @@ namespace PmaPlus
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new {  action = "Index", controller = "Home", id = UrlParameter.Optional }
+                defaults: new {  action = "Index", controller = "Home", id = UrlParameter.Optional },
+                namespaces: new []{"PmaPlus.Controllers"}                
             );
         }
     }
