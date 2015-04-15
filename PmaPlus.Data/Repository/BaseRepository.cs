@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PmaPlus.Data
+namespace PmaPlus.Data.Repository
 {
     public abstract class RepositoryBase<T> where T : class
     {
@@ -45,7 +42,7 @@ namespace PmaPlus.Data
         }
         public virtual void Delete(Expression<Func<T, bool>> where)
         {
-            IEnumerable<T> objects = _dbset.Where<T>(where).AsEnumerable();
+            IQueryable<T> objects = _dbset.Where<T>(where).AsQueryable();
             foreach (T obj in objects)
                 _dbset.Remove(obj);
             _dataBaseContext.SaveChanges();
@@ -56,14 +53,14 @@ namespace PmaPlus.Data
             return _dbset.Find(id);
         }
        
-        public virtual IEnumerable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
-            return _dbset.ToList();
+            return _dbset.AsQueryable();
         }
 
-        public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
+        public virtual IQueryable<T> GetMany(Expression<Func<T, bool>> where)
         {
-            return _dbset.Where(where).ToList();
+            return _dbset.Where(where).AsQueryable();
         }
 
        

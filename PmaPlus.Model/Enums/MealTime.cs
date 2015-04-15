@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PmaPlus.Model.Enums
+namespace PmaPlus.Model
 {
     public enum MealTime
     {

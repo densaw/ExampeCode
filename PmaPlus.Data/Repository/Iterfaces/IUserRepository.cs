@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PmaPlus.Model;
+﻿using PmaPlus.Model;
 
-namespace PmaPlus.Data
+namespace PmaPlus.Data.Repository.Iterfaces
 {
     public interface IUserRepository : IRepository<User>
     {
