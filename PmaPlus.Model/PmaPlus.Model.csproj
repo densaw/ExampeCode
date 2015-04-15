@@ -30,11 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\BodyPart.cs" />
+    <Compile Include="Models\Certificate.cs" />
+    <Compile Include="Models\Chairman.cs" />
+    <Compile Include="Models\Club.cs" />
+    <Compile Include="Models\ClubAdmin.cs" />
+    <Compile Include="Models\Coach.cs" />
+    <Compile Include="Models\Curriculum.cs" />
+    <Compile Include="Models\CurriculumBlock.cs" />
+    <Compile Include="Models\CurriculumDetail.cs" />
+    <Compile Include="Models\CurriculumType.cs" />
+    <Compile Include="Models\CurriculumWeek.cs" />
     <Compile Include="Enums\AgeGroup.cs" />
     <Compile Include="Enums\CertificateCourseType.cs" />
     <Compile Include="Enums\FoodType.cs" />
@@ -49,10 +70,28 @@
     <Compile Include="Enums\MealTime.cs" />
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Enums\SportsScienceTestType.cs" />
-    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\FACourse.cs" />
+    <Compile Include="Models\HeadOfAcademy.cs" />
+    <Compile Include="Models\HeadOfEducation.cs" />
+    <Compile Include="Models\Match.cs" />
+    <Compile Include="Model1.cs" />
+    <Compile Include="Models\NutritionAlternative.cs" />
+    <Compile Include="Models\NutritionFoodType.cs" />
+    <Compile Include="Models\Physiotherapist.cs" />
+    <Compile Include="Models\PhysiotherapyExercise.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\PlayerAttribute.cs" />
+    <Compile Include="Models\PlayerInjury.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\Scout.cs" />
+    <Compile Include="Models\Skill.cs" />
+    <Compile Include="Models\SportScientist.cs" />
+    <Compile Include="Models\SportsScienceExercise.cs" />
+    <Compile Include="Models\SportsScienceTest.cs" />
+    <Compile Include="Models\Team.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserDetail.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\WelfareOfficer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

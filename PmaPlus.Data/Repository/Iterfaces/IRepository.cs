@@ -17,8 +17,8 @@ namespace PmaPlus.Data
         T GetById(int id);
        
         T Get(Expression<Func<T, bool>> where);
-        IEnumerable<T> GetAll();
-        IEnumerable<T> GetMany(Expression<Func<T, bool>> where);
+        IQueryable<T> GetAll();
+        IQueryable<T> GetMany(Expression<Func<T, bool>> where);
         
     }
     

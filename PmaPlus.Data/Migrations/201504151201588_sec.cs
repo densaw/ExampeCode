@@ -8,13 +8,13 @@ namespace PmaPlus.Data.Migrations
         public override void Up()
         {
             DropForeignKey("dbo.Users", "UserDetail_UserDetailId", "dbo.UserDetails");
+            DropPrimaryKey("dbo.UserDetails");
+            DropColumn("dbo.UserDetails", "UserDetailId");
             RenameColumn(table: "dbo.Users", name: "UserDetail_UserDetailId", newName: "UserDetail_Id");
             RenameIndex(table: "dbo.Users", name: "IX_UserDetail_UserDetailId", newName: "IX_UserDetail_Id");
-            DropPrimaryKey("dbo.UserDetails");
             AddColumn("dbo.UserDetails", "Id", c => c.Int(nullable: false, identity: true));
             AddPrimaryKey("dbo.UserDetails", "Id");
             AddForeignKey("dbo.Users", "UserDetail_Id", "dbo.UserDetails", "Id");
-            DropColumn("dbo.UserDetails", "UserDetailId");
         }
         
         public override void Down()

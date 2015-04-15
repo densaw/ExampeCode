@@ -15,16 +15,7 @@
     module.controller('userController', userController);
 
     function userController($scope,$http) {
-        $scope.users = [
-            {
-                UserName: 'aadasasd',
-                Email: 'sdaad'
-            },
-            {
-                UserName: 'aadasasd',
-                Email: 'sdaad'
-            }
-        ];
+        
         
         $http.get('/api/user').success(function (data) {
             $scope.users = data;

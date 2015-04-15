@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201504151201588_sec.Designer.cs">
       <DependentUpon>201504151201588_sec.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504151558375_bigbase.cs" />
+    <Compile Include="Migrations\201504151558375_bigbase.Designer.cs">
+      <DependentUpon>201504151558375_bigbase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
@@ -72,20 +76,25 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PmaPlus.Model\PmaPlus.Model.csproj">
-      <Project>{59d53f80-d481-4bd4-997e-ca9a8eca72ce}</Project>
-      <Name>PmaPlus.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\201504131321219_inialise.resx">
       <DependentUpon>201504131321219_inialise.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504151201588_sec.resx">
       <DependentUpon>201504151201588_sec.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504151558375_bigbase.resx">
+      <DependentUpon>201504151558375_bigbase.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PmaPlus.Model\PmaPlus.Model.csproj">
+      <Project>{59d53f80-d481-4bd4-997e-ca9a8eca72ce}</Project>
+      <Name>PmaPlus.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
