@@ -12,7 +12,7 @@ namespace PmaPlus.Areas.SysAdmin.Controllers
         // GET: SysAdmin/Home
         public ActionResult Index()
         {
-            return View();
+            return PartialView("Dashbord");
         }
 
         public ActionResult Dashbord()

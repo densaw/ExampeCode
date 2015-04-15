@@ -3,5 +3,12 @@
     Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
+<div ng-controller="userController">
+    <table class="table">
+        <tr ng-repeat="user in users">
+            <td>{{user.UserName}}</td>
+            <td>{{user.Email}}</td>
+        </tr>
 
-<p>TestDa</p>  
+    </table>
+</div>  
