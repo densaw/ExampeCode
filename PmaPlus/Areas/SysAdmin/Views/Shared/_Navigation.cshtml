@@ -18,66 +18,66 @@
                 </div>
             </li>
             <li class="@Html.IsSelected(controller: "Home")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
+                <a href="@Url.Action("Dashbord","Home",new{area="SysAdmin"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
                 
             </li>
             <li class="@Html.IsSelected(controller: "Layouts")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-university"></i> <span class="nav-label">Clubs</span></a>
+                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-university"></i> <span class="nav-label">Clubs</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Graphs")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-users"></i> <span class="nav-label">Clients</span></a>
+                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-users"></i> <span class="nav-label">Clients</span></a>
                 
             </li>
             <li class="@Html.IsSelected(controller: "Mailbox")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Curriculums</span><span class="fa arrow"></span></a>
+                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Curriculums</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "Inbox")"><a href="@Url.Action("Index","Home",new{area="Administrator"})">Curriculum Type</a></li>
+                    <li class="@Html.IsSelected(action: "Inbox")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Curriculum Type</a></li>
                     </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Widgets")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-plus-square"></i> <span class="nav-label">FA Courses</span> </a>
+                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-plus-square"></i> <span class="nav-label">FA Courses</span> </a>
             </li>
             <li class="@Html.IsSelected(controller: "Forms")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-cutlery"></i> <span class="nav-label">Nutrition</span><span class="fa arrow"></span></a>
+                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-cutlery"></i> <span class="nav-label">Nutrition</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "BasicFroms")"><a href="@Url.Action("Index","Home",new{area="Administrator"})">Alternatives</a></li>
-                    <li class="@Html.IsSelected(action: "Advanced")"><a href="@Url.Action("Index","Home",new{area="Administrator"})">Food Types</a></li>
-                    <li class="@Html.IsSelected(action: "Wizard")"><a href="@Url.Action("Index","Home",new{area="Administrator"})">Recipes</a></li>
+                    <li class="@Html.IsSelected(action: "BasicFroms")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Alternatives</a></li>
+                    <li class="@Html.IsSelected(action: "Advanced")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Food Types</a></li>
+                    <li class="@Html.IsSelected(action: "Wizard")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Recipes</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "AppViews")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-medkit"></i> <span class="nav-label">Physiotherapy</span>  <span class="fa arrow"></span></a>
+                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-medkit"></i> <span class="nav-label">Physiotherapy</span>  <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "Contacts")"><a href="@Url.Action("Index","Home",new{area="Administrator"})">Body Parts</a></li>
-                    <li class="@Html.IsSelected(action: "Profile")"><a href="@Url.Action("Index","Home",new{area="Administrator"})">Exercises</a></li>
+                    <li class="@Html.IsSelected(action: "Contacts")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Body Parts</a></li>
+                    <li class="@Html.IsSelected(action: "Profile")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Exercises</a></li>
                    
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Pages")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-futbol-o"></i> <span class="nav-label">Scenarios</span></a>
+                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-futbol-o"></i> <span class="nav-label">Scenarios</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Miscellaneous")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-gears"></i> <span class="nav-label">Site Settings</span><span class="fa arrow"></span></a>
+                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-gears"></i> <span class="nav-label">Site Settings</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "Notification")"><a href="@Url.Action("Index","Home",new{area="Administrator"})">Charges</a></li>
-                    <li class="@Html.IsSelected(action: "NestableList")"><a href="@Url.Action("Index","Home",new{area="Administrator"})">Targets</a></li>
-                    <li class="@Html.IsSelected(action: "Timeline_second_version")"><a href="@Url.Action("Index","Home",new{area="Administrator"})">Login</a></li>
+                    <li class="@Html.IsSelected(action: "Notification")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Charges</a></li>
+                    <li class="@Html.IsSelected(action: "NestableList")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Targets</a></li>
+                    <li class="@Html.IsSelected(action: "Timeline_second_version")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Login</a></li>
                     
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "UIElements")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-film"></i> <span class="nav-label">Skills & Knowledge</span></a>
+                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-film"></i> <span class="nav-label">Skills & Knowledge</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Tables")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-flask"></i> <span class="nav-label">Sports Science</span><span class="fa arrow"></span></a>
+                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-flask"></i> <span class="nav-label">Sports Science</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "StaticTables")"><a href="@Url.Action("Index","Home",new{area="Administrator"})">Exercises</a></li>
-                    <li class="@Html.IsSelected(action: "DataTables")"><a href="@Url.Action("Index","Home",new{area="Administrator"})">Tests</a></li>
+                    <li class="@Html.IsSelected(action: "StaticTables")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Exercises</a></li>
+                    <li class="@Html.IsSelected(action: "DataTables")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Tests</a></li>
                     
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Gallery")">
-                <a href="@Url.Action("Index","Home",new{area="Administrator"})"><i class="fa fa-bar-chart"></i> <span class="nav-label">Reports</span></a>
+                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-bar-chart"></i> <span class="nav-label">Reports</span></a>
             </li>
             
         </ul>

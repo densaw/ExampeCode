@@ -2756,6 +2756,12 @@
     <Content Include="fonts\font-awesome\scss\_stacked.scss" />
     <Content Include="fonts\font-awesome\scss\_variables.scss" />
     <Content Include="Areas\SysAdmin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Shared\_Navigation.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Shared\_TopNavbar.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Home\Dashbord.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -3201,6 +3207,8 @@
     <Content Include="Views\Account\LogOff.cshtml" />
     <Content Include="Scripts\plugins\justified-gallery\README.md" />
     <Content Include="Scripts\plugins\toastr\toastr.js.map" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3211,7 +3219,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\SysAdmin\Models\" />
-    <Folder Include="Areas\SysAdmin\Views\Shared\" />
+    <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
+    <Folder Include="Scripts\controllers\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

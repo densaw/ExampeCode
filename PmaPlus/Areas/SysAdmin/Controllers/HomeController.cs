@@ -14,5 +14,10 @@ namespace PmaPlus.Areas.SysAdmin.Controllers
         {
             return View();
         }
+
+        public ActionResult Dashbord()
+        {
+            return PartialView("Dashbord");
+        }
     }
 }

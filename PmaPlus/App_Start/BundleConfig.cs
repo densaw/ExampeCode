@@ -28,6 +28,10 @@ namespace PmaPlus
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular/angular.js"));
 
+            //Angular Controllers
+            bundles.Add(new ScriptBundle("~/bundles/controllers").IncludeDirectory(
+                "~/Scripts/controllers", "*.js", true));
+
             // Session
             bundles.Add(new ScriptBundle("~/bundles/jquery-session").Include(
                 "~/Scripts/jquery.session.js"));

@@ -14,10 +14,6 @@
 
     <!-- Add jQuery Style direct - used for jQGrid plugin -->
     <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.css")" rel="stylesheet" type="text/css"/>
-
-    <!-- Primary Inspinia style -->
-    @*@Styles.Render("~/font-awesome/css")*@
-    @*@Styles.Render("~/Content/fontawesome")*@
     @Styles.Render("~/Content/css")
     <link href="@Url.Content("~/Content/plugins/toastr/toastr.min.css")" rel="stylesheet" type="text/css"/>
     <link href="@Url.Content("~/Content/plugins/toastr/toastr-font-awesome.css")" rel="stylesheet" type="text/css" />
@@ -57,29 +53,7 @@
 @Scripts.Render("~/bundles/inspinia")
 @Scripts.Render("~/plugins/toastr")
 @Scripts.Render("~/bundles/jquery-session")
-@*<script>
-    $(document).ready(function() {
-        if (document.referrer.includes("Account/Login") && !$.session.get('notify')) {
-            toastr.options = {
-                closeButton: true,
-                debug: false,
-                progressBar: false,
-                positionClass: "toast-top-full-width",
-                onclick: null,
-                showDuration: 400,
-                hideDuration: 1000,
-                timeOut: 7000,
-                extendedTimeOut: 1000,
-                showEasing: "swing",
-                hideEasing: "linear",
-                showMethod: "fadeIn",
-                hideMethod: "fadeOut"
-            }
-            toastr.success('Welcome to PMA+ Administration.', 'Success');
-            $.session.set('notify', true);
-        }
-    });
-</script>*@
+@Scripts.Render("~/bundles/angular")
 
 
 <!-- Handler for local scripts -->
