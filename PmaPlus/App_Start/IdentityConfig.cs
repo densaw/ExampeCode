@@ -12,6 +12,8 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataProtection;
 using PmaPlus.Data;
 using PmaPlus.Data.Infrastructure;
+using PmaPlus.Data.Repository;
+using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model;
 
 namespace PmaPlus

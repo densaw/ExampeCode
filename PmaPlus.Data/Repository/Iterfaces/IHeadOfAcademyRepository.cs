@@ -2,8 +2,8 @@
 
 namespace PmaPlus.Data.Repository.Iterfaces
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IHeadOfAcademyRepository : IRepository<HeadOfAcademy>
     {
-
+     
     }
 }

@@ -2,8 +2,7 @@
 
 namespace PmaPlus.Data.Repository.Iterfaces
 {
-    public interface IUserRepository : IRepository<User>
+    public interface INutritionFoodTypeRepository : IRepository<NutritionFoodType>
     {
-
     }
 }
