@@ -8,7 +8,7 @@ namespace PmaPlus.Model
 {
     public class UserDetail
     {
-        public int Id { get; set; }
+        public int UserDetailId { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }

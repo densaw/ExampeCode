@@ -9,7 +9,8 @@ namespace PmaPlus.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(PmaPlus.Data.DataBaseContext baseContext)

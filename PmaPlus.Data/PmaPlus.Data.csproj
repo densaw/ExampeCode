@@ -56,6 +56,10 @@
     <Compile Include="Migrations\201504131321219_inialise.Designer.cs">
       <DependentUpon>201504131321219_inialise.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504151201588_sec.cs" />
+    <Compile Include="Migrations\201504151201588_sec.Designer.cs">
+      <DependentUpon>201504151201588_sec.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
@@ -76,6 +80,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201504131321219_inialise.resx">
       <DependentUpon>201504131321219_inialise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504151201588_sec.resx">
+      <DependentUpon>201504151201588_sec.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
