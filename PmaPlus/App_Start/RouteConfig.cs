@@ -16,7 +16,8 @@ namespace PmaPlus
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new {  action = "Index", controller = "Home", id = UrlParameter.Optional }
+                defaults: new {  action = "Index", controller = "Home", id = UrlParameter.Optional },
+                namespaces: new[] { "PmaPlus.Controllers"}
             );
         }
     }
