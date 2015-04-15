@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "You have logged out";
+}
+
+
+<h3>Looking forward to seeing you again soon</h3>
+
+<script>
+    $(document).ready(function () {
+        setTimeout(timerIncrement, 3000);
+    });
+
+    function timerIncrement() {
+        window.location.replace('@Url.Action("Login", "Account", new {area=""})');
+    }
+</script>

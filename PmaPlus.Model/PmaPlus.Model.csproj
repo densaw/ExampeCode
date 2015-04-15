@@ -45,6 +45,7 @@
     <Compile Include="Enums\AgeGroup.cs" />
     <Compile Include="Enums\CertificateCourseType.cs" />
     <Compile Include="Enums\FoodType.cs" />
+    <Compile Include="Enums\MatchType.cs" />
     <Compile Include="Enums\MealTime.cs" />
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Enums\SportsScienceTestType.cs" />

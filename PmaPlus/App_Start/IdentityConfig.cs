@@ -15,7 +15,7 @@ using PmaPlus.Model;
 
 namespace PmaPlus
 {
-    public class MyUserStore : IUserStore<User, int>, IUserPasswordStore<User, int>, IUserLockoutStore<User, int>, IUserTwoFactorStore<User, int>
+    public class MyUserStore : IUserStore<User, int>, IUserPasswordStore<User, int>, IUserLockoutStore<User, int>, IUserTwoFactorStore<User, int>, IUserRoleStore<User, int>
     {
         private IUserRepository _userRepository;
 
@@ -123,6 +123,40 @@ namespace PmaPlus
         public Task<bool> GetTwoFactorEnabledAsync(User user)
         {
             return Task.FromResult(false);
+        }
+
+        public Task AddToRoleAsync(User user, string roleName)
+        {
+            Role role;
+            Enum.TryParse(roleName, true, out role);
+            _userRepository.GetById(user.Id).Role = role;
+            return Task.FromResult<object>(null);
+        }
+
+        public Task RemoveFromRoleAsync(User user, string roleName)
+        {
+            return Task.FromResult<object>(null);
+        }
+
+        public Task<IList<string>> GetRolesAsync(User user)
+        {
+            string role = _userRepository.GetById(user.Id).Role.ToString();
+            return Task.FromResult<IList<string>>(new List<string>() { role.ToString() });
+        }
+
+        public Task<bool> IsInRoleAsync(User user, string roleName)
+        {
+            Role role;
+            Enum.TryParse(roleName, true, out role);
+            if (_userRepository.GetById(user.Id).Role == role)
+            {
+                return Task.FromResult(true);
+            }
+            else
+            {
+                return Task.FromResult(false);
+            }
+
         }
     }
 
