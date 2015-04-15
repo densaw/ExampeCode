@@ -18,7 +18,7 @@ namespace PmaPlus
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new {  action = "Index", controller = "Home", id = UrlParameter.Optional },
-                namespaces: new []{"PmaPlus.Controllers"}                
+                namespaces: new[] { "PmaPlus.Controllers"}
             );
         }
     }
