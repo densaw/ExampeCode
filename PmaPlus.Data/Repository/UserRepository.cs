@@ -13,10 +13,7 @@ namespace PmaPlus.Data
         {
         }
 
-        public override User GetById(int id)
-        {
-            return DatabaseFactory.Get().Users.FirstOrDefault(u => u.Id == id);
-        }
+       
 
        
     }

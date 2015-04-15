@@ -14,43 +14,20 @@ namespace PmaPlus.Controllers
 {
     public class AccountController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private readonly ApplicationSignInManager _signInManager;
+        private readonly ApplicationUserManager _userManager;
+        private readonly IAuthenticationManager _authenticationManager;
 
-        public AccountController()
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IAuthenticationManager authenticationManager)
         {
+            _userManager= userManager;
+            _signInManager = signInManager;
+            _authenticationManager = authenticationManager;
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-        
+        public ApplicationSignInManager SignInManager { get { return _signInManager; } }
+        public ApplicationUserManager UserManager { get { return _userManager; } }
+        public IAuthenticationManager AuthenticationManager { get { return _authenticationManager; } }
 
         [HttpGet]
         public ActionResult Register()
@@ -59,23 +36,33 @@ namespace PmaPlus.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new User() {UserName = model.Email, Email = model.Email};
-                var result = UserManager.Create(user, model.Password);
+                var user = new User { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Login", "Account");
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
                 }
+               
             }
-            return View();
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
 
-        
+
         /// GET /Account/LockScreen
         [AllowAnonymous]
         public ActionResult LockScreen(string returnUrl)
@@ -83,7 +70,7 @@ namespace PmaPlus.Controllers
             ViewBag.ReturnUrl = returnUrl;
             LoginViewModel model = new LoginViewModel();
             model.Email = User.Identity.Name;
-            SignInManager.AuthenticationManager.SignOut();
+            AuthenticationManager.SignOut();
             Response.Cookies.Clear();
             Session.Clear();
             Session.Abandon();
@@ -111,7 +98,7 @@ namespace PmaPlus.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -161,7 +148,7 @@ namespace PmaPlus.Controllers
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
-                
+
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("PassValid", "Sorry that password is incorrect, please try again");
@@ -212,7 +199,7 @@ namespace PmaPlus.Controllers
 
         public ActionResult LogOff()
         {
-            SignInManager.AuthenticationManager.SignOut();
+            AuthenticationManager.SignOut();
             return View();
         }
 

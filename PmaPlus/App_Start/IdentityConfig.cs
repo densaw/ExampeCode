@@ -9,13 +9,19 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataProtection;
 using PmaPlus.Data;
 using PmaPlus.Data.Infrastructure;
 using PmaPlus.Model;
 
 namespace PmaPlus
 {
-    public class MyUserStore : IUserStore<User, int>, IUserPasswordStore<User, int>, IUserLockoutStore<User, int>, IUserTwoFactorStore<User, int>, IUserRoleStore<User, int>
+    public class MyUserStore : IUserStore<User, int>, 
+        IUserPasswordStore<User, int>, 
+        IUserLockoutStore<User, int>, 
+        IUserTwoFactorStore<User, int>, 
+        IUserRoleStore<User, int>,
+        IUserEmailStore<User,int>
     {
         private IUserRepository _userRepository;
 
@@ -158,6 +164,36 @@ namespace PmaPlus
             }
 
         }
+
+        public Task SetEmailAsync(User user, string email)
+        {
+            User _user = _userRepository.GetById(user.Id);
+            if (_user.Id != 0)
+            {
+                _user.Email = email;
+            }
+            return Task.FromResult<object>(null);
+        }
+
+        public Task<string> GetEmailAsync(User user)
+        {
+            return Task.FromResult<string>(user.Email);
+        }
+
+        public Task<bool> GetEmailConfirmedAsync(User user)
+        {
+            return Task.FromResult(true);
+        }
+
+        public Task SetEmailConfirmedAsync(User user, bool confirmed)
+        {
+            return Task.FromResult<object>(null);
+        }
+
+        public Task<User> FindByEmailAsync(string email)
+        {
+            return Task.FromResult<User>(_userRepository.Get(u => u.Email == email));
+        }
     }
 
 
@@ -175,25 +211,17 @@ namespace PmaPlus
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<User, int>
     {
-        public ApplicationUserManager(IUserStore<User, int> store)
+        public ApplicationUserManager(IUserStore<User, int> store, IDataProtectionProvider dataProtectionProvider)
             : base(store)
         {
-        }
-
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
-            IOwinContext context)
-        {
-            var manager =
-                new ApplicationUserManager(new MyUserStore());
-            // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<User, int>(manager)
+            UserValidator = new UserValidator<User, int>(this)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
 
             // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
+            PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 1,
                 RequireNonLetterOrDigit = false,
@@ -202,33 +230,33 @@ namespace PmaPlus
                 RequireUppercase = false,
             };
 
+            //Clear password hasher
+            PasswordHasher = new ClearPassword();
+
             // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+            UserLockoutEnabledByDefault = false;
+            //DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            //MaxFailedAccessAttemptsBeforeLockout = 5;
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<User, int>
+            RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<User, int>
             {
                 MessageFormat = "Your security code is {0}"
             });
-            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<User, int>
+            RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<User, int>
             {
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
             });
-            manager.EmailService = new EmailService();
+            EmailService = new EmailService();
 
-            var dataProtectionProvider = options.DataProtectionProvider;
-            if (dataProtectionProvider != null)
-            {
-                manager.UserTokenProvider =
-                    new DataProtectorTokenProvider<User, int>(
-                        dataProtectionProvider.Create("ASP.NET Identity"));
-            }
-            return manager;
+
+            UserTokenProvider = new DataProtectorTokenProvider<User, int>(dataProtectionProvider.Create("ASP.NET Identity"));
+
         }
+
+       
     }
 
     // Configure the application sign-in manager which is used in this application.
@@ -251,4 +279,24 @@ namespace PmaPlus
         }
     }
 
+
+    public class ClearPassword : IPasswordHasher
+    {
+        public string HashPassword(string password)
+        {
+            return password;
+        }
+
+        public PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
+        {
+            if (hashedPassword.Equals(providedPassword))
+            {
+                return PasswordVerificationResult.Success;
+            }
+            else
+            {
+                return PasswordVerificationResult.Failed;
+            }
+        }
+    }
 }
