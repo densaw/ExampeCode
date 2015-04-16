@@ -64,8 +64,13 @@
     <Compile Include="Migrations\201504151558375_bigbase.Designer.cs">
       <DependentUpon>201504151558375_bigbase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504161200077_activePlayer.cs" />
+    <Compile Include="Migrations\201504161200077_activePlayer.Designer.cs">
+      <DependentUpon>201504161200077_activePlayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ActivityStatusChangeRepository.cs" />
     <Compile Include="Repository\AddressRepository.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\BodyPartRepository.cs" />
@@ -82,6 +87,7 @@
     <Compile Include="Repository\FACourseRepository.cs" />
     <Compile Include="Repository\HeadOfAcademyRepository.cs" />
     <Compile Include="Repository\HeadOfEducationRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IActivityStatusChangeRepository.cs" />
     <Compile Include="Repository\Iterfaces\IAddressRepository.cs" />
     <Compile Include="Repository\Iterfaces\IBodyPartRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICertificateRepository.cs" />
@@ -146,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504151558375_bigbase.resx">
       <DependentUpon>201504151558375_bigbase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504161200077_activePlayer.resx">
+      <DependentUpon>201504161200077_activePlayer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

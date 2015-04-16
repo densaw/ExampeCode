@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\PlayerStatus.cs" />
+    <Compile Include="Models\ActivityStatusChange.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BodyPart.cs" />
     <Compile Include="Models\Certificate.cs" />

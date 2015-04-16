@@ -1,3 +1,5 @@
+using PmaPlus.Model.Enums;
+
 namespace PmaPlus.Model
 {
     using System;
@@ -11,6 +13,7 @@ namespace PmaPlus.Model
 
         public int Id { get; set; }
 
+       
         public virtual Club Club { get; set; }
 
         public virtual Team Team { get; set; }
@@ -18,6 +21,7 @@ namespace PmaPlus.Model
         public virtual Team Team1 { get; set; }
 
         public virtual User User { get; set; }
+
 
         public virtual ICollection<PlayerInjury> PlayerInjuries { get; set; }
     }

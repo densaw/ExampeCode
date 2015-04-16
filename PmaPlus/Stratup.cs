@@ -13,7 +13,11 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
+using PmaPlus.Data;
+using PmaPlus.Data.Infrastructure;
 using PmaPlus.Model;
+using PmaPlus.Data.Repository;
+using PmaPlus.Services;
 
 [assembly: OwinStartup(typeof(PmaPlus.Startup))]
 namespace PmaPlus
@@ -30,6 +34,15 @@ namespace PmaPlus
             builder.RegisterType<MyUserStore>().As<IUserStore<User, int>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().InstancePerHttpRequest();
+            builder.RegisterAssemblyTypes(typeof(UserRepository).Assembly)
+           .Where(t => t.Name.EndsWith("Repository"))
+           .AsImplementedInterfaces().InstancePerHttpRequest();
+
+            builder.RegisterAssemblyTypes(typeof(PlayerServices).Assembly)
+           .Where(t => t.Name.EndsWith("Services"))
+           .AsImplementedInterfaces().InstancePerHttpRequest();
+           
             builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
             builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();
 
