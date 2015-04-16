@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using PmaPlus.Model.Enums;
 
 namespace PmaPlus.Model.Models
 {
@@ -15,6 +16,8 @@ namespace PmaPlus.Model.Models
         public string UserName { get; set; }
 
         public Role Role { get; set; }
+
+        public PlayerStatus Status { get; set; }
 
         [Required]
         [StringLength(50)]

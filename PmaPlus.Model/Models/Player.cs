@@ -1,4 +1,9 @@
-using System.Collections.Generic;
+using PmaPlus.Model.Enums;
+
+namespace PmaPlus.Model
+{
+    using System;
+    using System.Collections.Generic;
 
 namespace PmaPlus.Model.Models
 {
@@ -7,6 +12,7 @@ namespace PmaPlus.Model.Models
 
         public int Id { get; set; }
 
+       
         public virtual Club Club { get; set; }
 
         public virtual Team Team { get; set; }
@@ -14,6 +20,7 @@ namespace PmaPlus.Model.Models
         public virtual Team Team1 { get; set; }
 
         public virtual User User { get; set; }
+
 
         public virtual ICollection<PlayerInjury> PlayerInjuries { get; set; }
     }

@@ -9,6 +9,7 @@ using PmaPlus.Model.Models;
 
 namespace PmaPlus.Controllers
 {
+
     public class UserController : ApiController
     {
         User[] user = new User[] 
@@ -16,11 +17,11 @@ namespace PmaPlus.Controllers
             new User { Id = 1, Email = "1@2.3", Password = "1", Role = Role.SystemAdmin, UserDetail = null, UserName = "Andrew"}, 
             new User { Id = 1, Email = "1@2.3", Password = "1", Role = Role.SystemAdmin, UserDetail = null, UserName = "Igor"}
         };
-        public IList<User> GetAllUsers()
+        public IHttpActionResult GetAllUsers()
         {
             
             //TODO: Return All Users {area = SysAdmin} 
-            return user;
+             return NotFound();
         }
 
     }

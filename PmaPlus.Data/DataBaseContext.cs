@@ -43,8 +43,6 @@ namespace PmaPlus.Data
         public virtual DbSet<UserDetail> UserDetails { get; set; }
         public virtual DbSet<WelfareOfficer> WelfareOfficers { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
-
-
-
+        public virtual DbSet<ActivityStatusChange> ActivityStatusChanges { get; set; }
     }
 }
