@@ -1,4 +1,4 @@
-    using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace PmaPlus.Model.Models
 {
@@ -22,5 +22,4 @@ namespace PmaPlus.Model.Models
     }
     
 
-}
 }

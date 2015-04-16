@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using PmaPlus.Model.PmaPlus.Model.Models;
 
 namespace PmaPlus.Model.Models
 {
