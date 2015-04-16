@@ -18,6 +18,7 @@ using PmaPlus.Data.Infrastructure;
 using PmaPlus.Model;
 using PmaPlus.Data.Repository;
 using PmaPlus.Services;
+using PmaPlus.Model.Models;
 
 [assembly: OwinStartup(typeof(PmaPlus.Startup))]
 namespace PmaPlus

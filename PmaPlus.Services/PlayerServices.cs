@@ -32,5 +32,7 @@ namespace PmaPlus.Services
                 _activityStatusChangeRepository.GetMany(
                     a => a.DateTime.Month == dateTime.Month && a.DateTime.Year == dateTime.Year).Count();
         }
+
+        
     }
 }

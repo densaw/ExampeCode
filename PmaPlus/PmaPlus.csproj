@@ -2763,9 +2763,6 @@
     <Content Include="Areas\SysAdmin\Views\Shared\_TopNavbar.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\Dashbord.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\controllers\Clients.js" />
-    <Content Include="Scripts\controllers\Clubs.js" />
-    <Content Include="Scripts\controllers\DashBord.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2782,6 +2779,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\plugins\blueimp\jquery.blueimp-gallery.min.js" />
     <Content Include="Scripts\plugins\chartJs\Chart.min.js" />
+    <Content Include="Scripts\plugins\chartJs\tc.ngular.chartjs.min.js" />
     <Content Include="Scripts\plugins\chosen\chosen.jquery.js" />
     <Content Include="Scripts\plugins\codemirror\codemirror.js" />
     <Content Include="Scripts\plugins\codemirror\mode\apl\apl.js" />
