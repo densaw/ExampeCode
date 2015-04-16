@@ -25,6 +25,7 @@ namespace PmaPlus.Services
             return _playerRepository.GetMany(p => p.User.Status == PlayerStatus.Active).Count();
         }
 
+  
 
         public int GetActivePlayersForMonth(DateTime dateTime)
         {
