@@ -15,6 +15,7 @@ using PmaPlus.Data.Infrastructure;
 using PmaPlus.Data.Repository;
 using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model;
+using PmaPlus.Model.Models;
 
 namespace PmaPlus
 {

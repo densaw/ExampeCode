@@ -14,6 +14,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using PmaPlus.Model;
+using PmaPlus.Model.Models;
 
 [assembly: OwinStartup(typeof(PmaPlus.Startup))]
 namespace PmaPlus

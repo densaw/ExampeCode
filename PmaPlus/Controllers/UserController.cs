@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using PmaPlus.Model;
+using PmaPlus.Model.Models;
 
 namespace PmaPlus.Controllers
 {

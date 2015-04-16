@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PmaPlus.Model;
+using PmaPlus.Model.Models;
 using PmaPlus.Models;
 
 namespace PmaPlus.Controllers

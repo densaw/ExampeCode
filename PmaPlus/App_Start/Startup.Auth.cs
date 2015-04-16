@@ -8,6 +8,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using PmaPlus.Model;
+using PmaPlus.Model.Models;
 
 namespace PmaPlus
 {

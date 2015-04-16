@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using PmaPlus.Model;
-
+using PmaPlus.Model.Models;
 
 
 namespace PmaPlus.Data
