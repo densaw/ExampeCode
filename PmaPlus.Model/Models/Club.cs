@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using PmaPlus.Model.Enums;
 
 namespace PmaPlus.Model.Models
 {
@@ -18,7 +19,7 @@ namespace PmaPlus.Model.Models
         [StringLength(50)]
         public string Logo { get; set; }
 
-        public int Status { get; set; }
+        public ClubStatus Status { get; set; }
 
         public int? Established { get; set; }
 

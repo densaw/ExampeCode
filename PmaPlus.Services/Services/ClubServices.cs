@@ -7,6 +7,7 @@ using PmaPlus.Data;
 using PmaPlus.Data.Infrastructure;
 using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model;
+using PmaPlus.Model.Enums;
 using PmaPlus.Model.ViewModels;
 
 namespace PmaPlus.Services
@@ -18,7 +19,7 @@ namespace PmaPlus.Services
         {
             _clubRepository = clubRepository;
 
-            //_clubRepository.Get(u => u.Id == 0).Status;
+            //_clubRepository.Get(u => u.Id == 0).ClubAdmin.User.UserDetail.FirstName;
         }
 
 
@@ -27,8 +28,7 @@ namespace PmaPlus.Services
         {
             public string Name { get; set; }
             public string Logo { get; set; }
-
-           // public Status Type { get; set; }
+            public ClubStatus Status { get; set; }
         }
         
         
@@ -42,6 +42,7 @@ namespace PmaPlus.Services
             int clubsLastWeek =
                 _clubRepository.GetAll().ToList().Where(c =>  DateTool.GetWeekNumber(c.CreateAt) == lastWeek).Count();
             int percent;
+            string progress = "netral";
             if (clubsLastWeek == 0)
             {
                 percent = 1000;
@@ -54,10 +55,16 @@ namespace PmaPlus.Services
                     percent = 1000;
                 }
             }
+            if (clubsThisWeek - clubsLastWeek > 0)
+                progress = "up";
+            else if (clubsThisWeek - clubsLastWeek < 0)
+                progress = "down";
+
+
             return new InfoBoxViewModel()
             {
                 Amount = clubsThisWeek,
-                Progress = clubsThisWeek - clubsLastWeek,
+                Progress = progress,
                 Percentage = percent
             };
         }
