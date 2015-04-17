@@ -42,7 +42,7 @@ namespace PmaPlus.Services
             int clubsLastWeek =
                 _clubRepository.GetAll().ToList().Where(c =>  DateTool.GetWeekNumber(c.CreateAt) == lastWeek).Count();
             int percent;
-            int progress = 0;
+            string progress = "netral";
             if (clubsLastWeek == 0)
             {
                 percent = 1000;
@@ -56,9 +56,9 @@ namespace PmaPlus.Services
                 }
             }
             if (clubsThisWeek - clubsLastWeek > 0)
-                progress = 1;
+                progress = "up";
             else if (clubsThisWeek - clubsLastWeek < 0)
-                progress = -1;
+                progress = "down";
 
 
             return new InfoBoxViewModel()

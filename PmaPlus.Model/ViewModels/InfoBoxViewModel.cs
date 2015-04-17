@@ -9,7 +9,7 @@ namespace PmaPlus.Model.ViewModels
     public class InfoBoxViewModel
     {
         public int Amount { get; set; }
-        public int Progress { get; set; }
+        public string Progress { get; set; }
 
         public int Percentage { get; set; }
 
