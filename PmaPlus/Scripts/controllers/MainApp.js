@@ -1,14 +1,30 @@
 ﻿(function () {
     var module = angular.module('MainApp', ['tc.chartjs']);
-    module.controller('UserController',function ($scope, $http) {
+    module.controller('UserController', function ($scope, $http) {
+        var monthNames = ['January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'];
 
-        $http.get('/api/user').success(function(data) {
+        $http.get('api/dashboard/active/players').success(function (data) {
             $scope.users = data;
-
-
+            var monthArray = new Array;
+            var playerCountArray = new Array;
+            data.forEach(function(val) {
+                monthArray.push(monthNames[val.month-1]);
+                playerCountArray.push(val.activePlayers);
+            });
 
             $scope.data = {
-                labels: ["January", "February", "March", "April", "May", "June"],
+                labels: monthArray,
                 datasets: [
                     {
                         label: "Example dataset",
@@ -18,7 +34,7 @@
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(26,179,148,1)",
-                        data: [28, 48, 40, 19, 86, 27]
+                        data: playerCountArray
                     }
                 ]
             };
