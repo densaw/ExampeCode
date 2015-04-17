@@ -8,7 +8,7 @@
 
 
             $scope.data = {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: ["January", "February", "March", "April", "May", "June"],
                 datasets: [
                     {
                         label: "Example dataset",
@@ -18,7 +18,7 @@
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(26,179,148,1)",
-                        data: [28, 48, 40, 19, 86, 27, 90]
+                        data: [28, 48, 40, 19, 86, 27]
                     }
                 ]
             };
