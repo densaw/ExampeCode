@@ -5,19 +5,13 @@ namespace PmaPlus.Data
 {
     public class DateTool
     {
-        private DateTime _date;
-        public static int GetWeekNumber(DateTime? date)
+        
+        public static int GetWeekNumber(DateTime date)
         {
-            
-            if (!date.HasValue)
-                return 0;
-
-            
-           
 
             var dfi = DateTimeFormatInfo.CurrentInfo;
             Calendar calendar = dfi.Calendar;
-            return calendar.GetWeekOfYear(date.Value, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+            return calendar.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
         }
 
         public static int GetThisWeek()

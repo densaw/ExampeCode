@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PmaPlus.Data;
 using PmaPlus.Data.Infrastructure;
 using PmaPlus.Data.Repository.Iterfaces;
+using PmaPlus.Model;
 using PmaPlus.Model.ViewModels;
 
 namespace PmaPlus.Services
@@ -33,6 +34,27 @@ namespace PmaPlus.Services
             };
         }
 
+        public IList<int> GetClubsLoggedForLast_Weeks(int times = 10)
+        {
+            List<int> usersList = new List<int>();
+            int thisYear = DateTime.Now.Year;
+            int thisWeek = DateTool.GetThisWeek();
+            for (int i = 0; i < times; i++)
+            {
+                if (thisWeek < 1)
+                {
+                    thisWeek = 52;
+                    thisYear--;
+                }
 
+                usersList.Add(_clubRepository.GetAll().ToList().Where(c =>
+                         DateTool.GetWeekNumber(c.CreateAt) == thisWeek &&
+                         c.CreateAt.Year == thisYear).Count());
+                thisWeek--;
+            }
+            usersList.Reverse();
+            return usersList;
+
+        } 
     }
 }
