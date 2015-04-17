@@ -3,9 +3,83 @@
     Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div id="main" ng-controller="UserController">
-    <div>
+<div>
+    <div ng-controller="ChartController">
         <canvas tc-chartjs chart-type="line" chart-data="data" chart-options="options" height="70"></canvas>
+    </div>
+    <div class="row">
+        <div class="col-lg-3" ng-controller="PlayersBoxController">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">Week</span>
+                    <h5>Players Logins</h5>
+                </div>
+                <div class="ibox-content" ng-switch on="progressPlayer">
+                    <h1 class="no-margins">{{amountPlayers}}</h1>
+                    <div ng-switch-when="true" class="stat-percent font-bold-small text-warning">
+                        <i class="fa fa-arrow-circle-o-up"></i>
+                    </div>
+                    <div ng-switch-default class="stat-percent font-bold-small text-warning">
+                        <i class="fa fa-arrow-circle-o-down"></i>
+                    </div>
+                    <small>Last week </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3" ng-controller="CoachsBoxController">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">Week</span>
+                    <h5>Coach Logins</h5>
+                </div>
+                <div class="ibox-content" ng-switch on="progressCoach">
+                    <h1 class="no-margins">{{amountCoaches}}</h1>
+                    <div ng-switch-when="true" class="stat-percent font-bold-small text-warning">
+                        <i class="fa fa-arrow-circle-o-up"></i>
+                    </div>
+                    <div ng-switch-default class="stat-percent font-bold-small text-warning">
+                        <i class="fa fa-arrow-circle-o-down"></i>
+                    </div>
+                    <small>Last week </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3" ng-controller="ClubsBoxController">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">Week</span>
+                    <h5>Club Logins</h5>
+                </div>
+                <div class="ibox-content" ng-switch on="progressClub">
+                    <h1 class="no-margins">{{amountClubs}}</h1>
+                    <div ng-switch-when="true" class="stat-percent font-bold-small text-warning">
+                        <i class="fa fa-arrow-circle-o-up"></i>
+                    </div>
+                    <div ng-switch-default class="stat-percent font-bold-small text-warning">
+                        <i class="fa fa-arrow-circle-o-down"></i>
+                    </div>
+                    <small>Last week </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3" ng-controller="UsersBoxController">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">Week</span>
+                    <h5>All Logins</h5>
+                </div>
+                <div class="ibox-content" ng-switch on="progressUser">
+                    <h1 class="no-margins">{{amountUsers}}</h1>
+                    <div ng-switch-when="true" class="stat-percent font-bold-small text-warning">
+                        <i class="fa fa-arrow-circle-o-up"></i>
+                    </div>
+                    <div ng-switch-default class="stat-percent font-bold-small text-warning">
+                        <i class="fa fa-arrow-circle-o-down"></i>
+                    </div>
+                    <small>Last week </small>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
