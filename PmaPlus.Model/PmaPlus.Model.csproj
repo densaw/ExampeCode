@@ -94,13 +94,13 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserDetail.cs" />
     <Compile Include="Models\WelfareOfficer.cs" />
+    <Compile Include="ViewModels\ActivePlayersForLastSixMonthViewModel.cs" />
+    <Compile Include="ViewModels\InfoBoxViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -27,10 +27,10 @@ namespace PmaPlus.Model.Models
         public string Password { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? CreateAt { get; set; }
+        public DateTime CreateAt { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? UpdateAt { get; set; }
+        public DateTime UpdateAt { get; set; }
 
 
         public virtual UserDetail UserDetail { get; set; }

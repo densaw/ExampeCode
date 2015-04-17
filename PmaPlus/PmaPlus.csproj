@@ -166,6 +166,7 @@
     <Compile Include="Areas\SysAdmin\Controllers\HomeController.cs" />
     <Compile Include="Areas\SysAdmin\SysAdminAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiControllers\DashboardController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Models\AccountViewModel.cs" />

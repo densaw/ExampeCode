@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -20,6 +21,8 @@ namespace PmaPlus.Model.Models
         public int Status { get; set; }
 
         public int? Established { get; set; }
+
+        public DateTime CreateAt { get; set; }
 
         public virtual Address Address { get; set; }
 
