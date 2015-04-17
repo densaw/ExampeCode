@@ -4,41 +4,47 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using PmaPlus.Model.Models;
+using PmaPlus.Services.Services;
 
 namespace PmaPlus.Controllers
 {
     public class FaCoursesController : ApiController
     {
-        
-        public FaCoursesController()
+        private readonly FaCourseServices _faCourseServices;
+        public FaCoursesController(FaCourseServices faCourseServices)
         {
-            
+            _faCourseServices = faCourseServices;
         }
+
         // GET: api/FaCourses
-        public IEnumerable<string> Get()
+        public IEnumerable<FACourse> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _faCourseServices.GetFaCourses();
         }
 
         // GET: api/FaCourses/5
-        public string Get(int id)
+        public FACourse Get(int id)
         {
-            return "value";
+            return _faCourseServices.GetFaCourse(id);
         }
 
         // POST: api/FaCourses
-        public void Post([FromBody]string value)
+        public void Post([FromBody]FACourse faCourse)
         {
+            _faCourseServices.InsertOrUpdate(faCourse);
         }
 
         // PUT: api/FaCourses/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]FACourse faCourse)
         {
+            _faCourseServices.InsertOrUpdate(faCourse);
         }
 
         // DELETE: api/FaCourses/5
         public void Delete(int id)
         {
+            _faCourseServices.Delete(id);
         }
     }
 }
