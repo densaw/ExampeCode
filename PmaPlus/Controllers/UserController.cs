@@ -19,9 +19,14 @@ namespace PmaPlus.Controllers
         };
         public IHttpActionResult GetAllUsers()
         {
-            
             //TODO: Return All Users {area = SysAdmin} 
-             return NotFound();
+             return Ok(user);
+        }
+
+        [Route("api/user/first")]
+        public IHttpActionResult GetFirstUser()
+        {
+            return Ok(user[0]);
         }
 
     }

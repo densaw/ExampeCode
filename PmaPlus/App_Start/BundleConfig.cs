@@ -110,6 +110,10 @@ namespace PmaPlus
             bundles.Add(new ScriptBundle("~/plugins/chartJs").Include(
                       "~/Scripts/plugins/chartjs/Chart.min.js"));
 
+            // ChartJS chart Angular
+            bundles.Add(new ScriptBundle("~/plugins/ngChartJs").Include(
+                      "~/Scripts/plugins/chartjs/tc.ngular.chartjs.min.js"));
+
             // iCheck css styles
             bundles.Add(new StyleBundle("~/Content/plugins/iCheck/iCheckStyles").Include(
                       "~/Content/plugins/iCheck/custom.css"));
