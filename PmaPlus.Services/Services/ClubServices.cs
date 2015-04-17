@@ -14,11 +14,25 @@ namespace PmaPlus.Services
     public class ClubServices
     {
         private readonly IClubRepository _clubRepository;
-
         public ClubServices(IClubRepository clubRepository)
         {
             _clubRepository = clubRepository;
+
+            //_clubRepository.Get(u => u.Id == 0).Status;
         }
+
+
+        
+        public class ClubViewModel
+        {
+            public string Name { get; set; }
+            public string Logo { get; set; }
+
+           // public Status Type { get; set; }
+        }
+        
+        
+        
 
         public InfoBoxViewModel GetClubLoggedThisWeek()
         {
@@ -27,10 +41,24 @@ namespace PmaPlus.Services
             int lastWeek = DateTool.GetThisWeek() > 1 ? DateTool.GetThisWeek() - 1 : 52;
             int clubsLastWeek =
                 _clubRepository.GetAll().ToList().Where(c =>  DateTool.GetWeekNumber(c.CreateAt) == lastWeek).Count();
+            int percent;
+            if (clubsLastWeek == 0)
+            {
+                percent = 1000;
+            }
+            else
+            {
+                percent = (int)(((double)clubsThisWeek / clubsLastWeek) * 100);
+                if (percent > 1000)
+                {
+                    percent = 1000;
+                }
+            }
             return new InfoBoxViewModel()
             {
                 Amount = clubsThisWeek,
-                Progress = clubsThisWeek > clubsLastWeek
+                Progress = clubsThisWeek - clubsLastWeek,
+                Percentage = percent
             };
         }
 
