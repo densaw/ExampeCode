@@ -1,6 +1,6 @@
 ﻿(function () {
     var module = angular.module('MainApp', ['tc.chartjs']);
-    module.controller('UserController', function ($scope, $http) {
+    module.controller('ChartController', function ($scope, $http) {
         var monthNames = ['January',
             'February',
             'March',
@@ -15,7 +15,7 @@
             'December'];
 
         $http.get('api/dashboard/active/players').success(function (data) {
-            $scope.users = data;
+            
             var monthArray = new Array;
             var playerCountArray = new Array;
             data.forEach(function(val) {
@@ -56,6 +56,30 @@
             };
 
 
+        });
+    });
+    module.controller('PlayersBoxController', function($scope, $http) {
+        $http.get('api/dashboard/logged/players').success(function(data) {
+            $scope.amountPlayers = data.amount;
+            $scope.progressPlayer = data.progress;
+        });
+    });
+    module.controller('CoachsBoxController', function($scope, $http) {
+        $http.get('api/dashboard/logged/coaches').success(function(data) {
+            $scope.amountCoaches = data.amount;
+            $scope.progressCoach = data.progress;
+        });
+    });
+    module.controller('ClubsBoxController', function($scope, $http) {
+        $http.get('api/dashboard/logged/clubs').success(function(data) {
+            $scope.amountClubs = data.amount;
+            $scope.progressClub = data.progress;
+        });
+    });
+    module.controller('UsersBoxController', function($scope, $http) {
+        $http.get('api/dashboard/logged/users').success(function(data) {
+            $scope.amountUsers = data.amount;
+            $scope.progressUser = data.progress;
         });
     });
 })();

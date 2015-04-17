@@ -2785,8 +2785,12 @@ a:focus {
 .font-bold {
     font-family: OpenSans-ExtraBold;
     font-size: 50px;
-  font-weight: 600;
-
+    font-weight: 600;
+}
+.font-bold-small {
+    font-family: OpenSans-ExtraBold;
+    font-size: 18px;
+    font-weight: 600;
 }
 .font-noraml {
   font-weight: 400;
