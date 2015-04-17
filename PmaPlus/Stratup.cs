@@ -13,6 +13,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
+using PmaPlus.Controllers;
 using PmaPlus.Data;
 using PmaPlus.Data.Infrastructure;
 using PmaPlus.Model;
@@ -28,7 +29,11 @@ namespace PmaPlus
         public void Configuration(IAppBuilder app)
         {
             var builder = new ContainerBuilder();
-            var config = new HttpConfiguration();
+            
+            // REGISTER CONTROLLERS SO DEPENDENCIES ARE CONSTRUCTOR INJECTED
+            builder.RegisterApiControllers(typeof(DashboardController).Assembly);
+            builder.RegisterControllers(typeof(HomeController).Assembly);
+
 
             // REGISTER DEPENDENCIES
             //builder.RegisterType<ApplicationDbContext>().AsSelf().InstancePerRequest();
@@ -36,26 +41,26 @@ namespace PmaPlus
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().InstancePerHttpRequest();
+           
+            
             builder.RegisterAssemblyTypes(typeof(UserRepository).Assembly)
            .Where(t => t.Name.EndsWith("Repository"))
            .AsImplementedInterfaces().InstancePerHttpRequest();
 
             builder.RegisterAssemblyTypes(typeof(PlayerServices).Assembly)
            .Where(t => t.Name.EndsWith("Services"))
-           .AsImplementedInterfaces().InstancePerHttpRequest();
+           .AsSelf().InstancePerHttpRequest();
            
             builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
             builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();
 
-            // REGISTER CONTROLLERS SO DEPENDENCIES ARE CONSTRUCTOR INJECTED
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterControllers(typeof(WebApiApplication).Assembly);
 
             // BUILD THE CONTAINER
             var container = builder.Build();
 
             // REPLACE THE MVC DEPENDENCY RESOLVER WITH AUTOFAC
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
             // REGISTER WITH OWIN
             app.UseAutofacMiddleware(container);

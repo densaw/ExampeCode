@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="DataBaseContext.cs" />
     <Compile Include="Infrastructure\DatabaseFactory.cs" />
+    <Compile Include="Infrastructure\GetWeekNumber.cs" />
     <Compile Include="Infrastructure\IDatabaseFactory.cs" />
     <Compile Include="Migrations\201504131321219_inialise.cs" />
     <Compile Include="Migrations\201504131321219_inialise.Designer.cs">
@@ -67,6 +68,14 @@
     <Compile Include="Migrations\201504161200077_activePlayer.cs" />
     <Compile Include="Migrations\201504161200077_activePlayer.Designer.cs">
       <DependentUpon>201504161200077_activePlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504170711053_dashboards.cs" />
+    <Compile Include="Migrations\201504170711053_dashboards.Designer.cs">
+      <DependentUpon>201504170711053_dashboards.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504170839246_user_createAt.cs" />
+    <Compile Include="Migrations\201504170839246_user_createAt.Designer.cs">
+      <DependentUpon>201504170839246_user_createAt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -155,6 +164,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504161200077_activePlayer.resx">
       <DependentUpon>201504161200077_activePlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504170711053_dashboards.resx">
+      <DependentUpon>201504170711053_dashboards.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504170839246_user_createAt.resx">
+      <DependentUpon>201504170839246_user_createAt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
