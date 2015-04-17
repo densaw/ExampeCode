@@ -50,6 +50,26 @@ namespace PmaPlus.Controllers
             return Ok(_userServices.GetUsersLoggedThisWeek());
         }
 
+        [Route("api/dashboard/logged/players/{times}/weeks")]
+        public IHttpActionResult GetLoggedPlayersFor_Weeks(int times)
+        {
+            return Ok(_userServices.GetUsersLoggedForLast_Weeks(Role.Player,times));
+        }
 
+        [Route("api/dashboard/logged/clubs/{times}/weeks")]
+        public IHttpActionResult GetLoggedClubsFor_Weeks(int times)
+        {
+            return Ok(_clubServices.GetClubsLoggedForLast_Weeks(times));
+        }
+        [Route("api/dashboard/logged/coaches/{times}/weeks")]
+        public IHttpActionResult GetLoggedCoachesFor_Weeks(int times)
+        {
+            return Ok(_userServices.GetUsersLoggedForLast_Weeks(Role.Coach, times));
+        }
+        [Route("api/dashboard/logged/users/{times}/weeks")]
+        public IHttpActionResult GetLoggedUsersFor_Weeks(int times)
+        {
+            return Ok(_userServices.GetUsersLoggedForLast_Weeks(times: times));
+        }
     }
 }
