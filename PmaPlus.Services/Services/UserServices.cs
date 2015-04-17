@@ -41,7 +41,8 @@ namespace PmaPlus.Services
                 clubsLastWeek =
                         _userRepository.GetAll().ToList().Where(u => DateTool.GetWeekNumber(u.CreateAt) == lastWeek).Count();
             }
-            int percent; 
+            int percent;
+            int progress = 0;
             if (clubsLastWeek == 0)
             {
                 percent = 1000;
@@ -53,13 +54,19 @@ namespace PmaPlus.Services
                 {
                     percent = 1000;
                 }
-                            }
-            return new InfoBoxViewModel()
-            {
-                Amount = clubsThisWeek,
-                Progress = clubsThisWeek - clubsLastWeek,
-                Percentage = percent
-            };
+            }
+            if (clubsThisWeek - clubsLastWeek > 0)
+                progress = 1;
+            else if (clubsThisWeek - clubsLastWeek < 0)
+                progress = -1;
+            
+
+                return new InfoBoxViewModel()
+                {
+                    Amount = clubsThisWeek,
+                    Progress = progress,
+                    Percentage = percent
+                };
         }
 
 
