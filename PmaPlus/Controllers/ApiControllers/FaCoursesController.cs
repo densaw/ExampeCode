@@ -20,7 +20,8 @@ namespace PmaPlus.Controllers
         // GET: api/FaCourses
         public IEnumerable<FACourse> Get()
         {
-            return _faCourseServices.GetFaCourses();
+            //return _faCourseServices.GetFaCourses();
+            return new List<FACourse>(){new FACourse()};
         }
 
         // GET: api/FaCourses/5
@@ -30,15 +31,19 @@ namespace PmaPlus.Controllers
         }
 
         // POST: api/FaCourses
-        public void Post([FromBody]FACourse faCourse)
+        public HttpResponseMessage PostFaCourse([FromBody]FACourse faCourse)
         {
-            _faCourseServices.InsertOrUpdate(faCourse);
+            if(faCourse == null)
+                return new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
+            _faCourseServices.AddFaCourse(faCourse);
+            return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
         // PUT: api/FaCourses/5
-        public void Put(int id, [FromBody]FACourse faCourse)
+        public HttpResponseMessage PutFacourse(int id, [FromBody]FACourse faCourse)
         {
-            _faCourseServices.InsertOrUpdate(faCourse);
+            _faCourseServices.UpdateFaCourse(faCourse);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         // DELETE: api/FaCourses/5
