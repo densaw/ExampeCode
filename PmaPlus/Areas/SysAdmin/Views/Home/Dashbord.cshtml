@@ -7,6 +7,9 @@
     <div ng-controller="ChartController">
         <canvas tc-chartjs chart-type="line" chart-data="data" chart-options="options" height="70"></canvas>
     </div>
+    <div ng-controller="PlayerLoginHistoryController">
+        <canvas tc-chartjs chart-type="bar" chart-data="data" chart-options="options"></canvas>
+    </div>
     <div class="row">
         <div class="col-lg-3" ng-controller="PlayersBoxController">
             <div class="ibox float-e-margins">
@@ -17,13 +20,13 @@
                 <div class="ibox-content" ng-switch on="progressPlayer">
                     <h1 class="no-margins">{{amountPlayers}}</h1>
                     <div ng-switch-when="up" class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-up"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-up"></i>
                     </div>
                     <div ng-switch-when="down" class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-down"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-down"></i>
                     </div>
                     <div ng-switch-default class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-left"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-left"></i>
                     </div>
                     <small>Last week </small>
                 </div>
@@ -38,13 +41,13 @@
                 <div class="ibox-content" ng-switch on="progressCoach">
                     <h1 class="no-margins">{{amountCoaches}}</h1>
                     <div ng-switch-when="up" class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-up"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-up"></i>
                     </div>
                     <div ng-switch-when="down" class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-down"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-down"></i>
                     </div>
                     <div ng-switch-default class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-left"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-left"></i>
                     </div>
                     <small>Last week </small>
                 </div>
@@ -59,13 +62,13 @@
                 <div class="ibox-content" ng-switch on="progressClub">
                     <h1 class="no-margins">{{amountClubs}}</h1>
                     <div ng-switch-when="up" class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-up"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-up"></i>
                     </div>
                     <div ng-switch-when="down" class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-down"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-down"></i>
                     </div>
                     <div ng-switch-default class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-left"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-left"></i>
                     </div>
                     <small>Last week </small>
                 </div>
@@ -80,19 +83,20 @@
                 <div class="ibox-content" ng-switch on="progressUser">
                     <h1 class="no-margins">{{amountUsers}}</h1>
                     <div ng-switch-when="up" class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-up"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-up"></i>
                     </div>
                     <div ng-switch-when="down" class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-down"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-down"></i>
                     </div>
                     <div ng-switch-default class="stat-percent font-bold-small text-warning">
-                        <i class="fa fa-arrow-circle-o-left"></i>
+                        {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-left"></i>
                     </div>
                     <small>Last week </small>
                 </div>
             </div>
         </div>
     </div>
+    
 </div>
 
 
