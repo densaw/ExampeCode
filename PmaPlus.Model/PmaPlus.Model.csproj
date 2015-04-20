@@ -96,6 +96,9 @@
     <Compile Include="Models\UserDetail.cs" />
     <Compile Include="Models\WelfareOfficer.cs" />
     <Compile Include="ViewModels\ActivePlayersForLastSixMonthViewModel.cs" />
+    <Compile Include="ViewModels\Club\AddClubViewModel.cs" />
+    <Compile Include="ViewModels\Club\ClubTableViewModel.cs" />
+    <Compile Include="ViewModels\Curriculum\CurriculumTypesTableViewModel.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
