@@ -62,24 +62,58 @@
         $http.get('api/dashboard/logged/players').success(function(data) {
             $scope.amountPlayers = data.amount;
             $scope.progressPlayer = data.progress;
+            $scope.percentage = data.percentage;
         });
     });
     module.controller('CoachsBoxController', function($scope, $http) {
         $http.get('api/dashboard/logged/coaches').success(function(data) {
             $scope.amountCoaches = data.amount;
             $scope.progressCoach = data.progress;
+            $scope.percentage = data.percentage;
         });
     });
     module.controller('ClubsBoxController', function($scope, $http) {
         $http.get('api/dashboard/logged/clubs').success(function(data) {
             $scope.amountClubs = data.amount;
             $scope.progressClub = data.progress;
+            $scope.percentage = data.percentage;
         });
     });
     module.controller('UsersBoxController', function($scope, $http) {
         $http.get('api/dashboard/logged/users').success(function(data) {
             $scope.amountUsers = data.amount;
             $scope.progressUser = data.progress;
+            $scope.percentage = data.percentage;
+        });
+    });
+    module.controller('PlayerLoginHistoryController', function($scope, $http) {
+        $http.get('api/dashboard/logged/players/10/weeks').success(function (data) {
+            $scope.data = {
+                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                datasets: [
+                    {
+                        label: "My First dataset",
+                        fillColor: "rgba(220,220,220,0.5)",
+                        strokeColor: "rgba(220,220,220,0.8)",
+                        highlightFill: "rgba(220,220,220,0.75)",
+                        highlightStroke: "rgba(220,220,220,1)",
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    }
+                ]
+            };
+            $scope.options = {
+                scaleBeginAtZero: true,
+                scaleShowGridLines: true,
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineWidth: 1,
+                scaleShowHorizontalLines: true,
+                scaleShowVerticalLines: true,
+                barShowStroke: true,
+                barStrokeWidth: 2,
+                barValueSpacing: 5,
+                barDatasetSpacing: 1
+            };
+
         });
     });
 })();
