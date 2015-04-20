@@ -35,13 +35,13 @@ namespace PmaPlus.Services
                     a => a.DateTime.Month == dateTime.Month && a.DateTime.Year == dateTime.Year).Count();
         }
 
-        public List<ActivePlayersForLastSixMonthViewModel> GetActivePlayersForLastSixMonth()
+        public List<ActivePlayersForLastYearViewModel> GetActivePlayersForLastYear()
         {
             List<DateTime> dates = new List<DateTime>();
 
             int month = DateTime.Now.Month;
             int year = DateTime.Now.Year;
-            for (int i = 6 - 1; i >= 0; i--)
+            for (int i = 12 - 1; i >= 0; i--)
             {
                 if (month < 1)
                 {
@@ -53,11 +53,11 @@ namespace PmaPlus.Services
             }
             dates.Reverse();
         
-            List<ActivePlayersForLastSixMonthViewModel> activePlayers = new List<ActivePlayersForLastSixMonthViewModel>();
+            List<ActivePlayersForLastYearViewModel> activePlayers = new List<ActivePlayersForLastYearViewModel>();
 
             foreach (var date in dates)
             {
-                activePlayers.Add(new ActivePlayersForLastSixMonthViewModel()
+                activePlayers.Add(new ActivePlayersForLastYearViewModel()
                 {
                     ActivePlayers = GetActivePlayersForMonth(date),
                     Month = date.Month

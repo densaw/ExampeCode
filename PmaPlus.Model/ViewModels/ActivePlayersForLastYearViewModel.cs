@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PmaPlus.Model.ViewModels
 {
-    public class ActivePlayersForLastSixMonthViewModel
+    public class ActivePlayersForLastYearViewModel
     {
         public int Month { get; set; }
         public int ActivePlayers { get; set; }

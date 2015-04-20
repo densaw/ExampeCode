@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201504200728414_clubsServ.Designer.cs">
       <DependentUpon>201504200728414_clubsServ.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504201119403_somee.cs" />
+    <Compile Include="Migrations\201504201119403_somee.Designer.cs">
+      <DependentUpon>201504201119403_somee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ActivityStatusChangeRepository.cs" />
@@ -184,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504200728414_clubsServ.resx">
       <DependentUpon>201504200728414_clubsServ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504201119403_somee.resx">
+      <DependentUpon>201504201119403_somee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

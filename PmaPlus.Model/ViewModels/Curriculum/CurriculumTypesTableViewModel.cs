@@ -8,15 +8,16 @@ namespace PmaPlus.Model.ViewModels.Curriculum
 {
     public class CurriculumTypesTableViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int Blocks { get; set; }
-        public string BlockATT { get; set; }
-        public string BlockRTE { get; set; }
-        public int Weeks { get; set; }
-        public string WeekATT { get; set; }
-        public string WeekRTE { get; set; }
-        public int Sessions { get; set; }
-        public string SessionsATT { get; set; }
-        public string SessionsRTE { get; set; }
+        public bool Blocks { get; set; }
+        public bool BlockATT { get; set; }
+        public bool BlockRTE { get; set; }
+        public bool Weeks { get; set; }
+        public bool WeekATT { get; set; }
+        public bool WeekRTE { get; set; }
+        public bool Sessions { get; set; }
+        public bool SessionsATT { get; set; }
+        public bool SessionsRTE { get; set; }
     }
 }

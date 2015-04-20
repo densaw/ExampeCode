@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using PmaPlus.Model.Models;
+using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Services;
 
 namespace PmaPlus.Controllers.ApiControllers
@@ -18,7 +19,7 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         // GET: api/CurriculumTypes
-        public IEnumerable<CurriculumType> Get()
+        public IEnumerable<CurriculumTypesTableViewModel> Get()
         {
             return _curriculumServices.GetCurriculumTypes();
         }
@@ -32,13 +33,13 @@ namespace PmaPlus.Controllers.ApiControllers
         // POST: api/CurriculumTypes
         public void Post([FromBody]CurriculumType curriculumType)
         {
-            _curriculumServices.InsertOrUpdate(curriculumType);
+            _curriculumServices.InsertCurriculumType(curriculumType);
         }
 
         // PUT: api/CurriculumTypes/5
         public void Put(int id, [FromBody]CurriculumType curriculumType)
         {
-            _curriculumServices.InsertOrUpdate(curriculumType,id: id);
+            _curriculumServices.UpdateCurriculumTypes(curriculumType,id);
         }
 
         // DELETE: api/CurriculumTypes/5

@@ -44,5 +44,25 @@ namespace PmaPlus.Data
         public virtual DbSet<WelfareOfficer> WelfareOfficers { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<ActivityStatusChange> ActivityStatusChanges { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Club>()
+                .HasOptional(c => c.Address)
+                .WithOptionalDependent()
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<User>()
+                .HasOptional(u => u.UserDetail)
+                .WithOptionalDependent()
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<UserDetail>()
+                .HasOptional(u => u.Address)
+                .WithOptionalDependent()
+                .WillCascadeOnDelete(true);
+            
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

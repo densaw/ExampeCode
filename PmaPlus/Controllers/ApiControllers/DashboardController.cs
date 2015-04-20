@@ -23,7 +23,13 @@ namespace PmaPlus.Controllers
         [Route("api/dashboard/active/players")]
         public IHttpActionResult GetActivePlayers()
         {
-            return Ok(_playerServices.GetActivePlayersForLastSixMonth());
+            return Ok(_playerServices.GetActivePlayersForLastYear());
+        }
+
+        [Route("api/dashboard/active/players/all")]
+        public IHttpActionResult GetAllActivePlayers()
+        {
+            return Ok(_playerServices.GetActivePlayers());
         }
 
         [Route("api/dashboard/logged/players")]

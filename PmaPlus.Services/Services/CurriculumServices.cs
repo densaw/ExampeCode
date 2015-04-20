@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model.Models;
+using PmaPlus.Model.ViewModels.Curriculum;
 
 namespace PmaPlus.Services
 {
@@ -17,23 +18,43 @@ namespace PmaPlus.Services
             _curriculumTypeRepository = curriculumTypeRepository;
         }
 
-        public IEnumerable<CurriculumType> GetCurriculumTypes()
+        public IEnumerable<CurriculumTypesTableViewModel> GetCurriculumTypes()
         {
-            return _curriculumTypeRepository.GetAll();
+            var types = _curriculumTypeRepository.GetAll();
+            var typesView = new List<CurriculumTypesTableViewModel>();
+            foreach (var type in types)
+            {
+                typesView.Add(new CurriculumTypesTableViewModel()
+                {
+                    Id = type.Id,
+                    Name = type.Name,
+                    Blocks = type.UsesBlocks,
+                    BlockATT = type.UsesBlocksForAttendance,
+                    BlockRTE = type.UsesBlocksForRatings,
+                    Weeks = type.UsesWeeks,
+                    WeekATT = type.UsesBlocksForAttendance,
+                    WeekRTE = type.UsesWeeksForRatings,
+                    Sessions = type.UsesSessions,
+                    SessionsATT = type.UsesSessionsForAttendance,
+                    SessionsRTE = type.UsesSessionsForRatings
+                });
+            }
+
+            return typesView;
         }
 
         public CurriculumType GetCurriculumType(int id)
         {
             return _curriculumTypeRepository.GetById(id);
         }
-        public void InsertOrUpdate(CurriculumType curriculumType,int id = 0)
-        {
-            if (curriculumType.Id == 0)
-            {
-                _curriculumTypeRepository.Add(curriculumType);
 
-            }
-            else
+        public void InsertCurriculumType(CurriculumType curriculumType)
+        {
+            _curriculumTypeRepository.Add(curriculumType);
+        }
+        public void UpdateCurriculumTypes(CurriculumType curriculumType, int id)
+        {
+            if (curriculumType.Id != 0)
             {
                 _curriculumTypeRepository.Update(curriculumType);
             }
