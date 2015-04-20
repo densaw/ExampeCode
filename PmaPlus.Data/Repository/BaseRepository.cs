@@ -33,6 +33,7 @@ namespace PmaPlus.Data.Repository
         public virtual void Update(T entity)
         {
             _dbset.Attach(entity);
+            _dataBaseContext.Entry(entity).State = EntityState.Modified;
             _dataBaseContext.SaveChanges();
         }
         public virtual void Delete(T entity)
