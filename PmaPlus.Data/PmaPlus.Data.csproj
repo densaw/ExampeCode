@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201504201346056_skilllll.Designer.cs">
       <DependentUpon>201504201346056_skilllll.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504210858047_currype.cs" />
+    <Compile Include="Migrations\201504210858047_currype.Designer.cs">
+      <DependentUpon>201504210858047_currype.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ActivityStatusChangeRepository.cs" />
@@ -208,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504201346056_skilllll.resx">
       <DependentUpon>201504201346056_skilllll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504210858047_currype.resx">
+      <DependentUpon>201504210858047_currype.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
