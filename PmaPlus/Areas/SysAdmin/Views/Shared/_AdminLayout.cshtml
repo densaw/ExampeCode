@@ -18,9 +18,11 @@
     <link href="@Url.Content("~/Content/plugins/toastr/toastr.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/plugins/toastr/toastr-font-awesome.css")" rel="stylesheet" type="text/css"/>
     <script src="http://code.angularjs.org/1.3.9/angular.min.js"></script>
-    @Scripts.Render("~/plugins/ngChartJs")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/plugins/ngChartJs")
     @Scripts.Render("~/plugins/chartJs")
+    <script src="http://omnipotent.net/jquery.sparkline/2.1.2/jquery.sparkline.min.js"></script>
+    @*Scripts.Render("~/plugins/sparkline")*@
 </head>
 <body ng-app="MainApp" class="skin-1">
 
@@ -58,6 +60,7 @@
     @Scripts.Render("~/bundles/jquery-session")
     @*Scripts.Render("~/bundles/angular")*@
     @Scripts.Render("~/bundles/controllers")
+    
 
     <!-- Handler for local scripts -->
     @RenderSection("scripts", required: false)
