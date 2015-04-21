@@ -32,8 +32,9 @@ namespace PmaPlus.Services.Services
             return _faCourseRepository.Add(faCourse);
             
         }
-        public void UpdateFaCourse(FACourse faCourse)
+        public void UpdateFaCourse(FACourse faCourse, int id)
         {
+                faCourse.Id = id;
                 _faCourseRepository.Update(faCourse);
         }
 

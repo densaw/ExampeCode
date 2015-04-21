@@ -34,8 +34,6 @@ namespace PmaPlus.Controllers
         // POST: api/FaCourses
         public IHttpActionResult PostFaCourse([FromBody]FACourse faCourse)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
             var newFaCourse = _faCourseServices.AddFaCourse(faCourse);
             
             return Created(Request.RequestUri + newFaCourse.Id.ToString(), newFaCourse);
@@ -44,10 +42,10 @@ namespace PmaPlus.Controllers
         // PUT: api/FaCourses/5
         public IHttpActionResult PutFacourse(int id, [FromBody]FACourse faCourse)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
-            _faCourseServices.UpdateFaCourse(faCourse);
+            if (_faCourseServices.GetFaCourse(id) == null)
+                return NotFound();
+
+            _faCourseServices.UpdateFaCourse(faCourse, id);
             return Ok();
         }
 

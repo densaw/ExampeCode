@@ -11,6 +11,7 @@ using PmaPlus.Model.Enums;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Club;
+using PmaPlus.Services.Services;
 
 namespace PmaPlus.Services
 {
@@ -18,10 +19,20 @@ namespace PmaPlus.Services
     {
         private readonly IClubRepository _clubRepository;
         private readonly IWelfareOfficerRepository _welfareOfficerRepository;
-        public ClubServices(IClubRepository clubRepository, IWelfareOfficerRepository welfareOfficerRepository)
+        private readonly AddressServices _addressServices;
+        private readonly IChairmanRepository _chairmanRepository;
+        private readonly IClubAdminRepository _clubAdminRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserDetailRepository _userDetailRepository;
+        public ClubServices(IClubRepository clubRepository, IWelfareOfficerRepository welfareOfficerRepository, AddressServices addressServices, IChairmanRepository chairmanRepository, IClubAdminRepository clubAdminRepository, IUserDetailRepository userDetailRepository, IUserRepository userRepository)
         {
             _clubRepository = clubRepository;
             _welfareOfficerRepository = welfareOfficerRepository;
+            _addressServices = addressServices;
+            _chairmanRepository = chairmanRepository;
+            _clubAdminRepository = clubAdminRepository;
+            _userDetailRepository = userDetailRepository;
+            _userRepository = userRepository;
         }
 
         public IEnumerable<ClubTableViewModel> GetClubsTableViewModels()
@@ -71,16 +82,20 @@ namespace PmaPlus.Services
             return model;
         }
 
-        public void AddClub(AddClubViewModel club)
+        public Club AddClub(AddClubViewModel club)
         {
-            var entity = new Club()
-            {
-                Name = club.Name,
-                Logo = club.Logo,
-                Status = club.Status,
-                ClubAdmin = new ClubAdmin()
-                {
-                    User = new User()
+            var newUserDetails = _userDetailRepository.Add(
+
+                 new UserDetail()
+                        {
+                            FirstName = club.ClubAdminName
+                        }
+
+                );
+
+            var newUser = _userRepository.Add(
+
+                     new User()
                     {
                         UserName = club.ClubAdminUsername,
                         Role = Role.ClubAdmin,
@@ -89,42 +104,68 @@ namespace PmaPlus.Services
                         CreateAt = DateTime.Now,
                         UpdateAt = DateTime.Now,
                         LoggedAt = DateTime.Now,
-                        UserDetail = new UserDetail()
-                        {
-                            FirstName = club.ClubAdminName
-                        }
-                    },
-                },
+                        UserDetail = newUserDetails
 
-                Background = club.Background,
-                Established = club.Established,
-                Address = new Address()
-                {
-                    Telephone = club.Telephone,
-                    Mobile = club.Mobile,
-                    Address1 = club.Address1,
-                    Address2 = club.Address2,
-                    Address3 = club.Address3,
-                    TownCity = club.TownCity,
-                    PostCode = club.PostCode,
-                },
-                Chairman = new Chairman()
-                {
-                    Name = club.Chairman,
-                    Email = club.ChairmanEmail,
-                    Telephone = club.ChairmanTelephone,
-                },
-                WelfareOfficer = _welfareOfficerRepository.Get(w => w.User.Email == club.WelfareOfficerEmail)
-            };
-            _clubRepository.Add(entity);
-            var welfare = _welfareOfficerRepository.Get(w => w.User.Email == club.WelfareOfficerEmail);
-            if (welfare != null)
+                    }
+                );
+
+
+
+
+            var tempClub = new Club()
             {
-                welfare.Clubs.Add(entity);
-                _welfareOfficerRepository.Update(welfare);
-            }
+                Name = club.Name,
+                Logo = club.Logo,
+                ColorTheme = club.ColorTheme,
+                Background = club.Background,
+                Status = club.Status,
+                Established = club.Established,
+                CreateAt = DateTime.Now,
+                WelfareOfficer = _welfareOfficerRepository.Get(w => w.User.Email == club.WelfareOfficerEmail),
+            };
+            var newClub = _clubRepository.Add(tempClub);
+
+            var tempAddress = new Address()
+            {
+                Telephone = club.Telephone,
+                Mobile = club.Mobile,
+                Address1 = club.Address1,
+                Address2 = club.Address2,
+                Address3 = club.Address3,
+                TownCity = club.TownCity,
+                PostCode = club.PostCode,
+            };
+            var newAddress = _addressServices.AddAddress(tempAddress);
+            newClub.Address = newAddress;
+
+
+            var tempChairman = new Chairman()
+            {
+                Name = club.Chairman,
+                Email = club.ChairmanEmail,
+                Telephone = club.ChairmanTelephone,
+            };
+
+            var newChairman = _chairmanRepository.Add(tempChairman);
+            newClub.Chairman = newChairman;
+
+
+            var tempClubAdmin = new ClubAdmin()
+            {
+            };
+
+
+
+            //var newClub = _clubRepository.Add(entity);
+            //var welfare = _welfareOfficerRepository.Get(w => w.User.Email == club.WelfareOfficerEmail);
+            //if (welfare != null)
+            //{
+            //    welfare.Clubs.Add(entity);
+            //    _welfareOfficerRepository.Update(welfare);
+            //}
+            return newClub;
         }
-        public void UpdateClub(AddClubViewModel club,int id)
+        public void UpdateClub(AddClubViewModel club, int id)
         {
             if (club.Id > 0)
             {
@@ -154,7 +195,7 @@ namespace PmaPlus.Services
 
                 _clubRepository.Update(entity);
             }
-           
+
         }
 
         public void DeleteClub(int id)

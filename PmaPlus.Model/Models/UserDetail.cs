@@ -15,7 +15,7 @@ namespace PmaPlus.Model.Models
         [StringLength(50)]
         public string LastName { get; set; }
 
-        [Column(TypeName = "date")]
+        
         public DateTime? Birthday { get; set; }
 
         public string AboutMe { get; set; }

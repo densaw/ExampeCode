@@ -35,8 +35,6 @@ namespace PmaPlus.Controllers.ApiControllers
         // POST: api/CurriculumTypes
         public IHttpActionResult Post([FromBody]CurriculumTypeViewModel curriculumTypeViewModel)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
             var curriculumType = Mapper.Map<CurriculumTypeViewModel, CurriculumType>(curriculumTypeViewModel);
             var newCurriculumType = _curriculumServices.InsertCurriculumType(curriculumType);
@@ -47,8 +45,8 @@ namespace PmaPlus.Controllers.ApiControllers
         // PUT: api/CurriculumTypes/5
         public IHttpActionResult Put(int id, [FromBody]CurriculumTypeViewModel curriculumTypeViewModel)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (_curriculumServices.GetCurriculumType(id) == null)
+                return NotFound();
 
             var curriculumType = Mapper.Map<CurriculumTypeViewModel, CurriculumType>(curriculumTypeViewModel);
             _curriculumServices.UpdateCurriculumTypes(curriculumType,id);

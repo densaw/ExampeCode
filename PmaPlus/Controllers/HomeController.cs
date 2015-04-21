@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PmaPlus.Model;
 
 namespace PmaPlus.Controllers
 {
@@ -12,6 +13,9 @@ namespace PmaPlus.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            //TODO: Redirect roles 
+            if(User.IsInRole(Role.SystemAdmin.ToString()))
+                return RedirectToAction("Index", "Home", new { area = "SysAdmin" });
             return View();
         }
     }

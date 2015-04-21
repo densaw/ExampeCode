@@ -32,21 +32,25 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         // POST: api/Clubs
-        public void Post([FromBody]AddClubViewModel value)
+        public IHttpActionResult Post([FromBody]AddClubViewModel value)
         {
-            _clubServices.AddClub(value);
+            var newClub = _clubServices.AddClub(value);
+            return Created(Request.RequestUri + newClub.Id.ToString(), newClub);
         }
 
         // PUT: api/Clubs/5
-        public void Put(int id, [FromBody]AddClubViewModel value)
+        public IHttpActionResult Put(int id, [FromBody]AddClubViewModel value)
         {
             _clubServices.UpdateClub(value,id);
+            return Ok();
         }
 
         // DELETE: api/Clubs/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             _clubServices.DeleteClub(id);
+            return Ok();
+
         }
     }
 }

@@ -44,6 +44,9 @@ namespace PmaPlus
 
         public Task CreateAsync(User user)
         {
+            user.CreateAt = DateTime.Now;
+            user.UpdateAt = DateTime.Now;
+            user.LoggedAt = DateTime.Now;
             _userRepository.Add(user);
 
             return Task.FromResult<object>(null);
@@ -51,6 +54,7 @@ namespace PmaPlus
 
         public Task UpdateAsync(User user)
         {
+            user.UpdateAt = DateTime.Now;
             _userRepository.Update(user);
 
             return Task.FromResult<object>(null);
@@ -81,6 +85,8 @@ namespace PmaPlus
 
         public Task<string> GetPasswordHashAsync(User user)
         {
+            user.LoggedAt = DateTime.Now;
+            _userRepository.Update(user);
             return Task.FromResult<string>(_userRepository.Get(u => u.Id == user.Id).Password);
         }
 
