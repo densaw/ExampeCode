@@ -114,6 +114,10 @@ namespace PmaPlus
             bundles.Add(new ScriptBundle("~/plugins/ngChartJs").Include(
                       "~/Scripts/plugins/chartjs/tc.ngular.chartjs.min.js"));
 
+            // Spark chart Angular
+            bundles.Add(new ScriptBundle("~/plugins/spark").Include(
+                      "~/Scripts/plugins/chartjs/ng-sparkline-seriesbar.js"));
+
             // iCheck css styles
             bundles.Add(new StyleBundle("~/Content/plugins/iCheck/iCheckStyles").Include(
                       "~/Content/plugins/iCheck/custom.css"));
