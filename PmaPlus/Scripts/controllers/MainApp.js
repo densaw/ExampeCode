@@ -1,7 +1,7 @@
 ﻿(function () {
     var module = angular.module('MainApp', ['tc.chartjs']);
 
-    module.controller('ChartController', function ($scope, $http) {
+    module.controller('ChartController', ['$scope', '$http', function ($scope, $http) {
         var monthNames = ['January',
             'February',
             'March',
@@ -68,36 +68,36 @@
 
 
         });
-    }).$inject = ['$scope', '$http'];;
-    module.controller('PlayersBoxController', function($scope, $http) {
+    }]);
+    module.controller('PlayersBoxController', ['$scope', '$http', function($scope, $http) {
         $http.get('api/dashboard/logged/players').success(function(data) {
             $scope.amountPlayers = data.amount;
             $scope.progressPlayer = data.progress;
             $scope.percentage = data.percentage;
         });
-    }).$inject = ['$scope', '$http'];;
-    module.controller('CoachsBoxController', function($scope, $http) {
+    }]);
+    module.controller('CoachsBoxController', ['$scope', '$http', function($scope, $http) {
         $http.get('api/dashboard/logged/coaches').success(function(data) {
             $scope.amountCoaches = data.amount;
             $scope.progressCoach = data.progress;
             $scope.percentage = data.percentage;
         });
-    }).$inject = ['$scope', '$http'];;
-    module.controller('ClubsBoxController', function($scope, $http) {
+    }]);
+    module.controller('ClubsBoxController', ['$scope', '$http', function($scope, $http) {
         $http.get('api/dashboard/logged/clubs').success(function(data) {
             $scope.amountClubs = data.amount;
             $scope.progressClub = data.progress;
             $scope.percentage = data.percentage;
         });
-    }).$inject = ['$scope', '$http'];;
-    module.controller('UsersBoxController', function($scope, $http) {
+    }]);
+    module.controller('UsersBoxController', ['$scope', '$http', function($scope, $http) {
         $http.get('api/dashboard/logged/users').success(function(data) {
             $scope.amountUsers = data.amount;
             $scope.progressUser = data.progress;
             $scope.percentage = data.percentage;
         });
-    }).$inject = ['$scope', '$http'];;
-    module.controller('PlayerLoginHistoryController', function($scope, $http) {
+    }]);
+    module.controller('PlayerLoginHistoryController', ['$scope', '$http', function($scope, $http) {
         $http.get('api/dashboard/logged/players/10/weeks').success(function (data) {
             $scope.data = {
                 //labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -129,16 +129,16 @@
             };
 
         });
-    }).$inject = ['$scope', '$http'];;
-    module.controller('AllPlayerController', function($scope, $http) {
+    }]);
+    module.controller('AllPlayerController', ['$scope', '$http', function($scope, $http) {
         $http.get('api/dashboard/active/players/all').success(function (data) {
             $scope.playerCount = data;
         });
-    }).$inject = ['$scope', '$http'];;
-    module.controller('FaCoursesController', function($scope, $http) {
+    }]);
+    module.controller('FaCoursesController',['$scope', '$http',  function($scope, $http) {
         $http.get('api/FaCourses').success(function(data) {
             $scope.faList = data;
         });
-    }).$inject = ['$scope', '$http'];;
+    }]);
 
 })();
