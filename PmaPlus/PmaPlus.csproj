@@ -2832,6 +2832,8 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
