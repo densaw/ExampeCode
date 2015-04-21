@@ -30,6 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -60,6 +67,7 @@
     <Compile Include="Models\Chairman.cs" />
     <Compile Include="Models\Club.cs" />
     <Compile Include="Models\ClubAdmin.cs" />
+    <Compile Include="Models\ClubNeeds.cs" />
     <Compile Include="Models\Coach.cs" />
     <Compile Include="Models\Curriculum.cs" />
     <Compile Include="Models\CurriculumBlock.cs" />
@@ -85,6 +93,7 @@
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerAttribute.cs" />
     <Compile Include="Models\PlayerInjury.cs" />
+    <Compile Include="Models\SkillLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Scout.cs" />
     <Compile Include="Models\Skill.cs" />
@@ -99,6 +108,7 @@
     <Compile Include="ViewModels\Club\AddClubViewModel.cs" />
     <Compile Include="ViewModels\Club\ClubTableViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumTypesTableViewModel.cs" />
+    <Compile Include="ViewModels\Curriculum\CurriculumTypeViewModel.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Microsoft.Ajax.Utilities;
 using PmaPlus.Model.Models;
 using PmaPlus.Services.Services;
 
@@ -21,30 +22,42 @@ namespace PmaPlus.Controllers
         public IEnumerable<FACourse> Get()
         {
             return _faCourseServices.GetFaCourses();
+            
         }
 
         // GET: api/FaCourses/5
-        public FACourse Get(int id)
+        public  FACourse Get(int id)
         {
             return _faCourseServices.GetFaCourse(id);
         }
 
         // POST: api/FaCourses
-        public void Post([FromBody]FACourse faCourse)
+        public IHttpActionResult PostFaCourse([FromBody]FACourse faCourse)
         {
-            _faCourseServices.InsertOrUpdate(faCourse);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var newFaCourse = _faCourseServices.AddFaCourse(faCourse);
+            
+            return Created(Request.RequestUri + newFaCourse.Id.ToString(), newFaCourse);
         }
 
         // PUT: api/FaCourses/5
-        public void Put(int id, [FromBody]FACourse faCourse)
+        public IHttpActionResult PutFacourse(int id, [FromBody]FACourse faCourse)
         {
-            _faCourseServices.InsertOrUpdate(faCourse);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
+            _faCourseServices.UpdateFaCourse(faCourse);
+            return Ok();
         }
 
         // DELETE: api/FaCourses/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            if (_faCourseServices.GetFaCourse(id) == null)
+                return NotFound();
             _faCourseServices.Delete(id);
+            return Ok();
         }
     }
 }

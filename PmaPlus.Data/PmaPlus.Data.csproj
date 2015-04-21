@@ -53,6 +53,7 @@
     <Compile Include="Infrastructure\DatabaseFactory.cs" />
     <Compile Include="Infrastructure\GetWeekNumber.cs" />
     <Compile Include="Infrastructure\IDatabaseFactory.cs" />
+    <Compile Include="Infrastructure\Page.cs" />
     <Compile Include="Migrations\201504131321219_inialise.cs" />
     <Compile Include="Migrations\201504131321219_inialise.Designer.cs">
       <DependentUpon>201504131321219_inialise.cs</DependentUpon>
@@ -88,6 +89,14 @@
     <Compile Include="Migrations\201504201119403_somee.cs" />
     <Compile Include="Migrations\201504201119403_somee.Designer.cs">
       <DependentUpon>201504201119403_somee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504201152029_skillLevels.cs" />
+    <Compile Include="Migrations\201504201152029_skillLevels.Designer.cs">
+      <DependentUpon>201504201152029_skillLevels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504201346056_skilllll.cs" />
+    <Compile Include="Migrations\201504201346056_skilllll.Designer.cs">
+      <DependentUpon>201504201346056_skilllll.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,6 +143,7 @@
     <Compile Include="Repository\Iterfaces\IPlayerRepository.cs" />
     <Compile Include="Repository\Iterfaces\IRepository.cs" />
     <Compile Include="Repository\Iterfaces\IScoutRepository.cs" />
+    <Compile Include="Repository\Iterfaces\ISkillLevelRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISkillRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISportScientistRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISportsScienceExerciseRepository.cs" />
@@ -151,6 +161,7 @@
     <Compile Include="Repository\PlayerInjuryRepository.cs" />
     <Compile Include="Repository\PlayerRepository.cs" />
     <Compile Include="Repository\ScoutRepository.cs" />
+    <Compile Include="Repository\SkillLevelRepository.cs" />
     <Compile Include="Repository\SkillRepository.cs" />
     <Compile Include="Repository\SportScientistRepository.cs" />
     <Compile Include="Repository\SportsScienceExerciseRepository.cs" />
@@ -191,6 +202,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504201119403_somee.resx">
       <DependentUpon>201504201119403_somee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504201152029_skillLevels.resx">
+      <DependentUpon>201504201152029_skillLevels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504201346056_skilllll.resx">
+      <DependentUpon>201504201346056_skilllll.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
