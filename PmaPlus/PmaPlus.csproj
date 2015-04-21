@@ -211,7 +211,8 @@
     <Compile Include="Controllers\ApiControllers\DashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
     <Compile Include="Controllers\ApiControllers\SkillLevelController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\CheckModelForNullFilter.cs" />
+    <Compile Include="Filters\ValidateModelStateFilter.cs" />
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\ModelToViewModelProfile.cs" />

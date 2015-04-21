@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using PmaPlus.Filters;
 using PmaPlus.Mapping;
 
 namespace PmaPlus
@@ -17,6 +18,10 @@ namespace PmaPlus
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
+            //api models check filters
+            GlobalConfiguration.Configuration.Filters.Add(new CheckModelForNullAttribute());
+            GlobalConfiguration.Configuration.Filters.Add(new ValidateModelStateAttribute());
+            
             AutoMapperConfiguration.Configure();
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
