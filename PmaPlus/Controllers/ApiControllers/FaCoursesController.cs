@@ -32,31 +32,32 @@ namespace PmaPlus.Controllers
         }
 
         // POST: api/FaCourses
-        public HttpResponseMessage PostFaCourse([FromBody]FACourse faCourse)
+        public IHttpActionResult PostFaCourse([FromBody]FACourse faCourse)
         {
-            if(faCourse == null)
-                return new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
-            _faCourseServices.AddFaCourse(faCourse);
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var newFaCourse = _faCourseServices.AddFaCourse(faCourse);
+            
+            return Created(Request.RequestUri + newFaCourse.Id.ToString(), newFaCourse);
         }
 
         // PUT: api/FaCourses/5
-        public HttpResponseMessage PutFacourse(int id, [FromBody]FACourse faCourse)
+        public IHttpActionResult PutFacourse(int id, [FromBody]FACourse faCourse)
         {
-            if (faCourse == null || id != faCourse.Id ||_faCourseServices.GetFaCourse(id) == null )
-                return new HttpResponseMessage(HttpStatusCode.NotModified);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             
             _faCourseServices.UpdateFaCourse(faCourse);
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return Ok();
         }
 
         // DELETE: api/FaCourses/5
-        public HttpResponseMessage Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            if(_faCourseServices.GetFaCourse(id) == null )
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            if (_faCourseServices.GetFaCourse(id) == null)
+                return NotFound();
             _faCourseServices.Delete(id);
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return Ok();
         }
     }
 }

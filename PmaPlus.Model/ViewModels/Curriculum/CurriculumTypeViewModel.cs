@@ -1,9 +1,13 @@
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PmaPlus.Model.Models
+namespace PmaPlus.Model.ViewModels.Curriculum
 {
-    public  class CurriculumType
+    public class CurriculumTypeViewModel
     {
         public int Id { get; set; }
         [Required]
@@ -38,7 +42,5 @@ namespace PmaPlus.Model.Models
         public bool UsesSessionsForRatings { get; set; }
         [Required]
         public bool UsesSessionsForReports { get; set; }
-        
-        public virtual ICollection<Curriculum> Curriculums { get; set; }
     }
 }

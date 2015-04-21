@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Services;
@@ -25,27 +26,44 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         // GET: api/CurriculumTypes/5
-        public CurriculumType Get(int id)
+        public CurriculumTypeViewModel Get(int id)
         {
-            return _curriculumServices.GetCurriculumType(id);
+            var curriculumType = _curriculumServices.GetCurriculumType(id);
+            return Mapper.Map<CurriculumType, CurriculumTypeViewModel>(curriculumType);
         }
 
         // POST: api/CurriculumTypes
-        public void Post([FromBody]CurriculumType curriculumType)
+        public IHttpActionResult Post([FromBody]CurriculumTypeViewModel curriculumTypeViewModel)
         {
-            _curriculumServices.InsertCurriculumType(curriculumType);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var curriculumType = Mapper.Map<CurriculumTypeViewModel, CurriculumType>(curriculumTypeViewModel);
+            var newCurriculumType = _curriculumServices.InsertCurriculumType(curriculumType);
+
+            return Created(Request.RequestUri + newCurriculumType.Id.ToString(), newCurriculumType);
         }
 
         // PUT: api/CurriculumTypes/5
-        public void Put(int id, [FromBody]CurriculumType curriculumType)
+        public IHttpActionResult Put(int id, [FromBody]CurriculumTypeViewModel curriculumTypeViewModel)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var curriculumType = Mapper.Map<CurriculumTypeViewModel, CurriculumType>(curriculumTypeViewModel);
             _curriculumServices.UpdateCurriculumTypes(curriculumType,id);
+            return Ok();
         }
 
         // DELETE: api/CurriculumTypes/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            if (_curriculumServices.GetCurriculumType(id) == null)
+                return NotFound();
+
             _curriculumServices.Delete(id);
+            return Ok();
+
         }
     }
 }

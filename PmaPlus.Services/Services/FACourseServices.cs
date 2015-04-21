@@ -27,9 +27,9 @@ namespace PmaPlus.Services.Services
             return _faCourseRepository.GetById(id);
         }
 
-        public void AddFaCourse(FACourse faCourse)
+        public FACourse AddFaCourse(FACourse faCourse)
         {
-            _faCourseRepository.Add(faCourse);
+            return _faCourseRepository.Add(faCourse);
             
         }
         public void UpdateFaCourse(FACourse faCourse)

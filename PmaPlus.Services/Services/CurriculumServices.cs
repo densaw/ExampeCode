@@ -48,9 +48,9 @@ namespace PmaPlus.Services
             return _curriculumTypeRepository.GetById(id);
         }
 
-        public void InsertCurriculumType(CurriculumType curriculumType)
+        public CurriculumType InsertCurriculumType(CurriculumType curriculumType)
         {
-            _curriculumTypeRepository.Add(curriculumType);
+           return _curriculumTypeRepository.Add(curriculumType);
         }
         public void UpdateCurriculumTypes(CurriculumType curriculumType, int id)
         {

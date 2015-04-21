@@ -25,10 +25,11 @@ namespace PmaPlus.Data.Repository
         {
             get { return _dataBaseContext ?? (_dataBaseContext = DatabaseFactory.Get()); }
         }
-        public virtual void Add(T entity)
+        public virtual T Add(T entity)
         {
-            _dbset.Add(entity);
+            var newEntity = _dbset.Add(entity);
             _dataBaseContext.SaveChanges();
+            return newEntity;
         }
         public virtual void Update(T entity)
         {
