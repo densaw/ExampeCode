@@ -1,43 +1,5 @@
 ﻿(function () {
-    var module = angular.module('MainApp', ['tc.chartjs']);
-
-    /**
-    * sparkline - Directive for Sparkline chart
-    */
-    function sparkline() {
-        return {
-            restrict: 'A',
-            scope: {
-                sparkData: '=',
-                sparkOptions: '='
-            },
-            link: function (scope, element, attrs) {
-                scope.$watch(scope.sparkData, function () {
-                    console.log("shit0");
-                    render();
-                });
-                scope.$watch(scope.sparkOptions, function () {
-                    console.log("shit1");
-                    render();
-                });
-                var render = function () {
-                    console.log(scope);
-                    console.log(element);
-                    console.log(attrs);
-                    $(element).sparkline(scope.sparkData, scope.sparkOptions);
-                    //$(element).sparkline([5, 6, 7, 2, 0, 4, 2, 4, 5, 7, 2, 4, 12, 14, 4, 2, 14, 12, 7], {
-                    //  type: 'bar',
-                    //    barWidth: 8,
-                    //    height: '150px',
-                    //    barColor: '#1ab394',
-                    //    negBarColor: '#c6c6c6'
-                    //});
-                };
-            }
-        }
-    };
-
-    module.directive("sparkline", sparkline);
+    var module = angular.module('MainApp', ['tc.chartjs', 'charts.ng.sparkline.seriesbar']);
 
     module.controller('ChartController', function ($scope, $http) {
         var monthNames = ['January',
@@ -162,15 +124,6 @@
         $http.get('api/dashboard/active/players/all').success(function (data) {
             $scope.playerCount = data;
         });
-    });
-    module.controller('SparklineController', function ($scope, $http, $element) {
-        $scope.data = [10, 6, 7, 2, 0, 4, 2, 4, 5, 7, 2, 4, 12, 14, 4, 2, 14, 12, 10];
-        $scope.opt = {
-        type: 'bar',
-        barWidth: 8,
-        height: '150px',
-        barColor: '#1ab394',
-        negBarColor: '#c6c6c6'};
     });
 
     
