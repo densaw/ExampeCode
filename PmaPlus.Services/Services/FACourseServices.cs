@@ -18,7 +18,7 @@ namespace PmaPlus.Services.Services
             _faCourseRepository = faCourseRepository;
         }
 
-        public IEnumerable<FACourse> GetFaCourses()
+        public IQueryable<FACourse> GetFaCourses()
         {
             return _faCourseRepository.GetAll();
         }

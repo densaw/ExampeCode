@@ -200,14 +200,14 @@ namespace PmaPlus.Services
             string progress = "netral";
             if (clubsLastWeek == 0)
             {
-                percent = 1000;
+                percent = 100;
             }
             else
             {
                 percent = (int)(((double)clubsThisWeek / clubsLastWeek) * 100);
-                if (percent > 1000)
+                if (percent > 100)
                 {
-                    percent = 1000;
+                    percent = 100;
                 }
             }
             if (clubsThisWeek - clubsLastWeek > 0)

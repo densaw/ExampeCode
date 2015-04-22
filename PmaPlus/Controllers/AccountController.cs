@@ -107,9 +107,9 @@ namespace PmaPlus.Controllers
                         if (model.Email.ToLower() == "systemadmin@local.com")
                         {
                             //ViewBag.JSAlert = "toastr.success('Without any options', 'Simple notification!')";
-                            return RedirectToAction("Index", "Home", new { area = "SysAdmin" });
+                            return RedirectToAction("Index", "Home");
                         }
-                        return RedirectToAction("Index", "Home", new { area = "SysAdmin" });
+                        return RedirectToAction("Index", "Home");
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -143,9 +143,9 @@ namespace PmaPlus.Controllers
                         if (model.Email.ToLower() == "systemadmin@local.com")
                         {
                             //ViewBag.JSAlert = "toastr.success('Without any options', 'Simple notification!')";
-                            return RedirectToAction("Index", "Home", new { area = "SysAdmin" });
+                            return RedirectToAction("Index", "Home");
                         }
-                        return RedirectToAction("Index", "Home", new { area = "SysAdmin" });
+                        return RedirectToAction("Index", "Home");
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");

@@ -19,7 +19,8 @@ namespace PmaPlus.Controllers
         }
 
         // GET: api/FaCourses
-        public IEnumerable<FACourse> Get()
+
+        public IQueryable<FACourse> Get()
         {
             return _faCourseServices.GetFaCourses();
             
