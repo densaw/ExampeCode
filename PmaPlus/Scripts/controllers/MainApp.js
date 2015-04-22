@@ -2,18 +2,18 @@
     var module = angular.module('MainApp', ['tc.chartjs']);
 
     module.controller('ChartController', ['$scope', '$http', function ($scope, $http) {
-        var monthNames = ['January',
-            'February',
-            'March',
-            'April',
+        var monthNames = ['Jan',
+            'Feb',
+            'Mar',
+            'Apr',
             'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December'];
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'];
 
         $http.get('api/dashboard/active/players').success(function (data) {
             

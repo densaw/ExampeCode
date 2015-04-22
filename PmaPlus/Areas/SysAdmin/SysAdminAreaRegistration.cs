@@ -17,7 +17,7 @@ namespace PmaPlus.Areas.SysAdmin
             context.MapRoute(
                 "SysAdmin_default",
                 "SysAdmin/{controller}/{action}/{id}",
-                new { action = "Index", controller = "Home", id = UrlParameter.Optional }
+                new { action = "Dashbord", controller = "Home", id = UrlParameter.Optional }
             );
         }
     }

@@ -15,7 +15,7 @@ namespace PmaPlus.Controllers
         {
             //TODO: Redirect roles 
             if(User.IsInRole(Role.SystemAdmin.ToString()))
-                return RedirectToAction("Index", "Home", new { area = "SysAdmin" });
+                return RedirectToAction("Dashbord", "Home", new { area = "SysAdmin" });
             return View();
         }
     }
