@@ -53,6 +53,12 @@ namespace PmaPlus.Data
                 .WithOptionalDependent()
                 .WillCascadeOnDelete(true);
 
+
+            modelBuilder.Entity<Club>()
+                .HasOptional(c => c.ClubAdmin)
+                .WithOptionalDependent()
+                .WillCascadeOnDelete(true);
+
             modelBuilder.Entity<User>()
                 .HasOptional(u => u.UserDetail)
                 .WithOptionalDependent()

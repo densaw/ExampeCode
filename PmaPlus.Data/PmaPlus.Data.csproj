@@ -54,6 +54,7 @@
     <Compile Include="Infrastructure\GetWeekNumber.cs" />
     <Compile Include="Infrastructure\IDatabaseFactory.cs" />
     <Compile Include="Infrastructure\Page.cs" />
+    <Compile Include="Infrastructure\QueryOrder.cs" />
     <Compile Include="Migrations\201504131321219_inialise.cs" />
     <Compile Include="Migrations\201504131321219_inialise.Designer.cs">
       <DependentUpon>201504131321219_inialise.cs</DependentUpon>
