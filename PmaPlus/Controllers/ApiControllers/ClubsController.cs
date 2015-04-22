@@ -41,6 +41,10 @@ namespace PmaPlus.Controllers.ApiControllers
         // PUT: api/Clubs/5
         public IHttpActionResult Put(int id, [FromBody]AddClubViewModel value)
         {
+            if (!_clubServices.ClubIsExist(id))
+            {
+                return NotFound();
+            }
             _clubServices.UpdateClub(value,id);
             return Ok();
         }
@@ -48,6 +52,10 @@ namespace PmaPlus.Controllers.ApiControllers
         // DELETE: api/Clubs/5
         public IHttpActionResult Delete(int id)
         {
+            if (!_clubServices.ClubIsExist(id))
+            {
+                return NotFound();
+            }
             _clubServices.DeleteClub(id);
             return Ok();
 

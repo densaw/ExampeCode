@@ -20,11 +20,12 @@ namespace PmaPlus.Services
         private readonly IClubRepository _clubRepository;
         private readonly IWelfareOfficerRepository _welfareOfficerRepository;
         private readonly AddressServices _addressServices;
+        private readonly IAddressRepository _addressRepository;
         private readonly IChairmanRepository _chairmanRepository;
         private readonly IClubAdminRepository _clubAdminRepository;
         private readonly IUserRepository _userRepository;
         private readonly IUserDetailRepository _userDetailRepository;
-        public ClubServices(IClubRepository clubRepository, IWelfareOfficerRepository welfareOfficerRepository, AddressServices addressServices, IChairmanRepository chairmanRepository, IClubAdminRepository clubAdminRepository, IUserDetailRepository userDetailRepository, IUserRepository userRepository)
+        public ClubServices(IClubRepository clubRepository, IWelfareOfficerRepository welfareOfficerRepository, AddressServices addressServices, IChairmanRepository chairmanRepository, IClubAdminRepository clubAdminRepository, IUserDetailRepository userDetailRepository, IUserRepository userRepository, IAddressRepository addressRepository)
         {
             _clubRepository = clubRepository;
             _welfareOfficerRepository = welfareOfficerRepository;
@@ -33,6 +34,7 @@ namespace PmaPlus.Services
             _clubAdminRepository = clubAdminRepository;
             _userDetailRepository = userDetailRepository;
             _userRepository = userRepository;
+            _addressRepository = addressRepository;
         }
 
         public IEnumerable<ClubTableViewModel> GetClubsTableViewModels()
@@ -52,9 +54,19 @@ namespace PmaPlus.Services
             return clubs;
         }
 
+        public bool ClubIsExist(int id)
+        {
+            if (_clubRepository.GetById(id) == null)
+                return false;
+            return true;
+        }
         public AddClubViewModel GetClubById(int id)
         {
             Club club = _clubRepository.GetById(id);
+            
+            if (club == null)
+                return null;
+
             AddClubViewModel model = new AddClubViewModel()
             {
                 Name = club.Name,
@@ -170,6 +182,11 @@ namespace PmaPlus.Services
 
         public void DeleteClub(int id)
         {
+            var club = _clubRepository.GetById(id);
+            _clubAdminRepository.Delete(club.ClubAdmin);
+            _userRepository.Delete(club.ClubAdmin.User);
+            _userDetailRepository.Delete(club.ClubAdmin.User.UserDetail);
+            _addressRepository.Delete(club.Address);
             _clubRepository.Delete(c => c.Id == id);
         }
         public InfoBoxViewModel GetClubLoggedThisWeek()

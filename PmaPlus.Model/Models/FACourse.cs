@@ -12,6 +12,6 @@ namespace PmaPlus.Model.Models
         [Required(ErrorMessage = "FACourse duration period is required")]
         [Range(1, 365, ErrorMessage = "Please enter a value bigger than {1}")]
         public int Duration { get; set; }
-        public string Descriprion { get; set; }
+        public string Description { get; set; }
     }
 }
