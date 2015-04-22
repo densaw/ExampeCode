@@ -4,9 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+
+using System.Web.Http.OData;
 using Microsoft.Ajax.Utilities;
+using Microsoft.Data.OData;
 using PmaPlus.Model.Models;
 using PmaPlus.Services.Services;
+using System.Web.OData.Query;
+using PmaPlus.Data;
 
 namespace PmaPlus.Controllers
 {
@@ -18,12 +23,29 @@ namespace PmaPlus.Controllers
             _faCourseServices = faCourseServices;
         }
 
-        // GET: api/FaCourses
+        // GET: api/Clubs/pageSize/pageNumber/orderBy(optional) 
+        [Route("api/FaCourses/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
+        public IHttpActionResult Get(int pageSize, int pageNumber, string orderBy = "")
+        {
+            var count = _faCourseServices.GetFaCourses().Count();
+            var pages = Math.Ceiling((double)count / pageSize);
+            var result = new
+            {
+                Count = count,
+                Pages = pages,
+                Items =  _faCourseServices.GetFaCourses().OrderQuery(orderBy,f => f.Id).Paged(pageNumber,pageSize)
+            };
 
+            return Ok(result);
+        }
+     
+        // GET: api/FaCourses
         public IQueryable<FACourse> Get()
         {
-            return _faCourseServices.GetFaCourses();
             
+
+            return  _faCourseServices.GetFaCourses();
+
         }
 
         // GET: api/FaCourses/5

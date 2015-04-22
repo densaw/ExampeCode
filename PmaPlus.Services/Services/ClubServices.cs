@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,17 +20,15 @@ namespace PmaPlus.Services
     {
         private readonly IClubRepository _clubRepository;
         private readonly IWelfareOfficerRepository _welfareOfficerRepository;
-        private readonly AddressServices _addressServices;
         private readonly IAddressRepository _addressRepository;
         private readonly IChairmanRepository _chairmanRepository;
         private readonly IClubAdminRepository _clubAdminRepository;
         private readonly IUserRepository _userRepository;
         private readonly IUserDetailRepository _userDetailRepository;
-        public ClubServices(IClubRepository clubRepository, IWelfareOfficerRepository welfareOfficerRepository, AddressServices addressServices, IChairmanRepository chairmanRepository, IClubAdminRepository clubAdminRepository, IUserDetailRepository userDetailRepository, IUserRepository userRepository, IAddressRepository addressRepository)
+        public ClubServices(IClubRepository clubRepository, IWelfareOfficerRepository welfareOfficerRepository, IChairmanRepository chairmanRepository, IClubAdminRepository clubAdminRepository, IUserDetailRepository userDetailRepository, IUserRepository userRepository, IAddressRepository addressRepository)
         {
             _clubRepository = clubRepository;
             _welfareOfficerRepository = welfareOfficerRepository;
-            _addressServices = addressServices;
             _chairmanRepository = chairmanRepository;
             _clubAdminRepository = clubAdminRepository;
             _userDetailRepository = userDetailRepository;
@@ -73,7 +72,7 @@ namespace PmaPlus.Services
                 Logo = club.Logo,
                 Status = club.Status,
                 ClubAdminName = club.ClubAdmin.User.UserDetail.FirstName,
-                ClubAdminUsername = club.ClubAdmin.User.UserName,
+                ClubAdminEmail = club.ClubAdmin.User.UserName,
                 ClubAdminPassword = club.ClubAdmin.User.Password,
                 Background = club.Background,
                 Established = club.Established,
@@ -87,9 +86,6 @@ namespace PmaPlus.Services
                 Chairman = club.Chairman.Name,
                 ChairmanEmail = club.Chairman.Email,
                 ChairmanTelephone = club.Chairman.Telephone,
-                WelfareOfficer = club.WelfareOfficer.User.UserDetail.FirstName,
-                WelfareOfficerEmail = club.WelfareOfficer.User.Email,
-                WelfareOfficerTelephone = club.WelfareOfficer.User.UserDetail.Address.Telephone
             };
             return model;
         }
@@ -120,9 +116,9 @@ namespace PmaPlus.Services
                 {
                     User = new User()
                     {
-                        UserName = club.ClubAdminUsername,
+                        UserName = club.ClubAdminEmail,
                         Role = Role.ClubAdmin,
-                        Email = club.ClubAdminUsername,
+                        Email = club.ClubAdminEmail,
                         Password = club.ClubAdminPassword,
                         CreateAt = DateTime.Now,
                         UpdateAt = DateTime.Now,
@@ -166,14 +162,11 @@ namespace PmaPlus.Services
                 entity.Address.TownCity = club.TownCity;
                 entity.Address.PostCode = club.PostCode;
                 entity.ClubAdmin.User.UserDetail.FirstName = club.ClubAdminName;
-                entity.ClubAdmin.User.UserName = club.ClubAdminUsername;
+                entity.ClubAdmin.User.UserName = club.ClubAdminEmail;
                 entity.ClubAdmin.User.Password = club.ClubAdminPassword;
                 entity.Chairman.Name = club.Chairman;
                 entity.Chairman.Email = club.ChairmanEmail;
                 entity.Chairman.Telephone = club.ChairmanTelephone;
-                //entity.WelfareOfficer.User.UserDetail.FirstName = club.WelfareOfficer;
-                //entity.WelfareOfficer.User.Email = club.WelfareOfficerEmail;
-                //entity.WelfareOfficer.User.UserDetail.Address.Telephone = club.WelfareOfficerTelephone;
 
                 _clubRepository.Update(entity);
             }
@@ -183,19 +176,22 @@ namespace PmaPlus.Services
         public void DeleteClub(int id)
         {
             var club = _clubRepository.GetById(id);
-            _clubAdminRepository.Delete(club.ClubAdmin);
-            _userRepository.Delete(club.ClubAdmin.User);
+            _addressRepository.Delete(club.ClubAdmin.User.UserDetail.Address);
             _userDetailRepository.Delete(club.ClubAdmin.User.UserDetail);
+            _userRepository.Delete(club.ClubAdmin.User);
+            _clubAdminRepository.Delete(club.ClubAdmin);
             _addressRepository.Delete(club.Address);
-            _clubRepository.Delete(c => c.Id == id);
+            _clubRepository.Delete(club);
         }
         public InfoBoxViewModel GetClubLoggedThisWeek()
         {
-            int clubsThisWeek =
-                _clubRepository.GetAll().ToList().Where(c => DateTool.GetWeekNumber(c.CreateAt) == DateTool.GetThisWeek()).Count();
             int lastWeek = DateTool.GetThisWeek() > 1 ? DateTool.GetThisWeek() - 1 : 52;
+            int thisWeek = DateTool.GetThisWeek();
+
+            int clubsThisWeek =
+                _clubRepository.GetMany(c => SqlFunctions.DatePart("week", c.CreateAt) == thisWeek).Count();
             int clubsLastWeek =
-                _clubRepository.GetAll().ToList().Where(c => DateTool.GetWeekNumber(c.CreateAt) == lastWeek).Count();
+                _clubRepository.GetMany(c => SqlFunctions.DatePart("week", c.CreateAt) == lastWeek).Count();
             int percent;
             string progress = "netral";
             if (clubsLastWeek == 0)
@@ -227,8 +223,10 @@ namespace PmaPlus.Services
         public IList<int> GetClubsLoggedForLast_Weeks(int times = 10)
         {
             List<int> usersList = new List<int>();
+
             int thisYear = DateTime.Now.Year;
             int thisWeek = DateTool.GetThisWeek();
+            
             for (int i = 0; i < times; i++)
             {
                 if (thisWeek < 1)
@@ -237,8 +235,8 @@ namespace PmaPlus.Services
                     thisYear--;
                 }
 
-                usersList.Add(_clubRepository.GetAll().ToList().Where(c =>
-                         DateTool.GetWeekNumber(c.CreateAt) == thisWeek &&
+                usersList.Add(_clubRepository.GetMany(c =>
+                          SqlFunctions.DatePart("week", c.CreateAt) == thisWeek &&
                          c.CreateAt.Year == thisYear).Count());
                 thisWeek--;
             }
