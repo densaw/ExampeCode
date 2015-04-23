@@ -168,7 +168,7 @@ namespace PmaPlus.Services
                 entity.Chairman.Email = club.ChairmanEmail;
                 entity.Chairman.Telephone = club.ChairmanTelephone;
 
-                _clubRepository.Update(entity);
+                _clubRepository.Update(entity, id);
             }
 
         }

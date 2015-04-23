@@ -54,8 +54,8 @@ namespace PmaPlus.Services
         }
         public void UpdateCurriculumTypes(CurriculumType curriculumType, int id)
         {
-                curriculumType.Id = id;
-                _curriculumTypeRepository.Update(curriculumType);
+               
+                _curriculumTypeRepository.Update(curriculumType,id);
         }
         public void Delete(int id)
         {

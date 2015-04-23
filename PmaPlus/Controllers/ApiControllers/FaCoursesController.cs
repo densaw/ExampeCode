@@ -67,17 +67,17 @@ namespace PmaPlus.Controllers
         // PUT: api/FaCourses/5
         public IHttpActionResult PutFacourse(int id, [FromBody]FACourse faCourse)
         {
-            if (_faCourseServices.GetFaCourseById(id) == null)
+            if (!_faCourseServices.FaCourseExist(id))
                 return NotFound();
 
-            _faCourseServices.UpdateFaCourse(faCourse);
+            _faCourseServices.UpdateFaCourse(faCourse,id);
             return Ok();
         }
 
         // DELETE: api/FaCourses/5
         public IHttpActionResult Delete(int id)
         {
-            if (_faCourseServices.GetFaCourseById(id) == null)
+            if (!_faCourseServices.FaCourseExist(id))
                 return NotFound();
             _faCourseServices.Delete(id);
             return Ok();

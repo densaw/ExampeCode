@@ -9,6 +9,7 @@ namespace PmaPlus.Data.Repository.Iterfaces
     {
         T Add(T entity);
         void Update(T entity);
+        void Update(T entity, int id);
         void Delete(T entity);
         void Delete(Expression<Func<T, bool>> where);
         T GetById(int id);
