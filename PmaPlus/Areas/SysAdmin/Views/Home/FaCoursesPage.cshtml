@@ -37,6 +37,13 @@
                         <label ng-click="usersPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                        </span>
+                    </div>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -49,7 +56,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr dir-paginate="user in users | itemsPerPage: usersPerPage" total-items="totalUsers">
+                        <tr dir-paginate="user in users | filter:q | itemsPerPage: usersPerPage" total-items="totalUsers">
                             <td>{{user.id}}</td>
                             <td>{{user.name}}</td>
                             <td>{{user.duration}}</td>
