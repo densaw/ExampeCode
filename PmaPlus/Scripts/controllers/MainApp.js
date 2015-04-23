@@ -1,5 +1,5 @@
 ﻿(function () {
-    var module = angular.module('MainApp', ['tc.chartjs']);
+    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination']);
 
     module.controller('ChartController', ['$scope', '$http', function ($scope, $http) {
         var monthNames = ['Jan',
@@ -140,5 +140,6 @@
             $scope.faList = data;
         });
     }]);
+
 
 })();

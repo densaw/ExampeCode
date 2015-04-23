@@ -18,7 +18,7 @@ namespace PmaPlus.Areas.SysAdmin.Controllers
 
         public ActionResult FaCourses()
         {
-            return PartialView("FaCourses");
+            return View();
         }
 
         public ActionResult Clubs()
