@@ -135,10 +135,28 @@
             $scope.playerCount = data;
         });
     }]);
-    module.controller('FaCoursesController',['$scope', '$http',  function($scope, $http) {
-        $http.get('api/FaCourses').success(function(data) {
-            $scope.faList = data;
-        });
+    module.controller('FaCoursesController', ['$scope', '$http', function ($scope, $http) {
+
+        $scope.users = [];
+        $scope.totalUsers = 0;
+        $scope.usersPerPage = 10; // this should match however many results your API puts on one page
+        getResultsPage(1);
+
+        $scope.pagination = {
+            current: 1
+        };
+
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+        };
+
+        function getResultsPage(pageNumber) {
+            $http.get('/api/FaCourses/' + $scope.usersPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.users = result.items;
+                    $scope.totalUsers = result.count;
+            });
+        }
     }]);
 
 

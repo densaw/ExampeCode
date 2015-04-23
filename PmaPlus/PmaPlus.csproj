@@ -2863,7 +2863,7 @@
     <Content Include="Areas\SysAdmin\Views\Home\Empty.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Home\FaCoursesPage.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
