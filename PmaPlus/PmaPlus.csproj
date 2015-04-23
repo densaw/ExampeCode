@@ -218,6 +218,7 @@
     <Compile Include="Mapping\ModelToViewModelProfile.cs" />
     <Compile Include="Mapping\ViewModelToModelProfile.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\EmptyViewModel.cs" />
     <Compile Include="Stratup.cs" />
     <Compile Include="Tools\TimeUtils.cs" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -2832,6 +2833,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Home\Empty.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />

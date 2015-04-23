@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using PmaPlus.Models;
 
 namespace PmaPlus.Areas.SysAdmin.Controllers
 {
@@ -17,6 +19,23 @@ namespace PmaPlus.Areas.SysAdmin.Controllers
         public ActionResult FaCourses()
         {
             return PartialView("FaCourses");
+        }
+
+        public ActionResult Clubs()
+        {
+            return Empty(RouteData);
+        }
+
+        public ActionResult Empty(RouteData rd)
+        {
+            var routeValueDictionary = rd.Values;
+            var path = string.Format("{0}/{1}", routeValueDictionary["controller"], routeValueDictionary["action"]);
+            var name = routeValueDictionary["action"];
+            return PartialView("Empty", new EmptyViewModel()
+            {
+                Breadcrumb = path,
+                PageName = name.ToString()
+            });
         }
     }
 }

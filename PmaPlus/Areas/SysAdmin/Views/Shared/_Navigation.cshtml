@@ -21,8 +21,8 @@
                 <a href="@Url.Action("Dashbord","Home",new{area="SysAdmin"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
                 
             </li>
-            <li class="@Html.IsSelected(controller: "Layouts")">
-                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-university"></i> <span class="nav-label">Clubs</span></a>
+            <li class="@Html.IsSelected(controller: "Home", action:"Clubs")">
+                <a href="@Url.Action("Clubs", "Home", new { area = "SysAdmin" })"><i class="fa fa-university"></i> <span class="nav-label">Clubs</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Graphs")">
                 <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-users"></i> <span class="nav-label">Clients</span></a>
