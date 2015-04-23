@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="DataBaseContext.cs" />
     <Compile Include="Infrastructure\DatabaseFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
     <Compile Include="Infrastructure\GetWeekNumber.cs" />
     <Compile Include="Infrastructure\IDatabaseFactory.cs" />
     <Compile Include="Infrastructure\Page.cs" />

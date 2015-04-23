@@ -23,7 +23,7 @@ namespace PmaPlus.Services.Services
             return _faCourseRepository.GetAll();
         }
 
-        public FACourse GetFaCourse(int id)
+        public FACourse GetFaCourseById(int id)
         {
             return _faCourseRepository.GetById(id);
         }
@@ -33,10 +33,13 @@ namespace PmaPlus.Services.Services
             return _faCourseRepository.Add(faCourse);
             
         }
-        public void UpdateFaCourse(FACourse faCourse, int id)
+        public void UpdateFaCourse(FACourse faCourse)
         {
-                faCourse.Id = id;
+
+            var upcours =_faCourseRepository.Get(f => f.Id == faCourse.Id);
+            upcours = faCourse;
                 _faCourseRepository.Update(faCourse);
+          
         }
 
         public void Delete(int id)

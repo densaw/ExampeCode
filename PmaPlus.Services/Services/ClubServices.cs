@@ -145,7 +145,7 @@ namespace PmaPlus.Services
         {
             if (club.Id > 0)
             {
-                club.Id = id;
+               
                 var entity = _clubRepository.GetById(id);
 
                 entity.Name = club.Name;
