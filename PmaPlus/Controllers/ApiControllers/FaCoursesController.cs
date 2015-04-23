@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 
 using System.Web.Http.OData;
+using System.Web.Http.OData.Extensions;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Data.OData;
 using PmaPlus.Model.Models;
@@ -29,23 +30,24 @@ namespace PmaPlus.Controllers
         {
             var count = _faCourseServices.GetFaCourses().Count();
             var pages = Math.Ceiling((double)count / pageSize);
+            var items = _faCourseServices.GetFaCourses().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+
             var result = new
             {
                 Count = count,
                 Pages = pages,
-                Items =  _faCourseServices.GetFaCourses().OrderQuery(orderBy,f => f.Id).Paged(pageNumber,pageSize)
+                Items = items
             };
 
             return Ok(result);
         }
-     
-        // GET: api/FaCourses
+
+      
+
+         //GET: api/FaCourses
         public IQueryable<FACourse> Get()
         {
-            
-
-            return  _faCourseServices.GetFaCourses();
-
+            return _faCourseServices.GetFaCourses();
         }
 
         // GET: api/FaCourses/5
