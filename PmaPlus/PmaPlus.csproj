@@ -2862,7 +2862,7 @@
     <Content Include="Areas\SysAdmin\Views\Home\Empty.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Home\FaCoursesPage.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -3262,6 +3262,10 @@
     <Content Include="Scripts\plugins\nestable\jquery.nestable.js" />
     <Content Include="Scripts\plugins\nouslider\jquery.nouislider.min.js" />
     <Content Include="Scripts\plugins\pace\pace.min.js" />
+    <Content Include="Scripts\plugins\pagination\dirPagination.js" />
+    <Content Include="Scripts\plugins\pagination\dirPagination.spec.js" />
+    <Content Include="Scripts\plugins\pagination\dirPagination.tpl.html" />
+    <Content Include="Scripts\plugins\pagination\testTemplate.tpl.html" />
     <Content Include="Scripts\plugins\peity\jquery.peity.min.js" />
     <Content Include="Scripts\plugins\rickshaw\rickshaw.min.js" />
     <Content Include="Scripts\plugins\rickshaw\vendor\d3.v3.js" />

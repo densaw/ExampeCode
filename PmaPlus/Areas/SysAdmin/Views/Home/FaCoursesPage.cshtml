@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "FaCourses";
+    Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-lg-12" style="margin-top: 10px;">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>FaCourses</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-wrench"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li>
+                        <a href="#">Config option 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Config option 2</a>
+                    </li>
+                </ul>
+                <a>
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content" ng-controller="FaCoursesController">
+            <div class="row">
+                <div class="col-sm-9 m-b-xs">
+                    <div data-toggle="buttons" class="btn-group">
+                        <label ng-click="usersPerPage = 10" class="btn btn-sm btn-white active"> <input type="radio" id="option1" name="options"> 10 </label>
+                        <label ng-click="usersPerPage = 20" class="btn btn-sm btn-white"> <input type="radio" id="option2" name="options"> 20 </label>
+                        <label ng-click="usersPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name </th>
+                            <th>Duration </th>
+                            <th>Description </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="user in users | filter:q | itemsPerPage: usersPerPage" total-items="totalUsers">
+                            <td>{{user.id}}</td>
+                            <td>{{user.name}}</td>
+                            <td>{{user.duration}}</td>
+                            <td>{{user.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+            </div>
+
+        </div>
+    </div>
+</div>
+

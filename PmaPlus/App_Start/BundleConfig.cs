@@ -118,6 +118,10 @@ namespace PmaPlus
             bundles.Add(new ScriptBundle("~/plugins/spark").Include(
                       "~/Scripts/plugins/chartjs/ng-sparkline-seriesbar.js"));
 
+            //Pagination
+            bundles.Add(new ScriptBundle("~/plugins/pagination").Include(
+                "~/Scripts/plugins/pagination/dirPagination.js"));
+
             // iCheck css styles
             bundles.Add(new StyleBundle("~/Content/plugins/iCheck/iCheckStyles").Include(
                       "~/Content/plugins/iCheck/custom.css"));
