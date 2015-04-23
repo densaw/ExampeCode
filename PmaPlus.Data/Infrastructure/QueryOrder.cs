@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PmaPlus.Data.Infrastructure
+namespace PmaPlus.Data
 {
-    internal static class QueryHelper
+    static class QueryHelper
     {
         public static bool PropertyExists<T>(string propertyName)
         {

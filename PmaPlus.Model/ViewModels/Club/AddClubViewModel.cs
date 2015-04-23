@@ -20,7 +20,7 @@ namespace PmaPlus.Model.ViewModels.Club
         [Required]
         public string ClubAdminName { get; set; }
         [Required]
-        public string ClubAdminUsername { get; set; }
+        public string ClubAdminEmail { get; set; }
         [Required]
         public string ClubAdminPassword { get; set; }
         public string Background { get; set; }
@@ -40,9 +40,6 @@ namespace PmaPlus.Model.ViewModels.Club
         public string Chairman { get; set; }
         public string ChairmanEmail { get; set; }
         public string ChairmanTelephone { get; set; }
-        public string WelfareOfficer { get; set; }
-        public string WelfareOfficerEmail { get; set; }
-        public string WelfareOfficerTelephone { get; set; }
         public string ColorTheme { get; set; }
     }
 }
