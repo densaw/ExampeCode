@@ -110,6 +110,7 @@
     <Compile Include="ViewModels\Curriculum\CurriculumTypesTableViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumTypeViewModel.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
+    <Compile Include="ViewModels\Skill\SkillLevelViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

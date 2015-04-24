@@ -21,10 +21,14 @@ namespace PmaPlus.Services.Services
 
         #region Skill Levels
 
-
-        public IEnumerable<SkillLevel> GetSkillLevels()
+        public bool SkillLevelExist(int id)
         {
-            return _skillLevelRepository.GetAll().AsEnumerable();
+            return _skillLevelRepository.GetMany(s => s.Id == id).Any();
+        }
+
+        public IQueryable<SkillLevel> GetSkillLevels()
+        {
+            return _skillLevelRepository.GetAll();
         }
 
         public SkillLevel GetSkillLevelById(int id)
@@ -32,9 +36,9 @@ namespace PmaPlus.Services.Services
             return _skillLevelRepository.GetById(id);
         }
 
-        public void AddSkillLevel(SkillLevel skillLevel)
+        public SkillLevel AddSkillLevel(SkillLevel skillLevel)
         {
-            _skillLevelRepository.Add(skillLevel);
+            return _skillLevelRepository.Add(skillLevel);
         }
 
         public void UpdateSkillLevel(SkillLevel skillLevel, int id)
