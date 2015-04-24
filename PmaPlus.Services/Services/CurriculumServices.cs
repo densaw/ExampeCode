@@ -40,7 +40,7 @@ namespace PmaPlus.Services
                 });
             }
 
-            return typesView;
+            return typesView.AsQueryable();
         }
 
         public bool CurriculumTypeExist(int id)
