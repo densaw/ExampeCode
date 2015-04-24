@@ -4,6 +4,45 @@
     Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>FA Courses</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a>Home</a>
+            </li>
+            <li class="active">
+                <strong>FA Courses</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-sm-8">
+        <div class="ibox-content">
+            <div class="title-action">
+                <a data-toggle="modal" href="#modal-form" class="btn btn-primary">Add a Course</a>
+            </div>
+            <div id="modal-form" class="modal fade" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-6 b-r">
+                                    <h3 class="m-t-none m-b">Sign in</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+
+
 <div class="col-lg-12" style="margin-top: 10px;">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -29,6 +68,7 @@
             </div>
         </div>
         <div class="ibox-content" ng-controller="FaCoursesController">
+
             <div class="row">
                 <div class="col-sm-9 m-b-xs">
                     <div data-toggle="buttons" class="btn-group">
@@ -48,20 +88,20 @@
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name </th>
-                            <th>Duration </th>
-                            <th>Description </th>
-                        </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name </th>
+                        <th>Duration </th>
+                        <th>Description </th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr dir-paginate="user in users | filter:q | itemsPerPage: usersPerPage" total-items="totalUsers">
-                            <td>{{user.id}}</td>
-                            <td>{{user.name}}</td>
-                            <td>{{user.duration}}</td>
-                            <td>{{user.description}}</td>
-                        </tr>
+                    <tr dir-paginate="user in users | filter:q | itemsPerPage: usersPerPage" total-items="totalUsers">
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.duration}}</td>
+                        <td>{{user.description}}</td>
+                    </tr>
                     </tbody>
                 </table>
                 <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
