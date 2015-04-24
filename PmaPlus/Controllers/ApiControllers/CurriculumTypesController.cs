@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using PmaPlus.Data;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Services;
@@ -20,9 +21,26 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         // GET: api/CurriculumTypes
-        public IEnumerable<CurriculumTypesTableViewModel> Get()
+        public IQueryable<CurriculumTypesTableViewModel> Get()
         {
             return _curriculumServices.GetCurriculumTypes();
+        }
+
+        [Route("api/CurriculumTypes/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
+        public IHttpActionResult Get(int pageSize, int pageNumber, string orderBy = "")
+        {
+            var count = _curriculumServices.GetCurriculumTypes().Count();
+            var pages = Math.Ceiling((double)count / pageSize);
+            var items = _curriculumServices.GetCurriculumTypes().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+
+            var result = new
+            {
+                Count = count,
+                Pages = pages,
+                Items = items
+            };
+
+            return Ok(result);
         }
 
         // GET: api/CurriculumTypes/5
@@ -45,7 +63,7 @@ namespace PmaPlus.Controllers.ApiControllers
         // PUT: api/CurriculumTypes/5
         public IHttpActionResult Put(int id, [FromBody]CurriculumTypeViewModel curriculumTypeViewModel)
         {
-            if (_curriculumServices.GetCurriculumType(id) == null)
+            if (!_curriculumServices.CurriculumTypeExist(id))
                 return NotFound();
 
             var curriculumType = Mapper.Map<CurriculumTypeViewModel, CurriculumType>(curriculumTypeViewModel);
@@ -56,7 +74,7 @@ namespace PmaPlus.Controllers.ApiControllers
         // DELETE: api/CurriculumTypes/5
         public IHttpActionResult Delete(int id)
         {
-            if (_curriculumServices.GetCurriculumType(id) == null)
+            if (!_curriculumServices.CurriculumTypeExist(id))
                 return NotFound();
 
             _curriculumServices.Delete(id);

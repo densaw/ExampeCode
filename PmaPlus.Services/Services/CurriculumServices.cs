@@ -18,7 +18,7 @@ namespace PmaPlus.Services
             _curriculumTypeRepository = curriculumTypeRepository;
         }
 
-        public IEnumerable<CurriculumTypesTableViewModel> GetCurriculumTypes()
+        public IQueryable<CurriculumTypesTableViewModel> GetCurriculumTypes()
         {
             var types = _curriculumTypeRepository.GetAll();
             var typesView = new List<CurriculumTypesTableViewModel>();
@@ -43,6 +43,11 @@ namespace PmaPlus.Services
             return typesView;
         }
 
+        public bool CurriculumTypeExist(int id)
+        {
+            return _curriculumTypeRepository.GetMany(c => c.Id == id).Any();
+        }
+
         public CurriculumType GetCurriculumType(int id)
         {
             return _curriculumTypeRepository.GetById(id);
@@ -54,8 +59,8 @@ namespace PmaPlus.Services
         }
         public void UpdateCurriculumTypes(CurriculumType curriculumType, int id)
         {
-               
-                _curriculumTypeRepository.Update(curriculumType,id);
+            curriculumType.Id = id;
+            _curriculumTypeRepository.Update(curriculumType,id);
         }
         public void Delete(int id)
         {
