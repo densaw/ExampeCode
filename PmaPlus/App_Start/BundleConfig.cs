@@ -16,6 +16,7 @@ namespace PmaPlus
                       "~/Content/animate.css",
                       "~/Content/style.css"));
 
+
             // Font Awesome icons
             bundles.Add(new StyleBundle("~/font-awesome/css").Include(
                       "~/fonts/font-awesome/css/font-awesome.css"));
@@ -28,6 +29,10 @@ namespace PmaPlus
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular/angular.js",
                 "~/Scripts/angular/angular-route.js"));
+
+            //Angular BootStrap
+            bundles.Add(new ScriptBundle("~/plugins/ui-bootstrap").Include(
+                "~/Scripts/plugins/ui-bootstrap/ui-bootstrap-tpls-0.12.1.js"));
 
             //Angular Controllers
             bundles.Add(new ScriptBundle("~/bundles/controllers").IncludeDirectory(
