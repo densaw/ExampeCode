@@ -12,6 +12,6 @@ namespace PmaPlus.Model.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<Skill> Skills { get; set; }
+        public virtual ICollection<SkillVideo> SkillVideos { get; set; }
     }
 }

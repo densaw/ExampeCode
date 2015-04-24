@@ -39,6 +39,7 @@ namespace PmaPlus.Model.ViewModels.Club
         public int PostCode { get; set; }
         public string Chairman { get; set; }
         public string ChairmanEmail { get; set; }
+        [MaxLength(12)]
         public string ChairmanTelephone { get; set; }
         public string ColorTheme { get; set; }
     }

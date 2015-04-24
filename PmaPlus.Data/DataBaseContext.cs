@@ -42,33 +42,38 @@ namespace PmaPlus.Data
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
         public virtual DbSet<WelfareOfficer> WelfareOfficers { get; set; }
-        public virtual DbSet<SkillLevel> SkillLevels { get; set; }     
-        public virtual DbSet<Skill> Skills { get; set; }
+        public virtual DbSet<SkillLevel> SkillLevels { get; set; }
+        public virtual DbSet<SkillVideo> SkillsVideos { get; set; }
         public virtual DbSet<ActivityStatusChange> ActivityStatusChanges { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Club>()
+                .HasOptional(c => c.ClubAdmin)
+                .WithOptionalDependent()
+                .WillCascadeOnDelete(false);
+            
+            modelBuilder.Entity<Club>()
                 .HasOptional(c => c.Address)
                 .WithOptionalDependent()
-                .WillCascadeOnDelete(true);
+                .WillCascadeOnDelete(false);
 
-
-            modelBuilder.Entity<Club>()
-                .HasOptional(c => c.ClubAdmin)
+         
+            modelBuilder.Entity<ClubAdmin>()
+                .HasOptional(c => c.User)
                 .WithOptionalDependent()
                 .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<User>()
                 .HasOptional(u => u.UserDetail)
                 .WithOptionalDependent()
-                .WillCascadeOnDelete(true);
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<UserDetail>()
                 .HasOptional(u => u.Address)
                 .WithOptionalDependent()
-                .WillCascadeOnDelete(true);
-            
+                .WillCascadeOnDelete(false);
+
             base.OnModelCreating(modelBuilder);
         }
     }
