@@ -55,9 +55,7 @@ namespace PmaPlus.Services
 
         public bool ClubIsExist(int id)
         {
-            if (_clubRepository.GetById(id) == null)
-                return false;
-            return true;
+           return _clubRepository.GetMany(c => c.Id == id).Any();
         }
         public AddClubViewModel GetClubById(int id)
         {
@@ -148,6 +146,8 @@ namespace PmaPlus.Services
                
                 var entity = _clubRepository.GetById(id);
 
+                entity.Id = id;
+
                 entity.Name = club.Name;
                 entity.Logo = club.Logo;
                 entity.ColorTheme = club.ColorTheme;
@@ -176,11 +176,15 @@ namespace PmaPlus.Services
         public void DeleteClub(int id)
         {
             var club = _clubRepository.GetById(id);
+
+            _addressRepository.Delete(club.Address);
+            _chairmanRepository.Delete(club.Chairman);
+ 
             _addressRepository.Delete(club.ClubAdmin.User.UserDetail.Address);
             _userDetailRepository.Delete(club.ClubAdmin.User.UserDetail);
             _userRepository.Delete(club.ClubAdmin.User);
-            _clubAdminRepository.Delete(club.ClubAdmin);
-            _addressRepository.Delete(club.Address);
+            //_clubAdminRepository.Delete(club.ClubAdmin);
+            
             _clubRepository.Delete(club);
         }
         public InfoBoxViewModel GetClubLoggedThisWeek()

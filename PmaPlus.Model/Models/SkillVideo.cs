@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PmaPlus.Model.Models
 {
-    public class Skill
+    public class SkillVideo
     {
         public int Id { get; set; }
 

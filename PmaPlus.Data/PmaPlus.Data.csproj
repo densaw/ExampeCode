@@ -56,62 +56,6 @@
     <Compile Include="Infrastructure\IDatabaseFactory.cs" />
     <Compile Include="Infrastructure\Page.cs" />
     <Compile Include="Infrastructure\QueryOrder.cs" />
-    <Compile Include="Migrations\201504131321219_inialise.cs" />
-    <Compile Include="Migrations\201504131321219_inialise.Designer.cs">
-      <DependentUpon>201504131321219_inialise.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504151201588_sec.cs" />
-    <Compile Include="Migrations\201504151201588_sec.Designer.cs">
-      <DependentUpon>201504151201588_sec.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504151558375_bigbase.cs" />
-    <Compile Include="Migrations\201504151558375_bigbase.Designer.cs">
-      <DependentUpon>201504151558375_bigbase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504161200077_activePlayer.cs" />
-    <Compile Include="Migrations\201504161200077_activePlayer.Designer.cs">
-      <DependentUpon>201504161200077_activePlayer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504170711053_dashboards.cs" />
-    <Compile Include="Migrations\201504170711053_dashboards.Designer.cs">
-      <DependentUpon>201504170711053_dashboards.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504170839246_user_createAt.cs" />
-    <Compile Include="Migrations\201504170839246_user_createAt.Designer.cs">
-      <DependentUpon>201504170839246_user_createAt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504181211210_add_login_time.cs" />
-    <Compile Include="Migrations\201504181211210_add_login_time.Designer.cs">
-      <DependentUpon>201504181211210_add_login_time.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504200728414_clubsServ.cs" />
-    <Compile Include="Migrations\201504200728414_clubsServ.Designer.cs">
-      <DependentUpon>201504200728414_clubsServ.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504201119403_somee.cs" />
-    <Compile Include="Migrations\201504201119403_somee.Designer.cs">
-      <DependentUpon>201504201119403_somee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504201152029_skillLevels.cs" />
-    <Compile Include="Migrations\201504201152029_skillLevels.Designer.cs">
-      <DependentUpon>201504201152029_skillLevels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504201346056_skilllll.cs" />
-    <Compile Include="Migrations\201504201346056_skilllll.Designer.cs">
-      <DependentUpon>201504201346056_skilllll.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504210858047_currype.cs" />
-    <Compile Include="Migrations\201504210858047_currype.Designer.cs">
-      <DependentUpon>201504210858047_currype.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504211041346_clubs_model.cs" />
-    <Compile Include="Migrations\201504211041346_clubs_model.Designer.cs">
-      <DependentUpon>201504211041346_clubs_model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504211218499_clubs_addfix.cs" />
-    <Compile Include="Migrations\201504211218499_clubs_addfix.Designer.cs">
-      <DependentUpon>201504211218499_clubs_addfix.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ActivityStatusChangeRepository.cs" />
@@ -158,7 +102,7 @@
     <Compile Include="Repository\Iterfaces\IRepository.cs" />
     <Compile Include="Repository\Iterfaces\IScoutRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISkillLevelRepository.cs" />
-    <Compile Include="Repository\Iterfaces\ISkillRepository.cs" />
+    <Compile Include="Repository\Iterfaces\ISkillVideoRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISportScientistRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISportsScienceExerciseRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISportsScienceTestRepository.cs" />
@@ -176,7 +120,7 @@
     <Compile Include="Repository\PlayerRepository.cs" />
     <Compile Include="Repository\ScoutRepository.cs" />
     <Compile Include="Repository\SkillLevelRepository.cs" />
-    <Compile Include="Repository\SkillRepository.cs" />
+    <Compile Include="Repository\SkillVideoRepository.cs" />
     <Compile Include="Repository\SportScientistRepository.cs" />
     <Compile Include="Repository\SportsScienceExerciseRepository.cs" />
     <Compile Include="Repository\SportsScienceTestRepository.cs" />
@@ -188,50 +132,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504131321219_inialise.resx">
-      <DependentUpon>201504131321219_inialise.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504151201588_sec.resx">
-      <DependentUpon>201504151201588_sec.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504151558375_bigbase.resx">
-      <DependentUpon>201504151558375_bigbase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504161200077_activePlayer.resx">
-      <DependentUpon>201504161200077_activePlayer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504170711053_dashboards.resx">
-      <DependentUpon>201504170711053_dashboards.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504170839246_user_createAt.resx">
-      <DependentUpon>201504170839246_user_createAt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504181211210_add_login_time.resx">
-      <DependentUpon>201504181211210_add_login_time.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504200728414_clubsServ.resx">
-      <DependentUpon>201504200728414_clubsServ.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504201119403_somee.resx">
-      <DependentUpon>201504201119403_somee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504201152029_skillLevels.resx">
-      <DependentUpon>201504201152029_skillLevels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504201346056_skilllll.resx">
-      <DependentUpon>201504201346056_skilllll.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504210858047_currype.resx">
-      <DependentUpon>201504210858047_currype.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504211041346_clubs_model.resx">
-      <DependentUpon>201504211041346_clubs_model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504211218499_clubs_addfix.resx">
-      <DependentUpon>201504211218499_clubs_addfix.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

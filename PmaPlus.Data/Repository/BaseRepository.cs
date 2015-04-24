@@ -58,7 +58,10 @@ namespace PmaPlus.Data.Repository
         }
         public virtual void Delete(T entity)
         {
-
+            if (entity == null)
+            {
+                return;
+            }
             _dbset.Remove(entity);
             _dataBaseContext.SaveChanges();
         }

@@ -236,7 +236,8 @@
     <Compile Include="Controllers\ApiControllers\CurriculumTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\DashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
-    <Compile Include="Controllers\ApiControllers\SkillLevelController.cs" />
+    <Compile Include="Controllers\ApiControllers\SkillLevelsController.cs" />
+    <Compile Include="Controllers\ApiControllers\SkillVideoController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
     <Compile Include="Filters\ValidateModelStateFilter.cs" />
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />

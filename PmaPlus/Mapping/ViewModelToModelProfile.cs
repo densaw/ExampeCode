@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Curriculum;
+using PmaPlus.Model.ViewModels.Skill;
 
 namespace PmaPlus.Mapping
 {
@@ -14,6 +15,7 @@ namespace PmaPlus.Mapping
         protected override void Configure()
         {
             Mapper.CreateMap<CurriculumTypeViewModel, CurriculumType>();
+            Mapper.CreateMap<SkillLevelViewModel, SkillLevel>();
 
 
         }

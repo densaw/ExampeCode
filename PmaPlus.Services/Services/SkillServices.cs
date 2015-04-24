@@ -10,21 +10,25 @@ namespace PmaPlus.Services.Services
 {
     public class SkillServices
     {
-        private readonly ISkillRepository _skillRepository;
+        private readonly ISkillVideoRepository _skillVideoRepository;
         private readonly ISkillLevelRepository _skillLevelRepository;
 
-        public SkillServices(ISkillLevelRepository skillLevelRepository, ISkillRepository skillRepository)
+        public SkillServices(ISkillLevelRepository skillLevelRepository, ISkillVideoRepository skillVideoRepository)
         {
             _skillLevelRepository = skillLevelRepository;
-            _skillRepository = skillRepository;
+            _skillVideoRepository = skillVideoRepository;
         }
 
         #region Skill Levels
 
-
-        public IEnumerable<SkillLevel> GetSkillLevels()
+        public bool SkillLevelExist(int id)
         {
-            return _skillLevelRepository.GetAll().AsEnumerable();
+            return _skillLevelRepository.GetMany(s => s.Id == id).Any();
+        }
+
+        public IQueryable<SkillLevel> GetSkillLevels()
+        {
+            return _skillLevelRepository.GetAll();
         }
 
         public SkillLevel GetSkillLevelById(int id)
@@ -32,9 +36,9 @@ namespace PmaPlus.Services.Services
             return _skillLevelRepository.GetById(id);
         }
 
-        public void AddSkillLevel(SkillLevel skillLevel)
+        public SkillLevel AddSkillLevel(SkillLevel skillLevel)
         {
-            _skillLevelRepository.Add(skillLevel);
+            return _skillLevelRepository.Add(skillLevel);
         }
 
         public void UpdateSkillLevel(SkillLevel skillLevel, int id)
@@ -55,17 +59,17 @@ namespace PmaPlus.Services.Services
 
         #region Skills
 
-        public IEnumerable<Skill> GetSkillsForSlillLevel(int id)
+        public IQueryable<SkillVideo> GetSkillsForSlillLevel(int id)
         {
-            return _skillRepository.GetMany(s => s.SkillLevel.Id == id).AsEnumerable();
+            return _skillVideoRepository.GetMany(s => s.SkillLevel.Id == id);
         }
 
-        public void AddSkill(Skill skill, int id)
+        public void AddSkill(SkillVideo skillVideo, int id)
         {
-            skill.SkillLevel = _skillLevelRepository.GetById(id);
-            if (skill.SkillLevel != null)
+            skillVideo.SkillLevel = _skillLevelRepository.GetById(id);
+            if (skillVideo.SkillLevel != null)
             {
-                _skillRepository.Add(skill);
+                _skillVideoRepository.Add(skillVideo);
             }
         }
         #endregion

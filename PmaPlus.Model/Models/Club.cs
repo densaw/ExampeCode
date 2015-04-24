@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using PmaPlus.Model.Enums;
 
 namespace PmaPlus.Model.Models
@@ -20,7 +21,8 @@ namespace PmaPlus.Model.Models
         public DateTime CreateAt { get; set; }
         public virtual Address Address { get; set; }
         public virtual Chairman Chairman { get; set; }
-        
+
+       
         public virtual ClubAdmin ClubAdmin { get; set; }
         public virtual Physiotherapist Physiotherapist { get; set; }
         public virtual WelfareOfficer WelfareOfficer { get; set; }
