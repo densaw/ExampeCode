@@ -145,7 +145,7 @@ namespace PmaPlus.Services
         {
             if (club.Id > 0)
             {
-                club.Id = id;
+               
                 var entity = _clubRepository.GetById(id);
 
                 entity.Name = club.Name;
@@ -168,7 +168,7 @@ namespace PmaPlus.Services
                 entity.Chairman.Email = club.ChairmanEmail;
                 entity.Chairman.Telephone = club.ChairmanTelephone;
 
-                _clubRepository.Update(entity);
+                _clubRepository.Update(entity, id);
             }
 
         }

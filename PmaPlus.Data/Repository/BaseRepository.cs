@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Core.Objects.DataClasses;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -31,14 +34,31 @@ namespace PmaPlus.Data.Repository
             _dataBaseContext.SaveChanges();
             return newEntity;
         }
+
         public virtual void Update(T entity)
         {
             _dbset.Attach(entity);
             _dataBaseContext.Entry(entity).State = EntityState.Modified;
             _dataBaseContext.SaveChanges();
         }
+        public virtual void Update(T entity,int id)
+        {
+            if (entity == null || id <= 0)
+            {
+                return;
+            }
+            var oldEntity = _dbset.Find(id);
+            if (oldEntity == null)
+            {
+                return;
+            }
+            
+            _dataBaseContext.Entry(oldEntity).CurrentValues.SetValues(entity);
+            _dataBaseContext.SaveChanges();
+        }
         public virtual void Delete(T entity)
         {
+
             _dbset.Remove(entity);
             _dataBaseContext.SaveChanges();
         }
