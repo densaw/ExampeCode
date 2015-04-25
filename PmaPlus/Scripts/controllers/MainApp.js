@@ -1,5 +1,5 @@
 ﻿(function () {
-    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination']);
+    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap']);
 
     module.controller('ChartController', ['$scope', '$http', function ($scope, $http) {
         var monthNames = ['Jan',
@@ -158,6 +158,28 @@
             });
         }
     }]);
+    module.controller('ModalWindowController', ['$scope', '$modal', function ($scope, $modal) {
+        $scope.open = function () {
+            $scope.open = function () {
+                var modalInstance = $modal.open({
+                    templateUrl: 'myModalContent.html',
+                    controller: ModalCoursesController
+                });
+            };
+        };
+    }]);
 
+    function ModalCoursesController ($scope, $http, $modalInstance) {
+        $scope.ok = function () {
+            console.log($scope.name);
+            $modalInstance.close();
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    };
+
+    module.controller('ModalCoursesController', ['$scope', '$http', ModalCoursesController]);
 
 })();
