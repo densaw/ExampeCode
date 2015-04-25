@@ -45,6 +45,7 @@ namespace PmaPlus.Services.Services
         {
             if (skillLevel.Id != 0)
             {
+                skillLevel.Id = id;
                 _skillLevelRepository.Update(skillLevel, id);
             }
         }
@@ -64,15 +65,39 @@ namespace PmaPlus.Services.Services
             return _skillVideoRepository.GetMany(s => s.SkillLevel.Id == id);
         }
 
-        public void AddSkillVideo(SkillVideo skillVideo, int id)
+        public SkillVideo AddSkillVideo(SkillVideo skillVideo, int id)
         {
 
             skillVideo.SkillLevel = _skillLevelRepository.GetById(id);
             if (skillVideo.SkillLevel != null)
             {
-                _skillVideoRepository.Add(skillVideo);
+               return _skillVideoRepository.Add(skillVideo);
+            }
+            return null;
+        }
+
+        public SkillVideo GetSkillVideoById(int id)
+        {
+            return _skillVideoRepository.GetById(id);
+        }
+
+        public bool SkillVideoExist(int id)
+        {
+            return _skillVideoRepository.GetMany(s => s.Id == id).Any();
+        }
+        public void UpdateSkillVideo(SkillVideo skillVideo, int id)
+        {
+            if (id != 0)
+            {
+                skillVideo.Id = id;
+                _skillVideoRepository.Update(skillVideo,id);
             }
         }
         #endregion
+
+        public void DeleteSkillVideo(int id)
+        {
+            _skillVideoRepository.Delete(s => s.Id == id);
+        }
     }
 }

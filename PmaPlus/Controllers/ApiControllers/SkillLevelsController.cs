@@ -24,20 +24,20 @@ namespace PmaPlus.Controllers.ApiControllers
 
 
         [Route("api/SkillLevels/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public IHttpActionResult Get(int pageSize, int pageNumber, string orderBy = "")
+        public SkillLevelPage Get(int pageSize, int pageNumber, string orderBy = "")
         {
             var count = _skillServices.GetSkillLevels().Count();
-            var pages = Math.Ceiling((double)count / pageSize);
-            var items = _skillServices.GetSkillLevels().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+            var pages = (int)Math.Ceiling((double)count / pageSize);
+            var skillLevels = _skillServices.GetSkillLevels().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+            var items = Mapper.Map<IQueryable<SkillLevel>,IQueryable<SkillLevelViewModel>>(skillLevels);
 
-            var result = new
+            return new SkillLevelPage()
             {
                 Count = count,
                 Pages = pages,
                 Items = items
             };
 
-            return Ok(result);
         }
 
         // GET: api/SkillLevel

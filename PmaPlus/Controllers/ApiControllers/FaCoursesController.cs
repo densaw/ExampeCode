@@ -13,6 +13,7 @@ using PmaPlus.Model.Models;
 using PmaPlus.Services.Services;
 using System.Web.OData.Query;
 using PmaPlus.Data;
+using PmaPlus.Model.ViewModels;
 
 namespace PmaPlus.Controllers
 {
@@ -26,20 +27,19 @@ namespace PmaPlus.Controllers
 
         // GET: api/Clubs/pageSize/pageNumber/orderBy(optional) 
         [Route("api/FaCourses/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public IHttpActionResult Get(int pageSize, int pageNumber, string orderBy = "")
+        public FaCoursePage Get(int pageSize, int pageNumber, string orderBy = "")
         {
             var count = _faCourseServices.GetFaCourses().Count();
-            var pages = Math.Ceiling((double)count / pageSize);
+            var pages = (int)Math.Ceiling((double)count / pageSize);
             var items = _faCourseServices.GetFaCourses().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
 
-            var result = new
+            return new FaCoursePage()
             {
                 Count = count,
                 Pages = pages,
                 Items = items
             };
 
-            return Ok(result);
         }
 
       

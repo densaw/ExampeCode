@@ -49,6 +49,7 @@
     <Compile Include="Services\ClubServices.cs" />
     <Compile Include="Services\CurriculumServices.cs" />
     <Compile Include="Services\FACourseServices.cs" />
+    <Compile Include="Services\PhysiotherapyServices.cs" />
     <Compile Include="Services\PlayerServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SkillServices.cs" />

@@ -36,7 +36,7 @@ namespace PmaPlus.Services
             _addressRepository = addressRepository;
         }
 
-        public IEnumerable<ClubTableViewModel> GetClubsTableViewModels()
+        public IQueryable<ClubTableViewModel> GetClubsTableViewModels()
         {
             var clubs = from club in _clubRepository.GetAll()
                         select new ClubTableViewModel()

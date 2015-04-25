@@ -24,44 +24,60 @@ namespace PmaPlus.Controllers.ApiControllers
 
         
         [Route("api/SkillVideos/{skillLevelId:int}/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public IHttpActionResult Get(int skillLevelId, int pageSize, int pageNumber, string orderBy = "")
+        public SkillVideoPage Get(int skillLevelId, int pageSize, int pageNumber, string orderBy = "")
         {
             var count = _skillServices.GetSkillVideosForSlillLevel(skillLevelId).Count();
-            var pages = Math.Ceiling((double)count / pageSize);
+            var pages = (int)Math.Ceiling((double)count / pageSize);
             var skillVideos = _skillServices.GetSkillVideosForSlillLevel(skillLevelId)
                     .OrderQuery(orderBy, f => f.Id)
                     .Paged(pageNumber, pageSize);
 
             var items = Mapper.Map<IQueryable<SkillVideo>, IQueryable<SkillVideoTableViewModel>>(skillVideos);
 
-            var result = new
+           return new SkillVideoPage()
             {
                 Count = count,
                 Pages = pages,
                 Items = items
             };
-            return Ok(result);
         }
 
         // GET: api/SkillVideo/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        public SkillVideoViewModel Get(int id)
+        {
+            return Mapper.Map<SkillVideo, SkillVideoViewModel>(_skillServices.GetSkillVideoById(id));
+        }
 
         // POST: api/SkillVideo
-        public void Post([FromBody]string value)
+        public IHttpActionResult Post(int id,[FromBody]SkillVideoViewModel skillVideoViewModel)
         {
+            var skillVideo = Mapper.Map<SkillVideoViewModel, SkillVideo>(skillVideoViewModel);
+            var newSkillVideo = _skillServices.AddSkillVideo(skillVideo,id);
+            return Created(Request.RequestUri + newSkillVideo.Id.ToString(), newSkillVideo);
+
         }
 
         // PUT: api/SkillVideo/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody]SkillVideoViewModel skillVideoViewModel)
         {
+            if (!_skillServices.SkillVideoExist(id))
+            {
+                return NotFound();
+            }
+            var skillVideo = Mapper.Map<SkillVideoViewModel, SkillVideo>(skillVideoViewModel);
+            _skillServices.UpdateSkillVideo(skillVideo, id);
+            return Ok();
         }
 
         // DELETE: api/SkillVideo/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            if (!_skillServices.SkillVideoExist(id))
+            {
+                return NotFound();
+            }
+            _skillServices.DeleteSkillVideo(id);
+            return Ok();
         }
     }
 }
