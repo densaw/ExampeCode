@@ -63,7 +63,7 @@ namespace PmaPlus.Controllers.ApiControllers
         // PUT: api/SkillLevel/5
         public IHttpActionResult Put(int id, [FromBody]SkillLevelViewModel skillLevelViewModel)
         {
-            if (_skillServices.SkillLevelExist(id))
+            if (!_skillServices.SkillLevelExist(id))
             {
                 return NotFound();
             }

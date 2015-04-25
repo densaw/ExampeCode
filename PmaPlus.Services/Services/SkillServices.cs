@@ -57,15 +57,16 @@ namespace PmaPlus.Services.Services
         #endregion
 
 
-        #region Skills
+        #region SkillVideos
 
-        public IQueryable<SkillVideo> GetSkillsForSlillLevel(int id)
+        public IQueryable<SkillVideo> GetSkillVideosForSlillLevel(int id)
         {
             return _skillVideoRepository.GetMany(s => s.SkillLevel.Id == id);
         }
 
-        public void AddSkill(SkillVideo skillVideo, int id)
+        public void AddSkillVideo(SkillVideo skillVideo, int id)
         {
+
             skillVideo.SkillLevel = _skillLevelRepository.GetById(id);
             if (skillVideo.SkillLevel != null)
             {

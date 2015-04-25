@@ -16,6 +16,9 @@ namespace PmaPlus.Mapping
         {
             Mapper.CreateMap<CurriculumType, CurriculumTypeViewModel>();
             Mapper.CreateMap<SkillLevel, SkillLevelViewModel>();
+            Mapper.CreateMap<SkillVideo, SkillVideoTableViewModel>()
+                .ForMember(dest => dest.TrainingItemName, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Time, opt => opt.MapFrom(src => src.Duration));
 
 
         }

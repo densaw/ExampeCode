@@ -16,6 +16,7 @@ namespace PmaPlus.Mapping
         {
             Mapper.CreateMap<CurriculumTypeViewModel, CurriculumType>();
             Mapper.CreateMap<SkillLevelViewModel, SkillLevel>();
+            Mapper.CreateMap<SkillVideoViewModel, SkillVideo>();
 
 
         }
