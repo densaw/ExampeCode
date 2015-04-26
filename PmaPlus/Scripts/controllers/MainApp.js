@@ -159,17 +159,36 @@
         }
     }]);
     module.controller('ModalWindowController', ['$scope', '$modal', function ($scope, $modal) {
+
+        $scope.name;
+        $scope.count;
+        $scope.description;
+
         $scope.open = function () {
             $scope.open = function () {
                 var modalInstance = $modal.open({
                     templateUrl: 'myModalContent.html',
-                    controller: ModalCoursesController
+                    controller: ModalCoursesController,
+                    resolve: {
+                        name:function() {
+                            return $scope.name;
+                        },
+                        count:function() {
+                            return $scope.count;
+                        },
+                        description:function() {
+                            return $scope.description;
+                        }
+                    }
+                        
                 });
+
+
             };
         };
     }]);
 
-    function ModalCoursesController ($scope, $http, $modalInstance) {
+    function ModalCoursesController($scope, $http, $modalInstance, name, count, description) {
         $scope.ok = function () {
             console.log($scope.name);
             $modalInstance.close();
