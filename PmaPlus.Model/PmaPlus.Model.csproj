@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\BodyPartType.cs" />
     <Compile Include="Enums\ClubStatus.cs" />
     <Compile Include="Enums\PlayerStatus.cs" />
     <Compile Include="Models\ActivityStatusChange.cs" />
@@ -106,11 +107,27 @@
     <Compile Include="Models\WelfareOfficer.cs" />
     <Compile Include="ViewModels\ActivePlayersForLastYearViewModel.cs" />
     <Compile Include="ViewModels\Club\AddClubViewModel.cs" />
+    <Compile Include="ViewModels\Club\ClubPage.cs" />
     <Compile Include="ViewModels\Club\ClubTableViewModel.cs" />
+    <Compile Include="ViewModels\Curriculum\CurriculumTypePage.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumTypesTableViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumTypeViewModel.cs" />
+    <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
+    <Compile Include="ViewModels\Nutrition\NutritionFoodTypeTableViewModel.cs" />
+    <Compile Include="ViewModels\Nutrition\NutritionFoodTypeViewModel.cs" />
+    <Compile Include="ViewModels\Page.cs" />
+    <Compile Include="ViewModels\Physio\BodyPartPage.cs" />
+    <Compile Include="ViewModels\Physio\PhysioBodyPartTableViewModel.cs" />
+    <Compile Include="ViewModels\Physio\PhysioBodyPartViewModel.cs" />
+    <Compile Include="ViewModels\Physio\PhysioExercisePage.cs" />
+    <Compile Include="ViewModels\Physio\PhysiotherapyExerciseTableViewModel.cs" />
+    <Compile Include="ViewModels\Physio\PhysiotherapyExerciseViewModel.cs" />
+    <Compile Include="ViewModels\Skill\SkillLevelPage.cs" />
     <Compile Include="ViewModels\Skill\SkillLevelViewModel.cs" />
+    <Compile Include="ViewModels\Skill\SkillVideoPage.cs" />
+    <Compile Include="ViewModels\Skill\SkillVideoTableViewModel.cs" />
+    <Compile Include="ViewModels\Skill\SkillVideoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -30,6 +30,10 @@ namespace PmaPlus.Data.Repository
         }
         public virtual T Add(T entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
             var newEntity = _dbset.Add(entity);
             _dataBaseContext.SaveChanges();
             return newEntity;

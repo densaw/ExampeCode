@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using PmaPlus.Data;
 using PmaPlus.Model;
 using PmaPlus.Model.ViewModels.Club;
+using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Services;
 
 namespace PmaPlus.Controllers.ApiControllers
@@ -17,6 +19,22 @@ namespace PmaPlus.Controllers.ApiControllers
         public ClubsController(ClubServices clubServices)
         {
             _clubServices = clubServices;
+        }
+
+        [Route("api/Clubs/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
+        public ClubPage Get(int pageSize, int pageNumber, string orderBy = "")
+        {
+            var count = _clubServices.GetClubsTableViewModels().Count();
+            var pages = (int)Math.Ceiling((double)count / pageSize);
+            var items = _clubServices.GetClubsTableViewModels().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+
+            return new ClubPage()
+            {
+                Count = count,
+                Pages = pages,
+                Items = items
+            };
+
         }
 
         // GET: api/Clubs

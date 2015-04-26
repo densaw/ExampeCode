@@ -1,30 +1,30 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PmaPlus.Model.Models
+namespace PmaPlus.Model.ViewModels
 {
-    public  class NutritionFoodType
+    public class NutritionFoodTypeViewModel
     {
-       
-      
         public int Id { get; set; }
+        [Required]
         public FoodType Type { get; set; }
+        [Required]
         public string FoodName { get; set; }
+        [Required]
         public MealTime When { get; set; }
 
+        [Required]
         public string GoodFor { get; set; }
 
-       
         public string PortionSize { get; set; }
 
+        [Required]
         public string Description { get; set; }
+        [Required]
         public string Picture { get; set; }
 
-        
         public decimal Calories { get; set; }
 
-       
         public decimal CaloriesFromFat { get; set; }
-
 
         public decimal TotalFat { get; set; }
 

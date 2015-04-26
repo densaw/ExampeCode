@@ -27,20 +27,19 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         [Route("api/CurriculumTypes/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public IHttpActionResult Get(int pageSize, int pageNumber, string orderBy = "")
+        public CurriculumTypePage Get(int pageSize, int pageNumber, string orderBy = "")
         {
             var count = _curriculumServices.GetCurriculumTypes().Count();
-            var pages = Math.Ceiling((double)count / pageSize);
+            var pages = (int)Math.Ceiling((double)count / pageSize);
             var items = _curriculumServices.GetCurriculumTypes().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
 
-            var result = new
-            {
-                Count = count,
-                Pages = pages,
-                Items = items
-            };
+            return new CurriculumTypePage()
+                        {
+                            Count = count,
+                            Pages = pages,
+                            Items = items
+                        };
 
-            return Ok(result);
         }
 
         // GET: api/CurriculumTypes/5
@@ -67,7 +66,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
 
             var curriculumType = Mapper.Map<CurriculumTypeViewModel, CurriculumType>(curriculumTypeViewModel);
-            _curriculumServices.UpdateCurriculumTypes(curriculumType,id);
+            _curriculumServices.UpdateCurriculumTypes(curriculumType, id);
             return Ok();
         }
 

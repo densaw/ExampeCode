@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using PmaPlus.Model.Models;
+using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Curriculum;
+using PmaPlus.Model.ViewModels.Physio;
 using PmaPlus.Model.ViewModels.Skill;
 
 namespace PmaPlus.Mapping
@@ -16,7 +18,13 @@ namespace PmaPlus.Mapping
         {
             Mapper.CreateMap<CurriculumTypeViewModel, CurriculumType>();
             Mapper.CreateMap<SkillLevelViewModel, SkillLevel>();
+            Mapper.CreateMap<SkillVideoViewModel, SkillVideo>();
 
+            Mapper.CreateMap<PhysioBodyPartViewModel, BodyPart>();
+
+            Mapper.CreateMap<PhysioBodyPartViewModel, PhysiotherapyExercise>();
+
+            Mapper.CreateMap<NutritionFoodTypeViewModel, NutritionFoodType>();
 
         }
     }
