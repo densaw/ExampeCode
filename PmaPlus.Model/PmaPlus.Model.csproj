@@ -115,8 +115,10 @@
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
     <Compile Include="ViewModels\Page.cs" />
+    <Compile Include="ViewModels\Physio\BodyPartPage.cs" />
     <Compile Include="ViewModels\Physio\PhysioBodyPartTableViewModel.cs" />
     <Compile Include="ViewModels\Physio\PhysioBodyPartViewModel.cs" />
+    <Compile Include="ViewModels\Physio\PhysioExercisePage.cs" />
     <Compile Include="ViewModels\Physio\PhysiotherapyExerciseTableViewModel.cs" />
     <Compile Include="ViewModels\Physio\PhysiotherapyExerciseViewModel.cs" />
     <Compile Include="ViewModels\Skill\SkillLevelPage.cs" />

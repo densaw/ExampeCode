@@ -43,7 +43,7 @@ namespace PmaPlus.Services.Services
 
         public void UpdateSkillLevel(SkillLevel skillLevel, int id)
         {
-            if (skillLevel.Id != 0)
+            if (id != 0)
             {
                 skillLevel.Id = id;
                 _skillLevelRepository.Update(skillLevel, id);

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Curriculum;
+using PmaPlus.Model.ViewModels.Physio;
 using PmaPlus.Model.ViewModels.Skill;
 
 namespace PmaPlus.Mapping
@@ -20,6 +21,11 @@ namespace PmaPlus.Mapping
                 .ForMember(dest => dest.TrainingItemName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Time, opt => opt.MapFrom(src => src.Duration));
 
+            Mapper.CreateMap<BodyPart, PhysioBodyPartTableViewModel>();
+            Mapper.CreateMap<BodyPart, PhysioBodyPartViewModel>();
+
+            Mapper.CreateMap<PhysiotherapyExercise, PhysioBodyPartTableViewModel>();
+            Mapper.CreateMap<PhysiotherapyExercise, PhysioBodyPartViewModel>();
 
         }
     }
