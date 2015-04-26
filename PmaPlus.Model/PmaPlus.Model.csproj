@@ -114,6 +114,8 @@
     <Compile Include="ViewModels\Curriculum\CurriculumTypeViewModel.cs" />
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
+    <Compile Include="ViewModels\Nutrition\NutritionFoodTypeTableViewModel.cs" />
+    <Compile Include="ViewModels\Nutrition\NutritionFoodTypeViewModel.cs" />
     <Compile Include="ViewModels\Page.cs" />
     <Compile Include="ViewModels\Physio\BodyPartPage.cs" />
     <Compile Include="ViewModels\Physio\PhysioBodyPartTableViewModel.cs" />
