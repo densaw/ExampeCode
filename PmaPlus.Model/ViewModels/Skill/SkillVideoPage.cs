@@ -8,6 +8,6 @@ namespace PmaPlus.Model.ViewModels.Skill
 {
     public class SkillVideoPage : Page
     {
-        public IQueryable<SkillVideoTableViewModel> Items { get; set; }
+        public IEnumerable<SkillVideoTableViewModel> Items { get; set; }
     }
 }

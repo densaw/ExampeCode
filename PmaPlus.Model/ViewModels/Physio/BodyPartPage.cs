@@ -8,6 +8,6 @@ namespace PmaPlus.Model.ViewModels.Physio
 {
     public class BodyPartPage : Page
     {
-        public IQueryable<PhysioBodyPartTableViewModel> Items { get; set; }
+        public IEnumerable<PhysioBodyPartTableViewModel> Items { get; set; }
     }
 }

@@ -18,7 +18,10 @@ namespace PmaPlus.Mapping
         protected override void Configure()
         {
             Mapper.CreateMap<CurriculumType, CurriculumTypeViewModel>();
+
             Mapper.CreateMap<SkillLevel, SkillLevelViewModel>();
+
+            Mapper.CreateMap<SkillVideo, SkillVideoViewModel>();
             Mapper.CreateMap<SkillVideo, SkillVideoTableViewModel>()
                 .ForMember(dest => dest.TrainingItemName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Time, opt => opt.MapFrom(src => src.Duration));
@@ -26,11 +29,17 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<BodyPart, PhysioBodyPartTableViewModel>();
             Mapper.CreateMap<BodyPart, PhysioBodyPartViewModel>();
 
-            Mapper.CreateMap<PhysiotherapyExercise, PhysioBodyPartTableViewModel>();
-            Mapper.CreateMap<PhysiotherapyExercise, PhysioBodyPartViewModel>();
+            Mapper.CreateMap<PhysiotherapyExercise, PhysiotherapyExerciseTableViewModel>();
+            Mapper.CreateMap<PhysiotherapyExercise, PhysiotherapyExerciseViewModel>();
 
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeViewModel>();
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeTableViewModel>();
+
+            Mapper.CreateMap<NutritionAlternative, NutritionAlternativeViewModel>();
+            Mapper.CreateMap<NutritionAlternative, NutritionAlternativeTableViewModel>();
+
+            Mapper.CreateMap<NutritionRecipe, NutritionRecipeViewModel>();
+            Mapper.CreateMap<NutritionRecipe, NutritionRecipeTableViewModel>();
 
         }
     }

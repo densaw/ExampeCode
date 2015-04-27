@@ -27,7 +27,7 @@ namespace PmaPlus.Controllers.ApiControllers
             var count = _physiotherapyServices.GetExercises().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var exercises = _physiotherapyServices.GetExercises().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
-            var items = Mapper.Map<IQueryable<PhysiotherapyExercise>, IQueryable<PhysiotherapyExerciseTableViewModel>>(exercises);
+            var items = Mapper.Map<IEnumerable<PhysiotherapyExercise>, IEnumerable<PhysiotherapyExerciseTableViewModel>>(exercises);
 
             return new PhysioExercisePage()
             {
@@ -56,21 +56,21 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         // POST: api/PhysioBodyParts
-        public IHttpActionResult Post([FromBody]PhysiotherapyExerciseTableViewModel exerciseTableViewModel)
+        public IHttpActionResult Post([FromBody]PhysiotherapyExerciseViewModel exerciseTableViewModel)
         {
-            var exercise = Mapper.Map<PhysiotherapyExerciseTableViewModel, PhysiotherapyExercise>(exerciseTableViewModel);
+            var exercise = Mapper.Map<PhysiotherapyExerciseViewModel, PhysiotherapyExercise>(exerciseTableViewModel);
             var newExercise =_physiotherapyServices.AddExercise(exercise);
             return Created(Request.RequestUri + newExercise.Id.ToString(),newExercise);
         }
 
         // PUT: api/PhysioBodyParts/5
-        public IHttpActionResult Put(int id, [FromBody]PhysiotherapyExerciseTableViewModel exerciseTableViewModel)
+        public IHttpActionResult Put(int id, [FromBody]PhysiotherapyExerciseViewModel exerciseViewModel)
         {
             if (!_physiotherapyServices.ExerciseExist(id))
             {
                 return NotFound();
             }
-            var exercise = Mapper.Map<PhysiotherapyExerciseTableViewModel, PhysiotherapyExercise>(exerciseTableViewModel);
+            var exercise = Mapper.Map<PhysiotherapyExerciseViewModel, PhysiotherapyExercise>(exerciseViewModel);
             _physiotherapyServices.UpdateExercise(exercise, id);
             return Ok();
 

@@ -32,7 +32,7 @@ namespace PmaPlus.Controllers.ApiControllers
                     .OrderQuery(orderBy, f => f.Id)
                     .Paged(pageNumber, pageSize);
 
-            var items = Mapper.Map<IQueryable<SkillVideo>, IQueryable<SkillVideoTableViewModel>>(skillVideos);
+            var items = Mapper.Map<IEnumerable<SkillVideo>, IEnumerable<SkillVideoTableViewModel>>(skillVideos);
 
            return new SkillVideoPage()
             {
@@ -53,7 +53,8 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             var skillVideo = Mapper.Map<SkillVideoViewModel, SkillVideo>(skillVideoViewModel);
             var newSkillVideo = _skillServices.AddSkillVideo(skillVideo,id);
-            return Created(Request.RequestUri + newSkillVideo.Id.ToString(), newSkillVideo);
+            var newSkillVideoViewModel = Mapper.Map<SkillVideo, SkillVideoViewModel>(newSkillVideo);
+            return Created(Request.RequestUri + newSkillVideo.Id.ToString(), newSkillVideoViewModel);
 
         }
 
