@@ -2866,6 +2866,8 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\Empty.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Home\Clubs.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Home\CurriculumTypes.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -2885,6 +2887,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\plugins\blueimp\jquery.blueimp-gallery.min.js" />
+    <Content Include="Scripts\plugins\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\plugins\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\plugins\chartJs\Chart.min.js" />
     <Content Include="Scripts\plugins\chartJs\ng-sparkline-seriesbar.js" />
     <Content Include="Scripts\plugins\chartJs\tc.ngular.chartjs.min.js" />
@@ -3266,6 +3270,8 @@
     <Content Include="Scripts\plugins\morris\morris.js" />
     <Content Include="Scripts\plugins\morris\raphael-2.1.0.min.js" />
     <Content Include="Scripts\plugins\nestable\jquery.nestable.js" />
+    <Content Include="Scripts\plugins\ng-dialog\ngDialog.js" />
+    <Content Include="Scripts\plugins\ng-dialog\ngDialog.min.js" />
     <Content Include="Scripts\plugins\nouslider\jquery.nouislider.min.js" />
     <Content Include="Scripts\plugins\pace\pace.min.js" />
     <Content Include="Scripts\plugins\pagination\dirPagination.js" />

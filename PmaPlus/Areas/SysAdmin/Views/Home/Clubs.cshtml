@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "Clubs";
+    Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Club Clients</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a>Home</a>
+            </li>
+            <li class="active">
+                <strong>Club Clients</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a class="btn btn-primary" data-toggle="modal" data-target="#addClubModal">Add a Club</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12" style="margin-top: 10px;">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>FaCourses</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user"></ul>
+                        <a>
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" ng-controller="ClubsController">
+                    @*Modal*@
+                    <div class="modal inmodal" id="addClubModal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content animated bounceInRight">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h3 class="modal-title">Add a Course</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Club Name:</label> <input ng-model="newClub.name" placeholder="Enter name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Club Logo:</label> <input ng-model="newClub.duration" placeholder="Enter Duration" class="form-control">
+                                    </div>
+                                    <div class="dropdown">
+                                        <button id="clubDd" class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                            Dropdown
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Active</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Blocked</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Closed</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Club Administrator Name:</label> <input ng-model="newClub.description" placeholder="Enter Description" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ClubAdmin Username:</label> <input ng-model="newClub.description" placeholder="Enter Description" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ClubAdmin Password:</label> <input ng-model="newClub.description" placeholder="Enter Description" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Club Background:</label> <input ng-model="newClub.description" placeholder="Enter Description" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Established:</label> <input ng-model="newClub.description" placeholder="Enter Description" class="form-control">
+                                    </div>
+                                    <input type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                    <button ng-click="ok()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*Modal End*@
+                    <div class="row">
+                        <div class="col-sm-9 m-b-xs">
+                            <div data-toggle="buttons" class="btn-group">
+                                <label ng-click="coursePerPage = 10" class="btn btn-sm btn-white active"> <input type="radio" id="option1" name="options"> 10 </label>
+                                <label ng-click="coursePerPage = 20" class="btn btn-sm btn-white"> <input type="radio" id="option2" name="options"> 20 </label>
+                                <label ng-click="coursePerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name </th>
+                                <th>TownCity </th>
+                                <th>Coaches </th>
+                                <th>Players</th>
+                                <th>PiPay </th>
+                                <th>LastLogin </th>
+                                <th>Status </th>
+                            </tr>
+                            </thead>
+                            <tbody id="contentTable">
+                            <tr dir-paginate="club in clubs | filter:q | itemsPerPage: clubsPerPage" total-items="totalClubs">
+                                <td>{{course.id}}</td>
+                                <td>{{course.name}}</td>
+                                <td>{{course.townCity}}</td>
+                                <td>{{course.coaches}}</td>
+                                <td>{{course.players}}</td>
+                                <td>{{course.piPay}}</td>
+                                <td>{{course.lastLogin}}</td>
+                                <td>{{course.status}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".dropdown-menu li a").click(function() {
+        var selText = $(this).text();
+        $('#clubDd').html(selText + ' <span class="caret"></span>');
+    });
+</script>
+<style>
+    .btn-default {
+  background-color: #FFFFFF;
+  border-color: #c2c2c2;
+  color: #FFFFFF;
+}
+</style>

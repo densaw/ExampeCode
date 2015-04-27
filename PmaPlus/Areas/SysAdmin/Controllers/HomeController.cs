@@ -23,7 +23,12 @@ namespace PmaPlus.Areas.SysAdmin.Controllers
 
         public ActionResult Clubs()
         {
-            return Empty(RouteData);
+            return View();
+        }
+
+        public ActionResult CurriculumTypes()
+        {
+            return View();
         }
 
         public ActionResult Empty(RouteData rd)
