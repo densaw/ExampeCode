@@ -17,10 +17,8 @@ namespace PmaPlus.Model.ViewModels.Skill
         [Range(0,100)]
         public int Duration { get; set; }
         [Required]
-        [Range(0, 100)]    
         public string VideoLink { get; set; }
         [Required]
-        [Range(0, 100)]
         public string Description { get; set; }
         [Required]
         [Range(0, 100)]

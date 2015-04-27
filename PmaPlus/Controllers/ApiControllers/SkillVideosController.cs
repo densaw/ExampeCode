@@ -53,7 +53,8 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             var skillVideo = Mapper.Map<SkillVideoViewModel, SkillVideo>(skillVideoViewModel);
             var newSkillVideo = _skillServices.AddSkillVideo(skillVideo,id);
-            return Created(Request.RequestUri + newSkillVideo.Id.ToString(), newSkillVideo);
+            var newSkillVideoViewModel = Mapper.Map<SkillVideo, SkillVideoViewModel>(newSkillVideo);
+            return Created(Request.RequestUri + newSkillVideo.Id.ToString(), newSkillVideoViewModel);
 
         }
 
