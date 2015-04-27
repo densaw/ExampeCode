@@ -28,8 +28,8 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             var count = _skillServices.GetSkillLevels().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var skillLevels = _skillServices.GetSkillLevels().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
-            var items = Mapper.Map<IQueryable<SkillLevel>,IQueryable<SkillLevelViewModel>>(skillLevels);
+            var skillLevels = _skillServices.GetSkillLevels().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
+            var items = Mapper.Map<IEnumerable<SkillLevel>, IEnumerable<SkillLevelViewModel>>(skillLevels);
 
             return new SkillLevelPage()
             {
@@ -41,9 +41,9 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         // GET: api/SkillLevel
-        public IQueryable<SkillLevelViewModel> Get()
+        public IEnumerable<SkillLevelViewModel> Get()
         {
-            return Mapper.Map<IQueryable<SkillLevel>, IQueryable<SkillLevelViewModel>>(_skillServices.GetSkillLevels());
+            return Mapper.Map<IEnumerable<SkillLevel>, IEnumerable<SkillLevelViewModel>>(_skillServices.GetSkillLevels());
         }
 
         // GET: api/SkillLevel/5

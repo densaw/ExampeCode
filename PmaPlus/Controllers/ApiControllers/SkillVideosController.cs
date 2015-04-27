@@ -32,7 +32,7 @@ namespace PmaPlus.Controllers.ApiControllers
                     .OrderQuery(orderBy, f => f.Id)
                     .Paged(pageNumber, pageSize);
 
-            var items = Mapper.Map<IQueryable<SkillVideo>, IQueryable<SkillVideoTableViewModel>>(skillVideos);
+            var items = Mapper.Map<IEnumerable<SkillVideo>, IEnumerable<SkillVideoTableViewModel>>(skillVideos);
 
            return new SkillVideoPage()
             {

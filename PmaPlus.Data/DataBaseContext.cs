@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using PmaPlus.Data.Migrations;
 using PmaPlus.Model;
 using PmaPlus.Model.Models;
 
@@ -48,6 +49,8 @@ namespace PmaPlus.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataBaseContext,Configuration>());
+
             modelBuilder.Entity<Club>()
                 .HasOptional(c => c.ClubAdmin)
                 .WithOptionalDependent()

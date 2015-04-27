@@ -8,6 +8,6 @@ namespace PmaPlus.Model.ViewModels.Club
 {
     public class ClubPage : Page
     {
-        public IQueryable<ClubTableViewModel> Items { get; set; }
+        public IEnumerable<ClubTableViewModel> Items { get; set; }
     }
 }
