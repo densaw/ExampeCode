@@ -107,7 +107,44 @@ namespace PmaPlus.Services.Services
         #endregion
 
         #region Nutrition Recipes
+        public bool RecipeExist(int id)
+        {
+            return _nutritionRecipeRepository.GetMany(a => a.Id == id).Any();
+        }
 
+        public IQueryable<NutritionRecipe> GetRecipes()
+        {
+            return _nutritionRecipeRepository.GetAll();
+        }
+
+        public NutritionRecipe AddRecipe(NutritionRecipe recipe)
+        {
+            if (recipe == null)
+            {
+                return null;
+            }
+
+            return _nutritionRecipeRepository.Add(recipe);
+        }
+
+        public void UpdateRecipe(NutritionRecipe recipe, int id)
+        {
+            if (id != 0)
+            {
+                recipe.Id = id;
+                _nutritionRecipeRepository.Update(recipe, id);
+            }
+        }
+
+        public void DeleteRecipe(int id)
+        {
+            _nutritionRecipeRepository.Delete(f => f.Id == id);
+        }
+
+        public NutritionRecipe GetRecipeById(int id)
+        {
+            return _nutritionRecipeRepository.GetById(id);
+        }
 
 
         #endregion
