@@ -35,6 +35,9 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeViewModel>();
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeTableViewModel>();
 
+            Mapper.CreateMap<NutritionAlternative, NutritionAlternativeViewModel>();
+            Mapper.CreateMap<NutritionAlternative, NutritionAlternativeTableViewModel>();
+
         }
     }
 }

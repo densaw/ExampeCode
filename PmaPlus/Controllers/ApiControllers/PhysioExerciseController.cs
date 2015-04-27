@@ -27,7 +27,7 @@ namespace PmaPlus.Controllers.ApiControllers
             var count = _physiotherapyServices.GetExercises().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var exercises = _physiotherapyServices.GetExercises().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
-            var items = Mapper.Map<IQueryable<PhysiotherapyExercise>, IQueryable<PhysiotherapyExerciseTableViewModel>>(exercises);
+            var items = Mapper.Map<IEnumerable<PhysiotherapyExercise>, IEnumerable<PhysiotherapyExerciseTableViewModel>>(exercises);
 
             return new PhysioExercisePage()
             {

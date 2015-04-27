@@ -8,6 +8,6 @@ namespace PmaPlus.Model.ViewModels.Physio
 {
     public class PhysioExercisePage : Page
     {
-        public IQueryable<PhysiotherapyExerciseTableViewModel> Items { get; set; }
+        public IEnumerable<PhysiotherapyExerciseTableViewModel> Items { get; set; }
     }
 }

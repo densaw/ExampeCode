@@ -28,7 +28,7 @@ namespace PmaPlus.Controllers.ApiControllers
             var count = _physiotherapyServices.GetBodyParts().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var bodyParts = _physiotherapyServices.GetBodyParts().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
-            var items = Mapper.Map<IQueryable<BodyPart>,IQueryable<PhysioBodyPartTableViewModel>>(bodyParts);
+            var items = Mapper.Map<IEnumerable<BodyPart>, IEnumerable<PhysioBodyPartTableViewModel>>(bodyParts);
 
             return new BodyPartPage()
             {

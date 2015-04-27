@@ -236,6 +236,8 @@
     <Compile Include="Controllers\ApiControllers\CurriculumTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\DashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
+    <Compile Include="Controllers\ApiControllers\NutritionAlternativesController.cs" />
+    <Compile Include="Controllers\ApiControllers\NutritionFoodTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\PhysioBodyPartsController.cs" />
     <Compile Include="Controllers\ApiControllers\PhysioExerciseController.cs" />
     <Compile Include="Controllers\ApiControllers\SkillLevelsController.cs" />
