@@ -89,6 +89,7 @@
     <Compile Include="Model1.cs" />
     <Compile Include="Models\NutritionAlternative.cs" />
     <Compile Include="Models\NutritionFoodType.cs" />
+    <Compile Include="Models\NutritionRecipe.cs" />
     <Compile Include="Models\Physiotherapist.cs" />
     <Compile Include="Models\PhysiotherapyExercise.cs" />
     <Compile Include="Models\Player.cs" />
@@ -120,6 +121,8 @@
     <Compile Include="ViewModels\Nutrition\NutritionAlternativeViewModel.cs" />
     <Compile Include="ViewModels\Nutrition\NutritionFoodTypeTableViewModel.cs" />
     <Compile Include="ViewModels\Nutrition\NutritionFoodTypeViewModel.cs" />
+    <Compile Include="ViewModels\Nutrition\NutritionRecipeTableViewModel.cs" />
+    <Compile Include="ViewModels\Nutrition\NutritionRecipeViewModel.cs" />
     <Compile Include="ViewModels\Page.cs" />
     <Compile Include="ViewModels\Physio\BodyPartPage.cs" />
     <Compile Include="ViewModels\Physio\PhysioBodyPartTableViewModel.cs" />

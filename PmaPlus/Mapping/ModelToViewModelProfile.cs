@@ -29,14 +29,17 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<BodyPart, PhysioBodyPartTableViewModel>();
             Mapper.CreateMap<BodyPart, PhysioBodyPartViewModel>();
 
-            Mapper.CreateMap<PhysiotherapyExercise, PhysioBodyPartTableViewModel>();
-            Mapper.CreateMap<PhysiotherapyExercise, PhysioBodyPartViewModel>();
+            Mapper.CreateMap<PhysiotherapyExercise, PhysiotherapyExerciseTableViewModel>();
+            Mapper.CreateMap<PhysiotherapyExercise, PhysiotherapyExerciseViewModel>();
 
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeViewModel>();
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeTableViewModel>();
 
             Mapper.CreateMap<NutritionAlternative, NutritionAlternativeViewModel>();
             Mapper.CreateMap<NutritionAlternative, NutritionAlternativeTableViewModel>();
+
+            Mapper.CreateMap<NutritionRecipe, NutritionRecipeViewModel>();
+            Mapper.CreateMap<NutritionRecipe, NutritionRecipeTableViewModel>();
 
         }
     }

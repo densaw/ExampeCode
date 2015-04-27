@@ -30,6 +30,7 @@ namespace PmaPlus.Data
         public virtual DbSet<Match> Matches { get; set; }
         public virtual DbSet<NutritionAlternative> NutritionAlternatives { get; set; }
         public virtual DbSet<NutritionFoodType> NutritionFoodTypes { get; set; }
+        public virtual DbSet<NutritionRecipe> NutritionRecipes { get; set; } 
         public virtual DbSet<Physiotherapist> Physiotherapists { get; set; }
         public virtual DbSet<PhysiotherapyExercise> PhysiotherapyExercises { get; set; }
         public virtual DbSet<Player> Players { get; set; }

@@ -94,6 +94,7 @@
     <Compile Include="Repository\Iterfaces\IMatchRepository.cs" />
     <Compile Include="Repository\Iterfaces\INutritionAlternativeRepository.cs" />
     <Compile Include="Repository\Iterfaces\INutritionFoodTypeRepository.cs" />
+    <Compile Include="Repository\Iterfaces\INutritionRecipeRepository.cs" />
     <Compile Include="Repository\Iterfaces\IPhysiotherapistRepository.cs" />
     <Compile Include="Repository\Iterfaces\IPhysiotherapyExerciseRepository.cs" />
     <Compile Include="Repository\Iterfaces\IPlayerAttributeRepository.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Repository\MatchRepository.cs" />
     <Compile Include="Repository\NutritionAlternativeRepository.cs" />
     <Compile Include="Repository\NutritionFoodTypeRepository.cs" />
+    <Compile Include="Repository\NutritionRecipeRepository.cs" />
     <Compile Include="Repository\PhysiotherapistRepository.cs" />
     <Compile Include="Repository\PhysiotherapyExerciseRepository.cs" />
     <Compile Include="Repository\PlayerAttributeRepository.cs" />

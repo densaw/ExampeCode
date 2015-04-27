@@ -13,11 +13,13 @@ namespace PmaPlus.Services.Services
     {
         private readonly INutritionFoodTypeRepository _nutritionFoodTypeRepository;
         private readonly INutritionAlternativeRepository _nutritionAlternativeRepository;
+        private readonly INutritionRecipeRepository _nutritionRecipeRepository;
 
-        public NutritionServices(INutritionFoodTypeRepository nutritionFoodTypeRepository, INutritionAlternativeRepository nutritionAlternativeRepository)
+        public NutritionServices(INutritionFoodTypeRepository nutritionFoodTypeRepository, INutritionAlternativeRepository nutritionAlternativeRepository, INutritionRecipeRepository nutritionRecipeRepository)
         {
             _nutritionFoodTypeRepository = nutritionFoodTypeRepository;
             _nutritionAlternativeRepository = nutritionAlternativeRepository;
+            _nutritionRecipeRepository = nutritionRecipeRepository;
         }
 
         #region Nutrition Food Type 
@@ -102,6 +104,12 @@ namespace PmaPlus.Services.Services
         {
             return _nutritionAlternativeRepository.GetById(id);
         }
+        #endregion
+
+        #region Nutrition Recipes
+
+
+
         #endregion
     }
 }
