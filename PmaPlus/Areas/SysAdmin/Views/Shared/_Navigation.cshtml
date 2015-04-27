@@ -18,7 +18,7 @@
                 </div>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Dashbord")">
-                <a href="@Url.Action("Dashbord","Home",new{area="SysAdmin"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
+                <a href="@Url.Action("Dashbord","Home",new {area= "SysAdmin" })"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
                 
             </li>
             <li class="@Html.IsSelected(controller: "Home", action:"Clubs")">
@@ -28,10 +28,10 @@
                 <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-users"></i> <span class="nav-label">Clients</span></a>
                 
             </li>
-            <li class="@Html.IsSelected(controller: "Mailbox")">
-                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Curriculums</span><span class="fa arrow"></span></a>
+            <li class="@Html.IsSelected(controller: "Home", action: "CurriculumTypes")">
+                <a href="@Url.Action("CurriculumTypes", "Home", new { area = "SysAdmin" })"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Curriculums</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "Inbox")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Curriculum Type</a></li>
+                    <li class="@Html.IsSelected(action: "CurriculumTypes")"><a href="@Url.Action("CurriculumTypes", "Home", new { area = "SysAdmin" })">Curriculum Type</a></li>
                     </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "FaCourses")">

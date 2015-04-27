@@ -1,6 +1,7 @@
 ﻿(function () {
     var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap']);
 
+
     module.controller('ChartController', ['$scope', '$http', function ($scope, $http) {
         var monthNames = ['Jan',
             'Feb',
@@ -137,68 +138,108 @@
     }]);
     module.controller('FaCoursesController', ['$scope', '$http', function ($scope, $http) {
 
-        $scope.users = [];
-        $scope.totalUsers = 0;
-        $scope.usersPerPage = 10; // this should match however many results your API puts on one page
-        getResultsPage(1);
+        function getResultsPage(pageNumber) {
+            $http.get('/api/FaCourses/' + $scope.coursePerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.courses = result.items;
+                    $scope.totalCourses = result.count;
+                });
+        }
+
+        $scope.courses = [];
+        $scope.totalCourses = 0;
+        $scope.coursePerPage = 10; // this should match however many results your API puts on one page
+        
 
         $scope.pagination = {
             current: 1
         };
-
+        getResultsPage($scope.pagination.current);
         $scope.pageChanged = function (newPage) {
             getResultsPage(newPage);
         };
+        var target = angular.element('#addCurseModal');
+        $scope.ok = function () {
+            $http.post('/api/FaCourses', $scope.newCourse).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+        };
+
+    }]);
+
+    module.controller('ClubsController', ['$scope', '$http', function ($scope, $http) {
 
         function getResultsPage(pageNumber) {
-            $http.get('/api/FaCourses/' + $scope.usersPerPage + '/' + pageNumber)
+            $http.get('/api/Clubs/' + $scope.clubsPerPage + '/' + pageNumber)
                 .success(function (result) {
-                    $scope.users = result.items;
-                    $scope.totalUsers = result.count;
-            });
-        }
-    }]);
-    module.controller('ModalWindowController', ['$scope', '$modal', function ($scope, $modal) {
-
-        $scope.name;
-        $scope.count;
-        $scope.description;
-
-        $scope.open = function () {
-            $scope.open = function () {
-                var modalInstance = $modal.open({
-                    templateUrl: 'myModalContent.html',
-                    controller: ModalCoursesController,
-                    resolve: {
-                        name:function() {
-                            return $scope.name;
-                        },
-                        count:function() {
-                            return $scope.count;
-                        },
-                        description:function() {
-                            return $scope.description;
-                        }
-                    }
-                        
+                    $scope.clubs = result.items;
+                    $scope.totalClubs = result.count;
                 });
+        }
+
+        $scope.clubs = [];
+        $scope.totalClubs = 0;
+        $scope.clubsPerPage = 10; // this should match however many results your API puts on one page
 
 
-            };
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+        };
+        var target = angular.element('#addClubModal');
+        $scope.ok = function () {
+            $http.post('/api/FaCourses', $scope.newClub).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
         };
     }]);
 
-    function ModalCoursesController($scope, $http, $modalInstance, name, count, description) {
+    module.controller('CurriculumTypesController', ['$scope', '$http', function ($scope, $http) {
+
+        function getResultsPage(pageNumber) {
+            $http.get('/api/Clubs/' + $scope.clubsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.clubs = result.items;
+                    $scope.totalClubs = result.count;
+                });
+        }
+
+        $scope.clubs = [];
+        $scope.totalClubs = 0;
+        $scope.clubsPerPage = 10; // this should match however many results your API puts on one page
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+        };
+        var target = angular.element('#addClubModal');
         $scope.ok = function () {
-            console.log($scope.name);
-            $modalInstance.close();
+            $http.post('/api/FaCourses', $scope.newClub).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
+            target.modal('hide');
         };
-
         $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
+            target.modal('hide');
         };
-    };
-
-    module.controller('ModalCoursesController', ['$scope', '$http', ModalCoursesController]);
+    }]);
 
 })();
