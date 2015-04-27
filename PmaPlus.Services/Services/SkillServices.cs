@@ -90,6 +90,7 @@ namespace PmaPlus.Services.Services
             if (id != 0)
             {
                 skillVideo.Id = id;
+                skillVideo.SkillLevel = _skillVideoRepository.GetById(id).SkillLevel;
                 _skillVideoRepository.Update(skillVideo,id);
             }
         }
