@@ -8,6 +8,8 @@ using PmaPlus.Models;
 
 namespace PmaPlus.Areas.SysAdmin.Controllers
 {
+    
+
     [Authorize]
     public class HomeController : Controller
     {
