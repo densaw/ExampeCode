@@ -62,14 +62,26 @@
                                     <h3 class="modal-title">Add a Course</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="form-group">
-                                        <label>Course Name:</label> <input ng-model="newCourse.name" placeholder="Enter name" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Course Duration (Days):</label> <input ng-model="newCourse.duration" placeholder="Enter Duration" class="form-control">
-                                    </div>
-                                    <div class="form-group"><label>Description</label> <input ng-model="newCourse.description" placeholder="Enter Description" class="form-control">
-                                    </div>
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Course Name:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newCourse.name" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Course Duration:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newCourse.duration" placeholder="Days" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Description:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newCourse.description" class="form-control">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
