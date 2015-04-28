@@ -5,6 +5,7 @@ using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Model.ViewModels.Physio;
 using PmaPlus.Model.ViewModels.Skill;
+using PmaPlus.Model.ViewModels.SportsScience;
 
 namespace PmaPlus.Mapping
 {
@@ -32,6 +33,10 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<NutritionAlternativeViewModel,NutritionAlternative>();
 
             Mapper.CreateMap<NutritionRecipeViewModel, NutritionRecipe>();
+
+            Mapper.CreateMap<SportsScienceTestViewModel, SportsScienceTest>();
+
+            Mapper.CreateMap<SportsScienceExerciseViewModel, SportsScienceExercise>();
 
         }
     }

@@ -241,8 +241,11 @@
     <Compile Include="Controllers\ApiControllers\NutritionRecipesController.cs" />
     <Compile Include="Controllers\ApiControllers\PhysioBodyPartsController.cs" />
     <Compile Include="Controllers\ApiControllers\PhysioExerciseController.cs" />
+    <Compile Include="Controllers\ApiControllers\ScenariosController.cs" />
     <Compile Include="Controllers\ApiControllers\SkillLevelsController.cs" />
     <Compile Include="Controllers\ApiControllers\SkillVideosController.cs" />
+    <Compile Include="Controllers\ApiControllers\SportsScienceExercisesController.cs" />
+    <Compile Include="Controllers\ApiControllers\SportsScienceTestsController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
     <Compile Include="Filters\ValidateModelStateFilter.cs" />
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
