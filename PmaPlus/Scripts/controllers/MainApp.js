@@ -138,6 +138,8 @@
     }]);
     module.controller('FaCoursesController', ['$scope', '$http', function ($scope, $http) {
 
+        var needToDelete = -1;
+
         function getResultsPage(pageNumber) {
             $http.get('/api/FaCourses/' + $scope.coursePerPage + '/' + pageNumber)
                 .success(function (result) {
@@ -157,17 +159,35 @@
         getResultsPage($scope.pagination.current);
         $scope.pageChanged = function (newPage) {
             getResultsPage(newPage);
+            $scope.pagination.current = newPage;
         };
         var target = angular.element('#addCurseModal');
+        var confDelete = angular.element('#confDelete');
+        
         $scope.ok = function () {
             $http.post('/api/FaCourses', $scope.newCourse).success(function () {
                 getResultsPage($scope.pagination.current);
+                $scope.newCourse = { name: '', duration: '', description: '' };
                 target.modal('hide');
             });
             target.modal('hide');
         };
         $scope.cancel = function () {
             target.modal('hide');
+            confDelete.modal('hide');
+            needToDelete = -1;
+        };
+        $scope.openDelete = function(id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function() {
+            $http.delete('/api/FaCourses/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
         };
 
     }]);

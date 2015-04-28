@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")"/>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'>
     <!-- Add local styles, mostly for plugins css file -->
@@ -37,16 +38,8 @@
     
 </head>
 <body ng-app="MainApp" class="skin-1">
-
-   
-
-
-<!-- Wrapper-->
 <!-- PageClass give you ability to specify custom style for specific view based on action -->
 <div id="wrapper" class="@Html.PageClass()">
-
-
-
     <!-- Navigation -->
     @Html.Partial("_Navigation")
     <!-- Page wraper -->
@@ -65,10 +58,6 @@
     </div>
     <!-- End page wrapper-->
 </div>
-
-
-
-
 <!-- End wrapper-->
 <!-- Section for main scripts render -->
 
