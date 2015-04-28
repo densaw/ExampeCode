@@ -24,10 +24,6 @@
             <li class="@Html.IsSelected(controller: "Home", action:"Clubs")">
                 <a href="@Url.Action("Clubs", "Home", new { area = "SysAdmin" })"><i class="fa fa-university"></i> <span class="nav-label">Clubs</span></a>
             </li>
-            <li class="@Html.IsSelected(controller: "Graphs")">
-                <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-users"></i> <span class="nav-label">Clients</span></a>
-                
-            </li>
             <li class="@Html.IsSelected(controller: "Home", action: "CurriculumTypes")">
                 <a href="@Url.Action("CurriculumTypes", "Home", new { area = "SysAdmin" })"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Curriculums</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -59,7 +55,6 @@
             <li class="@Html.IsSelected(controller: "Miscellaneous")">
                 <a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })"><i class="fa fa-gears"></i> <span class="nav-label">Site Settings</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "Notification")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Charges</a></li>
                     <li class="@Html.IsSelected(action: "NestableList")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Targets</a></li>
                     <li class="@Html.IsSelected(action: "Timeline_second_version")"><a href="@Url.Action("Index", "Home", new { area = "SysAdmin" })">Login</a></li>
                     
