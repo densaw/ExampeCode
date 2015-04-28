@@ -135,7 +135,7 @@
                             <tr dir-paginate="course in courses | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
                                 <td>{{course.name}}</td>
                                 <td>{{course.duration}}</td>
-                                <td>{{course.description}}</td>
+                                <td style="max-width: 300px;">{{course.description}}</td>
                                 <td>
                                     <a ng-click="openDelete(course.id)" class="btn btn-primary">Delete</a>
                                 </td>
