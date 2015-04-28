@@ -19,11 +19,17 @@ namespace PmaPlus.Services
     public class UserServices
     {
         private readonly IUserRepository _userRepository;
+        private readonly IClubAdminRepository _clubAdminRepository;
 
-        public UserServices(IUserRepository userRepository)
+        public UserServices(IUserRepository userRepository, IClubAdminRepository clubAdminRepository)
         {
-
             _userRepository = userRepository;
+            _clubAdminRepository = clubAdminRepository;
+        }
+
+        public ClubAdmin GetClubAdminByUserName(string name)
+        {
+            return _clubAdminRepository.Get(a => a.User.UserName == name);
         }
 
         public InfoBoxViewModel GetUsersLoggedThisWeek(Role role = 0)

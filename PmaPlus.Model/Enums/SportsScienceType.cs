@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PmaPlus.Model
 {
-    public enum SportsScienceTestType
+    public enum SportsScienceType
     {
         Agility = 0,
         Fitness = 1,

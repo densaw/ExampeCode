@@ -101,6 +101,7 @@
     <Compile Include="Repository\Iterfaces\IPlayerInjuryRepository.cs" />
     <Compile Include="Repository\Iterfaces\IPlayerRepository.cs" />
     <Compile Include="Repository\Iterfaces\IRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IScenarioRepository.cs" />
     <Compile Include="Repository\Iterfaces\IScoutRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISkillLevelRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISkillVideoRepository.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Repository\PlayerAttributeRepository.cs" />
     <Compile Include="Repository\PlayerInjuryRepository.cs" />
     <Compile Include="Repository\PlayerRepository.cs" />
+    <Compile Include="Repository\ScenarioRepository.cs" />
     <Compile Include="Repository\ScoutRepository.cs" />
     <Compile Include="Repository\SkillLevelRepository.cs" />
     <Compile Include="Repository\SkillVideoRepository.cs" />
