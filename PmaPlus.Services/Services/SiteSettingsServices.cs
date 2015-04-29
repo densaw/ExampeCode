@@ -61,6 +61,9 @@ namespace PmaPlus.Services.Services
                 password.User = user;
                 password.LoggedAt = user.LoggedAt;
                 _passwordHistoryRepository.Add(password);
+                user.Password = password.Password;
+                user.UpdateAt = DateTime.Now;
+                _userServices.UpdateUser(user);
             }
         }
         #endregion

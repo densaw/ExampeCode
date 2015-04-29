@@ -37,6 +37,11 @@ namespace PmaPlus.Services
             return _userRepository.Get(u => u.Email == email);
         }
 
+        public void UpdateUser(User user)
+        {
+            _userRepository.Update(user,user.Id);
+        }
+
         public InfoBoxViewModel GetUsersLoggedThisWeek(Role role = 0)
         {
             int clubsThisWeek, clubsLastWeek;
