@@ -32,6 +32,11 @@ namespace PmaPlus.Services
             return _clubAdminRepository.Get(a => a.User.UserName == name);
         }
 
+        public User GetUserByEmail(string email)
+        {
+            return _userRepository.Get(u => u.Email == email);
+        }
+
         public InfoBoxViewModel GetUsersLoggedThisWeek(Role role = 0)
         {
             int clubsThisWeek, clubsLastWeek;

@@ -242,6 +242,7 @@
     <Compile Include="Controllers\ApiControllers\PhysioBodyPartsController.cs" />
     <Compile Include="Controllers\ApiControllers\PhysioExerciseController.cs" />
     <Compile Include="Controllers\ApiControllers\ScenariosController.cs" />
+    <Compile Include="Controllers\ApiControllers\SiteSettingsController.cs" />
     <Compile Include="Controllers\ApiControllers\SkillLevelsController.cs" />
     <Compile Include="Controllers\ApiControllers\SkillVideosController.cs" />
     <Compile Include="Controllers\ApiControllers\SportsScienceExercisesController.cs" />
