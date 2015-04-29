@@ -4,6 +4,7 @@ using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Model.ViewModels.Physio;
+using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.SportsScience;
 
@@ -47,6 +48,9 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<SportsScienceExercise, SportsScienceExerciseViewModel>();
             Mapper.CreateMap<SportsScienceExercise, SportsScienceExerciseTableViewModel>();
+
+            Mapper.CreateMap<TargetHistory, TargetHistoryTableViewModel>();
+            Mapper.CreateMap<TargetHistory, TargetViewModel>();
         }
     }
 }

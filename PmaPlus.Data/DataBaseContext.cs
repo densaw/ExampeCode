@@ -48,6 +48,8 @@ namespace PmaPlus.Data
         public virtual DbSet<SkillLevel> SkillLevels { get; set; }
         public virtual DbSet<SkillVideo> SkillsVideos { get; set; }
         public virtual DbSet<ActivityStatusChange> ActivityStatusChanges { get; set; }
+        public virtual DbSet<PasswordHistory> PasswordHistory { get; set; }
+        public virtual DbSet<TargetHistory> TargetHistories { get; set; } 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

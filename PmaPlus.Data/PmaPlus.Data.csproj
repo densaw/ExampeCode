@@ -95,6 +95,7 @@
     <Compile Include="Repository\Iterfaces\INutritionAlternativeRepository.cs" />
     <Compile Include="Repository\Iterfaces\INutritionFoodTypeRepository.cs" />
     <Compile Include="Repository\Iterfaces\INutritionRecipeRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IPasswordHistoryRepository.cs" />
     <Compile Include="Repository\Iterfaces\IPhysiotherapistRepository.cs" />
     <Compile Include="Repository\Iterfaces\IPhysiotherapyExerciseRepository.cs" />
     <Compile Include="Repository\Iterfaces\IPlayerAttributeRepository.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Repository\Iterfaces\ISportScientistRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISportsScienceExerciseRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISportsScienceTestRepository.cs" />
+    <Compile Include="Repository\Iterfaces\ITargetHistoryRepository.cs" />
     <Compile Include="Repository\Iterfaces\ITeamRepository.cs" />
     <Compile Include="Repository\Iterfaces\IUserDetailRepository.cs" />
     <Compile Include="Repository\Iterfaces\IUserRepository.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="Repository\NutritionAlternativeRepository.cs" />
     <Compile Include="Repository\NutritionFoodTypeRepository.cs" />
     <Compile Include="Repository\NutritionRecipeRepository.cs" />
+    <Compile Include="Repository\PasswordHistoryRepository.cs" />
     <Compile Include="Repository\PhysiotherapistRepository.cs" />
     <Compile Include="Repository\PhysiotherapyExerciseRepository.cs" />
     <Compile Include="Repository\PlayerAttributeRepository.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="Repository\SportScientistRepository.cs" />
     <Compile Include="Repository\SportsScienceExerciseRepository.cs" />
     <Compile Include="Repository\SportsScienceTestRepository.cs" />
+    <Compile Include="Repository\TargetHistoryRepository.cs" />
     <Compile Include="Repository\TeamRepository.cs" />
     <Compile Include="Repository\UserDetailRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
