@@ -52,41 +52,158 @@
                                     <h3 class="modal-title">Add a Club</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="form-group">
-                                        <label>Club Name:</label> <input ng-model="newClub.name" placeholder="Enter name" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Club Logo:</label> <input ng-model="newClub.duration" placeholder="Enter Duration" class="form-control">
-                                    </div>
-                                    <div class="dropdown">
-                                        <button id="clubDd" class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                            Dropdown
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Active</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Blocked</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Closed</a></li>
-                                        </ul>
-                                    </div>
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Club Name:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                            </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Club Logo:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
 
-                                    <div class="form-group">
-                                        <label>Club Administrator Name:</label> <input ng-model="newClub.description" placeholder="Enter Description" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>ClubAdmin Username:</label> <input ng-model="newClub.description" placeholder="Enter Description" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>ClubAdmin Password:</label> <input ng-model="newClub.description" placeholder="Enter Description" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Club Background:</label> <input ng-model="newClub.description" placeholder="Enter Description" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Established:</label> <input ng-model="newClub.description" placeholder="Enter Description" class="form-control">
-                                    </div>
-                                    <input type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                            </div>
+                                             </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Club Status:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" aria-label="...">
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                                            <li><a href="#">Active</a></li>
+                                                            <li><a href="#">Blocked</a></li>
+                                                            <li><a href="#">Closed</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
 
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Club Administrator Name:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+
+                                            </div>
+                                             </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">ClubAdmin Email:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+
+                                            </div>
+                                             </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">ClubAdmin Password:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+
+                                            </div>
+                                             </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Club Background:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input class="form-control">
+                                                </div>
+                                            </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Established:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Club Telephone:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Club Mobile:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Address 1:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Address 2:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Address 3:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Town\City:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Post Code:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Chairman:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Chairman Email:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Chairman Telephone:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Welfare Officer:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Welfare Officer Email:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Welfare Officer Telephone:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Club Colour Theme:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                   
                                 </div>
                                 <div class="modal-footer">
                                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
@@ -116,7 +233,6 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Name </th>
                                 <th>TownCity </th>
                                 <th>Coaches </th>
@@ -124,11 +240,11 @@
                                 <th>PiPay </th>
                                 <th>LastLogin </th>
                                 <th>Status </th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="contentTable">
                             <tr dir-paginate="club in clubs | filter:q | itemsPerPage: clubsPerPage" total-items="totalClubs">
-                                <td>{{course.id}}</td>
                                 <td>{{course.name}}</td>
                                 <td>{{course.townCity}}</td>
                                 <td>{{course.coaches}}</td>
@@ -136,6 +252,9 @@
                                 <td>{{course.piPay}}</td>
                                 <td>{{course.lastLogin}}</td>
                                 <td>{{course.status}}</td>
+                                <td>
+                                    <a ng-click="" class="btn btn-primary">Delete</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -156,8 +275,8 @@
 </script>
 <style>
     .btn-default {
-  background-color: #FFFFFF;
-  border-color: #c2c2c2;
-  color: #FFFFFF;
-}
+        background-color: #FFFFFF;
+        border-color: #c2c2c2;
+        color: #FFFFFF;
+    }
 </style>

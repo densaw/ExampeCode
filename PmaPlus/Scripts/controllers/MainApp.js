@@ -230,17 +230,19 @@
     module.controller('CurriculumTypesController', ['$scope', '$http', function ($scope, $http) {
 
         function getResultsPage(pageNumber) {
-            $http.get('/api/Clubs/' + $scope.clubsPerPage + '/' + pageNumber)
+            $http.get('/api/CurriculumTypes/' + $scope.curriculumsPerPage + '/' + pageNumber)
                 .success(function (result) {
-                    $scope.clubs = result.items;
-                    $scope.totalClubs = result.count;
+                console.log(result);
+                    $scope.curriculums = result.items;
+                    $scope.totalCurriculums = result.count;
                 });
         }
 
-        $scope.clubs = [];
-        $scope.totalClubs = 0;
-        $scope.clubsPerPage = 10; // this should match however many results your API puts on one page
+        $scope.сurriculums = [];
+        $scope.totalCurriculums = 0;
+        $scope.curriculumsPerPage = 10; // this should match however many results your API puts on one page
 
+        $scope.currName = '';
 
         $scope.pagination = {
             current: 1
@@ -248,10 +250,48 @@
         getResultsPage($scope.pagination.current);
         $scope.pageChanged = function (newPage) {
             getResultsPage(newPage);
+            $scope.pagination.current = newPage;
         };
-        var target = angular.element('#addClubModal');
-        $scope.ok = function () {
-            $http.post('/api/FaCourses', $scope.newClub).success(function () {
+        var target = angular.element('#addTypeModal');
+        //Toggle
+        var userblocktoggle = angular.element('#userblocktoggle');
+        var userAttendance = angular.element('#userAttendance');
+        var userObjectives = angular.element('#userObjectives');
+        var userRatings = angular.element('#userRatings');
+        var userReports = angular.element('#userReports');
+        var week = angular.element('#week');
+        var weekAttendance = angular.element('#weekAttendance');
+        var weekObjectives = angular.element('#weekObjectives');
+        var weekRetings = angular.element('#weekRetings');
+        var weekReports = angular.element('#weekReports');
+        var sessions = angular.element('#sessions');
+        var sessionsAttendance = angular.element('#sessionsAttendance');
+        var sessionsObjectives = angular.element('#sessionsObjectives');
+        var sessionsRetings = angular.element('#sessionsRetings');
+        var sessionsReports = angular.element('#sessionsReports');
+
+        //Toggle end
+        $scope.okCurr = function () {
+            $http.post('/api/CurriculumTypes',
+                {
+                    "name": $scope.currName,
+                    "usesBlocks": userblocktoggle.prop('checked'),
+                    "usesBlocksForAttendance": userAttendance.prop('checked'),
+                    "usesBlocksForObjectives": userObjectives.prop('checked'),
+                    "usesBlocksForRatings": userRatings.prop('checked'),
+                    "usesBlocksForReports": userReports.prop('checked'),
+                    "usesWeeks": week.prop('checked'),
+                    "usesWeeksForAttendance": weekAttendance.prop('checked'),
+                    "usesWeeksForObjectives": weekObjectives.prop('checked'),
+                    "usesWeeksForRatings": weekRetings.prop('checked'),
+                    "usesWeeksForReports": weekReports.prop('checked'),
+                    "usesSessions": sessions.prop('checked'),
+                    "usesSessionsForAttendance": sessionsAttendance.prop('checked'),
+                    "usesSessionsForObjectives": sessionsObjectives.prop('checked'),
+                    "usesSessionsForRatings": sessionsRetings.prop('checked'),
+                    "usesSessionsForReports": sessionsReports.prop('checked')
+                }
+                ).success(function () {
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
             });
