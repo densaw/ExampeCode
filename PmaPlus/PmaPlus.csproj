@@ -236,6 +236,7 @@
     <Compile Include="Controllers\ApiControllers\CurriculumTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\DashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
+    <Compile Include="Controllers\ApiControllers\FilesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionAlternativesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionFoodTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionRecipesController.cs" />
@@ -248,7 +249,7 @@
     <Compile Include="Controllers\ApiControllers\SportsScienceExercisesController.cs" />
     <Compile Include="Controllers\ApiControllers\SportsScienceTestsController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
-    <Compile Include="Filters\PicStreamProvider.cs" />
+    <Compile Include="Filters\PhotoStreamProvider.cs" />
     <Compile Include="Filters\ValidateModelStateFilter.cs" />
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
@@ -256,7 +257,11 @@
     <Compile Include="Mapping\ViewModelToModelProfile.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\EmptyViewModel.cs" />
+    <Compile Include="Models\PhotoViewModel.cs" />
     <Compile Include="Stratup.cs" />
+    <Compile Include="Tools\IPhotoManager.cs" />
+    <Compile Include="Tools\LocalPhotoManager.cs" />
+    <Compile Include="Tools\PhotoActionResult.cs" />
     <Compile Include="Tools\TimeUtils.cs" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\SysAdmin\favicon.ico" />
@@ -3358,10 +3363,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\FileStorage\" />
+    <Folder Include="App_Data\temp\" />
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
-    <Folder Include="Images\temp\" />
+    <Folder Include="Images\Clubs\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

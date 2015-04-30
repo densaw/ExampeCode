@@ -13,16 +13,19 @@ using PmaPlus.Model;
 using PmaPlus.Model.ViewModels.Club;
 using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Services;
+using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers
 {
     public class ClubsController : ApiController
     {
         private readonly ClubServices _clubServices;
+        private readonly IPhotoManager _photoManager;
 
         public ClubsController(ClubServices clubServices)
         {
             _clubServices = clubServices;
+            _photoManager = new LocalPhotoManager(HttpContext.Current.Server.MapPath(@"~/App_Data/temp"));
         }
 
         [Route("api/Clubs/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
@@ -53,60 +56,41 @@ namespace PmaPlus.Controllers.ApiControllers
             return _clubServices.GetClubById(id);
         }
 
-        [Route("api/Clubs/Logo")]
-        public IHttpActionResult PostLogo()
-        {
 
-            if (Request.Content.IsMimeMultipartContent())
-            {
-                string uploadPath = HttpContext.Current.Server.MapPath("~/Images/temp");
-
-                PicStreamProvider streamProvider = new PicStreamProvider(uploadPath);
-               
-                 Request.Content.ReadAsMultipartAsync(streamProvider);
-
-                string messages = "";
-                foreach (var file in streamProvider.FileData)
-                {
-                    FileInfo fi = new FileInfo(file.LocalFileName);
-                    messages = fi.Name;
-                }
-
-                return Ok(messages);
-            }
-            else
-            {
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid Request!");
-                throw new HttpResponseException(response);
-            }
-
-            return Ok();
-        }
-
-        [Route("api/Clubs/Backgound")]
-        public IHttpActionResult PostBackground()
-        {
-            
-            return Ok();
-        }
 
         // POST: api/Clubs
-        public IHttpActionResult Post([FromBody]AddClubViewModel value)
+        public IHttpActionResult Post([FromBody]AddClubViewModel clubViewModel)
         {
-            var files = HttpContext.Current.Request.Files;
-            
-            var newClub = _clubServices.AddClub(value);
+            var newClub = _clubServices.AddClub(clubViewModel);
+            if (newClub != null)
+            {
+                string logoPath = @"~/Images/Clubs/" + newClub.Id;
+                newClub.Logo = _photoManager.Move(newClub.Logo, logoPath + "/",newClub.Name + "_Logo");
+                newClub.Background = _photoManager.Move(newClub.Background, logoPath + "/" ,newClub.Name + "_Background");
+                _clubServices.UpdateClub(newClub,newClub.Id);
+            }
             return Created(Request.RequestUri + newClub.Id.ToString(), newClub);
         }
 
         // PUT: api/Clubs/5
-        public IHttpActionResult Put(int id, [FromBody]AddClubViewModel value)
+        public IHttpActionResult Put(int id, [FromBody]AddClubViewModel clubViewModel)
         {
             if (!_clubServices.ClubIsExist(id))
             {
                 return NotFound();
             }
-            _clubServices.UpdateClub(value,id);
+            string logoPath = @"~/Images/Clubs/" + id;
+            var temp = _clubServices.GetClubById(id);
+            if (temp.Logo != clubViewModel.Logo)
+            {
+                clubViewModel.Logo = _photoManager.Move(clubViewModel.Logo, logoPath + "/", clubViewModel.Name + "_Logo");
+            }
+            if (temp.Background != clubViewModel.Background)
+            {
+                clubViewModel.Background = _photoManager.Move(clubViewModel.Background, logoPath + "/", clubViewModel.Name + "_Background");
+            }
+
+            _clubServices.UpdateClub(clubViewModel, id);
             return Ok();
         }
 
