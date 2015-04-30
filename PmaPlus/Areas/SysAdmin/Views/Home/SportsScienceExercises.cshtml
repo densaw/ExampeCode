@@ -1,43 +1,39 @@
 ﻿
 @{
-    ViewBag.Title = "FaCourses";
+    ViewBag.Title = "SportsScienceExercises";
     Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-
-
-
-
-
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>FA Courses</h2>
+        <h2>Sports Science Exercises</h2>
         <ol class="breadcrumb">
             <li>
                 <a>Home</a>
             </li>
+            <li>
+                <a>Sports Science</a>
+            </li>
             <li class="active">
-                <strong>FA Courses</strong>
+                <strong>Exercises</strong>
             </li>
         </ol>
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-            <a class="btn btn-primary" data-toggle="modal" data-target="#addCurseModal">Add a Course</a>
+            <a class="btn btn-primary" data-toggle="modal" data-target="#addExercise">Add an Exercise</a>
         </div>
 
 
     </div>
 </div>
 
-
-
 <div class="wrapper wrapper-content  animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>FaCourses</h5>
+                    <h5>Sports Science Exercises</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -45,43 +41,23 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-wrench"></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-user">
-                        </ul>
+                        <ul class="dropdown-menu dropdown-user"></ul>
                         <a>
                             <i class="fa fa-times"></i>
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content" ng-controller="FaCoursesController">
+                <div class="ibox-content">
                     @*Modal*@
-                    <div class="modal inmodal" id="addCurseModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal inmodal" id="addExercise" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content animated bounceInRight">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h3 class="modal-title">Add a Course</h3>
+                                    <h3 class="modal-title">Add an Exercise</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="col-lg-4">Course Name:</label>
-                                            <div class="col-lg-7 pull-right">
-                                                <input ng-model="newCourse.name" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-4">Course Duration:</label>
-                                            <div class="col-lg-7 pull-right">
-                                                <input ng-model="newCourse.duration" placeholder="Days" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-4">Description:</label>
-                                            <div class="col-lg-7 pull-right">
-                                                <input ng-model="newCourse.description" class="form-control">
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <form class="form-horizontal"></form>
                                 </div>
                                 <div class="modal-footer">
                                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
@@ -96,10 +72,10 @@
                         <div class="modal-dialog">
                             <div class="modal-content animated bounceInRight">
                                 <div class="modal-header">
-                                    
+
                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                     <h3 class="modal-title">Delete Record?</h3>
-                                    
+
 
                                 </div>
                                 <div class="modal-body">
@@ -132,25 +108,13 @@
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
-                            <tr>
-                                <th>Name </th>
-                                <th>Duration </th>
-                                <th>Description </th>
-                                <th>Action</th>
-                            </tr>
+                                <tr>
+                                    <th>Exercise Type</th>
+                                    <th>Exercise Name</th>
+                                    <th>Action</th>
+                                </tr>
                             </thead>
-                            <tbody id="contentTable">
-                            <tr dir-paginate="course in courses | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
-                                <td>{{course.name}}</td>
-                                <td>{{course.duration}}</td>
-                                <td style="max-width: 300px;">{{course.description}}</td>
-                                <td>
-                                    <i ng-click="openDelete(course.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                </td>
-                            </tr>
-                            </tbody>
                         </table>
-                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
                     </div>
 
                 </div>
@@ -158,15 +122,4 @@
         </div>
     </div>
 </div>
-<style>
-    .vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-}
-</style>
-
-
-
-
 
