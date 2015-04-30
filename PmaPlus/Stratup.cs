@@ -21,6 +21,7 @@ using PmaPlus.Data.Repository;
 using PmaPlus.Model.Models;
 using PmaPlus.Services;
 using PmaPlus.Model.Models;
+using PmaPlus.Tools;
 
 [assembly: OwinStartup(typeof(PmaPlus.Startup))]
 namespace PmaPlus
@@ -41,9 +42,10 @@ namespace PmaPlus
             builder.RegisterType<MyUserStore>().As<IUserStore<User, int>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
-            builder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().InstancePerHttpRequest();
-           
-            
+            builder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().InstancePerRequest();
+
+            //builder.RegisterType<LocalPhotoManager>().As<IPhotoManager>().InstancePerRequest();
+
             builder.RegisterAssemblyTypes(typeof(UserRepository).Assembly)
            .Where(t => t.Name.EndsWith("Repository"))
            .AsImplementedInterfaces().InstancePerHttpRequest();

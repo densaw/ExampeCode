@@ -139,6 +139,15 @@ namespace PmaPlus.Services
             return _clubRepository.Add(tempClub);
 
         }
+        public void UpdateClub(Club club, int id)
+        {
+            if (club.Id > 0)
+            {
+
+                _clubRepository.Update(club, id);
+            }
+
+        }
         public void UpdateClub(AddClubViewModel club, int id)
         {
             if (club.Id > 0)

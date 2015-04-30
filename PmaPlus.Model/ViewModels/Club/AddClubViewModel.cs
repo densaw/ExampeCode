@@ -27,6 +27,7 @@ namespace PmaPlus.Model.ViewModels.Club
         [Required]
         public int Established { get; set; }
         [Required]
+        [MaxLength(12)]
         public string Telephone { get; set; }
         public string Mobile { get; set; }
         [Required]
