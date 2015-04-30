@@ -21,6 +21,10 @@ namespace PmaPlus.Tools
             CheckTargetDirectory();
         }
 
+        //public PhotoViewModel GetPhoto(FileStorageTypes type, string filename, int id)
+        //{
+            
+        //}
 
         public IEnumerable<PhotoViewModel> Get()
         {
@@ -84,7 +88,7 @@ namespace PmaPlus.Tools
 
         public string Move(string fileName, string path, string newFileName)
         {
-            if (File.Exists(_workingFolder + "\\" + fileName))
+            if (File.Exists(_workingFolder +"\\"+"temp"+ "\\" + fileName))
             {
                 string globalPath = HttpContext.Current.Server.MapPath(path);
                 try

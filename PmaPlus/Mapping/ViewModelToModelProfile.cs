@@ -41,6 +41,8 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<TargetViewModel, TargetHistory>();
 
+            Mapper.CreateMap<PasswordViewModel, PasswordHistory>();
+
         }
     }
 }

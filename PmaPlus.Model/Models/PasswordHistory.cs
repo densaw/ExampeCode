@@ -13,7 +13,6 @@ namespace PmaPlus.Model.Models
         public string Password { get; set; }
         public string ChangedBy { get; set; }
         public DateTime ChangeAt { get; set; }
-        public DateTime LoggedAt { get; set; }
         public string Ip { get; set; }
     }
 }

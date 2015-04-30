@@ -44,7 +44,9 @@ namespace PmaPlus
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().InstancePerRequest();
 
-            //builder.RegisterType<LocalPhotoManager>().As<IPhotoManager>().InstancePerRequest();
+            builder.RegisterType<LocalPhotoManager>()
+                .As<IPhotoManager>()
+                .WithParameter("workingFolder", HttpContext.Current.Server.MapPath(@"~/App_Data"));
 
             builder.RegisterAssemblyTypes(typeof(UserRepository).Assembly)
            .Where(t => t.Name.EndsWith("Repository"))
