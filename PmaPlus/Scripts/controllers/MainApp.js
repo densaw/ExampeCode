@@ -371,4 +371,221 @@
             });
         };
     }]);
+
+    module.controller('ScienceTestsController', ['$scope', '$http', function($scope, $http) {
+
+        $scope.testTypes = [
+            { id: 0, name: 'Agility' },
+            { id: 1, name: 'Fitness' },
+            { id: 2, name: 'Strength' },
+            { id: 3, name: 'Acceleration' },
+            { id: 4, name: 'Pace' }
+        ];
+
+        $scope.selectedType = $scope.testTypes[0];
+
+        var needToDelete = -1;
+
+        function getResultsPage(pageNumber) {
+            $http.get('/api/SportsScienceTests/' + $scope.testsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.sportTests = result.items;
+                    $scope.totalTests = result.count;
+                });
+        }
+
+        $scope.sportTests = [];
+        $scope.totalTests = 0;
+        $scope.testsPerPage = 20; // this should match however many results your API puts on one page
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+        var target = angular.element('#addTest');
+        var confDelete = angular.element('#confDelete');
+
+        $scope.okTest = function () {
+            $http.post('/api/SportsScienceTests',
+                {
+                    "type": $scope.selectedType.id,
+                    "name": $scope.name,
+                    "description": $scope.description,
+                    "zScoreFormula": $scope.zScoreFormula,
+                    "measure": $scope.measure,
+                    "lowValue": $scope.lowValue,
+                    "hightValue": $scope.hightValue,
+                    "nationalAverage": $scope.nationalAverage,
+                    "video": $scope.video
+                }
+                ).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+            confDelete.modal('hide');
+            needToDelete = -1;
+        };
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete('/api/SportsScienceTests/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
+    }]);
+
+    module.controller('ScienceExercisesController', ['$scope', '$http', function ($scope, $http) {
+        $scope.testTypes = [
+           { id: 0, name: 'Agility' },
+           { id: 1, name: 'Fitness' },
+           { id: 2, name: 'Strength' },
+           { id: 3, name: 'Acceleration' },
+           { id: 4, name: 'Pace' }
+        ];
+
+        $scope.selectedType = $scope.testTypes[0];
+
+        var needToDelete = -1;
+
+        function getResultsPage(pageNumber) {
+            $http.get('/api/SportsScienceExercises/' + $scope.testsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.sportTests = result.items;
+                    $scope.totalTests = result.count;
+                });
+        }
+
+        $scope.sportTests = [];
+        $scope.totalTests = 0;
+        $scope.testsPerPage = 20; // this should match however many results your API puts on one page
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+        var target = angular.element('#addExercise');
+        var confDelete = angular.element('#confDelete');
+
+        $scope.okEx = function () {
+            $http.post('/api/SportsScienceExercises',
+                {
+                    "type": $scope.selectedType.id,
+                    "name": $scope.name,
+                    "description": $scope.description,
+                    "measure": $scope.measure,
+                    "lowValue": $scope.lowValue,
+                    "hightValue": $scope.hightValue,
+                    "nationalAverage": $scope.nationalAverage,
+                    "video": $scope.video
+                }
+                ).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+            confDelete.modal('hide');
+            needToDelete = -1;
+        };
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete('/api/SportsScienceExercises/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
+    }]);
+
+    module.controller('LoginSettingsController', ['$scope', '$http', function ($scope, $http) {
+
+        function getResultsPage(pageNumber) {
+            $http.get('/api/PasswordHistory/' + $scope.historyPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.sportTests = result.items;
+                    $scope.totalTests = result.count;
+                });
+        }
+
+        $scope.passwordHistory = [];
+        $scope.totalHistory = 0;
+        $scope.historyPerPage = 20; // this should match however many results your API puts on one page
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+        var target = angular.element('#addTest');
+        var confDelete = angular.element('#confDelete');
+    }]);
+
+    module.controller('TargetController', ['$scope', '$http', function ($scope, $http) {
+
+        function getResultsPage(pageNumber) {
+            $http.get('/api/TargetHistory/' + $scope.targetsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.targets = result.items;
+                    $scope.totalTargets = result.count;
+                });
+        }
+
+        $scope.targets = [];
+        $scope.totalTargets = 0;
+        $scope.targetsPerPage = 20; // this should match however many results your API puts on one page
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+
+        var target = angular.element('#updateTarget');
+
+        $scope.okTarget = function () {
+            $http.post('/api/TargetHistory', $scope.newTarget).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+        };
+
+    }]);
+
 })();

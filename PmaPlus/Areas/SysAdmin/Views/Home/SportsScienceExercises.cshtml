@@ -47,7 +47,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content">
+                <div class="ibox-content" ng-controller="ScienceExercisesController">
                     @*Modal*@
                     <div class="modal inmodal" id="addExercise" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
@@ -57,11 +57,61 @@
                                     <h3 class="modal-title">Add an Exercise</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal"></form>
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Test Type:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <select ng-model="selectedType" ng-options="testType.name for testType in testTypes" class=" form-control m-b" name="account"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Test Name:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="name" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Test Description:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="description" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Measure:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="measure" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Low Value:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="lowValue" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">High Value:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="hightValue" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">National Average:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="nationalAverage" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Test Video:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="video" class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                    <button ng-click="ok()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    <button ng-click="okEx()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -92,9 +142,9 @@
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
                             <div data-toggle="buttons" class="btn-group">
-                                <label ng-click="coursePerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
-                                <label ng-click="coursePerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
-                                <label ng-click="coursePerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                                <label ng-click="testsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                <label ng-click="testsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
+                                <label ng-click="testsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -108,13 +158,23 @@
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
-                                <tr>
-                                    <th>Exercise Type</th>
-                                    <th>Exercise Name</th>
-                                    <th>Action</th>
-                                </tr>
+                            <tr>
+                                <th>Exercise Type</th>
+                                <th>Exercise Name</th>
+                                <th>Action</th>
+                            </tr>
                             </thead>
+                            <tbody id="contentTable">
+                            <tr dir-paginate="test in sportTests | filter:q | itemsPerPage: testsPerPage" total-items="totalTests">
+                                <td>{{testTypes[test.type].name}}</td>
+                                <td>{{test.name}}</td>
+                                <td>
+                                    <i ng-click="openDelete(test.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                </td>
+                            </tr>
+                            </tbody>
                         </table>
+                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
                     </div>
 
                 </div>
