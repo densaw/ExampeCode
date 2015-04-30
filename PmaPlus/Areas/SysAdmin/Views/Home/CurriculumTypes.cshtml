@@ -142,11 +142,33 @@
                         </div>
                     </div>
                     @*Modal End*@
+                    @*Modal*@
+                    <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content animated bounceInRight">
+                                <div class="modal-header">
+
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h3 class="modal-title">Delete Record?</h3>
+
+
+                                </div>
+                                <div class="modal-body">
+                                    <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
+                                    <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*Modal End*@
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
                             <div data-toggle="buttons" class="btn-group">
-                                <label ng-click="curriculumsPerPage = 10" class="btn btn-sm btn-white active"> <input type="radio" id="option1" name="options"> 10 </label>
-                                <label ng-click="curriculumsPerPage = 20" class="btn btn-sm btn-white"> <input type="radio" id="option2" name="options"> 20 </label>
+                                <label ng-click="curriculumsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                <label ng-click="curriculumsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
                                 <label ng-click="curriculumsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
                             </div>
                         </div>
@@ -172,6 +194,7 @@
                                     <th>Sessions</th>
                                     <th>SessionsATT</th>
                                     <th>SessionsRTE</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="contentTable">
@@ -186,6 +209,9 @@
                                     <td>{{curriculum.sessions}}</td>
                                     <td>{{curriculum.sessionsATT}}</td>
                                     <td>{{curriculum.sessionsRTE}}</td>
+                                    <td>
+                                        <i ng-click="openDelete(curriculum.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

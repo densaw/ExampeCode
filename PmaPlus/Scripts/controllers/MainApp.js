@@ -141,6 +141,7 @@
         var needToDelete = -1;
 
         function getResultsPage(pageNumber) {
+            console.log($scope.coursePerPage);
             $http.get('/api/FaCourses/' + $scope.coursePerPage + '/' + pageNumber)
                 .success(function (result) {
                     $scope.courses = result.items;
@@ -150,7 +151,7 @@
 
         $scope.courses = [];
         $scope.totalCourses = 0;
-        $scope.coursePerPage = 10; // this should match however many results your API puts on one page
+        $scope.coursePerPage = 20; // this should match however many results your API puts on one page
         
 
         $scope.pagination = {
@@ -229,6 +230,8 @@
 
     module.controller('CurriculumTypesController', ['$scope', '$http', function ($scope, $http) {
 
+        var needToDelete = -1;
+
         function getResultsPage(pageNumber) {
             $http.get('/api/CurriculumTypes/' + $scope.curriculumsPerPage + '/' + pageNumber)
                 .success(function (result) {
@@ -240,7 +243,7 @@
 
         $scope.сurriculums = [];
         $scope.totalCurriculums = 0;
-        $scope.curriculumsPerPage = 10; // this should match however many results your API puts on one page
+        $scope.curriculumsPerPage = 20; // this should match however many results your API puts on one page
 
         $scope.currName = '';
 
@@ -253,6 +256,7 @@
             $scope.pagination.current = newPage;
         };
         var target = angular.element('#addTypeModal');
+        var confDelete = angular.element('#confDelete');
         //Toggle
         var userblocktoggle = angular.element('#userblocktoggle');
         var userAttendance = angular.element('#userAttendance');
@@ -300,6 +304,71 @@
         $scope.cancel = function () {
             target.modal('hide');
         };
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete('/api/CurriculumTypes/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
     }]);
 
+    module.controller('SkillsKnowledgeController', ['$scope', '$http', function ($scope, $http) {
+
+        var needToDelete = -1;
+
+        function getResultsPage(pageNumber) {
+            $http.get('/api/SkillLevels/' + $scope.skillsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.skills = result.items;
+                    $scope.totalSkills = result.count;
+                });
+        }
+
+        $scope.skills = [];
+        $scope.totalSkills = 0;
+        $scope.skillsPerPage = 20; // this should match however many results your API puts on one page
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+
+        var target = angular.element('#addLevels');
+        var confDelete = angular.element('#confDelete');
+
+        $scope.okLvl = function () {
+            $http.post('/api/SkillLevels', $scope.newLevel).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+        };
+
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete('/api/SkillLevels/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
+    }]);
 })();

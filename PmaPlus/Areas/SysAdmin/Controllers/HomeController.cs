@@ -33,6 +33,58 @@ namespace PmaPlus.Areas.SysAdmin.Controllers
             return View();
         }
 
+        public ActionResult SkillsKnowledge()
+        {
+            return View();
+        }
+
+        public ActionResult NutritionAlternatives()
+        {
+            
+            return View();
+        }
+        public ActionResult NutritionFoodType()
+        {
+            return View();
+        }
+        public ActionResult NutritionRecipes()
+        {
+            return View();
+        }
+        public ActionResult PhysiotherapyBodyParts()
+        {
+            return View();
+        }
+        public ActionResult PhysiotherapyExercise()
+        {
+            return View();
+        }
+        public ActionResult Reports()
+        {
+            return View();
+        }
+        public ActionResult Scenarios()
+        {
+            return View();
+        }
+        public ActionResult SiteSettingsLogin()
+        {
+            return View();
+        }
+        public ActionResult SportsScienceExercises()
+        {
+            return View();
+        }
+        public ActionResult SportsScienceTests()
+        {
+            return View();
+        }
+
+        public ActionResult Targets()
+        {
+            return View();
+        }
+
         public ActionResult Empty(RouteData rd)
         {
             var routeValueDictionary = rd.Values;
