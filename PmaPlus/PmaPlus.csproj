@@ -248,6 +248,7 @@
     <Compile Include="Controllers\ApiControllers\SportsScienceExercisesController.cs" />
     <Compile Include="Controllers\ApiControllers\SportsScienceTestsController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
+    <Compile Include="Filters\PicStreamProvider.cs" />
     <Compile Include="Filters\ValidateModelStateFilter.cs" />
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
@@ -3360,6 +3361,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
+    <Folder Include="Images\temp\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

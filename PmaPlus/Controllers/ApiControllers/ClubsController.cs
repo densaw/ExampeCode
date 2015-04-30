@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mime;
+using System.Web;
 using System.Web.Http;
 using PmaPlus.Data;
+using PmaPlus.Filters;
 using PmaPlus.Model;
 using PmaPlus.Model.ViewModels.Club;
 using PmaPlus.Model.ViewModels.Curriculum;
@@ -49,9 +53,48 @@ namespace PmaPlus.Controllers.ApiControllers
             return _clubServices.GetClubById(id);
         }
 
+        [Route("api/Clubs/Logo")]
+        public IHttpActionResult PostLogo()
+        {
+
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                string uploadPath = HttpContext.Current.Server.MapPath("~/Images/temp");
+
+                PicStreamProvider streamProvider = new PicStreamProvider(uploadPath);
+               
+                 Request.Content.ReadAsMultipartAsync(streamProvider);
+
+                string messages = "";
+                foreach (var file in streamProvider.FileData)
+                {
+                    FileInfo fi = new FileInfo(file.LocalFileName);
+                    messages = fi.Name;
+                }
+
+                return Ok(messages);
+            }
+            else
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid Request!");
+                throw new HttpResponseException(response);
+            }
+
+            return Ok();
+        }
+
+        [Route("api/Clubs/Backgound")]
+        public IHttpActionResult PostBackground()
+        {
+            
+            return Ok();
+        }
+
         // POST: api/Clubs
         public IHttpActionResult Post([FromBody]AddClubViewModel value)
         {
+            var files = HttpContext.Current.Request.Files;
+            
             var newClub = _clubServices.AddClub(value);
             return Created(Request.RequestUri + newClub.Id.ToString(), newClub);
         }
