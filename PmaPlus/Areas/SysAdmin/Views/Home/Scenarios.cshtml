@@ -185,6 +185,7 @@
                                 <td>{{scenario.minAge}} - {{scenario.maxAge}}</td>
                                 <td>{{scenario.picture}}</td>
                                 <td>{{scenario.uploadedBy}}</td>
+                                <td><i ng-click="openDelete(scenario.id)" class="fa fa-trash" style="cursor: pointer;"></i></td>
                             </tr>
                             </tbody>
                             <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
