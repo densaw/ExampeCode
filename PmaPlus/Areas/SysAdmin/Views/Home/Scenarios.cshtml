@@ -169,14 +169,14 @@
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
-                            <tr>
+                                <tr>
                                 <th>Scenario Name</th>
-                                <th>Type</th>
-                                <th>Age Range</th>
+                                    <th>Type</th>
+                                    <th>Age Range</th>
                                 <th>Picture</th>
                                 <th>Uploaded By</th>
-                                <th>Action</th>
-                            </tr>
+                                    <th>Action</th>
+                                </tr>
                             </thead>
                             <tbody id="contentTable">
                             <tr dir-paginate="scenario in scenarios | filter:q | itemsPerPage: scenariosPerPage" total-items="totalScenarios">
@@ -194,7 +194,24 @@
                             <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
                         </table>
                     </div>
-
+                    <i ng-click="openDelete(club.id)" class="fa fa-camera" style="cursor: pointer;"></i>
+                    <div id="videoPlase" class="col-lg-6">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Video window</h5>
+                                <div class="ibox-tools">
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <figure>
+                                    <iframe src="http://www.youtube.com/embed/bwj2s_5e12U" frameborder="0" allowfullscreen="" data-aspectratio="0.8211764705882353" style="width: 485px; height: 398.270588235294px;"></iframe>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
