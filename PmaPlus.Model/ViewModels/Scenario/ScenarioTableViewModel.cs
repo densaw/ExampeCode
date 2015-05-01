@@ -17,5 +17,7 @@ namespace PmaPlus.Model.ViewModels
         public string Picture { get; set; }
 
         public string UploadedBy { get; set; }
+
+        public string Video { get; set; }      
     }
 }
