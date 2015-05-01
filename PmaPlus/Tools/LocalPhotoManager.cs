@@ -21,10 +21,23 @@ namespace PmaPlus.Tools
             CheckTargetDirectory();
         }
 
-        //public PhotoViewModel GetPhoto(FileStorageTypes type, string filename, int id)
-        //{
-            
-        //}
+        public string GetPhoto(FileStorageTypes type, string filename, int id)
+        {
+            string filePath = "";
+            switch (type)
+            {
+                case FileStorageTypes.PhysioBodyPartPhoto:
+                    filePath = _workingFolder + "\\" + FileStorageTypes.PhysioBodyPartPhoto.ToString();
+                    break;
+                default:
+                    break;
+            }
+
+            filePath += "\\" + id + "\\" + filename;
+
+
+            return filePath;
+        }
 
         public IEnumerable<PhotoViewModel> Get()
         {
@@ -88,13 +101,13 @@ namespace PmaPlus.Tools
 
         public string Move(string fileName, string path, string newFileName)
         {
-            if (File.Exists(_workingFolder +"\\"+"temp"+ "\\" + fileName))
+            if (File.Exists(_workingFolder + "\\" + "temp" + "\\" + fileName))
             {
                 string globalPath = HttpContext.Current.Server.MapPath(path);
                 try
                 {
                     Directory.CreateDirectory(globalPath);
-                    File.Move(_workingFolder + "\\" + fileName, globalPath + "\\"  + newFileName + Path.GetExtension(fileName));
+                    File.Move(_workingFolder + "\\" + fileName, globalPath + "\\" + newFileName + Path.GetExtension(fileName));
                     return path + newFileName + Path.GetExtension(fileName);
                 }
                 catch (Exception)
@@ -108,13 +121,13 @@ namespace PmaPlus.Tools
 
         public string Copy(string fileName, string path)
         {
-            if (File.Exists(_workingFolder+ "\\"+ fileName))
+            if (File.Exists(_workingFolder + "\\" + fileName))
             {
                 string globalPath = HttpContext.Current.Server.MapPath(path);
                 try
                 {
                     Directory.CreateDirectory(globalPath);
-                    File.Copy(_workingFolder + "\\" + fileName, globalPath + Path.GetExtension(fileName),true);
+                    File.Copy(_workingFolder + "\\" + fileName, globalPath + Path.GetExtension(fileName), true);
                     return path + Path.GetExtension(fileName);
                 }
                 catch (Exception)

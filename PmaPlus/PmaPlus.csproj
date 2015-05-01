@@ -264,6 +264,7 @@
     <Compile Include="Tools\LocalPhotoManager.cs" />
     <Compile Include="Tools\PhotoActionResult.cs" />
     <Compile Include="Tools\TimeUtils.cs" />
+    <Content Include="App_Data\FileStorage\PhysioBodyPartPhoto\5\a4.jpg" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\SysAdmin\favicon.ico" />
     <Content Include="Content\animate.css" />
@@ -3364,8 +3365,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\FileStorage\PhysioBodyPartPhoto\" />
-    <Folder Include="App_Data\temp\" />
+    <Folder Include="App_Data\FileStorage\temp\" />
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
     <Folder Include="Images\Clubs\" />
