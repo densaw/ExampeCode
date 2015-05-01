@@ -19,7 +19,7 @@ namespace PmaPlus.Model.ViewModels
         public int MinAge { get; set; }
         [Required]
         public int MaxAge { get; set; }
-        [Required]
+        //[Required]
         public string Picture { get; set; }
         [Required]
         public string Description { get; set; }

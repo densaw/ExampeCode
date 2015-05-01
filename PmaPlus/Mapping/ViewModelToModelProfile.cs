@@ -43,6 +43,7 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<PasswordViewModel, PasswordHistory>();
 
+            Mapper.CreateMap<ScenarioViewModel,Scenario>();
         }
     }
 }

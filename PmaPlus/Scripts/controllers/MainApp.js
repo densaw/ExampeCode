@@ -744,4 +744,62 @@
 
 
     }]);
+
+    module.controller('ScenariosController', ['$scope', '$http', function ($scope, $http) {
+        var needToDelete = -1;
+
+        function getResultsPage(pageNumber) {
+            console.log($scope.coursePerPage);
+            $http.get('/api/Scenarios/' + $scope.scenariosPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.scenarios = result.items;
+                    $scope.totalScenarios = result.count;
+                });
+        }
+
+        $scope.scenarios = [];
+        $scope.totalScenarios = 0;
+        $scope.scenariosPerPage = 20; // this should match however many results your API puts on one page
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+        var target = angular.element('#add2D');
+        var confDelete = angular.element('#confDelete');
+
+        $scope.ok = function () {
+            $http.post('/api/Scenarios', $scope.newScenario).success(function () {
+                getResultsPage($scope.pagination.current);
+                $scope.newScenario = { name: '', scenarioType: '', picture: '', uploadedBy: '', minAge: '', maxAge: '' };
+                target.modal('hide');
+            });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+            confDelete.modal('hide');
+            needToDelete = -1;
+        };
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete('/api/Scenarios/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
+
+
+
+    }]);
 })();
