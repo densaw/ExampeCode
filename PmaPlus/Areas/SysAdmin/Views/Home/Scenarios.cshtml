@@ -44,7 +44,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content" ng-controller="ScenariosController">
+                <div id="videoPlase" class="ibox-content" ng-controller="ScenariosController">
                     @*Modal*@
                     <div class="modal inmodal" id="add2D" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
@@ -58,6 +58,7 @@
                                         <div class="form-group">
                                             <label class="col-lg-4">Scenario:</label>
                                             <div class="col-lg-7 pull-right">
+                                                <select ng-model="selectedType" ng-options="status.name for status in statuses" class=" form-control m-b" name="account"></select>
                                                 <input ng-model="newScenario.scenarioType" class="form-control">
                                             </div>
                                         </div>
@@ -80,7 +81,7 @@
                                         <div class="form-group">
                                             <label class="col-lg-4">Picture:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input ng-model="newScenario.picture" class="form-control file-control" type="file">
+                                                <input class="form-control file-control" type="file">
                                             </div>
                                         </div>
 
@@ -170,47 +171,29 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                <th>Scenario Name</th>
+                                    <th>Scenario Name</th>
                                     <th>Type</th>
                                     <th>Age Range</th>
-                                <th>Picture</th>
-                                <th>Uploaded By</th>
+                                    <th>Picture</th>
+                                    <th>Uploaded By</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="contentTable">
-                            <tr dir-paginate="scenario in scenarios | filter:q | itemsPerPage: scenariosPerPage" total-items="totalScenarios">
-                                <td>{{scenario.name}}</td>
-                                <td>{{scenario.scenarioType}}</td>
-                                <td>{{scenario.minAge}} - {{scenario.maxAge}}</td>
-                                <td>{{scenario.picture}}</td>
-                                <td>{{scenario.uploadedBy}}</td>
-                                <td>
-                                    <i ng-click="openDelete(scenario.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                    <i ng-click="" class="fa fa-camera" style="cursor: pointer;"></i>
-</td>
-                            </tr>
+                                <tr dir-paginate="scenario in scenarios | filter:q | itemsPerPage: scenariosPerPage" total-items="totalScenarios">
+                                    <td>{{scenario.name}}</td>
+                                    <td>{{scenarioType[scenario.scenarioType].name}}</td>
+                                    <td>{{scenario.minAge}} - {{scenario.maxAge}}</td>
+                                    <td>{{scenario.picture}}</td>
+                                    <td>{{scenario.uploadedBy}}</td>
+                                    <td>
+                                        <i ng-click="openDelete(scenario.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                        <i class="fa fa-camera" style="cursor: pointer;"></i>
+                                    </td>
+                                </tr>
                             </tbody>
                             <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
                         </table>
-                    </div>
-                    <i ng-click="openDelete(club.id)" class="fa fa-camera" style="cursor: pointer;"></i>
-                    <div id="videoPlase" class="col-lg-6">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>Video window</h5>
-                                <div class="ibox-tools">
-                                    <a class="close-link">
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="ibox-content">
-                                <figure>
-                                    <iframe src="http://www.youtube.com/embed/bwj2s_5e12U" frameborder="0" allowfullscreen="" data-aspectratio="0.8211764705882353" style="width: 485px; height: 398.270588235294px;"></iframe>
-                                </figure>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

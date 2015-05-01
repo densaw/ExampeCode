@@ -923,6 +923,18 @@
     module.controller('ScenariosController', ['$scope', '$http', function ($scope, $http) {
         var needToDelete = -1;
 
+        $scope.scenarioType = [
+           { id: 0, name: 'Attacking' },
+           { id: 1, name: 'Ball Control' },
+           { id: 2, name: 'Defending' },
+           { id: 3, name: 'Goalkeeping' },
+           { id: 4, name: 'Midfield' },
+           { id: 0, name: 'Play Scenario' },
+           { id: 1, name: 'Set Plays' }
+        ];
+
+        $scope.selectedType = $scope.scenarioType[0];
+
         function getResultsPage(pageNumber) {
             console.log($scope.coursePerPage);
             $http.get('/api/Scenarios/' + $scope.scenariosPerPage + '/' + pageNumber)
@@ -949,6 +961,8 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function () {
+            $scope.newScenario.picture = 'tmp.png';
+            $scope.newScenario.scenarioType = $scope.selectedType.id;
             $http.post('/api/Scenarios', $scope.newScenario).success(function () {
                 getResultsPage($scope.pagination.current);
                 $scope.newScenario = { name: '', scenarioType: '', picture: '', uploadedBy: '', minAge: '', maxAge: '' };
@@ -974,7 +988,95 @@
             });
         };
 
+        $scope.viewVideo = function (videoLink) {
+            console.log('Here');
+            console.log(videoLink);
+            var videoHolder = angular.element('#videoPlase');
+            videoHolder.append('<div id="videoPlase" class="col-lg-6"><div class="ibox float-e-margins">' +
+                '<div class="ibox-title">' +
+                '<h5>Video window</h5>' +
+                '<div class="ibox-tools">' +
+                '<a class="close-link">' +
+                '<i class="fa fa-times"></i></a>' +
+                '</div></div><div class="ibox-content">' +
+                '<iframe width="560" height="315" src="' + videoLink + '" frameborder="0" allowfullscreen></iframe>' +
+                '</figure></div></div></div>');
+        }
 
 
     }]);
+
+    module.controller('BodyPartController', ['$scope', '$http', function ($scope, $http) {
+        var needToDelete = -1;
+        var urlTail = '/api/PhysioBodyParts';
+
+        $scope.parts = [
+           { id: 0, name: 'Hip' },
+           { id: 1, name: 'Leg' },
+           { id: 2, name: 'Knee' },
+           { id: 3, name: 'Calf' },
+           { id: 4, name: 'Ankle' },
+           { id: 0, name: 'Foot' },
+           { id: 1, name: 'Arm' },
+           { id: 2, name: 'Wrist' },
+           { id: 0, name: 'Hand' },
+           { id: 1, name: 'Neck' },
+           { id: 2, name: 'Back' }
+        ];
+
+        $scope.selectedBPart = $scope.parts[0];
+
+        function getResultsPage(pageNumber) {
+            $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        }
+
+        $scope.items = [];
+        $scope.totalItems = 0;
+        $scope.itemsPerPage = 20;
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+
+        var target = angular.element('#addBodyPart');
+        var confDelete = angular.element('#confDelete');
+
+        $scope.ok = function () {
+            $scope.newPart.picture = 'tmp.png';
+            $scope.newPart.type = $scope.selectedBPart.id;
+            $http.post(urlTail, $scope.newPart).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+            confDelete.modal('hide');
+        };
+
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete(urlTail + '/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
+    }]);
+
 })();
