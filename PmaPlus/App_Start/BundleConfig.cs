@@ -30,6 +30,10 @@ namespace PmaPlus
                 "~/Scripts/angular/angular.js",
                 "~/Scripts/angular/angular-route.js"));
 
+            //BootStrap File
+            bundles.Add(new ScriptBundle("~/plugins/ui-bootstrap").Include(
+                "~/Scripts/plugins/bootstrap/bootstrap.file-input.js"));
+
             //Angular BootStrap
             bundles.Add(new ScriptBundle("~/plugins/ui-bootstrap").Include(
                 "~/Scripts/plugins/ui-bootstrap/ui-bootstrap-tpls-0.12.1.js"));

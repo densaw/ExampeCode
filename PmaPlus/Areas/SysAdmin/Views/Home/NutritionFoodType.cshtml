@@ -45,7 +45,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content" ng-controller="TargetController">
+                <div class="ibox-content" ng-controller="NFTController">
                     @*Modal*@
                     <div class="modal inmodal" id="addFoodType" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
@@ -55,7 +55,170 @@
                                     <h3 class="modal-title">Add a Food Type</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal"></form>
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Type:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <select ng-model="selectedType" ng-options="type.name for type in foodType" class=" form-control m-b" name="account"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Food Name:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.foodName" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">When:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <select ng-model="selectedWhen" ng-options="whenone.name for whenone in when" class=" form-control m-b" name="account"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Good For:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.goodFor" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Portion Size:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.portionSize" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Description:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.description" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Picture:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input type="file" accept="image/*" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Calories:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.calories" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Calories from Fat:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.caloriesFromFat" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Total Fat:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.totalFat" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Saturated Fat:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.saturatedFat" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Trans Fat:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.transFat" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Cholesterol:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.cholesterol" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Sodium:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.sodium" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Potassium:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.potassium" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Total Carbohydrate:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.totalCrbohydrate" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Dietary Fibre:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.dietaryFibre" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Sugars:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.sugars" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Protein:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.protein" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Vitamin A:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.vitaminA" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Vitamin B:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.vitaminB" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Vitamin C:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.vitaminC" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Vitamin D:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.vitaminD" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Vitamin E:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.vitaminE" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Iron:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.iron" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Calcium:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.calcium" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">% of Daily Intake:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newFood.dailyIntake" class="form-control">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
@@ -121,7 +284,7 @@
                                     <td>{{foodType.portionSize}}</td>
                                     <td>{{foodType.goodFor}}</td>
                                     <td>
-                                        <i ng-click="confDelete(foodType.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                        <i ng-click="openDelete(foodType.id)" class="fa fa-trash" style="cursor: pointer;"></i>
                                     </td>
                                 </tr>
                             </tbody>
