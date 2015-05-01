@@ -57,7 +57,26 @@
                                     <h3 class="modal-title">updateLogin</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal"></form>
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-lg-4">New Password:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newPassword.password" class="form-control" type="password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Confirm Password:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newPassword.confirmPassword" class="form-control" type="password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Change By:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newPassword.changedBy" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
@@ -113,7 +132,6 @@
                                 <th>Changed By</th>
                                 <th>Username</th>
                                 <th>Password</th>
-                                <th>PIN Code</th>
                                 <th>Last Login</th>
                                 <th>IP</th>
                             </tr>
@@ -123,7 +141,6 @@
                                 <td>{{pwdHis.changeAt}}</td>
                                 <td>{{pwdHis.changedBy}}</td>
                                 <td>{{pwdHis.userEmail}}</td>
-                                <td>{{pwdHis.password}}</td>
                                 <td>{{pwdHis.password}}</td>
                                 <td>{{pwdHis.loggedAt}}</td>
                                 <td>{{pwdHis.ip}}</td>
@@ -138,13 +155,13 @@
         </div>
     </div>
 </div>
-<script>
+@*<script>
     $(function() {
         $.get("http://ipinfo.io", function (response) {
             console.log(response.ip);
         }, "jsonp");
     });
     
-</script>
+</script>*@
 
 

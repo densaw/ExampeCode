@@ -1,7 +1,7 @@
 ﻿(function () {
     var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap']);
 
-   
+
 
     module.controller('ChartController', ['$scope', '$http', function ($scope, $http) {
         var monthNames = ['Jan',
@@ -235,9 +235,9 @@
             $scope.newClub.status = $scope.selectedStatus.id;
             console.log($scope.newClub);
             $http.post('/api/Clubs', $scope.newClub).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                });
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
             target.modal('hide');
         };
         $scope.cancel = function () {
@@ -558,8 +558,8 @@
         function getResultsPage(pageNumber) {
             $http.get('/api/PasswordHistory/' + $scope.historyPerPage + '/' + pageNumber)
                 .success(function (result) {
-                    $scope.sportTests = result.items;
-                    $scope.totalTests = result.count;
+                    $scope.passwordHistory = result.items;
+                    $scope.totalHistory = result.count;
                 });
         }
 
@@ -576,8 +576,19 @@
             getResultsPage(newPage);
             $scope.pagination.current = newPage;
         };
-        var target = angular.element('#addTest');
-        var confDelete = angular.element('#confDelete');
+        var target = angular.element('#updateLogin');
+
+        $scope.ok = function () {
+            $http.post('/api/UpdatePassword', $scope.newPassword).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+        };
+
     }]);
 
     module.controller('TargetController', ['$scope', '$http', function ($scope, $http) {
@@ -607,7 +618,7 @@
         var target = angular.element('#updateTarget');
 
         $scope.okTarget = function () {
-            $http.post('/api/TargetHistory', $scope.newTarget).success(function () {
+            $http.post('/api/TargetHistory', $scope.newPassword).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
                 });
@@ -755,7 +766,7 @@
         $scope.items = [];
         $scope.totalItems = 0;
         $scope.itemsPerPage = 20;
-
+            
 
         $scope.pagination = {
             current: 1
@@ -851,4 +862,61 @@
         };
     }]);
 
+    module.controller('PhysioExerciseController', ['$scope', '$http', function($scope, $http) {
+        var needToDelete = -1;
+
+        function getResultsPage(pageNumber) {
+            console.log($scope.coursePerPage);
+            $http.get('/api/PhysioExercise/' + $scope.exercisePerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.exercises = result.items;
+                    $scope.totalExercises = result.count;
+                });
+        }
+
+        $scope.exercises = [];
+        $scope.totalExercises = 0;
+        $scope.exercisePerPage = 20; // this should match however many results your API puts on one page
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+        var target = angular.element('#addExerciseOrStretch');
+        var confDelete = angular.element('#confDelete');
+
+        $scope.ok = function () {
+            $http.post('/api/PhysioExercise', $scope.newExercise).success(function () {
+                getResultsPage($scope.pagination.current);
+                $scope.newExercise = { name: '', type: '', description: '' ,videolink:'',picture:''};
+                target.modal('hide');
+            });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+            confDelete.modal('hide');
+            needToDelete = -1;
+        };
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete('/api/PhysioExercise/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
+
+
+
+    }]);
 })();

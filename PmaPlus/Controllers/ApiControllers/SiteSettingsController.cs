@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.ServiceModel.Channels;
+using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using PmaPlus.Data;
@@ -11,6 +13,7 @@ using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Services;
 using PmaPlus.Services.Services;
+using HttpRequestMessageExtensions = PmaPlus.Tools.HttpRequestMessageExtensions;
 
 namespace PmaPlus.Controllers.ApiControllers
 {
@@ -63,7 +66,11 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/PasswordHistory/{pageSize:int}/{pageNumber:int}")]
         public PasswordHistoryPage GetPasswordHistory(int pageSize, int pageNumber, string orderBy = "")
         {
-            var currentUser = _userServices.GetUserByEmail(User.Identity.Name);
+            var currentUser = _userServices.GetUserByEmail(User.Identity.Name/*"systemadmin@local.com"*/);
+            if (currentUser == null)
+            {
+                return null;
+            }
             var count = _siteSettingsServices.GetPasswordHistory(currentUser).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var targets = _siteSettingsServices.GetPasswordHistory(currentUser).Paged(pageNumber, pageSize).AsEnumerable();
@@ -80,13 +87,35 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/UpdatePassword")]
         public IHttpActionResult PostNewPassword(PasswordViewModel password)
         {
-            _siteSettingsServices.UpdatePassword(Mapper.Map<PasswordViewModel, PasswordHistory>(password), User.Identity.Name);
+            password.Ip = GetClientIp();
+            _siteSettingsServices.UpdatePassword(Mapper.Map<PasswordViewModel, PasswordHistory>(password),User.Identity.Name);
             return Ok();
         }
 
         #endregion
 
+        private string GetClientIp(HttpRequestMessage request = null)
+        {
+            request = request ?? Request;
 
+            if (request.Properties.ContainsKey("MS_HttpContext"))
+            {
+                return ((HttpContextWrapper)request.Properties["MS_HttpContext"]).Request.UserHostAddress;
+            }
+            else if (request.Properties.ContainsKey(RemoteEndpointMessageProperty.Name))
+            {
+                RemoteEndpointMessageProperty prop = (RemoteEndpointMessageProperty)this.Request.Properties[RemoteEndpointMessageProperty.Name];
+                return prop.Address;
+            }
+            else if (HttpContext.Current != null)
+            {
+                return HttpContext.Current.Request.UserHostAddress;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
     }
 }

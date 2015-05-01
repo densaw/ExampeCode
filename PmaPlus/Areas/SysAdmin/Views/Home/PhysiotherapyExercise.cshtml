@@ -47,7 +47,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content">
+                <div class="ibox-content" ng-controller="PhysioExerciseController">
                     @*Modal*@
                     <div class="modal inmodal" id="addExerciseOrStretch" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
@@ -57,7 +57,39 @@
                                     <h3 class="modal-title">Add Exercise or Stretch</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal"></form>
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Exercise Type:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newExercise.type" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Exercise Name:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newExercise.name" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Exercise Description:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newExercise.description" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Exercise Videolink:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newExercise.videolink" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4">Exercise Picture:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input ng-model="newExercise.picture" class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
@@ -114,7 +146,17 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
+                            <tbody id="contentTable">
+                                <tr dir-paginate="exercise in exercises | filter:q | itemsPerPage: exercisePerPage" total-items="totalExercises">
+                                    <td>{{exercise.type}}</td>
+                                    <td>{{exercise.name}}</td>
+                                    <td>
+                                        <i ng-click="openDelete(exercise.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
+                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
                     </div>
 
                 </div>

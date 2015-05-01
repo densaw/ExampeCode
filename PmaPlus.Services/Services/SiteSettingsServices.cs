@@ -61,10 +61,11 @@ namespace PmaPlus.Services.Services
             {
                 password.ChangeAt = DateTime.Now;
                 password.User = user;
-                _passwordHistoryRepository.Add(password);
+                password.LoggedAt = user.LoggedAt;
                 user.Password = password.Password;
                 user.UpdateAt = DateTime.Now;
                 _userServices.UpdateUser(user);
+                _passwordHistoryRepository.Add(password);
             }
         }
         #endregion

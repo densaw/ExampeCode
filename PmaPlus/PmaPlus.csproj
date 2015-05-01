@@ -135,6 +135,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
@@ -260,10 +261,12 @@
     <Compile Include="Models\PhotoViewModel.cs" />
     <Compile Include="Stratup.cs" />
     <Compile Include="Tools\FileStorageTypes.cs" />
+    <Compile Include="Tools\HttpRequestMessageExtensions.cs" />
     <Compile Include="Tools\IPhotoManager.cs" />
     <Compile Include="Tools\LocalPhotoManager.cs" />
     <Compile Include="Tools\PhotoActionResult.cs" />
     <Compile Include="Tools\TimeUtils.cs" />
+    <Content Include="App_Data\FileStorage\PhysioBodyPartPhoto\5\a4.jpg" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\SysAdmin\favicon.ico" />
     <Content Include="Content\animate.css" />
@@ -3365,8 +3368,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\FileStorage\PhysioBodyPartPhoto\" />
-    <Folder Include="App_Data\temp\" />
+    <Folder Include="App_Data\FileStorage\temp\" />
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
     <Folder Include="Images\Clubs\" />
