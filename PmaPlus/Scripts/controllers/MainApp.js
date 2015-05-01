@@ -923,6 +923,18 @@
     module.controller('ScenariosController', ['$scope', '$http', function ($scope, $http) {
         var needToDelete = -1;
 
+        $scope.scenarioType = [
+           { id: 0, name: 'Attacking' },
+           { id: 1, name: 'Ball Control' },
+           { id: 2, name: 'Defending' },
+           { id: 3, name: 'Goalkeeping' },
+           { id: 4, name: 'Midfield' },
+           { id: 0, name: 'Play Scenario' },
+           { id: 1, name: 'Set Plays' }
+        ];
+
+        $scope.selectedType = $scope.scenarioType[0];
+
         function getResultsPage(pageNumber) {
             console.log($scope.coursePerPage);
             $http.get('/api/Scenarios/' + $scope.scenariosPerPage + '/' + pageNumber)
@@ -949,6 +961,8 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function () {
+            $scope.newScenario.picture = 'tmp.png';
+            $scope.newScenario.scenarioType = $scope.selectedType.id;
             $http.post('/api/Scenarios', $scope.newScenario).success(function () {
                 getResultsPage($scope.pagination.current);
                 $scope.newScenario = { name: '', scenarioType: '', picture: '', uploadedBy: '', minAge: '', maxAge: '' };
@@ -974,18 +988,19 @@
             });
         };
 
-        $scope.viewVideo = function(videoLink) {
+        $scope.viewVideo = function (videoLink) {
+            console.log('Here');
+            console.log(videoLink);
             var videoHolder = angular.element('#videoPlase');
-            videoHolder.innerHTML = '<div class="ibox float-e-margins">' +
+            videoHolder.append('<div id="videoPlase" class="col-lg-6"><div class="ibox float-e-margins">' +
                 '<div class="ibox-title">' +
                 '<h5>Video window</h5>' +
                 '<div class="ibox-tools">' +
                 '<a class="close-link">' +
                 '<i class="fa fa-times"></i></a>' +
                 '</div></div><div class="ibox-content">' +
-                '<figure><iframe src="' + videoLink +
-                '" frameborder="0" allowfullscreen="" data-aspectratio="0.8211764705882353" style="width: 485px; height: 398.270588235294px;">' +
-                '</iframe></figure></div></div>';
+                '<iframe width="560" height="315" src="' + videoLink + '" frameborder="0" allowfullscreen></iframe>' +
+                '</figure></div></div></div>');
         }
 
 
