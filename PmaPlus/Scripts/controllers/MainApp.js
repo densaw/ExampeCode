@@ -974,7 +974,94 @@
             });
         };
 
+        $scope.viewVideo = function(videoLink) {
+            var videoHolder = angular.element('#videoPlase');
+            videoHolder.innerHTML = '<div class="ibox float-e-margins">' +
+                '<div class="ibox-title">' +
+                '<h5>Video window</h5>' +
+                '<div class="ibox-tools">' +
+                '<a class="close-link">' +
+                '<i class="fa fa-times"></i></a>' +
+                '</div></div><div class="ibox-content">' +
+                '<figure><iframe src="' + videoLink +
+                '" frameborder="0" allowfullscreen="" data-aspectratio="0.8211764705882353" style="width: 485px; height: 398.270588235294px;">' +
+                '</iframe></figure></div></div>';
+        }
 
 
     }]);
+
+    module.controller('BodyPartController', ['$scope', '$http', function ($scope, $http) {
+        var needToDelete = -1;
+        var urlTail = '/api/PhysioBodyParts';
+
+        $scope.parts = [
+           { id: 0, name: 'Hip' },
+           { id: 1, name: 'Leg' },
+           { id: 2, name: 'Knee' },
+           { id: 3, name: 'Calf' },
+           { id: 4, name: 'Ankle' },
+           { id: 0, name: 'Foot' },
+           { id: 1, name: 'Arm' },
+           { id: 2, name: 'Wrist' },
+           { id: 0, name: 'Hand' },
+           { id: 1, name: 'Neck' },
+           { id: 2, name: 'Back' }
+        ];
+
+        $scope.selectedBPart = $scope.parts[0];
+
+        function getResultsPage(pageNumber) {
+            $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        }
+
+        $scope.items = [];
+        $scope.totalItems = 0;
+        $scope.itemsPerPage = 20;
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+
+        var target = angular.element('#addBodyPart');
+        var confDelete = angular.element('#confDelete');
+
+        $scope.ok = function () {
+            $scope.newPart.picture = 'tmp.png';
+            $scope.newPart.type = $scope.selectedBPart.id;
+            $http.post(urlTail, $scope.newPart).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+            confDelete.modal('hide');
+        };
+
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete(urlTail + '/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
+    }]);
+
 })();
