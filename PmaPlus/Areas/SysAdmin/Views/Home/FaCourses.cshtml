@@ -130,24 +130,38 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <div data-toggle="buttons" class="btn-group">
+                            <label onclick=" $('.table').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
+                                CSV
+                            </label>
+                            <label onclick=" $('.table').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
+                                Excel
+                            </label>
+                            <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
+                                PDF
+                            </label>
+                            <label onclick="print($('.table'))" class="btn btn-sm btn-white">
+                                Print
+                            </label>
+                        </div>
+                        <table  class="table table-striped">
                             <thead>
-                            <tr>
-                                <th>Name </th>
-                                <th>Duration </th>
-                                <th>Description </th>
-                                <th>Action</th>
-                            </tr>
+                                <tr>
+                                    <th>Name </th>
+                                    <th>Duration </th>
+                                    <th>Description </th>
+                                    <th>Action</th>
+                                </tr>
                             </thead>
                             <tbody id="contentTable">
-                            <tr dir-paginate="course in courses | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
-                                <td>{{course.name}}</td>
-                                <td>{{course.duration}}</td>
-                                <td style="max-width: 300px;">{{course.description}}</td>
-                                <td>
-                                    <i ng-click="openDelete(course.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                </td>
-                            </tr>
+                                <tr dir-paginate="course in courses | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
+                                    <td>{{course.name}}</td>
+                                    <td>{{course.duration}}</td>
+                                    <td style="max-width: 300px;">{{course.description}}</td>
+                                    <td>
+                                        <i ng-click="openDelete(course.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>

@@ -153,7 +153,14 @@ namespace PmaPlus
                       "~/Scripts/plugins/dataTables/jquery.dataTables.js",
                       "~/Scripts/plugins/dataTables/dataTables.bootstrap.js",
                       "~/Scripts/plugins/dataTables/dataTables.responsive.js",
-                      "~/Scripts/plugins/dataTables/dataTables.tableTools.min.js"));
+                      "~/Scripts/plugins/dataTables/dataTables.tableTools.min.js",
+                      "~/Scripts/plugins/dataTables/jquery.base64.js",
+                      "~/Scripts/plugins/dataTables/jquery.dataTables.js",
+                      "~/Scripts/plugins/dataTables/tableExport.js",
+                      "~/Scripts/plugins/dataTables/jspdf/jspdf.js",
+                      "~/Scripts/plugins/dataTables/jspdf/libs/sprintf.js",
+                      "~/Scripts/plugins/dataTables/jspdf/libs/base64.js"));
+
 
             // jeditable 
             bundles.Add(new ScriptBundle("~/plugins/jeditable").Include(
