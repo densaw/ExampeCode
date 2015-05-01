@@ -59,6 +59,7 @@ namespace PmaPlus.Controllers.ApiControllers
         // POST: api/PhysioBodyParts
         public IHttpActionResult Post([FromBody]PhysioBodyPartViewModel bodyPartViewModel)
         {
+
             var bodyPart = Mapper.Map<PhysioBodyPartViewModel, BodyPart>(bodyPartViewModel);
             var newBodyPart =_physiotherapyServices.AddBodyPart(bodyPart);
             return Created(Request.RequestUri + newBodyPart.Id.ToString(),newBodyPart);

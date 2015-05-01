@@ -22,10 +22,11 @@ namespace PmaPlus.Controllers.ApiControllers
         private readonly ClubServices _clubServices;
         private readonly IPhotoManager _photoManager;
 
-        public ClubsController(ClubServices clubServices)
+        public ClubsController(ClubServices clubServices, IPhotoManager photoManager)
         {
             _clubServices = clubServices;
-            _photoManager = new LocalPhotoManager(HttpContext.Current.Server.MapPath(@"~/App_Data/temp"));
+            _photoManager = photoManager;
+            //_photoManager = new LocalPhotoManager(HttpContext.Current.Server.MapPath(@"~/App_Data/temp"));
         }
 
         [Route("api/Clubs/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]

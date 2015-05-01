@@ -259,6 +259,7 @@
     <Compile Include="Models\EmptyViewModel.cs" />
     <Compile Include="Models\PhotoViewModel.cs" />
     <Compile Include="Stratup.cs" />
+    <Compile Include="Tools\FileStorageTypes.cs" />
     <Compile Include="Tools\IPhotoManager.cs" />
     <Compile Include="Tools\LocalPhotoManager.cs" />
     <Compile Include="Tools\PhotoActionResult.cs" />
@@ -3364,7 +3365,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\FileStorage\" />
+    <Folder Include="App_Data\FileStorage\PhysioBodyPartPhoto\" />
     <Folder Include="App_Data\temp\" />
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />

@@ -39,7 +39,9 @@ namespace PmaPlus.Services.Services
 
         public TargetHistory GetAtulalTareget()
         {
-            return _targetHistoryRepository.GetAll().Last();
+             
+            
+            return _targetHistoryRepository.GetAll().OrderByDescending(t=>t.Id).AsEnumerable().FirstOrDefault();
         }
 
         #endregion
@@ -48,7 +50,7 @@ namespace PmaPlus.Services.Services
 
         public IQueryable<PasswordHistory> GetPasswordHistory(User currentUser)
         {
-            return _passwordHistoryRepository.GetMany(h => h.User.Email == currentUser.Email);
+            return _passwordHistoryRepository.GetMany(h => h.User.Email == currentUser.Email).OrderByDescending(p=>p.Id);
         }
 
         public void UpdatePassword(PasswordHistory password, string userEmail)
@@ -59,7 +61,6 @@ namespace PmaPlus.Services.Services
             {
                 password.ChangeAt = DateTime.Now;
                 password.User = user;
-                password.LoggedAt = user.LoggedAt;
                 _passwordHistoryRepository.Add(password);
                 user.Password = password.Password;
                 user.UpdateAt = DateTime.Now;
