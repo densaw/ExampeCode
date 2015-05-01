@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Targets";
     Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
 }
@@ -123,11 +122,11 @@
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Target</th>
-                                <th>Value</th>
-                            </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Target</th>
+                                    <th>Value</th>
+                                </tr>
                             </thead>
                             <tbody id="contentTable">
                                 <tr dir-paginate="target in targets | filter:q | itemsPerPage: targetsPerPage" total-items="totalTargets">
