@@ -2911,6 +2911,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\plugins\blueimp\jquery.blueimp-gallery.min.js" />
+    <Content Include="Scripts\plugins\bootstrap\bootstrap.file-input.js" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap.js" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\plugins\chartJs\Chart.min.js" />

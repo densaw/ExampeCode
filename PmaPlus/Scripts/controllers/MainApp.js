@@ -588,4 +588,91 @@
 
     }]);
 
+    function pageTableData($scope, $http, urlTail, modalName) {
+
+        var needToDelete = -1;
+
+        function getResultsPage(pageNumber) {
+            $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        }
+
+        $scope.items = [];
+        $scope.totalItems = 0;
+        $scope.itemsPerPage = 20;
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+
+        var target = angular.element(modalName);
+        var confDelete = angular.element('#confDelete');
+
+        $scope.okTarget = function () {
+            $http.post(urlTail, $scope.newItem).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+        };
+    };
+
+    module.controller('TargetController', ['$scope', '$http', function ($scope, $http) {
+
+        var urlTail = '/api/NutritionFoodTypes';
+
+        var needToDelete = -1;
+
+        function getResultsPage(pageNumber) {
+            $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        }
+
+        $scope.items = [];
+        $scope.totalItems = 0;
+        $scope.itemsPerPage = 20;
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+
+        var target = angular.element('#addFoodType');
+        var confDelete = angular.element('#confDelete');
+
+        $scope.ok = function () {
+            $http.post(urlTail, $scope.newItem).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+            confDelete.modal('hide');
+        };
+        $scope.delete = function() {
+            
+        }
+    }]);
 })();
