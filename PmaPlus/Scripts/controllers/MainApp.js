@@ -2,6 +2,7 @@
     var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap']);
 
 
+
     module.controller('ChartController', ['$scope', '$http', function ($scope, $http) {
         var monthNames = ['Jan',
             'Feb',
@@ -195,6 +196,16 @@
 
     module.controller('ClubsController', ['$scope', '$http', function ($scope, $http) {
 
+        var needToDelete = -1;
+        
+        $scope.statuses = [
+            { id: 0, name: 'Active' },
+            { id: 1, name: 'Blocked' },
+            { id: 2, name: 'Closed' }
+        ];
+
+        $scope.selectedStatus = $scope.statuses[0];
+
         function getResultsPage(pageNumber) {
             $http.get('/api/Clubs/' + $scope.clubsPerPage + '/' + pageNumber)
                 .success(function (result) {
@@ -205,8 +216,8 @@
 
         $scope.clubs = [];
         $scope.totalClubs = 0;
-        $scope.clubsPerPage = 10; // this should match however many results your API puts on one page
-
+        $scope.clubsPerPage = 20; // this should match however many results your API puts on one page
+        //$scope.newClub = {};
 
         $scope.pagination = {
             current: 1
@@ -216,8 +227,14 @@
             getResultsPage(newPage);
         };
         var target = angular.element('#addClubModal');
+        var confDelete = angular.element('#confDelete');
+
         $scope.ok = function () {
-            $http.post('/api/FaCourses', $scope.newClub).success(function () {
+            $scope.newClub.logo = 'tmp.jpeg';
+            $scope.newClub.background = 'tmp.jpeg';
+            $scope.newClub.status = $scope.selectedStatus.id;
+            console.log($scope.newClub);
+            $http.post('/api/Clubs', $scope.newClub).success(function () {
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
             });
@@ -225,6 +242,19 @@
         };
         $scope.cancel = function () {
             target.modal('hide');
+            confDelete.modal('hide');
+        };
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete('/api/Clubs/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
         };
     }]);
 
@@ -303,6 +333,7 @@
         };
         $scope.cancel = function () {
             target.modal('hide');
+            confDelete.modal('hide');
         };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
@@ -640,7 +671,27 @@
         };
     };
 
-    module.controller('NutritionFoodTypesController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('NFTController', ['$scope', '$http', function ($scope, $http) {
+
+       $scope.foodType = [
+            { id: 0, name: 'Fruit' },
+            { id: 1, name: 'Vegetables' },
+            { id: 2, name: 'Meat' },
+            { id: 3, name: 'Fish' },
+            { id: 4, name: 'Diary' },
+            { id: 5, name: 'Grain' },
+            { id: 6, name: 'Nuts' }
+        ];
+        $scope.when = [
+            { id: 0, name: 'Breakfast' },
+            { id: 1, name: 'Before Match\Training' },
+            { id: 2, name: 'After Match\Training' },
+            { id: 3, name: 'Dinner' },
+            { id: 4, name: 'Snack' }
+        ];
+
+        $scope.selectedType = $scope.foodType[0];
+        $scope.selectedWhen = $scope.when[0];
 
         var urlTail = '/api/NutritionFoodTypes';
 
@@ -672,7 +723,67 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function () {
-            $http.post(urlTail, $scope.newItem).success(function () {
+            $scope.type = $scope.selectedType.id;
+            $scope.when = $scope.selectedWhen.id;
+            $scope.newFood.picture = 'tmp.png';
+            $http.post(urlTail, $scope.newFood).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
+            target.modal('hide');
+        };
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+            confDelete.modal('hide');
+        };
+        $scope.delete = function() {
+            $http.delete('/api/NutritionFoodTypes/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        }
+    }]);
+
+    module.controller('NAController', ['$scope', '$http', function($scope, $http) {
+
+        var needToDelete = -1;
+        var urlTail = '/api/NutritionAlternatives';
+
+        function getResultsPage(pageNumber) {
+            $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        }
+
+        $scope.items = [];
+        $scope.totalItems = 0;
+        $scope.itemsPerPage = 20;
+            
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+
+        var target = angular.element('#addAlternative');
+        var confDelete = angular.element('#confDelete');
+
+        $scope.ok = function () {
+            $scope.newAlt.badItemPicture = 'tmp.png';
+            $scope.newAlt.alternativePicture = 'tmp.png';
+            $http.post(urlTail, $scope.newAlt).success(function () {
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
             });
@@ -682,9 +793,73 @@
             target.modal('hide');
             confDelete.modal('hide');
         };
-        $scope.delete = function() {
-            
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete(urlTail + '/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
+    }]);
+
+    module.controller('NRController', ['$scope', '$http', function($scope, $http) {
+        var needToDelete = -1;
+        var urlTail = '/api/NutritionRecipes';
+
+        function getResultsPage(pageNumber) {
+            $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
         }
+
+        $scope.items = [];
+        $scope.totalItems = 0;
+        $scope.itemsPerPage = 20;
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+
+        var target = angular.element('#addRecipe');
+        var confDelete = angular.element('#confDelete');
+
+        $scope.ok = function () {
+            $scope.newRecipt.picture = 'tmp.png';
+            $http.post(urlTail, $scope.newRecipt).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
+            target.modal('hide');
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+            confDelete.modal('hide');
+        };
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete(urlTail + '/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
     }]);
 
     module.controller('PhysioExerciseController', ['$scope', '$http', function($scope, $http) {

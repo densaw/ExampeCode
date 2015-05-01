@@ -56,30 +56,20 @@
                                         <div class="form-group">
                                             <label class="col-lg-4">Club Name:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.name" class="form-control">
                                             </div>
                                             </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Club Logo:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input type="file" accept="image/*" class="form-control">
 
                                             </div>
                                              </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Club Status:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" aria-label="...">
-                                                    <div class="input-group-btn">
-                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                                            <li><a href="#">Active</a></li>
-                                                            <li><a href="#">Blocked</a></li>
-                                                            <li><a href="#">Closed</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                                <select ng-model="selectedStatus" ng-options="status.name for status in statuses" class=" form-control m-b" name="account"></select>
                                             </div>
                                             
                                         </div>
@@ -87,118 +77,100 @@
                                         <div class="form-group">
                                             <label class="col-lg-4">Club Administrator Name:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.clubAdminName" class="form-control">
 
                                             </div>
                                              </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">ClubAdmin Email:</label>
+                                            <label class="col-lg-4">ClubAdmin Username:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.clubAdminEmail" class="form-control">
 
                                             </div>
                                              </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">ClubAdmin Password:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.clubAdminPassword" class="form-control">
 
                                             </div>
                                              </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Club Background:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input class="form-control">
+                                                    <input type="file" class="form-control">
                                                 </div>
                                             </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Established:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.established" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Club Telephone:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.telephone" class="form-control" maxlength="12">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Club Mobile:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.mobile" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Address 1:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.address1" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Address 2:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.address2" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Address 3:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.address3" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Town\City:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.townCity" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Post Code:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.postCode" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Chairman:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.chairman" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Chairman Email:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.chairmanEmail" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Chairman Telephone:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-4">Welfare Officer:</label>
-                                            <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-4">Welfare Officer Email:</label>
-                                            <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-4">Welfare Officer Telephone:</label>
-                                            <div class="col-lg-7 pull-right">
-                                                <input class="form-control">
+                                                <input ng-model="newClub.chairmanTelephone" class="form-control" maxlength="12">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-4">Club Colour Theme:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input type="text" class="form-control">
+                                                <input ng-model="newClub.colorTheme" type="text" class="form-control">
                                             </div>
                                         </div>
                                         
@@ -213,11 +185,33 @@
                         </div>
                     </div>
                     @*Modal End*@
+                    @*Modal*@
+                    <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content animated bounceInRight">
+                                <div class="modal-header">
+
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h3 class="modal-title">Delete Record?</h3>
+
+
+                                </div>
+                                <div class="modal-body">
+                                    <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
+                                    <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*Modal End*@
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
                             <div data-toggle="buttons" class="btn-group">
-                                <label ng-click="coursePerPage = 10" class="btn btn-sm btn-white active"> <input type="radio" id="option1" name="options"> 10 </label>
-                                <label ng-click="coursePerPage = 20" class="btn btn-sm btn-white"> <input type="radio" id="option2" name="options"> 20 </label>
+                                <label ng-click="coursePerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                <label ng-click="coursePerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
                                 <label ng-click="coursePerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
                             </div>
                         </div>
@@ -244,14 +238,14 @@
                             </thead>
                             <tbody id="contentTable">
                             <tr dir-paginate="club in clubs | filter:q | itemsPerPage: clubsPerPage" total-items="totalClubs">
-                                <td>{{course.name}}</td>
-                                <td>{{course.townCity}}</td>
-                                <td>{{course.coaches}}</td>
-                                <td>{{course.players}}</td>
-                                <td>{{course.lastLogin}}</td>
-                                <td>{{course.status}}</td>
+                                <td>{{club.name}}</td>
+                                <td>{{club.townCity}}</td>
+                                <td>{{club.coaches}}</td>
+                                <td>{{club.players}}</td>
+                                <td>{{club.lastLogin}}</td>
+                                <td>{{statuses[club.status].name}}</td>
                                 <td>
-                                    <a ng-click="" class="btn btn-primary">Delete</a>
+                                    <i ng-click="openDelete(club.id)" class="fa fa-trash" style="cursor: pointer;"></i>
                                 </td>
                             </tr>
                             </tbody>
