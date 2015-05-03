@@ -38,9 +38,8 @@
     <script src="http://omnipotent.net/jquery.sparkline/2.1.2/jquery.sparkline.min.js"></script>
     @Scripts.Render("~/plugins/spark")
     @Scripts.Render("~/plugins/pagination")
-    @Scripts.Render("~/plugins/ui-bootstrap")
     @Scripts.Render("~/plugins/colorpicker")
-    @Scripts.Render("~/plugins/ui-bootstrap")
+  
     
 </head>
 <body ng-app="MainApp" class="skin-1">
@@ -73,7 +72,9 @@
 @Scripts.Render("~/bundles/jquery-session")
 @Scripts.Render("~/bundles/controllers")
 @Scripts.Render("~/plugins/dataTables")
-
+@Scripts.Render("~/plugins/ui-bootstrap")
+@Scripts.Render("~/plugins/fileinput")
+    
 <!-- Handler for local scripts -->
 @RenderSection("scripts", required: false)
 
