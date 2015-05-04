@@ -14,8 +14,14 @@ namespace PmaPlus
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
                       "~/Content/animate.css",
-                      "~/Content/style.css"));
+                      "~/Content/style.css",
+                      "~/Content/plugins/fileinput/fileinput.min.css"));
 
+
+
+            bundles.Add(new ScriptBundle("~/plugins/fileinput").Include(
+                "~/Scripts/plugins/fileinput/fileinput.min.js"
+                ));
 
             // Font Awesome icons
             bundles.Add(new StyleBundle("~/font-awesome/css").Include(
@@ -31,15 +37,12 @@ namespace PmaPlus
                 "~/Scripts/angular/angular-route.js"));
 
             //BootStrap File
-            bundles.Add(new ScriptBundle("~/plugins/ui-bootstrap").Include(
-                "~/Scripts/plugins/bootstrap/bootstrap.file-input.js"));
-
             //Angular BootStrap
             bundles.Add(new ScriptBundle("~/plugins/ui-bootstrap").Include(
-                "~/Scripts/plugins/ui-bootstrap/ui-bootstrap-tpls-0.12.1.js"));
-
-            bundles.Add(new ScriptBundle("~/plugins/ui-bootstrap-ja").Include(
+                "~/Scripts/plugins/bootstrap/bootstrap.file-input.js",
+                "~/Scripts/plugins/ui-bootstrap/ui-bootstrap-tpls-0.12.1.js",
                 "~/Scripts/plugins/ui-bootstrap/bootstrap.js"));
+
 
             //Angular Controllers
             bundles.Add(new ScriptBundle("~/bundles/controllers").IncludeDirectory(
