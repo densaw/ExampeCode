@@ -66,6 +66,7 @@ namespace PmaPlus.Services
 
             AddClubViewModel model = new AddClubViewModel()
             {
+                Id = club.Id,
                 Name = club.Name,
                 Logo = club.Logo,
                 Status = club.Status,

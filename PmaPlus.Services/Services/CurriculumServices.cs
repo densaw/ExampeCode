@@ -30,11 +30,14 @@ namespace PmaPlus.Services
                     Name = type.Name,
                     Blocks = type.UsesBlocks,
                     BlockATT = type.UsesBlocksForAttendance,
+                    BlockRE = type.UsesBlocksForReports,
                     BlockRTE = type.UsesBlocksForRatings,
                     Weeks = type.UsesWeeks,
+                    WeekRE = type.UsesWeeksForReports,
                     WeekATT = type.UsesBlocksForAttendance,
                     WeekRTE = type.UsesWeeksForRatings,
                     Sessions = type.UsesSessions,
+                    SessionsRE = type.UsesSessionsForReports,
                     SessionsATT = type.UsesSessionsForAttendance,
                     SessionsRTE = type.UsesSessionsForRatings
                 });

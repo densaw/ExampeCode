@@ -187,6 +187,7 @@
             target.modal('hide');
             confDelete.modal('hide');
             needToDelete = -1;
+            $scope.newClub = null;
         };
         $scope.openAdd = function() {
             $scope.modalTitle = "Add a Course";
@@ -252,25 +253,45 @@
         var target = angular.element('#addClubModal');
         var confDelete = angular.element('#confDelete');
 
-        $scope.ok = function () {
+        $scope.ok = function (id) {
+
+            if (id != null) {
+                $scope.newClub.logo = 'tmp.jpeg';
+                $scope.newClub.background = 'tmp.jpeg';
+                $scope.newClub.status = $scope.selectedStatus.id;
+                $http.put('/api/Clubs/'+id , $scope.newClub).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                    $scope.newClub = null;
+                });
+                target.modal('hide');
+
+            } else {
+                
             $scope.newClub.logo = 'tmp.jpeg';
             $scope.newClub.background = 'tmp.jpeg';
             $scope.newClub.status = $scope.selectedStatus.id;
-            console.log($scope.newClub);
             $http.post('/api/Clubs', $scope.newClub).success(function () {
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
+                $scope.newClub = null;
             });
             target.modal('hide');
         };
+            }
         $scope.cancel = function () {
             target.modal('hide');
             confDelete.modal('hide');
+            $scope.newClub = null;
         };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
             console.log(id);
             needToDelete = id;
+        };
+        $scope.openAdd = function () {
+            $scope.modalTitle = "Add a Club";
+            target.modal('show');
         };
         $scope.delete = function () {
             $http.delete('/api/Clubs/' + needToDelete).success(function () {
@@ -279,6 +300,16 @@
                 confDelete.modal('hide');
             });
         };
+        $scope.openEdit = function (id) {
+            $http.get('/api/Clubs/' + id)
+                .success(function (result) {
+                    $scope.newClub = result;
+                    $scope.modalTitle = "Update Club";
+                    target.modal('show');
+
+                });
+        };
+
     }]);
 
     module.controller('CurriculumTypesController', ['$scope', '$http', function ($scope, $http) {
@@ -360,7 +391,6 @@
         };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
-            console.log(id);
             needToDelete = id;
         };
         $scope.delete = function () {
@@ -369,6 +399,15 @@
                 needToDelete = -1;
                 confDelete.modal('hide');
             });
+        };
+        $scope.openEdit = function (id) {
+            $http.get('/api/CurriculumTypes/' + id)
+                .success(function (result) {
+                    $scope.newCourse = result;
+                    $scope.modalTitle = "Update Course";
+                    target.modal('show');
+
+                });
         };
     }]);
 
@@ -401,17 +440,34 @@
         var target = angular.element('#addLevels');
         var confDelete = angular.element('#confDelete');
 
-        $scope.okLvl = function () {
+        $scope.okLvl = function (id) {
+            if (id != null) {
+                $http.put('/api/SkillLevels/' + id, $scope.newLevel).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                    
+                });
+                target.modal('hide');
+
+                
+            } else {
             $http.post('/api/SkillLevels', $scope.newLevel).success(function () {
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
             });
             target.modal('hide');
+                
+            }
+            $scope.newLevel = null;
         };
         $scope.cancel = function () {
+            $scope.newLevel = null;
             target.modal('hide');
         };
-
+        $scope.openAdd = function () {
+            $scope.modalTitle = "Add a Level";
+            target.modal('show');
+        };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
             console.log(id);
@@ -423,6 +479,16 @@
                 needToDelete = -1;
                 confDelete.modal('hide');
             });
+        };
+
+        $scope.openEdit = function (id) {
+            $http.get('/api/SkillLevels/' + id)
+                .success(function (result) {
+                    $scope.newLevel = result;
+                    $scope.modalTitle = "Update Level";
+                    target.modal('show');
+
+                });
         };
     }]);
 
