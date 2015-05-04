@@ -1,330 +1,332 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "NutritionRecipes";
     Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Nutrition Recipes</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a>Home</a>
-            </li>
-            <li>
-                <a>Nutrition</a>
-            </li>
-            <li class="active">
-                <strong>Recipes</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a class="btn btn-primary" data-toggle="modal" data-target="#addRecipe">Add a Recipe</a>
+<div ng-controller="NRController">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Nutrition Recipes</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li>
+                    <a>Nutrition</a>
+                </li>
+                <li class="active">
+                    <strong>Recipes</strong>
+                </li>
+            </ol>
         </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-click="openAdd()">Add a Recipe</a>
+            </div>
 
 
-    </div>
-</div>
-
-<div class="wrapper wrapper-content  animated fadeInRight">
-<div class="row">
-<div class="col-lg-12">
-<div class="ibox float-e-margins">
-<div class="ibox-title">
-    <h5>Nutrition Recipes</h5>
-    <div class="ibox-tools">
-        <a class="collapse-link">
-            <i class="fa fa-chevron-up"></i>
-        </a>
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-wrench"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-user"></ul>
-        <a>
-            <i class="fa fa-times"></i>
-        </a>
-    </div>
-</div>
-<div class="ibox-content" ng-controller="NRController">
-@*Modal*@
-<div class="modal inmodal" id="addRecipe" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h3 class="modal-title text-left">Add a Recipe</h3>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Recipe Name:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.name" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Ingredients List:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.ingridientsList" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Video:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.video" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Description:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.description" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Allergies:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.allergies" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Picture:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input type="file" accept="image/*" class="file">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Serves:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.serves" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Calories:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.calories" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Calories from Fat:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.caloriesFromFat" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Total Fat:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.totalFat" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Saturated Fat:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.saturatedFat" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Trans Fat:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.transFat" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Cholesterol:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.cholesterol" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Sodium:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.sodium" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Potassium:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.potassium" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Total Carbohydrate:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.totalCarbohydrate" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Dietary Fibre:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.dietaryFibre" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Sugars:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.sugars" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Protein:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.protein" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Vitamin A:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.vitaminA" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Vitamin B:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.vitaminB" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Vitamin C:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.vitaminC" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Vitamin D:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.vitaminD" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Vitamin E:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.vitaminE" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Iron:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.iron" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">Calcium:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.calcium" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 title-modal">% of Daily Intake:</label>
-                        <div class="col-lg-7 pull-right">
-                            <input ng-model="newRecipt.dailyIntake" class="form-control">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                <button ng-click="ok()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
-            </div>
         </div>
     </div>
-</div>
-@*Modal End*@
-@*Modal*@
-<div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
 
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h3 class="modal-title">Delete Record?</h3>
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Nutrition Recipes</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user"></ul>
+                            <a>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        @*Modal*@
+                        <div class="modal inmodal" id="addRecipe" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title text-left">{{modalTitle}}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Recipe Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.name" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Ingredients List:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.ingridientsList" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Video:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.video" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Description:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.description" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Allergies:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.allergies" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Picture:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input type="file" accept="image/*" class="file">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Serves:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.serves" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Calories:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.calories" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Calories from Fat:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.caloriesFromFat" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Total Fat:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.totalFat" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Saturated Fat:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.saturatedFat" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Trans Fat:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.transFat" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Cholesterol:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.cholesterol" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Sodium:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.sodium" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Potassium:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.potassium" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Total Carbohydrate:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.totalCarbohydrate" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Dietary Fibre:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.dietaryFibre" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Sugars:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.sugars" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Protein:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.protein" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Vitamin A:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.vitaminA" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Vitamin B:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.vitaminB" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Vitamin C:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.vitaminC" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Vitamin D:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.vitaminD" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Vitamin E:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.vitaminE" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Iron:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.iron" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Calcium:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.calcium" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">% of Daily Intake:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newRecipt.dailyIntake" class="form-control">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                        <button ng-click="ok(newRecipt.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        @*Modal*@
+                        <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Delete Record?</h3>
 
 
-            </div>
-            <div class="modal-body">
-                <h3 class="text-center">Are you sure you wish to delete this record?</h3>
-            </div>
-            <div class="modal-footer">
-                <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
-                <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
-            </div>
-        </div>
-    </div>
-</div>
-@*Modal End*@
-<div class="row">
-    <div class="col-sm-9 m-b-xs">
-        <form class="form-horizontal">
-            <div class="form-group" style="margin-left: 0px;">
-                <div data-toggle="buttons" class="btn-group">
-                    <label ng-click="itemsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
-                    <label ng-click="itemsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
-                    <label ng-click="itemsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
+                                        <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        <div class="row">
+                            <div class="col-sm-9 m-b-xs">
+                                <form class="form-horizontal">
+                                    <div class="form-group" style="margin-left: 0px;">
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <label ng-click="itemsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                            <label ng-click="itemsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
+                                            <label ng-click="itemsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                                        </div>
+                                        <div class="btn-group">
+                                            <label onclick=" $('.table').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                CSV
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                Excel
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                PDF
+                                            </label>
+                                            <label onclick=" print($('.table')) " class="btn btn-sm btn-white">
+                                                Print
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Recipe Name</th>
+                                        <th>Calories</th>
+                                        <th>Sat Fat</th>
+                                        <th>Carbs</th>
+                                        <th>Protein</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="reciptType in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                        <td>{{reciptType.name}}</td>
+                                        <td>{{reciptType.calories}}</td>
+                                        <td>{{reciptType.saturatedFat}}</td>
+                                        <td>{{reciptType.totalCarbohydrate}}</td>
+                                        <td>{{reciptType.protein}}</td>
+                                        <td>
+                                            <i ng-click="openEdit(reciptType.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                            <i ng-click="openDelete(reciptType.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="btn-group">
-                    <label onclick=" $('.table').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
-                        CSV
-                    </label>
-                    <label onclick=" $('.table').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
-                        Excel
-                    </label>
-                    <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
-                        PDF
-                    </label>
-                    <label onclick=" print($('.table')) " class="btn btn-sm btn-white">
-                        Print
-                    </label>
-                </div>
             </div>
-        </form>
-
-    </div>
-    <div class="col-sm-3">
-        <div class="input-group">
-            <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary"> Go!</button>
-                                </span>
         </div>
     </div>
-</div>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Recipe Name</th>
-            <th>Calories</th>
-            <th>Sat Fat</th>
-            <th>Carbs</th>
-            <th>Protein</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr dir-paginate="reciptType in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-            <td>{{reciptType.name}}</td>
-            <td>{{reciptType.calories}}</td>
-            <td>{{reciptType.saturatedFat}}</td>
-            <td>{{reciptType.totalCarbohydrate}}</td>
-            <td>{{reciptType.protein}}</td>
-            <td>
-                <i ng-click="openDelete(reciptType.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-</div>
-
-</div>
-</div>
-</div>
-</div>
 </div>
 <style>
-          .form-group {
+    .form-group {
         margin-bottom: 5px;
     }
+
     .m-b {
         margin-bottom: 0px;
     }
-      </style>
+</style>

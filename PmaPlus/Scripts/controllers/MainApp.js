@@ -36,7 +36,7 @@
             'Dec'];
 
         $http.get('api/dashboard/active/players').success(function (data) {
-            
+
             var monthArray = new Array;
             var playerCountArray = new Array;
             data.forEach(function (val) {
@@ -171,7 +171,7 @@
         $scope.courses = [];
         $scope.totalCourses = 0;
         $scope.coursePerPage = 20; // this should match however many results your API puts on one page
-        
+
 
         $scope.pagination = {
             current: 1
@@ -183,7 +183,7 @@
         };
         var target = angular.element('#addCurseModal');
         var confDelete = angular.element('#confDelete');
-        
+
         $scope.ok = function (id) {
             if (id != null) {
                 $http.put('/api/FaCourses/' + id, $scope.newCourse).success(function () {
@@ -193,11 +193,11 @@
                 });
             } else {
 
-            $http.post('/api/FaCourses', $scope.newCourse).success(function () {
-                getResultsPage($scope.pagination.current);
+                $http.post('/api/FaCourses', $scope.newCourse).success(function () {
+                    getResultsPage($scope.pagination.current);
                     $scope.newCourse = null;
-                target.modal('hide');
-            });
+                    target.modal('hide');
+                });
             }
             $scope.modalTitle = "Add a Course";
         };
@@ -207,7 +207,7 @@
             needToDelete = -1;
             $scope.newClub = null;
         };
-        $scope.openAdd = function() {
+        $scope.openAdd = function () {
             $scope.modalTitle = "Add a Course";
             target.modal('show');
         };
@@ -230,7 +230,7 @@
                     $scope.newCourse = result;
                     $scope.modalTitle = "Update Course";
                     target.modal('show');
-                    
+
                 });
         };
 
@@ -239,7 +239,7 @@
     module.controller('ClubsController', ['$scope', '$http', function ($scope, $http) {
 
         var needToDelete = -1;
-        
+
         $scope.statuses = [
             { id: 0, name: 'Active' },
             { id: 1, name: 'Blocked' },
@@ -277,7 +277,7 @@
                 $scope.newClub.logo = 'tmp.jpeg';
                 $scope.newClub.background = 'tmp.jpeg';
                 $scope.newClub.status = $scope.selectedStatus.id;
-                $http.put('/api/Clubs/'+id , $scope.newClub).success(function () {
+                $http.put('/api/Clubs/' + id, $scope.newClub).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
                     $scope.newClub = null;
@@ -285,18 +285,18 @@
                 target.modal('hide');
 
             } else {
-                
-            $scope.newClub.logo = 'tmp.jpeg';
-            $scope.newClub.background = 'tmp.jpeg';
-            $scope.newClub.status = $scope.selectedStatus.id;
-            $http.post('/api/Clubs', $scope.newClub).success(function () {
-                getResultsPage($scope.pagination.current);
+
+                $scope.newClub.logo = 'tmp.jpeg';
+                $scope.newClub.background = 'tmp.jpeg';
+                $scope.newClub.status = $scope.selectedStatus.id;
+                $http.post('/api/Clubs', $scope.newClub).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                    $scope.newClub = null;
+                });
                 target.modal('hide');
-                $scope.newClub = null;
-            });
-            target.modal('hide');
-        };
-            }
+            };
+        }
         $scope.cancel = function () {
             target.modal('hide');
             confDelete.modal('hide');
@@ -337,7 +337,7 @@
         function getResultsPage(pageNumber) {
             $http.get('/api/CurriculumTypes/' + $scope.curriculumsPerPage + '/' + pageNumber)
                 .success(function (result) {
-                console.log(result);
+                    console.log(result);
                     $scope.curriculums = result.items;
                     $scope.totalCurriculums = result.count;
                 });
@@ -398,9 +398,9 @@
                     "usesSessionsForReports": sessionsReports.prop('checked')
                 }
                 ).success(function () {
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-            });
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
             target.modal('hide');
         };
         $scope.cancel = function () {
@@ -463,18 +463,18 @@
                 $http.put('/api/SkillLevels/' + id, $scope.newLevel).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
-                    
+
                 });
                 target.modal('hide');
 
-                
+
             } else {
-            $http.post('/api/SkillLevels', $scope.newLevel).success(function () {
+                $http.post('/api/SkillLevels', $scope.newLevel).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
                 });
-            target.modal('hide');
-                
+                target.modal('hide');
+
             }
             $scope.newLevel = null;
         };
@@ -548,23 +548,20 @@
         var target = angular.element('#addTest');
         var confDelete = angular.element('#confDelete');
 
-        $scope.okTest = function () {
-            $http.post('/api/SportsScienceTests',
-                {
-                    "type": $scope.selectedType.id,
-                    "name": $scope.name,
-                    "description": $scope.description,
-                    "zScoreFormula": $scope.zScoreFormula,
-                    "measure": $scope.measure,
-                    "lowValue": $scope.lowValue,
-                    "hightValue": $scope.hightValue,
-                    "nationalAverage": $scope.nationalAverage,
-                    "video": $scope.video
-                }
-                ).success(function () {
+        $scope.okTest = function (id) {
+            $scope.newTest.type = $scope.selectedType.id;
+            if (id != null) {
+                $http.put('/api/SportsScienceTests/' + id, $scope.newTest).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
                 });
+            } else {
+                $http.post('/api/SportsScienceTests', $scope.newTest).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+
+            }
             target.modal('hide');
         };
         $scope.cancel = function () {
@@ -577,6 +574,11 @@
             console.log(id);
             needToDelete = id;
         };
+        $scope.openAdd = function () {
+            $scope.modalTitle = "Add a Test";
+            $scope.newTest = null;
+            target.modal('show');
+        };
         $scope.delete = function () {
             $http.delete('/api/SportsScienceTests/' + needToDelete).success(function () {
                 getResultsPage($scope.pagination.current);
@@ -584,10 +586,18 @@
                 confDelete.modal('hide');
             });
         };
+        $scope.openEdit = function (id) {
+            $http.get('/api/SportsScienceTests/' + id)
+                .success(function (result) {
+                    $scope.newTest = result;
+                    $scope.modalTitle = "Update Test";
+                    target.modal('show');
+                });
+        };
     }]);
 
     module.controller('ScienceExercisesController', ['$scope', '$http', function ($scope, $http) {
-        $scope.testTypes = [
+        $scope.exerciseTypes = [
            { id: 0, name: 'Agility' },
            { id: 1, name: 'Fitness' },
            { id: 2, name: 'Strength' },
@@ -595,21 +605,21 @@
            { id: 4, name: 'Pace' }
         ];
 
-        $scope.selectedType = $scope.testTypes[0];
+        $scope.selectedType = $scope.exerciseTypes[0];
 
         var needToDelete = -1;
 
         function getResultsPage(pageNumber) {
-            $http.get('/api/SportsScienceExercises/' + $scope.testsPerPage + '/' + pageNumber)
+            $http.get('/api/SportsScienceExercises/' + $scope.exercisesPerPage + '/' + pageNumber)
                 .success(function (result) {
-                    $scope.sportTests = result.items;
-                    $scope.totalTests = result.count;
+                    $scope.sportExercises = result.items;
+                    $scope.totalExercises = result.count;
                 });
         }
 
-        $scope.sportTests = [];
-        $scope.totalTests = 0;
-        $scope.testsPerPage = 20; // this should match however many results your API puts on one page
+        $scope.sportExercises = [];
+        $scope.totalExercises = 0;
+        $scope.exercisesPerPage = 20; // this should match however many results your API puts on one page
 
 
         $scope.pagination = {
@@ -623,22 +633,21 @@
         var target = angular.element('#addExercise');
         var confDelete = angular.element('#confDelete');
 
-        $scope.okEx = function () {
-            $http.post('/api/SportsScienceExercises',
-                {
-                    "type": $scope.selectedType.id,
-                    "name": $scope.name,
-                    "description": $scope.description,
-                    "measure": $scope.measure,
-                    "lowValue": $scope.lowValue,
-                    "hightValue": $scope.hightValue,
-                    "nationalAverage": $scope.nationalAverage,
-                    "video": $scope.video
-                }
-                ).success(function () {
+        $scope.okEx = function (id) {
+            $scope.newExercise.type = $scope.selectedType.id;
+            if (id != null) {
+                $http.put('/api/SportsScienceExercises/' + id, $scope.newExercise).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
                 });
+            } else {
+
+                $http.post('/api/SportsScienceExercises', $scope.newExercise).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+            }
+
             target.modal('hide');
         };
         $scope.cancel = function () {
@@ -651,12 +660,26 @@
             console.log(id);
             needToDelete = id;
         };
+        $scope.openAdd = function () {
+            $scope.modalTitle = "Add an Exercise";
+            $scope.newExercise = null;
+            target.modal('show');
+        };
         $scope.delete = function () {
             $http.delete('/api/SportsScienceExercises/' + needToDelete).success(function () {
                 getResultsPage($scope.pagination.current);
                 needToDelete = -1;
                 confDelete.modal('hide');
             });
+        };
+
+        $scope.openEdit = function (id) {
+            $http.get('/api/SportsScienceExercises/' + id)
+                .success(function (result) {
+                    $scope.newExercise = result;
+                    $scope.modalTitle = "Update Exercise";
+                    target.modal('show');
+                });
         };
     }]);
 
@@ -726,9 +749,9 @@
 
         $scope.okTarget = function () {
             $http.post('/api/TargetHistory', $scope.newPassword).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                });
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
             target.modal('hide');
         };
         $scope.cancel = function () {
@@ -780,14 +803,14 @@
 
     module.controller('NFTController', ['$scope', '$http', function ($scope, $http) {
 
-       $scope.foodType = [
-            { id: 0, name: 'Fruit' },
-            { id: 1, name: 'Vegetables' },
-            { id: 2, name: 'Meat' },
-            { id: 3, name: 'Fish' },
-            { id: 4, name: 'Diary' },
-            { id: 5, name: 'Grain' },
-            { id: 6, name: 'Nuts' }
+        $scope.foodType = [
+             { id: 0, name: 'Fruit' },
+             { id: 1, name: 'Vegetables' },
+             { id: 2, name: 'Meat' },
+             { id: 3, name: 'Fish' },
+             { id: 4, name: 'Diary' },
+             { id: 5, name: 'Grain' },
+             { id: 6, name: 'Nuts' }
         ];
         $scope.when = [
             { id: 0, name: 'Breakfast' },
@@ -829,20 +852,34 @@
         var target = angular.element('#addFoodType');
         var confDelete = angular.element('#confDelete');
 
-        $scope.ok = function () {
+        $scope.ok = function (id) {
+
             $scope.type = $scope.selectedType.id;
             $scope.when = $scope.selectedWhen.id;
             $scope.newFood.picture = 'tmp.png';
-            $http.post(urlTail, $scope.newFood).success(function () {
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-            });
+            if (id != null) {
+                $http.put(urlTail + '/' + id, $scope.newFood).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+            } else {
+
+                $http.post(urlTail, $scope.newFood).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+            }
             target.modal('hide');
         };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
             console.log(id);
             needToDelete = id;
+        };
+        $scope.openAdd = function () {
+            $scope.modalTitle = "Add a Food Type";
+            $scope.newFood = null;
+            target.modal('show');
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -855,6 +892,14 @@
                 confDelete.modal('hide');
             });
         }
+        $scope.openEdit = function (id) {
+            $http.get('/api/NutritionFoodTypes/' + id)
+                .success(function (result) {
+                    $scope.newFood = result;
+                    $scope.modalTitle = "Update Food Type";
+                    target.modal('show');
+                });
+        };
     }]);
 
     module.controller('NAController', ['$scope', '$http', function ($scope, $http) {
@@ -873,7 +918,7 @@
         $scope.items = [];
         $scope.totalItems = 0;
         $scope.itemsPerPage = 20;
-            
+
 
         $scope.pagination = {
             current: 1
@@ -887,13 +932,22 @@
         var target = angular.element('#addAlternative');
         var confDelete = angular.element('#confDelete');
 
-        $scope.ok = function () {
+        $scope.ok = function (id) {
             $scope.newAlt.badItemPicture = 'tmp.png';
             $scope.newAlt.alternativePicture = 'tmp.png';
-            $http.post(urlTail, $scope.newAlt).success(function () {
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-            });
+            if (id != null) {
+
+                $http.put(urlTail + '/' + id, $scope.newAlt).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+            } else {
+
+                $http.post(urlTail, $scope.newAlt).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+            }
             target.modal('hide');
         };
         $scope.cancel = function () {
@@ -905,12 +959,25 @@
             console.log(id);
             needToDelete = id;
         };
+        $scope.openAdd = function () {
+            $scope.modalTitle = "Add an Alternative";
+            $scope.newAlt = null;
+            target.modal('show');
+        };
         $scope.delete = function () {
             $http.delete(urlTail + '/' + needToDelete).success(function () {
                 getResultsPage($scope.pagination.current);
                 needToDelete = -1;
                 confDelete.modal('hide');
             });
+        };
+        $scope.openEdit = function (id) {
+            $http.get(urlTail + '/' + id)
+                .success(function (result) {
+                    $scope.newAlt = result;
+                    $scope.modalTitle = "Update Alternative";
+                    target.modal('show');
+                });
         };
     }]);
 
@@ -943,12 +1010,22 @@
         var target = angular.element('#addRecipe');
         var confDelete = angular.element('#confDelete');
 
-        $scope.ok = function () {
+        $scope.ok = function (id) {
             $scope.newRecipt.picture = 'tmp.png';
-            $http.post(urlTail, $scope.newRecipt).success(function () {
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-            });
+            if (id != null) {
+                $http.put(urlTail + '/' + id, $scope.newRecipt).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+
+            } else {
+                $http.post(urlTail, $scope.newRecipt).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+
+            }
+
             target.modal('hide');
         };
         $scope.cancel = function () {
@@ -960,12 +1037,26 @@
             console.log(id);
             needToDelete = id;
         };
+
+        $scope.openAdd = function () {
+            $scope.modalTitle = "Add a Recipe";
+            $scope.newRecipt = null;
+            target.modal('show');
+        };
         $scope.delete = function () {
             $http.delete(urlTail + '/' + needToDelete).success(function () {
                 getResultsPage($scope.pagination.current);
                 needToDelete = -1;
                 confDelete.modal('hide');
             });
+        };
+        $scope.openEdit = function (id) {
+            $http.get(urlTail + '/' + id)
+                .success(function (result) {
+                    $scope.newRecipt = result;
+                    $scope.modalTitle = "Update Recipe";
+                    target.modal('show');
+                });
         };
     }]);
 
@@ -997,12 +1088,21 @@
         var target = angular.element('#addExerciseOrStretch');
         var confDelete = angular.element('#confDelete');
 
-        $scope.ok = function () {
-            $http.post('/api/PhysioExercise', $scope.newExercise).success(function () {
-                getResultsPage($scope.pagination.current);
-                $scope.newExercise = { name: '', type: '', description: '', videolink: '', picture: '' };
-                target.modal('hide');
-            });
+        $scope.ok = function (id) {
+            if (id != null) {
+
+                $http.put('/api/PhysioExercise/' + id, $scope.newExercise).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+
+            } else {
+
+                $http.post('/api/PhysioExercise', $scope.newExercise).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+            }
             target.modal('hide');
         };
         $scope.cancel = function () {
@@ -1015,6 +1115,11 @@
             console.log(id);
             needToDelete = id;
         };
+        $scope.openAdd = function () {
+            $scope.modalTitle = "Add Exercise or Stretch";
+            $scope.newExercise = null;
+            target.modal('show');
+        };
         $scope.delete = function () {
             $http.delete('/api/PhysioExercise/' + needToDelete).success(function () {
                 getResultsPage($scope.pagination.current);
@@ -1022,7 +1127,15 @@
                 confDelete.modal('hide');
             });
         };
+        $scope.openEdit = function (id) {
+            $http.get('/api/PhysioExercise/' + id)
+                .success(function (result) {
+                    $scope.newExercise = result;
+                    $scope.modalTitle = "Update Exercise or Stretch";
+                    target.modal('show');
 
+                });
+        };
 
 
     }]);
@@ -1043,7 +1156,6 @@
         $scope.selectedType = $scope.scenarioType[0];
 
         function getResultsPage(pageNumber) {
-            console.log($scope.coursePerPage);
             $http.get('/api/Scenarios/' + $scope.scenariosPerPage + '/' + pageNumber)
                 .success(function (result) {
                     $scope.scenarios = result.items;
@@ -1067,15 +1179,24 @@
         var target = angular.element('#add2D');
         var confDelete = angular.element('#confDelete');
 
-        $scope.ok = function () {
+        $scope.ok = function (id) {
             $scope.newScenario.picture = 'tmp.png';
             $scope.newScenario.scenarioType = $scope.selectedType.id;
-            $http.post('/api/Scenarios', $scope.newScenario).success(function () {
-                getResultsPage($scope.pagination.current);
-                $scope.newScenario = { name: '', scenarioType: '', picture: '', uploadedBy: '', minAge: '', maxAge: '' };
+            if (id != null) {
+                $http.put('/api/Scenarios/' + id, $scope.newScenario).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
                 target.modal('hide');
-            });
-            target.modal('hide');
+
+            } else {
+                $http.post('/api/Scenarios', $scope.newScenario).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+                target.modal('hide');
+
+            }
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -1087,12 +1208,27 @@
             console.log(id);
             needToDelete = id;
         };
+        $scope.openAdd2d = function () {
+            $scope.modalTitle = "Add a 2D Scenario";
+            $scope.newScenario = null;
+            target.modal('show');
+        };
         $scope.delete = function () {
             $http.delete('/api/Scenarios/' + needToDelete).success(function () {
                 getResultsPage($scope.pagination.current);
                 needToDelete = -1;
                 confDelete.modal('hide');
             });
+        };
+        $scope.openEdit = function (id) {
+            $http.get('/api/Scenarios/' + id)
+                .success(function (result) {
+                    $scope.newScenario = result;
+                    $scope.selectedType = $scope.scenarioType[result.scenarioType];
+                    $scope.modalTitle = "Update 2D Scenario";
+                    target.modal('show');
+
+                });
         };
 
         $scope.viewVideo = function (videoLink) {
@@ -1158,20 +1294,38 @@
         var target = angular.element('#addBodyPart');
         var confDelete = angular.element('#confDelete');
 
-        $scope.ok = function () {
-            $scope.newPart.picture = 'tmp.png';
-            $scope.newPart.type = $scope.selectedBPart.id;
-            $http.post(urlTail, $scope.newPart).success(function () {
-                getResultsPage($scope.pagination.current);
+        $scope.ok = function (id) {
+            if (id != null) {
+
+                $scope.newPart.picture = 'tmp.png';
+                $scope.newPart.type = $scope.selectedBPart.id;
+                $http.put(urlTail + '/' + id, $scope.newPart).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
                 target.modal('hide');
-            });
-            target.modal('hide');
+
+            } else {
+
+                $scope.newPart.picture = 'tmp.png';
+                $scope.newPart.type = $scope.selectedBPart.id;
+                $http.post(urlTail, $scope.newPart).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
+                target.modal('hide');
+            }
+
         };
         $scope.cancel = function () {
             target.modal('hide');
             confDelete.modal('hide');
         };
-
+        $scope.openAdd = function () {
+            $scope.modalTitle = "Add a Body Part";
+            $scope.newPart = null;
+            target.modal('show');
+        };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
             console.log(id);
@@ -1183,6 +1337,15 @@
                 needToDelete = -1;
                 confDelete.modal('hide');
             });
+        };
+        $scope.openEdit = function (id) {
+            $http.get('/api/PhysioBodyParts/' + id)
+                .success(function (result) {
+                    $scope.newPart = result;
+                    $scope.modalTitle = "Update Body Part";
+                    target.modal('show');
+
+                });
         };
     }]);
 
