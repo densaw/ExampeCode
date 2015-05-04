@@ -157,11 +157,11 @@
                             </thead>
                             <tbody id="contentTable">
                             <tr dir-paginate="pwdHis in passwordHistory | filter:q | itemsPerPage: historyPerPage" total-items="totalHistory">
-                                <td>{{pwdHis.changeAt}}</td>
+                                <td>{{pwdHis.changeAt | date:'dd/MM/yyyy - HH:mm'}}</td>
                                 <td>{{pwdHis.changedBy}}</td>
                                 <td>{{pwdHis.userEmail}}</td>
                                 <td>{{pwdHis.password}}</td>
-                                <td>{{pwdHis.loggedAt}}</td>
+                                <td>{{pwdHis.loggedAt | date:'dd/MM/yyyy - HH:mm'}}</td>
                                 <td>{{pwdHis.ip}}</td>
                             </tr>
                             </tbody>

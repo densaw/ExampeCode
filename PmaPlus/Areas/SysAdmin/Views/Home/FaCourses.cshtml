@@ -22,7 +22,7 @@
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-            <a class="btn btn-primary" data-toggle="modal" data-target="#addCurseModal">Add a Course</a>
+            <a class="btn btn-primary" onclick="openAdd()">Add a Course</a>
         </div>
 
 
@@ -174,8 +174,13 @@
 </div>
 <style>
     .vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-}
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+    }
 </style>
+<script>
+    function openAdd() {
+        $('#addCurseModal').modal('show');
+    }
+</script>

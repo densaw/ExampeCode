@@ -261,7 +261,7 @@
                             <td>{{club.townCity}}</td>
                             <td>{{club.coaches}}</td>
                             <td>{{club.players}}</td>
-                            <td>{{club.lastLogin}}</td>
+                            <td>{{club.lastLogin | date:'dd/MM/yyyy - HH:mm'}}</td>
                             <td>{{statuses[club.status].name}}</td>
                             <td>
                                 <i ng-click="openDelete(club.id)" class="fa fa-trash" style="cursor: pointer;"></i>

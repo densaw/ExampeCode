@@ -167,12 +167,15 @@
         var confDelete = angular.element('#confDelete');
         
         $scope.ok = function () {
-            $http.post('/api/FaCourses', $scope.newCourse).success(function () {
-                getResultsPage($scope.pagination.current);
-                $scope.newCourse = { name: '', duration: '', description: '' };
-                target.modal('hide');
-            });
-            target.modal('hide');
+            if ($scope.newCourse.id != null) {
+
+            } else {
+                $http.post('/api/FaCourses', $scope.newCourse).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    $scope.newCourse = { name: '', duration: '', description: '' };
+                    target.modal('hide');
+                });
+            }
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -1011,17 +1014,17 @@
         var urlTail = '/api/PhysioBodyParts';
 
         $scope.parts = [
-           { id: 0, name: 'Hip' },
-           { id: 1, name: 'Leg' },
-           { id: 2, name: 'Knee' },
-           { id: 3, name: 'Calf' },
-           { id: 4, name: 'Ankle' },
-           { id: 0, name: 'Foot' },
+           { id: 0, name: 'Ankle' },
            { id: 1, name: 'Arm' },
-           { id: 2, name: 'Wrist' },
-           { id: 0, name: 'Hand' },
-           { id: 1, name: 'Neck' },
-           { id: 2, name: 'Back' }
+           { id: 2, name: 'Back' },
+           { id: 3, name: 'Chest' },
+           { id: 4, name: 'Foot' },
+           { id: 0, name: 'Head' },
+           { id: 1, name: 'Hip' },
+           { id: 2, name: 'Knee' },
+           { id: 0, name: 'Leg' },
+           { id: 1, name: 'Shoulder' },
+           { id: 2, name: 'Other' }
         ];
 
         $scope.selectedBPart = $scope.parts[0];
