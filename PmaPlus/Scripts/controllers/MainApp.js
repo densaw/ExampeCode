@@ -18,7 +18,7 @@
             'Dec'];
 
         $http.get('api/dashboard/active/players').success(function (data) {
-
+            
             var monthArray = new Array;
             var playerCountArray = new Array;
             data.forEach(function (val) {
@@ -165,7 +165,7 @@
         };
         var target = angular.element('#addCurseModal');
         var confDelete = angular.element('#confDelete');
-
+        
         $scope.ok = function (id) {
             if (id != null) {
                 $http.put('/api/FaCourses/' + id, $scope.newCourse).success(function () {
@@ -175,11 +175,11 @@
                 });
             } else {
 
-                $http.post('/api/FaCourses', $scope.newCourse).success(function () {
-                    getResultsPage($scope.pagination.current);
+            $http.post('/api/FaCourses', $scope.newCourse).success(function () {
+                getResultsPage($scope.pagination.current);
                     $scope.newCourse = null;
-                    target.modal('hide');
-                });
+                target.modal('hide');
+            });
             }
             $scope.modalTitle = "Add a Course";
         };
@@ -221,7 +221,7 @@
     module.controller('ClubsController', ['$scope', '$http', function ($scope, $http) {
 
         var needToDelete = -1;
-
+        
         $scope.statuses = [
             { id: 0, name: 'Active' },
             { id: 1, name: 'Blocked' },
@@ -319,7 +319,7 @@
         function getResultsPage(pageNumber) {
             $http.get('/api/CurriculumTypes/' + $scope.curriculumsPerPage + '/' + pageNumber)
                 .success(function (result) {
-                    console.log(result);
+                console.log(result);
                     $scope.curriculums = result.items;
                     $scope.totalCurriculums = result.count;
                 });
@@ -380,9 +380,9 @@
                     "usesSessionsForReports": sessionsReports.prop('checked')
                 }
                 ).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                });
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            });
             target.modal('hide');
         };
         $scope.cancel = function () {
@@ -452,9 +452,9 @@
                 
             } else {
             $http.post('/api/SkillLevels', $scope.newLevel).success(function () {
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-            });
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
             target.modal('hide');
                 
             }
@@ -708,9 +708,9 @@
 
         $scope.okTarget = function () {
             $http.post('/api/TargetHistory', $scope.newPassword).success(function () {
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-            });
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                });
             target.modal('hide');
         };
         $scope.cancel = function () {
@@ -762,14 +762,14 @@
 
     module.controller('NFTController', ['$scope', '$http', function ($scope, $http) {
 
-        $scope.foodType = [
-             { id: 0, name: 'Fruit' },
-             { id: 1, name: 'Vegetables' },
-             { id: 2, name: 'Meat' },
-             { id: 3, name: 'Fish' },
-             { id: 4, name: 'Diary' },
-             { id: 5, name: 'Grain' },
-             { id: 6, name: 'Nuts' }
+       $scope.foodType = [
+            { id: 0, name: 'Fruit' },
+            { id: 1, name: 'Vegetables' },
+            { id: 2, name: 'Meat' },
+            { id: 3, name: 'Fish' },
+            { id: 4, name: 'Diary' },
+            { id: 5, name: 'Grain' },
+            { id: 6, name: 'Nuts' }
         ];
         $scope.when = [
             { id: 0, name: 'Breakfast' },
@@ -855,7 +855,7 @@
         $scope.items = [];
         $scope.totalItems = 0;
         $scope.itemsPerPage = 20;
-
+            
 
         $scope.pagination = {
             current: 1
@@ -1100,17 +1100,17 @@
         var urlTail = '/api/PhysioBodyParts';
 
         $scope.parts = [
-           { id: 0, name: 'Hip' },
-           { id: 1, name: 'Leg' },
-           { id: 2, name: 'Knee' },
-           { id: 3, name: 'Calf' },
-           { id: 4, name: 'Ankle' },
-           { id: 0, name: 'Foot' },
+           { id: 0, name: 'Ankle' },
            { id: 1, name: 'Arm' },
-           { id: 2, name: 'Wrist' },
-           { id: 0, name: 'Hand' },
-           { id: 1, name: 'Neck' },
-           { id: 2, name: 'Back' }
+           { id: 2, name: 'Back' },
+           { id: 3, name: 'Chest' },
+           { id: 4, name: 'Foot' },
+           { id: 0, name: 'Head' },
+           { id: 1, name: 'Hip' },
+           { id: 2, name: 'Knee' },
+           { id: 0, name: 'Leg' },
+           { id: 1, name: 'Shoulder' },
+           { id: 2, name: 'Other' }
         ];
 
         $scope.selectedBPart = $scope.parts[0];

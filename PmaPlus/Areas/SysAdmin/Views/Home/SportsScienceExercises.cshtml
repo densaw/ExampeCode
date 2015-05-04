@@ -59,49 +59,49 @@
                                 <div class="modal-body">
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label class="col-lg-4">Test Type:</label>
+                                            <label class="col-lg-4 title-modal">Test Type:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <select ng-model="selectedType" ng-options="testType.name for testType in testTypes" class=" form-control m-b" name="account"></select>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Test Name:</label>
+                                            <label class="col-lg-4 title-modal">Test Name:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="name" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Test Description:</label>
+                                            <label class="col-lg-4 title-modal">Test Description:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="description" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Measure:</label>
+                                            <label class="col-lg-4 title-modal">Measure:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="measure" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Low Value:</label>
+                                            <label class="col-lg-4 title-modal">Low Value:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="lowValue" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">High Value:</label>
+                                            <label class="col-lg-4 title-modal">High Value:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="hightValue" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">National Average:</label>
+                                            <label class="col-lg-4 title-modal">National Average:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="nationalAverage" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Test Video:</label>
+                                            <label class="col-lg-4 title-modal">Test Video:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="video" class="form-control">
                                             </div>
@@ -201,4 +201,11 @@
         </div>
     </div>
 </div>
-
+<style>
+    .form-group {
+        margin-bottom: 5px;
+    }
+    .m-b {
+        margin-bottom: 0px;
+    }
+</style>

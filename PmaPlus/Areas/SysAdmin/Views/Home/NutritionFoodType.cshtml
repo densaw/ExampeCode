@@ -4,6 +4,7 @@
     Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
         <h2>Nutrition Food Type</h2>
@@ -57,163 +58,163 @@
                                 <div class="modal-body">
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label class="col-lg-4">Type:</label>
+                                            <label class="col-lg-4 title-modal">Type:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <select ng-model="selectedType" ng-options="type.name for type in foodType" class=" form-control m-b" name="account"></select>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Food Name:</label>
+                                            <label class="col-lg-4 title-modal">Food Name:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.foodName" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">When:</label>
+                                            <label class="col-lg-4 title-modal">When:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <select ng-model="selectedWhen" ng-options="whenone.name for whenone in when" class=" form-control m-b" name="account"></select>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Good For:</label>
+                                            <label class="col-lg-4 title-modal">Good For:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.goodFor" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Portion Size:</label>
+                                            <label class="col-lg-4 title-modal">Portion Size:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.portionSize" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Description:</label>
+                                            <label class="col-lg-4 title-modal">Description:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.description" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Picture:</label>
+                                            <label class="col-lg-4 title-modal">Picture:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input type="file" accept="image/*" class="file">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Calories:</label>
+                                            <label class="col-lg-4 title-modal">Calories:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.calories" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Calories from Fat:</label>
+                                            <label class="col-lg-4 title-modal">Calories from Fat:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.caloriesFromFat" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Total Fat:</label>
+                                            <label class="col-lg-4 title-modal">Total Fat:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.totalFat" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Saturated Fat:</label>
+                                            <label class="col-lg-4 title-modal">Saturated Fat:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.saturatedFat" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Trans Fat:</label>
+                                            <label class="col-lg-4 title-modal">Trans Fat:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.transFat" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Cholesterol:</label>
+                                            <label class="col-lg-4 title-modal">Cholesterol:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.cholesterol" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Sodium:</label>
+                                            <label class="col-lg-4 title-modal">Sodium:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.sodium" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Potassium:</label>
+                                            <label class="col-lg-4 title-modal">Potassium:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.potassium" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Total Carbohydrate:</label>
+                                            <label class="col-lg-4 title-modal">Total Carbohydrate:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.totalCrbohydrate" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Dietary Fibre:</label>
+                                            <label class="col-lg-4 title-modal">Dietary Fibre:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.dietaryFibre" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Sugars:</label>
+                                            <label class="col-lg-4 title-modal">Sugars:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.sugars" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Protein:</label>
+                                            <label class="col-lg-4 title-modal">Protein:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.protein" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Vitamin A:</label>
+                                            <label class="col-lg-4 title-modal">Vitamin A:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.vitaminA" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Vitamin B:</label>
+                                            <label class="col-lg-4 title-modal">Vitamin B:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.vitaminB" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Vitamin C:</label>
+                                            <label class="col-lg-4 title-modal">Vitamin C:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.vitaminC" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Vitamin D:</label>
+                                            <label class="col-lg-4 title-modal">Vitamin D:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.vitaminD" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Vitamin E:</label>
+                                            <label class="col-lg-4 title-modal">Vitamin E:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.vitaminE" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Iron:</label>
+                                            <label class="col-lg-4 title-modal">Iron:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.iron" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Calcium:</label>
+                                            <label class="col-lg-4 title-modal">Calcium:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.calcium" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">% of Daily Intake:</label>
+                                            <label class="col-lg-4 title-modal">% of Daily Intake:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newFood.dailyIntake" class="form-control">
                                             </div>
@@ -316,4 +317,11 @@
         </div>
     </div>
 </div>
-
+<style>
+    .form-group {
+        margin-bottom: 5px;
+    }
+    .m-b {
+        margin-bottom: 0px;
+    }
+</style>

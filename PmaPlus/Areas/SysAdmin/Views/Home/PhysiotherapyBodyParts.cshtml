@@ -59,35 +59,35 @@
                                 <div class="modal-body">
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label class="col-lg-4">Body Part:</label>
+                                            <label class="col-lg-4 title-modal">Body Part:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <select ng-model="selectedBPart" ng-options="part.name for part in parts" class=" form-control m-b" name="account"></select>
                                             </div>
 
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Injury Name:</label>
+                                            <label class="col-lg-4 title-modal">Injury Name:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newPart.injuryName" class="form-control">
 
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Description:</label>
+                                            <label class="col-lg-4 title-modal">Description:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newPart.description" class="form-control">
 
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Picture:</label>
+                                            <label class="col-lg-4 title-modal">Picture:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input type="file" accept="image/*" class="file">
 
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-4">Treatment:</label>
+                                            <label class="col-lg-4 title-modal">Treatment:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newPart.treatment" class="form-control">
 
@@ -187,4 +187,11 @@
         </div>
     </div>
 </div>
-
+<style>
+    .form-group {
+        margin-bottom: 5px;
+    }
+    .m-b {
+        margin-bottom: 0px;
+    }
+</style>
