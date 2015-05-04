@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Script.Services;
 using AutoMapper;
 using PmaPlus.Data;
 using PmaPlus.Model.Models;
@@ -79,6 +80,8 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         // DELETE: api/PhysioBodyParts/5
+        [HttpDelete]
+        [Route("api/PhysioBodyParts/{id}")]
         public IHttpActionResult Delete(int id)
         {
             if (!_physiotherapyServices.BodyPartExist(id))
