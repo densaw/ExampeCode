@@ -3,7 +3,7 @@
     ViewBag.Title = "CurriculumTypes";
     Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
 }
-<div ng-click="CurriculumTypesController">
+<div ng-controller="CurriculumTypesController">
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
         <h2>Curriculum Types</h2>
@@ -204,32 +204,38 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Blocks</th>
-                                <th>BlockATT</th>
-                                <th>BlockRTE</th>
-                                <th>Weeks</th>
-                                <th>WeekATT</th>
-                                <th>WeekRTE</th>
-                                <th>Sessions</th>
-                                <th>SessionsATT</th>
-                                <th>SessionsRTE</th>
+                                <th>BL</th>
+                                <th>BA</th>
+                                <th>BR</th>
+                                <th>BRe</th>
+                                <th>WE</th>
+                                <th>WA</th>
+                                <th>WR</th>
+                                <th>WRe</th>
+                                <th>SE</th>
+                                <th>SA</th>
+                                <th>SR</th>
+                                <th>SRe</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="contentTable">
                             <tr dir-paginate="curriculum in curriculums | filter:q | itemsPerPage: curriculumsPerPage" total-items="totalCurriculums">
                                 <td>{{curriculum.name}}</td>
-                                <td>{{curriculum.blocks}}</td>
-                                <td>{{curriculum.blockATT}}</td>
-                                <td>{{curriculum.blockRTE}}</td>
-                                <td>{{curriculum.weeks}}</td>
-                                <td>{{curriculum.weekATT}}</td>
-                                <td>{{curriculum.weekRTE}}</td>
-                                <td>{{curriculum.sessions}}</td>
-                                <td>{{curriculum.sessionsATT}}</td>
-                                <td>{{curriculum.sessionsRTE}}</td>
+                                <td><i class="fa {{curriculum.blocks | curr: 'fa-check':'fa-times'}}"></i></td>
+                                <td><i class="fa {{curriculum.blockATT | curr: 'fa-check':'fa-times'}}"></i></td>
+                                <td><i class="fa {{curriculum.blockRE | curr: 'fa-check':'fa-times'}}"></i></td>
+                                <td><i class="fa {{curriculum.blockRTE | curr: 'fa-check':'fa-times'}}"></i></td>
+                                <td><i class="fa {{curriculum.weeks | curr: 'fa-check':'fa-times'}}"></i></td>
+                                <td><i class="fa {{curriculum.weekATT | curr: 'fa-check':'fa-times'}}"></i></td>
+                                <td><i class="fa {{curriculum.weekRE | curr: 'fa-check':'fa-times'}}"></i></td>
+                                <td><i class="fa {{curriculum.weekRTE | curr: 'fa-check':'fa-times'}}"></i></td>
+                                <td><i class="fa {{curriculum.sessions | curr: 'fa-check':'fa-times'}}"></i></td>
+                                <td><i class="fa {{curriculum.sessionsATT | curr: 'fa-check':'fa-time'}}"></i></td>
+                                <td><i class="fa {{curriculum.sessionsRE | curr: 'fa-check':'fa-times'}}"></i></td>
+                                <td><i class="fa {{curriculum.sessionsRTE | curr: 'fa-check':'fa-time'}}"></i></td>
                                 <td>
-                                            <i ng-click="openEdit(curriculum.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                    <i ng-click="openEdit(curriculum.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                     <i ng-click="openDelete(curriculum.id)" class="fa fa-trash" style="cursor: pointer;"></i>
                                 </td>
                             </tr>

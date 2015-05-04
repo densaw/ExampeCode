@@ -1,7 +1,11 @@
 ﻿(function () {
     var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap']);
 
-
+    module.filter('curr', function() {
+        return function (v, yes, no) {
+            return v ? yes : no;
+        };
+    });
 
     module.controller('ChartController', ['$scope', '$http', function ($scope, $http) {
         var monthNames = ['Jan',
