@@ -8,16 +8,16 @@ namespace PmaPlus.Model.Enums
 {
     public enum BodyPartType
     {
-        Hip =0, 
-        Leg =1, 
-        Knee =2, 
-        Calf =3, 
-        Ankle =4, 
-        Foot =5, 
-        Arm =6, 
-        Wrist =7, 
-        Hand =8, 
-        Neck =9,
-        Back =10
+        Ankle =0, 
+        Arm =1, 
+        Back =2,
+        Chest = 3,
+        Foot =4, 
+        Head =5, 
+        Hip =6, 
+        Knee =7, 
+        Leg =8,
+        Shoulder = 9, 
+        Other = 10,
     }
 }

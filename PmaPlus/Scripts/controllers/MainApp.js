@@ -308,6 +308,7 @@
             $http.get('/api/Clubs/' + id)
                 .success(function (result) {
                     $scope.newClub = result;
+                    $scope.selectedStatus = $scope.statuses[result.status];
                     $scope.modalTitle = "Update Club";
                     target.modal('show');
 
@@ -363,7 +364,35 @@
         var sessionsReports = angular.element('#sessionsReports');
 
         //Toggle end
-        $scope.okCurr = function () {
+        $scope.okCurr = function (id) {
+
+            if (id != null) {
+                $http.put('/api/CurriculumTypes/' + id,
+               {
+                   "name": $scope.currName,
+                   "usesBlocks": userblocktoggle.prop('checked'),
+                   "usesBlocksForAttendance": userAttendance.prop('checked'),
+                   "usesBlocksForObjectives": userObjectives.prop('checked'),
+                   "usesBlocksForRatings": userRatings.prop('checked'),
+                   "usesBlocksForReports": userReports.prop('checked'),
+                   "usesWeeks": week.prop('checked'),
+                   "usesWeeksForAttendance": weekAttendance.prop('checked'),
+                   "usesWeeksForObjectives": weekObjectives.prop('checked'),
+                   "usesWeeksForRatings": weekRetings.prop('checked'),
+                   "usesWeeksForReports": weekReports.prop('checked'),
+                   "usesSessions": sessions.prop('checked'),
+                   "usesSessionsForAttendance": sessionsAttendance.prop('checked'),
+                   "usesSessionsForObjectives": sessionsObjectives.prop('checked'),
+                   "usesSessionsForRatings": sessionsRetings.prop('checked'),
+                   "usesSessionsForReports": sessionsReports.prop('checked')
+               }
+               ).success(function () {
+                   getResultsPage($scope.pagination.current);
+                   target.modal('hide');
+               });
+                target.modal('hide');
+            } else {
+                
             $http.post('/api/CurriculumTypes',
                 {
                     "name": $scope.currName,
@@ -388,6 +417,7 @@
                     target.modal('hide');
                 });
             target.modal('hide');
+            }
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -396,6 +426,26 @@
         $scope.openDelete = function (id) {
             confDelete.modal('show');
             needToDelete = id;
+        };
+        $scope.openAdd = function () {
+            $scope.currName = "";
+            $scope.modalTitle = "Add a Type";
+            userblocktoggle.bootstrapToggle( 'on');
+            userAttendance.bootstrapToggle( 'on');
+            userObjectives.bootstrapToggle('on');
+            userRatings.bootstrapToggle( 'on' );
+            userReports.bootstrapToggle('on');
+            week.bootstrapToggle('on' );
+            weekAttendance.bootstrapToggle( 'on');
+            weekObjectives.bootstrapToggle('on');
+            weekRetings.bootstrapToggle( 'on');
+            weekReports.bootstrapToggle('on' );
+            sessions.bootstrapToggle( 'on' );
+            sessionsAttendance.bootstrapToggle( 'on' );
+            sessionsObjectives.bootstrapToggle('on' );
+            sessionsRetings.bootstrapToggle( 'on');
+            sessionsReports.bootstrapToggle( 'on');
+            target.modal('show');
         };
         $scope.delete = function () {
             $http.delete('/api/CurriculumTypes/' + needToDelete).success(function () {
@@ -407,8 +457,26 @@
         $scope.openEdit = function (id) {
             $http.get('/api/CurriculumTypes/' + id)
                 .success(function (result) {
-                    $scope.newCourse = result;
-                    $scope.modalTitle = "Update Course";
+                    console.log(result);
+                $scope.currId = result.id; 
+                    $scope.currName = result.name;
+                    userblocktoggle.bootstrapToggle( result.usesBlocks ? 'on' : 'off');
+                    userAttendance.bootstrapToggle(result.usesBlocksForAttendance ? 'on' : 'off');
+                    userObjectives.bootstrapToggle(result.usesBlocksForObjectives ? 'on' : 'off');
+                    userRatings.bootstrapToggle(result.usesBlocksForRatings ? 'on' : 'off');
+                    userReports.bootstrapToggle(result.usesBlocksForReports ? 'on' : 'off');
+                    week.bootstrapToggle(result.usesWeeks ? 'on' : 'off');
+                    weekAttendance.bootstrapToggle(result.usesWeeksForAttendance ? 'on' : 'off');
+                    weekObjectives.bootstrapToggle(result.usesWeeksForObjectives ? 'on' : 'off');
+                    weekRetings.bootstrapToggle(result.usesWeeksForRatings ? 'on' : 'off');
+                    weekReports.bootstrapToggle(result.usesWeeksForReports ? 'on' : 'off');
+                    sessions.bootstrapToggle(result.usesSessions ? 'on' : 'off');
+                    sessionsAttendance.bootstrapToggle(result.usesSessionsForAttendance ? 'on' : 'off');
+                    sessionsObjectives.bootstrapToggle(result.usesSessionsForObjectives ? 'on' : 'off');
+                    sessionsRetings.bootstrapToggle(result.usesSessionsForRatings ? 'on' : 'off');
+                    sessionsReports.bootstrapToggle(result.usesSessionsForReports ? 'on' : 'off');
+
+                    $scope.modalTitle = "Update Type";
                     target.modal('show');
 
                 });
@@ -576,6 +644,7 @@
             $http.get('/api/SportsScienceTests/' + id)
                 .success(function (result) {
                     $scope.newTest = result;
+                    $scope.selectedType = $scope.testTypes[result.type];
                     $scope.modalTitle = "Update Test";
                     target.modal('show');
                 });
@@ -663,6 +732,7 @@
             $http.get('/api/SportsScienceExercises/' + id)
                 .success(function (result) {
                     $scope.newExercise = result;
+                    $scope.selectedType = $scope.exerciseTypes[result.type];
                     $scope.modalTitle = "Update Exercise";
                     target.modal('show');
                 });
@@ -882,6 +952,8 @@
             $http.get('/api/NutritionFoodTypes/' + id)
                 .success(function (result) {
                     $scope.newFood = result;
+                    $scope.selectedType = $scope.foodType[result.type];
+                    $scope.selectedWhen = $scope.when[result.when];
                     $scope.modalTitle = "Update Food Type";
                     target.modal('show');
                 });
@@ -1245,12 +1317,12 @@
            { id: 2, name: 'Back' },
            { id: 3, name: 'Chest' },
            { id: 4, name: 'Foot' },
-           { id: 0, name: 'Head' },
-           { id: 1, name: 'Hip' },
-           { id: 2, name: 'Knee' },
-           { id: 0, name: 'Leg' },
-           { id: 1, name: 'Shoulder' },
-           { id: 2, name: 'Other' }
+           { id: 5, name: 'Head' },
+           { id: 6, name: 'Hip' },
+           { id: 7, name: 'Knee' },
+           { id: 8, name: 'Leg' },
+           { id: 9, name: 'Shoulder' },
+           { id: 10, name: 'Other' }
         ];
 
         $scope.selectedBPart = $scope.parts[0];
@@ -1328,6 +1400,7 @@
             $http.get('/api/PhysioBodyParts/' + id)
                 .success(function (result) {
                     $scope.newPart = result;
+                    $scope.selectedBPart = $scope.parts[result.type];
                     $scope.modalTitle = "Update Body Part";
                     target.modal('show');
 

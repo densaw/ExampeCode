@@ -18,7 +18,7 @@
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-            <a class="btn btn-primary" data-toggle="modal" data-target="#addTypeModal">Add a Type</a>
+            <a class="btn btn-primary" ng-click="openAdd()">Add a Type</a>
         </div>
     </div>
 </div>
@@ -49,7 +49,7 @@
                             <div class="modal-content animated bounceInRight">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h3 class="modal-title text-left">Add a Type</h3>
+                                    <h3 class="modal-title text-left">{{modalTitle}}</h3>
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group">
@@ -136,7 +136,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                    <button ng-click="okCurr()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    <button ng-click="okCurr(currId)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -231,9 +231,9 @@
                                 <td><i class="fa {{curriculum.weekRE | curr: 'fa-check':'fa-times'}}"></i></td>
                                 <td><i class="fa {{curriculum.weekRTE | curr: 'fa-check':'fa-times'}}"></i></td>
                                 <td><i class="fa {{curriculum.sessions | curr: 'fa-check':'fa-times'}}"></i></td>
-                                <td><i class="fa {{curriculum.sessionsATT | curr: 'fa-check':'fa-time'}}"></i></td>
+                                <td><i class="fa {{curriculum.sessionsATT | curr: 'fa-check':'fa-times'}}"></i></td>
                                 <td><i class="fa {{curriculum.sessionsRE | curr: 'fa-check':'fa-times'}}"></i></td>
-                                <td><i class="fa {{curriculum.sessionsRTE | curr: 'fa-check':'fa-time'}}"></i></td>
+                                <td><i class="fa {{curriculum.sessionsRTE | curr: 'fa-check':'fa-times'}}"></i></td>
                                 <td>
                                     <i ng-click="openEdit(curriculum.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                     <i ng-click="openDelete(curriculum.id)" class="fa fa-trash" style="cursor: pointer;"></i>
