@@ -6,7 +6,7 @@
 
 
 
-
+<div ng-controller="FaCoursesController">
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
@@ -22,7 +22,7 @@
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-            <a class="btn btn-primary" onclick="openAdd()">Add a Course</a>
+                <a class="btn btn-primary" ng-click="openAdd()">Add a Course</a>
         </div>
 
 
@@ -50,15 +50,14 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content" ng-controller="FaCoursesController">
+                    <div class="ibox-content" >
                     @*Modal*@
                     <div class="modal inmodal" id="addCurseModal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content animated bounceInRight">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h3 class="modal-title text-left">Add a Course</h3>
-
+                                        <h3 class="modal-title">{{modalTitle}}</h3>
                                 </div>
                                 <div class="modal-body">
                                     <form class="form-horizontal">
@@ -84,7 +83,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                    <button ng-click="ok()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                        <button ng-click="ok(newCourse.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +137,7 @@
                             <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
                                 PDF
                             </label>
-                            <label onclick="print($('.table'))" class="btn btn-sm btn-white">
+                                <label onclick=" print($('.table')) " class="btn btn-sm btn-white">
                                 Print
                             </label>
                         </div>
@@ -159,6 +158,7 @@
                                     <td>{{course.duration}}</td>
                                     <td style="max-width: 300px;">{{course.description}}</td>
                                     <td>
+                                            <i ng-click="openEdit(course.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                         <i ng-click="openDelete(course.id)" class="fa fa-trash" style="cursor: pointer;"></i>
                                     </td>
                                 </tr>
@@ -172,15 +172,11 @@
         </div>
     </div>
 </div>
+</div>
 <style>
     .vcenter {
-        display: inline-block;
-        vertical-align: middle;
-        float: none;
-    }
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
 </style>
-<script>
-    function openAdd() {
-        $('#addCurseModal').modal('show');
-    }
-</script>

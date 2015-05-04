@@ -21,8 +21,8 @@
             
             var monthArray = new Array;
             var playerCountArray = new Array;
-            data.forEach(function(val) {
-                monthArray.push(monthNames[val.month-1]);
+            data.forEach(function (val) {
+                monthArray.push(monthNames[val.month - 1]);
                 playerCountArray.push(val.activePlayers);
             });
 
@@ -71,35 +71,35 @@
 
         });
     }]);
-    module.controller('PlayersBoxController', ['$scope', '$http', function($scope, $http) {
-        $http.get('api/dashboard/logged/players').success(function(data) {
+    module.controller('PlayersBoxController', ['$scope', '$http', function ($scope, $http) {
+        $http.get('api/dashboard/logged/players').success(function (data) {
             $scope.amountPlayers = data.amount;
             $scope.progressPlayer = data.progress;
             $scope.percentage = data.percentage;
         });
     }]);
-    module.controller('CoachsBoxController', ['$scope', '$http', function($scope, $http) {
-        $http.get('api/dashboard/logged/coaches').success(function(data) {
+    module.controller('CoachsBoxController', ['$scope', '$http', function ($scope, $http) {
+        $http.get('api/dashboard/logged/coaches').success(function (data) {
             $scope.amountCoaches = data.amount;
             $scope.progressCoach = data.progress;
             $scope.percentage = data.percentage;
         });
     }]);
-    module.controller('ClubsBoxController', ['$scope', '$http', function($scope, $http) {
-        $http.get('api/dashboard/logged/clubs').success(function(data) {
+    module.controller('ClubsBoxController', ['$scope', '$http', function ($scope, $http) {
+        $http.get('api/dashboard/logged/clubs').success(function (data) {
             $scope.amountClubs = data.amount;
             $scope.progressClub = data.progress;
             $scope.percentage = data.percentage;
         });
     }]);
-    module.controller('UsersBoxController', ['$scope', '$http', function($scope, $http) {
-        $http.get('api/dashboard/logged/users').success(function(data) {
+    module.controller('UsersBoxController', ['$scope', '$http', function ($scope, $http) {
+        $http.get('api/dashboard/logged/users').success(function (data) {
             $scope.amountUsers = data.amount;
             $scope.progressUser = data.progress;
             $scope.percentage = data.percentage;
         });
     }]);
-    module.controller('PlayerLoginHistoryController', ['$scope', '$http', function($scope, $http) {
+    module.controller('PlayerLoginHistoryController', ['$scope', '$http', function ($scope, $http) {
         $http.get('api/dashboard/logged/players/10/weeks').success(function (data) {
             $scope.data = {
                 //labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -132,7 +132,7 @@
 
         });
     }]);
-    module.controller('AllPlayerController', ['$scope', '$http', function($scope, $http) {
+    module.controller('AllPlayerController', ['$scope', '$http', function ($scope, $http) {
         $http.get('api/dashboard/active/players/all').success(function (data) {
             $scope.playerCount = data;
         });
@@ -166,33 +166,53 @@
         var target = angular.element('#addCurseModal');
         var confDelete = angular.element('#confDelete');
         
-        $scope.ok = function () {
-            if ($scope.newCourse.id != null) {
-
-            } else {
-                $http.post('/api/FaCourses', $scope.newCourse).success(function () {
+        $scope.ok = function (id) {
+            if (id != null) {
+                $http.put('/api/FaCourses/' + id, $scope.newCourse).success(function () {
                     getResultsPage($scope.pagination.current);
-                    $scope.newCourse = { name: '', duration: '', description: '' };
+                    $scope.newCourse = null;
                     target.modal('hide');
                 });
+            } else {
+
+            $http.post('/api/FaCourses', $scope.newCourse).success(function () {
+                getResultsPage($scope.pagination.current);
+                    $scope.newCourse = null;
+                target.modal('hide');
+            });
             }
+            $scope.modalTitle = "Add a Course";
         };
         $scope.cancel = function () {
             target.modal('hide');
             confDelete.modal('hide');
             needToDelete = -1;
         };
-        $scope.openDelete = function(id) {
+        $scope.openAdd = function() {
+            $scope.modalTitle = "Add a Course";
+            target.modal('show');
+        };
+
+        $scope.openDelete = function (id) {
             confDelete.modal('show');
             console.log(id);
             needToDelete = id;
         };
-        $scope.delete = function() {
+        $scope.delete = function () {
             $http.delete('/api/FaCourses/' + needToDelete).success(function () {
                 getResultsPage($scope.pagination.current);
                 needToDelete = -1;
                 confDelete.modal('hide');
             });
+        };
+        $scope.openEdit = function (id) {
+            $http.get('/api/FaCourses/' + id)
+                .success(function (result) {
+                    $scope.newCourse = result;
+                    $scope.modalTitle = "Update Course";
+                    target.modal('show');
+                    
+                });
         };
 
     }]);
@@ -406,7 +426,7 @@
         };
     }]);
 
-    module.controller('ScienceTestsController', ['$scope', '$http', function($scope, $http) {
+    module.controller('ScienceTestsController', ['$scope', '$http', function ($scope, $http) {
 
         $scope.testTypes = [
             { id: 0, name: 'Agility' },
@@ -744,7 +764,7 @@
             target.modal('hide');
             confDelete.modal('hide');
         };
-        $scope.delete = function() {
+        $scope.delete = function () {
             $http.delete('/api/NutritionFoodTypes/' + needToDelete).success(function () {
                 getResultsPage($scope.pagination.current);
                 needToDelete = -1;
@@ -753,7 +773,7 @@
         }
     }]);
 
-    module.controller('NAController', ['$scope', '$http', function($scope, $http) {
+    module.controller('NAController', ['$scope', '$http', function ($scope, $http) {
 
         var needToDelete = -1;
         var urlTail = '/api/NutritionAlternatives';
@@ -810,7 +830,7 @@
         };
     }]);
 
-    module.controller('NRController', ['$scope', '$http', function($scope, $http) {
+    module.controller('NRController', ['$scope', '$http', function ($scope, $http) {
         var needToDelete = -1;
         var urlTail = '/api/NutritionRecipes';
 
@@ -865,7 +885,7 @@
         };
     }]);
 
-    module.controller('PhysioExerciseController', ['$scope', '$http', function($scope, $http) {
+    module.controller('PhysioExerciseController', ['$scope', '$http', function ($scope, $http) {
         var needToDelete = -1;
 
         function getResultsPage(pageNumber) {
@@ -896,7 +916,7 @@
         $scope.ok = function () {
             $http.post('/api/PhysioExercise', $scope.newExercise).success(function () {
                 getResultsPage($scope.pagination.current);
-                $scope.newExercise = { name: '', type: '', description: '' ,videolink:'',picture:''};
+                $scope.newExercise = { name: '', type: '', description: '', videolink: '', picture: '' };
                 target.modal('hide');
             });
             target.modal('hide');
