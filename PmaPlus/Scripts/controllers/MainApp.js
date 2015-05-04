@@ -1,13 +1,13 @@
 ﻿(function () {
     var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies']);
 
-    module.filter('curr', function() {
+    module.filter('curr', function () {
         return function (v, yes, no) {
             return v ? yes : no;
         };
     });
 
-    module.filter('nav', function() {
+    module.filter('nav', function () {
         return function (v, yes, no) {
             return v ? yes : no;
         };
@@ -15,7 +15,7 @@
 
     module.controller('MainController', ['$scope', '$cookies', function ($scope, $cookies) {
         $scope.expanded = true;
-        $scope.navExpand = function() {
+        $scope.navExpand = function () {
             $scope.expanded = !$scope.expanded;
             $cookies.expanded = $scope.expanded;
         }
@@ -34,6 +34,15 @@
             'Oct',
             'Nov',
             'Dec'];
+        $http.get('/api/ActualTarget')
+            .success(function (data) {
+                $scope.targets = data;
+                
+            })
+            .error(function () {
+                $scope.targets.target = 2500;
+                $scope.targets.value = 4.00;
+            });
 
         $http.get('api/dashboard/active/players').success(function (data) {
 
@@ -65,7 +74,7 @@
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(151,187,205,1)",
-                        data: [2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500]
+                        data: [$scope.targets.target, $scope.targets.target, $scope.targets.target, $scope.targets.target, $scope.targets.target, $scope.targets.target, $scope.targets.target, $scope.targets.target, $scope.targets.target, $scope.targets.target, $scope.targets.target, $scope.targets.target]
                     }
                 ]
             };
@@ -406,31 +415,31 @@
                });
                 target.modal('hide');
             } else {
-                
-            $http.post('/api/CurriculumTypes',
-                {
-                    "name": $scope.currName,
-                    "usesBlocks": userblocktoggle.prop('checked'),
-                    "usesBlocksForAttendance": userAttendance.prop('checked'),
-                    "usesBlocksForObjectives": userObjectives.prop('checked'),
-                    "usesBlocksForRatings": userRatings.prop('checked'),
-                    "usesBlocksForReports": userReports.prop('checked'),
-                    "usesWeeks": week.prop('checked'),
-                    "usesWeeksForAttendance": weekAttendance.prop('checked'),
-                    "usesWeeksForObjectives": weekObjectives.prop('checked'),
-                    "usesWeeksForRatings": weekRetings.prop('checked'),
-                    "usesWeeksForReports": weekReports.prop('checked'),
-                    "usesSessions": sessions.prop('checked'),
-                    "usesSessionsForAttendance": sessionsAttendance.prop('checked'),
-                    "usesSessionsForObjectives": sessionsObjectives.prop('checked'),
-                    "usesSessionsForRatings": sessionsRetings.prop('checked'),
-                    "usesSessionsForReports": sessionsReports.prop('checked')
-                }
-                ).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                });
-            target.modal('hide');
+
+                $http.post('/api/CurriculumTypes',
+                    {
+                        "name": $scope.currName,
+                        "usesBlocks": userblocktoggle.prop('checked'),
+                        "usesBlocksForAttendance": userAttendance.prop('checked'),
+                        "usesBlocksForObjectives": userObjectives.prop('checked'),
+                        "usesBlocksForRatings": userRatings.prop('checked'),
+                        "usesBlocksForReports": userReports.prop('checked'),
+                        "usesWeeks": week.prop('checked'),
+                        "usesWeeksForAttendance": weekAttendance.prop('checked'),
+                        "usesWeeksForObjectives": weekObjectives.prop('checked'),
+                        "usesWeeksForRatings": weekRetings.prop('checked'),
+                        "usesWeeksForReports": weekReports.prop('checked'),
+                        "usesSessions": sessions.prop('checked'),
+                        "usesSessionsForAttendance": sessionsAttendance.prop('checked'),
+                        "usesSessionsForObjectives": sessionsObjectives.prop('checked'),
+                        "usesSessionsForRatings": sessionsRetings.prop('checked'),
+                        "usesSessionsForReports": sessionsReports.prop('checked')
+                    }
+                    ).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    });
+                target.modal('hide');
             }
         };
         $scope.cancel = function () {
@@ -444,21 +453,21 @@
         $scope.openAdd = function () {
             $scope.currName = "";
             $scope.modalTitle = "Add a Type";
-            userblocktoggle.bootstrapToggle( 'on');
-            userAttendance.bootstrapToggle( 'on');
+            userblocktoggle.bootstrapToggle('on');
+            userAttendance.bootstrapToggle('on');
             userObjectives.bootstrapToggle('on');
-            userRatings.bootstrapToggle( 'on' );
+            userRatings.bootstrapToggle('on');
             userReports.bootstrapToggle('on');
-            week.bootstrapToggle('on' );
-            weekAttendance.bootstrapToggle( 'on');
+            week.bootstrapToggle('on');
+            weekAttendance.bootstrapToggle('on');
             weekObjectives.bootstrapToggle('on');
-            weekRetings.bootstrapToggle( 'on');
-            weekReports.bootstrapToggle('on' );
-            sessions.bootstrapToggle( 'on' );
-            sessionsAttendance.bootstrapToggle( 'on' );
-            sessionsObjectives.bootstrapToggle('on' );
-            sessionsRetings.bootstrapToggle( 'on');
-            sessionsReports.bootstrapToggle( 'on');
+            weekRetings.bootstrapToggle('on');
+            weekReports.bootstrapToggle('on');
+            sessions.bootstrapToggle('on');
+            sessionsAttendance.bootstrapToggle('on');
+            sessionsObjectives.bootstrapToggle('on');
+            sessionsRetings.bootstrapToggle('on');
+            sessionsReports.bootstrapToggle('on');
             target.modal('show');
         };
         $scope.delete = function () {
@@ -472,9 +481,9 @@
             $http.get('/api/CurriculumTypes/' + id)
                 .success(function (result) {
                     console.log(result);
-                $scope.currId = result.id; 
+                    $scope.currId = result.id;
                     $scope.currName = result.name;
-                    userblocktoggle.bootstrapToggle( result.usesBlocks ? 'on' : 'off');
+                    userblocktoggle.bootstrapToggle(result.usesBlocks ? 'on' : 'off');
                     userAttendance.bootstrapToggle(result.usesBlocksForAttendance ? 'on' : 'off');
                     userObjectives.bootstrapToggle(result.usesBlocksForObjectives ? 'on' : 'off');
                     userRatings.bootstrapToggle(result.usesBlocksForRatings ? 'on' : 'off');
@@ -818,7 +827,7 @@
         var target = angular.element('#updateTarget');
 
         $scope.okTarget = function () {
-            $http.post('/api/TargetHistory', $scope.newPassword).success(function () {
+            $http.post('/api/TargetHistory', $scope.newTarget).success(function () {
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
             });
@@ -1282,7 +1291,9 @@
         };
         $scope.openAdd2d = function () {
             $scope.modalTitle = "Add a 2D Scenario";
-            $scope.newScenario = null;
+            //$scope.newScenario = null;
+            //$scope.newScenario.minAge = 7;
+            //$scope.newScenario.maxAge = 10;
             target.modal('show');
         };
         $scope.delete = function () {
