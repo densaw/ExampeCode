@@ -1,11 +1,25 @@
 ﻿(function () {
-    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap']);
+    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies']);
 
     module.filter('curr', function() {
         return function (v, yes, no) {
             return v ? yes : no;
         };
     });
+
+    module.filter('nav', function() {
+        return function (v, yes, no) {
+            return v ? yes : no;
+        };
+    });
+
+    module.controller('MainController', ['$scope', '$cookies', function ($scope, $cookies) {
+        $scope.expanded = true;
+        $scope.navExpand = function() {
+            $scope.expanded = !$scope.expanded;
+            $cookies.expanded = $scope.expanded;
+        }
+    }]);
 
     module.controller('ChartController', ['$scope', '$http', function ($scope, $http) {
         var monthNames = ['Jan',
