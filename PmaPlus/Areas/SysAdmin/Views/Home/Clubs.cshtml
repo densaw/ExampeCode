@@ -49,7 +49,7 @@
                             <div class="modal-content animated bounceInRight">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h3 class="modal-title">Add a Club</h3>
+                                    <h3 class="modal-title text-left">Add a Club</h3>
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-horizontal">
@@ -209,11 +209,30 @@
                     @*Modal End*@
                     <div class="row">
                         <div class="col-sm-9 m-b-xs">
-                            <div data-toggle="buttons" class="btn-group">
-                                <label ng-click="clubsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
-                                <label ng-click="clubsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
-                                <label ng-click="clubsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
-                            </div>
+                            <form class="form-horizontal">
+                                <div class="form-group" style="margin-left: 0px;">
+                                    <div data-toggle="buttons" class="btn-group">
+                                        <label ng-click="clubsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                        <label ng-click="clubsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
+                                        <label ng-click="clubsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                                    </div>
+                                    <div class="btn-group">
+                                        <label onclick=" $('.table').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
+                                            CSV
+                                        </label>
+                                        <label onclick=" $('.table').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
+                                            Excel
+                                        </label>
+                                        <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
+                                            PDF
+                                        </label>
+                                        <label onclick="print($('.table'))" class="btn btn-sm btn-white">
+                                            Print
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>               
+                            
                         </div>
                         <div class="col-sm-3">
                             <div class="input-group">
@@ -223,35 +242,35 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Name </th>
-                                <th>TownCity </th>
-                                <th>Coaches </th>
-                                <th>Players</th>
-                                <th>LastLogin </th>
-                                <th>Status </th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody id="contentTable">
-                            <tr dir-paginate="club in clubs | filter:q | itemsPerPage: clubsPerPage" total-items="totalClubs">
-                                <td>{{club.name}}</td>
-                                <td>{{club.townCity}}</td>
-                                <td>{{club.coaches}}</td>
-                                <td>{{club.players}}</td>
-                                <td>{{club.lastLogin}}</td>
-                                <td>{{statuses[club.status].name}}</td>
-                                <td>
-                                    <i ng-click="openDelete(club.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Name </th>
+                            <th>TownCity </th>
+                            <th>Coaches </th>
+                            <th>Players</th>
+                            <th>LastLogin </th>
+                            <th>Status </th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="contentTable">
+                        <tr dir-paginate="club in clubs | filter:q | itemsPerPage: clubsPerPage" total-items="totalClubs">
+                            <td>{{club.name}}</td>
+                            <td>{{club.townCity}}</td>
+                            <td>{{club.coaches}}</td>
+                            <td>{{club.players}}</td>
+                            <td>{{club.lastLogin}}</td>
+                            <td>{{statuses[club.status].name}}</td>
+                            <td>
+                                <i ng-click="openDelete(club.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                </div>
 
                 </div>
             </div>
