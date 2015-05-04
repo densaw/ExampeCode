@@ -80,8 +80,6 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         // DELETE: api/PhysioBodyParts/5
-        [HttpDelete]
-        [Route("api/PhysioBodyParts/{id}")]
         public IHttpActionResult Delete(int id)
         {
             if (!_physiotherapyServices.BodyPartExist(id))
