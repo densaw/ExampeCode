@@ -1299,6 +1299,14 @@
     }]);
 
     module.controller('PhysioExerciseController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+
+        $scope.exType = [
+            { id: 0, name: 'Exercise' },
+            { id: 1, name: 'Stretch' }
+        ];
+
+        $scope.selectedType = $scope.exType[0];
+
         var needToDelete = -1;
 
         function getResultsPage(pageNumber) {
@@ -1344,7 +1352,7 @@
                 });
 
             } else {
-
+                $scope.newExercise.type = $scope.selectedType;
                 $http.post('/api/PhysioExercise', $scope.newExercise).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');

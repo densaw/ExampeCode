@@ -61,7 +61,7 @@
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Exercise Type:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newExercise.type" class="form-control">
+                                                    <select ng-model="selectedType" ng-options="ex.name for ex in exType" class=" form-control m-b" name="account"></select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -167,7 +167,7 @@
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="exercise in exercises | filter:q | itemsPerPage: exercisePerPage" total-items="totalExercises">
-                                        <td>{{exercise.type}}</td>
+                                        <td>{{exType[exercise.type].name}}</td>
                                         <td>{{exercise.name}}</td>
                                         <td>
                                             <i ng-click="openEdit(exercise.id)" class="fa fa-cog" style="cursor: pointer;"></i>
