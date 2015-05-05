@@ -223,8 +223,8 @@
                             console.log(data);
                             toaster.pop({
                                 type: 'error',
-                                title: 'Error',
-                                body: data.message
+                                title: 'Error',bodyOutputType: 'trustedHtml',
+                                body: data.message.join("<br />")
                             });
                         }
                     });
@@ -239,8 +239,8 @@
                             console.log(data);
                             toaster.pop({
                                 type: 'error',
-                                title: 'Error',
-                                body: data.message
+                                title: 'Error',bodyOutputType: 'trustedHtml',
+                                body: data.message.join("<br />")
                             });
                     }
                 });
@@ -335,8 +335,8 @@
                             console.log(data);
                             toaster.pop({
                                 type: 'error',
-                                title: 'Error',
-                                body: data.message
+                                title: 'Error',bodyOutputType: 'trustedHtml',
+                                body: data.message.join("<br />")
                             });
                         }
                     });
@@ -357,7 +357,8 @@
                             toaster.pop({
                                 type: 'error',
                                 title: 'Error',
-                                body: data.message
+                                bodyOutputType: 'trustedHtml',
+                                body: data.message.join("<br />")
                             });
                         }
                     });
@@ -474,8 +475,8 @@
                        console.log(data);
                        toaster.pop({
                            type: 'error',
-                           title: 'Error',
-                           body: data.message
+                           title: 'Error',bodyOutputType: 'trustedHtml',
+                           body: data.message.join("<br />")
                        });
                    }
                });
@@ -507,8 +508,8 @@
                             console.log(data);
                             toaster.pop({
                                 type: 'error',
-                                title: 'Error',
-                                body: data.message
+                                title: 'Error',bodyOutputType: 'trustedHtml',
+                                body: data.message.join("<br />")
                             });
                         }
                     });
@@ -619,8 +620,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -635,8 +636,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -686,7 +687,12 @@
             { id: 3, name: 'Acceleration' },
             { id: 4, name: 'Pace' }
         ];
+        $scope.zFormulaTypes = [
+            { id: 0, name: 'HighLow' },
+            { id: 1, name: 'LowHigh' }
 
+        ];
+        $scope.selectedFormula = $scope.zFormulaTypes[0];
         $scope.selectedType = $scope.testTypes[0];
 
         var needToDelete = -1;
@@ -717,6 +723,7 @@
 
         $scope.okTest = function (id) {
             $scope.newTest.type = $scope.selectedType.id;
+            $scope.newTest.zScoreFormula = $scope.selectedFormula.id;
             if (id != null) {
                 $http.put('/api/SportsScienceTests/' + id, $scope.newTest).success(function () {
                     getResultsPage($scope.pagination.current);
@@ -726,8 +733,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -740,8 +747,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -776,6 +783,7 @@
                 .success(function (result) {
                     $scope.newTest = result;
                     $scope.selectedType = $scope.testTypes[result.type];
+                    $scope.selectedFormula = $scope.zFormulaTypes[result.zScoreFormula];
                     $scope.modalTitle = "Update Test";
                     target.modal('show');
                 });
@@ -830,8 +838,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -845,8 +853,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -920,8 +928,8 @@
                     console.log(data);
                     toaster.pop({
                         type: 'error',
-                        title: 'Error',
-                        body: data.message
+                        title: 'Error',bodyOutputType: 'trustedHtml',
+                        body: data.message.join("<br />")
                     });
                 }
             });
@@ -967,8 +975,8 @@
                     console.log(data);
                     toaster.pop({
                         type: 'error',
-                        title: 'Error',
-                        body: data.message
+                        title: 'Error',bodyOutputType: 'trustedHtml',
+                        body: data.message.join("<br />")
                     });
                 }
             });
@@ -1044,8 +1052,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1059,8 +1067,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1142,8 +1150,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1157,8 +1165,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1235,8 +1243,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1250,8 +1258,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1329,8 +1337,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1345,8 +1353,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1438,8 +1446,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1453,8 +1461,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1572,8 +1580,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1590,8 +1598,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
