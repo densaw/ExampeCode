@@ -1,32 +1,363 @@
 ﻿
+
 @{
     ViewBag.Title = "PMA+";
     Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row wrapper border-bottom white-bg page-heading" ng-controller="SkillLevelsController">
-    <div class="col-sm-4">
-        <h2>Skill Videos</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a>Home</a>
-            </li>
-            <li>
-                <a>Skills & Knowledge</a>
-            </li>
-            <li class="active">
-                <strong>Skill Videos</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a class="btn btn-primary" ng-click="backToSkill">Back to Skill Levels</a>
+<div ng-controller="SkillLevelsController">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Skill Videos</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li>
+                    <a>Skills & Knowledge</a>
+                </li>
+                <li class="active">
+                    <strong>Skill Videos</strong>
+                </li>
+            </ol>
         </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-href="@Url.Action("SkillsKnowledge", "Home", new { area = "SysAdmin" })">Back to Skill Levels</a>
+                <a class="btn btn-primary" ng-click="openAdd()">Add a Skill</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Skill</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user"></ul>
+                            <a>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        @*Modal*@
+                        <div class="modal inmodal" id="addSkill" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title text-left">{{modalTitle}}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Skill Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.name" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Duration (mins):</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.duration" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Video Link:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.videoLink" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Description:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.description" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Ball Control:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.ballControll" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Corners:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.corners" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Crossing:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.crossing" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Dribbling:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.dribling" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Finishing:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.finishing" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">First Touch:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.firstTouch" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Free Kicks:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.freeKicks" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Heading:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.heading" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Shooting:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.shooting" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Throw-Ins:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.throwIns" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Marking:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.marking" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Passing:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.passing" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Penalty:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.penalty" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Tackling:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.tacking" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Technique:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.technique" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Aggression:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.aggression" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Anticipation:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.anticipation" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Bravery:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.bravery" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Composure:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.composure" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Concentration:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.concentration" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Creativity:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.creativity" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Decisions:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.decisions" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Determination:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.determination" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Flair:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.flair" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Influence:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.influence" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Off the Ball:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.offTheBall" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Positioning:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.positioning" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Teamwork:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newSkill.teamwork" class="form-control">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                        <button ng-click="ok(newSkill.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        @*Modal*@
+                        <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Delete Record?</h3>
 
 
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
+                                        <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        <div class="row">
+                            <div class="col-sm-9 m-b-xs">
+                                <form class="form-horizontal">
+                                    <div class=" form-group" style="margin-left: 0px;">
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <label ng-click="itemsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                            <label ng-click="itemsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
+                                            <label ng-click="itemsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                                        </div>
+                                        <div class="btn-group">
+                                            <label onclick=" $('.table').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                CSV
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                Excel
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                PDF
+                                            </label>
+                                            <label onclick=" print($('.table')) " class="btn btn-sm btn-white">
+                                                Print
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Skill Name</th>
+                                        <th>Duration</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contentTable">
+                                    <tr dir-paginate="skill in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                        <td>{{skill.trainingItemName}}</td>
+                                        <td>{{skill.time}}</td>
+                                        <td>
+                                            <i ng-click="openEdit(skill.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                            <i ng-click="openDelete(skill.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<style>
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    .m-b {
+        margin-bottom: 0px;
+    }
+</style>
 
 
