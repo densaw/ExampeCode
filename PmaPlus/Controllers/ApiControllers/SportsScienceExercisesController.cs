@@ -59,7 +59,7 @@ namespace PmaPlus.Controllers.ApiControllers
         // PUT: api/SportsScienceExercises/5
         public IHttpActionResult PutSportsScienceExercise(int id, [FromBody] SportsScienceExerciseViewModel testViewModel)
         {
-            if (!_sportsScienceServices.SportsScienceTestExist(id))
+            if (!_sportsScienceServices.SportsScienceExerciseExist(id))
             {
                 return NotFound();
             }

@@ -29,7 +29,7 @@ namespace PmaPlus.Model.Models
         [StringLength(50)]
         public string TownCity { get; set; }
 
-        public int PostCode { get; set; }
+        public string PostCode { get; set; }
 
        
     }

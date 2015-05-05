@@ -11,20 +11,17 @@ namespace PmaPlus.Model.ViewModels.SportsScience
     {
         public int Id { get; set; }
         [Required]
-        public SportsScienceType Type { get; set; }
+        public SportsScienceExerciseType Type { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
 
+        public string Picture1 { get; set; }
 
-        public string Measure { get; set; }
+        public string Picture2 { get; set; }
 
-        public string LowValue { get; set; }
-
-        public string HightValue { get; set; }
-
-        public string NationalAverage { get; set; }
+        public string Picture3 { get; set; }
 
         public string Video { get; set; }
     }

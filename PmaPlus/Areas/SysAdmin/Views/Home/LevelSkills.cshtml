@@ -80,8 +80,7 @@
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Description:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newSkill.description" class="form-control">
-                                                </div>
+                                                    <textarea ng-model="newSkill.description" class="form-control"></textarea></div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Ball Control:</label>
@@ -289,12 +288,14 @@
                             <div class="modal-dialog">
                                 <div class="modal-content animated bounceInRight">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <button type="button" class="close" data-dismiss="modal" onclick="$('#videoModal iframe').attr('src', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                         <h3 class="modal-title">Video</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <iframe width="400" height="300" frameborder="0" allowfullscreen=""></iframe>
-                                    </div>
+                                        <div style="text-align:center">
+                                            <iframe width="480" height="360" frameborder="0" allowfullscreen=""></iframe>
+                                            </div>
+                                        </div>
                                     <div class="modal-footer">
 
                                     </div>
@@ -358,7 +359,7 @@
                                         <td>
                                             <i ng-click="openEdit(skill.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(skill.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                            <i ng-click="modalVideoStart(skill.videoLink)" class="fa fa-camera" style="cursor: pointer;"></i>
+                                            <i ng-click="modalVideoStart(skill.videoLink)" class="fa fa-film" style="cursor: pointer;"></i>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -38,7 +38,7 @@ namespace PmaPlus.Model.ViewModels.Club
         [Required]
         public string TownCity { get; set; }
         [Required]
-        public int PostCode { get; set; }
+        public string PostCode { get; set; }
         public string Chairman { get; set; }
         public string ChairmanEmail { get; set; }
         [MaxLength(12)]

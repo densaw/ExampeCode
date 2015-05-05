@@ -792,11 +792,9 @@
 
     module.controller('ScienceExercisesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
         $scope.exerciseTypes = [
-           { id: 0, name: 'Agility' },
-           { id: 1, name: 'Fitness' },
-           { id: 2, name: 'Strength' },
-           { id: 3, name: 'Acceleration' },
-           { id: 4, name: 'Pace' }
+           { id: 0, name: 'Mobility' }, 
+           { id: 1, name: 'Movement' },
+           { id: 2, name: 'Stability' }
         ];
 
         $scope.selectedType = $scope.exerciseTypes[0];
@@ -826,6 +824,15 @@
         };
         var target = angular.element('#addExercise');
         var confDelete = angular.element('#confDelete');
+
+        var modalVideo = angular.element('#videoModal');
+        $scope.modalVideoStart = function (src) {
+            console.log(src);
+            //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
+            modalVideo.modal('show');
+            $('#videoModal iframe').attr('src', src);
+        }
+
 
         $scope.okEx = function (id) {
             $scope.newExercise.type = $scope.selectedType.id;

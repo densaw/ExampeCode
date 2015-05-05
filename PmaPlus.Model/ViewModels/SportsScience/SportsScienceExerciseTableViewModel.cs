@@ -10,7 +10,9 @@ namespace PmaPlus.Model.ViewModels.SportsScience
     public class SportsScienceExerciseTableViewModel
     {
         public int Id { get; set; }
-        public SportsScienceType Type { get; set; }
+        public SportsScienceExerciseType Type { get; set; }
         public string Name { get; set; }
+
+        public string Video { get; set; }
     }
 }
