@@ -22,7 +22,7 @@
                 showCloseButton: true
             });
         }
-        $scope.expanded = true;
+        $scope.expanded = false;
         $scope.navExpand = function () {
             $scope.expanded = !$scope.expanded;
             $cookies.expanded = $scope.expanded;
