@@ -45,14 +45,14 @@
                         </a>
                     </div>
                 </div>
-                    <div class="ibox-content">
+                <div class="ibox-content">
                     @*Modal*@
                     <div class="modal inmodal" id="addLevels" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content animated bounceInRight">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        <h3 class="modal-title text-left">{{modalTitle}}</h3>
+                                    <h3 class="modal-title text-left">{{modalTitle}}</h3>
                                 </div>
                                 <div class="modal-body">
                                     <form class="form-horizontal">
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                        <button ng-click="okLvl(newLevel.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    <button ng-click="okLvl(newLevel.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -120,13 +120,13 @@
                                         <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
                                             PDF
                                         </label>
-                                        <label onclick="print($('.table'))" class="btn btn-sm btn-white">
+                                        <label onclick=" print($('.table')) " class="btn btn-sm btn-white">
                                             Print
                                         </label>
                                     </div>
                                 </div>
                             </form>
-                            
+
                         </div>
                         <div class="col-sm-3">
                             <div class="input-group">
@@ -150,8 +150,9 @@
                                 <td>{{skill.name}}</td>
                                 <td>{{skill.description}}</td>
                                 <td>
-                                            <i ng-click="openEdit(skill.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                    <i ng-click="openEdit(skill.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                     <i ng-click="openDelete(skill.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                    <a ng-href="@Url.Action("LevelSkills", "Home", new { area = "SysAdmin" })/{{skill.id}}"><i class="fa fa-square"></i></a>
                                 </td>
                             </tr>
                             </tbody>
@@ -164,6 +165,7 @@
         </div>
     </div>
 </div>
+    </div>
 <style>
     .form-group {
         margin-bottom: 5px;

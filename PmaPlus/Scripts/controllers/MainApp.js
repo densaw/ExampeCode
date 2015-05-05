@@ -578,8 +578,9 @@
         };
     }]);
 
-    module.controller('SkillsKnowledgeController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+    module.controller('SkillsKnowledgeController', ['$scope', '$http', 'toaster', '$location', function ($scope, $http, toaster, $location) {
 
+        console.log($location);
         var needToDelete = -1;
 
         function getResultsPage(pageNumber) {
@@ -646,6 +647,7 @@
         $scope.cancel = function () {
             $scope.newLevel = null;
             target.modal('hide');
+            confDelete.modal('hide');
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Level";
@@ -1629,11 +1631,108 @@
         };
     }]);
 
-    module.controller('SkillLevelsController', ['$scope', '$http', 'toaster', '$window', function ($scope, $http, toaster, $window) {
-        
-        $scope.backToSkill = function() {
-            $window.history.back();
+    module.controller('SkillLevelsController', ['$scope', '$http', 'toaster', '$location', function ($scope, $http, toaster, $location) {
+        console.log($location);
+        console.log($location.$$absUrl);
+
+        console.log($location.$$absUrl.split("/"));
+        $scope.modalTitle = "Add a Skill";
+        var pathArray = $location.$$absUrl.split("/");
+        $scope.ids = pathArray[pathArray.length - 1];
+
+        var needToDelete = -1;
+        var urlTail = '/api/SkillVideos';
+
+        function getResultsPage(pageNumber) {
+            $http.get(urlTail + '/' + $scope.ids + '/' + $scope.itemsPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
         }
+
+        $scope.items = [];
+        $scope.totalItems = 0;
+        $scope.itemsPerPage = 20;
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+
+        var target = angular.element('#addSkill');
+        var confDelete = angular.element('#confDelete');
+
+        $scope.ok = function (id) {
+            if (id != null) {
+                $http.put(urlTail + '/' + id, $scope.newSkill).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
+                });
+
+            } else {
+                console.log($scope.newSkill);
+                $http.post(urlTail +'/'+ $scope.ids, $scope.newSkill).success(function () {
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
+                });
+            }
+
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+            confDelete.modal('hide');
+        };
+        $scope.openAdd = function () {
+            $scope.modalTitle = "Add a Skill";
+            $scope.newPart = null;
+            target.modal('show');
+        };
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.delete = function () {
+            $http.delete(urlTail + '/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
+        $scope.openEdit = function (id) {
+            console.log(id);
+            $http.get('/api/SkillVideos/' + id)
+                .success(function (result) {
+                    $scope.newSkill = result;
+                    $scope.modalTitle = "Update a Skill";
+                    target.modal('show');
+
+                });
+        };
     }]);
 
 })();
