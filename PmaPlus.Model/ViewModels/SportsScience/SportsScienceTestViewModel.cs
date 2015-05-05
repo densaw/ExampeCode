@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PmaPlus.Model.Enums;
 
 namespace PmaPlus.Model.ViewModels.SportsScience
 {
@@ -17,7 +18,7 @@ namespace PmaPlus.Model.ViewModels.SportsScience
         [Required]
         public string Description { get; set; }
         [Required]
-        public string ZScoreFormula { get; set; }
+        public ZScoreFormulaType ZScoreFormula { get; set; }
 
         public string Measure { get; set; }
 

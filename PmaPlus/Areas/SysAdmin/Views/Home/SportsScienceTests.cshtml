@@ -78,7 +78,7 @@
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Z-Score Formula:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newTest.zScoreFormula" class="form-control">
+                                                    <select ng-model="selectedFormula" ng-options="zFormulaType.name for zFormulaType in zFormulaTypes" class=" form-control m-b" name="account"></select>
                                                 </div>
                                             </div>
                                             <div class="form-group">

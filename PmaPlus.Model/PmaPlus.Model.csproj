@@ -62,6 +62,7 @@
     <Compile Include="Enums\ClubStatus.cs" />
     <Compile Include="Enums\PlayerStatus.cs" />
     <Compile Include="Enums\ScenarioType.cs" />
+    <Compile Include="Enums\ZScoreFormulaType.cs" />
     <Compile Include="Models\ActivityStatusChange.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BodyPart.cs" />

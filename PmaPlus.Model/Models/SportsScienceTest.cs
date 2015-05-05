@@ -1,3 +1,5 @@
+using PmaPlus.Model.Enums;
+
 namespace PmaPlus.Model.Models
 {
     public class SportsScienceTest
@@ -10,7 +12,7 @@ namespace PmaPlus.Model.Models
 
         public string Description { get; set; }
 
-        public string ZScoreFormula { get; set; }
+        public ZScoreFormulaType ZScoreFormula { get; set; }
 
         public string Measure { get; set; }
 
