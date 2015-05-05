@@ -85,6 +85,7 @@ namespace PmaPlus.Services
                 Chairman = club.Chairman.Name,
                 ChairmanEmail = club.Chairman.Email,
                 ChairmanTelephone = club.Chairman.Telephone,
+                ColorTheme = club.ColorTheme
             };
             return model;
         }
