@@ -11,5 +11,7 @@ namespace PmaPlus.Model.ViewModels.Skill
         public int Id { get; set; }
         public string TrainingItemName { get; set; }
         public int Time { get; set; }
+
+        public string VideoLink { get; set; }
     }
 }
