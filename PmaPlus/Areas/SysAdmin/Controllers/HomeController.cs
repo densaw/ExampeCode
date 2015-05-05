@@ -85,6 +85,11 @@ namespace PmaPlus.Areas.SysAdmin.Controllers
             return View();
         }
 
+        public ActionResult LevelSkills()
+        {
+            return View();
+        }
+
         public ActionResult Empty(RouteData rd)
         {
             var routeValueDictionary = rd.Values;

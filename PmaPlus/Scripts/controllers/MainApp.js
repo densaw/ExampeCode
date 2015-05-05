@@ -1,5 +1,5 @@
 ﻿(function () {
-    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies']);
+    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster']);
 
     module.filter('curr', function () {
         return function (v, yes, no) {
@@ -13,7 +13,15 @@
         };
     });
 
-    module.controller('MainController', ['$scope', '$cookies', function ($scope, $cookies) {
+    module.controller('MainController', ['$scope', '$cookies', 'toaster', function ($scope, $cookies, toaster) {
+        $scope.showTost = function() {
+            toaster.pop({
+                type: 'error',
+                title: 'Title text',
+                body: 'Body text',
+                showCloseButton: true
+            });
+        }
         $scope.expanded = true;
         $scope.navExpand = function () {
             $scope.expanded = !$scope.expanded;
@@ -98,6 +106,7 @@
 
         });
     }]);
+
     module.controller('PlayersBoxController', ['$scope', '$http', function ($scope, $http) {
         $http.get('api/dashboard/logged/players').success(function (data) {
             $scope.amountPlayers = data.amount;
@@ -105,6 +114,7 @@
             $scope.percentage = data.percentage;
         });
     }]);
+
     module.controller('CoachsBoxController', ['$scope', '$http', function ($scope, $http) {
         $http.get('api/dashboard/logged/coaches').success(function (data) {
             $scope.amountCoaches = data.amount;
@@ -112,6 +122,7 @@
             $scope.percentage = data.percentage;
         });
     }]);
+
     module.controller('ClubsBoxController', ['$scope', '$http', function ($scope, $http) {
         $http.get('api/dashboard/logged/clubs').success(function (data) {
             $scope.amountClubs = data.amount;
@@ -119,6 +130,7 @@
             $scope.percentage = data.percentage;
         });
     }]);
+
     module.controller('UsersBoxController', ['$scope', '$http', function ($scope, $http) {
         $http.get('api/dashboard/logged/users').success(function (data) {
             $scope.amountUsers = data.amount;
@@ -126,6 +138,7 @@
             $scope.percentage = data.percentage;
         });
     }]);
+
     module.controller('PlayerLoginHistoryController', ['$scope', '$http', function ($scope, $http) {
         $http.get('api/dashboard/logged/players/10/weeks').success(function (data) {
             $scope.data = {
@@ -159,12 +172,16 @@
 
         });
     }]);
+
     module.controller('AllPlayerController', ['$scope', '$http', function ($scope, $http) {
         $http.get('api/dashboard/active/players/all').success(function (data) {
             $scope.playerCount = data;
         });
     }]);
-    module.controller('FaCoursesController', ['$scope', '$http', function ($scope, $http) {
+
+    module.controller('FaCoursesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+
+       
 
         var needToDelete = -1;
 
@@ -195,17 +212,37 @@
 
         $scope.ok = function (id) {
             if (id != null) {
-                $http.put('/api/FaCourses/' + id, $scope.newCourse).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    $scope.newCourse = null;
-                    target.modal('hide');
-                });
-            } else {
 
-                $http.post('/api/FaCourses', $scope.newCourse).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    $scope.newCourse = null;
-                    target.modal('hide');
+                $http.put('/api/FaCourses/' + id, $scope.newCourse)
+                    .success(function (data, status, headers, config) {
+                        getResultsPage($scope.pagination.current);
+                        $scope.newCourse = null;
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: data.message
+                            });
+                        }
+                    });
+            } else {
+                $http.post('/api/FaCourses', $scope.newCourse)
+                    .success(function (data, status, headers, config) {
+                        getResultsPage($scope.pagination.current);
+                        $scope.newCourse = null;
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: data.message
+                            });
+                    }
                 });
             }
             $scope.modalTitle = "Add a Course";
@@ -239,13 +276,12 @@
                     $scope.newCourse = result;
                     $scope.modalTitle = "Update Course";
                     target.modal('show');
-
                 });
         };
 
     }]);
 
-    module.controller('ClubsController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('ClubsController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
         var needToDelete = -1;
 
@@ -289,24 +325,42 @@
                 $scope.newClub.logo = 'tmp.jpeg';
                 $scope.newClub.background = 'tmp.jpeg';
                 $scope.newClub.status = $scope.selectedStatus.id;
-                $http.put('/api/Clubs/' + id, $scope.newClub).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                    $scope.newClub = null;
-                });
-                target.modal('hide');
+                $http.put('/api/Clubs/' + id, $scope.newClub)
+                    .success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                        $scope.newClub = null;
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: data.message
+                            });
+                        }
+                    });
 
             } else {
 
                 $scope.newClub.logo = 'tmp.jpeg';
                 $scope.newClub.background = 'tmp.jpeg';
                 $scope.newClub.status = $scope.selectedStatus.id;
-                $http.post('/api/Clubs', $scope.newClub).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                    $scope.newClub = null;
-                });
-                target.modal('hide');
+                $http.post('/api/Clubs', $scope.newClub)
+                    .success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                        $scope.newClub = null;
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: data.message
+                            });
+                        }
+                    });
             };
         }
         $scope.cancel = function () {
@@ -343,7 +397,7 @@
 
     }]);
 
-    module.controller('CurriculumTypesController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('CurriculumTypesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
         var needToDelete = -1;
 
@@ -415,10 +469,17 @@
                ).success(function () {
                    getResultsPage($scope.pagination.current);
                    target.modal('hide');
+               }).error(function (data, status, headers, config) {
+                   if (status == 400) {
+                       console.log(data);
+                       toaster.pop({
+                           type: 'error',
+                           title: 'Error',
+                           body: data.message
+                       });
+                   }
                });
-                target.modal('hide');
             } else {
-
                 $http.post('/api/CurriculumTypes',
                     {
                         "name": $scope.currName,
@@ -441,8 +502,16 @@
                     ).success(function () {
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: data.message
+                            });
+                        }
                     });
-                target.modal('hide');
             }
         };
         $scope.cancel = function () {
@@ -509,7 +578,7 @@
         };
     }]);
 
-    module.controller('SkillsKnowledgeController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('SkillsKnowledgeController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
         var needToDelete = -1;
 
@@ -544,16 +613,32 @@
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
 
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
-                target.modal('hide');
 
 
             } else {
                 $http.post('/api/SkillLevels', $scope.newLevel).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
-                target.modal('hide');
 
             }
             $scope.newLevel = null;
@@ -590,7 +675,7 @@
         };
     }]);
 
-    module.controller('ScienceTestsController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('ScienceTestsController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
         $scope.testTypes = [
             { id: 0, name: 'Agility' },
@@ -634,11 +719,29 @@
                 $http.put('/api/SportsScienceTests/' + id, $scope.newTest).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
             } else {
                 $http.post('/api/SportsScienceTests', $scope.newTest).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
 
             }
@@ -677,7 +780,7 @@
         };
     }]);
 
-    module.controller('ScienceExercisesController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('ScienceExercisesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
         $scope.exerciseTypes = [
            { id: 0, name: 'Agility' },
            { id: 1, name: 'Fitness' },
@@ -720,16 +823,32 @@
                 $http.put('/api/SportsScienceExercises/' + id, $scope.newExercise).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
             } else {
 
                 $http.post('/api/SportsScienceExercises', $scope.newExercise).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
             }
-
-            target.modal('hide');
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -765,7 +884,7 @@
         };
     }]);
 
-    module.controller('LoginSettingsController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('LoginSettingsController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
         function getResultsPage(pageNumber) {
             $http.get('/api/PasswordHistory/' + $scope.historyPerPage + '/' + pageNumber)
@@ -794,8 +913,16 @@
             $http.post('/api/UpdatePassword', $scope.newPassword).success(function () {
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
+            }).error(function (data, status, headers, config) {
+                if (status == 400) {
+                    console.log(data);
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error',
+                        body: data.message
+                    });
+                }
             });
-            target.modal('hide');
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -803,7 +930,7 @@
 
     }]);
 
-    module.controller('TargetController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('TargetController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
         function getResultsPage(pageNumber) {
             $http.get('/api/TargetHistory/' + $scope.targetsPerPage + '/' + pageNumber)
@@ -833,8 +960,16 @@
             $http.post('/api/TargetHistory', $scope.newTarget).success(function () {
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
+            }).error(function (data, status, headers, config) {
+                if (status == 400) {
+                    console.log(data);
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error',
+                        body: data.message
+                    });
+                }
             });
-            target.modal('hide');
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -842,48 +977,7 @@
 
     }]);
 
-    function pageTableData($scope, $http, urlTail, modalName) {
-
-        var needToDelete = -1;
-
-        function getResultsPage(pageNumber) {
-            $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
-                .success(function (result) {
-                    $scope.items = result.items;
-                    $scope.totalItems = result.count;
-                });
-        }
-
-        $scope.items = [];
-        $scope.totalItems = 0;
-        $scope.itemsPerPage = 20;
-
-
-        $scope.pagination = {
-            current: 1
-        };
-        getResultsPage($scope.pagination.current);
-        $scope.pageChanged = function (newPage) {
-            getResultsPage(newPage);
-            $scope.pagination.current = newPage;
-        };
-
-        var target = angular.element(modalName);
-        var confDelete = angular.element('#confDelete');
-
-        $scope.okTarget = function () {
-            $http.post(urlTail, $scope.newItem).success(function () {
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-            });
-            target.modal('hide');
-        };
-        $scope.cancel = function () {
-            target.modal('hide');
-        };
-    };
-
-    module.controller('NFTController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('NFTController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
         $scope.foodType = [
              { id: 0, name: 'Fruit' },
@@ -943,15 +1037,32 @@
                 $http.put(urlTail + '/' + id, $scope.newFood).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
             } else {
 
                 $http.post(urlTail, $scope.newFood).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
             }
-            target.modal('hide');
         };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
@@ -986,7 +1097,7 @@
         };
     }]);
 
-    module.controller('NAController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('NAController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
         var needToDelete = -1;
         var urlTail = '/api/NutritionAlternatives';
@@ -1024,15 +1135,32 @@
                 $http.put(urlTail + '/' + id, $scope.newAlt).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
             } else {
 
                 $http.post(urlTail, $scope.newAlt).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
             }
-            target.modal('hide');
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -1065,7 +1193,7 @@
         };
     }]);
 
-    module.controller('NRController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('NRController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
         var needToDelete = -1;
         var urlTail = '/api/NutritionRecipes';
 
@@ -1100,17 +1228,33 @@
                 $http.put(urlTail + '/' + id, $scope.newRecipt).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
 
             } else {
                 $http.post(urlTail, $scope.newRecipt).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
 
             }
-
-            target.modal('hide');
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -1144,7 +1288,7 @@
         };
     }]);
 
-    module.controller('PhysioExerciseController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('PhysioExerciseController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
         var needToDelete = -1;
 
         function getResultsPage(pageNumber) {
@@ -1178,6 +1322,15 @@
                 $http.put('/api/PhysioExercise/' + id, $scope.newExercise).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
 
             } else {
@@ -1185,9 +1338,17 @@
                 $http.post('/api/PhysioExercise', $scope.newExercise).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
             }
-            target.modal('hide');
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -1224,7 +1385,7 @@
 
     }]);
 
-    module.controller('ScenariosController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('ScenariosController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
         var needToDelete = -1;
 
         $scope.scenarioType = [
@@ -1270,15 +1431,31 @@
                 $http.put('/api/Scenarios/' + id, $scope.newScenario).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
-                target.modal('hide');
 
             } else {
                 $http.post('/api/Scenarios', $scope.newScenario).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
-                target.modal('hide');
 
             }
         };
@@ -1335,7 +1512,7 @@
 
     }]);
 
-    module.controller('BodyPartController', ['$scope', '$http', function ($scope, $http) {
+    module.controller('BodyPartController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
         var needToDelete = -1;
         var urlTail = '/api/PhysioBodyParts';
 
@@ -1388,8 +1565,16 @@
                 $http.put(urlTail + '/' + id, $scope.newPart).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
-                target.modal('hide');
 
             } else {
 
@@ -1398,8 +1583,16 @@
                 $http.post(urlTail, $scope.newPart).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                }).error(function (data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: data.message
+                        });
+                    }
                 });
-                target.modal('hide');
             }
 
         };
@@ -1434,6 +1627,13 @@
 
                 });
         };
+    }]);
+
+    module.controller('SkillLevelsController', ['$scope', '$http', 'toaster', '$window', function ($scope, $http, toaster, $window) {
+        
+        $scope.backToSkill = function() {
+            $window.history.back();
+        }
     }]);
 
 })();

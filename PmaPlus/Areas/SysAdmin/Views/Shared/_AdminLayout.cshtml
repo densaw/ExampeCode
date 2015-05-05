@@ -8,6 +8,8 @@
     <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.css" rel="stylesheet" />
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet" />
     <!-- Add local styles, mostly for plugins css file -->
     @if (IsSectionDefined("Styles"))
     {@RenderSection("Styles", required: false)
@@ -28,8 +30,9 @@
     <link href="@Url.Content("~/Content/plugins/toastr/toastr.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/plugins/toastr/toastr-font-awesome.css")" rel="stylesheet" type="text/css" />
     <script src="http://code.angularjs.org/1.3.9/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.3.9/angular-animate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-cookies.js"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.js"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
@@ -40,11 +43,13 @@
     @Scripts.Render("~/plugins/spark")
     @Scripts.Render("~/plugins/pagination")
     @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/toastr")
 
 
 </head>
 <body id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1 {{expanded | nav: '':'mini-navbar'}}">
-    <!-- PageClass give you ability to specify custom style for specific view based on action -->
+<!-- PageClass give you ability to specify custom style for specific view based on action -->
+    <toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
     <div id="wrapper" class="@Html.PageClass()">
         <!-- Navigation -->
         @Html.Partial("_Navigation")
@@ -100,7 +105,26 @@
             vertical-align: middle;
         }
     </style>
+<script>
+    $(document).ready(function() {
 
+        toastr.options = {
+            closeButton: true,
+            debug: false,
+            progressBar: false,
+            positionClass: "toast-top-full-width",
+            onclick: null,
+            showDuration: 400,
+            hideDuration: 1000,
+            timeOut: 7000,
+            extendedTimeOut: 1000,
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut"
+        }
+    });
+</script>
 </body>
 </html>
 
