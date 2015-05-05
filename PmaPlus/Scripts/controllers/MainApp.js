@@ -1310,7 +1310,7 @@
         var needToDelete = -1;
 
         function getResultsPage(pageNumber) {
-            console.log($scope.coursePerPage);
+            console.log($scope.exercisePerPage);
             $http.get('/api/PhysioExercise/' + $scope.exercisePerPage + '/' + pageNumber)
                 .success(function (result) {
                     $scope.exercises = result.items;
@@ -1352,7 +1352,9 @@
                 });
 
             } else {
-                $scope.newExercise.type = $scope.selectedType;
+                $scope.newExercise.type = $scope.selectedType.id;
+                $scope.newExercise.picture = 'tmp.png';
+                console.log($scope.newExercise);
                 $http.post('/api/PhysioExercise', $scope.newExercise).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
