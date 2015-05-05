@@ -121,6 +121,29 @@
                             </div>
                         </div>
                         @*Modal End*@
+
+
+                        @*Modal*@
+                        <div class="modal inmodal" id="videoModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Video</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <iframe width="400" height="300" frameborder="0" allowfullscreen=""></iframe>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+
+
+
                         <div class="row">
                             <div class="col-sm-9 m-b-xs">
                                 <form class="form-horizontal">
@@ -172,6 +195,7 @@
                                         <td>
                                             <i ng-click="openEdit(exercise.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(exercise.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                            <i ng-click="modalVideoStart(exercise.videolink)" class="fa fa-camera" style="cursor: pointer;"></i>
                                         </td>
                                     </tr>
                                 </tbody>

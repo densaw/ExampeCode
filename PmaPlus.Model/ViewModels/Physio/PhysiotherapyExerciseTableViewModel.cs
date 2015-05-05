@@ -14,5 +14,7 @@ namespace PmaPlus.Model.ViewModels.Physio
         public PhysioExerciseType Type { get; set; }
 
         public string Name { get; set; }
+
+        public string Videolink { get; set; }
     }
 }

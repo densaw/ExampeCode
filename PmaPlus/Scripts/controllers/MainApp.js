@@ -1333,6 +1333,13 @@
         };
         var target = angular.element('#addExerciseOrStretch');
         var confDelete = angular.element('#confDelete');
+        var modalVideo = angular.element('#videoModal');
+        $scope.modalVideoStart = function (src) {
+            console.log(src);
+            //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
+            modalVideo.modal('show');
+            $('#videoModal iframe').attr('src', src);
+        }
 
         $scope.ok = function (id) {
             if (id != null) {
