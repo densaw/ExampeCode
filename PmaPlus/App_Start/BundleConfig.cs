@@ -41,7 +41,8 @@ namespace PmaPlus
             bundles.Add(new ScriptBundle("~/plugins/ui-bootstrap").Include(
                 "~/Scripts/plugins/bootstrap/bootstrap.file-input.js",
                 "~/Scripts/plugins/ui-bootstrap/ui-bootstrap-tpls-0.12.1.js",
-                "~/Scripts/plugins/ui-bootstrap/bootstrap.js"));
+                "~/Scripts/plugins/ui-bootstrap/bootstrap.js",
+                "~/Scripts/userSripts.js"));
 
 
             //Angular Controllers

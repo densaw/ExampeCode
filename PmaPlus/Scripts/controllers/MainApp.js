@@ -254,7 +254,10 @@
             { id: 1, name: 'Blocked' },
             { id: 2, name: 'Closed' }
         ];
-
+        $scope.logo = 'logggo';
+        $scope.uploadPhoto = function() {
+            console.log($scope.logo);
+        };
         $scope.selectedStatus = $scope.statuses[0];
 
         function getResultsPage(pageNumber) {
