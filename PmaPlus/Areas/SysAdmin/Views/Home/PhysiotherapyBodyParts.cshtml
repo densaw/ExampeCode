@@ -56,7 +56,7 @@
                                         <h3 class="modal-title text-left">{{modalTitle}}</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal">
+                                        <form name ="myform" class="form-horizontal" novalidate>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Body Part:</label>
                                                 <div class="col-lg-7 pull-right">
@@ -64,10 +64,10 @@
                                                 </div>
 
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':myform.injuryName.$invalid && myform.injuryName.$dirty}">
                                                 <label class="col-lg-4 title-modal">Injury Name:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newPart.injuryName" class="form-control">
+                                                    <input name="injuryName" ng-model="newPart.injuryName" required class="form-control">
 
                                                 </div>
                                             </div>

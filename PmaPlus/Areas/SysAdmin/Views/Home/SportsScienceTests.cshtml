@@ -56,23 +56,24 @@
                                         <h3 class="modal-title text-left">{{modalTitle}}</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal">
-                                            <div class="form-group">
+                                        <form name ="myform" class="form-horizontal" novalidate>
+                                            <div class="form-group" >
                                                 <label class="col-lg-4 title-modal">Test Type:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <select ng-model="selectedType" ng-options="testType.name for testType in testTypes" class=" form-control m-b" name="account"></select>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':myform.testName.$invalid && myform.testName.$dirty}">
                                                 <label class="col-lg-4 title-modal">Test Name:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newTest.name" class="form-control">
+                                                    <input name="testName" ng-model="newTest.name"required class="form-control" >
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':myform.testDescription.$invalid && myform.testDescription.$dirty}">
                                                 <label class="col-lg-4 title-modal">Test Description:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <textarea ng-model="newTest.description" class="form-control"></textarea></div>
+                                                    <textarea name="testDescription" ng-model="newTest.description" required class="form-control"></textarea>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Z-Score Formula:</label>

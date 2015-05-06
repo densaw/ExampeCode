@@ -53,7 +53,7 @@
                                         <h3 class="modal-title text-left">{{modalTitle}}</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal">
+                                        <form name ="myform" class="form-horizontal" novalidate>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Scenario:</label>
                                                 <div class="col-lg-7 pull-right">
@@ -62,17 +62,17 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':myform.minageRange.$invalid && myform.minageRange.$dirty}" ng-class="{'has-error':myform.maxageRange.$invalid && myform.maxageRange.$dirty}">
                                                 <label class="col-lg-4 title-modal">Age Range:</label>
                                                 <div class="col-lg-7 pull-right ">
-                                                    <input ng-model="newScenario.minAge" class="form-control">
-                                                    <input ng-model="newScenario.maxAge" class="form-control">
+                                                    <input name="minageRange" ng-model="newScenario.minAge" required class="form-control" type="number" min="1" max="100">
+                                                    <input name="maxageRange" ng-model="newScenario.maxAge" required class="form-control" type="number" min="1" max="100">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':myform.sName.$invalid && myform.sName.$dirty}">
                                                 <label class="col-lg-4 title-modal">Name:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newScenario.name" class="form-control">
+                                                    <input name="sName" ng-model="newScenario.name" required class="form-control">
                                                 </div>
                                             </div>
 
@@ -84,10 +84,11 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':myform.description.$invalid && myform.description.$dirty}">
                                                 <label class="col-lg-4 title-modal">Description:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <textarea ng-model="newScenario.description" class="form-control"></textarea></div>
+                                                    <textarea name="description" ng-model="newScenario.description" required class="form-control"></textarea>
+                                                </div>
                                             </div>
 
                                             <div class="form-group">

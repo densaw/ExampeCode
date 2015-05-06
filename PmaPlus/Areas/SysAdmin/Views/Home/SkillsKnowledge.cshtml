@@ -55,17 +55,18 @@
                                     <h3 class="modal-title text-left">{{modalTitle}}</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
+                                    <form name="myform" class="form-horizontal" novalidate>
+                                        <div class="form-group" ng-class="{'has-error':myform.lvlName.$invalid && myform.lvlName.$dirty}">
                                             <label class="col-lg-4 title-modal">Level Name:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input ng-model="newLevel.name" class="form-control">
+                                                <input name="lvlName" ng-model="newLevel.name" required class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" ng-class="{'has-error':myform.lvlDescription.$invalid && myform.lvlDescription.$dirty}">
                                             <label class="col-lg-4 title-modal">Level Description:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <textarea ng-model="newLevel.description" class="form-control"></textarea></div>
+                                                <textarea name="lvlDescription" ng-model="newLevel.description" required class="form-control"></textarea>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
