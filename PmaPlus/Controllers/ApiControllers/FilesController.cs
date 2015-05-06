@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using PmaPlus.Tools;
@@ -21,15 +22,46 @@ namespace PmaPlus.Controllers.ApiControllers
             _photoManager = photoManager;
         }
 
-        public IHttpActionResult PostPhoto()
+        public async Task<IHttpActionResult> PostPhoto()
         {
             if (Request.Content.IsMimeMultipartContent())
             {
-            var photo = _photoManager.Add(Request);
+            var photo = await _photoManager.Add(Request);
             return Ok(photo);
             }
 
                 return BadRequest("Unsuported type");
+        }
+
+        [HttpPost()]
+        public async Task<HttpResponseMessage> Post()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            var streamProvider = new MultipartFormDataStreamProvider(HttpContext.Current.Server.MapPath("~/App_Data/temp"));
+            List<string> files = new List<string>();
+
+            try
+            {
+                // Read the MIME multipart content using the stream provider we just created.
+                await Request.Content.ReadAsMultipartAsync(streamProvider);
+                //await Request.Content.ReadAsMultipartAsync();
+
+                foreach (MultipartFileData file in streamProvider.FileData)
+                {
+                    files.Add(file.LocalFileName);
+                }
+
+                // Send OK Response along with saved file names to the client. 
+                return Request.CreateResponse(HttpStatusCode.OK, files);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+            }
         }
 
         [Route("api/File/{storageType}/{fileName}/{id}")]

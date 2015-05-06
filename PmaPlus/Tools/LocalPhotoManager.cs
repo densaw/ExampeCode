@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using PmaPlus.Filters;
 using PmaPlus.Models;
@@ -76,11 +77,11 @@ namespace PmaPlus.Tools
             }
         }
 
-        public IEnumerable<PhotoViewModel> Add(HttpRequestMessage request)
+        public async Task<IEnumerable<PhotoViewModel>> Add(HttpRequestMessage request)
         {
             var provider = new PhotoStreamProvider(_workingFolder);
 
-            request.Content.ReadAsMultipartAsync(provider);
+            await request.Content.ReadAsMultipartAsync(provider);
 
             var photos = new List<PhotoViewModel>();
 
@@ -91,13 +92,14 @@ namespace PmaPlus.Tools
                 photos.Add(new PhotoViewModel
                 {
                     Name = fileInfo.Name,
-                    //Created = fileInfo.CreationTime, 
-                    //Modified = fileInfo.LastWriteTime, 
-                    //Size = fileInfo.Length /1024 
+                    //Created = fileInfo.CreationTime,
+                    //Modified = fileInfo.LastWriteTime,
+                    //Size = fileInfo.Length / 1024
                 });
             }
+
             return photos;
-        }
+        } 
 
         public string Move(string fileName, string path, string newFileName)
         {
