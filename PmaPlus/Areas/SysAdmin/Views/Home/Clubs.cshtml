@@ -52,20 +52,21 @@
                                         <h3 class="modal-title text-left">{{modalTitle}}</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="form-horizontal">
-                                        <div class="form-group">
+                                    <form name="myform" class="form-horizontal" novalidate >
+                                        <div class="form-group " ng-class="{'has-error':myform.clubName.$invalid && myform.clubName.$dirty}">
                                             <label class="col-lg-4 title-modal">Club Name:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input ng-model="newClub.name" class="form-control">
+                                                <input name="clubName" ng-model="newClub.name" required class="form-control">
+
                                             </div>
-                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="col-lg-4 title-modal">Club Logo:</label>
                                             <div class="col-lg-7 pull-right ">
                                                 <input type="file" accept="image/*" ng-model="logo" ng-change="uploadPhoto()" class="pma-fileupload">
 
                                             </div>
-                                             </div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="col-lg-4 title-modal">Club Status:</label>
                                             <div class="col-lg-7 pull-right">
@@ -73,33 +74,32 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group" ng-class="{'has-error':myform.adminName.$invalid && myform.adminName.$dirty}">
                                             <label class="col-lg-4 title-modal">Club Administrator Name:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input ng-model="newClub.clubAdminName" class="form-control">
-
+                                                <input name="adminName" ng-model="newClub.clubAdminName" required class="form-control">
                                             </div>
-                                             </div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="col-lg-4 title-modal">ClubAdmin Username:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newClub.clubAdminEmail" class="form-control">
 
                                             </div>
-                                             </div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="col-lg-4 title-modal">ClubAdmin Password:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input ng-model="newClub.clubAdminPassword" class="form-control">
 
                                             </div>
-                                             </div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="col-lg-4 title-modal">Club Background:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input type="file" class="pma-fileupload" multiple="false">
-                                                </div>
+                                            <div class="col-lg-7 pull-right">
+                                                <input type="file" class="pma-fileupload" multiple="false">
                                             </div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="col-lg-4 title-modal">Established:</label>
                                             <div class="col-lg-7 pull-right">
@@ -172,8 +172,8 @@
                                                 <input ng-model="newClub.colorTheme" type="text" class="form-control">
                                             </div>
                                         </div>
-                                        
-                                    </div>
+
+                                    </form>
                                    
                                 </div>
                                 <div class="modal-footer">
