@@ -21,7 +21,7 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             _photoManager = photoManager;
         }
-
+       [Route("api/Files")]
         public async Task<IHttpActionResult> PostPhoto()
         {
             if (Request.Content.IsMimeMultipartContent())
@@ -33,36 +33,36 @@ namespace PmaPlus.Controllers.ApiControllers
                 return BadRequest("Unsuported type");
         }
 
-        [HttpPost()]
-        public async Task<HttpResponseMessage> Post()
-        {
-            if (!Request.Content.IsMimeMultipartContent())
-            {
-                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            }
+        //[HttpPost()]
+        //public async Task<HttpResponseMessage> Post()
+        //{
+        //    if (!Request.Content.IsMimeMultipartContent())
+        //    {
+        //        throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+        //    }
 
-            var streamProvider = new MultipartFormDataStreamProvider(HttpContext.Current.Server.MapPath("~/App_Data/temp"));
-            List<string> files = new List<string>();
+        //    var streamProvider = new MultipartFormDataStreamProvider(HttpContext.Current.Server.MapPath("~/App_Data/temp"));
+        //    List<string> files = new List<string>();
 
-            try
-            {
-                // Read the MIME multipart content using the stream provider we just created.
-                await Request.Content.ReadAsMultipartAsync(streamProvider);
-                //await Request.Content.ReadAsMultipartAsync();
+        //    try
+        //    {
+        //        // Read the MIME multipart content using the stream provider we just created.
+        //        await Request.Content.ReadAsMultipartAsync(streamProvider);
+        //        //await Request.Content.ReadAsMultipartAsync();
 
-                foreach (MultipartFileData file in streamProvider.FileData)
-                {
-                    files.Add(file.LocalFileName);
-                }
+        //        foreach (MultipartFileData file in streamProvider.FileData)
+        //        {
+        //            files.Add(file.LocalFileName);
+        //        }
 
-                // Send OK Response along with saved file names to the client. 
-                return Request.CreateResponse(HttpStatusCode.OK, files);
-            }
-            catch (Exception e)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
-            }
-        }
+        //        // Send OK Response along with saved file names to the client. 
+        //        return Request.CreateResponse(HttpStatusCode.OK, files);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+        //    }
+        //}
 
         [Route("api/File/{storageType}/{fileName}/{id}")]
         public HttpResponseMessage GetPhoto(string storageType,string fileName , int id)
