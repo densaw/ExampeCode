@@ -29,7 +29,7 @@ namespace PmaPlus.Controllers.ApiControllers
             var count = _skillServices.GetSkillLevels().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var skillLevels = _skillServices.GetSkillLevels().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
-            var items = Mapper.Map<IEnumerable<SkillLevel>, IEnumerable<SkillLevelViewModel>>(skillLevels);
+            var items = Mapper.Map<IEnumerable<SkillLevel>, IEnumerable<SkillLevelTableViewModel>>(skillLevels);
 
             return new SkillLevelPage()
             {

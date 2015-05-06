@@ -148,6 +148,7 @@
     <Compile Include="ViewModels\SiteSettings\TargetHistoryTableViewModel.cs" />
     <Compile Include="ViewModels\SiteSettings\TargetHistoryViewModel.cs" />
     <Compile Include="ViewModels\Skill\SkillLevelPage.cs" />
+    <Compile Include="ViewModels\Skill\SkillLevelTableViewModel.cs" />
     <Compile Include="ViewModels\Skill\SkillLevelViewModel.cs" />
     <Compile Include="ViewModels\Skill\SkillVideoPage.cs" />
     <Compile Include="ViewModels\Skill\SkillVideoTableViewModel.cs" />

@@ -141,6 +141,7 @@
                             <tr>
                                 <th>Name </th>
                                 <th>Description </th>
+                                <th>Total Skills</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -148,6 +149,7 @@
                             <tr dir-paginate="skill in skills | filter:q | itemsPerPage: skillsPerPage" total-items="totalSkills">
                                 <td>{{skill.name}}</td>
                                 <td>{{skill.description}}</td>
+                                <td>{{skill.skillVideosCount}}</td>
                                 <td>
                                     <i ng-click="openEdit(skill.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                     <i ng-click="openDelete(skill.id)" class="fa fa-trash" style="cursor: pointer;"></i>

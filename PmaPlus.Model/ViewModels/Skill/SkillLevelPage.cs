@@ -8,6 +8,6 @@ namespace PmaPlus.Model.ViewModels.Skill
 {
     public class SkillLevelPage : Page
     {
-        public IEnumerable<SkillLevelViewModel> Items { get; set; }
+        public IEnumerable<SkillLevelTableViewModel> Items { get; set; }
     }
 }
