@@ -1,5 +1,5 @@
 ﻿(function () {
-    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster']);
+    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster', 'file-model']);
 
     module.filter('curr', function () {
         return function (v, yes, no) {
@@ -12,6 +12,23 @@
             return v ? yes : no;
         };
     });
+
+    module.service('fileUpload', ['$http', function ($http) {
+        this.uploadFileToUrl = function (file, uploadUrl) {
+            var fd = new FormData();
+            fd.append('file', file);
+            $http.post(uploadUrl, fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            })
+            .success(function () {
+                console.log('good');
+            })
+            .error(function (date) {
+                console.log(date);
+            });
+        }
+    }]);
 
     module.controller('MainController', ['$scope', '$cookies', 'toaster', function ($scope, $cookies, toaster) {
         $scope.showTost = function() {
@@ -284,6 +301,29 @@
     module.controller('ClubsController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
         var needToDelete = -1;
+        $scope.file = null;
+        $scope.$watch('file', function(newVal) {
+            console.log('in file trans');
+            if (newVal) {
+                console.log(newVal);
+                console.log($scope.file);
+                console.log('prepere post');
+                var fd = new FormData();
+                fd.append('file', newVal);
+                $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                .success(function () {
+                    console.log('good');
+                })
+                .error(function (date) {
+                    console.log(date);
+                });
+            }
+            
+
+        });
 
         $scope.statuses = [
             { id: 0, name: 'Active' },

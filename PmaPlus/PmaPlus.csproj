@@ -393,6 +393,7 @@
     <Content Include="Scripts\angular\angular-cookies.js" />
     <Content Include="Scripts\angular\angular-cookies.min.js" />
     <Content Include="Scripts\angular\angular-csp.css" />
+    <Content Include="Scripts\angular\angular-file-model.js" />
     <Content Include="Scripts\angular\angular-loader.js" />
     <Content Include="Scripts\angular\angular-loader.min.js" />
     <Content Include="Scripts\angular\angular-messages.js" />
@@ -3422,6 +3423,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\FileStorage\temp\" />
+    <Folder Include="App_Data\temp\" />
     <Folder Include="Areas\ClubAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
