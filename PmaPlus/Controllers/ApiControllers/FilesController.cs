@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using PmaPlus.Tools;
@@ -21,11 +22,11 @@ namespace PmaPlus.Controllers.ApiControllers
             _photoManager = photoManager;
         }
 
-        public IHttpActionResult PostPhoto()
+        public async Task<IHttpActionResult> PostPhoto()
         {
             if (Request.Content.IsMimeMultipartContent())
             {
-            var photo = _photoManager.Add(Request);
+            var photo = await _photoManager.Add(Request);
             return Ok(photo);
             }
 
