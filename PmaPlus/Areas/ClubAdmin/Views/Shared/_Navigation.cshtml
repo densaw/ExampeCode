@@ -1,0 +1,81 @@
+﻿@using Action = Antlr.Runtime.Misc.Action
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <h6><strong class="font-bold">PMA<sup>+</sup></strong></h6>
+                            </span> 
+                        </span>
+                    </a>
+
+                </div>
+                <div class="logo-element">
+                    <strong>PMA<sup>+</sup></strong>
+                </div>
+            </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "Dashbord")">
+                <a href="@Url.Action("Dashbord", "Home", new {area = "ClubAdmin"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
+
+            </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "Clubs")">
+                <a href="@Url.Action("Clubs", "Home", new {area = "SysAdmin"})"><i class="fa fa-university"></i> <span class="nav-label">Clubs</span></a>
+            </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "CurriculumTypes")">
+                <a href="@Url.Action("CurriculumTypes", "Home", new {area = "SysAdmin"})"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Curriculums</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="@Html.IsSelected(action: "CurriculumTypes")"><a href="@Url.Action("CurriculumTypes", "Home", new {area = "SysAdmin"})">Curriculum Type</a></li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "FaCourses")">
+                <a href="@Url.Action("FaCourses", "Home", new {area = "SysAdmin"})"><i class="fa fa-plus-square"></i> <span class="nav-label">FA Courses</span> </a>
+            </li>
+            <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] {"NutritionAlternatives", "NutritionFoodType", "NutritionRecipes"})">
+                <a href="@Url.Action("NutritionAlternatives", "Home", new {area = "SysAdmin"})"><i class="fa fa-cutlery"></i> <span class="nav-label">Nutrition</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="@Html.IsSelected(controller: "Home", action: "NutritionAlternatives")"><a href="@Url.Action("NutritionAlternatives", "Home", new {area = "SysAdmin"})">Alternatives</a></li>
+                    <li class="@Html.IsSelected(controller: "Home", action: "NutritionFoodType")"><a href="@Url.Action("NutritionFoodType", "Home", new {area = "SysAdmin"})">Food Types</a></li>
+                    <li class="@Html.IsSelected(controller: "Home", action: "NutritionRecipes")"><a href="@Url.Action("NutritionRecipes", "Home", new {area = "SysAdmin"})">Recipes</a></li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] {"PhysiotherapyBodyParts", "PhysiotherapyExercise"})">
+                <a href="@Url.Action("Index", "Home", new {area = "SysAdmin"})"><i class="fa fa-medkit"></i> <span class="nav-label">Physiotherapy</span>  <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="@Html.IsSelected(action: "PhysiotherapyBodyParts")"><a href="@Url.Action("PhysiotherapyBodyParts", "Home", new {area = "SysAdmin"})">Body Parts</a></li>
+                    <li class="@Html.IsSelected(action: "PhysiotherapyExercise")"><a href="@Url.Action("PhysiotherapyExercise", "Home", new {area = "SysAdmin"})">Exercises</a></li>
+
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "Scenarios")">
+                <a href="@Url.Action("Scenarios", "Home", new {area = "SysAdmin"})"><i class="fa fa-futbol-o"></i> <span class="nav-label">Scenarios</span></a>
+            </li>
+            <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] {"Targets", "SiteSettingsLogin"})">
+                <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Site Settings</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="@Html.IsSelected(action: "Targets")"><a href="@Url.Action("Targets", "Home", new {area = "SysAdmin"})">Targets</a></li>
+                    <li class="@Html.IsSelected(action: "SiteSettingsLogin")"><a href="@Url.Action("SiteSettingsLogin", "Home", new {area = "SysAdmin"})">Login</a></li>
+
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "SkillsKnowledge")">
+                <a href="@Url.Action("SkillsKnowledge", "Home", new {area = "SysAdmin"})"><i class="fa fa-film"></i> <span class="nav-label">Skills & Knowledge</span></a>
+            </li>
+            <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] {"SportsScienceExercises", "SportsScienceTests"})">
+                <a href="@Url.Action("Index", "Home", new {area = "SysAdmin"})"><i class="fa fa-flask"></i> <span class="nav-label">Sports Science</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="@Html.IsSelected(action: "SportsScienceExercises")"><a href="@Url.Action("SportsScienceExercises", "Home", new {area = "SysAdmin"})">Exercises</a></li>
+                    <li class="@Html.IsSelected(action: "SportsScienceTests")"><a href="@Url.Action("SportsScienceTests", "Home", new {area = "SysAdmin"})">Tests</a></li>
+
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "Reports")">
+                <a href="@Url.Action("Reports", "Home", new {area = "SysAdmin"})"><i class="fa fa-bar-chart"></i> <span class="nav-label">Reports</span></a>
+            </li>
+
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <link href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.css" rel="stylesheet" />
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet" />
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)
+    }
+    @Scripts.Render("~/bundles/jquery")
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+
+    <!-- Add jQuery Style direct - used for jQGrid plugin -->
+    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/css")
+    <link href="@Url.Content("~/Content/plugins/toastr/toastr.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/plugins/toastr/toastr-font-awesome.css")" rel="stylesheet" type="text/css" />
+    <script src="http://code.angularjs.org/1.3.9/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.3.9/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-cookies.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
+
+    @Scripts.Render("~/plugins/ngChartJs")
+    @Scripts.Render("~/plugins/chartJs")
+    <script src="http://omnipotent.net/jquery.sparkline/2.1.2/jquery.sparkline.min.js"></script>
+    @Scripts.Render("~/plugins/spark")
+    @Scripts.Render("~/plugins/pagination")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/toastr")
+
+
+</head>
+<body id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1 {{expanded | nav: '':'mini-navbar'}}">
+<!-- PageClass give you ability to specify custom style for specific view based on action -->
+    <toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
+    <div id="wrapper" class="@Html.PageClass()">
+        <!-- Navigation -->
+        @Html.Partial("_Navigation")
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+
+            <!-- Top Navbar -->
+            @Html.Partial("_TopNavbar")
+
+            <!-- Main view -->
+            @RenderBody()
+
+
+
+            <!-- Footer -->
+            @Html.Partial("_Footer")
+        </div>
+        <!-- End page wrapper-->
+    </div>
+    <!-- End wrapper-->
+    <!-- Section for main scripts render -->
+    @*Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+    @Scripts.Render("~/bundles/jquery-session")
+    @Scripts.Render("~/bundles/controllers")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/ui-bootstrap")
+    @Scripts.Render("~/plugins/fileinput")
+
+
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
+    <style>
+        .title-modal {
+            font-family: 'Open Sans';
+            font-size: 12px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            line-height: 12px;
+        }
+
+        .container-canter {
+            display: table;
+            width: 100%;
+            height: 100%; /* For at least Firefox */
+            min-height: 100%;
+        }
+
+        .inner-container-center {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    </style>
+<script>
+    $(document).ready(function() {
+
+        toastr.options = {
+            closeButton: true,
+            debug: false,
+            progressBar: false,
+            positionClass: "toast-top-full-width",
+            onclick: null,
+            showDuration: 400,
+            hideDuration: 1000,
+            timeOut: 7000,
+            extendedTimeOut: 1000,
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut"
+        }
+    });
+</script>
+</body>
+</html>
+
+<script>
+
+    var idleTime = 0;
+    $(document).ready(function () {
+        var idleInterval = setInterval(timerIncrement, 60000);
+        $(this).mousemove(function (e) {
+            idleTime = 0;
+        });
+        $(this).keypress(function (e) {
+            idleTime = 0;
+        });
+    });
+
+    function timerIncrement() {
+        idleTime = idleTime + 1;
+        if (idleTime > 9)
+            window.location.replace('@Url.Action("LockScreen", "Account", new {area = ""})');
+
+    }
+</script>
