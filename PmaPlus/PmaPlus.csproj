@@ -202,6 +202,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\ClubAdmin\ClubAdminAreaRegistration.cs" />
+    <Compile Include="Areas\ClubAdmin\Controllers\HomeController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -393,6 +395,7 @@
     <Content Include="Scripts\angular\angular-cookies.js" />
     <Content Include="Scripts\angular\angular-cookies.min.js" />
     <Content Include="Scripts\angular\angular-csp.css" />
+    <Content Include="Scripts\angular\angular-file-model.js" />
     <Content Include="Scripts\angular\angular-loader.js" />
     <Content Include="Scripts\angular\angular-loader.min.js" />
     <Content Include="Scripts\angular\angular-messages.js" />
@@ -2902,6 +2905,31 @@
     <Content Include="Areas\SysAdmin\Views\Home\Scenarios.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\Targets.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\LevelSkills.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\web.config" />
+    <Content Include="Areas\ClubAdmin\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Shared\_Navigation.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Shared\_TopNavbar.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Dashbord.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Attributes.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\ClubProfile.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\ClubDiary.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Curriculums.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Documents.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Injuries.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\MatchReports.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\TrainingTeam.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Players.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Alternatives.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\FoodTypes.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Recipes.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Reports.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Scenarios.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\SkillsAndKnowledge.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Teams.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\ToDoList.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3397,6 +3425,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\FileStorage\temp\" />
+    <Folder Include="App_Data\temp\" />
+    <Folder Include="Areas\ClubAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
     <Folder Include="Images\Clubs\" />
