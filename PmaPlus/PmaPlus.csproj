@@ -2930,6 +2930,7 @@
     <Content Include="Areas\ClubAdmin\Views\Home\SkillsAndKnowledge.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\Teams.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\ToDoList.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Statements.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
