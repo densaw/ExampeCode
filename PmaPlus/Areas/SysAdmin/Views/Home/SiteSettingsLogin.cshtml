@@ -58,22 +58,22 @@
                                 </div>
                                 <div class="modal-body">
                                     <form name="myform" class="form-horizontal" novalidate>
-                                        <div class="form-group" ng-class="{'has-error':myform.newPass.$invalid && myform.newPass.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.newPass.$invalid && (myform.newPass.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">New Password:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input name="newPass" ng-model="newPassword.password" required class="form-control" type="password">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.confirmPass.$invalid && myform.confirmPass.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.confirmPass.$invalid && (myform.confirmPass.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Confirm Password:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input name="confirmPass" ng-model="newPassword.confirmPassword" required class="form-control" type="password">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.changeBy.$invalid && myform.changeBy.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.changeBy.$invalid && (myform.changeBy.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Change By:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="changeBy" ng-model="newPassword.changedBy"required class="form-control">
+                                                <input name="changeBy" ng-model="newPassword.changedBy" required class="form-control">
                                             </div>
                                         </div>
                                     </form>

@@ -62,14 +62,14 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group" ng-class="{'has-error':myform.minageRange.$invalid && myform.minageRange.$dirty}" ng-class="{'has-error':myform.maxageRange.$invalid && myform.maxageRange.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.minageRange.$invalid && (myform.minageRange.$dirty||myform.form_Submitted)}" ng-class="{'has-error':myform.maxageRange.$invalid && (myform.maxageRange.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Age Range:</label>
                                                 <div class="col-lg-7 pull-right ">
                                                     <input name="minageRange" ng-model="newScenario.minAge" required class="form-control" type="number" min="1" max="100">
                                                     <input name="maxageRange" ng-model="newScenario.maxAge" required class="form-control" type="number" min="1" max="100">
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.sName.$invalid && myform.sName.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.sName.$invalid && (myform.sName.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Name:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <input name="sName" ng-model="newScenario.name" required class="form-control">
@@ -84,7 +84,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group" ng-class="{'has-error':myform.description.$invalid && myform.description.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.description.$invalid && (myform.description.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Description:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <textarea name="description" ng-model="newScenario.description" required class="form-control"></textarea>

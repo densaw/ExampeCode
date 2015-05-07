@@ -56,13 +56,13 @@
                                 </div>
                                 <div class="modal-body">
                                     <form name="myform" class="form-horizontal" novalidate>
-                                        <div class="form-group" ng-class="{'has-error':myform.lvlName.$invalid && myform.lvlName.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.lvlName.$invalid && (myform.lvlName.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Level Name:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input name="lvlName" ng-model="newLevel.name" required class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.lvlDescription.$invalid && myform.lvlDescription.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.lvlDescription.$invalid && (myform.lvlDescription.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Level Description:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <textarea name="lvlDescription" ng-model="newLevel.description" required class="form-control"></textarea>
