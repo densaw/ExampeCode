@@ -2,162 +2,163 @@
     ViewBag.Title = "PMA+";
     Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Site Settings</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a>Home</a>
-            </li>
-            <li>
-                <a>Site Settings</a>
-            </li>
-            <li class="active">
-                <strong>Targets</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a class="btn btn-primary" ng-click="openAdd()">Update Targets</a>
+<div ng-controller="TargetController">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Site Settings</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li>
+                    <a>Site Settings</a>
+                </li>
+                <li class="active">
+                    <strong>Targets</strong>
+                </li>
+            </ol>
         </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-click="openAdd()">Update Targets</a>
+            </div>
 
 
+        </div>
     </div>
-</div>
-<div class="wrapper wrapper-content  animated fadeInRight">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Targets</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user"></ul>
-                        <a>
-                            <i class="fa fa-times"></i>
-                        </a>
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Targets</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user"></ul>
+                            <a>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="ibox-content" ng-controller="TargetController">
-                    @*Modal*@
-                    <div class="modal inmodal" id="updateTarget" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content animated bounceInRight">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h3 class="modal-title text-left">Update Targets</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <form name="myform" class="form-horizontal" novalidate>
-                                        <div class="form-group" ng-class="{'has-error':myform.target.$invalid && (myform.target.$dirty||myform.form_Submitted)}">
-                                            <label class="col-lg-4 title-modal">Target:</label>
-                                            <div class="col-lg-7 pull-right">
-                                                <input name="target" ng-model="newTarget.target" required class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.value.$invalid && (myform.value.$dirty||myform.form_Submitted)}">
-                                            <label class="col-lg-4 title-modal">Value:</label>
-                                            <div class="col-lg-7 pull-right">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="funt">£</span>
-                                                    <input name="value" ng-model="newTarget.value" type="text" required class="form-control" aria-describedby="funt">
+                    <div class="ibox-content">
+                        @*Modal*@
+                        <div class="modal inmodal" id="updateTarget" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title text-left">Update Targets</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form name="myform" class="form-horizontal" novalidate>
+                                            <div class="form-group" ng-class="{'has-error':myform.target.$invalid && (myform.target.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Target:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="target" ng-model="newTarget.target" required class="form-control">
                                                 </div>
                                             </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.value.$invalid && (myform.value.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Value:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon" id="funt">£</span>
+                                                        <input name="value" ng-model="newTarget.value" type="text" required class="form-control" aria-describedby="funt">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                        <button ng-click="okTarget()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        @*Modal*@
+                        <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Delete Record?</h3>
+
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
+                                        <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        <div class="row">
+                            <div class="col-sm-9 m-b-xs">
+                                <form class="form-horizontal">
+                                    <div class="form-group" style="margin-left: 0px;">
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <label ng-click="targetsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                            <label ng-click="targetsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
+                                            <label ng-click="targetsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                    <button ng-click="okTarget()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @*Modal End*@
-                    @*Modal*@
-                    <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content animated bounceInRight">
-                                <div class="modal-header">
-
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h3 class="modal-title">Delete Record?</h3>
-
-
-                                </div>
-                                <div class="modal-body">
-                                    <h3 class="text-center">Are you sure you wish to delete this record?</h3>
-                                </div>
-                                <div class="modal-footer">
-                                    <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
-                                    <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @*Modal End*@
-                    <div class="row">
-                        <div class="col-sm-9 m-b-xs">
-                            <form class="form-horizontal">
-                                <div class="form-group" style="margin-left: 0px;">
-                                    <div data-toggle="buttons" class="btn-group">
-                                        <label ng-click="targetsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
-                                        <label ng-click="targetsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
-                                        <label ng-click="targetsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                                        <div class="btn-group">
+                                            <label onclick=" $('.table').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                CSV
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                Excel
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                PDF
+                                            </label>
+                                            <label onclick=" print($('.table')) " class="btn btn-sm btn-white">
+                                                Print
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="btn-group">
-                                        <label onclick=" $('.table').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
-                                            CSV
-                                        </label>
-                                        <label onclick=" $('.table').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
-                                            Excel
-                                        </label>
-                                        <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
-                                            PDF
-                                        </label>
-                                        <label onclick="print($('.table'))" class="btn btn-sm btn-white">
-                                            Print
-                                        </label>
-                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                                    </span>
                                 </div>
-                            </form>                    
-                           
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="input-group">
-                                <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary"> Go!</button>
-                                </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Target</th>
-                                <th>Value</th>
-                            </tr>
-                            </thead>
-                            <tbody id="contentTable">
-                            <tr dir-paginate="target in targets | filter:q | itemsPerPage: targetsPerPage" total-items="totalTargets">
-                                <td>{{target.updateDate | date:'dd/MM/yyyy - HH:mm'}}</td>
-                                <td>{{target.target}}</td>
-                                <td>{{target.value}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-                    </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Target</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contentTable">
+                                    <tr dir-paginate="target in targets | filter:q | itemsPerPage: targetsPerPage" total-items="totalTargets">
+                                        <td>{{target.updateDate | date:'dd/MM/yyyy - HH:mm'}}</td>
+                                        <td>{{target.target}}</td>
+                                        <td>{{target.value}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>

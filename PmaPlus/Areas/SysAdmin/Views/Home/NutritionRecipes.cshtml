@@ -57,13 +57,13 @@
                                     </div>
                                     <div class="modal-body">
                                         <form name ="myform" class="form-horizontal" novalidate>
-                                            <div class="form-group" ng-class="{'has-error':myform.recipeName.$invalid && myform.recipeName.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.recipeName.$invalid && (myform.recipeName.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Recipe Name:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <input name="recipeName" ng-model="newRecipt.name" required class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.ingredientsList.$invalid && myform.ingredientsList.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.ingredientsList.$invalid && (myform.ingredientsList.$dirty ||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Ingredients List:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <textarea name="ingredientsList" ng-model="newRecipt.ingridientsList" required class="form-control"></textarea>
@@ -75,7 +75,7 @@
                                                     <input ng-model="newRecipt.video" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.description.$invalid && myform.description.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.description.$invalid && (myform.description.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Description:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <textarea name="description" ng-model="newRecipt.description" required class="form-control"></textarea>

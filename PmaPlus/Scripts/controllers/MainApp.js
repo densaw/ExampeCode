@@ -800,7 +800,7 @@
                 });
 
             }
-            target.modal('hide');
+           
         };
 
         var modalVideo = angular.element('#videoModal');
