@@ -2935,6 +2935,7 @@
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\controllers\ClubControllers.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
