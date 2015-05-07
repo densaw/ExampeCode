@@ -39,6 +39,7 @@ namespace PmaPlus.Model.Models
         public int OffTheBall { get; set; }     
         public int Positioning { get; set; }    
         public int Teamwork { get; set; }
+        public int Goalkeeping { get; set; }
 
         [Required]
         public virtual SkillLevel SkillLevel { get; set; }

@@ -104,6 +104,9 @@ namespace PmaPlus.Model.ViewModels.Skill
         [Required]
         [Range(0, 100)]
         public int Teamwork { get; set; }
+        [Required]
+        [Range(0, 100)]
+        public int Goalkeeping { get; set; }
     }
 
 
