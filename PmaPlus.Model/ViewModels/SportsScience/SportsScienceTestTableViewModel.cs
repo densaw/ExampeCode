@@ -15,5 +15,6 @@ namespace PmaPlus.Model.ViewModels.SportsScience
         public string LowValue { get; set; }
         public string HightValue { get; set; }
         public string NationalAverage { get; set; }
+        public string Video { get; set; }
     }
 }
