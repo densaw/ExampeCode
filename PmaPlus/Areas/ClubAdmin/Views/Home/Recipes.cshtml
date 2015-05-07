@@ -1,7 +1,28 @@
 ﻿
 @{
     ViewBag.Title = "Recipes";
+    Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Recipes</h2>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Nutrition Recipes</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a>Home</a>
+            </li>
+            <li>
+                <a>Nutrition</a>
+            </li>
+            <li class="active">
+                <strong>Recipes</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a class="btn btn-primary">Print Recipe</a>
+        </div>
+    </div>
+</div>
 

@@ -39,7 +39,7 @@
                 showCloseButton: true
             });
         }
-        $scope.expanded = false;
+        $scope.expanded = true;
         $scope.navExpand = function () {
             $scope.expanded = !$scope.expanded;
             $cookies.expanded = $scope.expanded;
@@ -347,7 +347,7 @@
         $scope.clubs = [];
         $scope.totalClubs = 0;
         $scope.clubsPerPage = 20; // this should match however many results your API puts on one page
-        //$scope.newClub = {};
+        $scope.newClub = {};
 
         $scope.pagination = {
             current: 1
