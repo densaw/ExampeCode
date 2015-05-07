@@ -57,14 +57,14 @@
                                     </div>
                                     <div class="modal-body">
                                         <form name ="myform"class="form-horizontal" novalidate>
-                                            <div class="form-group" ng-class="{'has-error':myform.baditemName.$invalid && myform.baditemName.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.baditemName.$invalid && myform.baditemName.$dirty} && (myform.baditemName.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Bad Item Name:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input name = "baditemName" ng-model="newAlt.badItemName" required class="form-control">
+                                                    <input name="baditemName" ng-model="newAlt.badItemName" required class="form-control">
 
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.aName.$invalid && myform.aName.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.aName.$invalid && myform.aName.$dirty} && (myform.aName.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Alternative Name:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <input name="aName" ng-model="newAlt.alternativeName" required class="form-control">
@@ -85,17 +85,17 @@
 
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.bdescriptionName.$invalid && myform.bdescriptionName.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.bdescriptionName.$invalid && myform.bdescriptionName.$dirty} && (myform.bdescriptionName.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Bad Item Description:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <textarea name="bdescriptionName" ng-model="newAlt.badItemDescription"required class="form-control"> </textarea>
+                                                    <textarea name="bdescriptionName" ng-model="newAlt.badItemDescription" required class="form-control"> </textarea>
 
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.adescriptionName.$invalid && myform.adescriptionName.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.adescriptionName.$invalid && myform.adescriptionName.$dirty} && (myform.adescriptionName.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Alternative Description:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <textarea name="adescriptionName" ng-model="newAlt.alternativeDescription"required class="form-control"> </textarea>
+                                                    <textarea name="adescriptionName" ng-model="newAlt.alternativeDescription" required class="form-control"> </textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">

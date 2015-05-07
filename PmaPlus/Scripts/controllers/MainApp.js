@@ -39,7 +39,7 @@
                 showCloseButton: true
             });
         }
-        $scope.expanded = false;
+        $scope.expanded = true;
         $scope.navExpand = function () {
             $scope.expanded = !$scope.expanded;
             $cookies.expanded = $scope.expanded;

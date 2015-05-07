@@ -56,13 +56,13 @@
                                 </div>
                                 <div class="modal-body">
                                     <form name="myform" class="form-horizontal" novalidate>
-                                        <div class="form-group" ng-class="{'has-error':myform.target.$invalid && myform.target.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.target.$invalid && (myform.target.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Target:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input name="target" ng-model="newTarget.target" required class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.value.$invalid && myform.value.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.value.$invalid && (myform.value.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Value:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <div class="input-group">

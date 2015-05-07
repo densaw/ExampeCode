@@ -112,10 +112,10 @@
                                                 <input name="telephone" ng-model="newClub.telephone" required class="form-control" ng-pattern="/[0-9]\d{5}(\d{3})?/" maxlength="12">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.mobile.$invalid && (myform.mobile.$dirty||myform.form_Submitted)}">
+                                        <div class="form-group">
                                             <label class="col-lg-4 title-modal">Club Mobile:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="mobile" ng-model="newClub.mobile " required class="form-control" ng-pattern="/[0-9]\d{5}(\d{3})?/" maxlength="15">
+                                                <input  ng-model="newClub.mobile " class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.adress.$invalid && (myform.adress.$dirty||myform.form_Submitted)}">
@@ -151,7 +151,7 @@
                                         <div class="form-group">
                                             <label class="col-lg-4 title-modal">Chairman:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input ng-model="newClub.chairman" class="form-control">
+                                                <input ng-model="newClub.chairman" class="form-control" maxlength="12">
                                             </div>
                                         </div>
                                         <div class="form-group">
