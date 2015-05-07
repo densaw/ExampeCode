@@ -1,3 +1,5 @@
+using PmaPlus.Model.Enums;
+
 namespace PmaPlus.Model.Models
 {
     public  class PlayerAttribute
@@ -6,7 +8,7 @@ namespace PmaPlus.Model.Models
 
         public string Name { get; set; }
 
-        public bool Type { get; set; }
+        public AttributeType Type { get; set; }
 
         public int? MaxScore { get; set; }
 
