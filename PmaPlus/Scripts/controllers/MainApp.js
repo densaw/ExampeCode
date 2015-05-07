@@ -31,7 +31,7 @@
     }]);
 
     module.controller('MainController', ['$scope', '$cookies', 'toaster', function ($scope, $cookies, toaster) {
-        $scope.showTost = function() {
+        $scope.showTost = function () {
             toaster.pop({
                 type: 'error',
                 title: 'Title text',
@@ -62,7 +62,7 @@
         $http.get('/api/ActualTarget')
             .success(function (data) {
                 $scope.targets = data;
-                
+
             })
             .error(function () {
                 $scope.targets.target = 2500;
@@ -198,7 +198,7 @@
 
     module.controller('FaCoursesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
-       
+
 
         var needToDelete = -1;
 
@@ -241,7 +241,7 @@
                             console.log(data);
                             toaster.pop({
                                 type: 'error',
-                                title: 'Error',bodyOutputType: 'trustedHtml',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
                                 body: data.message.join("<br />")
                             });
                         }
@@ -256,11 +256,11 @@
                             console.log(data);
                             toaster.pop({
                                 type: 'error',
-                                title: 'Error',bodyOutputType: 'trustedHtml',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
                                 body: data.message.join("<br />")
                             });
-                    }
-                });
+                        }
+                    });
             }
             $scope.modalTitle = "Add a Course";
         };
@@ -268,7 +268,7 @@
             target.modal('hide');
             confDelete.modal('hide');
             needToDelete = -1;
-            
+
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Course";
@@ -303,29 +303,29 @@
     module.controller('ClubsController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
         var needToDelete = -1;
-        $scope.file = null;
-        $scope.$watch('file', function(newVal) {
-            console.log('in file trans');
-            if (newVal) {
-                console.log(newVal);
-                console.log($scope.file);
-                console.log('prepere post');
-                var fd = new FormData();
-                fd.append('file', newVal);
-                $http.post('/api/Files', fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                })
-                .success(function () {
-                    console.log('good');
-                })
-                .error(function (date) {
-                    console.log(date);
-                });
-            }
-            
+        //$scope.file = null;
+        //$scope.$watch('file', function (newVal) {
+        //    console.log('in file trans');
+        //    if (newVal) {
+        //        console.log(newVal);
+        //        console.log($scope.file);
+        //        console.log('prepere post');
+        //        var fd = new FormData();
+        //        fd.append('file', newVal);
+        //        $http.post('/api/Files', fd, {
+        //            transformRequest: angular.identity,
+        //            headers: { 'Content-Type': undefined }
+        //        })
+        //        .success(function () {
+        //            console.log('good');
+        //        })
+        //        .error(function (date) {
+        //            console.log(date);
+        //        });
+        //    }
 
-        });
+
+        //});
 
         $scope.statuses = [
             { id: 0, name: 'Active' },
@@ -333,7 +333,7 @@
             { id: 2, name: 'Closed' }
         ];
         $scope.logo = 'logggo';
-        $scope.uploadPhoto = function() {
+        $scope.uploadPhoto = function () {
             console.log($scope.logo);
         };
         $scope.selectedStatus = $scope.statuses[0];
@@ -361,50 +361,100 @@
         var target = angular.element('#addClubModal');
         var confDelete = angular.element('#confDelete');
 
-        $scope.ok = function (id) {
+        $scope.ok = function(id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
+            //Files upload
 
-            if (id != null) {
-                $scope.newClub.logo = 'tmp.jpeg';
-                $scope.newClub.background = 'tmp.jpeg';
+           
+                //if ($scope.logoFile) {
+                //    var fd = new FormData();
+                //    fd.append('file', $scope.logoFile);
+                //    $http.post('/api/Files', fd, {
+                //            transformRequest: angular.identity,
+                //            headers: { 'Content-Type': undefined }
+                //        })
+                //        .success(function(data) {
+                //            console.log(data);
+                //            $scope.newClub.logo = data.name;
+                //        })
+                //        .error(function() {
+                //            toaster.pop({
+                //                type: 'error',
+                //                title: 'Error',
+                //                body: 'File upload ERROR!'
+
+                //            });
+                //            return;
+                //        });
+
+                //}
+            
+            
+                //if ($scope.backgroundFile) {
+                //    var fd = new FormData();
+                //    fd.append('file', $scope.backgroundFile);
+                //    $http.post('/api/Files', fd, {
+                //            transformRequest: angular.identity,
+                //            headers: { 'Content-Type': undefined }
+                //        })
+                //        .success(function(data) {
+                //            console.log(data);
+                //            $scope.newClub.background = data.name;
+                //        })
+                //        .error(function() {
+                //            toaster.pop({
+                //                type: 'error',
+                //                title: 'Error',
+                //                body: 'File upload ERROR!'
+                //            });
+                //            return;
+                //        });
+
+                //}
+            
+
+$scope.newClub.logo = 'tmp.jpeg';
+            $scope.newClub.background = 'tmp.jpeg';
+          
                 $scope.newClub.status = $scope.selectedStatus.id;
-                $http.put('/api/Clubs/' + id, $scope.newClub)
-                    .success(function () {
-                        getResultsPage($scope.pagination.current);
-                        target.modal('hide');
-                    }).error(function (data, status, headers, config) {
-                        if (status == 400) {
-                            console.log(data);
-                            toaster.pop({
-                                type: 'error',
-                                title: 'Error',bodyOutputType: 'trustedHtml',
-                                body: data.message.join("<br />")
-                            });
-                        }
-                    });
+                if (id != null) {
+                    $http.put('/api/Clubs/' + id, $scope.newClub)
+                        .success(function() {
+                            getResultsPage($scope.pagination.current);
+                            target.modal('hide');
+                        }).error(function(data, status, headers, config) {
+                            if (status == 400) {
+                                console.log(data);
+                                toaster.pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    bodyOutputType: 'trustedHtml',
+                                    body: data.message.join("<br />")
+                                });
+                            }
+                        });
 
-            } else {
+                } else {
 
-                $scope.newClub.logo = 'tmp.jpeg';
-                $scope.newClub.background = 'tmp.jpeg';
-                $scope.newClub.status = $scope.selectedStatus.id;
-                $http.post('/api/Clubs', $scope.newClub)
-                    .success(function () {
-                        getResultsPage($scope.pagination.current);
-                        target.modal('hide');
-                    }).error(function (data, status, headers, config) {
-                        if (status == 400) {
-                            console.log(data);
-                            toaster.pop({
-                                type: 'error',
-                                title: 'Error',
-                                bodyOutputType: 'trustedHtml',
-                                body: data.message.join("<br />")
-                            });
-                        }
-                    });
-            };
+                    $http.post('/api/Clubs', $scope.newClub)
+                        .success(function() {
+                            getResultsPage($scope.pagination.current);
+                            target.modal('hide');
+                        }).error(function(data, status, headers, config) {
+                            if (status == 400) {
+                                console.log(data);
+                                toaster.pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    bodyOutputType: 'trustedHtml',
+                                    body: data.message.join("<br />")
+                                });
+                            }
+                        });
+                };
+           
+
         }
         $scope.cancel = function () {
             target.modal('hide');
@@ -418,7 +468,7 @@
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Club";
             $scope.newClub = {};
-            $scope.myform.form_Submitted = false;
+            //$scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.delete = function () {
@@ -518,7 +568,7 @@
                        console.log(data);
                        toaster.pop({
                            type: 'error',
-                           title: 'Error',bodyOutputType: 'trustedHtml',
+                           title: 'Error', bodyOutputType: 'trustedHtml',
                            body: data.message.join("<br />")
                        });
                    }
@@ -551,7 +601,7 @@
                             console.log(data);
                             toaster.pop({
                                 type: 'error',
-                                title: 'Error',bodyOutputType: 'trustedHtml',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
                                 body: data.message.join("<br />")
                             });
                         }
@@ -665,7 +715,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -681,7 +731,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -779,7 +829,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -793,14 +843,14 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
                 });
 
             }
-           
+
         };
 
         var modalVideo = angular.element('#videoModal');
@@ -848,7 +898,7 @@
 
     module.controller('ScienceExercisesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
         $scope.exerciseTypes = [
-           { id: 0, name: 'Mobility' }, 
+           { id: 0, name: 'Mobility' },
            { id: 1, name: 'Movement' },
            { id: 2, name: 'Stability' }
         ];
@@ -903,7 +953,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -918,7 +968,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -996,7 +1046,7 @@
                     console.log(data);
                     toaster.pop({
                         type: 'error',
-                        title: 'Error',bodyOutputType: 'trustedHtml',
+                        title: 'Error', bodyOutputType: 'trustedHtml',
                         body: data.message.join("<br />")
                     });
                 }
@@ -1051,7 +1101,7 @@
                     console.log(data);
                     toaster.pop({
                         type: 'error',
-                        title: 'Error',bodyOutputType: 'trustedHtml',
+                        title: 'Error', bodyOutputType: 'trustedHtml',
                         body: data.message.join("<br />")
                     });
                 }
@@ -1060,7 +1110,7 @@
         $scope.cancel = function () {
             target.modal('hide');
         };
-        $scope.openAdd = function() {
+        $scope.openAdd = function () {
             $scope.newTarget = {};
             $scope.myform.form_Submitted = false;
             target.modal('show');
@@ -1133,7 +1183,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1148,7 +1198,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1234,7 +1284,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1249,7 +1299,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1330,7 +1380,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1345,7 +1395,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1441,7 +1491,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1459,7 +1509,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1564,7 +1614,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1579,7 +1629,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1701,7 +1751,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1719,7 +1769,7 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',bodyOutputType: 'trustedHtml',
+                            title: 'Error', bodyOutputType: 'trustedHtml',
                             body: data.message.join("<br />")
                         });
                     }
@@ -1824,7 +1874,7 @@
 
             } else {
                 console.log($scope.newSkill);
-                $http.post(urlTail +'/'+ $scope.ids, $scope.newSkill).success(function () {
+                $http.post(urlTail + '/' + $scope.ids, $scope.newSkill).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
                 }).error(function (data, status, headers, config) {

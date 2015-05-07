@@ -63,7 +63,7 @@
                                         <div class="form-group">
                                             <label class="col-lg-4 title-modal">Club Logo:</label>
                                             <div class="col-lg-7 pull-right ">
-                                                <input file-model='file' type="file" accept="image/*" ng-model="logo" ng-change="" class="pma-fileupload">
+                                                <input file-model='logoFile' type="file" accept="image/*"  class="pma-fileupload">
 
                                             </div>
                                         </div>
@@ -97,7 +97,7 @@
                                         <div class="form-group">
                                             <label class="col-lg-4 title-modal">Club Background:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input type="file" class="pma-fileupload" multiple="false">
+                                                <input type="file" file-model='backgroundFile' class="pma-fileupload" multiple="false">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.established.$invalid && (myform.established.$dirty||myform.form_Submitted)}">

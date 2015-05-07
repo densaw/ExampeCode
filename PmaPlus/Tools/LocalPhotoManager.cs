@@ -77,7 +77,7 @@ namespace PmaPlus.Tools
             }
         }
 
-        public async Task<IEnumerable<PhotoViewModel>> Add(HttpRequestMessage request)
+        public async Task<PhotoViewModel> Add(HttpRequestMessage request)
         {
             var provider = new PhotoStreamProvider(_workingFolder);
 
@@ -85,20 +85,25 @@ namespace PmaPlus.Tools
 
             var photos = new List<PhotoViewModel>();
 
-            foreach (var file in provider.FileData)
+            //foreach (var file in provider.FileData)
+            //{
+            var file = provider.FileData.First();
+            if (file == null)
             {
-                var fileInfo = new FileInfo(file.LocalFileName);
-
-                photos.Add(new PhotoViewModel
-                {
-                    Name = fileInfo.Name,
-                    //Created = fileInfo.CreationTime,
-                    //Modified = fileInfo.LastWriteTime,
-                    //Size = fileInfo.Length / 1024
-                });
+                return null;
             }
 
-            return photos;
+                var fileInfo = new FileInfo(file.LocalFileName);
+
+            return new PhotoViewModel
+            {
+                Name = fileInfo.Name,
+                //Created = fileInfo.CreationTime,
+                //Modified = fileInfo.LastWriteTime,
+                //Size = fileInfo.Length / 1024
+            };
+            //}
+
         } 
 
         public string Move(string fileName, string path, string newFileName)

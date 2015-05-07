@@ -12,7 +12,7 @@ namespace PmaPlus.Tools
     {
         IEnumerable<PhotoViewModel> Get();
         PhotoActionResult Delete(string fileName);
-        Task<IEnumerable<PhotoViewModel>> Add(HttpRequestMessage request);
+        Task<PhotoViewModel> Add(HttpRequestMessage request);
         string GetPhoto(FileStorageTypes type, string filename, int id);
         string Copy(string fileName, string path);
         string Move(string fileName, string path, string newFileName);
