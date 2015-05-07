@@ -46,6 +46,8 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<ScenarioViewModel,Scenario>();
 
+            //ClubAdmin
+
             Mapper.CreateMap<PlayerAttributeViewModel,PlayerAttribute>();
 
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PmaPlus.Model.Enums;
 
 namespace PmaPlus.Model.ViewModels.PlayerAttribute
 {
@@ -12,7 +13,7 @@ namespace PmaPlus.Model.ViewModels.PlayerAttribute
 
         public string Name { get; set; }
 
-        public bool Type { get; set; }
+        public AttributeType Type { get; set; }
 
         public int? MaxScore { get; set; }
 

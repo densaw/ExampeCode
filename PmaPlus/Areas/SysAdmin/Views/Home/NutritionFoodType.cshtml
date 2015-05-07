@@ -62,10 +62,10 @@
                                                     <select ng-model="selectedType" ng-options="type.name for type in foodType" class=" form-control m-b" name="account"></select>
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.foodName.$invalid && myform.foodName.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.foodName.$invalid && (myform.foodName.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Food Name:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input name="foodName" ng-model="newFood.foodName"required class="form-control">
+                                                    <input name="foodName" ng-model="newFood.foodName" required class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -74,10 +74,10 @@
                                                     <select ng-model="selectedWhen" ng-options="whenone.name for whenone in when" class=" form-control m-b" name="account"></select>
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.goodFor.$invalid && myform.goodFor.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.goodFor.$invalid && (myform.goodFor.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Good For:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <textarea name = "goodFor" ng-model="newFood.goodFor" required class="form-control"></textarea>
+                                                    <textarea name="goodFor" ng-model="newFood.goodFor" required class="form-control"></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -86,7 +86,7 @@
                                                     <input ng-model="newFood.portionSize" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.description.$invalid && myform.description.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.description.$invalid && (myform.description.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Description:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <textarea name="description" ng-model="newFood.description" required class="form-control"></textarea>

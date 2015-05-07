@@ -800,8 +800,17 @@
                 });
 
             }
-            target.modal('hide');
+           
         };
+
+        var modalVideo = angular.element('#videoModal');
+        $scope.modalVideoStart = function (src) {
+            console.log(src);
+            //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
+            modalVideo.modal('show');
+            $('#videoModal iframe').attr('src', src);
+        }
+
         $scope.cancel = function () {
             target.modal('hide');
             confDelete.modal('hide');

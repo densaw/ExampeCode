@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AttributeType.cs" />
     <Compile Include="Enums\BodyPartType.cs" />
     <Compile Include="Enums\ClubStatus.cs" />
     <Compile Include="Enums\PhysioExerciseType.cs" />

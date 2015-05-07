@@ -64,13 +64,13 @@
                                                     <select ng-model="selectedType" ng-options="ex.name for ex in exType" class=" form-control m-b" name="account"></select>
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.exName.$invalid && myform.exName.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.exName.$invalid && (myform.exName.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Exercise Name:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input name ="exName" ng-model="newExercise.name" required class="form-control">
+                                                    <input name="exName" ng-model="newExercise.name" required class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.descriptionName.$invalid && myform.descriptionName.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.descriptionName.$invalid && (myform.descriptionName.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Exercise Description:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <textarea name="descriptionName" ng-model="newExercise.description" required class="form-control"></textarea>
@@ -195,7 +195,7 @@
                                         <td>
                                             <i ng-click="openEdit(exercise.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(exercise.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                            <i ng-click="modalVideoStart(exercise.videolink)" class="fa fa-camera" style="cursor: pointer;"></i>
+                                            <i ng-click="modalVideoStart(exercise.videolink)" class="fa fa-film" style="cursor: pointer;"></i>
                                         </td>
                                     </tr>
                                 </tbody>

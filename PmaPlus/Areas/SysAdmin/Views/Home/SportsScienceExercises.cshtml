@@ -63,13 +63,13 @@
                                                     <select ng-model="selectedType" ng-options="exerciseType.name for exerciseType in exerciseTypes" class=" form-control m-b" name="account"></select>
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.exName.$invalid && myform.exName.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.exName.$invalid && (myform.exName.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Exercise Name:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <input name="exName" ng-model="newExercise.name" required class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.exDescription.$invalid && myform.exDescription.$dirty}">
+                                            <div class="form-group" ng-class="{'has-error':myform.exDescription.$invalid && (myform.exDescription.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Exercise Description:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <textarea name="exDescription" ng-model="newExercise.description" required class="form-control"></textarea>
