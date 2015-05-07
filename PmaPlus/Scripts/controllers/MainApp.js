@@ -214,7 +214,7 @@
         $scope.courses = [];
         $scope.totalCourses = 0;
         $scope.coursePerPage = 20; // this should match however many results your API puts on one page
-
+        $scope.newCourse = {};
 
         $scope.pagination = {
             current: 1
@@ -228,12 +228,13 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             if (id != null) {
 
                 $http.put('/api/FaCourses/' + id, $scope.newCourse)
                     .success(function (data, status, headers, config) {
                         getResultsPage($scope.pagination.current);
-                        $scope.newCourse = null;
                         target.modal('hide');
                     }).error(function (data, status, headers, config) {
                         if (status == 400) {
@@ -249,7 +250,6 @@
                 $http.post('/api/FaCourses', $scope.newCourse)
                     .success(function (data, status, headers, config) {
                         getResultsPage($scope.pagination.current);
-                        $scope.newCourse = null;
                         target.modal('hide');
                     }).error(function (data, status, headers, config) {
                         if (status == 400) {
@@ -268,10 +268,12 @@
             target.modal('hide');
             confDelete.modal('hide');
             needToDelete = -1;
-            $scope.newClub = null;
+            
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Course";
+            $scope.myform.form_Submitted = false;
+            $scope.newCourse = {};
             target.modal('show');
         };
 
@@ -347,7 +349,7 @@
         $scope.clubs = [];
         $scope.totalClubs = 0;
         $scope.clubsPerPage = 20; // this should match however many results your API puts on one page
-        //$scope.newClub = {};
+        $scope.newClub = {};
 
         $scope.pagination = {
             current: 1
@@ -360,6 +362,8 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
 
             if (id != null) {
                 $scope.newClub.logo = 'tmp.jpeg';
@@ -369,7 +373,6 @@
                     .success(function () {
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
-                        $scope.newClub = null;
                     }).error(function (data, status, headers, config) {
                         if (status == 400) {
                             console.log(data);
@@ -390,7 +393,6 @@
                     .success(function () {
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
-                        $scope.newClub = null;
                     }).error(function (data, status, headers, config) {
                         if (status == 400) {
                             console.log(data);
@@ -407,7 +409,6 @@
         $scope.cancel = function () {
             target.modal('hide');
             confDelete.modal('hide');
-            $scope.newClub = null;
         };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
@@ -416,6 +417,7 @@
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Club";
+            $scope.newClub = {};
             target.modal('show');
         };
         $scope.delete = function () {
@@ -486,7 +488,7 @@
 
         //Toggle end
         $scope.okCurr = function (id) {
-
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
             if (id != null) {
                 $http.put('/api/CurriculumTypes/' + id,
                {
@@ -1750,13 +1752,14 @@
         var confDelete = angular.element('#confDelete');
         var modalVideo = angular.element('#videoModal');
         $scope.modalVideoStart = function (src) {
-            console.log(src);
             //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
             modalVideo.modal('show');
             $('#videoModal iframe').attr('src', src);
         }
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             if (id != null) {
                 $http.put(urlTail + '/' + id, $scope.newSkill).success(function () {
                     getResultsPage($scope.pagination.current);
@@ -1766,8 +1769,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error', bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1782,8 +1785,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error', bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1796,7 +1799,8 @@
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Skill";
-            $scope.newPart = null;
+            $scope.newSkill = {};
+            $scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.openDelete = function (id) {
