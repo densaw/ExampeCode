@@ -214,7 +214,7 @@
         $scope.courses = [];
         $scope.totalCourses = 0;
         $scope.coursePerPage = 20; // this should match however many results your API puts on one page
-
+        $scope.newCourse = {};
 
         $scope.pagination = {
             current: 1
@@ -228,12 +228,13 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             if (id != null) {
 
                 $http.put('/api/FaCourses/' + id, $scope.newCourse)
                     .success(function (data, status, headers, config) {
                         getResultsPage($scope.pagination.current);
-                        $scope.newCourse = null;
                         target.modal('hide');
                     }).error(function (data, status, headers, config) {
                         if (status == 400) {
@@ -249,7 +250,6 @@
                 $http.post('/api/FaCourses', $scope.newCourse)
                     .success(function (data, status, headers, config) {
                         getResultsPage($scope.pagination.current);
-                        $scope.newCourse = null;
                         target.modal('hide');
                     }).error(function (data, status, headers, config) {
                         if (status == 400) {
@@ -268,10 +268,12 @@
             target.modal('hide');
             confDelete.modal('hide');
             needToDelete = -1;
-            $scope.newClub = null;
+            
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Course";
+            $scope.myform.form_Submitted = false;
+            $scope.newCourse = {};
             target.modal('show');
         };
 
@@ -360,6 +362,8 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
 
             if (id != null) {
                 $scope.newClub.logo = 'tmp.jpeg';
@@ -369,7 +373,6 @@
                     .success(function () {
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
-                        $scope.newClub = null;
                     }).error(function (data, status, headers, config) {
                         if (status == 400) {
                             console.log(data);
@@ -390,7 +393,6 @@
                     .success(function () {
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
-                        $scope.newClub = null;
                     }).error(function (data, status, headers, config) {
                         if (status == 400) {
                             console.log(data);
@@ -407,7 +409,6 @@
         $scope.cancel = function () {
             target.modal('hide');
             confDelete.modal('hide');
-            $scope.newClub = null;
         };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
@@ -416,6 +417,8 @@
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Club";
+            $scope.newClub = {};
+            $scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.delete = function () {
@@ -486,7 +489,7 @@
 
         //Toggle end
         $scope.okCurr = function (id) {
-
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
             if (id != null) {
                 $http.put('/api/CurriculumTypes/' + id,
                {
@@ -650,6 +653,8 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.okLvl = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             if (id != null) {
                 $http.put('/api/SkillLevels/' + id, $scope.newLevel).success(function () {
                     getResultsPage($scope.pagination.current);
@@ -683,20 +688,19 @@
                 });
 
             }
-            $scope.newLevel = null;
         };
         $scope.cancel = function () {
-            $scope.newLevel = null;
             target.modal('hide');
             confDelete.modal('hide');
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Level";
+            $scope.myform.form_Submitted = false;
+            $scope.newLevel = {};
             target.modal('show');
         };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
-            console.log(id);
             needToDelete = id;
         };
         $scope.delete = function () {
@@ -762,6 +766,8 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.okTest = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             $scope.newTest.type = $scope.selectedType.id;
             $scope.newTest.zScoreFormula = $scope.selectedFormula.id;
             if (id != null) {
@@ -808,7 +814,8 @@
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Test";
-            $scope.newTest = null;
+            $scope.newTest = {};
+            $scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.delete = function () {
@@ -875,6 +882,8 @@
 
 
         $scope.okEx = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             $scope.newExercise.type = $scope.selectedType.id;
             if (id != null) {
                 $http.put('/api/SportsScienceExercises/' + id, $scope.newExercise).success(function () {
@@ -919,7 +928,8 @@
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add an Exercise";
-            $scope.newExercise = null;
+            $scope.newExercise = {};
+            $scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.delete = function () {
@@ -967,6 +977,8 @@
         var target = angular.element('#updateLogin');
 
         $scope.ok = function () {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             $http.post('/api/UpdatePassword', $scope.newPassword).success(function () {
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
@@ -984,6 +996,12 @@
         $scope.cancel = function () {
             target.modal('hide');
         };
+        $scope.openAdd = function () {
+            $scope.newPassword = {};
+            $scope.myform.form_Submitted = false;
+            target.modal('show');
+        };
+
 
     }]);
 
@@ -1014,6 +1032,8 @@
         var target = angular.element('#updateTarget');
 
         $scope.okTarget = function () {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             $http.post('/api/TargetHistory', $scope.newTarget).success(function () {
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
@@ -1031,7 +1051,11 @@
         $scope.cancel = function () {
             target.modal('hide');
         };
-
+        $scope.openAdd = function() {
+            $scope.newTarget = {};
+            $scope.myform.form_Submitted = false;
+            target.modal('show');
+        };
     }]);
 
     module.controller('NFTController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
@@ -1086,6 +1110,7 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
 
             $scope.type = $scope.selectedType.id;
             $scope.when = $scope.selectedWhen.id;
@@ -1128,7 +1153,8 @@
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Food Type";
-            $scope.newFood = null;
+            $scope.newFood = {};
+            $scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.cancel = function () {
@@ -1185,6 +1211,8 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             $scope.newAlt.badItemPicture = 'tmp.png';
             $scope.newAlt.alternativePicture = 'tmp.png';
             if (id != null) {
@@ -1230,7 +1258,8 @@
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add an Alternative";
-            $scope.newAlt = null;
+            $scope.newAlt = {};
+            $scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.delete = function () {
@@ -1280,6 +1309,8 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             $scope.newRecipt.picture = 'tmp.png';
             if (id != null) {
                 $http.put(urlTail + '/' + id, $scope.newRecipt).success(function () {
@@ -1319,13 +1350,13 @@
         };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
-            console.log(id);
             needToDelete = id;
         };
 
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Recipe";
-            $scope.newRecipt = null;
+            $scope.newRecipt = {};
+            $scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.delete = function () {
@@ -1389,6 +1420,8 @@
         }
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             if (id != null) {
 
                 $http.put('/api/PhysioExercise/' + id, $scope.newExercise).success(function () {
@@ -1436,7 +1469,8 @@
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add Exercise or Stretch";
-            $scope.newExercise = null;
+            $scope.newExercise = {};
+            $scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.delete = function () {
@@ -1508,6 +1542,8 @@
 
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             $scope.newScenario.picture = 'tmp.png';
             $scope.newScenario.scenarioType = $scope.selectedType.id;
             if (id != null) {
@@ -1554,9 +1590,10 @@
         };
         $scope.openAdd2d = function () {
             $scope.modalTitle = "Add a 2D Scenario";
-            //$scope.newScenario = null;
-            //$scope.newScenario.minAge = 7;
-            //$scope.newScenario.maxAge = 10;
+            $scope.newScenario = {};
+            $scope.myform.form_Submitted = false;
+            $scope.newScenario.minAge = 7;
+            $scope.newScenario.maxAge = 10;
             target.modal('show');
         };
         $scope.delete = function () {
@@ -1641,6 +1678,8 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             if (id != null) {
 
                 $scope.newPart.picture = 'tmp.png';
@@ -1685,7 +1724,8 @@
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Body Part";
-            $scope.newPart = null;
+            $scope.newPart = {};
+            $scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.openDelete = function (id) {
@@ -1750,13 +1790,14 @@
         var confDelete = angular.element('#confDelete');
         var modalVideo = angular.element('#videoModal');
         $scope.modalVideoStart = function (src) {
-            console.log(src);
             //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
             modalVideo.modal('show');
             $('#videoModal iframe').attr('src', src);
         }
 
         $scope.ok = function (id) {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
             if (id != null) {
                 $http.put(urlTail + '/' + id, $scope.newSkill).success(function () {
                     getResultsPage($scope.pagination.current);
@@ -1766,8 +1807,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error', bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1782,8 +1823,8 @@
                         console.log(data);
                         toaster.pop({
                             type: 'error',
-                            title: 'Error',
-                            body: data.message
+                            title: 'Error', bodyOutputType: 'trustedHtml',
+                            body: data.message.join("<br />")
                         });
                     }
                 });
@@ -1796,7 +1837,8 @@
         };
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Skill";
-            $scope.newPart = null;
+            $scope.newSkill = {};
+            $scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.openDelete = function (id) {

@@ -58,34 +58,35 @@
                                         <h3 class="modal-title text-left">{{modalTitle}}</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal">
-                                            <div class="form-group">
+                                        <form name="myform" class="form-horizontal" novalidate>
+                                            <div class="form-group" ng-class="{'has-error':myform.skillName.$invalid && (myform.skillName.$dirty||myform.form_Submitted) }">
                                                 <label class="col-lg-4 title-modal">Skill Name:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newSkill.name" class="form-control" required>
+                                                    <input name="skillName" ng-model="newSkill.name" class="form-control" required>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':myform.skillDuration.$invalid && (myform.skillDuration.$dirty||myform.form_Submitted) }">
                                                 <label class="col-lg-4 title-modal">Duration (mins):</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newSkill.duration" class="form-control">
+                                                    <input name="skillDuration" type="number" ng-model="newSkill.duration" class="form-control" required min="1">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':myform.skillVideo.$invalid && (myform.skillVideo.$dirty||myform.form_Submitted) }">
                                                 <label class="col-lg-4 title-modal">Video Link:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newSkill.videoLink" class="form-control">
+                                                    <input name="skillVideo" ng-model="newSkill.videoLink" class="form-control" required>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':myform.skillDescription.$invalid && (myform.skillDescription.$dirty||myform.form_Submitted) }">
                                                 <label class="col-lg-4 title-modal">Description:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <textarea ng-model="newSkill.description" class="form-control"></textarea></div>
+                                                    <textarea name="skillDescription" ng-model="newSkill.description" class="form-control" required></textarea>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':myform.skillballControll.$invalid && (myform.skillballControll.$dirty||myform.form_Submitted) }">
                                                 <label class="col-lg-4 title-modal">Ball Control:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newSkill.ballControll" class="form-control">
+                                                    <input type="number" name="skillballControll" ng-model="newSkill.ballControll" class="form-control" required min="1" max="100">
                                                 </div>
                                             </div>
                                             <div class="form-group">

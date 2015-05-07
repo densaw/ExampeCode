@@ -61,13 +61,13 @@
                                 </div>
                                 <div class="modal-body">
                                     <form name="myform" class="form-horizontal" novalidate >
-                                        <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && myform.courseName.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Course Name:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input name="courseName" ng-model="newCourse.name" required class="form-control" maxlength="50">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.courseDuration.$invalid && myform.courseDuration.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.courseDuration.$invalid && (myform.courseDuration.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Course Duration:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input name = "courseDuration" ng-model="newCourse.duration" required class="form-control" >

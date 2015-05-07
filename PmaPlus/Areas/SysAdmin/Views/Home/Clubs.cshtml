@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <form name="myform" class="form-horizontal" novalidate >
-                                        <div class="form-group " ng-class="{'has-error':myform.clubName.$invalid && myform.clubName.$dirty}">
+                                        <div class="form-group " ng-class="{'has-error':myform.clubName.$invalid && (myform.clubName.$dirty||myform.form_Submitted) }">
                                             <label class="col-lg-4 title-modal">Club Name:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input name="clubName" ng-model="newClub.name" required class="form-control">
@@ -74,23 +74,23 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group" ng-class="{'has-error':myform.adminName.$invalid && myform.adminName.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.adminName.$invalid && (myform.adminName.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Club Administrator Name:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input name="adminName" ng-model="newClub.clubAdminName" required class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.userName.$invalid && myform.userName.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.userName.$invalid && (myform.userName.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">ClubAdmin Username:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name = "userName"ng-model="newClub.clubAdminEmail" required class ="form-control">
+                                                <input name="userName" ng-model="newClub.clubAdminEmail" required class="form-control">
 
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.adminPassword.$invalid && myform.adminPassword.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.adminPassword.$invalid && (myform.adminPassword.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">ClubAdmin Password:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name = "adminPassword"ng-model="newClub.clubAdminPassword" required class="form-control">
+                                                <input name="adminPassword" ng-model="newClub.clubAdminPassword" required class="form-control">
 
                                             </div>
                                         </div>
@@ -100,28 +100,28 @@
                                                 <input type="file" class="pma-fileupload" multiple="false">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.established.$invalid && myform.established.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.established.$invalid && (myform.established.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Established:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name = "established "ng-model="newClub.established" required class="form-control">
+                                                <input name="established " ng-model="newClub.established" required class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.telephone.$invalid && myform.telephone.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.telephone.$invalid && (myform.telephone.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Club Telephone:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input name="telephone" ng-model="newClub.telephone" required class="form-control" ng-pattern="/[0-9]\d{5}(\d{3})?/" maxlength="12">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.mobile.$invalid && myform.mobile.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.mobile.$invalid && (myform.mobile.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Club Mobile:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <input name="mobile" ng-model="newClub.mobile " required class="form-control" ng-pattern="/[0-9]\d{5}(\d{3})?/" maxlength="15">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.adress.$invalid && myform.adress.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.adress.$invalid && (myform.adress.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Address 1:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name = "adress" ng-model="newClub.address1" required class="form-control">
+                                                <input name="adress" ng-model="newClub.address1" required class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -136,16 +136,16 @@
                                                 <input ng-model="newClub.address3" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.towncity.$invalid && myform.towncity.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.towncity.$invalid && (myform.towncity.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Town\City:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name = "towncity" ng-model="newClub.townCity" required class="form-control">
+                                                <input name="towncity" ng-model="newClub.townCity" required class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.postcode.$invalid && myform.postcode.$dirty}">
+                                        <div class="form-group" ng-class="{'has-error':myform.postcode.$invalid && (myform.postcode.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Post Code:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name = "postcode" ng-model="newClub.postCode" required class="form-control" >
+                                                <input name="postcode" ng-model="newClub.postCode" required class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
