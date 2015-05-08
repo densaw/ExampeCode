@@ -229,7 +229,7 @@
 
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
-
+           
             if (id != null) {
 
                 $http.put('/api/FaCourses/' + id, $scope.newCourse)
@@ -242,7 +242,7 @@
                             toaster.pop({
                                 type: 'error',
                                 title: 'Error', bodyOutputType: 'trustedHtml',
-                                body: data.message.join("<br />")
+                                body: 'Please complete the compulsory fields highlighted in red'
                             });
                         }
                     });
@@ -257,12 +257,11 @@
                             toaster.pop({
                                 type: 'error',
                                 title: 'Error', bodyOutputType: 'trustedHtml',
-                                body: data.message.join("<br />")
+                                body: 'Please complete the compulsory fields highlighted in red'
                             });
                         }
                     });
             }
-            $scope.modalTitle = "Add a Course";
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -300,7 +299,7 @@
 
     }]);
 
-    module.controller('ClubsController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+    module.controller('ClubsController', ['$scope', '$http', '$q', 'toaster', function ($scope, $http, $q, toaster) {
 
         var needToDelete = -1;
         //$scope.file = null;
@@ -361,76 +360,75 @@
         var target = angular.element('#addClubModal');
         var confDelete = angular.element('#confDelete');
 
-        $scope.ok = function(id) {
+        $scope.ok = function (id) {
+            
             $scope.myform.form_Submitted = !$scope.myform.$valid;
-
             //Files upload
-
            
-                //if ($scope.logoFile) {
-                //    var fd = new FormData();
-                //    fd.append('file', $scope.logoFile);
-                //    $http.post('/api/Files', fd, {
-                //            transformRequest: angular.identity,
-                //            headers: { 'Content-Type': undefined }
-                //        })
-                //        .success(function(data) {
-                //            console.log(data);
-                //            $scope.newClub.logo = data.name;
-                //        })
-                //        .error(function() {
-                //            toaster.pop({
-                //                type: 'error',
-                //                title: 'Error',
-                //                body: 'File upload ERROR!'
+            var promises = [];
 
-                //            });
-                //            return;
-                //        });
+            if ($scope.logoFile) {
+                var fd = new FormData();
+                fd.append('file', $scope.logoFile);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        console.log(data);
+                        $scope.newClub.logo = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
 
-                //}
-            
-            
-                //if ($scope.backgroundFile) {
-                //    var fd = new FormData();
-                //    fd.append('file', $scope.backgroundFile);
-                //    $http.post('/api/Files', fd, {
-                //            transformRequest: angular.identity,
-                //            headers: { 'Content-Type': undefined }
-                //        })
-                //        .success(function(data) {
-                //            console.log(data);
-                //            $scope.newClub.background = data.name;
-                //        })
-                //        .error(function() {
-                //            toaster.pop({
-                //                type: 'error',
-                //                title: 'Error',
-                //                body: 'File upload ERROR!'
-                //            });
-                //            return;
-                //        });
+            if ($scope.backgroundFile) {
+                var fd = new FormData();
+                fd.append('file', $scope.backgroundFile);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        console.log(data);
+                        $scope.newClub.background = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
 
-                //}
-            
 
-$scope.newClub.logo = 'tmp.jpeg';
-            $scope.newClub.background = 'tmp.jpeg';
-          
+            //$scope.newClub.logo = 'tmp.jpeg';
+            //$scope.newClub.background = 'tmp.jpeg';
+            $q.all(promises).then(function () {
+
                 $scope.newClub.status = $scope.selectedStatus.id;
+                console.log($scope.newClub);
                 if (id != null) {
                     $http.put('/api/Clubs/' + id, $scope.newClub)
-                        .success(function() {
+                        .success(function () {
                             getResultsPage($scope.pagination.current);
                             target.modal('hide');
-                        }).error(function(data, status, headers, config) {
+                        }).error(function (data, status, headers, config) {
                             if (status == 400) {
                                 console.log(data);
                                 toaster.pop({
                                     type: 'error',
                                     title: 'Error',
                                     bodyOutputType: 'trustedHtml',
-                                    body: data.message.join("<br />")
+                                    body: 'Please complete the compulsory fields highlighted in red'
                                 });
                             }
                         });
@@ -438,22 +436,25 @@ $scope.newClub.logo = 'tmp.jpeg';
                 } else {
 
                     $http.post('/api/Clubs', $scope.newClub)
-                        .success(function() {
+                        .success(function () {
                             getResultsPage($scope.pagination.current);
                             target.modal('hide');
-                        }).error(function(data, status, headers, config) {
+                        }).error(function (data, status, headers, config) {
                             if (status == 400) {
                                 console.log(data);
                                 toaster.pop({
                                     type: 'error',
                                     title: 'Error',
                                     bodyOutputType: 'trustedHtml',
-                                    body: data.message.join("<br />")
+                                    body: 'Please complete the compulsory fields highlighted in red'
                                 });
                             }
                         });
                 };
-           
+                //processModal.modal('hide');
+            });
+
+          
 
         }
         $scope.cancel = function () {
@@ -468,7 +469,9 @@ $scope.newClub.logo = 'tmp.jpeg';
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Club";
             $scope.newClub = {};
-            //$scope.myform.form_Submitted = false;
+            $scope.backgroundFile = null;
+            $scope.logoFile = null;
+            $scope.myform.form_Submitted = false;
             target.modal('show');
         };
         $scope.delete = function () {
@@ -479,14 +482,28 @@ $scope.newClub.logo = 'tmp.jpeg';
             });
         };
         $scope.openEdit = function (id) {
-            $http.get('/api/Clubs/' + id)
-                .success(function (result) {
-                    $scope.newClub = result;
-                    $scope.selectedStatus = $scope.statuses[result.status];
-                    $scope.modalTitle = "Update Club";
-                    target.modal('show');
 
-                });
+            $http.get('/api/Clubs/' + id)
+               .success(function (result) {
+                   $scope.newClub = result;
+                   $scope.selectedStatus = $scope.statuses[result.status];
+                   $scope.modalTitle = "Update Club";
+                   target.modal('show');
+
+                   $http.get('/api/File/Clubs/' + $scope.newClub.logo + '/' + id)
+                       .success(function (result) {
+                           //$scope.logoFiletemp = result;
+
+                       });
+
+                   $http.get('/api/File/Clubs/' + $scope.newClub.background + '/' + id)
+                        .success(function (result) {
+                            //$scope.backgroundFile = result;
+
+                        });
+               });
+
+
         };
 
     }]);
@@ -569,7 +586,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                        toaster.pop({
                            type: 'error',
                            title: 'Error', bodyOutputType: 'trustedHtml',
-                           body: data.message.join("<br />")
+                           body: 'Please complete the compulsory fields highlighted in red'
                        });
                    }
                });
@@ -602,7 +619,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                             toaster.pop({
                                 type: 'error',
                                 title: 'Error', bodyOutputType: 'trustedHtml',
-                                body: data.message.join("<br />")
+                                body: 'Please complete the compulsory fields highlighted in red'
                             });
                         }
                     });
@@ -716,7 +733,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -732,7 +749,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -830,7 +847,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -844,7 +861,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -954,7 +971,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -969,7 +986,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1047,7 +1064,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                     toaster.pop({
                         type: 'error',
                         title: 'Error', bodyOutputType: 'trustedHtml',
-                        body: data.message.join("<br />")
+                        body: 'Please complete the compulsory fields highlighted in red'
                     });
                 }
             });
@@ -1102,7 +1119,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                     toaster.pop({
                         type: 'error',
                         title: 'Error', bodyOutputType: 'trustedHtml',
-                        body: data.message.join("<br />")
+                        body: 'Please complete the compulsory fields highlighted in red'
                     });
                 }
             });
@@ -1184,7 +1201,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1199,7 +1216,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1285,7 +1302,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1300,7 +1317,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1381,7 +1398,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1396,7 +1413,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1492,7 +1509,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1510,7 +1527,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1615,7 +1632,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1630,7 +1647,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1650,9 +1667,10 @@ $scope.newClub.logo = 'tmp.jpeg';
         $scope.openAdd2d = function () {
             $scope.modalTitle = "Add a 2D Scenario";
             $scope.newScenario = {};
+            $scope.selectedType = $scope.scenarioType[0];
             $scope.myform.form_Submitted = false;
-            $scope.newScenario.minAge = 7;
-            $scope.newScenario.maxAge = 10;
+            $scope.newScenario.minAge = 6;
+            $scope.newScenario.maxAge = 18;
             target.modal('show');
         };
         $scope.delete = function () {
@@ -1752,7 +1770,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1770,7 +1788,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1867,7 +1885,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });
@@ -1883,7 +1901,7 @@ $scope.newClub.logo = 'tmp.jpeg';
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                 });

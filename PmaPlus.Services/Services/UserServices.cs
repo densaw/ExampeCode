@@ -52,18 +52,18 @@ namespace PmaPlus.Services
             {
 
                 clubsThisWeek =
-                    _userRepository.GetMany(u => u.Role == role && SqlFunctions.DatePart("week",u.CreateAt) == thisWeek).Count();
+                    _userRepository.GetMany(u => u.Role == role && SqlFunctions.DatePart("week",u.LoggedAt) == thisWeek).Count();
                 clubsLastWeek =
-                    _userRepository.GetMany(u => u.Role == role && SqlFunctions.DatePart("week", u.CreateAt) == lastWeek).Count();
+                    _userRepository.GetMany(u => u.Role == role && SqlFunctions.DatePart("week", u.LoggedAt) == lastWeek).Count();
 
 
             }
             else
             {
                 clubsThisWeek =
-                        _userRepository.GetMany(u => SqlFunctions.DatePart("week", u.CreateAt) == thisWeek).Count();
+                        _userRepository.GetMany(u => SqlFunctions.DatePart("week", u.LoggedAt) == thisWeek).Count();
                 clubsLastWeek =
-                        _userRepository.GetMany(u => SqlFunctions.DatePart("week", u.CreateAt) == lastWeek).Count();
+                        _userRepository.GetMany(u => SqlFunctions.DatePart("week", u.LoggedAt) == lastWeek).Count();
             }
             int percent;
             string progress = "netral";
@@ -111,13 +111,13 @@ namespace PmaPlus.Services
                 {
                     usersList.Add(_userRepository.GetMany(u =>
                              u.Role == role &&
-                              SqlFunctions.DatePart("week", u.CreateAt) == thisWeek &&
+                              SqlFunctions.DatePart("week", u.LoggedAt) == thisWeek &&
                              u.CreateAt.Year == thisYear).Count());
                 }
                 else
                 {
                     usersList.Add(_userRepository.GetMany(u =>
-                             SqlFunctions.DatePart("week", u.CreateAt) == thisWeek &&
+                             SqlFunctions.DatePart("week", u.LoggedAt) == thisWeek &&
                             u.CreateAt.Year == thisYear).Count());
                 }
                 thisWeek--;

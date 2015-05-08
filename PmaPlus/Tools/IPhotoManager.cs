@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -15,6 +16,9 @@ namespace PmaPlus.Tools
         Task<PhotoViewModel> Add(HttpRequestMessage request);
         string GetPhoto(FileStorageTypes type, string filename, int id);
         string Copy(string fileName, string path);
+        string MoveFromTemp(string tempFileName, FileStorageTypes storageType, int id, string newFileName);
+        FileStream GetFileStream(string fileName, FileStorageTypes storageTypes, int id);
+
         string Move(string fileName, string path, string newFileName);
         bool FileExists(string fileName); 
     }

@@ -33,36 +33,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 return BadRequest("Unsuported type");
         }
 
-        //[HttpPost()]
-        //public async Task<HttpResponseMessage> Post()
-        //{
-        //    if (!Request.Content.IsMimeMultipartContent())
-        //    {
-        //        throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-        //    }
-
-        //    var streamProvider = new MultipartFormDataStreamProvider(HttpContext.Current.Server.MapPath("~/App_Data/temp"));
-        //    List<string> files = new List<string>();
-
-        //    try
-        //    {
-        //        // Read the MIME multipart content using the stream provider we just created.
-        //        await Request.Content.ReadAsMultipartAsync(streamProvider);
-        //        //await Request.Content.ReadAsMultipartAsync();
-
-        //        foreach (MultipartFileData file in streamProvider.FileData)
-        //        {
-        //            files.Add(file.LocalFileName);
-        //        }
-
-        //        // Send OK Response along with saved file names to the client. 
-        //        return Request.CreateResponse(HttpStatusCode.OK, files);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
-        //    }
-        //}
+        
 
         [Route("api/File/{storageType}/{fileName}/{id}")]
         public HttpResponseMessage GetPhoto(string storageType,string fileName , int id)
@@ -70,20 +41,17 @@ namespace PmaPlus.Controllers.ApiControllers
             HttpResponseMessage result;
             FileStorageTypes type;
             Enum.TryParse(storageType,true, out type);
-            var photoPath = _photoManager.GetPhoto(type, fileName, id);
-            if (File.Exists(photoPath))
+            FileStream _fileStream = _photoManager.GetFileStream(fileName, type, id);
+            if (_fileStream == null)
             {
-            result = Request.CreateResponse(HttpStatusCode.OK);
-            result.Content = new StreamContent(new FileStream(photoPath, FileMode.Open, FileAccess.Read));
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(fileName)));
-                
+                result = Request.CreateResponse(HttpStatusCode.NotFound);
             }
             else
             {
-                result = Request.CreateResponse(HttpStatusCode.Gone);
+            result = Request.CreateResponse(HttpStatusCode.OK);
+            result.Content = new StreamContent(_fileStream);
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(fileName)));
             }
-            
-
             return result;
         }
      

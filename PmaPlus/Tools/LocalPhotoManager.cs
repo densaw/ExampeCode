@@ -79,7 +79,7 @@ namespace PmaPlus.Tools
 
         public async Task<PhotoViewModel> Add(HttpRequestMessage request)
         {
-            var provider = new PhotoStreamProvider(_workingFolder);
+            var provider = new PhotoStreamProvider(_workingFolder + "\\temp");
 
             await request.Content.ReadAsMultipartAsync(provider);
 
@@ -93,7 +93,7 @@ namespace PmaPlus.Tools
                 return null;
             }
 
-                var fileInfo = new FileInfo(file.LocalFileName);
+            var fileInfo = new FileInfo(file.LocalFileName);
 
             return new PhotoViewModel
             {
@@ -104,7 +104,59 @@ namespace PmaPlus.Tools
             };
             //}
 
-        } 
+        }
+
+        /// <summary>
+        /// Move file from temp storage
+        /// </summary>
+        /// <param name="tempFileName">Temp file name</param>
+        /// <param name="storageType"> </param>
+        /// <param name="id">ID table row</param>
+        /// <param name="newFileName">new file name without extention</param>
+        /// <returns></returns>
+        public string MoveFromTemp(string tempFileName, FileStorageTypes storageType, int id, string newFileName)
+        {
+            var tempFilePath = _workingFolder + "\\" + "temp" + "\\" + tempFileName;
+            if (File.Exists(tempFilePath))
+            {
+                var newPath = _workingFolder + "\\" + storageType.ToString() + "\\" + id + "\\";
+                var newFileFullPath = newPath + newFileName + Path.GetExtension(tempFileName);
+                try
+                {
+                    Directory.CreateDirectory(newPath);
+                    foreach (string file in Directory.GetFiles(newPath, "*" + newFileName + "*"))
+                    {
+                        File.Delete(file);
+                    }
+                    File.Move(tempFilePath, newFileFullPath);
+                    return newFileName + Path.GetExtension(tempFileName);
+
+                }
+                catch (Exception)
+                {
+
+                    return "";
+                }
+
+
+
+            }
+            else
+            {
+                return "";
+            }
+
+        }
+
+        public FileStream GetFileStream(string fileName, FileStorageTypes storageTypes, int id)
+        {
+            var fullFilePath = _workingFolder + "\\" + storageTypes.ToString() + "\\" + id + "\\" + fileName;
+            if (File.Exists(fullFilePath))
+            {
+                return new FileStream(fullFilePath, FileMode.Open, FileAccess.Read);
+            }
+            return null;
+        }
 
         public string Move(string fileName, string path, string newFileName)
         {

@@ -7,7 +7,8 @@ namespace PmaPlus.Tools
 {
     public enum FileStorageTypes
     {
-        PhysioBodyPartPhoto,
-        PhysioExercisePhoto
+        Clubs = 0,
+        PhysioBodyPartPhoto = 1,
+        PhysioExercisePhoto = 2
     }
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Web;
 using System.Web.Http;
@@ -57,7 +58,34 @@ namespace PmaPlus.Controllers.ApiControllers
             return _clubServices.GetClubById(id);
         }
 
+        [Route("api/Clubs/{id}/logo")]
+        public HttpResponseMessage GetLogo(int id)
+        {
+            if (!_clubServices.ClubIsExist(id))
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
+            var tempClub = _clubServices.GetClubById(id);
+            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+            result.Content = new StreamContent(_photoManager.GetFileStream(tempClub.Logo,FileStorageTypes.Clubs, id));
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(tempClub.Logo)));
+            return result;
+        }
 
+        [Route("api/Clubs/{id}/background")]
+        public HttpResponseMessage GetBackground(int id)
+        {
+            if (!_clubServices.ClubIsExist(id))
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
+            var tempClub = _clubServices.GetClubById(id);
+            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+            result.Content = new StreamContent(_photoManager.GetFileStream(tempClub.Background, FileStorageTypes.Clubs, id));
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(tempClub.Background)));
+            return result;
+
+        }
 
         // POST: api/Clubs
         public IHttpActionResult Post([FromBody]AddClubViewModel clubViewModel)
@@ -65,12 +93,12 @@ namespace PmaPlus.Controllers.ApiControllers
             var newClub = _clubServices.AddClub(clubViewModel);
             if (newClub != null)
             {
-                string logoPath = @"~/Images/Clubs/" + newClub.Id;
-                newClub.Logo = _photoManager.Move(newClub.Logo, logoPath + "/",newClub.Name + "_Logo");
-                newClub.Background = _photoManager.Move(newClub.Background, logoPath + "/" ,newClub.Name + "_Background");
-                _clubServices.UpdateClub(newClub,newClub.Id);
+                newClub.Logo = _photoManager.MoveFromTemp(newClub.Logo, FileStorageTypes.Clubs, newClub.Id,"logo");
+                newClub.Background = _photoManager.MoveFromTemp(newClub.Background, FileStorageTypes.Clubs, newClub.Id, "Background");
+                _clubServices.UpdateClub(newClub, newClub.Id);
+                return Created(Request.RequestUri + newClub.Id.ToString(), newClub);
             }
-            return Created(Request.RequestUri + newClub.Id.ToString(), newClub);
+            return BadRequest();
         }
 
         // PUT: api/Clubs/5
@@ -80,16 +108,9 @@ namespace PmaPlus.Controllers.ApiControllers
             {
                 return NotFound();
             }
-            string logoPath = @"~/Images/Clubs/" + id;
-            var temp = _clubServices.GetClubById(id);
-            if (temp.Logo != clubViewModel.Logo)
-            {
-                clubViewModel.Logo = _photoManager.Move(clubViewModel.Logo, logoPath + "/", clubViewModel.Name + "_Logo");
-            }
-            if (temp.Background != clubViewModel.Background)
-            {
-                clubViewModel.Background = _photoManager.Move(clubViewModel.Background, logoPath + "/", clubViewModel.Name + "_Background");
-            }
+            clubViewModel.Logo = _photoManager.MoveFromTemp(clubViewModel.Logo, FileStorageTypes.Clubs, clubViewModel.Id,"logo");
+
+            clubViewModel.Background = _photoManager.MoveFromTemp(clubViewModel.Background, FileStorageTypes.Clubs, clubViewModel.Id, "Background");
 
             _clubServices.UpdateClub(clubViewModel, id);
             return Ok();
