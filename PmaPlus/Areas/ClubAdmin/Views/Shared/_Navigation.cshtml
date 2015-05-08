@@ -25,15 +25,13 @@
             <li class="@Html.IsSelected(controller: "Home", action: "Attributes")">
                 <a href="@Url.Action("Attributes", "Home", new { area = "ClubAdmin" })"><i class="fa fa-dashboard"></i> <span class="nav-label">Attributes</span></a>
             </li>
-            <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] { "TrainingTeam", "Players" })">
+            <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] { "TrainingTeam", "Players", "ClubProfile"})">
                 <a href="@Url.Action("TrainingTeam", "Home", new { area = "ClubAdmin" })"><i class="fa fa-users"></i> <span class="nav-label">Club</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li class="@Html.IsSelected(action: "TrainingTeam")"><a href="@Url.Action("TrainingTeam", "Home", new { area = "ClubAdmin" })">Training Team</a></li>
-                    <li class="@Html.IsSelected(action: "Players")"><a href="@Url.Action("Players", "Home", new { area = "ClubAdmin" })">Players</a></li>
+                    <li class="@Html.IsSelected(action: "Players")"><a href="@Url.Action("Players", "Home", new {area = "ClubAdmin"})">Players</a></li>
+                    <li class="@Html.IsSelected(action: "ClubProfile")"><a href="@Url.Action("ClubProfile", "Home", new { area = "ClubAdmin" })">Club Profile</a></li>
                 </ul>
-            </li>
-            <li class="@Html.IsSelected(controller: "Home", action: "ClubProfile")">
-                <a href="@Url.Action("ClubProfile", "Home", new { area = "ClubAdmin" })"><i class="fa fa-cogs"></i> <span class="nav-label">Club Profile</span> </a>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "ClubDiary")">
                 <a href="@Url.Action("ClubDiary", "Home", new { area = "ClubAdmin" })"><i class="fa fa-calendar"></i> <span class="nav-label">Club Diary</span></a>
