@@ -73,6 +73,7 @@
     <Compile Include="Repository\CurriculumTypeRepository.cs" />
     <Compile Include="Repository\CurriculumWeekRepository.cs" />
     <Compile Include="Repository\FACourseRepository.cs" />
+    <Compile Include="Repository\FoodTypeToTypeRepository.cs" />
     <Compile Include="Repository\HeadOfAcademyRepository.cs" />
     <Compile Include="Repository\HeadOfEducationRepository.cs" />
     <Compile Include="Repository\Iterfaces\IActivityStatusChangeRepository.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Repository\Iterfaces\ICurriculumTypeRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICurriculumWeekRepository.cs" />
     <Compile Include="Repository\Iterfaces\IFACourseRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IFoodTypeToTypeRepository.cs" />
     <Compile Include="Repository\Iterfaces\IHeadOfAcademyRepository.cs" />
     <Compile Include="Repository\Iterfaces\IHeadOfEducationRepository.cs" />
     <Compile Include="Repository\Iterfaces\IMatchRepository.cs" />

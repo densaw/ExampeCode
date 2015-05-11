@@ -14,12 +14,14 @@ namespace PmaPlus.Services.Services
         private readonly INutritionFoodTypeRepository _nutritionFoodTypeRepository;
         private readonly INutritionAlternativeRepository _nutritionAlternativeRepository;
         private readonly INutritionRecipeRepository _nutritionRecipeRepository;
+        private readonly IFoodTypeToTypeRepository _foodTypeToTypeRepository;
 
-        public NutritionServices(INutritionFoodTypeRepository nutritionFoodTypeRepository, INutritionAlternativeRepository nutritionAlternativeRepository, INutritionRecipeRepository nutritionRecipeRepository)
+        public NutritionServices(INutritionFoodTypeRepository nutritionFoodTypeRepository, INutritionAlternativeRepository nutritionAlternativeRepository, INutritionRecipeRepository nutritionRecipeRepository, IFoodTypeToTypeRepository foodTypeToTypeRepository)
         {
             _nutritionFoodTypeRepository = nutritionFoodTypeRepository;
             _nutritionAlternativeRepository = nutritionAlternativeRepository;
             _nutritionRecipeRepository = nutritionRecipeRepository;
+            _foodTypeToTypeRepository = foodTypeToTypeRepository;
         }
 
         #region Nutrition Food Type 
@@ -31,18 +33,18 @@ namespace PmaPlus.Services.Services
 
         public IQueryable<NutritionFoodType> GetFoodTypes()
         {
-            var foodTypes = new List<NutritionFoodTypeViewModel>();
             return _nutritionFoodTypeRepository.GetAll();
-
         }
 
-        public NutritionFoodType AddFoodType(NutritionFoodType foodType)
+        public NutritionFoodType AddFoodType(NutritionFoodTypeViewModel foodTypeViewModel)
         {
-            if (foodType == null)
-            {
-                return null;
-            }
+           
+             var foodType = new NutritionFoodType()
+             {
+                 
+             };
 
+   
              return _nutritionFoodTypeRepository.Add(foodType);
         }
 
