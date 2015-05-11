@@ -37,6 +37,9 @@ namespace PmaPlus
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-2.1.1.min.js"));
 
+            bundles.Add(new ScriptBundle("~/plugins/jquery-mask").Include(
+                        "~/Scripts/plugins/jquery.mask.js"));
+
             //Angular
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular/angular.js",
@@ -54,6 +57,8 @@ namespace PmaPlus
             bundles.Add(new ScriptBundle("~/plugins/angular-file").Include(
                 "~/Scripts/angular/angular-file-model.js"));
 
+            bundles.Add(new ScriptBundle("~/plugins/angular-dateparser").Include(
+                "~/Scripts/angular/angular-dateparser.js"));
 
             //Angular Controllers
             bundles.Add(new ScriptBundle("~/bundles/SysAdminCtr").Include(
