@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PmaPlus.Model.Models
@@ -7,7 +8,7 @@ namespace PmaPlus.Model.Models
        
       
         public int Id { get; set; }
-        public FoodType Type { get; set; }
+        public virtual ICollection<FoodTypeToType> Types { get; set; } 
         public string FoodName { get; set; }
         public MealTime When { get; set; }
 

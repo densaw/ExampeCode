@@ -114,6 +114,7 @@
     <Compile Include="Repository\Iterfaces\IUserDetailRepository.cs" />
     <Compile Include="Repository\Iterfaces\IUserRepository.cs" />
     <Compile Include="Repository\Iterfaces\IWelfareOfficerRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IToDoRepository.cs" />
     <Compile Include="Repository\MatchRepository.cs" />
     <Compile Include="Repository\NutritionAlternativeRepository.cs" />
     <Compile Include="Repository\NutritionFoodTypeRepository.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Repository\SportsScienceTestRepository.cs" />
     <Compile Include="Repository\TargetHistoryRepository.cs" />
     <Compile Include="Repository\TeamRepository.cs" />
+    <Compile Include="Repository\ToDoRepository.cs" />
     <Compile Include="Repository\UserDetailRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\WelfareOfficerRepository.cs" />

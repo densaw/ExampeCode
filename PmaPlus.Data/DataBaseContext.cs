@@ -30,6 +30,7 @@ namespace PmaPlus.Data
         public virtual DbSet<Match> Matches { get; set; }
         public virtual DbSet<NutritionAlternative> NutritionAlternatives { get; set; }
         public virtual DbSet<NutritionFoodType> NutritionFoodTypes { get; set; }
+        public virtual DbSet<FoodTypeToType> FoodTypeToTypes { get; set; } 
         public virtual DbSet<NutritionRecipe> NutritionRecipes { get; set; } 
         public virtual DbSet<Physiotherapist> Physiotherapists { get; set; }
         public virtual DbSet<PhysiotherapyExercise> PhysiotherapyExercises { get; set; }
@@ -50,6 +51,7 @@ namespace PmaPlus.Data
         public virtual DbSet<ActivityStatusChange> ActivityStatusChanges { get; set; }
         public virtual DbSet<PasswordHistory> PasswordHistory { get; set; }
         public virtual DbSet<TargetHistory> TargetHistories { get; set; }
+        public virtual DbSet<ToDo> ToDos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

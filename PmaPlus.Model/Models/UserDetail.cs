@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -29,5 +30,8 @@ namespace PmaPlus.Model.Models
 
         public DateTime? CrbDbsExpiry { get; set; }
         public DateTime? FirstAidExpiry { get; set; }
+
+        public virtual User User { get; set; }
+        public virtual ICollection<ToDo> ToDos { get; set; }
     }
 }

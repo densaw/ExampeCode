@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
@@ -9,6 +10,7 @@ using PmaPlus.Model.ViewModels.PlayerAttribute;
 using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.SportsScience;
+using PmaPlus.Model.ViewModels.ToDo;
 using PmaPlus.Model.ViewModels.TrainingTeamMember;
 
 namespace PmaPlus.Mapping
@@ -38,7 +40,8 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<PhysiotherapyExercise, PhysiotherapyExerciseTableViewModel>();
             Mapper.CreateMap<PhysiotherapyExercise, PhysiotherapyExerciseViewModel>();
 
-            Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeViewModel>();
+            Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeViewModel>()
+                .ForMember(d => d.Types,o => o.MapFrom(s=> s.Types.Select(t => t.FoodType)));
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeTableViewModel>();
 
             Mapper.CreateMap<NutritionAlternative, NutritionAlternativeViewModel>();
@@ -77,6 +80,8 @@ namespace PmaPlus.Mapping
                 .ForMember(d => d.FirstAidExpiry, o => o.MapFrom(s => s.UserDetail.FirstAidExpiry))
                 .ForMember(d => d.LastLogin, o => o.MapFrom(s => s.LoggedAt))
                 .ForMember(d => d.ProfilePicture, o => o.MapFrom(s => s.UserDetail.ProfilePicture));
+
+            Mapper.CreateMap<ToDo, ToDoViewModel>();
 
         }
     }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PmaPlus.Model.ViewModels
@@ -6,7 +7,7 @@ namespace PmaPlus.Model.ViewModels
     {
         public int Id { get; set; }
         [Required]
-        public FoodType Type { get; set; }
+        public IList<FoodType> Types { get; set; }
         [Required]
         public string FoodName { get; set; }
         [Required]

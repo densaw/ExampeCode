@@ -62,6 +62,7 @@
     <Compile Include="Enums\BodyPartType.cs" />
     <Compile Include="Enums\ClubStatus.cs" />
     <Compile Include="Enums\PhysioExerciseType.cs" />
+    <Compile Include="Enums\ToDoPriority.cs" />
     <Compile Include="Enums\UserStatus.cs" />
     <Compile Include="Enums\ScenarioType.cs" />
     <Compile Include="Enums\SportsScienceExerciseType.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Enums\SportsScienceType.cs" />
     <Compile Include="Models\FACourse.cs" />
+    <Compile Include="Models\FoodTypeToType.cs" />
     <Compile Include="Models\HeadOfAcademy.cs" />
     <Compile Include="Models\HeadOfEducation.cs" />
     <Compile Include="Models\PasswordHistory.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Models\Scenario.cs" />
     <Compile Include="Models\SkillLevel.cs" />
     <Compile Include="Models\TargetHistory.cs" />
+    <Compile Include="Models\ToDo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Scout.cs" />
     <Compile Include="Models\SkillVideo.cs" />
@@ -163,6 +166,7 @@
     <Compile Include="ViewModels\SportsScience\SportsScienceTestPage.cs" />
     <Compile Include="ViewModels\SportsScience\SportsScienceTestTableViewModel.cs" />
     <Compile Include="ViewModels\SportsScience\SportsScienceTestViewModel.cs" />
+    <Compile Include="ViewModels\ToDo\ToDoViewModel.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\AddTrainingTeamMemberViewModel.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberViewModel.cs" />
   </ItemGroup>

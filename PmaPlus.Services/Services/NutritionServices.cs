@@ -31,7 +31,9 @@ namespace PmaPlus.Services.Services
 
         public IQueryable<NutritionFoodType> GetFoodTypes()
         {
+            var foodTypes = new List<NutritionFoodTypeViewModel>();
             return _nutritionFoodTypeRepository.GetAll();
+
         }
 
         public NutritionFoodType AddFoodType(NutritionFoodType foodType)

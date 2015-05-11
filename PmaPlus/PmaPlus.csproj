@@ -259,6 +259,7 @@
     <Compile Include="Controllers\ApiControllers\SkillVideosController.cs" />
     <Compile Include="Controllers\ApiControllers\SportsScienceExercisesController.cs" />
     <Compile Include="Controllers\ApiControllers\SportsScienceTestsController.cs" />
+    <Compile Include="Controllers\ApiControllers\ToDoController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
     <Compile Include="Filters\PhotoStreamProvider.cs" />
     <Compile Include="Filters\ValidateModelStateFilter.cs" />
