@@ -181,3 +181,54 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', function
            });
 
 }]);
+
+app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
+
+    var urlTail = '/api/ToDo';
+    var target = angular.element('#addNote');
+
+    $scope.Priority = [
+       { id: 0, name: 'Urgent' },
+       { id: 1, name: 'Normal' },
+       { id: 2, name: 'Non-Urgent' }
+    ];
+
+    $scope.selectedPriority = $scope.Priority[0];
+    $scope.newNote = {};
+
+    function getResults() {
+        $http.get(urlTail)
+           .success(function (result) {
+               $scope.items = result;
+            console.log(result);
+        });
+
+    }
+
+    getResults();
+
+    $scope.open = function() {
+        target.modal('show');
+    }
+
+    $scope.ok = function () {
+        $scope.newNote.priority = $scope.selectedPriority.id;
+        $scope.newNote.completionDateTime = new Date();
+        $http.post(urlTail, $scope.newNote)
+          .success(function (result) {
+            getResults();
+            target.modal('hide');
+          }).error(function (data, status, headers, config) {
+              console.log(data);
+              if (status == 400) {
+                  console.log(data);
+                  toaster.pop({
+                      type: 'error',
+                      title: 'Error', bodyOutputType: 'trustedHtml',
+                      body: data.message.join("<br />")
+                  });
+              }
+          });
+    }
+
+}]);
