@@ -22,12 +22,12 @@ namespace PmaPlus.Controllers.ApiControllers
 
         public IEnumerable<ToDoViewModel> Get()
         {
-            return Mapper.Map<IEnumerable<ToDo>,IEnumerable<ToDoViewModel>>( _toDoServices.GetToDos(User.Identity.Name));
+            return Mapper.Map<IEnumerable<ToDo>,IEnumerable<ToDoViewModel>>( _toDoServices.GetToDos(User.Identity.Name)); 
         }
 
         public IHttpActionResult Post(ToDoViewModel toDoViewModel)
         {
-            _toDoServices.AddToDo(Mapper.Map<ToDoViewModel, ToDo>(toDoViewModel),User.Identity.Name);
+            _toDoServices.AddToDo(Mapper.Map<ToDoViewModel, ToDo>(toDoViewModel), User.Identity.Name);
             return Ok();
         }
 
