@@ -180,7 +180,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', function
 
     $http.get(urlTail)
            .success(function (result) {
-               $scope.items = result.items;
+               $scope.items = result;
            });
 
 }]);
