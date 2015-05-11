@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using PmaPlus.Model.Enums;
 
 namespace PmaPlus.Model.Models
@@ -10,7 +12,7 @@ namespace PmaPlus.Model.Models
         public virtual Team Team { get; set; }
         public virtual Team Team1 { get; set; }
         public virtual User User { get; set; }
-        public PlayerStatus Status { get; set; }
+        public UserStatus Status { get; set; }
         public virtual ICollection<PlayerInjury> PlayerInjuries { get; set; }
     }
 }

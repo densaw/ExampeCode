@@ -49,23 +49,24 @@ namespace PmaPlus.Data
         public virtual DbSet<SkillVideo> SkillsVideos { get; set; }
         public virtual DbSet<ActivityStatusChange> ActivityStatusChanges { get; set; }
         public virtual DbSet<PasswordHistory> PasswordHistory { get; set; }
-        public virtual DbSet<TargetHistory> TargetHistories { get; set; } 
+        public virtual DbSet<TargetHistory> TargetHistories { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataBaseContext,Configuration>());
+
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataBaseContext, Configuration>());
 
             modelBuilder.Entity<Club>()
                 .HasOptional(c => c.ClubAdmin)
                 .WithOptionalDependent()
                 .WillCascadeOnDelete(false);
-            
+
             modelBuilder.Entity<Club>()
                 .HasOptional(c => c.Address)
                 .WithOptionalDependent()
                 .WillCascadeOnDelete(false);
 
-         
+
             modelBuilder.Entity<ClubAdmin>()
                 .HasOptional(c => c.User)
                 .WithOptionalDependent()

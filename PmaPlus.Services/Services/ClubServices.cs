@@ -46,7 +46,7 @@ namespace PmaPlus.Services
                             TownCity = club.Address.TownCity,
                             Coaches = club.Coaches.Count,
                             Players = club.Players.Count,
-                            PiPay = club.Players.Count(p => p.Status == PlayerStatus.Active),
+                            PiPay = club.Players.Count(p => p.Status == UserStatus.Active),
                             LastLogin = club.ClubAdmin.User.LoggedAt,
                             Status = club.Status
                         };

@@ -6,7 +6,6 @@ namespace PmaPlus.Model.Models
 {
     public class UserDetail
     {
-      
         public int Id { get; set; }
 
         [StringLength(50)]
@@ -28,5 +27,7 @@ namespace PmaPlus.Model.Models
 
         public virtual Address Address { get; set; }
 
+        public DateTime? CrbDbsExpiry { get; set; }
+        public DateTime? FirstAidExpiry { get; set; }
     }
 }

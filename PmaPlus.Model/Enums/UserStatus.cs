@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PmaPlus.Services.Services
+namespace PmaPlus.Model.Enums
 {
-    public class TrainingTeamMemberServices
+    public enum UserStatus
     {
+        Active = 0,
+        Blocked = 1,
+        LeftClub = 2
     }
 }
