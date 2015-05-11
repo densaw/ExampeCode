@@ -401,6 +401,7 @@
     <Content Include="Scripts\angular\angular-cookies.js" />
     <Content Include="Scripts\angular\angular-cookies.min.js" />
     <Content Include="Scripts\angular\angular-csp.css" />
+    <Content Include="Scripts\angular\angular-dateparser.js" />
     <Content Include="Scripts\angular\angular-file-model.js" />
     <Content Include="Scripts\angular\angular-loader.js" />
     <Content Include="Scripts\angular\angular-loader.min.js" />
@@ -2602,6 +2603,7 @@
     <Content Include="Scripts\angular\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\angular\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\angular\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\angular\ui-bootstrap-0.13.0.js" />
     <Content Include="Scripts\angular\version.txt" />
     <Content Include="Scripts\app\inspinia.js" />
     <Content Include="Scripts\app\inspinia.min.js" />
@@ -3386,6 +3388,7 @@
     <Content Include="Scripts\plugins\jquery-ui\jquery-ui.js" />
     <Content Include="Scripts\plugins\jquery-ui\jquery-ui.min.css" />
     <Content Include="Scripts\plugins\jquery-ui\jquery-ui.min.js" />
+    <Content Include="Scripts\plugins\jquery.mask.js" />
     <Content Include="Scripts\plugins\jsKnob\jquery.knob.js" />
     <Content Include="Scripts\plugins\jsTree\jstree.min.js" />
     <Content Include="Scripts\plugins\justified-gallery\jquery.justifiedgallery.css" />
@@ -3419,6 +3422,7 @@
     <Content Include="Scripts\plugins\summernote\summernote.min.js" />
     <Content Include="Scripts\plugins\switchery\switchery.js" />
     <Content Include="Scripts\plugins\toastr\toastr.min.js" />
+    <Content Include="Scripts\plugins\ui-bootstrap\ui-bootstrap-0.13.0.js" />
     <Content Include="Scripts\plugins\ui-bootstrap\ui-bootstrap-tpls-0.12.1.js" />
     <Content Include="Scripts\plugins\validate\jquery.validate.min.js" />
     <Content Include="Scripts\plugins\velocity\velocity.min.js" />

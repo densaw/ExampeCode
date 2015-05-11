@@ -12,7 +12,10 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
 
     $scope.selectedType = $scope.attrTypes[0];
 
-    
+    $scope.open = function () {
+
+        $scope.opened = true;
+    };
 
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
@@ -193,6 +196,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
        { id: 2, name: 'Non-Urgent' }
     ];
 
+
     $scope.selectedPriority = $scope.Priority[0];
     $scope.newNote = {};
 
@@ -213,7 +217,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
     $scope.ok = function () {
         $scope.newNote.priority = $scope.selectedPriority.id;
-        $scope.newNote.completionDateTime = new Date();
+        console.log($scope.newNote);
         $http.post(urlTail, $scope.newNote)
           .success(function (result) {
             getResults();

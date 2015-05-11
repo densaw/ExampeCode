@@ -39,7 +39,7 @@
                             <div class="form-group" ng-class="{'has-error':myform.noteDate.$invalid && (myform.noteDate.$dirty||myform.form_Submitted)}">
                                 <label class="col-lg-4 title-modal">Completion Date\Time:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <input name="noteDate" ng-model="newNote.completionDateTime" required class="form-control" maxlength="50">
+                                    <input id="dateinp" name="noteDate" ng-model="newNote.completionDateTime" required class="form-control" placeholder="YYYY-MM-DD"/>
                                 </div>
                             </div>
                             <div class="form-group" ng-class="{'has-error':myform.noteTitle.$invalid && (myform.noteTitle.$dirty||myform.form_Submitted)}">
@@ -86,4 +86,9 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#dateinp').mask('0000-00-00');
+    });
+</script>
 
