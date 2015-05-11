@@ -125,7 +125,7 @@ namespace PmaPlus.Services
                         LoggedAt = DateTime.Now,
                         UserDetail = new UserDetail()
                         {
-                            FirstName = club.ClubAdminName
+                            FirstName = club.ClubAdminName,
                         }
 
                     }
@@ -138,8 +138,11 @@ namespace PmaPlus.Services
                 },
                 
             };
-            return _clubRepository.Add(tempClub);
-
+            var newClub =_clubRepository.Add(tempClub);
+            newClub.ClubAdmin.Club = newClub;
+            newClub.ClubAdmin.User.UserDetail.User = newClub.ClubAdmin.User;
+            _clubRepository.Update(newClub,newClub.Id);
+            return newClub;
         }
         public void UpdateClub(Club club, int id)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity.SqlServer;
 using System.Globalization;
 using System.Linq;
@@ -56,32 +57,26 @@ namespace PmaPlus.Services
         }
         public User GetUserByEmail(string email)
         {
-            return _userRepository.Get(u => u.Email == email);
+            return _userRepository.Get(u => u.Email.ToLower() == email.ToLower());
         }
 
         public IEnumerable<TrainingTeamMemberViewModel> GetTrainingTeamMembers()
         {
-            var users = _userRepository.GetMany(u => u.Role != Role.ClubAdmin && u.Role != Role.SystemAdmin && u.Role != Role.Player);
 
-            var trTeamMember = new List<TrainingTeamMemberViewModel>();
-
-            foreach (var user in users)
-            {
-                trTeamMember.Add(new TrainingTeamMemberViewModel()
+            var trTeamMember = from user in _userRepository.GetMany(u => u.Role != Role.SystemAdmin && u.Role != Role.ClubAdmin && u.Role != Role.Player)
+                select new TrainingTeamMemberViewModel()
                 {
-                    Name = user.UserDetail.FirstName + user.UserDetail.LastName,
+                    Name = user.UserDetail.FirstName + " " + user.UserDetail.LastName,
                     Role = user.Role,
                     TownCity = user.UserDetail.Address.TownCity,
-                    BirthDay = user.UserDetail.Birthday.Value,
-                    Age = DateTime.Now.Year - user.UserDetail.Birthday.Value.Year,
                     Mobile = user.UserDetail.Address.Mobile,
-                    CrbDbsExpiry = user.UserDetail.CrbDbsExpiry.Value,
-                    FirstAidExpiry = user.UserDetail.FirstAidExpiry.Value,
                     LastLogin = user.LoggedAt,
-                    ProfilePicture = user.UserDetail.ProfilePicture
-
-                });
-            }
+                    ProfilePicture = user.UserDetail.ProfilePicture,
+                    BirthDay = user.UserDetail.Birthday,
+                    CrbDbsExpiry = user.UserDetail.CrbDbsExpiry,
+                    FirstAidExpiry = user.UserDetail.FirstAidExpiry,
+                    Age = DateTime.Now.Year - (user.UserDetail.Birthday ?? DateTime.Now).Year
+                };
 
             return trTeamMember;
         }
@@ -110,7 +105,8 @@ namespace PmaPlus.Services
                     Nationality = user.Nationality,
                     ProfilePicture = user.ProfilePicture,
                     CrbDbsExpiry = user.CrbDbsExpiry,
-                    FirstAidExpiry = user.FirstAidExpiry
+                    FirstAidExpiry = user.FirstAidExpiry,
+
 
                 },
                 Role = user.Role,
@@ -123,6 +119,7 @@ namespace PmaPlus.Services
 
             };
             var newUser = _userRepository.Add(trTeam);
+            newUser.UserDetail.User = newUser;
             switch (newUser.Role)
             {
                 case Role.Coach:
@@ -204,7 +201,7 @@ namespace PmaPlus.Services
                     }
 
             }
-            _userRepository.Update(newUser,newUser.Id);
+            _userRepository.Update(newUser, newUser.Id);
             return newUser;
         }
 

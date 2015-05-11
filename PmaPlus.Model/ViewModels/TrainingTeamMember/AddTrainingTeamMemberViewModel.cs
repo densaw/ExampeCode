@@ -21,7 +21,7 @@ namespace PmaPlus.Model.ViewModels.TrainingTeamMember
         public string Email { get; set; }                                   
         public string Password { get; set; }                                
         public int FaNumber { get; set; }                                   
-        public DateTime BirthDate { get; set; }                             
+        public DateTime? BirthDate { get; set; }                             
         public string ProfilePicture { get; set; }                          
         public string Nationality { get; set; }                             
         public string Address1 { get; set; }                                
@@ -29,7 +29,7 @@ namespace PmaPlus.Model.ViewModels.TrainingTeamMember
         public string Address3 { get; set; }                                
         public string TownCity { get; set; }                                
         public string Postcode { get; set; }
-        public DateTime CrbDbsExpiry { get; set; }
-        public DateTime FirstAidExpiry { get; set; }
+        public DateTime? CrbDbsExpiry { get; set; }
+        public DateTime? FirstAidExpiry { get; set; }
     }
 }
