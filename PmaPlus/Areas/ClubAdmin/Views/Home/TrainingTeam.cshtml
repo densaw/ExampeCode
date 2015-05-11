@@ -4,383 +4,197 @@
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Training Team</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a>Home</a>
-            </li>
-            <li>
-                <a>Club</a>
-            </li>
-            <li class="active">
-                <strong>Training Team</strong>
-            </li>
-        </ol>
+<div ng-controller="TrainingTeamController">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Training Team</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li>
+                    <a>Club</a>
+                </li>
+                <li class="active">
+                    <strong>Training Team</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-click="openModal()">Add a Team Member</a>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a class="btn btn-primary" >Add a Team Member</a>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        @*Modal*@
+        <div class="modal inmodal" id="addTeamMember" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h3 class="modal-title text-left">Add a Team Member</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form name="myform" class="form-horizontal" novalidate>
+                            <div class="form-group" ng-class="{'has-error':myform.memberFirstName.$invalid && (myform.memberFirstName.$dirty||myform.form_Submitted)}">
+                                <label class="col-lg-4 title-modal">First Name:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input name="memberFirstName" ng-model="newMember.firstName" required class="form-control" maxlength="50">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':myform.memberLastName.$invalid && (myform.memberLastName.$dirty||myform.form_Submitted)}">
+                                <label class="col-lg-4 title-modal">Last Name:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input name="memberLastName" ng-model="newMember.lastName" required class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">User Role:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <select ng-model="selectedRole" ng-options="role.name for role in rolesVisible" class=" form-control m-b" name="account"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">About Me:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <textarea ng-model="newMember.aboutMe" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Telephone:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.telephone" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Mobile:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.mobile" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':myform.memberEmail.$invalid && (myform.memberEmail.$dirty||myform.form_Submitted)}">
+                                <label class="col-lg-4 title-modal">Email:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input name="memberEmail" ng-model="newMember.email" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':myform.memberPassword.$invalid && (myform.memberPassword.$dirty||myform.form_Submitted)}">
+                                <label class="col-lg-4 title-modal">Password:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input name="memberPassword" ng-model="newMember.password" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">FA Number:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.faNumber" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Birth Date:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.birthDate" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Profile Picture:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input type="file" accept="image/*" class="pma-fileupload">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Nationality:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.nationality" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Address 1:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.address1" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Address 2:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.address2" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Address 3:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.address3" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Town City:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.townCity" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Post Code:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.postcode" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">CRB\DBS Expiry:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.crbDbsExpiry" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">First Aid Expiry:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.firstAidExpiry" class="form-control"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                        <button ng-click="send()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Modal End*@
+        <div class="row">
+            <div class="col-lg-4" ng-repeat="item in items">
+                <div class="contact-box animated pulse">
+                    <a href="profile.html">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-xs img-responsive" src="{{item.profilePicture}}">
+                                <div class="m-t-xs font-bold">{{roles[item.role].name}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <h3>
+                                <strong>{{item.name}}</strong>
+                            </h3>
+                            <p>
+                                <i class="fa fa-map-marker"></i> {{item.townCity}}
+                            </p>
+                            <address>
+                                {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}}<br>
+                                {{item.mobile}} <br />
+                                CRB\DBS Expiry: {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}<br>
+                                First Aid Expiry: {{item.firstAidExpiry | date:'dd.MM.yyyy'}}<br>
+                                Last Login: <strong>{{item.lastLogin | date:'dd.MM.yyyy'}}</strong>
+                            </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="wrapper wrapper-content animated fadeInRight">
-<div class="row">
-<div class="col-lg-4">
-    <div class="contact-box animated pulse">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">Graphics designer</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>John Smith</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">CEO</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Alex Johnatan</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">Marketing manager</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Monica Smith</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">Sales manager</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Michael Zimber</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">Graphics designer</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Sandra Smith</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">Graphics designer</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Janet Carton</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">CEO</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Alex Johnatan</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">Graphics designer</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>John Smith</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">Marketing manager</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Monica Smith</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">Sales manager</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Michael Zimber</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">Graphics designer</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Sandra Smith</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">Graphics designer</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Janet Carton</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">CEO</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>Alex Johnatan</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-4">
-    <div class="contact-box">
-        <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../../Images/a4.jpg">
-                    <div class="m-t-xs font-bold">Graphics designer</div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <h3><strong>John Smith</strong>
-                </h3>
-                <p><i class="fa fa-map-marker"></i> Riviera State 32/106
-                </p>
-                <address>
-                    <strong>Twitter, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-    </div>
-</div>
-</div>
-</div>
 <style>
     .font-bold {
         font-size: 13px;
@@ -388,9 +202,9 @@
     }
 </style>
 <script>
-        $(document).ready(function(){
-            $('.contact-box').each(function() {
-                animationHover(this, 'pulse');
-            });
+    $(document).ready(function(){
+        $('.contact-box').each(function() {
+            animationHover(this, 'pulse');
         });
+    });
 </script>
