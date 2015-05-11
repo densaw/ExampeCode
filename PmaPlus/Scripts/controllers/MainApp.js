@@ -475,18 +475,6 @@
                    $scope.selectedStatus = $scope.statuses[result.status];
                    $scope.modalTitle = "Update Club";
                    target.modal('show');
-
-                   $http.get('/api/File/Clubs/' + $scope.newClub.logo + '/' + id)
-                       .success(function (result) {
-                           //$scope.logoFiletemp = result;
-
-                       });
-
-                   $http.get('/api/File/Clubs/' + $scope.newClub.background + '/' + id)
-                        .success(function (result) {
-                            //$scope.backgroundFile = result;
-
-                        });
             });
                 
 

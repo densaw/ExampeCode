@@ -22,10 +22,14 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
 
         public IEnumerable<TrainingTeamMemberViewModel> Get()
         {
-            var trainTeamMemb = _userServices.GetTrainingTeamMembers();
-            return Mapper.Map<IQueryable<User>, IQueryable<TrainingTeamMemberViewModel>>(trainTeamMemb).AsEnumerable();
+            return  _userServices.GetTrainingTeamMembers();
         }
 
+        public IHttpActionResult Post(AddTrainingTeamMemberViewModel memberViewModel)
+        {
+             _userServices.AddTrainingTeamMember(memberViewModel,User.Identity.Name);
+            return Ok();
+        }
 
     }
 }

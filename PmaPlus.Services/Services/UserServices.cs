@@ -55,12 +55,34 @@ namespace PmaPlus.Services
             return _userRepository.Get(u => u.Email == email);
         }
 
-        public IQueryable<User> GetTrainingTeamMembers()
+        public IEnumerable<TrainingTeamMemberViewModel> GetTrainingTeamMembers()
         {
-            return _userRepository.GetMany(u => u.Role != Role.ClubAdmin && u.Role != Role.SystemAdmin && u.Role != Role.Player);
+           var users =_userRepository.GetMany(u => u.Role != Role.ClubAdmin && u.Role != Role.SystemAdmin && u.Role != Role.Player);
+
+            var trTeamMember = new List<TrainingTeamMemberViewModel>();
+
+            foreach (var user in users)
+            {
+                trTeamMember.Add(new TrainingTeamMemberViewModel()
+                {
+                    Name = user.UserDetail.FirstName + user.UserDetail.LastName,
+                    Role = user.Role,
+                    TownCity = user.UserDetail.Address.TownCity,
+                    BirthDay = user.UserDetail.Birthday.Value,
+                    Age = DateTime.Now.Year - user.UserDetail.Birthday.Value.Year,
+                    Mobile = user.UserDetail.Address.Mobile,
+                    CrbDbsExpiry = user.UserDetail.CrbDbsExpiry.Value,
+                    FirstAidExpiry = user.UserDetail.FirstAidExpiry.Value,
+                    LastLogin = user.LoggedAt,
+                    ProfilePicture = user.UserDetail.ProfilePicture
+
+                });
+            }
+
+            return trTeamMember;
         }
 
-        public void AddUser(AddTrainingTeamMemberViewModel user,string clubAdminEmail)
+        public void AddTrainingTeamMember(AddTrainingTeamMemberViewModel user, string clubAdminEmail)
         {
             var trTeam = new User
             {
