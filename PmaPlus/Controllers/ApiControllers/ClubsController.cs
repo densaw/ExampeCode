@@ -108,10 +108,15 @@ namespace PmaPlus.Controllers.ApiControllers
             {
                 return NotFound();
             }
-            clubViewModel.Logo = _photoManager.MoveFromTemp(clubViewModel.Logo, FileStorageTypes.Clubs, clubViewModel.Id,"logo");
-
-            clubViewModel.Background = _photoManager.MoveFromTemp(clubViewModel.Background, FileStorageTypes.Clubs, clubViewModel.Id, "Background");
-
+            if (!clubViewModel.Logo.Contains("logo"))
+            {
+                clubViewModel.Logo = _photoManager.MoveFromTemp(clubViewModel.Logo, FileStorageTypes.Clubs, clubViewModel.Id,"logo");
+            }
+            if (!clubViewModel.Logo.Contains("Background"))
+            {
+                clubViewModel.Background = _photoManager.MoveFromTemp(clubViewModel.Background, FileStorageTypes.Clubs,
+                    clubViewModel.Id, "Background");
+            }
             _clubServices.UpdateClub(clubViewModel, id);
             return Ok();
         }

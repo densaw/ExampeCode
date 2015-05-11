@@ -23,7 +23,7 @@ namespace PmaPlus.Services
 
         public int GetActivePlayers()
         {
-            return _playerRepository.GetMany(p => p.Status == PlayerStatus.Active).Count();
+            return _playerRepository.GetMany(p => p.Status == UserStatus.Active).Count();
         }
 
   

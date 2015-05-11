@@ -26,6 +26,7 @@ namespace PmaPlus
 
             bundles.Add(new ScriptBundle("~/plugins/fileinput").Include(
                 "~/Scripts/plugins/fileinput/fileinput.min.js"
+               
                 ));
 
             // Font Awesome icons
@@ -39,7 +40,8 @@ namespace PmaPlus
             //Angular
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular/angular.js",
-                "~/Scripts/angular/angular-route.js"));
+                "~/Scripts/angular/angular-route.js",
+                 "~/Scripts/plugins/ladda/angular-ladda.min.js"));
 
             //BootStrap File
             //Angular BootStrap

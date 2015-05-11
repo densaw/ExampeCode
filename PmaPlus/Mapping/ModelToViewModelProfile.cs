@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Curriculum;
@@ -8,6 +9,7 @@ using PmaPlus.Model.ViewModels.PlayerAttribute;
 using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.SportsScience;
+using PmaPlus.Model.ViewModels.TrainingTeamMember;
 
 namespace PmaPlus.Mapping
 {
@@ -65,7 +67,16 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<PlayerAttribute, PlayerAttributeTableViewModel>();
             Mapper.CreateMap<PlayerAttribute, PlayerAttributeViewModel>();
 
-
+            Mapper.CreateMap<User, TrainingTeamMemberViewModel>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.UserDetail.FirstName + s.UserDetail.LastName))
+                .ForMember(d => d.TownCity, o => o.MapFrom(s => s.UserDetail.Address.TownCity))
+                .ForMember(d => d.BirthDay, o => o.MapFrom(s => s.UserDetail.Birthday))
+                .ForMember(d => d.Age, o => o.MapFrom(s => DateTime.Now.Year - s.UserDetail.Birthday.Value.Year))
+                .ForMember(d => d.Mobile, o => o.MapFrom(s => s.UserDetail.Address.Mobile))
+                .ForMember(d => d.CrbDbsExpiry, o => o.MapFrom(s => s.UserDetail.CrbDbsExpiry))
+                .ForMember(d => d.FirstAidExpiry, o => o.MapFrom(s => s.UserDetail.FirstAidExpiry))
+                .ForMember(d => d.LastLogin, o => o.MapFrom(s => s.LoggedAt))
+                .ForMember(d => d.ProfilePicture, o => o.MapFrom(s => s.UserDetail.ProfilePicture));
 
         }
     }

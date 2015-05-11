@@ -18,5 +18,6 @@ namespace PmaPlus.Model.ViewModels.TrainingTeamMember
         public DateTime CrbDbsExpiry { get; set; }
         public DateTime FirstAidExpiry  { get; set; }
         public DateTime LastLogin  { get; set; }
+        public string ProfilePicture { get; set; }
     }
 }

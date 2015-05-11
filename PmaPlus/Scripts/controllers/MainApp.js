@@ -229,7 +229,7 @@
 
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
-           
+
             if (id != null) {
 
                 $http.put('/api/FaCourses/' + id, $scope.newCourse)
@@ -302,39 +302,12 @@
     module.controller('ClubsController', ['$scope', '$http', '$q', 'toaster', function ($scope, $http, $q, toaster) {
 
         var needToDelete = -1;
-        //$scope.file = null;
-        //$scope.$watch('file', function (newVal) {
-        //    console.log('in file trans');
-        //    if (newVal) {
-        //        console.log(newVal);
-        //        console.log($scope.file);
-        //        console.log('prepere post');
-        //        var fd = new FormData();
-        //        fd.append('file', newVal);
-        //        $http.post('/api/Files', fd, {
-        //            transformRequest: angular.identity,
-        //            headers: { 'Content-Type': undefined }
-        //        })
-        //        .success(function () {
-        //            console.log('good');
-        //        })
-        //        .error(function (date) {
-        //            console.log(date);
-        //        });
-        //    }
-
-
-        //});
 
         $scope.statuses = [
             { id: 0, name: 'Active' },
             { id: 1, name: 'Blocked' },
             { id: 2, name: 'Closed' }
         ];
-        $scope.logo = 'logggo';
-        $scope.uploadPhoto = function () {
-            console.log($scope.logo);
-        };
         $scope.selectedStatus = $scope.statuses[0];
 
         function getResultsPage(pageNumber) {
@@ -361,100 +334,113 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function (id) {
-            
+
             $scope.myform.form_Submitted = !$scope.myform.$valid;
-            //Files upload
-           
-            var promises = [];
+            if (!$scope.myform.$valid) {
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    bodyOutputType: 'trustedHtml',
+                    body: 'Please complete the compulsory fields highlighted in red'
+                });
 
-            if ($scope.logoFile) {
-                var fd = new FormData();
-                fd.append('file', $scope.logoFile);
-                var promise = $http.post('/api/Files', fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                })
-                    .success(function (data) {
-                        console.log(data);
-                        $scope.newClub.logo = data.name;
+
+            } else {
+
+                
+
+
+                //Files upload
+
+                var promises = [];
+
+                if ($scope.logoFile) {
+                    var fd = new FormData();
+                    fd.append('file', $scope.logoFile);
+                    var promise = $http.post('/api/Files', fd, {
+                        transformRequest: angular.identity,
+                        headers: { 'Content-Type': undefined }
                     })
-                    .error(function () {
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error',
-                            body: 'File upload ERROR!'
+                        .success(function (data) {
+                            $scope.newClub.logo = data.name;
+                        })
+                        .error(function () {
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: 'File upload ERROR!'
+                            });
                         });
-                    });
-                promises.push(promise);
+                    promises.push(promise);
+                }
+
+                if ($scope.backgroundFile) {
+                    var fd = new FormData();
+                    fd.append('file', $scope.backgroundFile);
+                    var promise = $http.post('/api/Files', fd, {
+                        transformRequest: angular.identity,
+                        headers: { 'Content-Type': undefined }
+                    })
+                        .success(function (data) {
+                            $scope.newClub.background = data.name;
+                        })
+                        .error(function () {
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: 'File upload ERROR!'
+                            });
+                        });
+                    promises.push(promise);
+                }
+
+
+                //$scope.newClub.logo = 'tmp.jpeg';
+                //$scope.newClub.background = 'tmp.jpeg';
+                $q.all(promises).then(function () {
+
+                    $scope.newClub.status = $scope.selectedStatus.id;
+                    console.log($scope.newClub);
+                    if (id != null) {
+                        $http.put('/api/Clubs/' + id, $scope.newClub)
+                            .success(function () {
+                                getResultsPage($scope.pagination.current);
+                                target.modal('hide');
+                            }).error(function (data, status, headers, config) {
+                                if (status == 400) {
+                                    console.log(data);
+                                    toaster.pop({
+                                        type: 'error',
+                                        title: 'Error',
+                                        bodyOutputType: 'trustedHtml',
+                                        body: 'Please complete the compulsory fields highlighted in red'
+                                    });
+                                }
+                            });
+
+                    } else {
+
+                        $http.post('/api/Clubs', $scope.newClub)
+                            .success(function () {
+                                getResultsPage($scope.pagination.current);
+                                target.modal('hide');
+                            }).error(function (data, status, headers, config) {
+                                if (status == 400) {
+                                    console.log(data);
+                                    toaster.pop({
+                                        type: 'error',
+                                        title: 'Error',
+                                        bodyOutputType: 'trustedHtml',
+                                        body: 'Please complete the compulsory fields highlighted in red'
+                                    });
+                                }
+                            });
+                    };
+                }).finally(function() {
+                    
+                });
             }
 
-            if ($scope.backgroundFile) {
-                var fd = new FormData();
-                fd.append('file', $scope.backgroundFile);
-                var promise = $http.post('/api/Files', fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                })
-                    .success(function (data) {
-                        console.log(data);
-                        $scope.newClub.background = data.name;
-                    })
-                    .error(function () {
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error',
-                            body: 'File upload ERROR!'
-                        });
-                    });
-                promises.push(promise);
-            }
-
-
-            //$scope.newClub.logo = 'tmp.jpeg';
-            //$scope.newClub.background = 'tmp.jpeg';
-            $q.all(promises).then(function () {
-
-                $scope.newClub.status = $scope.selectedStatus.id;
-                console.log($scope.newClub);
-                if (id != null) {
-                    $http.put('/api/Clubs/' + id, $scope.newClub)
-                        .success(function () {
-                            getResultsPage($scope.pagination.current);
-                            target.modal('hide');
-                        }).error(function (data, status, headers, config) {
-                            if (status == 400) {
-                                console.log(data);
-                                toaster.pop({
-                                    type: 'error',
-                                    title: 'Error',
-                                    bodyOutputType: 'trustedHtml',
-                                    body: 'Please complete the compulsory fields highlighted in red'
-                                });
-                            }
-                        });
-
-                } else {
-
-                    $http.post('/api/Clubs', $scope.newClub)
-                        .success(function () {
-                            getResultsPage($scope.pagination.current);
-                            target.modal('hide');
-                        }).error(function (data, status, headers, config) {
-                            if (status == 400) {
-                                console.log(data);
-                                toaster.pop({
-                                    type: 'error',
-                                    title: 'Error',
-                                    bodyOutputType: 'trustedHtml',
-                                    body: 'Please complete the compulsory fields highlighted in red'
-                                });
-                            }
-                        });
-                };
-                //processModal.modal('hide');
-            });
-
-          
 
         }
         $scope.cancel = function () {
@@ -501,8 +487,8 @@
                             //$scope.backgroundFile = result;
 
                         });
-               });
-
+            });
+                
 
         };
 

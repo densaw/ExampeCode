@@ -8,6 +8,7 @@ using PmaPlus.Model.ViewModels.PlayerAttribute;
 using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.SportsScience;
+using PmaPlus.Model.ViewModels.TrainingTeamMember;
 
 namespace PmaPlus.Mapping
 {
@@ -50,6 +51,8 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<PlayerAttributeViewModel,PlayerAttribute>();
 
+
+            
         }
     }
 }

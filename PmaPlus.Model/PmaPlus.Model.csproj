@@ -62,7 +62,7 @@
     <Compile Include="Enums\BodyPartType.cs" />
     <Compile Include="Enums\ClubStatus.cs" />
     <Compile Include="Enums\PhysioExerciseType.cs" />
-    <Compile Include="Enums\PlayerStatus.cs" />
+    <Compile Include="Enums\UserStatus.cs" />
     <Compile Include="Enums\ScenarioType.cs" />
     <Compile Include="Enums\SportsScienceExerciseType.cs" />
     <Compile Include="Enums\ZScoreFormulaType.cs" />
