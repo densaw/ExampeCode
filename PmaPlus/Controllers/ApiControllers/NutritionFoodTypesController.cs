@@ -68,7 +68,7 @@ namespace PmaPlus.Controllers.ApiControllers
                     newFoodType.Id, "FoodType");
                 _nutritionServices.UpdateFoodType(newFoodType,newFoodType.Id);
             }
-            return Created(Request.RequestUri + newFoodType.Id.ToString(), newFoodType);
+            return Created(Request.RequestUri + newFoodType.Id.ToString(), Mapper.Map<NutritionFoodType, NutritionFoodTypeViewModel>(newFoodType));
         }
 
         // PUT: api/NutritionFoodTypes/5
