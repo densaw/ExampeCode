@@ -899,7 +899,7 @@
         };
     }]);
 
-    module.controller('ScienceExercisesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+    module.controller('ScienceExercisesController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
         $scope.exerciseTypes = [
            { id: 0, name: 'Mobility' },
            { id: 1, name: 'Movement' },
@@ -946,37 +946,107 @@
         $scope.okEx = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
-            $scope.newExercise.type = $scope.selectedType.id;
-            if (id != null) {
-                $http.put('/api/SportsScienceExercises/' + id, $scope.newExercise).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
-                        });
-                    }
-                });
-            } else {
 
-                $http.post('/api/SportsScienceExercises', $scope.newExercise).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
+            //---
+            //Files upload
+
+            var promises = [];
+
+            if ($scope.pic1/*File model name*/) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic1);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newExercise.picture1 = data.name;
+                    })
+                    .error(function () {
                         toaster.pop({
                             type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
+                            title: 'Error',
+                            body: 'File upload ERROR!'
                         });
-                    }
-                });
+                    });
+                promises.push(promise);
             }
+
+            if ($scope.pic2/*File model name*/) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic2);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newExercise.picture2 = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+
+            if ($scope.pic3) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic3);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newExercise.picture3 = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+            $q.all(promises).then(function () {
+                $scope.newExercise.type = $scope.selectedType.id;
+                if (id != null) {
+                    $http.put('/api/SportsScienceExercises/' + id, $scope.newExercise).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+                } else {
+
+                    $http.post('/api/SportsScienceExercises', $scope.newExercise).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+                }
+            });
+            //--
+
+            
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -1120,7 +1190,7 @@
         };
     }]);
 
-    module.controller('NFTController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+    module.controller('NFTController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
 
         $scope.foodType = [
              { id: 0, name: 'Fruit' },
@@ -1179,45 +1249,74 @@
 
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
-            $scope.newFood.foodTypes = [];
-            //$scope.type = $scope.selectedType.id;
-            angular.forEach($scope.multipleDemo.selectedType, function(ft) {
-                this.push(ft.id);
-            }, $scope.newFood.foodTypes);
-            $scope.newFood.when = $scope.selectedWhen.id;
-            $scope.newFood.picture = 'tmp.png';
-            if (id != null) {
-                $http.put(urlTail + '/' + id, $scope.newFood).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    console.log(data);
-                    if (status == 400) {
-                        console.log(data);
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
-                        });
-                    }
-                });
-            } else {
 
-                $http.post(urlTail, $scope.newFood).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    console.log(data);
-                    if (status == 400) {
-                        console.log(data);
+            //---
+            //Files upload
+
+            var promises = [];
+
+            
+            if ($scope.pic) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newFood.picture = data.name;
+                    })
+                    .error(function () {
                         toaster.pop({
                             type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
+                            title: 'Error',
+                            body: 'File upload ERROR!'
                         });
-                    }
-                });
+                    });
+                promises.push(promise);
             }
+            $q.all(promises).then(function () {
+                $scope.newFood.foodTypes = [];
+                angular.forEach($scope.multipleDemo.selectedType, function(ft) {
+                    this.push(ft.id);
+                }, $scope.newFood.foodTypes);
+                $scope.newFood.when = $scope.selectedWhen.id;
+                if (id != null) {
+                    $http.put(urlTail + '/' + id, $scope.newFood).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        console.log(data);
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+                } else {
+
+                    $http.post(urlTail, $scope.newFood).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        console.log(data);
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+                }
+            });
+            //--
+
+            
         };
         $scope.openDelete = function (id) {
             confDelete.modal('show');
@@ -1331,7 +1430,7 @@
                     headers: { 'Content-Type': undefined }
                 })
                     .success(function (data) {
-                        $scope.newClub.alternativePicture = data.name;
+                        $scope.newAlt.alternativePicture = data.name;
                     })
                     .error(function () {
                         toaster.pop({
@@ -1419,7 +1518,7 @@
 
     }]);
 
-    module.controller('NRController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+    module.controller('NRController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
         var needToDelete = -1;
         var urlTail = '/api/NutritionRecipes';
 
@@ -1451,38 +1550,64 @@
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
-            $scope.newRecipt.picture = 'tmp.png';
-            if (id != null) {
-                $http.put(urlTail + '/' + id, $scope.newRecipt).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
+            //---
+            //Files upload
+
+            var promises = [];
+            if ($scope.pic) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newRecipt.picture = data.name;
+                    })
+                    .error(function () {
                         toaster.pop({
                             type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
+                            title: 'Error',
+                            body: 'File upload ERROR!'
                         });
-                    }
-                });
-
-            } else {
-                $http.post(urlTail, $scope.newRecipt).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
-                        });
-                    }
-                });
-
+                    });
+                promises.push(promise);
             }
+            $q.all(promises).then(function () {
+                if (id != null) {
+                    $http.put(urlTail + '/' + id, $scope.newRecipt).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+
+                } else {
+                    $http.post(urlTail, $scope.newRecipt).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+
+                }
+            });
+            //--
+           
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -1516,7 +1641,7 @@
         };
     }]);
 
-    module.controller('PhysioExerciseController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+    module.controller('PhysioExerciseController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
 
         $scope.exType = [
             { id: 0, name: 'Exercise' },
@@ -1562,40 +1687,70 @@
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
-            if (id != null) {
 
-                $http.put('/api/PhysioExercise/' + id, $scope.newExercise).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
+            //---
+            //Files upload
+
+            var promises = [];
+
+            if ($scope.pic) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newExercise.picture = data.name;
+                    })
+                    .error(function () {
                         toaster.pop({
                             type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
+                            title: 'Error',
+                            body: 'File upload ERROR!'
                         });
-                    }
-                });
-
-            } else {
-                $scope.newExercise.type = $scope.selectedType.id;
-                $scope.newExercise.picture = 'tmp.png';
-                console.log($scope.newExercise);
-                $http.post('/api/PhysioExercise', $scope.newExercise).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
-                        });
-                    }
-                });
+                    });
+                promises.push(promise);
             }
+            $q.all(promises).then(function () {
+                if (id != null) {
+
+                    $http.put('/api/PhysioExercise/' + id, $scope.newExercise).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+
+                } else {
+                    $scope.newExercise.type = $scope.selectedType.id;
+                    $scope.newExercise.picture = 'tmp.png';
+                    console.log($scope.newExercise);
+                    $http.post('/api/PhysioExercise', $scope.newExercise).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+                }
+            });
+            //--
+
+            
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -1633,7 +1788,7 @@
 
     }]);
 
-    module.controller('ScenariosController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+    module.controller('ScenariosController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
         var needToDelete = -1;
 
         $scope.scenarioType = [
@@ -1684,39 +1839,67 @@
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
-            $scope.newScenario.picture = 'tmp.png';
-            $scope.newScenario.scenarioType = $scope.selectedType.id;
-            if (id != null) {
-                $http.put('/api/Scenarios/' + id, $scope.newScenario).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
+
+            //---
+            //Files upload
+
+            var promises = [];
+
+            if ($scope.pic) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newScenario.picture = data.name;
+                    })
+                    .error(function () {
                         toaster.pop({
                             type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
+                            title: 'Error',
+                            body: 'File upload ERROR!'
                         });
-                    }
-                });
-
-            } else {
-                $http.post('/api/Scenarios', $scope.newScenario).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
-                        });
-                    }
-                });
-
+                    });
+                promises.push(promise);
             }
+            $q.all(promises).then(function () {
+                $scope.newScenario.scenarioType = $scope.selectedType.id;
+                if (id != null) {
+                    $http.put('/api/Scenarios/' + id, $scope.newScenario).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+
+                } else {
+                    $http.post('/api/Scenarios', $scope.newScenario).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+
+                }
+            });
+            //--
+           
         };
         $scope.cancel = function () {
             target.modal('hide');
@@ -1773,7 +1956,7 @@
 
     }]);
 
-    module.controller('BodyPartController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+    module.controller('BodyPartController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
         var needToDelete = -1;
         var urlTail = '/api/PhysioBodyParts';
 
@@ -1821,42 +2004,71 @@
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
-            if (id != null) {
 
-                $scope.newPart.picture = 'tmp.png';
-                $scope.newPart.type = $scope.selectedBPart.id;
-                $http.put(urlTail + '/' + id, $scope.newPart).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
+            //---
+            //Files upload
+
+            var promises = [];
+
+            
+            if ($scope.pic) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newPart.picture = data.name;
+                    })
+                    .error(function () {
                         toaster.pop({
                             type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
+                            title: 'Error',
+                            body: 'File upload ERROR!'
                         });
-                    }
-                });
-
-            } else {
-
-                $scope.newPart.picture = 'tmp.png';
-                $scope.newPart.type = $scope.selectedBPart.id;
-                $http.post(urlTail, $scope.newPart).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
-                        });
-                    }
-                });
+                    });
+                promises.push(promise);
             }
+            $q.all(promises).then(function () {
+                if (id != null) {
+                    $scope.newPart.type = $scope.selectedBPart.id;
+                    $http.put(urlTail + '/' + id, $scope.newPart).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+
+                } else {
+
+                    $scope.newPart.picture = 'tmp.png';
+                    $scope.newPart.type = $scope.selectedBPart.id;
+                    $http.post(urlTail, $scope.newPart).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+                }
+            });
+            //--
+
+            
 
         };
         $scope.cancel = function () {
