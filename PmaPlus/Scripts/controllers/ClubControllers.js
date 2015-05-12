@@ -159,6 +159,10 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', function
         target.modal('show');
     };
 
+    $scope.showDelete = function() {
+        
+    }
+
     $scope.send = function () {
         $scope.newMember.userStatus = 0;
         $scope.newMember.role = $scope.selectedRole.id;
@@ -213,6 +217,13 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
     $scope.open = function() {
         target.modal('show');
+    }
+
+    $scope.delete = function (id) {
+        console.log(id);
+        $http.delete(urlTail + '/' + id).success(function() {
+            getResults();
+        });
     }
 
     $scope.ok = function () {
