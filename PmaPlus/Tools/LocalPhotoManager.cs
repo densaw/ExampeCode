@@ -27,8 +27,8 @@ namespace PmaPlus.Tools
             string filePath = "";
             switch (type)
             {
-                case FileStorageTypes.PhysioBodyPartPhoto:
-                    filePath = _workingFolder + "\\" + FileStorageTypes.PhysioBodyPartPhoto.ToString();
+                case FileStorageTypes.PhysioBodyParts:
+                    filePath = _workingFolder + "\\" + FileStorageTypes.PhysioBodyParts.ToString();
                     break;
                 default:
                     break;
