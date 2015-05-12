@@ -6,7 +6,7 @@
 						ignoreColumn: [],
 						tableName:'yourTableName',
 						type:'csv',
-						pdfFontSize:14,
+						pdfFontSize:9,
 						pdfLeftMargin:20,
 						escape:'true',
 						htmlContent:'false',

@@ -197,13 +197,29 @@ namespace PmaPlus.Tools
             return "";
         }
 
+
+        public void Delete(FileStorageTypes storageType, int id)
+        {
+            var path = _workingFolder + "\\" + storageType.ToString() + "\\" + id + "\\";
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path,true);
+            }
+
+        }
         //public bool Resize
+
+        public bool FileExistInStorage(FileStorageTypes storageType, string fileName, int id)
+        {
+            var path = _workingFolder + "\\" + storageType.ToString() + "\\" + id + "\\" + fileName;
+            return File.Exists(path);
+        }
 
         public bool FileExists(string fileName)
         {
-            var file = Directory.GetFiles(_workingFolder, fileName).FirstOrDefault();
+            var file = _workingFolder + "\\" + "temp" + "\\" + fileName;
 
-            return file != null;
+            return File.Exists(file);
         }
         private void CheckTargetDirectory()
         {

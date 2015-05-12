@@ -10,16 +10,19 @@ using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Services.Services;
+using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers
 {
     public class NutritionRecipesController : ApiController
     {
         private readonly NutritionServices _nutritionServices;
+        private readonly IPhotoManager _photoManager;
 
-        public NutritionRecipesController(NutritionServices nutritionServices)
+        public NutritionRecipesController(NutritionServices nutritionServices, IPhotoManager photoManager)
         {
             _nutritionServices = nutritionServices;
+            _photoManager = photoManager;
         }
 
 
@@ -56,7 +59,14 @@ namespace PmaPlus.Controllers.ApiControllers
         public IHttpActionResult Post([FromBody]NutritionRecipeViewModel recipeViewModel)
         {
             var recipe = Mapper.Map<NutritionRecipeViewModel, NutritionRecipe>(recipeViewModel);
-            var newRecipe = Mapper.Map<NutritionRecipe, NutritionRecipeViewModel>(_nutritionServices.AddRecipe(recipe));
+            var newRecipe = _nutritionServices.AddRecipe(recipe);
+            if (_photoManager.FileExists(newRecipe.Picture))
+            {
+                newRecipe.Picture = _photoManager.MoveFromTemp(newRecipe.Picture, FileStorageTypes.Recipes, newRecipe.Id,
+                    "Recipe");
+                _nutritionServices.UpdateRecipe(newRecipe,newRecipe.Id);
+            }
+
             return Created(Request.RequestUri + newRecipe.Id.ToString(), newRecipe);
         }
 
@@ -67,8 +77,13 @@ namespace PmaPlus.Controllers.ApiControllers
             {
                 return NotFound();
             }
-            var foodType = Mapper.Map<NutritionRecipeViewModel, NutritionRecipe>(recipeViewModel);
-            _nutritionServices.UpdateRecipe(foodType, id);
+            var recipe = Mapper.Map<NutritionRecipeViewModel, NutritionRecipe>(recipeViewModel);
+            if (_photoManager.FileExists(recipe.Picture))
+            {
+                recipe.Picture = _photoManager.MoveFromTemp(recipe.Picture, FileStorageTypes.Recipes, id,
+                    "Recipe");
+            }
+            _nutritionServices.UpdateRecipe(recipe, id);
             return Ok();
         }
 
@@ -80,6 +95,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             _nutritionServices.DeleteRecipe(id);
+            _photoManager.Delete(FileStorageTypes.Recipes, id);
             return Ok();
         }
     }

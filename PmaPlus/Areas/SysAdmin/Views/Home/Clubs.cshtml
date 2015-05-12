@@ -61,10 +61,13 @@
 
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="col-lg-4 title-modal">Club Logo:</label>
                                     <div class="col-lg-7 pull-right ">
-                                        
+                                        <div class="thumbnail" ng-show="oldLogo" style="width: auto;float: none !important;margin-bottom: 5px;">
+                                            <img ng-src='/api/file/clubs/{{newClub.logo}}/{{newClub.id}}' style=" width: auto;float: none !important;" />
+                                        </div>       
                                         <input id="logoFile" file-model='logoFile' type="file" accept="image/*" class="pma-fileupload">
 
                                     </div>
@@ -99,6 +102,9 @@
                                 <div class="form-group">
                                     <label class="col-lg-4 title-modal">Club Background:</label>
                                     <div class="col-lg-7 pull-right">
+                                        <div class="thumbnail" ng-show="oldBackground" style="width: auto;float: none !important;margin-bottom: 5px;">
+                                            <img ng-src='/api/file/clubs/{{newClub.background}}/{{newClub.id}}' style=" width: auto;float: none !important;" />
+                                        </div>       
                                         <input type="file" file-model='backgroundFile' accept="image/*" class="pma-fileupload" multiple="false">
                                     </div>
                                 </div>

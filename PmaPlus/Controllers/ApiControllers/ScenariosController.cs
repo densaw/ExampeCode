@@ -14,6 +14,7 @@ using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.SportsScience;
 using PmaPlus.Services;
 using PmaPlus.Services.Services;
+using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers
 {
@@ -21,11 +22,13 @@ namespace PmaPlus.Controllers.ApiControllers
     {
         private readonly ScenarioServices _scenarioServices;
         private readonly UserServices _userServices;
+        private readonly IPhotoManager _photoManager;
 
-        public ScenariosController(ScenarioServices scenarioServices, UserServices userServices)
+        public ScenariosController(ScenarioServices scenarioServices, UserServices userServices, IPhotoManager photoManager)
         {
             _scenarioServices = scenarioServices;
             _userServices = userServices;
+            _photoManager = photoManager;
         }
 
         // GET: api/Scenarios
@@ -66,6 +69,12 @@ namespace PmaPlus.Controllers.ApiControllers
                 scenario.UploadedBy = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Name;
             }
             var newScenario = _scenarioServices.AddScenario(scenario);
+            if (_photoManager.FileExists(newScenario.Picture))
+            {
+                newScenario.Picture = _photoManager.MoveFromTemp(newScenario.Picture, FileStorageTypes.Scenarios,
+                    newScenario.Id, "ScenarioPicture");
+                _scenarioServices.UpdateScenario(newScenario,newScenario.Id);
+            }
             return Created(Request.RequestUri + newScenario.Id.ToString(),newScenario);
         }
 
@@ -77,6 +86,12 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             var scenario = Mapper.Map<ScenarioViewModel, Scenario>(scenarioViewModel);
+            if (_photoManager.FileExists(scenario.Picture))
+            {
+                scenario.Picture = _photoManager.MoveFromTemp(scenario.Picture, FileStorageTypes.Scenarios,
+                    id, "ScenarioPicture");
+            }
+  
             _scenarioServices.UpdateScenario(scenario,id);
             return Ok();
         }
@@ -89,6 +104,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             _scenarioServices.DeleteScenario(id);
+            _photoManager.Delete(FileStorageTypes.Scenarios, id);
             return Ok();
             
         }

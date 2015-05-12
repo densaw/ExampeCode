@@ -10,8 +10,13 @@ namespace PmaPlus.Tools
 
         Clubs ,
         ProfilePicture,
-        PhysioBodyPartPhoto,
-        PhysioExercisePhoto
+        PhysioBodyParts,
+        PhysioExercises,
+        FoodTypes,
+        AlternativeFoods,
+        Recipes,
+        Scenarios,
+        SportsScienceExercises,
     
     }
 }
