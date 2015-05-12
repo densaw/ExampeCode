@@ -1199,9 +1199,11 @@
 
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
-
+            $scope.newFood.foodTypes = [];
             //$scope.type = $scope.selectedType.id;
-
+            angular.forEach($scope.multipleDemo.selectedType, function(ft) {
+                this.push(ft.id);
+            }, $scope.newFood.foodTypes);
             $scope.newFood.when = $scope.selectedWhen.id;
             $scope.newFood.picture = 'tmp.png';
             if (id != null) {
@@ -1209,6 +1211,7 @@
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
                 }).error(function (data, status, headers, config) {
+                    console.log(data);
                     if (status == 400) {
                         console.log(data);
                         toaster.pop({
@@ -1224,6 +1227,7 @@
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
                 }).error(function (data, status, headers, config) {
+                    console.log(data);
                     if (status == 400) {
                         console.log(data);
                         toaster.pop({
