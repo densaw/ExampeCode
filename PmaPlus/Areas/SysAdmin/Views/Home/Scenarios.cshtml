@@ -172,7 +172,29 @@
                             </div>
                             @*Modal End*@
 
+                        @*Modal*@
+                        <div class="modal inmodal" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
 
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">2D Scenario Picture</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="thumbnail">
+                                            <img ng-src="/api/file/Scenarios/{{newScenario.picture}}/{{newScenario.id}}" style="width: auto; float: none !important;" />
+
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
 
 
 
@@ -234,6 +256,8 @@
                                                 <i ng-click="openEdit(scenario.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                                 <i ng-click="openDelete(scenario.id)" class="fa fa-trash" style="cursor: pointer;"></i>
                                                 <i ng-click="modalVideoStart(scenario.video)" class="fa fa-film" style="cursor: pointer;"></i>
+                                                <i ng-click="openPic(scenario.id)" class="fa fa-camera" style="cursor: pointer;"></i>
+
                                             </td>
                                         </tr>
                                     </tbody>

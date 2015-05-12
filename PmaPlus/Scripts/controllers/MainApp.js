@@ -933,8 +933,9 @@
         };
         var target = angular.element('#addExercise');
         var confDelete = angular.element('#confDelete');
-
+        var picModal = angular.element('#photoModal');
         var modalVideo = angular.element('#videoModal');
+
         $scope.modalVideoStart = function (src) {
             console.log(src);
             //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
@@ -1011,6 +1012,14 @@
                     target.modal('show');
                 });
         };
+        $scope.openPic = function (id) {
+            $http.get('/api/SportsScienceExercises/' + id)
+                .success(function (result) {
+                    $scope.newExercise = result;
+                    picModal.modal('show');
+                });
+        };
+
     }]);
 
     module.controller('LoginSettingsController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
@@ -1331,7 +1340,7 @@
                     headers: { 'Content-Type': undefined }
                 })
                     .success(function (data) {
-                        $scope.newClub.alternativePicture = data.name;
+                        $scope.newAlt.alternativePicture = data.name;
                     })
                     .error(function () {
                         toaster.pop({
@@ -1515,13 +1524,13 @@
                     target.modal('show');
                 });
         };
-        $scope.openPic = function (id) {
+        $scope.openPic = function(id) {
             $http.get(urlTail + '/' + id)
-               .success(function (result) {
-                   $scope.newRecipt = result;
-                   picModal.modal('show');
-               });
-        }
+                .success(function(result) {
+                    $scope.newRecipt = result;
+                    picModal.modal('show');
+                });
+        };
     }]);
 
     module.controller('PhysioExerciseController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
@@ -1560,6 +1569,8 @@
         var target = angular.element('#addExerciseOrStretch');
         var confDelete = angular.element('#confDelete');
         var modalVideo = angular.element('#videoModal');
+        var picModal = angular.element('#photoModal');
+
         $scope.modalVideoStart = function (src) {
             console.log(src);
             //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
@@ -1634,10 +1645,15 @@
                     $scope.newExercise = result;
                     $scope.modalTitle = "Update Exercise or Stretch";
                     target.modal('show');
-
                 });
         };
-
+        $scope.openPic = function (id) {
+            $http.get('/api/PhysioExercise/' + id)
+                .success(function (result) {
+                    $scope.newExercise = result;
+                    picModal.modal('show');
+                });
+        };
 
     }]);
 
@@ -1679,8 +1695,9 @@
         };
         var target = angular.element('#add2D');
         var confDelete = angular.element('#confDelete');
-
+        var picModal = angular.element('#photoModal');
         var modalVideo = angular.element('#videoModal');
+
         $scope.modalVideoStart = function (src) {
             console.log(src);
             //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
@@ -1762,6 +1779,13 @@
 
                 });
         };
+        $scope.openPic = function (id) {
+            $http.get('/api/Scenarios/' + id)
+                .success(function (result) {
+                    $scope.newScenario = result;
+                    picModal.modal('show');
+                });
+        };
 
         $scope.viewVideo = function (videoLink) {
             console.log('Here');
@@ -1825,6 +1849,7 @@
 
         var target = angular.element('#addBodyPart');
         var confDelete = angular.element('#confDelete');
+        var picModal = angular.element('#photoModal');
 
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
@@ -1897,6 +1922,13 @@
                     $scope.modalTitle = "Update Body Part";
                     target.modal('show');
 
+                });
+        };
+        $scope.openPic = function (id) {
+            $http.get(urlTail + '/' + id)
+                .success(function (result) {
+                    $scope.newPart = result;
+                    picModal.modal('show');
                 });
         };
     }]);
