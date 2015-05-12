@@ -1264,7 +1264,7 @@
         }
     }]);
 
-    module.controller('NAController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+    module.controller('NAController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
 
         var needToDelete = -1;
         var urlTail = '/api/NutritionAlternatives';
@@ -1298,39 +1298,86 @@
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
-            $scope.newAlt.badItemPicture = 'tmp.png';
-            $scope.newAlt.alternativePicture = 'tmp.png';
-            if (id != null) {
+            //---
+            //Files upload
 
-                $http.put(urlTail + '/' + id, $scope.newAlt).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
+            var promises = [];
+
+            if ($scope.badPic/*File model name*/) {
+                var fd = new FormData();
+                fd.append('file', $scope.badPic);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newAlt.badItemPicture = data.name;
+                    })
+                    .error(function () {
                         toaster.pop({
                             type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
+                            title: 'Error',
+                            body: 'File upload ERROR!'
                         });
-                    }
-                });
-            } else {
-
-                $http.post(urlTail, $scope.newAlt).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
-                        });
-                    }
-                });
+                    });
+                promises.push(promise);
             }
+
+            if ($scope.altPic) {
+                var fd = new FormData();
+                fd.append('file', $scope.altPic);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newClub.alternativePicture = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+            $q.all(promises).then(function () {
+                if (id != null) {
+                    $http.put(urlTail + '/' + id, $scope.newAlt).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+                } else {
+
+                    $http.post(urlTail, $scope.newAlt).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                    });
+                }
+               });
+            //--
+
+           
+           
         };
         $scope.cancel = function () {
             target.modal('hide');
