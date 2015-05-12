@@ -89,7 +89,7 @@
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Enums\SportsScienceType.cs" />
     <Compile Include="Models\FACourse.cs" />
-    <Compile Include="Models\FoodTypeToType.cs" />
+    <Compile Include="Models\FoodTypeToWhen.cs" />
     <Compile Include="Models\HeadOfAcademy.cs" />
     <Compile Include="Models\HeadOfEducation.cs" />
     <Compile Include="Models\PasswordHistory.cs" />

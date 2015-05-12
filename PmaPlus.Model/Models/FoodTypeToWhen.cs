@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace PmaPlus.Model.Models
 {
-    public class FoodTypeToType
+    public class FoodTypeToWhen
     {
         public int Id { get; set; }
         public virtual NutritionFoodType FoodType { get; set; }
-        public FoodType Type { get; set; }
+        public MealTime Type { get; set; }
     }
 }

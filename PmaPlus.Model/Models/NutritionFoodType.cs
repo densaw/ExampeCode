@@ -8,9 +8,9 @@ namespace PmaPlus.Model.Models
        
       
         public int Id { get; set; }
-        public virtual ICollection<FoodTypeToType> Types { get; set; } 
+        public FoodType Type { get; set; } 
         public string FoodName { get; set; }
-        public MealTime When { get; set; }
+        public virtual ICollection<FoodTypeToWhen> When { get; set; }
 
         public string GoodFor { get; set; }
 

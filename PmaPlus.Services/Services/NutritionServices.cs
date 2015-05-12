@@ -16,14 +16,14 @@ namespace PmaPlus.Services.Services
         private readonly INutritionFoodTypeRepository _nutritionFoodTypeRepository;
         private readonly INutritionAlternativeRepository _nutritionAlternativeRepository;
         private readonly INutritionRecipeRepository _nutritionRecipeRepository;
-        private readonly IFoodTypeToTypeRepository _foodTypeToTypeRepository;
+        private readonly IFoodTypeToWhenRepository _foodTypeToWhenRepository;
 
-        public NutritionServices(INutritionFoodTypeRepository nutritionFoodTypeRepository, INutritionAlternativeRepository nutritionAlternativeRepository, INutritionRecipeRepository nutritionRecipeRepository, IFoodTypeToTypeRepository foodTypeToTypeRepository)
+        public NutritionServices(INutritionFoodTypeRepository nutritionFoodTypeRepository, INutritionAlternativeRepository nutritionAlternativeRepository, INutritionRecipeRepository nutritionRecipeRepository, IFoodTypeToWhenRepository foodTypeToWhenRepository)
         {
             _nutritionFoodTypeRepository = nutritionFoodTypeRepository;
             _nutritionAlternativeRepository = nutritionAlternativeRepository;
             _nutritionRecipeRepository = nutritionRecipeRepository;
-            _foodTypeToTypeRepository = foodTypeToTypeRepository;
+            _foodTypeToWhenRepository = foodTypeToWhenRepository;
         }
 
         #region Nutrition Food Type 
@@ -38,13 +38,13 @@ namespace PmaPlus.Services.Services
             return _nutritionFoodTypeRepository.GetAll();
         }
 
-        public NutritionFoodType AddFoodType(NutritionFoodType foodType,IList<FoodType> types)
+        public NutritionFoodType AddFoodType(NutritionFoodType foodType,IList<MealTime> types)
         {
            
              var newFoodType =_nutritionFoodTypeRepository.Add(foodType);
             foreach (var type in types)
             {
-                _foodTypeToTypeRepository.Add(new FoodTypeToType()
+                _foodTypeToWhenRepository.Add(new FoodTypeToWhen()
                 {
                     FoodType = newFoodType,
                     Type = type
@@ -54,7 +54,7 @@ namespace PmaPlus.Services.Services
             return newFoodType;
         }
 
-        public void UpdateFoodType(NutritionFoodType foodType, int id, IList<FoodType> types)
+        public void UpdateFoodType(NutritionFoodType foodType, int id, IList<MealTime> when)
         {
             if (id != 0)
             {
@@ -62,19 +62,19 @@ namespace PmaPlus.Services.Services
                 _nutritionFoodTypeRepository.Update(foodType,id);
 
                 var tempFood = _nutritionFoodTypeRepository.GetById(id);
-                foreach (var type in types)
+                foreach (var type in when)
                 {
-                    
-                    if (!_foodTypeToTypeRepository.GetMany(f => f.FoodType.Id == tempFood.Id && f.Type == type).Any())
+
+                    if (!_foodTypeToWhenRepository.GetMany(f => f.FoodType.Id == tempFood.Id && f.Type == type).Any())
                     {
-                        _foodTypeToTypeRepository.Add(new FoodTypeToType()
+                        _foodTypeToWhenRepository.Add(new FoodTypeToWhen()
                         {
                             FoodType = tempFood,
                             Type = type
                         });
                     }
                 }
-                _foodTypeToTypeRepository.Delete(f=>f.FoodType.Id == tempFood.Id && !types.Contains(f.Type));
+                _foodTypeToWhenRepository.Delete(f => f.FoodType.Id == tempFood.Id && !when.Contains(f.Type));
 
             }
         }
@@ -86,7 +86,7 @@ namespace PmaPlus.Services.Services
 
         public void DeleteFoodType(int id)
         {
-            _foodTypeToTypeRepository.Delete(f=>f.FoodType.Id == id);
+            _foodTypeToWhenRepository.Delete(f => f.FoodType.Id == id);
             _nutritionFoodTypeRepository.Delete(f=>f.Id == id);
         }
 

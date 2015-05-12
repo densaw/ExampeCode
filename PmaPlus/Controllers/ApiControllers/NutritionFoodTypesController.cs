@@ -61,7 +61,7 @@ namespace PmaPlus.Controllers.ApiControllers
         public IHttpActionResult Post([FromBody]NutritionFoodTypeViewModel foodTypeViewModel)
         {
             var foodType = Mapper.Map<NutritionFoodTypeViewModel, NutritionFoodType>(foodTypeViewModel);
-            var newFoodType = _nutritionServices.AddFoodType(foodType,foodTypeViewModel.FoodTypes);
+            var newFoodType = _nutritionServices.AddFoodType(foodType,foodTypeViewModel.Whens);
             if (newFoodType != null)
             {
                 newFoodType.Picture = _photoManager.MoveFromTemp(newFoodType.Picture, FileStorageTypes.FoodTypes,
@@ -84,7 +84,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 foodType.Picture = _photoManager.MoveFromTemp(foodType.Picture, FileStorageTypes.FoodTypes, id,
                     "FoodType");
             }
-            _nutritionServices.UpdateFoodType(foodType, id,foodTypeViewModel.FoodTypes);
+            _nutritionServices.UpdateFoodType(foodType, id,foodTypeViewModel.Whens);
             return Ok();
         }
 

@@ -1219,10 +1219,10 @@
         ];
 
         $scope.multipleDemo = {};
-        $scope.multipleDemo.selectedType = [];
+        $scope.multipleDemo.selectedWhen = [];
 
-        $scope.selectedType = [$scope.foodType[2]];
-        $scope.selectedWhen = $scope.when[0];
+        $scope.selectedType = $scope.foodType[0];
+        $scope.selectedWhen = [$scope.when[2]];
         $scope.$watch('selectedType', function (newVal) {
             console.log(newVal);
         });
@@ -1285,11 +1285,11 @@
                 promises.push(promise);
             }
             $q.all(promises).then(function () {
-                $scope.newFood.foodTypes = [];
-                angular.forEach($scope.multipleDemo.selectedType, function(ft) {
-                    this.push(ft.id);
-                }, $scope.newFood.foodTypes);
-                $scope.newFood.when = $scope.selectedWhen.id;
+                $scope.newFood.whens = [];
+                angular.forEach($scope.multipleDemo.selectedWhen, function(wh) {
+                    this.push(wh.id);
+                }, $scope.newFood.whens);
+                $scope.newFood.type = $scope.selectedType.id;
                 if (id != null) {
                     $http.put(urlTail + '/' + id, $scope.newFood).success(function () {
                         getResultsPage($scope.pagination.current);
@@ -1335,6 +1335,8 @@
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Food Type";
             $scope.newFood = {};
+            angular.element('.pma-fileupload').fileinput('clear');
+            $scope.multipleDemo.selectedWhen = [];
             $scope.myform.form_Submitted = false;
             target.modal('show');
         };
@@ -1353,10 +1355,10 @@
             $http.get('/api/NutritionFoodTypes/' + id)
                 .success(function (result) {
                     $scope.newFood = result;
-                    $scope.multipleDemo.selectedType = [];
-                    angular.forEach($scope.newFood.foodTypes, function(index) {
-                        this.push($scope.foodType[index]);
-                    }, $scope.multipleDemo.selectedType);
+                    $scope.multipleDemo.selectedWhen = [];
+                    angular.forEach($scope.newFood.whens, function(index) {
+                        this.push($scope.when[index]);
+                    }, $scope.multipleDemo.selectedWhen);
                     $scope.selectedType = $scope.foodType[result.type];
                     $scope.selectedWhen = $scope.when[result.when];
                     $scope.modalTitle = "Update Food Type";

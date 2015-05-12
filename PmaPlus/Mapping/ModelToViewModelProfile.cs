@@ -42,8 +42,9 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<PhysiotherapyExercise, PhysiotherapyExerciseViewModel>();
 
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeViewModel>()
-                .ForMember(d => d.FoodTypes,o => o.MapFrom(s=> s.Types.Select(t=>t.Type).AsEnumerable()));
-            Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeTableViewModel>();
+                .ForMember(d => d.Whens, o => o.MapFrom(s=> s.When.Select(t=>t.Type)));
+            Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeTableViewModel>()
+                .ForMember(d => d.When , o => o.MapFrom(s => s.When.Select(t=>t.Type)));
 
             Mapper.CreateMap<NutritionAlternative, NutritionAlternativeViewModel>();
             Mapper.CreateMap<NutritionAlternative, NutritionAlternativeTableViewModel>();

@@ -59,12 +59,16 @@
                                             <div class="form-group" >
                                                 <label class="col-lg-4 title-modal">Type:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <ui-select multiple ng-model="multipleDemo.selectedType" ng-disabled="disabled" theme="bootstrap">
+
+                                                    <select ng-model="selectedType" ng-options="type.name for type in foodType" class=" form-control m-b" name="account"></select>
+
+
+                                                    @*<ui-select multiple ng-model="multipleDemo.selectedType" ng-disabled="disabled" theme="bootstrap">
                                                         <ui-select-match placeholder="Select FoodType...">{{$item.name}}</ui-select-match>
                                                         <ui-select-choices repeat="type in foodType">
                                                             <div ng-bind-html="type.name | highlight: $select.search"></div>
                                                         </ui-select-choices>
-                                                    </ui-select>
+                                                    </ui-select>*@
                                                 </div>
                                             </div>
                                             <div class="form-group" ng-class="{'has-error':myform.foodName.$invalid && (myform.foodName.$dirty||myform.form_Submitted)}">
@@ -76,7 +80,16 @@
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">When:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <select ng-model="selectedWhen" ng-options="whenone.name for whenone in when" class=" form-control m-b" name="account"></select>
+
+                                                    <ui-select multiple ng-model="multipleDemo.selectedWhen" ng-disabled="disabled" theme="bootstrap">
+                                                        <ui-select-match placeholder="Select When...">{{$item.name}}</ui-select-match>
+                                                        <ui-select-choices repeat="whenone in when">
+                                                            <div ng-bind-html="whenone.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+
+
+                                                    @*<select ng-model="selectedWhen" ng-options="whenone.name for whenone in when" class=" form-control m-b" name="account"></select>*@
                                                 </div>
                                             </div>
                                             <div class="form-group" ng-class="{'has-error':myform.goodFor.$invalid && (myform.goodFor.$dirty||myform.form_Submitted)}">
@@ -328,7 +341,7 @@
                                 <tbody>
                                     <tr dir-paginate="foodType in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
                                         <td>{{foodType.foodName}}</td>
-                                        <td>{{foodType.when}}</td>
+                                        <td> <div ng-repeat="whenone in foodType.when">{{when[whenone].name}},</div> </td>
                                         <td>{{foodType.portionSize}}</td>
                                         <td>{{foodType.goodFor}}</td>
                                         <td>

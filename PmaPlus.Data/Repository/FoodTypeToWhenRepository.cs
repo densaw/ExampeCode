@@ -8,9 +8,9 @@ using PmaPlus.Model.Models;
 
 namespace PmaPlus.Data.Repository
 {
-    class FoodTypeToTypeRepository : RepositoryBase<FoodTypeToType>, IFoodTypeToTypeRepository
+    class FoodTypeToWhenRepository : RepositoryBase<FoodTypeToWhen>, IFoodTypeToWhenRepository
     {
-        public FoodTypeToTypeRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
+        public FoodTypeToWhenRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
         {
         }
     }

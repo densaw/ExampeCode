@@ -11,7 +11,7 @@ namespace PmaPlus.Model.ViewModels.Nutrition
     {
         public int Id { get; set; }
         public string FoodName { get; set; }
-        public MealTime When { get; set; }
+        public IList<MealTime> When { get; set; }
         public string PortionSize { get; set; }
         public string GoodFor { get; set; }
     }

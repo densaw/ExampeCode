@@ -16,7 +16,7 @@ var jsPDF = function(){
 	var defaultPageFormat = 'a4';
 	var pageFormats = { // Size in mm of various paper formats
 		'a3': [841.89, 1190.55],
-		'a4': [595.28, 841.89],
+		'a4': [841.89, 595.28],
 		'a5': [420.94, 595.28],
 		'letter': [612, 792],
 		'legal': [612, 1008]
