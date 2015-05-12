@@ -61,7 +61,7 @@
                                                 <div class="col-lg-7 pull-right">
                                                     <ui-select multiple ng-model="multipleDemo.selectedType" ng-disabled="disabled" theme="bootstrap">
                                                         <ui-select-match placeholder="Select FoodType...">{{$item.name}}</ui-select-match>
-                                                        <ui-select-choices repeat="type in foodType | propsFilter: {name: $select.search, age: $select.search}">
+                                                        <ui-select-choices repeat="type in foodType">
                                                             <div ng-bind-html="type.name | highlight: $select.search"></div>
                                                         </ui-select-choices>
                                                     </ui-select>

@@ -125,6 +125,8 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
 
 app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
 
+    
+
     $scope.roles = [
        { id: 0, name: 'System Admin' },
        { id: 1, name: 'Club Admin' },
@@ -153,15 +155,15 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', function
 
     var urlTail = '/api/TrainingTeamMembers';
     var target = angular.element('#addTeamMember');
-
+    
 
     $scope.openModal = function() {
         target.modal('show');
     };
 
-    $scope.showDelete = function() {
-        
-    }
+    
+
+
 
     $scope.send = function () {
         $scope.newMember.userStatus = 0;
@@ -191,8 +193,12 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', function
 
 app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
 
+    var needToDelete = -1;
+    
+
     var urlTail = '/api/ToDo';
     var target = angular.element('#addNote');
+    var deleteConf = angular.element('#confDelete');
 
     $scope.Priority = [
        { id: 0, name: 'Urgent' },
@@ -219,10 +225,20 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
         target.modal('show');
     }
 
-    $scope.delete = function (id) {
-        console.log(id);
-        $http.delete(urlTail + '/' + id).success(function() {
+    $scope.showDelete = function (id) {
+        needToDelete = id;
+        deleteConf.modal('show');
+    }
+
+    $scope.cancel = function() {
+        deleteConf.modal('hide');
+    }
+
+    $scope.delete = function () {
+        $http.delete(urlTail + '/' + needToDelete).success(function () {
             getResults();
+            needToDelete = 1;
+            deleteConf.modal('hide');
         });
     }
 
