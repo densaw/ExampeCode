@@ -54,7 +54,7 @@ namespace PmaPlus.Services.Services
         {
             if (id != 0)
             {
-                _userRepository.Delete(t => t.Id == id);
+                _toDoRepository.Delete(t => t.Id == id);
             }
         }
     }
