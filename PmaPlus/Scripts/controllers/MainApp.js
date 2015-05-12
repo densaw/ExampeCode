@@ -1244,6 +1244,10 @@
             $http.get('/api/NutritionFoodTypes/' + id)
                 .success(function (result) {
                     $scope.newFood = result;
+                    $scope.multipleDemo.selectedType = [];
+                    angular.forEach($scope.newFood.foodTypes, function(index) {
+                        this.push($scope.foodType[index]);
+                    }, $scope.multipleDemo.selectedType);
                     $scope.selectedType = $scope.foodType[result.type];
                     $scope.selectedWhen = $scope.when[result.when];
                     $scope.modalTitle = "Update Food Type";
