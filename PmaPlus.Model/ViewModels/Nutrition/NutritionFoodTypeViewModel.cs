@@ -7,7 +7,7 @@ namespace PmaPlus.Model.ViewModels
     {
         public int Id { get; set; }
         [Required]
-        public IList<FoodType> Types { get; set; }
+        public IList<FoodType> FoodTypes { get; set; }
         [Required]
         public string FoodName { get; set; }
         [Required]
