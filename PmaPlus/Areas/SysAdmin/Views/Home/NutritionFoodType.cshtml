@@ -59,7 +59,12 @@
                                             <div class="form-group" >
                                                 <label class="col-lg-4 title-modal">Type:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <select ng-model="selectedType" ng-options="type.name for type in foodType" class=" form-control m-b" name="account"></select>
+                                                    <ui-select multiple ng-model="multipleDemo.selectedType" ng-disabled="disabled" theme="bootstrap">
+                                                        <ui-select-match placeholder="Select FoodType...">{{$item.name}}</ui-select-match>
+                                                        <ui-select-choices repeat="type in foodType | propsFilter: {name: $select.search, age: $select.search}">
+                                                            <div ng-bind-html="type.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
                                                 </div>
                                             </div>
                                             <div class="form-group" ng-class="{'has-error':myform.foodName.$invalid && (myform.foodName.$dirty||myform.form_Submitted)}">

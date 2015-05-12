@@ -2940,6 +2940,7 @@
     <Content Include="Areas\ClubAdmin\Views\Home\ToDoList.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\Statements.cshtml" />
     <Content Include="Content\style.less" />
+    <Content Include="App_Data\temp\BodyPart_85228afd-f790-4a87-af23-19f6bb860f18" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3402,6 +3403,10 @@
     <Content Include="Scripts\plugins\metisMenu\metisMenu.min.js" />
     <Content Include="Scripts\plugins\morris\morris.js" />
     <Content Include="Scripts\plugins\morris\raphael-2.1.0.min.js" />
+    <Content Include="Scripts\plugins\multi-select\isteven-multi-select.css" />
+    <Content Include="Scripts\plugins\multi-select\isteven-multi-select.js" />
+    <Content Include="Scripts\plugins\multi-select\select.css" />
+    <Content Include="Scripts\plugins\multi-select\select.js" />
     <Content Include="Scripts\plugins\nestable\jquery.nestable.js" />
     <Content Include="Scripts\plugins\ng-dialog\ngDialog.js" />
     <Content Include="Scripts\plugins\ng-dialog\ngDialog.min.js" />
