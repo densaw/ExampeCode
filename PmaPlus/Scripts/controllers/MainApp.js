@@ -347,7 +347,7 @@
 
             } else {
 
-                
+
 
 
                 //Files upload
@@ -436,8 +436,6 @@
                                 }
                             });
                     };
-                }).finally(function() {
-                    
                 });
             }
 
@@ -475,8 +473,8 @@
                    $scope.selectedStatus = $scope.statuses[result.status];
                    $scope.modalTitle = "Update Club";
                    target.modal('show');
-            });
-                
+               });
+
 
         };
 

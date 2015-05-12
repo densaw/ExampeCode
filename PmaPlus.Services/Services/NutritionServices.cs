@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PmaPlus.Data.Repository.Iterfaces;
+using PmaPlus.Model;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
 
@@ -36,29 +38,50 @@ namespace PmaPlus.Services.Services
             return _nutritionFoodTypeRepository.GetAll();
         }
 
-        public NutritionFoodType AddFoodType(NutritionFoodTypeViewModel foodTypeViewModel)
+        public NutritionFoodType AddFoodType(NutritionFoodType foodType,IList<FoodType> types)
         {
            
-             var foodType = new NutritionFoodType()
-             {
-                 
-             };
+             var newFoodType =_nutritionFoodTypeRepository.Add(foodType);
+            foreach (var type in types)
+            {
+                _foodTypeToTypeRepository.Add(new FoodTypeToType()
+                {
+                    FoodType = newFoodType,
+                    Type = type
+                });
+            }
 
-   
-             return _nutritionFoodTypeRepository.Add(foodType);
+            return newFoodType;
         }
 
-        public void UpdateFoodType(NutritionFoodType foodType, int id)
+        public void UpdateFoodType(NutritionFoodType foodType, int id, IList<FoodType> types)
         {
             if (id != 0)
             {
                 foodType.Id = id;
                 _nutritionFoodTypeRepository.Update(foodType,id);
+
+                var tempFood = _nutritionFoodTypeRepository.GetById(id);
+                foreach (var type in types)
+                {
+                    
+                    if (!_foodTypeToTypeRepository.GetMany(f => f.FoodType.Id == tempFood.Id && f.Type == type).Any())
+                    {
+                        _foodTypeToTypeRepository.Add(new FoodTypeToType()
+                        {
+                            FoodType = tempFood,
+                            Type = type
+                        });
+                    }
+                }
+                _foodTypeToTypeRepository.Delete(f=>f.FoodType.Id == tempFood.Id && !types.Contains(f.Type));
+
             }
         }
 
         public void DeleteFoodType(int id)
         {
+            _foodTypeToTypeRepository.Delete(f=>f.FoodType.Id == id);
             _nutritionFoodTypeRepository.Delete(f=>f.Id == id);
         }
 

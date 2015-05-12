@@ -57,8 +57,8 @@ namespace PmaPlus.Controllers.ApiControllers
         // POST: api/NutritionFoodTypes/
         public IHttpActionResult Post([FromBody]NutritionFoodTypeViewModel foodTypeViewModel)
         {
-
-            var newFoodType = _nutritionServices.AddFoodType(foodTypeViewModel);
+            var foodType = Mapper.Map<NutritionFoodTypeViewModel, NutritionFoodType>(foodTypeViewModel);
+            var newFoodType = _nutritionServices.AddFoodType(foodType,foodTypeViewModel.FoodTypes);
             return Created(Request.RequestUri + newFoodType.Id.ToString(), newFoodType);
         }
 
@@ -70,7 +70,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             var foodType = Mapper.Map<NutritionFoodTypeViewModel, NutritionFoodType>(foodTypeViewModel);
-            _nutritionServices.UpdateFoodType(foodType, id);
+            _nutritionServices.UpdateFoodType(foodType, id,foodTypeViewModel.FoodTypes);
             return Ok();
         }
 

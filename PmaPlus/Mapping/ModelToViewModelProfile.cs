@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using PmaPlus.Model.Models;
@@ -41,7 +42,7 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<PhysiotherapyExercise, PhysiotherapyExerciseViewModel>();
 
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeViewModel>()
-                .ForMember(d => d.Types,o => o.MapFrom(s=> s.Types.Select(t => t.FoodType)));
+                .ForMember(d => d.FoodTypes,o => o.MapFrom(s=> s.Types.Select(t=>t.Type).AsEnumerable()));
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeTableViewModel>();
 
             Mapper.CreateMap<NutritionAlternative, NutritionAlternativeViewModel>();
