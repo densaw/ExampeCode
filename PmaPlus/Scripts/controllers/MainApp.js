@@ -322,6 +322,8 @@
         $scope.totalClubs = 0;
         $scope.clubsPerPage = 20; // this should match however many results your API puts on one page
         $scope.newClub = {};
+        $scope.oldLogo = false;
+        $scope.oldBackground = false;
 
         $scope.pagination = {
             current: 1
@@ -446,6 +448,7 @@
             confDelete.modal('hide');
         };
         $scope.openDelete = function (id) {
+
             confDelete.modal('show');
             console.log(id);
             needToDelete = id;
@@ -453,9 +456,12 @@
         $scope.openAdd = function () {
             $scope.modalTitle = "Add a Club";
             $scope.newClub = {};
+            angular.element('.pma-fileupload').fileinput('clear');
             $scope.backgroundFile = null;
             $scope.logoFile = null;
             $scope.myform.form_Submitted = false;
+            $scope.oldLogo = false;
+            $scope.oldBackground = false;
             target.modal('show');
         };
         $scope.delete = function () {
@@ -470,8 +476,11 @@
             $http.get('/api/Clubs/' + id)
                .success(function (result) {
                    $scope.newClub = result;
+                   angular.element('.pma-fileupload').fileinput('clear');
                    $scope.selectedStatus = $scope.statuses[result.status];
                    $scope.modalTitle = "Update Club";
+                   $scope.newClub.logo === '' ? $scope.oldLogo = false : $scope.oldLogo = true;
+                   $scope.newClub.background === '' ? $scope.oldBackground = false : $scope.oldBackground = true;
                    target.modal('show');
                });
 

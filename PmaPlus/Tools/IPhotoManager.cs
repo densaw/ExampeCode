@@ -18,7 +18,8 @@ namespace PmaPlus.Tools
         string Copy(string fileName, string path);
         string MoveFromTemp(string tempFileName, FileStorageTypes storageType, int id, string newFileName);
         FileStream GetFileStream(string fileName, FileStorageTypes storageTypes, int id);
-
+        bool FileExistInStorage(FileStorageTypes storageType, string fileName, int id);
+        void Delete(FileStorageTypes storageType, int id);
         string Move(string fileName, string path, string newFileName);
         bool FileExists(string fileName); 
     }

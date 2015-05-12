@@ -9,6 +9,7 @@ using PmaPlus.Data;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.SportsScience;
 using PmaPlus.Services.Services;
+using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers
 {
@@ -16,10 +17,11 @@ namespace PmaPlus.Controllers.ApiControllers
     {
 
         private readonly SportsScienceServices _sportsScienceServices;
-
-        public SportsScienceExercisesController(SportsScienceServices sportsScienceServices)
+        private readonly IPhotoManager _photoManager;
+        public SportsScienceExercisesController(SportsScienceServices sportsScienceServices, IPhotoManager photoManager)
         {
             _sportsScienceServices = sportsScienceServices;
+            _photoManager = photoManager;
         }
 
         // GET: api/SportsScienceExercises
@@ -53,18 +55,49 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             var exercise = Mapper.Map<SportsScienceExerciseViewModel, SportsScienceExercise>(exerciseViewModel);
             var newExercise = _sportsScienceServices.AddSportsScienceExercise(exercise);
+            if (_photoManager.FileExists(newExercise.Picture1))
+            {
+                newExercise.Picture1 = _photoManager.MoveFromTemp(newExercise.Picture1,
+                    FileStorageTypes.SportsScienceExercises, newExercise.Id, "Picture_1");
+            }
+            if (_photoManager.FileExists(newExercise.Picture2))
+            {
+                newExercise.Picture2 = _photoManager.MoveFromTemp(newExercise.Picture2,
+                    FileStorageTypes.SportsScienceExercises, newExercise.Id, "Picture_2");
+            } 
+            if (_photoManager.FileExists(newExercise.Picture3))
+            {
+                newExercise.Picture3 = _photoManager.MoveFromTemp(newExercise.Picture3,
+                    FileStorageTypes.SportsScienceExercises, newExercise.Id, "Picture_3");
+            }
+            _sportsScienceServices.UpdateSportsScienceExercise(newExercise,newExercise.Id);
             return Created(Request.RequestUri + newExercise.Id.ToString(), newExercise);
         }
 
         // PUT: api/SportsScienceExercises/5
-        public IHttpActionResult PutSportsScienceExercise(int id, [FromBody] SportsScienceExerciseViewModel testViewModel)
+        public IHttpActionResult PutSportsScienceExercise(int id, [FromBody] SportsScienceExerciseViewModel exerciseViewModel)
         {
             if (!_sportsScienceServices.SportsScienceExerciseExist(id))
             {
                 return NotFound();
             }
-            var test = Mapper.Map<SportsScienceExerciseViewModel, SportsScienceExercise>(testViewModel);
-            _sportsScienceServices.UpdateSportsScienceExercise(test, id);
+            var exercise = Mapper.Map<SportsScienceExerciseViewModel, SportsScienceExercise>(exerciseViewModel);
+            if (_photoManager.FileExists(exercise.Picture1))
+            {
+                exercise.Picture1 = _photoManager.MoveFromTemp(exercise.Picture1,
+                    FileStorageTypes.SportsScienceExercises, id, "Picture_1");
+            }
+            if (_photoManager.FileExists(exercise.Picture2))
+            {
+                exercise.Picture2 = _photoManager.MoveFromTemp(exercise.Picture2,
+                    FileStorageTypes.SportsScienceExercises, id, "Picture_2");
+            }
+            if (_photoManager.FileExists(exercise.Picture3))
+            {
+                exercise.Picture3 = _photoManager.MoveFromTemp(exercise.Picture3,
+                    FileStorageTypes.SportsScienceExercises, id, "Picture_3");
+            }
+            _sportsScienceServices.UpdateSportsScienceExercise(exercise, id);
             return Ok();
         }
 
@@ -76,6 +109,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             _sportsScienceServices.DeleteSportsScienceExercise(id);
+            _photoManager.Delete(FileStorageTypes.SportsScienceExercises, id);
             return Ok();
         }
     }

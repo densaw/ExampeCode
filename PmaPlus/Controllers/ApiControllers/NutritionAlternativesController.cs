@@ -10,16 +10,19 @@ using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Services.Services;
+using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers
 {
     public class NutritionAlternativesController : ApiController
     {
         private readonly NutritionServices _nutritionServices;
+        private readonly IPhotoManager _photoManager;
 
-        public NutritionAlternativesController(NutritionServices nutritionServices)
+        public NutritionAlternativesController(NutritionServices nutritionServices, IPhotoManager photoManager)
         {
             _nutritionServices = nutritionServices;
+            _photoManager = photoManager;
         }
 
 
@@ -56,7 +59,22 @@ namespace PmaPlus.Controllers.ApiControllers
         public IHttpActionResult Post([FromBody]NutritionAlternativeViewModel alternativeViewModel)
         {
             var alternative = Mapper.Map<NutritionAlternativeViewModel, NutritionAlternative>(alternativeViewModel);
-            var newAlternative = Mapper.Map<NutritionAlternative, NutritionAlternativeViewModel>(_nutritionServices.AddAlternative(alternative));
+            var newAlternative = _nutritionServices.AddAlternative(alternative);
+
+            if (newAlternative != null)
+            {
+                if (_photoManager.FileExists(newAlternative.BadItemPicture))
+                {
+                    newAlternative.BadItemPicture = _photoManager.MoveFromTemp(newAlternative.BadItemPicture,
+                        FileStorageTypes.AlternativeFoods, newAlternative.Id, "BaditemPicture");
+                }
+                if (_photoManager.FileExists(newAlternative.AlternativePicture))
+                {
+                    newAlternative.AlternativePicture = _photoManager.MoveFromTemp(newAlternative.AlternativePicture,
+                        FileStorageTypes.AlternativeFoods, newAlternative.Id, "AlternativePicture");
+                }
+                _nutritionServices.UpdateAlternative(newAlternative, newAlternative.Id);
+            }
             return Created(Request.RequestUri + newAlternative.Id.ToString(), newAlternative);
         }
 
@@ -68,6 +86,16 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             var alternative = Mapper.Map<NutritionAlternativeViewModel, NutritionAlternative>(alternativeViewModel);
+            if (_photoManager.FileExists(alternative.BadItemPicture))
+            {
+                alternative.BadItemPicture = _photoManager.MoveFromTemp(alternative.BadItemPicture,
+                   FileStorageTypes.AlternativeFoods, id, "BaditemPicture");
+            }
+            if (_photoManager.FileExists(alternative.AlternativePicture))
+            {
+                alternative.AlternativePicture = _photoManager.MoveFromTemp(alternative.AlternativePicture,
+                    FileStorageTypes.AlternativeFoods, id, "AlternativePicture");
+            }
             _nutritionServices.UpdateAlternative(alternative, id);
             return Ok();
         }
@@ -80,6 +108,8 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             _nutritionServices.DeleteAlternative(id);
+            _photoManager.Delete(FileStorageTypes.AlternativeFoods, id);
             return Ok();
         }
-    }}
+    }
+}

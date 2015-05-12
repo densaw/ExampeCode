@@ -12,16 +12,19 @@ using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Services.Services;
+using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers
 {
     public class NutritionFoodTypesController : ApiController
     {
         private readonly NutritionServices _nutritionServices;
+        private readonly IPhotoManager _photoManager;
 
-        public NutritionFoodTypesController(NutritionServices nutritionServices)
+        public NutritionFoodTypesController(NutritionServices nutritionServices, IPhotoManager photoManager)
         {
             _nutritionServices = nutritionServices;
+            _photoManager = photoManager;
         }
 
 
@@ -59,6 +62,12 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             var foodType = Mapper.Map<NutritionFoodTypeViewModel, NutritionFoodType>(foodTypeViewModel);
             var newFoodType = _nutritionServices.AddFoodType(foodType,foodTypeViewModel.FoodTypes);
+            if (newFoodType != null)
+            {
+                newFoodType.Picture = _photoManager.MoveFromTemp(newFoodType.Picture, FileStorageTypes.FoodTypes,
+                    newFoodType.Id, "FoodType");
+                _nutritionServices.UpdateFoodType(newFoodType,newFoodType.Id);
+            }
             return Created(Request.RequestUri + newFoodType.Id.ToString(), newFoodType);
         }
 
@@ -70,6 +79,11 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             var foodType = Mapper.Map<NutritionFoodTypeViewModel, NutritionFoodType>(foodTypeViewModel);
+            if (_photoManager.FileExists(foodType.Picture))
+            {
+                foodType.Picture = _photoManager.MoveFromTemp(foodType.Picture, FileStorageTypes.FoodTypes, id,
+                    "FoodType");
+            }
             _nutritionServices.UpdateFoodType(foodType, id,foodTypeViewModel.FoodTypes);
             return Ok();
         }
@@ -82,6 +96,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             _nutritionServices.DeleteFoodType(id);
+            _photoManager.Delete(FileStorageTypes.FoodTypes, id);
             return Ok();
         }
     }

@@ -78,6 +78,11 @@ namespace PmaPlus.Services.Services
 
             }
         }
+        public void UpdateFoodType(NutritionFoodType foodType, int id)
+        {
+            foodType.Id = id;
+            _nutritionFoodTypeRepository.Update(foodType,foodType.Id);
+        }
 
         public void DeleteFoodType(int id)
         {
@@ -175,5 +180,6 @@ namespace PmaPlus.Services.Services
 
 
         #endregion
+
     }
 }

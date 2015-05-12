@@ -11,16 +11,19 @@ using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Physio;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Services.Services;
+using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers
 {
     public class PhysioBodyPartsController : ApiController
     {
         private readonly PhysiotherapyServices _physiotherapyServices;
+        private readonly IPhotoManager _photoManager;
 
-        public PhysioBodyPartsController(PhysiotherapyServices physiotherapyServices)
+        public PhysioBodyPartsController(PhysiotherapyServices physiotherapyServices, IPhotoManager photoManager)
         {
             _physiotherapyServices = physiotherapyServices;
+            _photoManager = photoManager;
         }
 
         [Route("api/PhysioBodyParts/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
@@ -63,6 +66,12 @@ namespace PmaPlus.Controllers.ApiControllers
 
             var bodyPart = Mapper.Map<PhysioBodyPartViewModel, BodyPart>(bodyPartViewModel);
             var newBodyPart =_physiotherapyServices.AddBodyPart(bodyPart);
+            if (_photoManager.FileExists(newBodyPart.Picture))
+            {
+                newBodyPart.Picture = _photoManager.MoveFromTemp(newBodyPart.Picture, FileStorageTypes.PhysioBodyParts,
+                    newBodyPart.Id, "BodyPart");
+                _physiotherapyServices.UpdateBodyPart(newBodyPart,newBodyPart.Id);
+            }
             return Created(Request.RequestUri + newBodyPart.Id.ToString(),newBodyPart);
         }
 
@@ -74,6 +83,11 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             var bodyPart = Mapper.Map<PhysioBodyPartViewModel, BodyPart>(bodyPartViewModel);
+            if (_photoManager.FileExists(bodyPart.Picture))
+            {
+                bodyPart.Picture = _photoManager.MoveFromTemp(bodyPart.Picture, FileStorageTypes.PhysioBodyParts,
+                    id, "BodyPart");
+            }
             _physiotherapyServices.UpdateBodyPart(bodyPart,id);
             return Ok();
 
@@ -87,6 +101,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             _physiotherapyServices.DeleteBodyPart(id);
+            _photoManager.Delete(FileStorageTypes.PhysioBodyParts, id);
             return Ok();
 
         }

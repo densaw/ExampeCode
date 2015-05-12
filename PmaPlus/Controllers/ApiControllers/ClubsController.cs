@@ -129,6 +129,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 return NotFound();
             }
             _clubServices.DeleteClub(id);
+            _photoManager.Delete(FileStorageTypes.Clubs, id);
             return Ok();
 
         }
