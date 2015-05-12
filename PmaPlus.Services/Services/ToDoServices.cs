@@ -27,7 +27,7 @@ namespace PmaPlus.Services.Services
 
         public IEnumerable<ToDo> GetToDos(string userEmail)
         {
-            return _toDoRepository.GetMany(t => t.UserDetail.User.Email.ToLower() == userEmail.ToLower()).OrderByDescending(t=>t.CompletionDateTime);
+            return _toDoRepository.GetMany(t => t.UserDetail.User.Email.ToLower() == userEmail.ToLower()).OrderBy(t=>t.CompletionDateTime);
         } 
 
         public ToDo AddToDo(ToDo toDo, string userEmail)
