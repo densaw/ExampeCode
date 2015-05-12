@@ -1175,6 +1175,7 @@
 
         var target = angular.element('#addFoodType');
         var confDelete = angular.element('#confDelete');
+        var picModal = angular.element('#photoModal');
 
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
@@ -1250,6 +1251,13 @@
                     target.modal('show');
                 });
         };
+        $scope.openPic = function(id) {
+            $http.get('/api/NutritionFoodTypes/' + id)
+               .success(function (result) {
+                   $scope.newFood = result;
+                   picModal.modal('show');
+               });
+        }
     }]);
 
     module.controller('NAController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
@@ -1281,6 +1289,7 @@
 
         var target = angular.element('#addAlternative');
         var confDelete = angular.element('#confDelete');
+        var picModal = angular.element('#photoModal');
 
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
@@ -1349,6 +1358,14 @@
                     target.modal('show');
                 });
         };
+        $scope.openPic = function (id) {
+            $http.get(urlTail + '/' + id)
+               .success(function (result) {
+                   $scope.newAlt = result;
+                   picModal.modal('show');
+               });
+        }
+
     }]);
 
     module.controller('NRController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
