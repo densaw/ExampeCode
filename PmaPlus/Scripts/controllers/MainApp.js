@@ -1546,6 +1546,7 @@
 
         var target = angular.element('#addRecipe');
         var confDelete = angular.element('#confDelete');
+        var picModal = angular.element('#photoModal');
 
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
@@ -1639,6 +1640,13 @@
                     target.modal('show');
                 });
         };
+        $scope.openPic = function (id) {
+            $http.get(urlTail + '/' + id)
+               .success(function (result) {
+                   $scope.newRecipt = result;
+                   picModal.modal('show');
+               });
+        }
     }]);
 
     module.controller('PhysioExerciseController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
