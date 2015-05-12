@@ -33,6 +33,12 @@ namespace PmaPlus
             bundles.Add(new StyleBundle("~/font-awesome/css").Include(
                       "~/fonts/font-awesome/css/font-awesome.css"));
 
+            bundles.Add(new StyleBundle("~/multi-select/css").Include(
+                      "~/Scripts/plugins/multi-select/select.css"));
+
+            bundles.Add(new ScriptBundle("~/multi-select/js").Include(
+                        "~/Scripts/plugins/multi-select/select.js"));
+
             // jQuery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-2.1.1.min.js"));
