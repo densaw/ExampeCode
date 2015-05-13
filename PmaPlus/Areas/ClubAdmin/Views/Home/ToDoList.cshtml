@@ -61,13 +61,22 @@
                             <div class="form-group" ng-class="{'has-error':myform.noteDate.$invalid && (myform.noteDate.$dirty||myform.form_Submitted)}">
                                 <label class="col-lg-4 title-modal">Completion Date\Time:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <input id="dateinp" name="noteDate" ng-model="newNote.completionDateTime" required class="form-control" placeholder="YYYY-MM-DD"/>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" value="{{newNote.completionDateTime | date:'dd-MM-yyyy' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="newNote.completionDateTime" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day' }" />
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group" ng-class="{'has-error':myform.noteTitle.$invalid && (myform.noteTitle.$dirty||myform.form_Submitted)}">
                                 <label class="col-lg-4 title-modal">Note Title:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <input name="noteTitle" ng-model="newNote.title" maxlength="20" required ng-minlength="20" class="form-control">
+                                    <input name="noteTitle" ng-model="newNote.title" maxlength="20" required ng-maxlength="20" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -113,4 +122,10 @@
         $('#dateinp').mask('0000-00-00');
     });
 </script>
+<style>
+    a.dropdown-toggle {
+        color: #66696B;
+        text-decoration: none;
+    }
+</style>
 

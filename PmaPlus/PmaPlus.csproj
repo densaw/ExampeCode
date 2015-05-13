@@ -3002,6 +3002,9 @@
     <Content Include="Scripts\plugins\bootstrap\bootstrap.file-input.js" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap.js" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\plugins\calendarPicker\dateTimeInput.js" />
+    <Content Include="Scripts\plugins\calendarPicker\datetimepicker.css" />
+    <Content Include="Scripts\plugins\calendarPicker\datetimepicker.js" />
     <Content Include="Scripts\plugins\chartJs\Chart.min.js" />
     <Content Include="Scripts\plugins\chartJs\ng-sparkline-seriesbar.js" />
     <Content Include="Scripts\plugins\chartJs\tc.ngular.chartjs.min.js" />
@@ -3401,6 +3404,7 @@
     <Content Include="Scripts\plugins\jvectormap\jquery-jvectormap-world-mill-en.js" />
     <Content Include="Scripts\plugins\ladda\angular-ladda.min.js" />
     <Content Include="Scripts\plugins\metisMenu\metisMenu.min.js" />
+    <Content Include="Scripts\plugins\moments\moment.js" />
     <Content Include="Scripts\plugins\morris\morris.js" />
     <Content Include="Scripts\plugins\morris\raphael-2.1.0.min.js" />
     <Content Include="Scripts\plugins\multi-select\isteven-multi-select.css" />

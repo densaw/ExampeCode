@@ -39,6 +39,19 @@ namespace PmaPlus
             bundles.Add(new ScriptBundle("~/multi-select/js").Include(
                         "~/Scripts/plugins/multi-select/select.js"));
 
+            //--
+            bundles.Add(new StyleBundle("~/calendarPicker/css").Include(
+                      "~/Scripts/plugins/calendarPicker/datetimepicker.css"));
+
+            bundles.Add(new ScriptBundle("~/calendarPicker/js").Include(
+                        "~/Scripts/plugins/calendarPicker/datetimepicker.js"));
+
+            bundles.Add(new ScriptBundle("~/dateTimeInput/js").Include(
+                        "~/Scripts/plugins/calendarPicker/dateTimeInput.js"));
+            //--
+            bundles.Add(new ScriptBundle("~/moments/js").Include(
+                        "~/Scripts/plugins/moments/moment.js"));
+
             // jQuery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-2.1.1.min.js"));
