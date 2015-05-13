@@ -4,55 +4,56 @@
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Diary</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a>Home</a>
-            </li>
-            <li class="active">
-                <strong>Diary</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a class="btn btn-primary">Add an Event</a>
+<div ng-controller="ClubDiaryController">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Diary</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li class="active">
+                    <strong>Diary</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-click="click()">Add an Event</a>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="wrapper wrapper-content">
-    <div class="row">
-        <div class="col-lg-12">
+    <div class="wrapper wrapper-content">
+        <div class="row">
             <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Striped Table </h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li>
-                                    <a href="#">Config option 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Calendar </h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li>
+                                        <a href="#">Config option 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="ibox-content">
-                        <div id="calendar" class="fc fc-ltr fc-unthemed">
-
+                        <div class="ibox-content">
+                            <div id="calendar" class="fc fc-ltr fc-unthemed">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -60,8 +61,28 @@
         </div>
     </div>
 </div>
-    
 
+
+<style>
+    .fc-button {
+      background-color: #ffffff;
+      background-image: none;
+      background-repeat: repeat-x;
+      box-shadow: none;
+      color: #333333;
+      text-shadow: none;
+    }
+    .fc-button-group {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    .fc-state-active {
+      background-color: #337ab7;
+      border-color: #337ab7;
+      color: #ffffff;
+    }
+</style>
     <script>
 
         $(document).ready(function () {
