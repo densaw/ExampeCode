@@ -72,7 +72,7 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<PlayerAttribute, PlayerAttributeTableViewModel>();
             Mapper.CreateMap<PlayerAttribute, PlayerAttributeViewModel>();
 
-            Mapper.CreateMap<User, TrainingTeamMemberViewModel>()
+            Mapper.CreateMap<User, TrainingTeamMemberPlateViewModel>()
                 .ForMember(d => d.Name, o => o.MapFrom(s => s.UserDetail.FirstName + s.UserDetail.LastName))
                 .ForMember(d => d.TownCity, o => o.MapFrom(s => s.UserDetail.Address.TownCity))
                 .ForMember(d => d.BirthDay, o => o.MapFrom(s => s.UserDetail.Birthday))

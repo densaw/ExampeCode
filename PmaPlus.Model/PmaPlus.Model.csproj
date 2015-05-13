@@ -168,6 +168,7 @@
     <Compile Include="ViewModels\SportsScience\SportsScienceTestViewModel.cs" />
     <Compile Include="ViewModels\ToDo\ToDoViewModel.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\AddTrainingTeamMemberViewModel.cs" />
+    <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberPlateViewModel - Copy.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

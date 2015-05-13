@@ -59,12 +59,14 @@ namespace PmaPlus.Services
         {
             return _userRepository.Get(u => u.Email.ToLower() == email.ToLower());
         }
+        #region TeamMembers
 
-        public IEnumerable<TrainingTeamMemberViewModel> GetTrainingTeamMembers()
+
+        public IEnumerable<TrainingTeamMemberPlateViewModel> GetTrainingTeamMembers()
         {
 
             var trTeamMember = from user in _userRepository.GetMany(u => u.Role != Role.SystemAdmin && u.Role != Role.ClubAdmin && u.Role != Role.Player)
-                select new TrainingTeamMemberViewModel()
+                               select new TrainingTeamMemberPlateViewModel()
                 {
                     Name = user.UserDetail.FirstName + " " + user.UserDetail.LastName,
                     Role = user.Role,
@@ -205,6 +207,8 @@ namespace PmaPlus.Services
             return newUser;
         }
 
+
+        #endregion
         public void UpdateUser(User user)
         {
             _userRepository.Update(user, user.Id);
