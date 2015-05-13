@@ -3007,6 +3007,7 @@
     <Content Include="Scripts\plugins\calendarPicker\dateTimeInput.js" />
     <Content Include="Scripts\plugins\calendarPicker\datetimepicker.css" />
     <Content Include="Scripts\plugins\calendarPicker\datetimepicker.js" />
+    <Content Include="Scripts\plugins\calendar\calendar.js" />
     <Content Include="Scripts\plugins\chartJs\Chart.min.js" />
     <Content Include="Scripts\plugins\chartJs\ng-sparkline-seriesbar.js" />
     <Content Include="Scripts\plugins\chartJs\tc.ngular.chartjs.min.js" />
@@ -3247,6 +3248,8 @@
     <Content Include="Scripts\plugins\flot\jquery.flot.time.js" />
     <Content Include="Scripts\plugins\flot\jquery.flot.tooltip.min.js" />
     <Content Include="Scripts\plugins\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Scripts\plugins\fullcalendar\gcal.js" />
+    <Content Include="Scripts\plugins\fullcalendar\lang-all.js" />
     <Content Include="Scripts\plugins\fullcalendar\moment.min.js" />
     <Content Include="Scripts\plugins\gritter\images\gritter-light.png" />
     <Content Include="Scripts\plugins\gritter\images\gritter-long.png" />

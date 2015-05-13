@@ -48,6 +48,9 @@ namespace PmaPlus
 
             bundles.Add(new ScriptBundle("~/dateTimeInput/js").Include(
                         "~/Scripts/plugins/calendarPicker/dateTimeInput.js"));
+
+            bundles.Add(new ScriptBundle("~/calendar/js").Include(
+                        "~/Scripts/plugins/calendar/calendar.js"));
             //--
             bundles.Add(new ScriptBundle("~/moments/js").Include(
                         "~/Scripts/plugins/moments/moment.js"));
@@ -239,8 +242,9 @@ namespace PmaPlus
 
             // fullCalendar 
             bundles.Add(new ScriptBundle("~/plugins/fullCalendar").Include(
-                      "~/Scripts/plugins/fullcalendar/moment.min.js",
-                      "~/Scripts/plugins/fullcalendar/fullcalendar.min.js"));
+                      //"~/Scripts/plugins/fullcalendar/gcal.js",
+                      "~/Scripts/plugins/fullcalendar/fullcalendar.min.js",
+                      "~/Scripts/plugins/fullcalendar/lang-all.js"));
 
             // vectorMap 
             bundles.Add(new ScriptBundle("~/plugins/vectorMap").Include(

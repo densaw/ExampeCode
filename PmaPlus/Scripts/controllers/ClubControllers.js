@@ -1,5 +1,11 @@
 ﻿var app = angular.module('MainApp');
 
+app.filter('todo', function () {
+    return function (v, yes, no) {
+        return v ? yes : no;
+    };
+});
+
 app.controller('AttributesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
     var needToDelete = -1;
@@ -206,6 +212,10 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
        { id: 2, name: 'Non-Urgent' }
     ];
 
+    $scope.check = function(id) {
+        console.log(id);
+    }
+
 
     $scope.selectedPriority = $scope.Priority[0];
     $scope.newNote = {};
@@ -262,4 +272,25 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
           });
     }
 
+}]);
+
+app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function ($scope, $http, toaster, $compile, uiCalendarConfig) {
+
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+
+    var cal = angular.element('#calendar');
+
+    $scope.newEvent = {};
+
+    $scope.newEvent.title = "Shita";
+    $scope.newEvent.start = new Date();
+    $scope.newEvent.allDay = false;
+
+    $scope.click = function () {
+        console.log('Shit happens');
+        cal.fullCalendar('renderEvent', $scope.newEvent);
+    }
 }]);
