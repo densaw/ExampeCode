@@ -23,7 +23,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             _photoManager = photoManager;
         }
 
-        public IEnumerable<TrainingTeamMemberViewModel> Get()
+        public IEnumerable<TrainingTeamMemberPlateViewModel> Get()
         {
             return  _userServices.GetTrainingTeamMembers();
         }
