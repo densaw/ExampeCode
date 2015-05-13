@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
@@ -22,6 +23,8 @@ namespace PmaPlus.Model.Models
         public DateTime UpdateAt { get; set; }
         public DateTime LoggedAt { get; set; }
         public virtual UserDetail UserDetail { get; set; }
+
+        public virtual ICollection<Qualification> Qualifications { get; set; }   
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

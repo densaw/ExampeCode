@@ -52,6 +52,8 @@ namespace PmaPlus.Data
         public virtual DbSet<PasswordHistory> PasswordHistory { get; set; }
         public virtual DbSet<TargetHistory> TargetHistories { get; set; }
         public virtual DbSet<ToDo> ToDos { get; set; }
+        public virtual DbSet<Qualification> Qualifications { get; set; }
+        public virtual DbSet<QualificationToFaCourse> QualificationToFaCourses { get; set; } 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -41,7 +41,11 @@ namespace PmaPlus.Controllers
             };
 
         }
-
+        [Route("api/FaCourses/AllNames")]
+        public string[] GetFaCoursesNames()
+        {
+            return _faCourseServices.GetFaCourses().Select(f => f.Name).ToArray();
+        }
       
 
          //GET: api/FaCourses

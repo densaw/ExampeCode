@@ -20,7 +20,7 @@ namespace PmaPlus.Model.ViewModels.TrainingTeamMember
         public string  Mobile { get; set; }                                 
         public string Email { get; set; }                                   
         public string Password { get; set; }                                
-        public int FaNumber { get; set; }                                   
+        public int? FaNumber { get; set; }                                   
         public DateTime? BirthDate { get; set; }                             
         public string ProfilePicture { get; set; }                          
         public string Nationality { get; set; }                             

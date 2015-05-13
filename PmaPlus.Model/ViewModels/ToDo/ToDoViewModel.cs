@@ -14,6 +14,7 @@ namespace PmaPlus.Model.ViewModels.ToDo
         [Required,MaxLength(20)]
         public string Title { get; set; }
         public ToDoPriority Priority { get; set; }
+        public bool Complete { get; set; }
         public DateTime CompletionDateTime { get; set; }
         [Required, MaxLength(229)]
         public string Note { get; set; }

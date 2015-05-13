@@ -103,6 +103,8 @@
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerAttribute.cs" />
     <Compile Include="Models\PlayerInjury.cs" />
+    <Compile Include="Models\Qualification.cs" />
+    <Compile Include="Models\QualificationToFaCourse.cs" />
     <Compile Include="Models\Scenario.cs" />
     <Compile Include="Models\SkillLevel.cs" />
     <Compile Include="Models\TargetHistory.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributePage.cs" />
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributeTableViewModel.cs" />
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributeViewModel.cs" />
+    <Compile Include="ViewModels\Qualification\QualificationViewModel.cs" />
     <Compile Include="ViewModels\Scenario\ScenarioPage.cs" />
     <Compile Include="ViewModels\Scenario\ScenarioTableViewModel.cs" />
     <Compile Include="ViewModels\Scenario\ScenarioViewModel.cs" />
