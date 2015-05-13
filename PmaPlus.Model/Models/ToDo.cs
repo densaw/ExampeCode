@@ -14,7 +14,7 @@ namespace PmaPlus.Model.Models
         public ToDoPriority Priority { get; set; }
         public DateTime CompletionDateTime { get; set; }
         public string Note { get; set; }
-
+        public bool Complete { get; set; }
         public UserDetail UserDetail { get; set; }
     }
 }

@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\ClubServices.cs" />
+    <Compile Include="Services\CoachSerivces.cs" />
     <Compile Include="Services\CurriculumServices.cs" />
     <Compile Include="Services\FACourseServices.cs" />
     <Compile Include="Services\NutritionServices.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Services\SkillServices.cs" />
     <Compile Include="Services\SportsScienceServices.cs" />
     <Compile Include="Services\ToDoServices.cs" />
+    <Compile Include="Services\TrainingTeamMembersServices.cs" />
     <Compile Include="Services\UserServices.cs" />
   </ItemGroup>
   <ItemGroup>

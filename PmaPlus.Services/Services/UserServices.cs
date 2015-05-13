@@ -51,6 +51,10 @@ namespace PmaPlus.Services
             return _clubAdminRepository.Get(a => a.User.UserName == name);
         }
 
+        public bool UserExist(int id)
+        {
+            return _userRepository.GetMany(u => u.Id == id).Any();
+        }
         public bool UserExist(string userEmail)
         {
             return _userRepository.GetMany(u => u.Email.ToLower() == userEmail.ToLower()).Any();
@@ -68,6 +72,7 @@ namespace PmaPlus.Services
             var trTeamMember = from user in _userRepository.GetMany(u => u.Role != Role.SystemAdmin && u.Role != Role.ClubAdmin && u.Role != Role.Player)
                                select new TrainingTeamMemberPlateViewModel()
                 {
+                    Id = user.Id,
                     Name = user.UserDetail.FirstName + " " + user.UserDetail.LastName,
                     Role = user.Role,
                     TownCity = user.UserDetail.Address.TownCity,
@@ -207,6 +212,172 @@ namespace PmaPlus.Services
             return newUser;
         }
 
+        public TrainingTeamMemberViewModel GetTrainingTeamMemberViewModel(Role role, int id)
+        {
+            var trTeamMember = _userRepository.Get(u => u.Role == role && u.Id == id);
+            return new TrainingTeamMemberViewModel()
+            {
+                Id = trTeamMember.Id,
+                Name = trTeamMember.UserDetail.FirstName + " " + trTeamMember.UserDetail.LastName,
+                TownCity = trTeamMember.UserDetail.Address.TownCity,
+                PostCode = trTeamMember.UserDetail.Address.PostCode,
+                Mobile = trTeamMember.UserDetail.Address.Mobile,
+                AboutMe = trTeamMember.UserDetail.AboutMe,
+                ProfilePicture = trTeamMember.UserDetail.ProfilePicture
+            };
+        }
+
+        public AddTrainingTeamMemberViewModel GetDetailedTrainingTeamMemberViewModel(Role role, int id)
+        {
+            var trTeamMember = _userRepository.Get(u => u.Role == role && u.Id == id);
+            var member = new AddTrainingTeamMemberViewModel()
+            {
+                Id = trTeamMember.Id,
+                FirstName = trTeamMember.UserDetail.FirstName,
+                LastName = trTeamMember.UserDetail.LastName,
+                AboutMe = trTeamMember.UserDetail.AboutMe,
+                Telephone = trTeamMember.UserDetail.Address.Telephone,
+                Mobile = trTeamMember.UserDetail.Address.Mobile,
+                Email = trTeamMember.Email,
+                Password = trTeamMember.Password,
+                FaNumber = trTeamMember.UserDetail.FaNumber,
+                BirthDate = trTeamMember.UserDetail.Birthday,
+                ProfilePicture = trTeamMember.UserDetail.ProfilePicture,
+                Nationality = trTeamMember.UserDetail.Nationality,
+                Address1 = trTeamMember.UserDetail.Address.Address1,
+                Address2 = trTeamMember.UserDetail.Address.Address2,
+                Address3 = trTeamMember.UserDetail.Address.Address3,
+                Postcode = trTeamMember.UserDetail.Address.PostCode,
+                CrbDbsExpiry = trTeamMember.UserDetail.CrbDbsExpiry,
+                FirstAidExpiry = trTeamMember.UserDetail.CrbDbsExpiry
+            };
+
+            switch (role)
+            {
+                case Role.Coach:
+                    {
+                        member.UserStatus = _coachRepository.Get(c => c.User.Id == id).Status;
+                        break;
+                    }
+                case Role.HeadOfAcademies:
+                    {
+                        member.UserStatus = _headOfAcademyRepository.Get(c => c.User.Id == id).Status; ;
+                        break;
+                    }
+                case Role.HeadOfEducation:
+                    {
+                        member.UserStatus = _headOfEducationRepository.Get(c => c.User.Id == id).Status; ;
+                        break;
+                    }
+                case Role.Scout:
+                    {
+                        member.UserStatus = _scoutRepository.Get(c => c.User.Id == id).Status; ;
+                        break;
+                    }
+                case Role.Physiotherapist:
+                    {
+                        member.UserStatus = _physiotherapistRepository.Get(c => c.User.Id == id).Status; ;
+                        break;
+                    }
+                case Role.SportsScientist:
+                    {
+                        member.UserStatus = _sportScientistRepository.Get(c => c.User.Id == id).Status;
+                        break;
+                    }
+                case Role.WelfareOfficer:
+                    {
+                        member.UserStatus = _welfareOfficerRepository.Get(c => c.User.Id == id).Status;
+                        break;
+                    }
+
+            }
+
+            return member;
+        }
+
+        public void UpdateTrainigTeamMember(AddTrainingTeamMemberViewModel memberViewModel, int id)
+        {
+
+            var member = _userRepository.Get(u => u.Id == id);
+            if (member != null)
+            {
+                member.Id = memberViewModel.Id;
+                member.UserDetail.FirstName = memberViewModel.FirstName;
+                member.UserDetail.LastName = memberViewModel.LastName;
+                member.UserDetail.AboutMe = memberViewModel.AboutMe;
+                member.UserDetail.Address.Telephone = memberViewModel.Telephone;
+                member.UserDetail.Address.Mobile = memberViewModel.Mobile;
+                member.Email = memberViewModel.Email;
+                member.Password = memberViewModel.Password;
+                member.UserDetail.FaNumber = memberViewModel.FaNumber;
+                member.UserDetail.Birthday = memberViewModel.BirthDate;
+                member.UserDetail.ProfilePicture = memberViewModel.ProfilePicture;
+                member.UserDetail.Nationality = memberViewModel.Nationality;
+                member.UserDetail.Address.Address1 = memberViewModel.Address1;
+                member.UserDetail.Address.Address2 = memberViewModel.Address2;
+                member.UserDetail.Address.Address3 = memberViewModel.Address3;
+                member.UserDetail.Address.PostCode = memberViewModel.Postcode;        
+                member.UserDetail.CrbDbsExpiry  = memberViewModel.CrbDbsExpiry;
+                member.UserDetail.CrbDbsExpiry = memberViewModel.FirstAidExpiry;
+            
+                _userRepository.Update(member,member.Id);
+
+                switch (memberViewModel.Role)
+                {
+                    case Role.Coach:
+                    {
+                        var coach = _coachRepository.Get(c => c.User.Id == id);
+                        coach.Status = memberViewModel.UserStatus;
+                        _coachRepository.Update(coach,coach.Id);
+                            break;
+                        }
+                    case Role.HeadOfAcademies:
+                        {
+                            var headofa = _headOfAcademyRepository.Get(c => c.User.Id == id);
+                            headofa.Status = memberViewModel.UserStatus;
+                            _headOfAcademyRepository.Update(headofa,headofa.Id);
+                            break;
+                        }
+                    case Role.HeadOfEducation:
+                        {
+                            var headofe =_headOfEducationRepository.Get(c => c.User.Id == id);
+                            headofe.Status = memberViewModel.UserStatus;
+                            _headOfEducationRepository.Update(headofe,headofe.Id);
+                            break;
+                        }
+                    case Role.Scout:
+                        {
+                            var scout = _scoutRepository.Get(c => c.User.Id == id);
+                            scout.Status = memberViewModel.UserStatus;
+                            _scoutRepository.Update(scout,scout.Id);
+                            break;
+                        }
+                    case Role.Physiotherapist:
+                        {
+                            var terapist = _physiotherapistRepository.Get(c => c.User.Id == id);
+                            terapist.Status = memberViewModel.UserStatus;
+                            _physiotherapistRepository.Update(terapist,terapist.Id);
+                            break;
+                        }
+                    case Role.SportsScientist:
+                        {
+                            var scientist = _sportScientistRepository.Get(c => c.User.Id == id);
+                            scientist.Status = memberViewModel.UserStatus;
+                            _sportScientistRepository.Update(scientist,scientist.Id);
+                            break;
+                        }
+                    case Role.WelfareOfficer:
+                        {
+                            var welfare = _welfareOfficerRepository.Get(c => c.User.Id == id);
+                            welfare.Status = memberViewModel.UserStatus;
+                            _welfareOfficerRepository.Update(welfare,welfare.Id);
+                            break;
+                        }
+
+                }
+            }
+
+        }
 
         #endregion
         public void UpdateUser(User user)

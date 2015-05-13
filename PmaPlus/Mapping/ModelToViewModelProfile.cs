@@ -8,6 +8,7 @@ using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Model.ViewModels.Physio;
 using PmaPlus.Model.ViewModels.PlayerAttribute;
+using PmaPlus.Model.ViewModels.Qualification;
 using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.SportsScience;
@@ -84,6 +85,8 @@ namespace PmaPlus.Mapping
                 .ForMember(d => d.ProfilePicture, o => o.MapFrom(s => s.UserDetail.ProfilePicture));
 
             Mapper.CreateMap<ToDo, ToDoViewModel>();
+
+            Mapper.CreateMap<Qualification, QualificationViewModel>();
 
         }
     }

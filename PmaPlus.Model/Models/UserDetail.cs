@@ -33,5 +33,6 @@ namespace PmaPlus.Model.Models
 
         public virtual User User { get; set; }
         public virtual ICollection<ToDo> ToDos { get; set; }
+
     }
 }
