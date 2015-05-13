@@ -60,7 +60,7 @@
                                                 <label class="col-lg-4 title-modal">Type:</label>
                                                 <div class="col-lg-7 pull-right">
 
-                                                    <select ng-model="selectedType" ng-options="type.name for type in foodType" class=" form-control m-b" name="account"></select>
+                                                    <select ng-model="selectedType" ng-options="type.name for type in foodType | orderBy:'name'" class=" form-control m-b" name="account"></select>
 
 
                                                     @*<ui-select multiple ng-model="multipleDemo.selectedType" ng-disabled="disabled" theme="bootstrap">

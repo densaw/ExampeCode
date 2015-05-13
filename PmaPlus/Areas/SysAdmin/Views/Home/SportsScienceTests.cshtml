@@ -60,7 +60,7 @@
                                             <div class="form-group" >
                                                 <label class="col-lg-4 title-modal">Test Type:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <select ng-model="selectedType" ng-options="testType.name for testType in testTypes" class=" form-control m-b" name="account"></select>
+                                                    <select ng-model="selectedType" ng-options="testType.name for testType in testTypes  | orderBy:'name'" class=" form-control m-b" name="account"></select>
                                                 </div>
                                             </div>
                                             <div class="form-group" ng-class="{'has-error':myform.testName.$invalid && (myform.testName.$dirty||myform.form_Submitted)}">

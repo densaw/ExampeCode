@@ -28,11 +28,11 @@
                             <br>
                             Active Players: {{playerCount}}  -  Est. Revenue: £{{playerCount * targets.value}}
                         </span>
-                        <h1 style="margin-bottom: 0px; margin-top: 10px; ">Registered Players</h1>
-                        <small>Total players within system</small>
-                   
+                    <h1 style="margin-bottom: 0px; margin-top: 10px;">Registered Players</h1>
+                    <small>Total players within system</small>
+
                 </div>
-                <div style="margin-top: 20px; ">
+                <div style="margin-top: 20px;">
                     <canvas tc-chartjs chart-type="line" chart-data="data" chart-options="options" height="70"></canvas>
                 </div>
             </div>
@@ -50,10 +50,10 @@
             </div>
             <div class="ibox-content" ng-switch on="progressPlayer">
                 <h1 class="no-margins">{{amountPlayers}}</h1>
-                <div ng-switch-when="up" class="stat-percent font-bold-small text-warning">
+                <div ng-switch-when="up" class="stat-percent font-bold-small text-success">
                     {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-up"></i>
                 </div>
-                <div ng-switch-when="down" class="stat-percent font-bold-small text-warning">
+                <div ng-switch-when="down" class="stat-percent font-bold-small text-danger">
                     {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-down"></i>
                 </div>
                 <div ng-switch-default class="stat-percent font-bold-small text-warning">
@@ -71,10 +71,10 @@
             </div>
             <div class="ibox-content" ng-switch on="progressCoach">
                 <h1 class="no-margins">{{amountCoaches}}</h1>
-                <div ng-switch-when="up" class="stat-percent font-bold-small text-warning">
+                <div ng-switch-when="up" class="stat-percent font-bold-small text-success">
                     {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-up"></i>
                 </div>
-                <div ng-switch-when="down" class="stat-percent font-bold-small text-warning">
+                <div ng-switch-when="down" class="stat-percent font-bold-small text-danger">
                     {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-down"></i>
                 </div>
                 <div ng-switch-default class="stat-percent font-bold-small text-warning">
@@ -92,10 +92,10 @@
             </div>
             <div class="ibox-content" ng-switch on="progressClub">
                 <h1 class="no-margins">{{amountClubs}}</h1>
-                <div ng-switch-when="up" class="stat-percent font-bold-small text-warning">
+                <div ng-switch-when="up" class="stat-percent font-bold-small text-success">
                     {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-up"></i>
                 </div>
-                <div ng-switch-when="down" class="stat-percent font-bold-small text-warning">
+                <div ng-switch-when="down" class="stat-percent font-bold-small text-danger">
                     {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-down"></i>
                 </div>
                 <div ng-switch-default class="stat-percent font-bold-small text-warning">
@@ -113,10 +113,10 @@
             </div>
             <div class="ibox-content" ng-switch on="progressUser">
                 <h1 class="no-margins">{{amountUsers}}</h1>
-                <div ng-switch-when="up" class="stat-percent font-bold-small text-warning">
+                <div ng-switch-when="up" class="stat-percent font-bold-small text-success">
                     {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-up"></i>
                 </div>
-                <div ng-switch-when="down" class="stat-percent font-bold-small text-warning">
+                <div ng-switch-when="down" class="stat-percent font-bold-small text-danger">
                     {{percentage}}%&nbsp;<i class="fa fa-arrow-circle-o-down"></i>
                 </div>
                 <div ng-switch-default class="stat-percent font-bold-small text-warning">
@@ -236,6 +236,11 @@
 
 </div>
 </div>
+<style>
+    .text-success {
+      color: #468847;
+    }
+</style>
 <script>
     var barSettings = {
         type: 'bar',
