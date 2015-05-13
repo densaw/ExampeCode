@@ -20,7 +20,6 @@ namespace PmaPlus.Model.ViewModels
 
         [Required]
         public string Description { get; set; }
-        [Required]
         public string Picture { get; set; }
 
         public decimal Calories { get; set; }
