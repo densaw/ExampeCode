@@ -13,5 +13,6 @@ namespace PmaPlus.Model.ViewModels.Skill
         public int Time { get; set; }
 
         public string VideoLink { get; set; }
+        public string SkillLevelName { get; set; }
     }
 }
