@@ -1407,6 +1407,14 @@
         var target = angular.element('#addAlternative');
         var confDelete = angular.element('#confDelete');
         var picModal = angular.element('#photoModal');
+        var modalVideo = angular.element('#videoModal');
+
+        $scope.modalVideoStart = function (src) {
+            console.log(src);
+            //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
+            modalVideo.modal('show');
+            $('#videoModal iframe').attr('src', src);
+        }
 
         $scope.ok = function (id) {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
