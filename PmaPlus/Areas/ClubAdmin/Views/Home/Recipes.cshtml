@@ -275,7 +275,29 @@
                             </div>
                         </div>
                         @*Modal End*@
+                        @*Modal*@
+                        <div class="modal inmodal" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
 
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Recipe Picture</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="thumbnail">
+                                            <img ng-src="/api/file/Recipes/{{newRecipt.picture}}/{{newRecipt.id}}" style="width: auto; float: none !important;" />
+
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
                         <div class="row">
                             <div class="col-sm-9 m-b-xs">
                                 <form class="form-horizontal">
@@ -321,7 +343,6 @@
                                     <th>Calories</th>
                                     <th>Fat</th>
                                     <th>Sat Fat</th>
-                                    <th>Salt</th>
                                     <th>Sugar</th>
                                     <th>Carbs</th>
                                     <th>Fibre</th>
@@ -331,15 +352,14 @@
                                 <tbody>
                                     <tr dir-paginate="reciptType in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
                                         <td><a href="#" ng-click="check(reciptType)" class="check-link"><i class="fa {{reciptType.selected | todo :'fa-check-square ':'fa-square-o'}}"></i> </a></td>
-                                        <td></td>
+                                        <td><i ng-click="openPic(reciptType.id)" class="fa fa-camera" style="cursor: pointer;"></i></td>
                                         <td>{{reciptType.name}}</td>
                                         <td>{{reciptType.calories}}</td>
-                                        <td></td>
+                                        <td>{{reciptType.totalFat}}</td>
                                         <td>{{reciptType.saturatedFat}}</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{reciptType.sugars}}</td>
                                         <td>{{reciptType.totalCarbohydrate}}</td>
-                                        <td></td>
+                                        <td>{{reciptType.dietaryFibre}}</td>
                                         <td>{{reciptType.protein}}</td>
                                     </tr>
                                 </tbody>

@@ -1242,6 +1242,9 @@
         $scope.totalItems = 0;
         $scope.itemsPerPage = 20;
 
+        $scope.check = function (item) {
+            item.selected = !item.selected;
+        }
 
         $scope.pagination = {
             current: 1
