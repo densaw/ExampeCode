@@ -33,11 +33,17 @@
       minView: 'minute',
       startView: 'day'
     })
+    .filter('today', function () {
+        return function (v, yes, no) {
+            return v ? yes : no;
+        };
+    })
     .directive('datetimepicker', ['$log', 'dateTimePickerConfig', function datetimepickerDirective($log, defaultConfig) {
 
       function DateObject() {
 
-        var tempDate = new Date();
+          var tempDate = new Date();
+          var dayNum = tempDate.getDay();
         var localOffset = tempDate.getTimezoneOffset() * 60000;
         this.utcDateValue = tempDate.getTime();
         this.selectable = true;
@@ -46,7 +52,7 @@
           return this.utcDateValue + localOffset;
         };
 
-        var validProperties = ['utcDateValue', 'localDateValue', 'display', 'active', 'selectable', 'past', 'future'];
+        var validProperties = ['utcDateValue', 'localDateValue', 'display', 'active', 'selectable', 'past', 'future', 'today'];
 
         for (var prop in arguments[0]) {
           /* istanbul ignore else */
@@ -129,7 +135,7 @@
         '       <tr data-ng-if="data.currentView === \'day\'" data-ng-repeat="week in data.weeks">' +
         '           <td data-ng-repeat="dateObject in week.dates" ' +
         '               data-ng-click="changeView(data.nextView, dateObject, $event)"' +
-        '               class="day" ' +
+        '               class="day {{dateObject.today | today: \'today-highlighted\':\'\'}}" ' + // Probably hilight
         '               data-ng-class="{active: dateObject.active, past: dateObject.past, future: dateObject.future, disabled: !dateObject.selectable}" >{{ dateObject.display }}</td>' +
         '       </tr>' +
         '   </tbody>' +
@@ -183,13 +189,14 @@
 
               for (var i = 0; i < 12; i += 1) {
                 var yearMoment = moment.utc(startDate).add(i, 'years');
-                var dateValue = {
-                  'utcDateValue': yearMoment.valueOf(),
-                  'display': yearMoment.format('YYYY'),
-                  'past': yearMoment.year() < startDecade,
-                  'future': yearMoment.year() > startDecade + 9,
-                  'active': yearMoment.year() === activeYear
-                };
+                  var dateValue = {
+                      'utcDateValue': yearMoment.valueOf(),
+                      'display': yearMoment.format('YYYY'),
+                      'past': yearMoment.year() < startDecade,
+                      'future': yearMoment.year() > startDecade + 9,
+                      'active': yearMoment.year() === activeYear,
+                      'today': new Date().getDay()
+              };
 
                 result.dates.push(new DateObject(dateValue));
               }
@@ -221,7 +228,8 @@
                 var dateValue = {
                   'utcDateValue': monthMoment.valueOf(),
                   'display': monthMoment.format('MMM'),
-                  'active': monthMoment.format('YYYY-MMM') === activeDate
+                  'active': monthMoment.format('YYYY-MMM') === activeDate,
+                    'today': new Date().getDay()
                 };
 
                 result.dates.push(new DateObject(dateValue));
@@ -241,6 +249,12 @@
 
               var activeDate = ngModelController.$modelValue ? moment(ngModelController.$modelValue).format('YYYY-MMM-DD') : '';
 
+              var toDay = new Date();
+              var monthF = toDay.getUTCMonth() + 1; //months from 1-12
+              var dayF = toDay.getUTCDate();
+              var yearF = toDay.getUTCFullYear();
+              var toDayForm = yearF + '-' + monthF + '-' + dayF;
+              
               var result = {
                 'previousView': 'month',
                 'currentView': 'day',
@@ -264,13 +278,14 @@
                 var week = {dates: []};
                 for (var j = 0; j < 7; j += 1) {
                   var monthMoment = moment.utc(startDate).add((i * 7) + j, 'days');
-                  var dateValue = {
-                    'utcDateValue': monthMoment.valueOf(),
-                    'display': monthMoment.format('D'),
-                    'active': monthMoment.format('YYYY-MMM-DD') === activeDate,
-                    'past': monthMoment.isBefore(startOfMonth),
-                    'future': monthMoment.isAfter(endOfMonth)
-                  };
+                    var dateValue = {
+                        'utcDateValue': monthMoment.valueOf(),
+                        'display': monthMoment.format('D'),
+                        'active': monthMoment.format('YYYY-MMM-DD') === activeDate,
+                        'past': monthMoment.isBefore(startOfMonth),
+                        'future': monthMoment.isAfter(endOfMonth),
+                        'today': moment().format('YYYY-MMM-DD') === monthMoment.format('YYYY-MMM-DD')
+                };
                   week.dates.push(new DateObject(dateValue));
                 }
                 result.weeks.push(week);
@@ -303,7 +318,8 @@
                 var dateValue = {
                   'utcDateValue': hourMoment.valueOf(),
                   'display': hourMoment.format('LT'),
-                  'active': hourMoment.format('YYYY-MM-DD H') === activeFormat
+                  'active': hourMoment.format('YYYY-MM-DD H') === activeFormat,
+                    'today': new Date().getDay()
                 };
 
                 result.dates.push(new DateObject(dateValue));
@@ -337,7 +353,8 @@
                 var dateValue = {
                   'utcDateValue': hourMoment.valueOf(),
                   'display': hourMoment.format('LT'),
-                  'active': hourMoment.format('YYYY-MM-DD H:mm') === activeFormat
+                  'active': hourMoment.format('YYYY-MM-DD H:mm') === activeFormat,
+                  'today': new Date().getDay()
                 };
 
                 result.dates.push(new DateObject(dateValue));
