@@ -11,7 +11,6 @@ namespace PmaPlus.Model.ViewModels.SiteSettings
     {
         public int Id { get; set; }
         [Required]
-        [Range( 1, 10000)]
         public int Target { get; set; }
         [Required]
         public decimal Value { get; set; }
