@@ -4,24 +4,282 @@
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Scenarios</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a>Home</a>
-            </li>
-            <li class="active">
-                <strong>Scenarios</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a class="btn btn-primary">Add a 2D Scenario</a>
-            <a class="btn btn-primary">Add a 3D Scenario</a>
+<div ng-controller="ScenariosController">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Scenarios</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li class="active">
+                    <strong>Scenarios</strong>
+                </li>
+            </ol>
         </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-click="openAdd2d()">Add a 2D Scenario</a>
+                <a class="btn btn-primary" ng-click="">Add a 3D Scenario</a>
+            </div>
 
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Scenarios</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user"></ul>
+                            <a>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="videoPlase" class="ibox-content">
+                        @*Modal*@
+                        <div class="modal inmodal" id="add2D" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title text-left">{{modalTitle}}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form name="myform" class="form-horizontal" novalidate>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Scenario:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <select ng-model="selectedType" ng-options="scenario.name for scenario in scenarioType" class=" form-control m-b" name="account"></select>
+                                                    @* <input ng-model="newScenario.scenarioType" class="form-control">*@
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" ng-class="{'has-error':myform.minageRange.$invalid && (myform.minageRange.$dirty||myform.form_Submitted)}" ng-class="{'has-error':myform.maxageRange.$invalid && (myform.maxageRange.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Age Range:</label>
+                                                <div class="col-lg-7 pull-right ">
+                                                    <input name="minageRange" ng-model="newScenario.minAge" required class="form-control" type="number" min="1" max="100">
+                                                    <input name="maxageRange" ng-model="newScenario.maxAge" required class="form-control" type="number" min="1" max="100">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.sName.$invalid && (myform.sName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="sName" ng-model="newScenario.name" required class="form-control">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Picture:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input file-model="pic" class="pma-fileupload" type="file">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" ng-class="{'has-error':myform.description.$invalid && (myform.description.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Description:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <textarea name="description" ng-model="newScenario.description" required class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Video Link:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newScenario.video" class="form-control">
+                                                </div>
+                                            </div>
+
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                        <button ng-click="ok(newScenario.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        @*Modal*@
+                        <div class="modal inmodal" id="add3D" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Add a 3D Scenario</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal"></form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                        <button ng-click="ok()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        @*Modal*@
+                        <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Delete Record?</h3>
+
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
+                                        <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+
+                        @*Modal*@
+                        <div class="modal inmodal" id="videoModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" onclick="$('#videoModal iframe').attr('src', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Video</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div style="text-align:center">
+                                            <iframe width="480" height="360" frameborder="0" allowfullscreen=""></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+
+                        @*Modal*@
+                        <div class="modal inmodal" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">2D Scenario Picture</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="thumbnail">
+                                            <img ng-src="/api/file/Scenarios/{{newScenario.picture}}/{{newScenario.id}}" style="width: auto; float: none !important;" />
+
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+
+
+
+                        <div class="row">
+                            <div class="col-sm-9 m-b-xs">
+                                <form class="form-horizontal">
+                                    <div class="form-group" style="margin-left: 0px;">
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <label ng-click="coursePerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                            <label ng-click="coursePerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
+                                            <label ng-click="coursePerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                                        </div>
+                                        <div class="btn-group">
+                                            <label onclick=" $('.table').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                CSV
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                Excel
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                PDF
+                                            </label>
+                                            <label onclick=" print($('.table')) " class="btn btn-sm btn-white">
+                                                Print
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Uploaded By</th>
+                                    <th>Scenario Name</th>
+                                    <th>Type</th>
+                                    <th>Age Range</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody id="contentTable">
+                                    <tr dir-paginate="scenario in scenarios | filter:q | itemsPerPage: scenariosPerPage" total-items="totalScenarios">
+                                        <td>{{scenario.uploadedBy}}</td>
+                                        <td>{{scenario.name}}</td>
+                                        <td>{{scenarioType[scenario.scenarioType].name}}</td>
+                                        <td>{{scenario.minAge}} - {{scenario.maxAge}}</td>
+                                        <td>
+                                            <i ng-click="openEdit(scenario.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                            <i ng-click="openDelete(scenario.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                            <i ng-click="modalVideoStart(scenario.video)" class="fa fa-film" style="cursor: pointer;"></i>
+                                            <i ng-click="openPic(scenario.id)" class="fa fa-camera" style="cursor: pointer;"></i>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<style>
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    .m-b {
+        margin-bottom: 0px;
+    }
+</style>
+
+
+
 
