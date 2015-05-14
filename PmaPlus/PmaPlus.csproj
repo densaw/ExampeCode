@@ -279,6 +279,9 @@
     <Compile Include="Tools\LocalPhotoManager.cs" />
     <Compile Include="Tools\PhotoActionResult.cs" />
     <Compile Include="Tools\TimeUtils.cs" />
+    <Content Include="App_Data\FileStorage\FoodTypes\8\FoodType.jpg" />
+    <Content Include="App_Data\FileStorage\Recipes\1\FoodType.jpg" />
+    <Content Include="App_Data\FileStorage\Recipes\1\tmp.png" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\SysAdmin\favicon.ico" />
     <Content Include="Content\animate.css" />
