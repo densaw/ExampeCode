@@ -1555,6 +1555,10 @@
             $scope.pagination.current = newPage;
         };
 
+        $scope.check = function (item) {
+            item.selected = !item.selected;
+        }
+
         var target = angular.element('#addRecipe');
         var confDelete = angular.element('#confDelete');
         var picModal = angular.element('#photoModal');
