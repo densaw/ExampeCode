@@ -129,7 +129,7 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
     };
 }]);
 
-app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
+app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
 
     
 
@@ -172,22 +172,50 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', function
 
 
     $scope.send = function () {
-        $scope.newMember.userStatus = 0;
-        $scope.newMember.role = $scope.selectedRole.id;
-        $scope.newMember.profilePicture = 'tmp.png';
-        $http.post(urlTail, $scope.newMember).success(function(result) {
-            target.modal('hide');
-        }).error(function (data, status, headers, config) {
-            console.log(data);
-            if (status == 400) {
-                console.log(data);
-                toaster.pop({
-                    type: 'error',
-                    title: 'Error', bodyOutputType: 'trustedHtml',
-                    body: data.message.join("<br />")
+
+        //Files upload
+
+        var promises = [];
+
+
+        if ($scope.pic) {
+            var fd = new FormData();
+            fd.append('file', $scope.pic);
+            var promise = $http.post('/api/Files', fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            })
+                .success(function (data) {
+                    $scope.newMember.profilePicture = data.name;
+                })
+                .error(function () {
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error',
+                        body: 'File upload ERROR!'
+                    });
                 });
-            }
+            promises.push(promise);
+        }
+        $q.all(promises).then(function () {
+            $scope.newMember.userStatus = 0;
+            $scope.newMember.role = $scope.selectedRole.id;
+            //$scope.newMember.profilePicture = 'tmp.png';
+            $http.post(urlTail, $scope.newMember).success(function(result) {
+                target.modal('hide');
+            }).error(function (data, status, headers, config) {
+                console.log(data);
+                if (status == 400) {
+                    console.log(data);
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error', bodyOutputType: 'trustedHtml',
+                        body: data.message.join("<br />")
+                    });
+                }
+            }); 
         });
+        //--
     };
 
     $http.get(urlTail)
@@ -303,4 +331,112 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         console.log('Shit happens');
         cal.fullCalendar('renderEvent', $scope.newEvent);
     }
+}]);
+
+app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location', function ($scope, $http, toaster, $location) {
+
+    $scope.modalTitle = "Add a Skill";
+
+    var needToDelete = -1;
+    var urlTail = '/api/SkillVideos';
+
+    function getResultsPage(pageNumber) {
+        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    }
+
+    $scope.items = [];
+    $scope.totalItems = 0;
+    $scope.itemsPerPage = 20;
+
+
+    $scope.pagination = {
+        current: 1
+    };
+    getResultsPage($scope.pagination.current);
+    $scope.pageChanged = function (newPage) {
+        getResultsPage(newPage);
+        $scope.pagination.current = newPage;
+    };
+
+    var target = angular.element('#addSkill');
+    var confDelete = angular.element('#confDelete');
+    var modalVideo = angular.element('#videoModal');
+    $scope.modalVideoStart = function (src) {
+        //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
+        modalVideo.modal('show');
+        $('#videoModal iframe').attr('src', src);
+    }
+
+    $scope.ok = function (id) {
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
+
+        if (id != null) {
+            $http.put(urlTail + '/' + id, $scope.newSkill).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            }).error(function (data, status, headers, config) {
+                if (status == 400) {
+                    console.log(data);
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error', bodyOutputType: 'trustedHtml',
+                        body: 'Please complete the compulsory fields highlighted in red'
+                    });
+                }
+            });
+
+        } else {
+            console.log($scope.newSkill);
+            $http.post(urlTail, $scope.newSkill).success(function () {
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            }).error(function (data, status, headers, config) {
+                if (status == 400) {
+                    console.log(data);
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error', bodyOutputType: 'trustedHtml',
+                        body: 'Please complete the compulsory fields highlighted in red'
+                    });
+                }
+            });
+        }
+
+    };
+    $scope.cancel = function () {
+        target.modal('hide');
+        confDelete.modal('hide');
+    };
+    $scope.openAdd = function () {
+        $scope.modalTitle = "Add a Skill";
+        $scope.newSkill = {};
+        $scope.myform.form_Submitted = false;
+        target.modal('show');
+    };
+    $scope.openDelete = function (id) {
+        confDelete.modal('show');
+        console.log(id);
+        needToDelete = id;
+    };
+    $scope.delete = function () {
+        $http.delete(urlTail + '/' + needToDelete).success(function () {
+            getResultsPage($scope.pagination.current);
+            needToDelete = -1;
+            confDelete.modal('hide');
+        });
+    };
+    $scope.openEdit = function (id) {
+        console.log(id);
+        $http.get('/api/SkillVideos/' + id)
+            .success(function (result) {
+                $scope.newSkill = result;
+                $scope.modalTitle = "Update a Skill";
+                target.modal('show');
+
+            });
+    };
 }]);
