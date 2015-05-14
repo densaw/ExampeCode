@@ -3491,7 +3491,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\FileStorage\Clubs\" />
-    <Folder Include="App_Data\FileStorage\ProfilePicture\" />
+    <Folder Include="App_Data\FileStorage\ProfilePicture\12\" />
     <Folder Include="App_Data\FileStorage\temp\" />
     <Folder Include="Areas\ClubAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Models\" />

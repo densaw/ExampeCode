@@ -196,7 +196,7 @@
                     <a href="profile.html">
                         <div class="col-sm-4">
                             <div class="text-center">
-                                <img alt="image" class="img-circle m-t-xs img-responsive" src="{{item.profilePicture}}">
+                                <img alt="image" class="img-circle m-t-xs img-responsive" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}">
                                 <div class="m-t-xs font-bold">{{roles[item.role].name}}</div>
                             </div>
                         </div>

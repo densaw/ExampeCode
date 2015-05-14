@@ -60,23 +60,23 @@
 
 
 </head>
-<body id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1 {{expanded | nav: '':'mini-navbar'}}">
+<body id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1  {{expanded | nav: '':'mini-navbar'}}">
 <!-- PageClass give you ability to specify custom style for specific view based on action -->
     <toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
-    <div id="wrapper" class="@Html.PageClass()">
-        <!-- Navigation -->
-        @Html.Partial("_Navigation")
-        <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
-            <!-- Top Navbar -->
-            @Html.Partial("_TopNavbar")
-            <!-- Main view -->
-            @RenderBody()
-            <!-- Footer -->
-            @Html.Partial("_Footer")
-        </div>
-        <!-- End page wrapper-->
+<div id="wrapper" class="@Html.PageClass()">
+    <!-- Navigation -->
+    @Html.Partial("_Navigation")
+    <!-- Page wraper -->
+    <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass @Html.IsSelectedSide(controller: "Home", action: "Dashbord")">
+        <!-- Top Navbar -->
+        @Html.Partial("_TopNavbar")
+        <!-- Main view -->
+        @RenderBody()
+        <!-- Footer -->
+        @Html.Partial("_Footer")
     </div>
+    <!-- End page wrapper-->
+</div>
     <!-- End wrapper-->
     <!-- Section for main scripts render -->
     @*Scripts.Render("~/bundles/bootstrap")*@
@@ -91,7 +91,17 @@
     <!-- Handler for local scripts -->
     @RenderSection("scripts", required: false)
 <style>
-    
+        .sidebar-content .wrapper,
+        .wrapper.sidebar-content {
+          padding-right: 330px !important;
+        }
+        .sidebard-panel {
+          width: 320px;
+          background: #ebebed;
+          padding: 10px 20px;
+          position: absolute;
+          right: 0;
+        }
      .title-modal {
          font-family: 'Open Sans';
          font-size: 12px;
