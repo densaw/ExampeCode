@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PmaPlus.Model
 {
-    public enum AgeGroup
+    public enum AgeGroupType
     {
         U6 = 0,
         U7 = 1,

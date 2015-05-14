@@ -212,9 +212,9 @@ namespace PmaPlus.Services
             return newUser;
         }
 
-        public TrainingTeamMemberViewModel GetTrainingTeamMemberViewModel(Role role, int id)
+        public TrainingTeamMemberViewModel GetTrainingTeamMemberViewModel(int id)
         {
-            var trTeamMember = _userRepository.Get(u => u.Role == role && u.Id == id);
+            var trTeamMember = _userRepository.Get(u => u.Id == id);
             return new TrainingTeamMemberViewModel()
             {
                 Id = trTeamMember.Id,
@@ -227,9 +227,9 @@ namespace PmaPlus.Services
             };
         }
 
-        public AddTrainingTeamMemberViewModel GetDetailedTrainingTeamMemberViewModel(Role role, int id)
+        public AddTrainingTeamMemberViewModel GetDetailedTrainingTeamMemberViewModel(int id)
         {
-            var trTeamMember = _userRepository.Get(u => u.Role == role && u.Id == id);
+            var trTeamMember = _userRepository.Get(u => u.Id == id);
             var member = new AddTrainingTeamMemberViewModel()
             {
                 Id = trTeamMember.Id,
@@ -252,7 +252,7 @@ namespace PmaPlus.Services
                 FirstAidExpiry = trTeamMember.UserDetail.CrbDbsExpiry
             };
 
-            switch (role)
+            switch (trTeamMember.Role)
             {
                 case Role.Coach:
                     {

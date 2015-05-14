@@ -28,6 +28,11 @@ namespace PmaPlus.Services.Services
 
         #region Qualifications
 
+        public bool QualificationExist(int id)
+        {
+            return _qualificationRepository.GetMany(q => q.Id == id).Any();
+        }
+
         public IEnumerable<Qualification> GetTrainingTeamMemberQualifications( int userId)
         {
             return _qualificationRepository.GetMany(q => q.User.Id == userId);

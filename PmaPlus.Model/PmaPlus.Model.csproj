@@ -79,6 +79,7 @@
     <Compile Include="Models\Curriculum.cs" />
     <Compile Include="Models\CurriculumBlock.cs" />
     <Compile Include="Models\CurriculumDetail.cs" />
+    <Compile Include="Models\CurriculumSession.cs" />
     <Compile Include="Models\CurriculumType.cs" />
     <Compile Include="Models\CurriculumWeek.cs" />
     <Compile Include="Enums\AgeGroup.cs" />

@@ -70,6 +70,7 @@
     <Compile Include="Repository\ClubAdminRepository.cs" />
     <Compile Include="Repository\ClubRepository.cs" />
     <Compile Include="Repository\CoachRepository.cs" />
+    <Compile Include="Repository\CurriculumSessionRepository.cs" />
     <Compile Include="Repository\CurriculumTypeRepository.cs" />
     <Compile Include="Repository\CurriculumWeekRepository.cs" />
     <Compile Include="Repository\FACourseRepository.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Repository\Iterfaces\ICurriculumBlockRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICurriculumDetailRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICurriculumRepository.cs" />
+    <Compile Include="Repository\Iterfaces\ICurriculumSessionRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICurriculumTypeRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICurriculumWeekRepository.cs" />
     <Compile Include="Repository\Iterfaces\IFACourseRepository.cs" />

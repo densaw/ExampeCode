@@ -22,11 +22,5 @@ namespace PmaPlus.Model.Models
 
         public string PlayersDescription { get; set; }
 
-        public virtual Coach Coach { get; set; }
-        public virtual ICollection<CurriculumBlock> CurriculumBlocks { get; set; }
-
-        public virtual ICollection<Curriculum> Curriculums { get; set; }
-
-        public virtual ICollection<CurriculumWeek> CurriculumWeeks { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using PmaPlus.Model;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.TrainingTeamMember;
 using PmaPlus.Services;
@@ -28,6 +29,17 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return  _userServices.GetTrainingTeamMembers();
         }
 
+        [Route("api/TrainingTeamMembers/{id}/detailed")]
+        public IHttpActionResult GetDetailedMemberProfile(int id)
+        {
+            return Ok(_userServices.GetDetailedTrainingTeamMemberViewModel(id));
+        }
+
+        public IHttpActionResult GetMemberProfile(int id)
+        {
+            return Ok(_userServices.GetTrainingTeamMemberViewModel(id));
+        }
+
         public IHttpActionResult Post(AddTrainingTeamMemberViewModel memberViewModel)
         {
 
@@ -40,5 +52,23 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return Ok();
         }
 
+        public IHttpActionResult Put(int id, [FromBody]AddTrainingTeamMemberViewModel memberViewModel)
+        {
+            if (!_userServices.UserExist(id))
+            {
+                return NotFound();
+            }
+            if (_photoManager.FileExists(memberViewModel.ProfilePicture))
+            {
+                memberViewModel.ProfilePicture = _photoManager.MoveFromTemp(memberViewModel.ProfilePicture,
+                    FileStorageTypes.ProfilePicture, id, "ProfilePicture");
+                
+            }
+            _userServices.UpdateTrainigTeamMember(memberViewModel,id);
+            return Ok();
+        }
+
+
+    
     }
 }

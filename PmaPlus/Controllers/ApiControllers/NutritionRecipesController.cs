@@ -32,7 +32,7 @@ namespace PmaPlus.Controllers.ApiControllers
             var count = _nutritionServices.GetRecipes().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var recipes = _nutritionServices.GetRecipes().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
-            var items = Mapper.Map<IEnumerable<NutritionRecipe>, IEnumerable<NutritionRecipeTableViewModel>>(recipes);
+            var items = Mapper.Map<IEnumerable<NutritionRecipe>, IEnumerable<NutritionRecipeViewModel>>(recipes);
 
             return new RecipePage()
             {
@@ -44,9 +44,9 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         // GET: api/NutritionRecipes/
-        public IEnumerable<NutritionRecipeTableViewModel> Get()
+        public IEnumerable<NutritionRecipeViewModel> Get()
         {
-            return Mapper.Map<IEnumerable<NutritionRecipe>, IEnumerable<NutritionRecipeTableViewModel>>(_nutritionServices.GetRecipes());
+            return Mapper.Map<IEnumerable<NutritionRecipe>, IEnumerable<NutritionRecipeViewModel>>(_nutritionServices.GetRecipes());
         }
 
         // GET: api/NutritionRecipes/5

@@ -21,27 +21,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         }
 
 
-        public IHttpActionResult GetCouchProfile(int id)
-        {
-            return Ok(_userServices.GetTrainingTeamMemberViewModel(Role.Coach, id));
-        }
-
-        [Route("api/CoachProfile/detailed")]
-        public IHttpActionResult GetDetailedCoachProfile(int id)
-        {
-            return Ok(_userServices.GetDetailedTrainingTeamMemberViewModel(Role.Coach, id));
-        }
-
-        public IHttpActionResult PutCoach(int id, [FromBody] AddTrainingTeamMemberViewModel memberViewModel)
-        {
-            if (!_userServices.UserExist(id))
-            {
-                return NotFound();
-            } 
-            _userServices.UpdateTrainigTeamMember(memberViewModel,id);
-            return Ok();
-
-        }
+       
 
     }
 }
