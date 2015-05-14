@@ -2163,10 +2163,7 @@
     }]);
 
     module.controller('SkillLevelsController', ['$scope', '$http', 'toaster', '$location', function ($scope, $http, toaster, $location) {
-        console.log($location);
-        console.log($location.$$absUrl);
-
-        console.log($location.$$absUrl.split("/"));
+        
         $scope.modalTitle = "Add a Skill";
         var pathArray = $location.$$absUrl.split("/");
         $scope.ids = pathArray[pathArray.length - 1];
