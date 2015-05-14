@@ -1,5 +1,5 @@
 ﻿(function () {
-    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster', 'file-model', 'ngSanitize', 'ui.select', 'ui.bootstrap.datetimepicker', 'ui.dateTimeInput', 'ui.calendar']);
+    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster', 'file-model', 'ngSanitize', 'ui.select', 'ui.bootstrap.datetimepicker',  'ui.calendar']);
 
     module.config(['uiSelectConfig', function (uiSelectConfig) {
         uiSelectConfig.theme = 'bootstrap';
@@ -1554,6 +1554,10 @@
             getResultsPage(newPage);
             $scope.pagination.current = newPage;
         };
+
+        $scope.check = function (item) {
+            item.selected = !item.selected;
+        }
 
         var target = angular.element('#addRecipe');
         var confDelete = angular.element('#confDelete');

@@ -212,9 +212,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
        { id: 2, name: 'Non-Urgent' }
     ];
 
-    $scope.check = function(id) {
-        console.log(id);
-    }
+   
 
 
     $scope.selectedPriority = $scope.Priority[0];
@@ -230,6 +228,18 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
     }
 
     getResults();
+
+    $scope.check = function (item) {
+        console.log(item);
+        item.complete = true;
+        $http.put(urlTail +'/'+item.id, item).success(function () {
+            getResults();
+        });
+    }
+
+    $scope.cancel = function() {
+        deleteConf.modal('hide');
+    }
 
     $scope.open = function() {
         target.modal('show');
@@ -247,7 +257,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
     $scope.delete = function () {
         $http.delete(urlTail + '/' + needToDelete).success(function () {
             getResults();
-            needToDelete = 1;
+            needToDelete = -1;
             deleteConf.modal('hide');
         });
     }

@@ -4,17 +4,29 @@
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Skills & Knowledge</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a>Home</a>
-            </li>
-            <li class="active">
-                <strong>Skill Videos</strong>
-            </li>
-        </ol>
+<div ng-controller="SkillsKnowledgeController">
+   <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Skills & Knowledge</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li class="active">
+                    <strong>Skill Videos</strong>
+                </li>
+            </ol>
+        </div>
     </div>
+   
 </div>
+<style>
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    .m-b {
+        margin-bottom: 0px;
+    }
+</style>
 

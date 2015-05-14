@@ -53,7 +53,7 @@
                             <div class="form-group">
                                 <label class="col-lg-4 title-modal">User Role:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <select ng-model="selectedRole" ng-options="role.name for role in rolesVisible" class=" form-control m-b" name="account"></select>
+                                    <select ng-model="selectedRole" ng-options="role.name for role in rolesVisible | orderBy:'name'" class=" form-control m-b" name="account"></select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -196,7 +196,7 @@
                     <a href="profile.html">
                         <div class="col-sm-4">
                             <div class="text-center">
-                                <img alt="image" class="img-circle m-t-xs img-responsive" src="{{item.profilePicture}}">
+                                <img alt="image" class="img-circle m-t-xs img-responsive" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}">
                                 <div class="m-t-xs font-bold">{{roles[item.role].name}}</div>
                             </div>
                         </div>

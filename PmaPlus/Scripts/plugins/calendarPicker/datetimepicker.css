@@ -14,6 +14,11 @@
     width: 320px;
 }
 
+.today-highlighted {
+    color: #1691D9;
+    text-decoration: underline;
+}
+
 .datetimepicker.datetimepicker-rtl {
     direction: rtl;
 }
