@@ -48,6 +48,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             {
                 newUser.UserDetail.ProfilePicture = _photoManager.MoveFromTemp(newUser.UserDetail.ProfilePicture,
                     FileStorageTypes.ProfilePicture, newUser.Id, "ProfilePicture");
+                _userServices.UpdateUser(newUser);
             }
             return Ok();
         }
