@@ -87,6 +87,15 @@ namespace PmaPlus.Services
 
         #region Curriculums
 
+        public decimal GetProgress(int curriculumId)
+        {
+            var curriclum = _curriculumRepository.GetById(curriculumId);
+            int sections = curriclum.NumberOfBlocks == 0 ? 1 : curriclum.NumberOfBlocks * curriclum.NumberOfWeeks == 0 ? 1 : curriclum.NumberOfWeeks * curriclum.NumberOfSessions == 0 ? 1 : curriclum.NumberOfSessions;
+
+            return sections;
+
+        }
+
         public bool CurriculumExist(int id)
         {
             return _curriculumRepository.GetMany(c => c.Id == id).Any();

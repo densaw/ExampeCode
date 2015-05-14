@@ -22,6 +22,24 @@ namespace PmaPlus.Controllers.ApiControllers
             _skillServices = skillServices;
         }
 
+        [Route("api/SkillVideos/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
+        public SkillVideoPage Get( int pageSize, int pageNumber, string orderBy = "")
+        {
+            var count = _skillServices.GetSallkillVideos().Count();
+            var pages = (int)Math.Ceiling((double)count / pageSize);
+            var skillVideos = _skillServices.GetSallkillVideos()
+                    .OrderQuery(orderBy, f => f.Id)
+                    .Paged(pageNumber, pageSize);
+
+            var items = Mapper.Map<IEnumerable<SkillVideo>, IEnumerable<SkillVideoTableViewModel>>(skillVideos);
+
+            return new SkillVideoPage()
+            {
+                Count = count,
+                Pages = pages,
+                Items = items
+            };
+        }
         
         [Route("api/SkillVideos/{skillLevelId:int}/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
         public SkillVideoPage Get(int skillLevelId, int pageSize, int pageNumber, string orderBy = "")
