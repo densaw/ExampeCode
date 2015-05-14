@@ -129,7 +129,7 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
     };
 }]);
 
-app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
+app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
 
     
 
@@ -172,22 +172,50 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', function
 
 
     $scope.send = function () {
-        $scope.newMember.userStatus = 0;
-        $scope.newMember.role = $scope.selectedRole.id;
-        $scope.newMember.profilePicture = 'tmp.png';
-        $http.post(urlTail, $scope.newMember).success(function(result) {
-            target.modal('hide');
-        }).error(function (data, status, headers, config) {
-            console.log(data);
-            if (status == 400) {
-                console.log(data);
-                toaster.pop({
-                    type: 'error',
-                    title: 'Error', bodyOutputType: 'trustedHtml',
-                    body: data.message.join("<br />")
+
+        //Files upload
+
+        var promises = [];
+
+
+        if ($scope.pic) {
+            var fd = new FormData();
+            fd.append('file', $scope.pic);
+            var promise = $http.post('/api/Files', fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            })
+                .success(function (data) {
+                    $scope.newMember.profilePicture = data.name;
+                })
+                .error(function () {
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error',
+                        body: 'File upload ERROR!'
+                    });
                 });
-            }
+            promises.push(promise);
+        }
+        $q.all(promises).then(function () {
+            $scope.newMember.userStatus = 0;
+            $scope.newMember.role = $scope.selectedRole.id;
+            //$scope.newMember.profilePicture = 'tmp.png';
+            $http.post(urlTail, $scope.newMember).success(function(result) {
+                target.modal('hide');
+            }).error(function (data, status, headers, config) {
+                console.log(data);
+                if (status == 400) {
+                    console.log(data);
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error', bodyOutputType: 'trustedHtml',
+                        body: data.message.join("<br />")
+                    });
+                }
+            }); 
         });
+        //--
     };
 
     $http.get(urlTail)
