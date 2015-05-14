@@ -57,6 +57,8 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<ToDoViewModel, ToDo>();
 
             Mapper.CreateMap<QualificationViewModel, Qualification>();
+
+            Mapper.CreateMap<CurriculumViewModel, Curriculum>();
         }
     }
 }

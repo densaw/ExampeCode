@@ -86,13 +86,13 @@ namespace PmaPlus.Services
 
 
         #region Curriculums
-
+        //TODO:Curriculum Progress
         public decimal GetProgress(int curriculumId)
         {
             var curriclum = _curriculumRepository.GetById(curriculumId);
             int sections = curriclum.NumberOfBlocks == 0 ? 1 : curriclum.NumberOfBlocks * curriclum.NumberOfWeeks == 0 ? 1 : curriclum.NumberOfWeeks * curriclum.NumberOfSessions == 0 ? 1 : curriclum.NumberOfSessions;
 
-            return sections;
+            return 0;
 
         }
 
