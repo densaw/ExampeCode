@@ -14,11 +14,26 @@
                     <i class="fa fa-envelope"></i>
                 </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" ng-controller="ToDoNotifyController">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-bell"></i>
+                    <span ng-if="itemCount > 0" class="label label-danger" style="border-radius: 100%;">{{itemCount}}</span>
                 </a>
-
+                <ul class="dropdown-menu dropdown-alerts">
+                    <li ng-repeat="item in items">
+                        <a>
+                            <div>
+                                <i class="fa fa-bell"></i> {{item.completionDateTime}}
+                            </div>
+                            <div>
+                                <strong>{{item.title}}</strong>
+                                <br/>
+                                {{item.note}}
+                            </div>
+                        </a>
+                        <div class="divider"></div>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="@Url.Action("LockScreen", "Account", new {area = ""})"><i class="fa fa-power-off"></i></a>

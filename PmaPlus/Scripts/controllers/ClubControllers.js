@@ -473,3 +473,21 @@ app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location',
             });
     };
 }]);
+
+app.controller('ToDoNotifyController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
+
+    var urlTail = '/api/ToDo/Today';
+    $scope.itemCount = 0;
+
+
+    function getResults() {
+        $http.get(urlTail)
+           .success(function (result) {
+               $scope.items = result;
+               $scope.itemCount = result.length;
+        });
+
+    }
+
+    getResults();
+}]);
