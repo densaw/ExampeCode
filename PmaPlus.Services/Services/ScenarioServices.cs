@@ -36,14 +36,12 @@ namespace PmaPlus.Services.Services
             return _scenarioRepository.GetById(id);
         }
 
-        public Scenario AddScenario(Scenario scenario,string clubName = "SystemAdmin")
+        public Scenario AddScenario(Scenario scenario)
         {
             if (scenario == null)
             {
                 return null;
             }
-
-            scenario.UploadedBy = clubName;
             return _scenarioRepository.Add(scenario);
         }
 
