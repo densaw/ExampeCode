@@ -22,11 +22,13 @@ namespace PmaPlus.Controllers.ApiControllers
     {
         private readonly ClubServices _clubServices;
         private readonly IPhotoManager _photoManager;
+        private readonly UserServices _userServices;
 
-        public ClubsController(ClubServices clubServices, IPhotoManager photoManager)
+        public ClubsController(ClubServices clubServices, IPhotoManager photoManager, UserServices userServices)
         {
             _clubServices = clubServices;
             _photoManager = photoManager;
+            _userServices = userServices;
             //_photoManager = new LocalPhotoManager(HttpContext.Current.Server.MapPath(@"~/App_Data/temp"));
         }
 
@@ -51,6 +53,14 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             return _clubServices.GetClubsTableViewModels();
         }
+
+        [Route("api/Clubs/Current")]
+        public AddClubViewModel GetCurrentClub()
+        {
+
+            return _clubServices.GetClubById(_userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id);
+        }
+
 
         // GET: api/Clubs/5
         public AddClubViewModel Get(int id)

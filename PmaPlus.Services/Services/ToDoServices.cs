@@ -32,7 +32,7 @@ namespace PmaPlus.Services.Services
             return from todo in _toDoRepository.GetAll()
                 where
                     todo.UserDetail.User.Email.ToLower() == userEmail.ToLower() &&
-                    SqlFunctions.DateDiff("dd",todo.CompletionDateTime,today) ==0
+                    SqlFunctions.DateDiff("dd",todo.CompletionDateTime,today) == 0
                 select todo;
 
 
