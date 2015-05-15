@@ -9,12 +9,9 @@ namespace PmaPlus.Model.Models
     {
         public int Id { get; set; }
 
-        [StringLength(50)]
         public string FirstName { get; set; }
 
-        [StringLength(50)]
         public string LastName { get; set; }
-
         
         public DateTime? Birthday { get; set; }
 

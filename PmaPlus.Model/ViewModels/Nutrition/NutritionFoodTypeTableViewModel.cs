@@ -13,6 +13,8 @@ namespace PmaPlus.Model.ViewModels.Nutrition
         public string FoodName { get; set; }
         public IList<MealTime> When { get; set; }
         public string PortionSize { get; set; }
+        public decimal Calories { get; set; }
+
         public string Description { get; set; }
         public string GoodFor { get; set; }
     }

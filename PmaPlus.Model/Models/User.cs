@@ -17,7 +17,6 @@ namespace PmaPlus.Model.Models
         [Required]
         [StringLength(50)]
         public string Email { get; set; }
-        [StringLength(50)]
         public string Password { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
