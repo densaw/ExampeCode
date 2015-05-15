@@ -131,6 +131,13 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
 
 app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
 
+
+    function getResultsPage() {
+        $http.get(urlTail)
+           .success(function (result) {
+               $scope.items = result;
+           });
+    }
     
 
     $scope.roles = [
@@ -201,7 +208,9 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
             $scope.newMember.userStatus = 0;
             $scope.newMember.role = $scope.selectedRole.id;
             //$scope.newMember.profilePicture = 'tmp.png';
+            console.log($scope.newMember);
             $http.post(urlTail, $scope.newMember).success(function(result) {
+                getResultsPage();
                 target.modal('hide');
             }).error(function (data, status, headers, config) {
                 console.log(data);
@@ -218,17 +227,13 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
         //--
     };
 
-    $http.get(urlTail)
-           .success(function (result) {
-               $scope.items = result;
-           });
-
+    getResultsPage();
 }]);
 
 app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
 
     var needToDelete = -1;
-    
+    var needToUpdate = -1;
 
     var urlTail = '/api/ToDo';
     var target = angular.element('#addNote');
@@ -259,27 +264,29 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
     $scope.check = function (item) {
         console.log(item);
-        item.complete = true;
+        item.complete = !item.complete;
         $http.put(urlTail +'/'+item.id, item).success(function () {
             getResults();
         });
     }
 
-    $scope.cancel = function() {
+    $scope.cancel = function () {
+        $scope.newNote = {};
+        needToUpdate = -1;
+        needToDelete = -1;
+        getResults();
+        target.modal('hide');
         deleteConf.modal('hide');
     }
 
-    $scope.open = function() {
+    $scope.open = function () {
+        $scope.windowTitle = 'Add Note';
         target.modal('show');
     }
 
     $scope.showDelete = function (id) {
         needToDelete = id;
         deleteConf.modal('show');
-    }
-
-    $scope.cancel = function() {
-        deleteConf.modal('hide');
     }
 
     $scope.delete = function () {
@@ -290,10 +297,26 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
         });
     }
 
+    $scope.update = function(item) {
+        $scope.windowTitle = 'Update Note';
+        $scope.newNote = item;
+        needToUpdate = item.id;
+        target.modal('show');
+    }
+
     $scope.ok = function () {
         $scope.newNote.priority = $scope.selectedPriority.id;
-        console.log($scope.newNote);
-        $http.post(urlTail, $scope.newNote)
+        console.log(needToUpdate);
+        console.log(needToUpdate != -1);
+
+        if (needToUpdate != -1) {
+            $http.put(urlTail + '/' + needToUpdate, $scope.newNote).success(function () {
+                needToUpdate = -1;
+                getResults();
+                target.modal('hide');
+            });
+        } else {
+            $http.post(urlTail, $scope.newNote)
           .success(function (result) {
             getResults();
             target.modal('hide');
@@ -307,7 +330,10 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
                       body: data.message.join("<br />")
                   });
               }
-          });
+          }); 
+        }
+
+       
     }
 
 }]);

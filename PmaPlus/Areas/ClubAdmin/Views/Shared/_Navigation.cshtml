@@ -39,8 +39,8 @@
             <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] { "Curriculums", "Statements" })">
                 <a href="@Url.Action("Curriculums", "Home", new { area = "ClubAdmin" })"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Curriculums</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "Curriculums")"><a href="@Url.Action("Curriculums", "Home", new { area = "ClubAdmin" })">Body Parts</a></li>
-                    <li class="@Html.IsSelected(action: "Statements")"><a href="@Url.Action("Statements", "Home", new { area = "ClubAdmin" })">Exercises</a></li>
+                    <li class="@Html.IsSelected(action: "Curriculums")"><a href="@Url.Action("Curriculums", "Home", new { area = "ClubAdmin" })">Curriculums</a></li>
+                    <li class="@Html.IsSelected(action: "Statements")"><a href="@Url.Action("Statements", "Home", new { area = "ClubAdmin" })">Statements</a></li>
 
                 </ul>
             </li>
