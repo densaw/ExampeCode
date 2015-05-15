@@ -20,3 +20,152 @@
         </ol>
     </div>
 </div>
+
+<div class="wrapper wrapper-content" ng-controller="ClubProfileController">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Club Profile</h5>
+                </div>
+                <div class="ibox-content">
+                    <form name="myform" class="form-horizontal" novalidate>
+                        <div class="form-group " ng-class="{'has-error':myform.clubName.$invalid && (myform.clubName.$dirty||myform.form_Submitted) }">
+                            <label class="col-lg-4 title-modal">Club Name:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="clubName" ng-model="newClub.name" required class="form-control">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Club Logo:</label>
+                            <div class="col-lg-7 pull-right ">
+                                <div class="thumbnail" ng-show="oldLogo" style="width: auto; float: none !important; margin-bottom: 5px;">
+                                    <img ng-src='/api/file/clubs/{{newClub.logo}}/{{newClub.id}}' style="width: auto; float: none !important;"/>
+                                </div>
+                                <input id="logoFile" file-model='logoFile' type="file" accept="image/*" class="pma-fileupload">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Club Status:</label>
+                            <div class="col-lg-7 pull-right">
+                                <select ng-model="selectedStatus" ng-options="status.name for status in statuses" class="form-control m-b" name="account"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error':myform.adminName.$invalid && (myform.adminName.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Club Administrator Name:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="adminName" ng-model="newClub.clubAdminName" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':myform.userName.$invalid && (myform.userName.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">ClubAdmin Username:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="userName" ng-model="newClub.clubAdminEmail" required class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':myform.adminPassword.$invalid && (myform.adminPassword.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">ClubAdmin Password:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="adminPassword" ng-model="newClub.clubAdminPassword" required class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Club Background:</label>
+                            <div class="col-lg-7 pull-right">
+                                <div class="thumbnail" ng-show="oldBackground" style="width: auto; float: none !important; margin-bottom: 5px;">
+                                    <img ng-src='/api/file/clubs/{{newClub.background}}/{{newClub.id}}' style="width: auto; float: none !important;"/>
+                                </div>
+                                <input type="file" file-model='backgroundFile' accept="image/*" class="pma-fileupload" multiple="false">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':myform.established.$invalid && (myform.established.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Established:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="established " ng-model="newClub.established" required class="form-control" type="number">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':myform.telephone.$invalid && (myform.telephone.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Club Telephone:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="telephone" ng-model="newClub.telephone" required class="form-control" ng-pattern="/[0-9]\d{5}(\d{3})?/" maxlength="12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Club Mobile:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input ng-model="newClub.mobile " class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':myform.adress.$invalid && (myform.adress.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Address 1:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="adress" ng-model="newClub.address1" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Address 2:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input ng-model="newClub.address2" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Address 3:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input ng-model="newClub.address3" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':myform.towncity.$invalid && (myform.towncity.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Town\City:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="towncity" ng-model="newClub.townCity" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':myform.postcode.$invalid && (myform.postcode.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Post Code:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="postcode" ng-model="newClub.postCode" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Chairman:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input ng-model="newClub.chairman" class="form-control" maxlength="12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Chairman Email:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input ng-model="newClub.chairmanEmail" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Chairman Telephone:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input ng-model="newClub.chairmanTelephone" class="form-control" maxlength="12">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':myform.colorHex.$invalid && (myform.colorHex.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Club Colour Theme:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="colorHex" ng-model="newClub.colorTheme" type="text" class="form-control" ng-pattern="'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'">
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="modal-footer">
+                        <button ng-click="ok(newClub.id)" id="saveModal" ng-disabled="sending" type="button" class="btn btn-primary ">Save changes</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+

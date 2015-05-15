@@ -491,3 +491,133 @@ app.controller('ToDoNotifyController', ['$scope', '$http', 'toaster', function($
 
     getResults();
 }]);
+
+app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', function($scope, $http, toaster, $q) {
+
+    var urlTail = '/api/Clubs';
+
+    $scope.statuses = [
+            { id: 0, name: 'Active' },
+            { id: 1, name: 'Blocked' },
+            { id: 2, name: 'Closed' }
+    ];
+    $scope.selectedStatus = $scope.statuses[0];
+
+    function getResults(tail) {
+        $http.get(urlTail + tail)
+           .success(function (result) {
+               $scope.newClub = result;
+           });
+
+    }
+
+    getResults('/Current');
+
+    $scope.ok = function (id) {
+
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
+        if (!$scope.myform.$valid) {
+            toaster.pop({
+                type: 'error',
+                title: 'Error',
+                bodyOutputType: 'trustedHtml',
+                body: 'Please complete the compulsory fields highlighted in red'
+            });
+
+
+        } else {
+
+
+
+
+            //Files upload
+
+            var promises = [];
+
+            if ($scope.logoFile) {
+                var fd = new FormData();
+                fd.append('file', $scope.logoFile);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newClub.logo = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+
+            if ($scope.backgroundFile) {
+                var fd = new FormData();
+                fd.append('file', $scope.backgroundFile);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newClub.background = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+
+
+            //$scope.newClub.logo = 'tmp.jpeg';
+            //$scope.newClub.background = 'tmp.jpeg';
+            $q.all(promises).then(function () {
+
+                $scope.newClub.status = $scope.selectedStatus.id;
+                console.log($scope.newClub);
+                if (id != null) {
+                    $http.put('/api/Clubs/' + id, $scope.newClub)
+                        .success(function () {
+                            getResults('/Current');
+                        }).error(function (data, status, headers, config) {
+                            if (status == 400) {
+                                console.log(data);
+                                toaster.pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    bodyOutputType: 'trustedHtml',
+                                    body: 'Please complete the compulsory fields highlighted in red'
+                                });
+                            }
+                        });
+
+                } else {
+
+                    $http.post('/api/Clubs', $scope.newClub)
+                        .success(function () {
+                            getResults('/Current');
+                        }).error(function (data, status, headers, config) {
+                            if (status == 400) {
+                                console.log(data);
+                                toaster.pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    bodyOutputType: 'trustedHtml',
+                                    body: 'Please complete the compulsory fields highlighted in red'
+                                });
+                            }
+                        });
+                };
+            });
+        }
+
+
+    }
+
+}]);
