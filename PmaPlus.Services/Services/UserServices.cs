@@ -114,7 +114,6 @@ namespace PmaPlus.Services
                     CrbDbsExpiry = user.CrbDbsExpiry,
                     FirstAidExpiry = user.FirstAidExpiry,
 
-
                 },
                 Role = user.Role,
                 CreateAt = DateTime.Now,
