@@ -253,8 +253,8 @@
                                         <td>{{scenarioType[scenario.scenarioType].name}}</td>
                                         <td>{{scenario.minAge}} - {{scenario.maxAge}}</td>
                                         <td>
-                                            <i ng-click="openEdit(scenario.id)" class="fa fa-cog" style="cursor: pointer;"></i>
-                                            <i ng-click="openDelete(scenario.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                            <i ng-if="scenario.uploadedBy != 'SystemAdmin'" ng-click="openEdit(scenario.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                            <i ng-if="scenario.uploadedBy != 'SystemAdmin'" ng-click="openDelete(scenario.id)" class="fa fa-trash" style="cursor: pointer;"></i>
                                             <i ng-click="modalVideoStart(scenario.video)" class="fa fa-film" style="cursor: pointer;"></i>
                                             <i ng-click="openPic(scenario.id)" class="fa fa-camera" style="cursor: pointer;"></i>
 

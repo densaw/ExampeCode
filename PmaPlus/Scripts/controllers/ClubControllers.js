@@ -131,6 +131,13 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
 
 app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
 
+
+    function getResultsPage() {
+        $http.get(urlTail)
+           .success(function (result) {
+               $scope.items = result;
+           });
+    }
     
 
     $scope.roles = [
@@ -201,7 +208,9 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
             $scope.newMember.userStatus = 0;
             $scope.newMember.role = $scope.selectedRole.id;
             //$scope.newMember.profilePicture = 'tmp.png';
+            console.log($scope.newMember);
             $http.post(urlTail, $scope.newMember).success(function(result) {
+                getResultsPage();
                 target.modal('hide');
             }).error(function (data, status, headers, config) {
                 console.log(data);
@@ -218,11 +227,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
         //--
     };
 
-    $http.get(urlTail)
-           .success(function (result) {
-               $scope.items = result;
-           });
-
+    getResultsPage();
 }]);
 
 app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
@@ -259,7 +264,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
     $scope.check = function (item) {
         console.log(item);
-        item.complete = true;
+        item.complete = !item.complete;
         $http.put(urlTail +'/'+item.id, item).success(function () {
             getResults();
         });
@@ -269,7 +274,8 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
         deleteConf.modal('hide');
     }
 
-    $scope.open = function() {
+    $scope.open = function () {
+        $scope.windowTitle = 'Add Note';
         target.modal('show');
     }
 
@@ -288,6 +294,11 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
             needToDelete = -1;
             deleteConf.modal('hide');
         });
+    }
+
+    $scope.update = function(id) {
+        $scope.windowTitle = 'Update Note';
+        target.modal('show');
     }
 
     $scope.ok = function () {
