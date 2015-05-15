@@ -233,7 +233,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
 app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
 
     var needToDelete = -1;
-    
+    var needToUpdate = -1;
 
     var urlTail = '/api/ToDo';
     var target = angular.element('#addNote');
@@ -270,7 +270,12 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
         });
     }
 
-    $scope.cancel = function() {
+    $scope.cancel = function () {
+        $scope.newNote = {};
+        needToUpdate = -1;
+        needToDelete = -1;
+        getResults();
+        target.modal('hide');
         deleteConf.modal('hide');
     }
 
@@ -284,10 +289,6 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
         deleteConf.modal('show');
     }
 
-    $scope.cancel = function() {
-        deleteConf.modal('hide');
-    }
-
     $scope.delete = function () {
         $http.delete(urlTail + '/' + needToDelete).success(function () {
             getResults();
@@ -296,15 +297,26 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
         });
     }
 
-    $scope.update = function(id) {
+    $scope.update = function(item) {
         $scope.windowTitle = 'Update Note';
+        $scope.newNote = item;
+        needToUpdate = item.id;
         target.modal('show');
     }
 
     $scope.ok = function () {
         $scope.newNote.priority = $scope.selectedPriority.id;
-        console.log($scope.newNote);
-        $http.post(urlTail, $scope.newNote)
+        console.log(needToUpdate);
+        console.log(needToUpdate != -1);
+
+        if (needToUpdate != -1) {
+            $http.put(urlTail + '/' + needToUpdate, $scope.newNote).success(function () {
+                needToUpdate = -1;
+                getResults();
+                target.modal('hide');
+            });
+        } else {
+            $http.post(urlTail, $scope.newNote)
           .success(function (result) {
             getResults();
             target.modal('hide');
@@ -318,7 +330,10 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
                       body: data.message.join("<br />")
                   });
               }
-          });
+          }); 
+        }
+
+       
     }
 
 }]);

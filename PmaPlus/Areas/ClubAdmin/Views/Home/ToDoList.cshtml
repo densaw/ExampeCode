@@ -32,7 +32,7 @@
                 <div class="modal-content animated bounceInRight">
                     <div class="modal-header">
 
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h3 class="modal-title">Delete Record?</h3>
 
 
@@ -53,7 +53,7 @@
             <div class="modal-dialog">
                 <div class="modal-content animated bounceInRight">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h3 class="modal-title text-left">{{windowTitle}}</h3>
                     </div>
                     <div class="modal-body">
@@ -109,7 +109,7 @@
                             <small>{{item.completionDateTime | date:'dd/MM/yyyy'}}</small>
                             <h4>{{item.title}}</h4>
                             <p>{{item.note}}</p>
-                            <a href="#"><i class="fa fa-trash-o" ng-click="showDelete(item.id)"></i><i class="fa fa-cog" ng-click="update(item.id)"></i></a>
+                            <a href="#"><i class="fa fa-trash-o" ng-click="showDelete(item.id)"></i><i class="fa fa-cog" ng-click="update(item)"></i></a>
                         </div>
                     </li>
                 </ul>
