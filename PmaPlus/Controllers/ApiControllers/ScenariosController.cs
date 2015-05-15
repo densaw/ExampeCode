@@ -59,23 +59,40 @@ namespace PmaPlus.Controllers.ApiControllers
         public IHttpActionResult Post([FromBody]ScenarioViewModel scenarioViewModel)
         {
             var scenario = Mapper.Map<ScenarioViewModel, Scenario>(scenarioViewModel);
-            if (User.IsInRole(Role.SystemAdmin.ToString()))
-            {
-                scenario.UploadedBy = "SystemAdmin";
-            }
-            else
-            {
 
-                scenario.UploadedBy = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Name;
+            switch (_userServices.GetUserByEmail(User.Identity.Name).Role)
+            {
+                case Role.SystemAdmin:
+                {
+                    scenario.UploadedBy = "SysAdmin";
+                    break;
+                }
+                case Role.ClubAdmin:
+                {
+                    scenario.UploadedBy = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Name;
+                    break;
+                }
+                case Role.Coach:
+                {
+                    scenario.UploadedBy = "Coach";
+                    break;
+                }
+                case Role.HeadOfAcademies:
+                {
+                    scenario.UploadedBy = "Head of Academy";
+                    break;
+                }
             }
+
+            
             var newScenario = _scenarioServices.AddScenario(scenario);
             if (_photoManager.FileExists(newScenario.Picture))
             {
                 newScenario.Picture = _photoManager.MoveFromTemp(newScenario.Picture, FileStorageTypes.Scenarios,
                     newScenario.Id, "ScenarioPicture");
-                _scenarioServices.UpdateScenario(newScenario,newScenario.Id);
+                _scenarioServices.UpdateScenario(newScenario, newScenario.Id);
             }
-            return Created(Request.RequestUri + newScenario.Id.ToString(),newScenario);
+            return Created(Request.RequestUri + newScenario.Id.ToString(), newScenario);
         }
 
         // PUT: api/Scenarios/5
@@ -91,8 +108,8 @@ namespace PmaPlus.Controllers.ApiControllers
                 scenario.Picture = _photoManager.MoveFromTemp(scenario.Picture, FileStorageTypes.Scenarios,
                     id, "ScenarioPicture");
             }
-  
-            _scenarioServices.UpdateScenario(scenario,id);
+
+            _scenarioServices.UpdateScenario(scenario, id);
             return Ok();
         }
 
@@ -106,7 +123,7 @@ namespace PmaPlus.Controllers.ApiControllers
             _scenarioServices.DeleteScenario(id);
             _photoManager.Delete(FileStorageTypes.Scenarios, id);
             return Ok();
-            
+
         }
     }
 }
