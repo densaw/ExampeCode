@@ -20,6 +20,11 @@ namespace PmaPlus.Controllers.ApiControllers
             _toDoServices = toDoServices;
         }
 
+        [Route("api/ToDo/Today")]
+        public IEnumerable<ToDoViewModel> GetForToday()
+        {
+            return Mapper.Map<IEnumerable<ToDo>, IEnumerable<ToDoViewModel>>(_toDoServices.GetToDosForToday(User.Identity.Name)); 
+        } 
         public IEnumerable<ToDoViewModel> Get()
         {
             return Mapper.Map<IEnumerable<ToDo>,IEnumerable<ToDoViewModel>>( _toDoServices.GetToDos(User.Identity.Name)); 

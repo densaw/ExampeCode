@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,18 @@ namespace PmaPlus.Services.Services
         {
             return _toDoRepository.GetMany(t => t.Id == id).Any();
         }
+
+        public IEnumerable<ToDo> GetToDosForToday(string userEmail)
+        {
+            var today = DateTime.Now;
+            return from todo in _toDoRepository.GetAll()
+                where
+                    todo.UserDetail.User.Email.ToLower() == userEmail.ToLower() &&
+                    SqlFunctions.DateDiff("dd",todo.CompletionDateTime,today) ==0
+                select todo;
+
+
+        } 
 
         public IEnumerable<ToDo> GetToDos(string userEmail)
         {
