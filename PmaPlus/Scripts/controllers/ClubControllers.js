@@ -6,6 +6,13 @@ app.filter('todo', function () {
     };
 });
 
+app.filter('dayExp', function() {
+    return function (v, yes, no) {
+        console.log(moment.utc(v) > moment.utc());
+        return moment.utc(v) > moment.utc() ? yes : no;
+    };
+});
+
 app.controller('AttributesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
     var needToDelete = -1;
