@@ -108,8 +108,29 @@ namespace PmaPlus.Services
 
         public Curriculum AddCurriculum(Curriculum curriculum)
         {
+            var curriculumType = _curriculumTypeRepository.Get(t => t.Id == curriculum.CurriculumTypeId);
+            if (curriculumType == null)
+            {
+                return null;
+            }
+
+            if (!curriculumType.UsesBlocks)
+            {
+                curriculum.NumberOfBlocks = 0;
+                curriculum.NumberOfWeeks = 0;
+                curriculum.NumberOfSessions = 0;
+            }
+            if (!curriculumType.UsesWeeks)
+            {
+                curriculum.NumberOfWeeks = 0;
+                curriculum.NumberOfSessions = 0;
+            }
+            if (!curriculumType.UsesSessions)
+            {
+                curriculum.NumberOfSessions = 0;
+            }
+
             var newCurriculum = _curriculumRepository.Add(curriculum);
-            var curriculumType = _curriculumTypeRepository.Get(t => t.Id == newCurriculum.CurriculumTypeId);
 
             #region MyRegion
 
