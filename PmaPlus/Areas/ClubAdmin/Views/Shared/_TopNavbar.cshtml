@@ -23,7 +23,7 @@
                     <li ng-repeat="item in items">
                         <a>
                             <div>
-                                <i class="fa fa-bell"></i> {{item.completionDateTime}}
+                                <i class="fa fa-bell"></i> {{item.completionDateTime | date : 'dd-MM-yyyy HH:mm'}}
                             </div>
                             <div>
                                 <strong>{{item.title}}</strong>

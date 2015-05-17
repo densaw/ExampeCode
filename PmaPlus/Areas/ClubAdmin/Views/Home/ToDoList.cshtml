@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "ToDoList";
+    ViewBag.Title = "PMA+";
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -109,7 +109,7 @@
                             <small>{{item.completionDateTime | date:'dd/MM/yyyy'}}</small>
                             <h4>{{item.title}}</h4>
                             <p>{{item.note}}</p>
-                            <a href="#"><i class="fa fa-trash-o" ng-click="showDelete(item.id)"></i><i class="fa fa-cog" ng-click="update(item)"></i></a>
+                            <a href="#"><i class="fa fa-trash-o" ng-click="showDelete(item.id)"></i> &nbsp;<i class="fa fa-cog" ng-click="update(item)"></i></a>
                         </div>
                     </li>
                 </ul>
