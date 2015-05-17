@@ -30,7 +30,7 @@ namespace PmaPlus.Services.Services
         }
 
 
-        public void AddTeam(Team team, int clubId, int[] playersId, int[] coachesId, int curriculumId)
+        public void AddTeam(Team team, int clubId, IList<int> playersId, IList<int> coachesId, int curriculumId)
         {
             var coaches = _coachRepository.GetMany(c => coachesId.Contains(c.Id));
             var players = _playerRepository.GetMany(p => playersId.Contains(p.Id));
@@ -51,9 +51,6 @@ namespace PmaPlus.Services.Services
             }
 
         }
-
-
-
 
     }
 }

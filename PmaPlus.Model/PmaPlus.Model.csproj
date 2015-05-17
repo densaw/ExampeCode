@@ -61,6 +61,7 @@
     <Compile Include="Enums\AttributeType.cs" />
     <Compile Include="Enums\BodyPartType.cs" />
     <Compile Include="Enums\ClubStatus.cs" />
+    <Compile Include="Enums\Foot.cs" />
     <Compile Include="Enums\PhysioExerciseType.cs" />
     <Compile Include="Enums\ToDoPriority.cs" />
     <Compile Include="Enums\UserStatus.cs" />
@@ -172,6 +173,8 @@
     <Compile Include="ViewModels\SportsScience\SportsScienceTestPage.cs" />
     <Compile Include="ViewModels\SportsScience\SportsScienceTestTableViewModel.cs" />
     <Compile Include="ViewModels\SportsScience\SportsScienceTestViewModel.cs" />
+    <Compile Include="ViewModels\Team\AddTeamViewModel.cs" />
+    <Compile Include="ViewModels\Team\TeamTableViewModel.cs" />
     <Compile Include="ViewModels\ToDo\ToDoViewModel.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\AddTrainingTeamMemberViewModel.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberPlateViewModel - Copy.cs" />
@@ -180,7 +183,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModels\Player\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -9,10 +9,6 @@ namespace PmaPlus.Model.Models
     {
         public int Id { get; set; }
 
-        
-
-        public int? TeamId { get; set; }
-
         public virtual Club Club { get; set; }
 
         public virtual ICollection<Team> Teams { get; set; }

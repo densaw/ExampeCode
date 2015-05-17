@@ -8,9 +8,20 @@ namespace PmaPlus.Model.Models
     public class Player
     {
         public int Id { get; set; }
+
+        public Foot PlayingFoot { get; set; }
+
+        public string ParentsFirstName { get; set; }
+        public string ParentsLastName { get; set; }
+        public string ParentsContactNumber { get; set; }
+        public string PlayerHealthConditions { get; set; }
+        public string SchoolName { get; set; }
+        public string SchoolTelephone { get; set; }
+        public string SchoolContactName { get; set; }
+        public string SchoolContactEmail { get; set; }
+
         public virtual Club Club { get; set; }
-        public virtual Team Team { get; set; }
-        public virtual Team Team1 { get; set; }
+        public virtual ICollection<Team> Teams { get; set; }
         public virtual User User { get; set; }
         public UserStatus Status { get; set; }
         public virtual ICollection<PlayerInjury> PlayerInjuries { get; set; }
