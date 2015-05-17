@@ -192,10 +192,35 @@ namespace PmaPlus.Services
 
         #region Details
 
-        public void AddCurriculumDetails(CurriculumDetail curriculumDetail, int curriculumId)
+        public IEnumerable<CurriculumDetail> GetCurriculumDetails(int curriculumId)
+        {
+            return _curriculumDetailRepository.GetMany(d => d.Id == _curriculumRepository.GetById(curriculumId).Id);
+        }
+
+        public IEnumerable<CurriculumDetail> GetCurriculumBlockDetails(int curriculumBlockId)
+        {
+            return _curriculumDetailRepository.GetMany(d => d.Id == _curriculumBlockRepository.GetById(curriculumBlockId).Id);
+        }
+
+        public IEnumerable<CurriculumDetail> GetCurriculumWeekDetails(int curriculumWeekId)
+        {
+            return _curriculumDetailRepository.GetMany(d => d.Id == _curriculumWeekRepository.GetById(curriculumWeekId).Id);
+        }
+
+        public IEnumerable<CurriculumDetail> GetCurriculumSessionDetails(int curriculumSessionId)
+        {
+            return _curriculumDetailRepository.GetMany(d => d.Id == _curriculumSessionRepository.GetById(curriculumSessionId).Id);
+        }
+
+
+        public CurriculumDetail AddCurriculumDetails(CurriculumDetail curriculumDetail, int curriculumId)
         {
             var curriculum = _curriculumRepository.GetById(curriculumId);
-            curriculum.CurriculumDetail = _curriculumDetailRepository.Add(curriculumDetail);
+            if (curriculum.CurriculumDetail == null)
+            {
+                return null;
+            }
+            return curriculum.CurriculumDetail = _curriculumDetailRepository.Add(curriculumDetail);
         }
 
         public CurriculumDetail AddCurriculumBlockDetails(CurriculumDetail curriculumDetail, int curriculumId)

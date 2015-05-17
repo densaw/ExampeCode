@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using PmaPlus.Model;
 using PmaPlus.Model.Models;
@@ -29,12 +30,15 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return  _userServices.GetTrainingTeamMembers();
         }
 
+        [ResponseType(typeof(AddTrainingTeamMemberViewModel))]
         [Route("api/TrainingTeamMembers/{id}/detailed")]
         public IHttpActionResult GetDetailedMemberProfile(int id)
         {
             return Ok(_userServices.GetDetailedTrainingTeamMemberViewModel(id));
         }
 
+
+        [ResponseType(typeof(TrainingTeamMemberViewModel))]
         public IHttpActionResult GetMemberProfile(int id)
         {
             return Ok(_userServices.GetTrainingTeamMemberViewModel(id));

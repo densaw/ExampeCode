@@ -243,7 +243,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\AttributesController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\CoacheProfileController.cs" />
-    <Compile Include="Controllers\ApiControllers\ClubAdminApi\CurriculumsController.cs" />
+    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumWeekDetailsController.cs" />
+    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumSessionDetailsController.cs" />
+    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumBlockDetailsController.cs" />
+    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumDetailsController.cs" />
+    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumsController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\QualificationController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\TrainingTeamMembersController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubsController.cs" />
@@ -262,6 +266,7 @@
     <Compile Include="Controllers\ApiControllers\SkillVideosController.cs" />
     <Compile Include="Controllers\ApiControllers\SportsScienceExercisesController.cs" />
     <Compile Include="Controllers\ApiControllers\SportsScienceTestsController.cs" />
+    <Compile Include="Controllers\ApiControllers\Teams\TeamsController.cs" />
     <Compile Include="Controllers\ApiControllers\ToDoController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
     <Compile Include="Filters\PhotoStreamProvider.cs" />
