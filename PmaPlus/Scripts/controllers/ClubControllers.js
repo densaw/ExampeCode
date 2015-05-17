@@ -507,6 +507,8 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
         $http.get(urlTail + tail)
            .success(function (result) {
                $scope.newClub = result;
+               $scope.newClub.logo === '' ? $scope.oldLogo = false : $scope.oldLogo = true;
+               $scope.newClub.background === '' ? $scope.oldBackground = false : $scope.oldBackground = true;
            });
 
     }
