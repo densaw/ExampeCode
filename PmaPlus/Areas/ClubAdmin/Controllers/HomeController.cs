@@ -85,5 +85,10 @@ namespace PmaPlus.Areas.ClubAdmin.Controllers
         {
             return View();
         }
+
+        public ActionResult ProfilePage()
+        {
+            return View();
+        }
     }
 }

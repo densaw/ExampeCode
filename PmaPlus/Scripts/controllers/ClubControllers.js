@@ -13,6 +13,17 @@ app.filter('dayExp', function() {
     };
 });
 
+var routing = function ($routeProvider) {
+    $routeProvider.when('localhost:1292/ClubAdmin/Home/ProfilePage/:role', {
+        templateUrl: function (params) { return '/ClubAdmin/Home/ProfilePage?role=' + params.role; },
+        controller: 'ProfilePageController'
+    });
+}
+
+routing.$inject = ['$routeProvider'];
+
+app.config(routing);
+
 app.controller('AttributesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
     var needToDelete = -1;
@@ -182,7 +193,9 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
     };
 
     
-
+    $scope.parserJ = function(roleId, userId) {
+        return { role: roleId, user: userId };
+    }
 
 
     $scope.send = function () {
@@ -622,4 +635,40 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
 
     }
 
+}]);
+
+app.controller('ProfilePageController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function ($scope, $http, toaster, $q, $routeParams, $location) {
+
+    var paramArray = $location.$$absUrl.split("?par=");
+    //console.log(parameters);
+    var params = paramArray[1].split("/");
+
+    function getProfileDate(userId) {
+        $http.get('/api/TrainingTeamMembers/' + userId).success(function (result) {
+            console.log(result);
+            $scope.user = result;
+        });
+    }
+
+    $scope.$watch('userId', function (val) {
+        getProfileDate(val);
+    });
+
+    $scope.roleId = params[0];
+    $scope.userId = params[1];
+
+
+
+    $scope.roles = [
+       { id: 0, name: 'System Admin' },
+       { id: 1, name: 'Club Admin' },
+       { id: 2, name: 'Head Of Academies' },
+       { id: 3, name: 'Coach' },
+       { id: 4, name: 'Head Of Education' },
+       { id: 5, name: 'Welfare Officer' },
+       { id: 6, name: 'Scout' },
+       { id: 7, name: 'Physiotherapist' },
+       { id: 8, name: 'Sports Scientist' },
+       { id: 9, name: 'Player' }
+    ];
 }]);

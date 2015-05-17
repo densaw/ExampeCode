@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "PMA+";
+    Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div ng-controller="ProfilePageController">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-6">
+            <h2>Profile Page</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li>
+                    <a>Club</a>
+                </li>
+                <li>
+                    <a>Training Team</a>
+                </li>
+                <li class="active">
+                    <strong>{{roles[roleId].name}}</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-6">
+            <div class="title-action">
+                
+            </div>
+        </div>
+    </div>
+    @*Body Start*@
+    <div class="wrapper wrapper-content">
+        <div class="row animated fadeInRight">
+            <div class="col-md-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Profile Detail</h5>
+                    </div>
+                    <div>
+                        <div class="ibox-content no-padding border-left-right">
+                            <img alt="image" class="img-responsive" ng-src="/api/File/ProfilePicture/{{user.profilePicture}}/{{user.id}}">
+                        </div>
+                        <div class="ibox-content profile-content">
+                            <h4><strong>{{user.name}}</strong></h4>
+                            <p><i class="fa fa-map-marker"></i> {{user.townCity}}</p>
+                            <h5>
+                                About me
+                            </h5>
+                            <p>
+                                {{user.aboutMe}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Body End*@
+</div>
