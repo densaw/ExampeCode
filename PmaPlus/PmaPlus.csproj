@@ -2947,6 +2947,7 @@
     <Content Include="Areas\ClubAdmin\Views\Home\Statements.cshtml" />
     <Content Include="Content\style.less" />
     <Content Include="App_Data\temp\BodyPart_85228afd-f790-4a87-af23-19f6bb860f18" />
+    <Content Include="Areas\ClubAdmin\Views\Home\ProfilePage.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
