@@ -715,17 +715,9 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         $scope.pagination.current = newPage;
     };
 
-    var target = angular.element('#addAttrModal');
+    var target = angular.element('#addPlayerModal');
     var confDelete = angular.element('#confDelete');
     var maxScore = angular.element('#maxScore');
-
-    $scope.$watch('selectedType', function (st) {
-        if (st.id == 0) {
-            maxScore.prop('disabled', true);
-        } else {
-            maxScore.prop('disabled', false);
-        }
-    });
 
     $scope.ok = function (id) {
         $scope.myform.form_Submitted = !$scope.myform.$valid;
@@ -770,7 +762,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         confDelete.modal('hide');
     };
     $scope.openAdd = function () {
-        $scope.modalTitle = "Add an Attribute";
+        $scope.modalTitle = "Add an Player";
         $scope.newAttr = {};
         $scope.myform.form_Submitted = false;
         target.modal('show');
@@ -791,10 +783,8 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         $http.get(urlTail + '/' + id)
             .success(function (result) {
                 $scope.newAttr = result;
-                $scope.selectedType = $scope.attrTypes[result.type];
-                $scope.modalTitle = "Update an Attribute";
+                $scope.modalTitle = "Update an Player";
                 target.modal('show');
-
             });
     };
 }]);
