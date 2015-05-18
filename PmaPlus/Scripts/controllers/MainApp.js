@@ -1,6 +1,19 @@
 ﻿(function () {
     var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster', 'file-model', 'ngSanitize', 'ui.select', 'ui.bootstrap.datetimepicker', 'ui.calendar', 'ngRoute']);
 
+
+    module.directive('backImg', function () {
+        return function (scope, element, attrs) {
+            var url = attrs.backImg;
+            console.log(url);
+            element.css({
+                'background-image': 'url(' + url + ') no-repeat;',
+                'background-size': 'cover;',
+                'padding': '33px 25px;'
+            });
+        };
+    });
+
     module.config(['uiSelectConfig', function (uiSelectConfig) {
         uiSelectConfig.theme = 'bootstrap';
     }]);

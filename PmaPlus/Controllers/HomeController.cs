@@ -13,6 +13,7 @@ namespace PmaPlus.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            ViewBag.them = "#eb3bed";
             //TODO: Redirect roles 
             if(User.IsInRole(Role.SystemAdmin.ToString()))
                 return RedirectToAction("Dashbord", "Home", new { area = "SysAdmin" });
