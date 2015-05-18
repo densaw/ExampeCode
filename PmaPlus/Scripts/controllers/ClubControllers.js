@@ -672,3 +672,11 @@ app.controller('ProfilePageController', ['$scope', '$http', 'toaster', '$q', '$r
        { id: 9, name: 'Player' }
     ];
 }]);
+
+app.controller('NavController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function ($scope, $http, toaster, $q, $routeParams, $location) {
+
+    $http.get().success(function() {
+        
+    });
+
+}]);
