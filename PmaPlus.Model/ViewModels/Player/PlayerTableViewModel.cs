@@ -10,6 +10,7 @@ namespace PmaPlus.Model.ViewModels.Player
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ProfilePicture { get; set; }
         public IEnumerable<string> Teams { get; set; }
         public int Age { get; set; }
         public int Mom { get; set; }
