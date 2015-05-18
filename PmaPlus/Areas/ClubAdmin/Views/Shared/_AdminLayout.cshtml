@@ -59,6 +59,139 @@
     @Scripts.Render("~/calendar/js")
     @Scripts.Render("~/plugins/fullCalendar")
 
+    <style>
+        .btn-primary {
+        background-image: -webkit-linear-gradient(top, @ViewBag.them 0%, @ViewBag.them 100%);
+        background-image:      -o-linear-gradient(top, @ViewBag.them 0%, @ViewBag.them 100%);
+        background-image: -webkit-gradient(linear, left top, left bottom, from(@ViewBag.them), to(@ViewBag.them));
+        background-image:         linear-gradient(to bottom, @ViewBag.them 0%, @ViewBag.them 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@ViewBag.them', endColorstr='@ViewBag.them', GradientType=0);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+        background-repeat: repeat-x;
+        border-color: @ViewBag.them;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus {
+        background-color: @ViewBag.them;
+        background-position: 0 -15px;
+    }
+    .btn-primary:active,
+    .btn-primary.active {
+        background-color: @ViewBag.them;
+        border-color: @ViewBag.them;
+    }
+    .btn-primary:disabled,
+    .btn-primary[disabled] {
+        background-color: @ViewBag.them;
+        background-image: none;
+    }
+
+    /*
+     *
+     *   SKIN 1 - INSPINIA - Responsive Admin Theme
+     *   NAME - Blue light
+     *
+    */
+    .skin-1 .minimalize-styl-2 {
+        margin: 14px 5px 5px 30px;
+    }
+    .skin-1 .navbar-top-links li:last-child {
+        margin-right: 30px;
+    }
+    .skin-1.fixed-nav .minimalize-styl-2 {
+        margin: 14px 5px 5px 15px;
+    }
+    .skin-1 .spin-icon {
+        background: @ViewBag.them !important;
+    }
+    .skin-1 .nav-header {
+        background: @ViewBag.them;
+        background: url('/api/Clubs/background');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    .skin-1.mini-navbar .nav-second-level {
+        background: #e0e0e0;
+    }
+    .skin-1 .breadcrumb {
+        background: transparent;
+    }
+    .skin-1 .page-heading {
+        border: none;
+    }
+    .skin-1 .nav > li.active {
+        border-left: 4px solid @ViewBag.them;
+        background: #e0e0e0;
+    }
+    .skin-1 .nav > li > a {
+        color: #888888;
+    }
+    .skin-1 .nav > li.active > a {
+        color: #586b7d;
+    }
+    .skin-1 .navbar-minimalize {
+        background: @ViewBag.them;
+        border-color: @ViewBag.them;
+    }
+    body.skin-1 {
+        background: #ededed;
+    }
+    .skin-1 .navbar-static-top {
+        background: #ffffff;
+    }
+    .skin-1 .dashboard-header {
+        background: transparent;
+        border-bottom: none !important;
+        border-top: none;
+        padding: 20px 30px 10px 30px;
+    }
+    .fixed-nav.skin-1 .navbar-fixed-top {
+        background: #fff;
+    }
+    .skin-1 .wrapper-content {
+        padding: 30px 15px;
+    }
+    .skin-1 #page-wrapper {
+        background: #f4f6fa;
+    }
+    .skin-1 .ibox-title,
+    .skin-1 .ibox-content {
+        border-width: 1px;
+    }
+    .skin-1 .ibox-content:last-child {
+        border-style: solid solid solid solid;
+    }
+
+    .skin-1 .nav-header {
+        padding: 40px 25px 40px 25px;
+    }
+    .skin-1 .nav-header a.dropdown-toggle {
+        color: #fff;
+        margin-top: 10px;
+    }
+    .skin-1 .nav-header a.dropdown-toggle .text-muted {
+        color: #fff;
+        opacity: 0.8;
+    }
+    .skin-1 .profile-element {
+        text-align: center;
+    }
+    .skin-1 .img-circle {
+        border-radius: 5px;
+    }
+    .skin-1 .navbar-default .nav > li > a:hover,
+    .skin-1 .navbar-default .nav > li > a:focus {
+        background: #e0e0e0;
+        color: #213a53;
+    }
+    .skin-1 .nav.nav-tabs > li.active > a {
+        color: #555;
+    }
+    .skin-1 .nav.nav-tabs > li.active {
+        background: transparent;
+    }
+    </style>
+
 
 </head>
 <body id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1  {{expanded | nav: '':'mini-navbar'}}">
@@ -92,10 +225,10 @@
     <!-- Handler for local scripts -->
     @RenderSection("scripts", required: false)
 <style>
-     .sidebar-content .wrapper,
-     .wrapper.sidebar-content {
-         padding-right: 300px !important;
-     }
+    .sidebar-content .wrapper,
+    .wrapper.sidebar-content {
+        padding-right: 300px !important;
+    }
 
     .sidebard-panel {
         width: 290px;
@@ -124,136 +257,6 @@
     .inner-container-center {
         display: table-cell;
         vertical-align: middle;
-    }
-
-
-    .btn-primary {
-      background-image: -webkit-linear-gradient(top, @ViewBag.them 0%, @ViewBag.them 100%);
-      background-image:      -o-linear-gradient(top, @ViewBag.them 0%, @ViewBag.them 100%);
-      background-image: -webkit-gradient(linear, left top, left bottom, from(@ViewBag.them), to(@ViewBag.them));
-      background-image:         linear-gradient(to bottom, @ViewBag.them 0%, @ViewBag.them 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@ViewBag.them', endColorstr='@ViewBag.them', GradientType=0);
-      filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-      background-repeat: repeat-x;
-      border-color: @ViewBag.them;
-    }
-    .btn-primary:hover,
-    .btn-primary:focus {
-      background-color: @ViewBag.them;
-      background-position: 0 -15px;
-    }
-    .btn-primary:active,
-    .btn-primary.active {
-      background-color: @ViewBag.them;
-      border-color: @ViewBag.them;
-    }
-    .btn-primary:disabled,
-    .btn-primary[disabled] {
-      background-color: @ViewBag.them;
-      background-image: none;
-    }
-
-        /*
-     *
-     *   SKIN 1 - INSPINIA - Responsive Admin Theme
-     *   NAME - Blue light
-     *
-    */
-    .skin-1 .minimalize-styl-2 {
-      margin: 14px 5px 5px 30px;
-    }
-    .skin-1 .navbar-top-links li:last-child {
-      margin-right: 30px;
-    }
-    .skin-1.fixed-nav .minimalize-styl-2 {
-      margin: 14px 5px 5px 15px;
-    }
-    .skin-1 .spin-icon {
-      background: @ViewBag.them !important;
-    }
-    .skin-1 .nav-header {
-      background: @ViewBag.them;
-      background: url('patterns/header-profile-skin-1.png');
-    }
-    .skin-1.mini-navbar .nav-second-level {
-      background: #e0e0e0;
-    }
-    .skin-1 .breadcrumb {
-      background: transparent;
-    }
-    .skin-1 .page-heading {
-      border: none;
-    }
-    .skin-1 .nav > li.active {
-      border-left: 4px solid @ViewBag.them;
-      background: #e0e0e0;
-    }
-    .skin-1 .nav > li > a {
-      color: #888888;
-    }
-    .skin-1 .nav > li.active > a {
-      color: #586b7d;
-    }
-    .skin-1 .navbar-minimalize {
-      background: @ViewBag.them;
-      border-color: @ViewBag.them;
-    }
-    body.skin-1 {
-      background: #ededed;
-    }
-    .skin-1 .navbar-static-top {
-      background: #ffffff;
-    }
-    .skin-1 .dashboard-header {
-      background: transparent;
-      border-bottom: none !important;
-      border-top: none;
-      padding: 20px 30px 10px 30px;
-    }
-    .fixed-nav.skin-1 .navbar-fixed-top {
-      background: #fff;
-    }
-    .skin-1 .wrapper-content {
-      padding: 30px 15px;
-    }
-    .skin-1 #page-wrapper {
-      background: #f4f6fa;
-    }
-    .skin-1 .ibox-title,
-    .skin-1 .ibox-content {
-      border-width: 1px;
-    }
-    .skin-1 .ibox-content:last-child {
-      border-style: solid solid solid solid;
-    }
-
-    .skin-1 .nav-header {
-      padding: 40px 25px 40px 25px;
-    }
-    .skin-1 .nav-header a.dropdown-toggle {
-      color: #fff;
-      margin-top: 10px;
-    }
-    .skin-1 .nav-header a.dropdown-toggle .text-muted {
-      color: #fff;
-      opacity: 0.8;
-    }
-    .skin-1 .profile-element {
-      text-align: center;
-    }
-    .skin-1 .img-circle {
-      border-radius: 5px;
-    }
-    .skin-1 .navbar-default .nav > li > a:hover,
-    .skin-1 .navbar-default .nav > li > a:focus {
-      background: #e0e0e0;
-      color: #213a53;
-    }
-    .skin-1 .nav.nav-tabs > li.active > a {
-      color: #555;
-    }
-    .skin-1 .nav.nav-tabs > li.active {
-      background: transparent;
     }
 </style>
 
