@@ -77,6 +77,7 @@
     <Compile Include="Repository\FoodTypeToWhenRepository.cs" />
     <Compile Include="Repository\HeadOfAcademyRepository.cs" />
     <Compile Include="Repository\HeadOfEducationRepository.cs" />
+    <Compile Include="Repository\Iterfaces\DiaryRepository.cs" />
     <Compile Include="Repository\Iterfaces\IActivityStatusChangeRepository.cs" />
     <Compile Include="Repository\Iterfaces\IAddressRepository.cs" />
     <Compile Include="Repository\Iterfaces\IBodyPartRepository.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Repository\Iterfaces\ICurriculumSessionRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICurriculumTypeRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICurriculumWeekRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IDiary.cs" />
     <Compile Include="Repository\Iterfaces\IFACourseRepository.cs" />
     <Compile Include="Repository\Iterfaces\IFoodTypeToWhenRepository.cs" />
     <Compile Include="Repository\Iterfaces\IHeadOfAcademyRepository.cs" />

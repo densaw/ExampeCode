@@ -25,7 +25,13 @@ namespace PmaPlus.Services
         private readonly IClubAdminRepository _clubAdminRepository;
         private readonly IUserRepository _userRepository;
         private readonly IUserDetailRepository _userDetailRepository;
-        public ClubServices(IClubRepository clubRepository, IWelfareOfficerRepository welfareOfficerRepository, IChairmanRepository chairmanRepository, IClubAdminRepository clubAdminRepository, IUserDetailRepository userDetailRepository, IUserRepository userRepository, IAddressRepository addressRepository)
+        public ClubServices(IClubRepository clubRepository,
+                                IWelfareOfficerRepository welfareOfficerRepository,
+                                IChairmanRepository chairmanRepository,
+                                IClubAdminRepository clubAdminRepository,
+                                IUserDetailRepository userDetailRepository,
+                                IUserRepository userRepository,
+                                IAddressRepository addressRepository)
         {
             _clubRepository = clubRepository;
             _welfareOfficerRepository = welfareOfficerRepository;
