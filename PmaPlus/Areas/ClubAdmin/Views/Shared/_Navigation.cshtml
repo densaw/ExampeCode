@@ -1,21 +1,23 @@
 ﻿@using Action = Antlr.Runtime.Misc.Action
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
-        <ul class="nav" id="side-menu">
-            <li class="nav-header" >
+        <ul class="nav" id="side-menu" ng-controller="NavController">
+            <li class="nav-header">
                 <div class="dropdown profile-element">
 
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
                             <span class="block m-t-xs">
-                                <h6><strong class="font-bold">PMA<sup>+</sup></strong></h6>
-                            </span> 
+                                @*<h6><strong class="font-bold">PMA<sup>+</sup></strong></h6>*@
+                                <img class="img-circle m-t-xs img-responsive" ng-src="/api/Clubs/logo" />
+                            </span>
                         </span>
                     </a>
 
                 </div>
                 <div class="logo-element">
-                    <strong>PMA<sup>+</sup></strong>
+                    @*<strong>PMA<sup>+</sup></strong>*@
+                    <img class="img-circle m-t-xs img-responsive" ng-src="/api/Clubs/logo" />
                 </div>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Dashbord")">

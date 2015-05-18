@@ -675,8 +675,10 @@ app.controller('ProfilePageController', ['$scope', '$http', 'toaster', '$q', '$r
 
 app.controller('NavController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function ($scope, $http, toaster, $q, $routeParams, $location) {
 
-    $http.get().success(function() {
-        
-    });
+    
 
+}]);
+
+app.controller('StController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location) {
+    
 }]);

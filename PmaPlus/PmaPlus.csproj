@@ -286,6 +286,8 @@
     <Compile Include="Tools\LocalPhotoManager.cs" />
     <Compile Include="Tools\PhotoActionResult.cs" />
     <Compile Include="Tools\TimeUtils.cs" />
+    <Content Include="App_Data\FileStorage\Clubs\6\logo.jpg" />
+    <Content Include="App_Data\FileStorage\Clubs\6\ProfilePicture.jpg" />
     <Content Include="App_Data\FileStorage\FoodTypes\8\FoodType.jpg" />
     <Content Include="App_Data\FileStorage\Recipes\1\FoodType.jpg" />
     <Content Include="App_Data\FileStorage\Recipes\1\tmp.png" />
@@ -3501,7 +3503,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\FileStorage\Clubs\" />
     <Folder Include="App_Data\FileStorage\ProfilePicture\12\" />
     <Folder Include="App_Data\FileStorage\temp\" />
     <Folder Include="Areas\ClubAdmin\Models\" />
