@@ -68,7 +68,7 @@
                                             </div>
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                            <datetimepicker data-ng-model="newNote.completionDateTime" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'hour' }" />
+                                            <datetimepicker data-ng-model="newNote.completionDateTime" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
                                         </ul>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                 <ul class="notes">
                     <li ng-repeat="item in items">
                         <div>
-                            <small>{{item.completionDateTime | date:'dd/MM/yyyy'}}</small>
+                            <small>{{item.completionDateTime | date:'dd/MM/yyyy - HH:mm'}}</small>
                             <h4>{{item.title}}</h4>
                             <p>{{item.note}}</p>
                             <a href="#"><i class="fa fa-trash-o" ng-click="showDelete(item.id)"></i> &nbsp;<i class="fa fa-cog" ng-click="update(item)"></i></a>
