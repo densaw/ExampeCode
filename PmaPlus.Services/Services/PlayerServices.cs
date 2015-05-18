@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model;
 using PmaPlus.Model.Enums;
+using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
 
 namespace PmaPlus.Services
@@ -20,6 +21,23 @@ namespace PmaPlus.Services
             _playerRepository = playerRepository;
             _activityStatusChangeRepository = activityStatusChangeRepository;
         }
+
+        #region ClubPlayers
+
+        public IEnumerable<Player> GetClubPlayers(int clubId)
+        {
+            return _playerRepository.GetMany(p => p.Club.Id == clubId);
+        } 
+
+        public IEnumerable<Player> GetFreePlayers(int clubId)
+        {
+            return _playerRepository.GetMany(p => p.Club.Id == clubId && p.Teams.Count < 2);
+        }
+
+
+
+
+        #endregion
 
         public int GetActivePlayers()
         {
