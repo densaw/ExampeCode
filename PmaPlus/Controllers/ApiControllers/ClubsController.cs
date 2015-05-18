@@ -87,6 +87,13 @@ namespace PmaPlus.Controllers.ApiControllers
             return result;
         }
 
+        [Route("api/Clubs/color")]
+        public string GetColor()
+        {
+            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
+            return _clubServices.GetClubById(club.Club.Id).ColorTheme;
+        }    
+
         [Route("api/Clubs/background")]
         public HttpResponseMessage GetBackground()
         {
@@ -98,7 +105,6 @@ namespace PmaPlus.Controllers.ApiControllers
                 result = Request.CreateResponse(HttpStatusCode.NotFound);
                 //result.Content = new StreamContent(new FileStream(HttpContext.Current.Server.MapPath(@"~/App_Data/FileStorage"), FileMode.Open, FileAccess.Read));
                 //result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(club.Club.Background)));
-
             }
             else
             {
