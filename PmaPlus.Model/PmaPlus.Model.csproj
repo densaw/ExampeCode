@@ -153,6 +153,8 @@
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributePage.cs" />
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributeTableViewModel.cs" />
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributeViewModel.cs" />
+    <Compile Include="ViewModels\Player\AddPlayerViewModel.cs" />
+    <Compile Include="ViewModels\Player\PlayerTableViewModel.cs" />
     <Compile Include="ViewModels\Qualification\QualificationViewModel.cs" />
     <Compile Include="ViewModels\Scenario\ScenarioPage.cs" />
     <Compile Include="ViewModels\Scenario\ScenarioTableViewModel.cs" />
@@ -185,9 +187,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Player\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
