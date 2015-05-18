@@ -70,6 +70,7 @@ namespace PmaPlus.Controllers.ApiControllers
 
         public IHttpActionResult Put(int id, [FromBody] AddPlayerViewModel playerViewModel)
         {
+
             if (!_playerServices.PlayerExist(id))
             {
                 return NotFound();
