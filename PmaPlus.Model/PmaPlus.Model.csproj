@@ -90,6 +90,7 @@
     <Compile Include="Enums\MealTime.cs" />
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Enums\SportsScienceType.cs" />
+    <Compile Include="Models\DairyRecipient.cs" />
     <Compile Include="Models\Diary.cs" />
     <Compile Include="Models\FACourse.cs" />
     <Compile Include="Models\FoodTypeToWhen.cs" />

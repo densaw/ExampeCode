@@ -49,6 +49,7 @@
     <Compile Include="Services\ClubServices.cs" />
     <Compile Include="Services\CoachSerivces.cs" />
     <Compile Include="Services\CurriculumServices.cs" />
+    <Compile Include="Services\DairyServices.cs" />
     <Compile Include="Services\DiaryServices.cs" />
     <Compile Include="Services\FACourseServices.cs" />
     <Compile Include="Services\NutritionServices.cs" />

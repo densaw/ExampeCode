@@ -9,9 +9,9 @@ namespace PmaPlus.Services
 {
     public class DiaryServices
     {
-        private readonly IDiary _diary;
+        private readonly IDiaryRepository _diary;
 
-        public DiaryServices(IDiary diary)
+        public DiaryServices(IDiaryRepository diary)
         {
             _diary = diary;
         }

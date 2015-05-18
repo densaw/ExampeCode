@@ -7,7 +7,7 @@ using PmaPlus.Model.Models;
 
 namespace PmaPlus.Data.Repository.Iterfaces
 {
-    class DiaryRepository : RepositoryBase<Diary>, IDiary
+    public class DiaryRepository : RepositoryBase<Diary>, IDiaryRepository
     {
         public DiaryRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
         {
