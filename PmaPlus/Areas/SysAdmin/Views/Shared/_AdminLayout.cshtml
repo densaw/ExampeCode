@@ -60,8 +60,8 @@
 
 
 </head>
-<body id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1 {{expanded | nav: '':'mini-navbar'}}">
-<!-- PageClass give you ability to specify custom style for specific view based on action -->
+<body ng-cloak id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1 {{expanded | nav: '':'mini-navbar'}}">
+    <!-- PageClass give you ability to specify custom style for specific view based on action -->
     <toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
     <div id="wrapper" class="@Html.PageClass()">
         <!-- Navigation -->
@@ -119,26 +119,26 @@
             vertical-align: middle;
         }
     </style>
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function () {
 
-        toastr.options = {
-            closeButton: true,
-            debug: false,
-            progressBar: false,
-            positionClass: "toast-top-full-width",
-            onclick: null,
-            showDuration: 400,
-            hideDuration: 1000,
-            timeOut: 7000,
-            extendedTimeOut: 1000,
-            showEasing: "swing",
-            hideEasing: "linear",
-            showMethod: "fadeIn",
-            hideMethod: "fadeOut"
-        }
-    });
-</script>
+            toastr.options = {
+                closeButton: true,
+                debug: false,
+                progressBar: false,
+                positionClass: "toast-top-full-width",
+                onclick: null,
+                showDuration: 400,
+                hideDuration: 1000,
+                timeOut: 7000,
+                extendedTimeOut: 1000,
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut"
+            }
+        });
+    </script>
 </body>
 </html>
 
