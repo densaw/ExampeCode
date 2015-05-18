@@ -31,16 +31,21 @@ namespace PmaPlus.Services
 
         #region ClubPlayers
 
+
+        public bool PlayerExist(int id)
+        {
+            return _playerRepository.GetMany(p => p.Id == id).Any();
+        }
         public IEnumerable<PlayerTableViewModel> GetPlayersTable(int clubId)
         {
             return from player in _playerRepository.GetMany(p => p.Club.Id == clubId)
-                select new PlayerTableViewModel()
-                {
-                    Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
-                    Age = DateTime.Now.Year - (player.User.UserDetail.Birthday ?? DateTime.Now).Year,
-                    Teams = player.Teams.Select(t => t.Name)
-                    //TODO:Finish player table
-                };
+                   select new PlayerTableViewModel()
+                   {
+                       Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
+                       Age = DateTime.Now.Year - (player.User.UserDetail.Birthday ?? DateTime.Now).Year,
+                       Teams = player.Teams.Select(t => t.Name)
+                       //TODO:Finish player table
+                   };
         }
 
         public IEnumerable<Player> GetClubPlayers(int clubId)
@@ -48,9 +53,14 @@ namespace PmaPlus.Services
             return _playerRepository.GetMany(p => p.Club.Id == clubId);
         }
 
-        public IEnumerable<Player> GetFreePlayers(int clubId)
+        public IEnumerable<AvailablePlayersList> GetFreePlayers(int clubId)
         {
-            return _playerRepository.GetMany(p => p.Club.Id == clubId && p.Teams.Count < 2);
+            return from player in _playerRepository.GetMany(p => p.Club.Id == clubId && p.Teams.Count < 2)
+                   select new AvailablePlayersList()
+                   {
+                       Id = player.Id,
+                       Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName
+                   };
         }
 
         public User AddPlayer(AddPlayerViewModel playerViewModel, int clubId)
@@ -118,7 +128,102 @@ namespace PmaPlus.Services
             return newUser;
         }
 
+        public AddPlayerViewModel GetPlayerViewModel(int playerId)
+        {
+            var player = _playerRepository.GetById(playerId);
 
+            return new AddPlayerViewModel()
+            {
+                FirstName = player.User.UserDetail.FirstName,
+                LastName = player.User.UserDetail.LastName,
+                UserStatus = player.Status,
+                Email = player.User.Email,
+                Password = player.User.Password,
+                Telephone = player.User.UserDetail.Address.Telephone,
+                Mobile = player.User.UserDetail.Address.Mobile,
+                FaNumber = player.User.UserDetail.FaNumber,
+                BirthDate = player.User.UserDetail.Birthday,
+                PlayingFoot = player.PlayingFoot,
+                ProfilePicture = player.User.UserDetail.ProfilePicture,
+                Nationality = player.User.UserDetail.Nationality,
+                Address1 = player.User.UserDetail.Address.Address1,
+                Address2 = player.User.UserDetail.Address.Address2,
+                Address3 = player.User.UserDetail.Address.Address3,
+                TownCity = player.User.UserDetail.Address.TownCity,
+                Postcode = player.User.UserDetail.Address.PostCode,
+                ParentsContactNumber = player.ParentsContactNumber,
+                ParentsFirstName = player.ParentsFirstName,
+                ParentsLastName = player.ParentsLastName,
+                PlayerHealthConditions = player.PlayerHealthConditions,
+                SchoolName = player.SchoolName,
+                SchoolAddress1 = player.SchoolAddress1,
+                SchoolAddress2 = player.SchoolAddress2,
+                SchoolContactEmail = player.SchoolContactEmail,
+                SchoolContactName = player.SchoolContactName,
+                SchoolPostcode = player.SchoolPostcode,
+                SchoolTelephone = player.SchoolTelephone,
+                SchoolTownCity = player.SchoolTownCity,
+            };
+
+        }
+        public void UpdatePlayer(AddPlayerViewModel playerViewModel, int playerId)
+        {
+            //Cut teams count
+            playerViewModel.Teams = playerViewModel.Teams.Take(2).ToList();
+
+            var player = _playerRepository.GetById(playerId);
+
+            player.User.UserDetail.FirstName = playerViewModel.FirstName;
+            player.User.UserDetail.LastName = playerViewModel.LastName;
+            //teams
+            foreach (var team in playerViewModel.Teams)
+            {
+                if (!player.Teams.Any(t => t.Id == team))
+                {
+                    player.Teams.Add(_teamRepository.GetById(team));
+                }
+            }
+            foreach (var team in player.Teams)
+            {
+                if (!playerViewModel.Teams.Contains(team.Id))
+                {
+                    player.Teams.Remove(team);
+                }
+            }
+
+
+            player.Status = playerViewModel.UserStatus;
+            player.User.Email = playerViewModel.Email;
+            player.User.UserName = playerViewModel.Email;
+            player.User.Password = playerViewModel.Password;
+            player.User.UserDetail.Address.Telephone = playerViewModel.Telephone;
+            player.User.UserDetail.Address.Mobile = playerViewModel.Mobile;
+            player.User.UserDetail.FaNumber = playerViewModel.FaNumber;
+            player.User.UserDetail.Birthday = playerViewModel.BirthDate;
+            player.PlayingFoot = playerViewModel.PlayingFoot;
+            player.User.UserDetail.ProfilePicture = playerViewModel.ProfilePicture;
+            player.User.UserDetail.Nationality = playerViewModel.Nationality;
+            player.User.UserDetail.Address.Address1 = playerViewModel.Address1;
+            player.User.UserDetail.Address.Address2 = playerViewModel.Address2;
+            player.User.UserDetail.Address.Address3 = playerViewModel.Address3;
+            player.User.UserDetail.Address.TownCity = playerViewModel.TownCity;
+            player.User.UserDetail.Address.PostCode = playerViewModel.Postcode;
+
+            player.ParentsContactNumber = playerViewModel.ParentsContactNumber;
+            player.ParentsFirstName = playerViewModel.ParentsFirstName;
+            player.ParentsLastName = playerViewModel.ParentsLastName;
+            player.PlayerHealthConditions = playerViewModel.PlayerHealthConditions;
+            player.SchoolName = playerViewModel.SchoolName;
+            player.SchoolAddress1 = playerViewModel.SchoolAddress1;
+            player.SchoolAddress2 = playerViewModel.SchoolAddress2;
+            player.SchoolContactEmail = playerViewModel.SchoolContactEmail;
+            player.SchoolContactName = playerViewModel.SchoolContactName;
+            player.SchoolPostcode = playerViewModel.SchoolPostcode;
+            player.SchoolTelephone = playerViewModel.SchoolTelephone;
+            player.SchoolTownCity = playerViewModel.SchoolTownCity;
+
+            _playerRepository.Update(player, player.Id);
+        }
 
         #endregion
 

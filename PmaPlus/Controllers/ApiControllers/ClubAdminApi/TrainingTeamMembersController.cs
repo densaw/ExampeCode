@@ -10,6 +10,7 @@ using PmaPlus.Model;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.TrainingTeamMember;
 using PmaPlus.Services;
+using PmaPlus.Services.Services;
 using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
@@ -18,11 +19,13 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
     {
         private readonly UserServices _userServices;
         private readonly IPhotoManager _photoManager;
+        private readonly TrainingTeamMembersServices _teamMembersServices;
 
-        public TrainingTeamMembersController(UserServices userServices, IPhotoManager photoManager)
+        public TrainingTeamMembersController(UserServices userServices, IPhotoManager photoManager, TrainingTeamMembersServices teamMembersServices)
         {
             _userServices = userServices;
             _photoManager = photoManager;
+            _teamMembersServices = teamMembersServices;
         }
 
         public IEnumerable<TrainingTeamMemberPlateViewModel> Get()
@@ -73,7 +76,12 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return Ok();
         }
 
-
+        [Route("api/Coaches/list")]
+        public IEnumerable<CoachesList> GetCoaches()
+        {
+            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            return _teamMembersServices.GetClubCoaches(clubId);
+        }
     
     }
 }

@@ -29,7 +29,7 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Player/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
         public PlayersPage Get(int pageSize, int pageNumber, string orderBy = "")
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Id;
+            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
 
              _playerServices.GetPlayersTable(clubId);
             
@@ -44,14 +44,19 @@ namespace PmaPlus.Controllers.ApiControllers
                 Pages = pages,
                 Items = items
             };
+        }
 
-        
+        [Route("api/Player/Free")]
+        public IEnumerable<AvailablePlayersList> GetFreePlayers()
+        {
+            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            return _playerServices.GetFreePlayers(clubId);
 
         } 
 
         public IHttpActionResult Post(AddPlayerViewModel playerViewModel)
         {
-            int clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Id;
+            int clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
             var user = _playerServices.AddPlayer(playerViewModel,clubId);
             if (user.Id > 0 && _photoManager.FileExists(playerViewModel.ProfilePicture))
             {
@@ -63,6 +68,25 @@ namespace PmaPlus.Controllers.ApiControllers
             return Ok();
         }
 
+        public IHttpActionResult Put(int id, [FromBody] AddPlayerViewModel playerViewModel)
+        {
+
+            if (!_playerServices.PlayerExist(id))
+            {
+                return NotFound();
+            }
+
+             if (_photoManager.FileExists(playerViewModel.ProfilePicture))
+            {
+                
+                playerViewModel.ProfilePicture = _photoManager.MoveFromTemp(playerViewModel.ProfilePicture,
+                    FileStorageTypes.ProfilePicture, id, "ProfilePicture");
+            }
+            _playerServices.UpdatePlayer(playerViewModel,id);
+            return Ok();
+        
+        
+        }
 
     }
 }
