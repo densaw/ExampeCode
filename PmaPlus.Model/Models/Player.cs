@@ -19,6 +19,10 @@ namespace PmaPlus.Model.Models
         public string SchoolTelephone { get; set; }
         public string SchoolContactName { get; set; }
         public string SchoolContactEmail { get; set; }
+        public string SchoolAddress1 { get; set; }
+        public string SchoolAddress2 { get; set; }
+        public string SchoolTownCity { get; set; }
+        public string SchoolPostcode { get; set; }
 
         public virtual Club Club { get; set; }
         public virtual ICollection<Team> Teams { get; set; }

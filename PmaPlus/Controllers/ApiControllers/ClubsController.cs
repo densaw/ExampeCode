@@ -68,31 +68,44 @@ namespace PmaPlus.Controllers.ApiControllers
             return _clubServices.GetClubById(id);
         }
 
-        [Route("api/Clubs/{id}/logo")]
-        public HttpResponseMessage GetLogo(int id)
+        [Route("api/Clubs/logo")]
+        public HttpResponseMessage GetLogo()
         {
-            if (!_clubServices.ClubIsExist(id))
+            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
+            HttpResponseMessage result;
+            FileStream _fileStream = _photoManager.GetFileStream(club.Club.Logo, FileStorageTypes.Clubs, club.Club.Id);
+            if (_fileStream == null)
             {
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
+                result = Request.CreateResponse(HttpStatusCode.NotFound);
             }
-            var tempClub = _clubServices.GetClubById(id);
-            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
-            result.Content = new StreamContent(_photoManager.GetFileStream(tempClub.Logo,FileStorageTypes.Clubs, id));
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(tempClub.Logo)));
+            else
+            {
+                result = Request.CreateResponse(HttpStatusCode.OK);
+                result.Content = new StreamContent(_fileStream);
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(club.Club.Logo)));
+            }
             return result;
         }
 
-        [Route("api/Clubs/{id}/background")]
-        public HttpResponseMessage GetBackground(int id)
+        [Route("api/Clubs/background")]
+        public HttpResponseMessage GetBackground()
         {
-            if (!_clubServices.ClubIsExist(id))
+            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
+            HttpResponseMessage result;
+            FileStream _fileStream = _photoManager.GetFileStream(club.Club.Background, FileStorageTypes.Clubs, club.Club.Id);
+            if (_fileStream == null)
             {
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
+                result = Request.CreateResponse(HttpStatusCode.NotFound);
+                //result.Content = new StreamContent(new FileStream(HttpContext.Current.Server.MapPath(@"~/App_Data/FileStorage"), FileMode.Open, FileAccess.Read));
+                //result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(club.Club.Background)));
+
             }
-            var tempClub = _clubServices.GetClubById(id);
-            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
-            result.Content = new StreamContent(_photoManager.GetFileStream(tempClub.Background, FileStorageTypes.Clubs, id));
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(tempClub.Background)));
+            else
+            {
+                result = Request.CreateResponse(HttpStatusCode.OK);
+                result.Content = new StreamContent(_fileStream);
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(club.Club.Background)));
+            }
             return result;
 
         }
