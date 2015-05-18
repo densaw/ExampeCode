@@ -84,8 +84,6 @@ namespace PmaPlus.Controllers.ApiControllers
             }
             _playerServices.UpdatePlayer(playerViewModel,id);
             return Ok();
-        
-        
         }
 
     }

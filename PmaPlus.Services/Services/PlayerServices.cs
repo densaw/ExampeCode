@@ -43,6 +43,7 @@ namespace PmaPlus.Services
                    {
                        Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                        Age = DateTime.Now.Year - (player.User.UserDetail.Birthday ?? DateTime.Now).Year,
+                       ProfilePicture = player.User.UserDetail.ProfilePicture,
                        Teams = player.Teams.Select(t => t.Name)
                        //TODO:Finish player table
                    };
