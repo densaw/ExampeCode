@@ -127,6 +127,7 @@
     <Compile Include="ViewModels\Club\ClubPage.cs" />
     <Compile Include="ViewModels\Club\ClubTableViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumDetailViewModel.cs" />
+    <Compile Include="ViewModels\Curriculum\CurriculumsList.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumTypePage.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumTypesTableViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumTypeViewModel.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributeTableViewModel.cs" />
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributeViewModel.cs" />
     <Compile Include="ViewModels\Player\AddPlayerViewModel.cs" />
+    <Compile Include="ViewModels\Player\AvailablePlayersList.cs" />
     <Compile Include="ViewModels\Player\PlayersPage.cs" />
     <Compile Include="ViewModels\Player\PlayerTableViewModel.cs" />
     <Compile Include="ViewModels\Qualification\QualificationViewModel.cs" />
@@ -182,6 +184,7 @@
     <Compile Include="ViewModels\Team\TeamTableViewModel.cs" />
     <Compile Include="ViewModels\ToDo\ToDoViewModel.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\AddTrainingTeamMemberViewModel.cs" />
+    <Compile Include="ViewModels\TrainingTeamMember\CoachesList.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberPlateViewModel - Copy.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberViewModel.cs" />
   </ItemGroup>

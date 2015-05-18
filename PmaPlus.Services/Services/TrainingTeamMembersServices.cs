@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model;
 using PmaPlus.Model.Models;
+using PmaPlus.Model.ViewModels.TrainingTeamMember;
 
 namespace PmaPlus.Services.Services
 {
@@ -16,14 +17,16 @@ namespace PmaPlus.Services.Services
         private readonly IQualificationRepository _qualificationRepository;
         private readonly IQualificationToFaCourseRepository _qualificationToFaCourseRepository;
         private readonly IFACourseRepository _faCourseRepository;
+        private readonly ICoachRepository _coachRepository;
 
-        public TrainingTeamMembersServices(UserServices userServices, IQualificationToFaCourseRepository qualificationToFaCourseRepository, IQualificationRepository qualificationRepository, IUserRepository userRepository, IFACourseRepository faCourseRepository)
+        public TrainingTeamMembersServices(UserServices userServices, IQualificationToFaCourseRepository qualificationToFaCourseRepository, IQualificationRepository qualificationRepository, IUserRepository userRepository, IFACourseRepository faCourseRepository, ICoachRepository coachRepository)
         {
             _userServices = userServices;
             _qualificationToFaCourseRepository = qualificationToFaCourseRepository;
             _qualificationRepository = qualificationRepository;
             _userRepository = userRepository;
             _faCourseRepository = faCourseRepository;
+            _coachRepository = coachRepository;
         }
 
         #region Qualifications
@@ -92,7 +95,15 @@ namespace PmaPlus.Services.Services
         #endregion
 
 
-
+        public IEnumerable<CoachesList> GetClubCoaches(int clubId)
+        {
+            return from coach in _coachRepository.GetMany(c => c.Club.Id == clubId)
+                select new CoachesList()
+                {
+                    Id = coach.Id,
+                    Name = coach.User.UserDetail.FirstName + " " + coach.User.UserDetail.LastName
+                };
+        }
 
     }
 }

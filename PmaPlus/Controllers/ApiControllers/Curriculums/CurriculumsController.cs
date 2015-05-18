@@ -14,15 +14,25 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
     public class CurriculumsController : ApiController
     {
         private readonly CurriculumServices _curriculumServices;
+        private readonly UserServices _userServices;
 
-        public CurriculumsController(CurriculumServices curriculumServices)
+        public CurriculumsController(CurriculumServices curriculumServices, UserServices userServices)
         {
             _curriculumServices = curriculumServices;
+            _userServices = userServices;
         }
+
+        [Route("api/Curriculums/List")]
+        public IEnumerable<CurriculumsList> GetCurriculumsLists()
+        {
+            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            return _curriculumServices.GetClubCurriculumsList(clubId);
+        } 
 
         public IEnumerable<CurriculumViewModel> Get()
         {
-            return Mapper.Map<IEnumerable<Curriculum>, IEnumerable<CurriculumViewModel>>(_curriculumServices.GetAllCurriculums());
+            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            return Mapper.Map<IEnumerable<Curriculum>, IEnumerable<CurriculumViewModel>>(_curriculumServices.GetClubCurriculums(clubId));
         }
 
 
