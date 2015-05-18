@@ -22,7 +22,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a class="btn btn-primary">Add a Player</a>
+                <a class="btn btn-primary" ng-click="openAdd()">Add a Player</a>
             </div>
         </div>
     </div>
@@ -57,56 +57,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <form name="myform" class="form-horizontal" novalidate>
-                                            <div class="form-group" ng-class="{'has-error':myform.baditemName.$invalid && (myform.baditemName.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Bad Item Name:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input name="baditemName" ng-model="newAlt.badItemName" required class="form-control">
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.aName.$invalid && (myform.aName.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Alternative Name:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input name="aName" ng-model="newAlt.alternativeName" required class="form-control">
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Bad Item Picture:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input file-model="badPic" name="itempictureName" type="file" class="pma-fileupload">
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Alternative Picture:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input file-model="altPic" type="file" class="pma-fileupload">
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.bdescriptionName.$invalid && (myform.bdescriptionName.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Bad Item Description:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <textarea name="bdescriptionName" ng-model="newAlt.badItemDescription" required class="form-control"> </textarea>
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.adescriptionName.$invalid && (myform.adescriptionName.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Alternative Description:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <textarea name="adescriptionName" ng-model="newAlt.alternativeDescription" required class="form-control"> </textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Video Link:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newAlt.videoLink" class="form-control">
-
-                                                </div>
-                                            </div>
+                                            
                                         </form>
-                                    </div>
                                     <div class="modal-footer">
                                         <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
                                         <button ng-click="ok(newAlt.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
@@ -238,7 +190,7 @@
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="player in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td><img class="img-circle m-t-xs img-responsive" ng-src="/api/File/ProfilePicture/{{}}/{{player.id}}" /></td>
+                                        <td><img class="img-circle m-t-xs img-responsive" ng-src="/api/File/ProfilePicture/{{player.profilePicture}}/{{player.id}}" /></td>
                                         <td>{{player.name}}</td>
                                         <td>
                                             <p ng-repeat="team in player.teams">{{team}}</p>

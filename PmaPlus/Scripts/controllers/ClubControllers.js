@@ -719,14 +719,6 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     var confDelete = angular.element('#confDelete');
     var maxScore = angular.element('#maxScore');
 
-    $scope.$watch('selectedType', function (st) {
-        if (st.id == 0) {
-            maxScore.prop('disabled', true);
-        } else {
-            maxScore.prop('disabled', false);
-        }
-    });
-
     $scope.ok = function (id) {
         $scope.myform.form_Submitted = !$scope.myform.$valid;
 
