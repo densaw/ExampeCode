@@ -229,7 +229,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="contentTable">
-                                    <tr dir-paginate="alt in items | filter:q | itemsPerPage: clubsPerPage" total-items="totalItems">
+                                    <tr dir-paginate="alt in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
                                         <td><i ng-click="modalVideoStart(alt.videoLink)" class="fa fa-film" style="cursor: pointer;"></i></td>
                                         <td>{{alt.badItemName}}</td>
                                         <td>{{alt.alternativeName}}</td>
@@ -238,7 +238,7 @@
                                 </tbody>
                             </table>
                         </div>
-
+                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
                     </div>
                 </div>
             </div>
