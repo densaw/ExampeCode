@@ -11,13 +11,13 @@ namespace PmaPlus.Services.Services
 {
     public class TeamServices
     {
-        private readonly TeamRepository _teamRepository;
+        private readonly ITeamRepository _teamRepository;
         private readonly ICurriculumRepository _curriculumRepository;
         private readonly ICoachRepository _coachRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ITeamCurriculumRepository _teamCurriculumRepository;
 
-        public TeamServices(TeamRepository teamRepository, IPlayerRepository playerRepository, ICoachRepository coachRepository, ICurriculumRepository curriculumRepository, ITeamCurriculumRepository teamCurriculumRepository)
+        public TeamServices(ITeamRepository teamRepository, IPlayerRepository playerRepository, ICoachRepository coachRepository, ICurriculumRepository curriculumRepository, ITeamCurriculumRepository teamCurriculumRepository)
         {
             _teamRepository = teamRepository;
             _playerRepository = playerRepository;
