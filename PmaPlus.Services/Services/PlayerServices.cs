@@ -45,6 +45,7 @@ namespace PmaPlus.Services
             return from player in _playerRepository.GetMany(p => p.Club.Id == clubId)
                    select new PlayerTableViewModel()
                    {
+                       Id = player.Id,
                        Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                        Age = DateTime.Now.Year - (player.User.UserDetail.Birthday ?? DateTime.Now).Year,
                        ProfilePicture = player.User.UserDetail.ProfilePicture,
