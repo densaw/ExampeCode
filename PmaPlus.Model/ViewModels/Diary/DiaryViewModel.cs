@@ -11,10 +11,11 @@ namespace PmaPlus.Model.ViewModels.Diary
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string Note { get; set; }
+        public DateTime CreatedAt { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public bool AllDay { get; set; }
         public string Url { get; set; }
-        public ICollection<User> Recipient { get; set; }
     }
 }

@@ -205,6 +205,8 @@ namespace PmaPlus.Services
             _userRepository.Delete(club.ClubAdmin.User);
             //_clubAdminRepository.Delete(club.ClubAdmin);
             
+
+            //TODO: maybe will left something
             _clubRepository.Delete(club);
         }
         public InfoBoxViewModel GetClubLoggedThisWeek()

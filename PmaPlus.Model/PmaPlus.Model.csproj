@@ -90,7 +90,7 @@
     <Compile Include="Enums\MealTime.cs" />
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Enums\SportsScienceType.cs" />
-    <Compile Include="Models\DairyRecipient.cs" />
+    <Compile Include="Models\DiaryRecipient.cs" />
     <Compile Include="Models\Diary.cs" />
     <Compile Include="Models\FACourse.cs" />
     <Compile Include="Models\FoodTypeToWhen.cs" />
@@ -135,6 +135,7 @@
     <Compile Include="ViewModels\Curriculum\CurriculumTypesTableViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumTypeViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumViewModel.cs" />
+    <Compile Include="ViewModels\Diary\AddDiaryViewModel.cs" />
     <Compile Include="ViewModels\Diary\DiaryViewModel.cs" />
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
