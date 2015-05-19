@@ -45,6 +45,7 @@ namespace PmaPlus.Services
             return from player in _playerRepository.GetMany(p => p.Club.Id == clubId)
                    select new PlayerTableViewModel()
                    {
+                       Id = player.Id,
                        Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                        Age = DateTime.Now.Year - (player.User.UserDetail.Birthday ?? DateTime.Now).Year,
                        ProfilePicture = player.User.UserDetail.ProfilePicture,
@@ -68,7 +69,7 @@ namespace PmaPlus.Services
                    };
         }
 
-        public User AddPlayer(AddPlayerViewModel playerViewModel, int clubId)
+        public Player AddPlayer(AddPlayerViewModel playerViewModel, int clubId)
         {
             var user = new User()
             {
@@ -128,9 +129,9 @@ namespace PmaPlus.Services
             {
                 player.Teams.Add(team);
             }
-            _playerRepository.Add(player);
 
-            return newUser;
+
+            return _playerRepository.Add(player);
         }
 
         public AddPlayerViewModel GetPlayerViewModel(int playerId)
@@ -230,6 +231,10 @@ namespace PmaPlus.Services
             _playerRepository.Update(player, player.Id);
         }
 
+        public void UpdatePlayer(Player player)
+        {
+            _playerRepository.Update(player,player.Id);
+        }
         public void DeletePlayer(int id)
         {
             var player = _playerRepository.GetById(id);

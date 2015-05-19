@@ -58,14 +58,14 @@ namespace PmaPlus.Controllers.ApiControllers
         public IHttpActionResult Post(AddPlayerViewModel playerViewModel)
         {
             int clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
-            var user = _playerServices.AddPlayer(playerViewModel,clubId);
-            if (user.Id > 0 && _photoManager.FileExists(playerViewModel.ProfilePicture))
+            var player = _playerServices.AddPlayer(playerViewModel,clubId);
+            if (player.Id > 0 && _photoManager.FileExists(playerViewModel.ProfilePicture))
             {
                 
-                user.UserDetail.ProfilePicture = _photoManager.MoveFromTemp(user.UserDetail.ProfilePicture,
-                    FileStorageTypes.ProfilePicture, user.Id, "ProfilePicture");
+                player.User.UserDetail.ProfilePicture = _photoManager.MoveFromTemp(player.User.UserDetail.ProfilePicture,
+                    FileStorageTypes.PlayerProfilePicture, player.Id, "ProfilePicture");
             }
-            _userServices.UpdateUser(user);
+            _playerServices.UpdatePlayer(player);
             return Ok();
         }
 
@@ -81,7 +81,7 @@ namespace PmaPlus.Controllers.ApiControllers
             {
                 
                 playerViewModel.ProfilePicture = _photoManager.MoveFromTemp(playerViewModel.ProfilePicture,
-                    FileStorageTypes.ProfilePicture, id, "ProfilePicture");
+                    FileStorageTypes.PlayerProfilePicture, id, "ProfilePicture");
             }
             _playerServices.UpdatePlayer(playerViewModel,id);
             return Ok();
