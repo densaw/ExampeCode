@@ -68,6 +68,11 @@ namespace PmaPlus.Services
             return _curriculumTypeRepository.GetById(id);
         }
 
+        public IEnumerable<CurriculumType> GetAllTypes()
+        {
+            return _curriculumTypeRepository.GetAll();
+        } 
+
         public CurriculumType InsertCurriculumType(CurriculumType curriculumType)
         {
             return _curriculumTypeRepository.Add(curriculumType);
@@ -226,7 +231,7 @@ namespace PmaPlus.Services
         public CurriculumDetail AddCurriculumDetails(CurriculumDetail curriculumDetail, int curriculumId)
         {
             var curriculum = _curriculumRepository.GetById(curriculumId);
-            if (curriculum.CurriculumDetail == null)
+            if (curriculum.CurriculumDetail != null)
             {
                 return null;
             }

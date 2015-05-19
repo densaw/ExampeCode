@@ -15,13 +15,20 @@ namespace PmaPlus.Services.Services
         private readonly ICurriculumRepository _curriculumRepository;
         private readonly ICoachRepository _coachRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly ITeamCurriculumRepository _teamCurriculumRepository;
 
-        public TeamServices(TeamRepository teamRepository, IPlayerRepository playerRepository, ICoachRepository coachRepository, ICurriculumRepository curriculumRepository)
+        public TeamServices(TeamRepository teamRepository, IPlayerRepository playerRepository, ICoachRepository coachRepository, ICurriculumRepository curriculumRepository, ITeamCurriculumRepository teamCurriculumRepository)
         {
             _teamRepository = teamRepository;
             _playerRepository = playerRepository;
             _coachRepository = coachRepository;
             _curriculumRepository = curriculumRepository;
+            _teamCurriculumRepository = teamCurriculumRepository;
+        }
+
+        public bool TeamExist(int id)
+        {
+            return _teamRepository.GetMany(t => t.Id == id).Any();
         }
 
         public IEnumerable<Team> GetClubTeams(int clubId)
@@ -35,7 +42,7 @@ namespace PmaPlus.Services.Services
             var coaches = _coachRepository.GetMany(c => coachesId.Contains(c.Id));
             var players = _playerRepository.GetMany(p => playersId.Contains(p.Id));
             var curriculum = _curriculumRepository.GetById(curriculumId);
-            if (coaches != null && players != null && curriculum != null)
+            if (curriculum != null)
             {
                 foreach (var coach in coaches)
                 {
@@ -45,9 +52,14 @@ namespace PmaPlus.Services.Services
                 {
                     team.Players.Add(player);
                 }
-                team.Curriculum = curriculum;
 
-                _teamRepository.Add(team);
+                var teamToCurr = new TeamCurriculum()
+                {
+                    Curriculum = curriculum,
+                    Team = _teamRepository.Add(team)
+                };
+                _teamCurriculumRepository.Add(teamToCurr);
+
             }
 
         }

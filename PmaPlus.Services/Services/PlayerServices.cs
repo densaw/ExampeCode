@@ -19,14 +19,18 @@ namespace PmaPlus.Services
         private readonly ITeamRepository _teamRepository;
         private readonly IUserRepository _userRepository;
         private readonly IClubRepository _clubRepository;
+        private readonly IAddressRepository _addressRepository;
+        private readonly IUserDetailRepository _userDetailRepository;
 
-        public PlayerServices(IPlayerRepository playerRepository, IActivityStatusChangeRepository activityStatusChangeRepository, ITeamRepository teamRepository, IUserRepository userRepository, IClubRepository clubRepository)
+        public PlayerServices(IPlayerRepository playerRepository, IActivityStatusChangeRepository activityStatusChangeRepository, ITeamRepository teamRepository, IUserRepository userRepository, IClubRepository clubRepository, IAddressRepository addressRepository, IUserDetailRepository userDetailRepository)
         {
             _playerRepository = playerRepository;
             _activityStatusChangeRepository = activityStatusChangeRepository;
             _teamRepository = teamRepository;
             _userRepository = userRepository;
             _clubRepository = clubRepository;
+            _addressRepository = addressRepository;
+            _userDetailRepository = userDetailRepository;
         }
 
         #region ClubPlayers
@@ -224,6 +228,19 @@ namespace PmaPlus.Services
             player.SchoolTownCity = playerViewModel.SchoolTownCity;
 
             _playerRepository.Update(player, player.Id);
+        }
+
+        public void DeletePlayer(int id)
+        {
+            var player = _playerRepository.GetById(id);
+            if (player != null)
+            {
+                _addressRepository.Delete(player.User.UserDetail.Address);
+                _userDetailRepository.Delete(player.User.UserDetail);
+                _userRepository.Delete(player.User);
+                _playerRepository.Delete(player);
+                //TODO: Maybe diary delete
+            }
         }
 
         #endregion

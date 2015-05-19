@@ -112,6 +112,7 @@
     <Compile Include="Models\Scenario.cs" />
     <Compile Include="Models\SkillLevel.cs" />
     <Compile Include="Models\TargetHistory.cs" />
+    <Compile Include="Models\TeamCurriculum.cs" />
     <Compile Include="Models\ToDo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Scout.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="ViewModels\Curriculum\CurriculumDetailViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumsList.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumTypePage.cs" />
+    <Compile Include="ViewModels\Curriculum\CurriculumTypesList.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumTypesTableViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumTypeViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumViewModel.cs" />
@@ -182,6 +184,7 @@
     <Compile Include="ViewModels\SportsScience\SportsScienceTestTableViewModel.cs" />
     <Compile Include="ViewModels\SportsScience\SportsScienceTestViewModel.cs" />
     <Compile Include="ViewModels\Team\AddTeamViewModel.cs" />
+    <Compile Include="ViewModels\Team\TeamsList.cs" />
     <Compile Include="ViewModels\Team\TeamTableViewModel.cs" />
     <Compile Include="ViewModels\ToDo\ToDoViewModel.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\AddTrainingTeamMemberViewModel.cs" />
