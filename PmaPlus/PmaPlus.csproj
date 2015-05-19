@@ -253,6 +253,7 @@
     <Compile Include="Controllers\ApiControllers\ClubsController.cs" />
     <Compile Include="Controllers\ApiControllers\CurriculumTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\DashboardController.cs" />
+    <Compile Include="Controllers\ApiControllers\DiaryController.cs" />
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
     <Compile Include="Controllers\ApiControllers\FilesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionAlternativesController.cs" />

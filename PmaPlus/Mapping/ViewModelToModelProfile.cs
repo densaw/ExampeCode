@@ -2,6 +2,7 @@
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Curriculum;
+using PmaPlus.Model.ViewModels.Diary;
 using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Model.ViewModels.Physio;
 using PmaPlus.Model.ViewModels.PlayerAttribute;
@@ -55,6 +56,8 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<PlayerAttributeViewModel,PlayerAttribute>();
 
             Mapper.CreateMap<ToDoViewModel, ToDo>();
+
+            Mapper.CreateMap<AddDiaryViewModel, Diary>();
 
             Mapper.CreateMap<QualificationViewModel, Qualification>();
 

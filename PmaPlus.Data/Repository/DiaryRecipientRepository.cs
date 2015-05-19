@@ -8,9 +8,9 @@ using PmaPlus.Model.Models;
 
 namespace PmaPlus.Data.Repository
 {
-    public class DairyRecipientRepository : RepositoryBase<DairyRecipient>, IDairyRecipientRepository
+    public class DiaryRecipientRepository : RepositoryBase<DiaryRecipient>, IDiaryRecipientRepository
     {
-        public DairyRecipientRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
+        public DiaryRecipientRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
         {
         }
     }

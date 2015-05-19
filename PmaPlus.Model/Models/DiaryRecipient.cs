@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace PmaPlus.Model.Models
 {
-    public class DairyRecipient
+    public class DiaryRecipient
     {
         public int Id { get; set; }
-        public Diary Diary { get; set; }
-        public User User { get; set; }
+        public virtual Diary Diary { get; set; }
+        public virtual User Owner { get; set; }
+        public virtual User Recipient { get; set; }
         public bool Accepted { get; set; }
     }
 }
