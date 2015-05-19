@@ -789,7 +789,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 
                 console.log($scope.newPlayer);
                 if (id != null) {
-                    $http.put(urlTail+ '/' + id, $scope.newClub)
+                    $http.put(urlTail + '/' + id, $scope.newPlayer)
                         .success(function () {
                             getResultsPage($scope.pagination.current);
                             target.modal('hide');
@@ -863,6 +863,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         $http.get(urlTail + '/' + id)
             .success(function (result) {
                 $scope.newPlayer = result;
+                $scope.newPlayer.id = id;
                 $scope.modalTitle = "Update an Player";
                 target.modal('show');
             });
