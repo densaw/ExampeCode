@@ -709,6 +709,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     $scope.newPlayer.teams = [];
 
     $http.get('/api/Teams/List').success(function (result) {
+        console.log(result);
         $scope.teams = result;
     });
 
@@ -728,7 +729,6 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     $scope.items = [];
     $scope.totalItems = 0;
     $scope.itemsPerPage = 20;
-    $scope.newAttr = {};
 
     $scope.pagination = {
         current: 1
@@ -745,49 +745,104 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
 
     $scope.ok = function (id) {
         $scope.myform.form_Submitted = !$scope.myform.$valid;
-
-        if (id != null) {
-
-            $scope.newAttr.type = $scope.selectedType.id;
-            $http.put(urlTail + '/' + id, $scope.newAttr).success(function () {
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-            }).error(function (data, status, headers, config) {
-                if (status == 400) {
-                    console.log(data);
-                    toaster.pop({
-                        type: 'error',
-                        title: 'Error', bodyOutputType: 'trustedHtml',
-                        body: data.message.join("<br />")
-                    });
-                }
+        if (!$scope.myform.$valid) {
+            toaster.pop({
+                type: 'error',
+                title: 'Error',
+                bodyOutputType: 'trustedHtml',
+                body: 'Please complete the compulsory fields highlighted in red'
             });
+
 
         } else {
-            $scope.newAttr.type = $scope.selectedType.id;
-            $http.post(urlTail, $scope.newAttr).success(function () {
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-            }).error(function (data, status, headers, config) {
-                if (status == 400) {
-                    console.log(data);
-                    toaster.pop({
-                        type: 'error',
-                        title: 'Error', bodyOutputType: 'trustedHtml',
-                        body: data.message.join("<br />")
+            //Files upload
+            var promises = [];
+
+            if ($scope.pic) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newPlayer.profilePicture = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
                     });
+                promises.push(promise);
+            }
+            $q.all(promises).then(function () {
+
+                console.log();
+
+                $scope.newPlayer.status = $scope.selectedStatus.id;
+                $scope.newPlayer.playingFoot = $scope.selectedFoot.id;
+                if ($scope.newPlayer.teams == null) {
+                    $scope.newPlayer.teams = [];
                 }
+                
+                console.log($scope.newPlayer);
+                if (id != null) {
+                    $http.put(urlTail + id, $scope.newClub)
+                        .success(function () {
+                            getResultsPage($scope.pagination.current);
+                            target.modal('hide');
+                        })
+                        .error(function (data, status, headers, config) {
+                            if (status == 400) {
+                                console.log(data);
+                                toaster.pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    bodyOutputType: 'trustedHtml',
+                                    body: 'Please complete the compulsory fields highlighted in red'
+                                });
+                            }
+                        });
+
+                } else {
+
+
+                    $scope.newPlayer.status = $scope.selectedStatus.id;
+                    $scope.newPlayer.playingFoot = $scope.selectedFoot.id;
+
+                    if ($scope.newPlayer.teams == null) {
+                        $scope.newPlayer.teams = [];
+                    }
+                    $http.post(urlTail, $scope.newPlayer)
+                        .success(function () {
+                            getResultsPage($scope.pagination.current);
+                            target.modal('hide');
+                        })
+                        .error(function (data, status, headers, config) {
+                            if (status == 400) {
+                                console.log(data);
+                                toaster.pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    bodyOutputType: 'trustedHtml',
+                                    body: 'Please complete the compulsory fields highlighted in red'
+                                });
+                            }
+                        });
+                };
             });
         }
-
     };
+    
     $scope.cancel = function () {
         target.modal('hide');
         confDelete.modal('hide');
     };
     $scope.openAdd = function () {
         $scope.modalTitle = "Add an Player";
-        $scope.newAttr = {};
+        $scope.newPlayer = {};
         $scope.myform.form_Submitted = false;
         target.modal('show');
     };
@@ -806,7 +861,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     $scope.openEdit = function (id) {
         $http.get(urlTail + '/' + id)
             .success(function (result) {
-                $scope.newAttr = result;
+                $scope.newPlayer = result;
                 $scope.modalTitle = "Update an Player";
                 target.modal('show');
             });
