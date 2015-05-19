@@ -69,7 +69,7 @@ namespace PmaPlus.Services
                    };
         }
 
-        public User AddPlayer(AddPlayerViewModel playerViewModel, int clubId)
+        public Player AddPlayer(AddPlayerViewModel playerViewModel, int clubId)
         {
             var user = new User()
             {
@@ -129,9 +129,9 @@ namespace PmaPlus.Services
             {
                 player.Teams.Add(team);
             }
-            _playerRepository.Add(player);
 
-            return newUser;
+
+            return _playerRepository.Add(player);
         }
 
         public AddPlayerViewModel GetPlayerViewModel(int playerId)
@@ -231,6 +231,10 @@ namespace PmaPlus.Services
             _playerRepository.Update(player, player.Id);
         }
 
+        public void UpdatePlayer(Player player)
+        {
+            _playerRepository.Update(player,player.Id);
+        }
         public void DeletePlayer(int id)
         {
             var player = _playerRepository.GetById(id);

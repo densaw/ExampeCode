@@ -17,6 +17,7 @@ namespace PmaPlus.Tools
         Recipes,
         Scenarios,
         SportsScienceExercises,
+        PlayerProfilePicture
     
     }
 }
