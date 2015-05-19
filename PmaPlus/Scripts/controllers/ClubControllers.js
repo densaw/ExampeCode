@@ -688,6 +688,30 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     var needToDelete = -1;
     var urlTail = '/api/Player';
 
+    $scope.statuses = [
+            { id: 0, name: 'Active' },
+            { id: 1, name: 'Blocked' },
+            { id: 2, name: 'Closed' }
+    ];
+
+    $scope.playingFoot = [
+        { id: 0, name: 'Left' },
+        { id: 1, name: 'Right' },
+        { id: 2, name: 'Bouth' }
+    ];
+
+    $scope.selectedStatus = $scope.statuses[0];
+    $scope.selectedFoot = $scope.playingFoot[0];
+
+    
+
+    $scope.newPlayer = {};
+    $scope.newPlayer.teams = [];
+
+    $http.get('/api/Teams/List').success(function (result) {
+        $scope.teams = result;
+    });
+
 
     $scope.open = function () {
         $scope.opened = true;
