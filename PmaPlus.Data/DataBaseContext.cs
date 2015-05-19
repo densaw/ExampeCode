@@ -57,7 +57,7 @@ namespace PmaPlus.Data
         public virtual DbSet<Qualification> Qualifications { get; set; }
         public virtual DbSet<QualificationToFaCourse> QualificationToFaCourses { get; set; }
         public virtual DbSet<Diary> Diaries { get; set; }
-        public virtual DbSet<DairyRecipient> DairyRecipients { get; set; } 
+        public virtual DbSet<DiaryRecipient> DairyRecipients { get; set; } 
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
