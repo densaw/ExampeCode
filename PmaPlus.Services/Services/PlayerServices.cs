@@ -69,6 +69,8 @@ namespace PmaPlus.Services
                    };
         }
 
+
+
         public Player AddPlayer(AddPlayerViewModel playerViewModel, int clubId)
         {
             var user = new User()

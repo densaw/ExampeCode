@@ -53,7 +53,12 @@ namespace PmaPlus.Controllers.ApiControllers
             var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
             return _playerServices.GetFreePlayers(clubId);
 
-        } 
+        }
+
+        public AddPlayerViewModel Get(int id)
+        {
+            return _playerServices.GetPlayerViewModel(id);
+        }
 
         public IHttpActionResult Post(AddPlayerViewModel playerViewModel)
         {
