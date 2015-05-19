@@ -17,8 +17,9 @@ namespace PmaPlus.Services
         private readonly ICurriculumSessionRepository _curriculumSessionRepository;
         private readonly ICurriculumDetailRepository _curriculumDetailRepository;
         private readonly ICurriculumTypeRepository _curriculumTypeRepository;
+        private readonly IClubRepository _clubRepository;
 
-        public CurriculumServices(ICurriculumTypeRepository curriculumTypeRepository, ICurriculumRepository curriculumRepository, ICurriculumBlockRepository curriculumBlockRepository, ICurriculumWeekRepository curriculumWeekRepository, ICurriculumSessionRepository curriculumSessionRepository, ICurriculumDetailRepository curriculumDetailRepository)
+        public CurriculumServices(ICurriculumTypeRepository curriculumTypeRepository, ICurriculumRepository curriculumRepository, ICurriculumBlockRepository curriculumBlockRepository, ICurriculumWeekRepository curriculumWeekRepository, ICurriculumSessionRepository curriculumSessionRepository, ICurriculumDetailRepository curriculumDetailRepository, IClubRepository clubRepository)
         {
             _curriculumTypeRepository = curriculumTypeRepository;
             _curriculumRepository = curriculumRepository;
@@ -26,6 +27,7 @@ namespace PmaPlus.Services
             _curriculumWeekRepository = curriculumWeekRepository;
             _curriculumSessionRepository = curriculumSessionRepository;
             _curriculumDetailRepository = curriculumDetailRepository;
+            _clubRepository = clubRepository;
         }
 
         #region CurriculumTypes
@@ -121,8 +123,17 @@ namespace PmaPlus.Services
             return _curriculumRepository.GetMany(c =>c.Club.Id == clubId);
         }
 
-        public Curriculum AddCurriculum(Curriculum curriculum)
+        public Curriculum AddCurriculum(Curriculum curriculum,int clubId)
         {
+            var club = _clubRepository.GetById(clubId);
+
+            if (club == null)
+            {
+                return null;
+            }
+
+            curriculum.Club = club;
+
             var curriculumType = _curriculumTypeRepository.Get(t => t.Id == curriculum.CurriculumTypeId);
             if (curriculumType == null)
             {
