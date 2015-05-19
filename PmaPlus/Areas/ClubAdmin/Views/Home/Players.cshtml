@@ -57,7 +57,192 @@
                                     </div>
                                     <div class="modal-body">
                                         <form name="myform" class="form-horizontal" novalidate>
-
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">First Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.firstName" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Last Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.lastName" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Team Names:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <ui-select multiple ng-model="newPlayer.teams" ng-disabled="disabled" theme="bootstrap">
+                                                        <ui-select-match placeholder="Select When...">{{$item.name}}</ui-select-match>
+                                                        <ui-select-choices repeat="whenone in when">
+                                                            <div ng-bind-html="whenone.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">User Status:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <select ng-model="selectedType" ng-options="type.name for type in foodType | orderBy:'name'" class=" form-control m-b" name="account"></select>
+                                                    <!--input name="courseName" ng-model="newPlayer.userStatus" required class="form-control" maxlength="50"-->
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Email:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.email" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Password:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.password" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Telephone:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.telephone" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Mobile:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.mobile" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">FA Number:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.faNumber" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Birth Date:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.birthDate" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Playing Foot:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.playingFoot" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Profile Picture:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.profilePicture" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Nationality:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.nationality" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Address 1:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.address1" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Address 2:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.address2" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Address 3:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.address3" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Town\City:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.townCity" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Post Code:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.postcode" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Parents First Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.parentsFirstName" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Parents Last Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.parentsLastName" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Parents Contact Number:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.parentsContactNumber" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Player Health Conditions:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.playerHealthConditions" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">School Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolName" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">School Telephone:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolTelephone" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">School Contact Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolContactName" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">School Contact Email:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolContactEmail" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Address 1:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolAddress1" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Address 2:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolAddress2" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Town\City:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolTownCity" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Postcode:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolPostcode" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
                                         </form>
                                         <div class="modal-footer">
                                             <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
