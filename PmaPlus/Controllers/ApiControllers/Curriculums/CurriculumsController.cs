@@ -39,7 +39,8 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         public IHttpActionResult Post([FromBody] CurriculumViewModel curriculumViewModel)
         {
             var curriculum = Mapper.Map<CurriculumViewModel, Curriculum>(curriculumViewModel);
-            _curriculumServices.AddCurriculum(curriculum);
+            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            _curriculumServices.AddCurriculum(curriculum,clubId);
             return Ok();
         }
 
