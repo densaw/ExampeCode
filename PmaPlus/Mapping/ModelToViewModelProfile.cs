@@ -12,6 +12,7 @@ using PmaPlus.Model.ViewModels.Qualification;
 using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.SportsScience;
+using PmaPlus.Model.ViewModels.Team;
 using PmaPlus.Model.ViewModels.ToDo;
 using PmaPlus.Model.ViewModels.TrainingTeamMember;
 
@@ -27,6 +28,7 @@ namespace PmaPlus.Mapping
         protected override void Configure()
         {
             Mapper.CreateMap<CurriculumType, CurriculumTypeViewModel>();
+            Mapper.CreateMap<CurriculumType, CurriculumTypesList>();
 
             Mapper.CreateMap<SkillLevel, SkillLevelViewModel>();
             Mapper.CreateMap<SkillLevel, SkillLevelTableViewModel>();
@@ -91,6 +93,9 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<Curriculum, CurriculumViewModel>();
 
             Mapper.CreateMap<CurriculumDetail, CurriculumDetailViewModel>();
+
+            Mapper.CreateMap<Team, TeamTableViewModel>();
+            Mapper.CreateMap<Team, TeamsList>();
         }
     }
 }

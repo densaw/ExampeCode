@@ -22,6 +22,7 @@ namespace PmaPlus.Data
         public virtual DbSet<CurriculumBlock> CurriculumBlocks { get; set; }
         public virtual DbSet<CurriculumDetail> CurriculumDetails { get; set; }
         public virtual DbSet<Curriculum> Curriculums { get; set; }
+        public virtual DbSet<TeamCurriculum> TeamCurriculum { get; set; } 
         public virtual DbSet<CurriculumType> CurriculumTypes { get; set; }
         public virtual DbSet<CurriculumWeek> CurriculumWeeks { get; set; }
         public virtual DbSet<CurriculumSession> CurriculumSessions { get; set; } 

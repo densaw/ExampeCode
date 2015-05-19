@@ -120,6 +120,7 @@
     <Compile Include="Repository\Iterfaces\ISportsScienceExerciseRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISportsScienceTestRepository.cs" />
     <Compile Include="Repository\Iterfaces\ITargetHistoryRepository.cs" />
+    <Compile Include="Repository\Iterfaces\ITeamCurriculumRepository.cs" />
     <Compile Include="Repository\Iterfaces\ITeamRepository.cs" />
     <Compile Include="Repository\Iterfaces\IUserDetailRepository.cs" />
     <Compile Include="Repository\Iterfaces\IUserRepository.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Repository\SportsScienceExerciseRepository.cs" />
     <Compile Include="Repository\SportsScienceTestRepository.cs" />
     <Compile Include="Repository\TargetHistoryRepository.cs" />
+    <Compile Include="Repository\TeamCurriculumRepository.cs" />
     <Compile Include="Repository\TeamRepository.cs" />
     <Compile Include="Repository\ToDoRepository.cs" />
     <Compile Include="Repository\UserDetailRepository.cs" />

@@ -24,22 +24,38 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
             _userServices = userServices;
         }
 
+        [Route("api/Teams/List")]
+        public IEnumerable<TeamsList> GetTeamsList()
+        {
+            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            return Mapper.Map<IEnumerable<Team>, IEnumerable<TeamsList>>(_teamServices.GetClubTeams(clubId));
+        } 
+
         public IHttpActionResult GetTeams()
         {
-            var clubAdmin = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            var teams = _teamServices.GetClubTeams(clubAdmin.Id);
-            var teamViewModel = Mapper.Map<IEnumerable<Team>,IEnumerable<TeamTableViewModel>>(teams);
+            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var teams = _teamServices.GetClubTeams(clubId);
+            var teamViewModel = Mapper.Map<IEnumerable<Team>, IEnumerable<TeamTableViewModel>>(teams);
             //teamViewModel.ForEach(t => t.); //TODO: CurriculumProgress for teams
             return Ok(teamViewModel);
         }
 
 
-        public IHttpActionResult PostTeam([FromBody] AddTeamViewModel teamViewModel)
+        public IHttpActionResult PostTeam([FromBody]AddTeamViewModel teamViewModel)
         {
             var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
-            _teamServices.AddTeam(new Team(){Name = teamViewModel.Name},clubId,teamViewModel.Players,teamViewModel.Coaches,teamViewModel.CurriculumId );
+            _teamServices.AddTeam(new Team() { Name = teamViewModel.Name }, clubId, teamViewModel.Players, teamViewModel.Coaches, teamViewModel.CurriculumId);
             return Ok();
         }
 
+        public IHttpActionResult Put(int id, [FromBody] AddTeamViewModel teamViewModel)
+        {
+            if (!_teamServices.TeamExist(id))
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
     }
 }

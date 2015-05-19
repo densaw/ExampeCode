@@ -42,6 +42,14 @@ namespace PmaPlus.Controllers.ApiControllers
 
         }
 
+        [Route("api/CurriculumTypes/List")]
+        public IEnumerable<CurriculumTypesList> GetCurriculumTypesLists()
+        {
+            return
+                Mapper.Map<IEnumerable<CurriculumType>, IEnumerable<CurriculumTypesList>>(
+                    _curriculumServices.GetAllTypes());
+        } 
+
         // GET: api/CurriculumTypes/5
         public CurriculumTypeViewModel Get(int id)
         {

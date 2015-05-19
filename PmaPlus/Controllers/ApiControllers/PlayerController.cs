@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Web.Http;
 using PmaPlus.Data;
 using PmaPlus.Model.Models;
@@ -83,6 +84,17 @@ namespace PmaPlus.Controllers.ApiControllers
                     FileStorageTypes.ProfilePicture, id, "ProfilePicture");
             }
             _playerServices.UpdatePlayer(playerViewModel,id);
+            return Ok();
+        }
+
+        public IHttpActionResult Delete(int id)
+        {
+            if (!_playerServices.PlayerExist(id))
+            {
+                return NotFound();
+            }
+
+            _playerServices.DeletePlayer(id);
             return Ok();
         }
 
