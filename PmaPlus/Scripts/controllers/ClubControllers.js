@@ -746,6 +746,9 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     $scope.ok = function (id) {
         $scope.myform.form_Submitted = !$scope.myform.$valid;
 
+        //TODO: add file
+
+
         if (id != null) {
 
             $scope.newAttr.type = $scope.selectedType.id;
