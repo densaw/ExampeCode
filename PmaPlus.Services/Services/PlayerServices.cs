@@ -142,6 +142,7 @@ namespace PmaPlus.Services
 
             return new AddPlayerViewModel()
             {
+                Id = player.Id,
                 FirstName = player.User.UserDetail.FirstName,
                 LastName = player.User.UserDetail.LastName,
                 UserStatus = player.Status,
