@@ -24,9 +24,9 @@ namespace PmaPlus.Controllers.ApiControllers
 
 
         [Route("api/Users/List")]
-        public IEnumerable<UsersList> Post(IList<Role> roles)
+        public IEnumerable<UsersList> Get([FromUri] Role[] role)
         {
-            var users = _userServices.GetUsersByRoles(roles);
+            var users = _userServices.GetUsersByRoles(role);
             return Mapper.Map<IEnumerable<User>, IEnumerable<UsersList>>(users);
 
         }
