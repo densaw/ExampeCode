@@ -375,9 +375,9 @@
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
-                                    <tr dir-paginate="player in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td><img style="width: 50px; height: 50px;" class="img-circle m-t-xs img-responsive" ng-src="/api/File/playerProfilePicture/{{player.profilePicture}}/{{player.id}}" /></td>
-                                        <td>{{player.name}}</td>
+                                    <tr dir-paginate="player in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems" >
+                                        <td><img style="width: auto; height: 100px;" class="img-circle m-t-xs img-responsive" ng-src="/api/File/playerProfilePicture/{{player.profilePicture}}/{{player.id}}" /></td>
+                                        <td style="text-align: left">{{player.name}}</td>
                                         <td>
                                             <p ng-repeat="team in player.teams">{{team}}</p>
                                         </td>
@@ -416,6 +416,7 @@
     .table td {
        text-align: center;   
     }
+    
 </style>
 
 

@@ -186,7 +186,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
 
     var urlTail = '/api/TrainingTeamMembers';
     var target = angular.element('#addTeamMember');
-    
+    var needstoReport = angular.element('#needstoReport');
 
     $scope.openModal = function() {
         target.modal('show');
@@ -227,6 +227,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
         $q.all(promises).then(function () {
             $scope.newMember.userStatus = 0;
             $scope.newMember.role = $scope.selectedRole.id;
+            $scope.newMember.needReport = needstoReport.prop('checked');
             //$scope.newMember.profilePicture = 'tmp.png';
             console.log($scope.newMember);
             $http.post(urlTail, $scope.newMember).success(function(result) {
@@ -697,7 +698,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     $scope.playingFoot = [
         { id: 0, name: 'Left' },
         { id: 1, name: 'Right' },
-        { id: 2, name: 'Bouth' }
+        { id: 2, name: 'Both' }
     ];
 
     $scope.selectedStatus = $scope.statuses[0];
