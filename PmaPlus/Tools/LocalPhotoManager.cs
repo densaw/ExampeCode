@@ -162,7 +162,7 @@ namespace PmaPlus.Tools
                     {
                         File.Delete(file);
                     }
-                    File.Move(tempFilePath, newFileFullPath);
+                    File.Copy(tempFilePath, newFileFullPath);
                     return newFileName;
                 }
                 catch (Exception)
