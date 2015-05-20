@@ -81,6 +81,7 @@
     <Compile Include="Models\CurriculumBlock.cs" />
     <Compile Include="Models\CurriculumDetail.cs" />
     <Compile Include="Models\CurriculumSession.cs" />
+    <Compile Include="Models\CurriculumStatement.cs" />
     <Compile Include="Models\CurriculumType.cs" />
     <Compile Include="Models\CurriculumWeek.cs" />
     <Compile Include="Enums\AgeGroup.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Models\QualificationToFaCourse.cs" />
     <Compile Include="Models\Scenario.cs" />
     <Compile Include="Models\SkillLevel.cs" />
+    <Compile Include="Models\StatementRoles.cs" />
     <Compile Include="Models\TargetHistory.cs" />
     <Compile Include="Models\TeamCurriculum.cs" />
     <Compile Include="Models\ToDo.cs" />

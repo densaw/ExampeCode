@@ -9,6 +9,7 @@ namespace PmaPlus.Model.Enums
     public enum Foot
     {
         Right,
-        Left
+        Left,
+        Both
     }
 }

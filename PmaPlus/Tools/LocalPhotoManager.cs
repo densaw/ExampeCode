@@ -148,6 +148,34 @@ namespace PmaPlus.Tools
 
         }
 
+        public string SetDefaultPrifilePic(FileStorageTypes storageType, int id, string newFileName)
+        {
+            var tempFilePath = _workingFolder + "\\" + "DefaultPics" + "\\" + "ProfilePicture.jpg";
+            if (File.Exists(tempFilePath))
+            {
+                var newPath = _workingFolder + "\\" + storageType.ToString() + "\\" + id + "\\";
+                var newFileFullPath = newPath + newFileName;
+                try
+                {
+                    Directory.CreateDirectory(newPath);
+                    foreach (string file in Directory.GetFiles(newPath, "*" + newFileName + "*"))
+                    {
+                        File.Delete(file);
+                    }
+                    File.Move(tempFilePath, newFileFullPath);
+                    return newFileName;
+                }
+                catch (Exception)
+                {
+                    return "";
+                }
+            }
+            else
+            {
+                return "";
+            }
+        }
+
         public FileStream GetFileStream(string fileName, FileStorageTypes storageTypes, int id)
         {
             var fullFilePath = _workingFolder + "\\" + storageTypes.ToString() + "\\" + id + "\\" + fileName;

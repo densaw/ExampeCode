@@ -17,6 +17,7 @@ namespace PmaPlus.Tools
         string GetPhoto(FileStorageTypes type, string filename, int id);
         string Copy(string fileName, string path);
         string MoveFromTemp(string tempFileName, FileStorageTypes storageType, int id, string newFileName);
+        string SetDefaultPrifilePic(FileStorageTypes storageType, int id, string newFileName);
         FileStream GetFileStream(string fileName, FileStorageTypes storageTypes, int id);
         bool FileExistInStorage(FileStorageTypes storageType, string fileName, int id);
         void Delete(FileStorageTypes storageType, int id);

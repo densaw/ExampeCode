@@ -36,6 +36,11 @@ namespace PmaPlus.Services
         #region ClubPlayers
 
 
+        public Player GetPlayerById(int id)
+        {
+            return _playerRepository.GetById(id);
+        }
+
         public bool PlayerExist(int id)
         {
             return _playerRepository.GetMany(p => p.Id == id).Any();

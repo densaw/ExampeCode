@@ -18,8 +18,10 @@ namespace PmaPlus.Services
         private readonly ICurriculumDetailRepository _curriculumDetailRepository;
         private readonly ICurriculumTypeRepository _curriculumTypeRepository;
         private readonly IClubRepository _clubRepository;
+        private readonly IStatementRolesRepository _statementRolesRepository;
+        private readonly ICurriculumStatementRepository _curriculumStatementRepository;
 
-        public CurriculumServices(ICurriculumTypeRepository curriculumTypeRepository, ICurriculumRepository curriculumRepository, ICurriculumBlockRepository curriculumBlockRepository, ICurriculumWeekRepository curriculumWeekRepository, ICurriculumSessionRepository curriculumSessionRepository, ICurriculumDetailRepository curriculumDetailRepository, IClubRepository clubRepository)
+        public CurriculumServices(ICurriculumTypeRepository curriculumTypeRepository, ICurriculumRepository curriculumRepository, ICurriculumBlockRepository curriculumBlockRepository, ICurriculumWeekRepository curriculumWeekRepository, ICurriculumSessionRepository curriculumSessionRepository, ICurriculumDetailRepository curriculumDetailRepository, IClubRepository clubRepository, ICurriculumStatementRepository curriculumStatementRepository, IStatementRolesRepository statementRolesRepository)
         {
             _curriculumTypeRepository = curriculumTypeRepository;
             _curriculumRepository = curriculumRepository;
@@ -28,6 +30,8 @@ namespace PmaPlus.Services
             _curriculumSessionRepository = curriculumSessionRepository;
             _curriculumDetailRepository = curriculumDetailRepository;
             _clubRepository = clubRepository;
+            _curriculumStatementRepository = curriculumStatementRepository;
+            _statementRolesRepository = statementRolesRepository;
         }
 
         #region CurriculumTypes
@@ -289,6 +293,12 @@ namespace PmaPlus.Services
             }
             return null;
         }
+        #endregion
+
+        #region Statements
+
+
+
         #endregion
     }
 }

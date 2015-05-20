@@ -71,6 +71,7 @@
     <Compile Include="Repository\ClubRepository.cs" />
     <Compile Include="Repository\CoachRepository.cs" />
     <Compile Include="Repository\CurriculumSessionRepository.cs" />
+    <Compile Include="Repository\CurriculumStatementRepository.cs" />
     <Compile Include="Repository\CurriculumTypeRepository.cs" />
     <Compile Include="Repository\CurriculumWeekRepository.cs" />
     <Compile Include="Repository\DiaryRecipientRepository.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Repository\Iterfaces\ICurriculumDetailRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICurriculumRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICurriculumSessionRepository.cs" />
+    <Compile Include="Repository\Iterfaces\ICurriculumStatementRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICurriculumTypeRepository.cs" />
     <Compile Include="Repository\Iterfaces\ICurriculumWeekRepository.cs" />
     <Compile Include="Repository\Iterfaces\IDiaryRecipientRepository.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="Repository\Iterfaces\ISportScientistRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISportsScienceExerciseRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISportsScienceTestRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IStatementRolesRepository.cs" />
     <Compile Include="Repository\Iterfaces\ITargetHistoryRepository.cs" />
     <Compile Include="Repository\Iterfaces\ITeamCurriculumRepository.cs" />
     <Compile Include="Repository\Iterfaces\ITeamRepository.cs" />
@@ -145,6 +148,7 @@
     <Compile Include="Repository\SportScientistRepository.cs" />
     <Compile Include="Repository\SportsScienceExerciseRepository.cs" />
     <Compile Include="Repository\SportsScienceTestRepository.cs" />
+    <Compile Include="Repository\StatementRolesRepository.cs" />
     <Compile Include="Repository\TargetHistoryRepository.cs" />
     <Compile Include="Repository\TeamCurriculumRepository.cs" />
     <Compile Include="Repository\TeamRepository.cs" />

@@ -53,9 +53,19 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             var newUser =  _userServices.AddTrainingTeamMember(memberViewModel,User.Identity.Name);
             if (newUser != null)
             {
-                newUser.UserDetail.ProfilePicture = _photoManager.MoveFromTemp(newUser.UserDetail.ProfilePicture,
-                    FileStorageTypes.ProfilePicture, newUser.Id, "ProfilePicture");
-                _userServices.UpdateUser(newUser);
+                if (_photoManager.FileExists(memberViewModel.ProfilePicture))
+                {
+                    newUser.UserDetail.ProfilePicture = _photoManager.MoveFromTemp(newUser.UserDetail.ProfilePicture,
+                   FileStorageTypes.ProfilePicture, newUser.Id, "ProfilePicture");
+                }
+                else
+                {
+                    newUser.UserDetail.ProfilePicture = _photoManager.SetDefaultPrifilePic(
+                    FileStorageTypes.PlayerProfilePicture, newUser.Id, "ProfilePicture.jpg");
+                }
+
+                    _userServices.UpdateUser(newUser);
+               
             }
             return Ok();
         }
