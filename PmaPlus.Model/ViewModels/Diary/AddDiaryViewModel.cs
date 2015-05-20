@@ -15,6 +15,7 @@ namespace PmaPlus.Model.ViewModels.Diary
         public DateTime End { get; set; }
         public bool AllDay { get; set; }
         public string Url { get; set; }
-        public IList<int> Recipients { get; set; }
+        public IList<Role> AttendeeTypes { get; set; }
+        public IList<int> SpecificPersons { get; set; }
     }
 }
