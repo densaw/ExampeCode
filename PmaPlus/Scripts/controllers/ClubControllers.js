@@ -361,6 +361,47 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
 app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function ($scope, $http, toaster, $compile, uiCalendarConfig) {
 
+    var target = angular.element('#addDiaryModal');
+
+
+    $scope.newEvent = {};
+    $scope.newEvent.attendeeTypes = [];
+    $scope.newEvent.specificPersons = [];
+    $scope.newEvent.allDay = false;
+
+    /*
+        HeadOfAcademies = 2,
+        Coach = 3,
+        HeadOfEducation = 4,
+        WelfareOfficer = 5,
+        Scout = 6,
+        Physiotherapist = 7,
+        SportsScientist = 8,
+        Player = 9
+        */
+    $scope.specificPersons = [];
+    $scope.attendeeTypes = [
+        { id: 2, name: 'Head Of Academies' },
+        { id: 3, name: 'Coach' },
+        { id: 4, name: 'Head Of Education' },
+        { id: 5, name: 'Welfare Officer' },
+        { id: 6, name: 'Scout' },
+        { id: 7, name: 'Physiotherapist' },
+        { id: 8, name: 'Sports Scientist' },
+        { id: 9, name: 'Player' }
+    ];
+
+    $scope.$watch('newEvent.attendeeTypes', function (result) {
+        console.log(result);
+        if (!result.length) {
+
+        } else {
+            
+        }
+    });
+
+
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -383,17 +424,19 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
 
     getResults();
 
-    
+    $scope.open = function() {
+        target.modal('show');
+    }
 
-    $scope.newEvent = {};
+    $scope.ok = function() {
+        $http.post(urlTail, $scope.newEvent).success(function () {
+            getResults();
+            target.modal('hide');
+        });
+    }
 
-    $scope.newEvent.title = "Shita";
-    $scope.newEvent.start = new Date();
-    $scope.newEvent.allDay = false;
-
-    $scope.click = function () {
-        console.log('Shit happens!!!!');
-        cal.fullCalendar('renderEvent', $scope.items);
+    $scope.cancel = function () {
+        target.modal('hide');
     }
 }]);
 

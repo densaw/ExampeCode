@@ -19,7 +19,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a class="btn btn-primary">Add an Event</a>
+                <a class="btn btn-primary" ng-click="open()">Add an Event</a>
             </div>
         </div>
     </div>
@@ -60,29 +60,89 @@
                                         </div>
                                         <div class="modal-body">
                                             <form name="myform" class="form-horizontal" novalidate>
-                                                <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
-                                                    <label class="col-lg-4 title-modal">:</label>
+                                                <div class="form-group" ng-class="{'has-error':myform.eventTitle.$invalid && (myform.eventTitle.$dirty||myform.form_Submitted)}">
+                                                    <label class="col-lg-4 title-modal">Title:</label>
                                                     <div class="col-lg-7 pull-right">
-                                                        <input name="courseName" ng-model="newCourse.name" required class="form-control" maxlength="50">
+                                                        <input name="eventTitle" ng-model="newEvent.name" required class="form-control" maxlength="50">
                                                     </div>
                                                 </div>
-                                                <div class="form-group" ng-class="{'has-error':myform.courseDuration.$invalid && (myform.courseDuration.$dirty||myform.form_Submitted)}">
-                                                    <label class="col-lg-4 title-modal">Course Duration:</label>
+                                                <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                                                    <label class="col-lg-4 title-modal">Note:</label>
                                                     <div class="col-lg-7 pull-right">
-                                                        <input name="courseDuration" ng-model="newCourse.duration" required class="form-control">
+                                                        <input name="eventNote" ng-model="newEvent.duration" required class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="col-lg-4 title-modal">Description:</label>
+                                                    <label class="col-lg-4 title-modal">Start:</label>
                                                     <div class="col-lg-7 pull-right">
-                                                        <textarea ng-model="newCourse.description" class="form-control"></textarea>
+                                                        <div class="dropdown">
+                                                            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" value="{{newEvent.start | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                                </div>
+                                                            </a>
+                                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                                <datetimepicker data-ng-model="newEvent.start" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
+                                                            </ul>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-4 title-modal">End:</label>
+                                                    <div class="col-lg-7 pull-right">
+                                                        <div class="dropdown">
+                                                            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" value="{{newEvent.end | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                                </div>
+                                                            </a>
+                                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                                <datetimepicker data-ng-model="newEvent.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
+                                                            </ul>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error':myform.courseDuration.$invalid && (myform.courseDuration.$dirty||myform.form_Submitted)}">
+                                                    <label class="col-lg-4 title-modal">All Day:</label>
+                                                    <div class="col-lg-7 pull-right">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-4 title-modal">Url:</label>
+                                                    <div class="col-lg-7 pull-right">
+                                                        <input name="eventNote" ng-model="newEvent.duration" required class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-4 title-modal">Attendee Types:</label>
+                                                    <div class="col-lg-7 pull-right">
+                                                        <ui-select multiple ng-model="newEvent.attendeeTypes" ng-disabled="disabled" theme="bootstrap">
+                                                            <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
+                                                            <ui-select-choices repeat="attendeeType in attendeeTypes">
+                                                                <div ng-bind-html="attendeeType.name | highlight: $select.search"></div>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-4 title-modal">Specific Persons:</label>
+                                                    <div class="col-lg-7 pull-right">
+                                                        <ui-select multiple ng-model="newEvent.specificPersons" ng-disabled="disabled" theme="bootstrap">
+                                                            <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
+                                                            <ui-select-choices repeat="specificPerson in specificPersons">
+                                                                <div ng-bind-html="specificPerson.name | highlight: $select.search"></div>
+                                                            </ui-select-choices>
+                                                        </ui-select>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
                                             <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                            <button ng-click="ok(newCourse.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                            <button ng-click="ok()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -95,7 +155,6 @@
         </div>
     </div>
 </div>
-
 
 <style>
     .fc-button {
@@ -115,6 +174,10 @@
       background-color: #337ab7;
       border-color: #337ab7;
       color: #ffffff;
+    }
+    a.dropdown-toggle {
+        color: #66696B;
+        text-decoration: none;
     }
 </style>
     <script>
