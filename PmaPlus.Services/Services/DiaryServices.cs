@@ -40,6 +40,15 @@ namespace PmaPlus.Services
 
         public Diary AddDiary(Diary diary, int ownerUserId, IList<int> recipientUsers,IList<Role> roles)
         {
+            List<int> userIds = new List<int>();
+            foreach (var role in roles)
+            {
+                userIds.AddRange(_userRepository.GetMany(u => u.Role == role).Select(u => u.Id));
+            }
+
+            recipientUsers = userIds.Union(recipientUsers).ToList();
+
+
             var owner = _userRepository.GetById(ownerUserId);
             if (owner != null)
             {
