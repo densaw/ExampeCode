@@ -64,6 +64,8 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<CurriculumViewModel, Curriculum>();
 
             Mapper.CreateMap<CurriculumDetailViewModel, CurriculumDetail>();
+
+            Mapper.CreateMap<CurriculumStatementViewModel, CurriculumStatement>();
         }
     }
 }

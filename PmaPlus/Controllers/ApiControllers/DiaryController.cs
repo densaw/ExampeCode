@@ -39,7 +39,6 @@ namespace PmaPlus.Controllers.ApiControllers
             return Ok();
         }
 
-
         public IHttpActionResult Delete(int id)
         {
             if (!_diaryServices.DiaryExist(id))

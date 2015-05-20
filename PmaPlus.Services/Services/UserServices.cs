@@ -51,6 +51,16 @@ namespace PmaPlus.Services
             return _clubAdminRepository.Get(a => a.User.UserName == name);
         }
 
+        public IEnumerable<User> GetUsersByRoles(IList<Role> roles)
+        {
+            List<User> userList = new List<User>();
+            foreach (var role in roles)
+            {
+                userList.AddRange(_userRepository.GetMany(u => u.Role == role));
+            }
+            return userList;
+        } 
+
         public bool UserExist(int id)
         {
             return _userRepository.GetMany(u => u.Id == id).Any();

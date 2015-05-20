@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using PmaPlus.Model;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Curriculum;
@@ -28,6 +29,9 @@ namespace PmaPlus.Mapping
 
         protected override void Configure()
         {
+            Mapper.CreateMap<User, UsersList>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.UserDetail.FirstName + " " + s.UserDetail.LastName));
+
             Mapper.CreateMap<CurriculumType, CurriculumTypeViewModel>();
             Mapper.CreateMap<CurriculumType, CurriculumTypesList>();
 
@@ -96,6 +100,9 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<Curriculum, CurriculumViewModel>();
 
             Mapper.CreateMap<CurriculumDetail, CurriculumDetailViewModel>();
+
+            Mapper.CreateMap<CurriculumStatement, CurriculumStatementViewModel>()
+                .ForMember(d => d.Roles, o => o.MapFrom(s => s.Roles.Select(r => r.Role)));
 
             Mapper.CreateMap<Team, TeamTableViewModel>();
             Mapper.CreateMap<Team, TeamsList>();
