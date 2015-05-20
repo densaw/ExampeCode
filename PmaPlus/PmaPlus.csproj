@@ -271,6 +271,7 @@
     <Compile Include="Controllers\ApiControllers\SportsScienceTestsController.cs" />
     <Compile Include="Controllers\ApiControllers\Teams\TeamsController.cs" />
     <Compile Include="Controllers\ApiControllers\ToDoController.cs" />
+    <Compile Include="Controllers\ApiControllers\UserController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
     <Compile Include="Filters\PhotoStreamProvider.cs" />
     <Compile Include="Filters\ValidateModelStateFilter.cs" />

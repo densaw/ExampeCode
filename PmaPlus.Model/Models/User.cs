@@ -6,8 +6,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using PmaPlus.Model.Enums;
+using PmaPlus.Model.Models;
 
-namespace PmaPlus.Model.Models
+namespace PmaPlus.Model
 {
     public class User : IUser<int>
     {
