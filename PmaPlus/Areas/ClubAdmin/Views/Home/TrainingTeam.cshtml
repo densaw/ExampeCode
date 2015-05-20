@@ -56,6 +56,14 @@
                                     <select ng-model="selectedRole" ng-options="role.name for role in rolesVisible | orderBy:'name'" class=" form-control m-b" name="account"></select>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Needs to Report:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input id="needstoReport" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-lg-4 title-modal">About Me:</label>
                                 <div class="col-lg-7 pull-right">

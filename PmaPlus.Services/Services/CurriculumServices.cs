@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Curriculum;
+using PmaPlus.Model;
 
 namespace PmaPlus.Services
 {
@@ -297,7 +298,65 @@ namespace PmaPlus.Services
 
         #region Statements
 
+        public bool StatementExist(int id)
+        {
+            return _curriculumStatementRepository.GetMany(s => s.Id == id).Any();
+        }
 
+        public IEnumerable<CurriculumStatement> GetCurriculumStatements(int clubId)
+        {
+            return _curriculumStatementRepository.GetMany(s => s.Club.Id == clubId);
+        }
+
+
+        public void AddCurricululmStatment(CurriculumStatement statement, IList<Role> rolesList,int clubId)
+        {
+            statement.Club = _clubRepository.GetById(clubId);
+            var newStatment = _curriculumStatementRepository.Add(statement);
+            foreach (var role in rolesList)
+            {
+                _statementRolesRepository.Add(new StatementRoles()
+                {
+                    Role = role,
+                    Statement = newStatment,
+                    CurriculumStatementId = newStatment.Id
+                });
+            }
+        }
+
+
+        public void UpdateCurriculumStatment(CurriculumStatement statement,  IList<Role> rolesList, int id)
+        {
+            if (id != 0)
+            {
+                statement.Id = id;
+                _curriculumStatementRepository.Update(statement, id);
+
+                var tempStatement  = _curriculumStatementRepository.GetById(id);
+                foreach (var role in rolesList)
+                {
+                    if (!_statementRolesRepository.GetMany(s => s.CurriculumStatementId == tempStatement.Id && s.Role == role).Any())
+                    {
+                        _statementRolesRepository.Add(new StatementRoles()
+                        {
+                            Role = role,
+                            Statement = tempStatement,
+                            CurriculumStatementId = tempStatement.Id
+                        });
+                    }
+                }
+                _statementRolesRepository.Delete(s => s.CurriculumStatementId == tempStatement.Id && !rolesList.Contains(s.Role));
+            }
+        }
+
+        public void DeleteCurriculumStatement(int id)
+        {
+            if (id != 0)
+            {
+                _statementRolesRepository.Delete(sr => sr.CurriculumStatementId == id);
+                _curriculumStatementRepository.Delete(s => s.Id == id);
+            }
+        }
 
         #endregion
     }
