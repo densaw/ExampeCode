@@ -368,6 +368,23 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
 
     var cal = angular.element('#calendar');
 
+    var urlTail = '/api/Diary';
+
+    function getResults() {
+        $http.get(urlTail)
+            .success(function (result) {
+                console.log(result);
+                $scope.items = result;
+                angular.forEach(result, function(value) {
+                    cal.fullCalendar('renderEvent', value);
+                });
+            });
+    }
+
+    getResults();
+
+    
+
     $scope.newEvent = {};
 
     $scope.newEvent.title = "Shita";
@@ -375,8 +392,8 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     $scope.newEvent.allDay = false;
 
     $scope.click = function () {
-        console.log('Shit happens');
-        cal.fullCalendar('renderEvent', $scope.newEvent);
+        console.log('Shit happens!!!!');
+        cal.fullCalendar('renderEvent', $scope.items);
     }
 }]);
 
