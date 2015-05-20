@@ -396,7 +396,14 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         if (!result.length) {
 
         } else {
-            
+            var stringPar = [];
+            angular.forEach(result, function(value) {
+                stringPar.push('role=' + value.id);
+            });
+            console.log(stringPar.join('&'));
+            $http.get('/api/Users/List?' + stringPar.join('&')).success(function (result) {
+                $scope.specificPersons = result;
+            });
         }
     });
 
@@ -414,6 +421,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     function getResults() {
         $http.get(urlTail)
             .success(function (result) {
+                cal.fullCalendar('removeEvents');
                 console.log(result);
                 $scope.items = result;
                 angular.forEach(result, function(value) {
@@ -428,7 +436,8 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         target.modal('show');
     }
 
-    $scope.ok = function() {
+    $scope.ok = function () {
+        console.log($scope.newEvent);
         $http.post(urlTail, $scope.newEvent).success(function () {
             getResults();
             target.modal('hide');
