@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PmaPlus.Data.Repository.Iterfaces;
+using PmaPlus.Model;
 using PmaPlus.Model.Models;
 
 namespace PmaPlus.Services
@@ -37,7 +38,7 @@ namespace PmaPlus.Services
             return ownDiary.Union(recDiary);
         }
 
-        public Diary AddDiary(Diary diary, int ownerUserId, IList<int> recipientUsers)
+        public Diary AddDiary(Diary diary, int ownerUserId, IList<int> recipientUsers,IList<Role> roles)
         {
             var owner = _userRepository.GetById(ownerUserId);
             if (owner != null)
@@ -68,6 +69,8 @@ namespace PmaPlus.Services
                 return null;
             }
         }
+
+
 
         public void DeleteDiary(int id)
         {

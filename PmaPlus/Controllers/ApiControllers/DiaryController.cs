@@ -35,7 +35,7 @@ namespace PmaPlus.Controllers.ApiControllers
             var diary = Mapper.Map<AddDiaryViewModel, Diary>(diaryViewModel);
             var userId = _userServices.GetUserByEmail(User.Identity.Name).Id;
 
-            _diaryServices.AddDiary(diary, userId, diaryViewModel.SpecificPersons);
+            _diaryServices.AddDiary(diary, userId, diaryViewModel.SpecificPersons,diaryViewModel.AttendeeTypes);
             return Ok();
         }
 
