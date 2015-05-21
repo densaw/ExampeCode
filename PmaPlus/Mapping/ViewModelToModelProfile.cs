@@ -63,7 +63,15 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<CurriculumViewModel, Curriculum>();
 
-            Mapper.CreateMap<CurriculumDetailViewModel, CurriculumDetail>();
+            Mapper.CreateMap<CurriculumDetailViewModel, CurriculumDetail>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.CurriculumDetailId))
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.CurriculumDetailName))
+                .ForMember(d => d.Number, o => o.MapFrom(s => s.CurriculumDetailNumber))
+                .ForMember(d => d.PlayersDescription, o => o.MapFrom(s => s.CurriculumDetailPlayersDescription))
+                .ForMember(d => d.PlayersFriendlyName, o => o.MapFrom(s => s.CurriculumDetailPlayersFriendlyName))
+                .ForMember(d => d.PlayersFriendlyPicture, o => o.MapFrom(s => s.CurriculumDetailPlayersFriendlyPicture))
+                .ForMember(d => d.CoachDescription, o => o.MapFrom(s => s.CurriculumDetailCoachDescription))
+                .ForMember(d => d.CoachPicture, o => o.MapFrom(s => s.CurriculumDetailPlayersFriendlyPicture));
 
             Mapper.CreateMap<CurriculumStatementViewModel, CurriculumStatement>();
         }

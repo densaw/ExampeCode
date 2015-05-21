@@ -22,18 +22,15 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
 
         public IEnumerable<CurriculumDetailViewModel> Get(int id)
         {
-            return Mapper.Map<IEnumerable<CurriculumDetail>, IEnumerable<CurriculumDetailViewModel>>(_curriculumServices.GetCurriculumBlockDetails(id));
+            var curriculum = _curriculumServices.GetCurriculumBlocks(id);
+            return Mapper.Map<IEnumerable<CurriculumBlock>, IEnumerable<CurriculumDetailViewModel>>(curriculum);
         } 
 
 
-        public IHttpActionResult PostDetail(int id, [FromBody]CurriculumDetailViewModel detailViewModel)
+        public IHttpActionResult PutDetail(int id, [FromBody]CurriculumDetailViewModel detailViewModel)
         {
             var detail = Mapper.Map<CurriculumDetailViewModel, CurriculumDetail>(detailViewModel);
-            var newDetail = _curriculumServices.AddCurriculumBlockDetails(detail, id);
-            if (newDetail == null)
-            {
-                return Conflict();
-            }
+            _curriculumServices.UpdateDetail(detail, detail.Id);
             return Ok();
         }
 
