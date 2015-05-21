@@ -45,11 +45,10 @@ namespace PmaPlus.Services.Services
             var players = _playerRepository.GetMany(p => playersId.Contains(p.Id));
             var curriculum = _curriculumRepository.GetById(curriculumId);
 
-
+            team.Club = _clubRepository.GetById(clubId);
 
             var newTeam = _teamRepository.Add(team);
 
-            newTeam.Club = _clubRepository.GetById(clubId);
             if (curriculum != null)
             {
                 foreach (var coach in coaches)
