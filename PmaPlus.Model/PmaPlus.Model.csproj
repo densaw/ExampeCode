@@ -189,6 +189,7 @@
     <Compile Include="ViewModels\SportsScience\SportsScienceTestTableViewModel.cs" />
     <Compile Include="ViewModels\SportsScience\SportsScienceTestViewModel.cs" />
     <Compile Include="ViewModels\Team\AddTeamViewModel.cs" />
+    <Compile Include="ViewModels\Team\TeamsPage.cs" />
     <Compile Include="ViewModels\Team\TeamsList.cs" />
     <Compile Include="ViewModels\Team\TeamTableViewModel.cs" />
     <Compile Include="ViewModels\ToDo\ToDoViewModel.cs" />

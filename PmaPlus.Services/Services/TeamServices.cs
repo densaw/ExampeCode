@@ -31,7 +31,7 @@ namespace PmaPlus.Services.Services
             return _teamRepository.GetMany(t => t.Id == id).Any();
         }
 
-        public IEnumerable<Team> GetClubTeams(int clubId)
+        public IQueryable<Team> GetClubTeams(int clubId)
         {
             return _teamRepository.GetMany(t => t.Club.Id == clubId);
         }
