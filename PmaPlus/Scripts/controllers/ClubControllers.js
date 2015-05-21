@@ -1111,13 +1111,14 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
             .success(function (result) {
+                console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
     }
 
     function getCurrType(){
-        $http.get('/api/CurriculumTypes/List').success(function(result){
+        $http.get('/api/Curriculums/List').success(function(result){
             $scope.curriculumTypesList = result;
             $scope.selectedCurriculumTypeId = $scope.curriculumTypesList[0];
         });
