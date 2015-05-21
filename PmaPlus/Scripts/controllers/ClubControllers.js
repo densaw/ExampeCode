@@ -26,6 +26,7 @@ app.config(routing);
 
 app.controller('AttributesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
+
     var needToDelete = -1;
     var urlTail = '/api/Attributes';
 
@@ -762,8 +763,110 @@ app.controller('ProfilePageController', ['$scope', '$http', 'toaster', '$q', '$r
     ];
 }]);
 
-app.controller('NavController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function ($scope, $http, toaster, $q, $routeParams, $location) {
+app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function ($scope, $http, toaster, $q, $routeParams, $location) {
 
+    //Variable section
+    var needToDelete = -1;
+    var urlTail = '/api/Curriculums';
+    var target = angular.element('#addCurrModal');
+    var inpSessions = angular.element('#inpSessions');
+    var inpWeeks = angular.element('#inpWeeks');
+    var inpBlocks = angular.element('#inpBlocks');
+
+    $scope.inpSessions = false;
+    $scope.inpWeeks = false;
+    $scope.inpBlocks = false;
+
+    $scope.newCurr = {};
+
+    $scope.curriculumTypesList = [];
+    $scope.ageGroups = [
+        {id: 0, name: 'U6'},
+        {id: 1, name: 'U7'},
+        {id: 2, name: 'U8'},
+        {id: 3, name: 'U9'},
+        {id: 4, name: 'U10'},
+        {id: 5, name: 'U11'},
+        {id: 6, name: 'U12'},
+        {id: 7, name: 'U13'},
+        {id: 8, name: 'U14'},
+        {id: 9, name: 'U15'},
+        {id: 10, name: 'U16'},
+        {id: 11, name: 'U17'},
+        {id: 12, name: 'U18'},
+        {id: 13, name: '+18'},
+    ];
+    $scope.selectedAgeGroup = $scope.ageGroups[0];
+
+    $scope.$watch('selectedCurriculumTypeId', function(newValue) {
+        if(newValue != null){
+            console.log(newValue);
+            $http.get('/api/CurriculumTypes/'+ newValue.id).success(function(result){
+                $scope.inpWeeks = !result.usesWeeks;
+                $scope.inpBlocks = !result.usesBlocks;
+                $scope.inpSessions = !result.usesSessions;
+            }); 
+        } 
+    });
+
+    function getCurrType(){
+        $http.get('/api/CurriculumTypes/List').success(function(result){
+            $scope.curriculumTypesList = result;
+            $scope.selectedCurriculumTypeId = $scope.curriculumTypesList[0];
+        });
+    }
+
+    function getResultsPage(pageNumber) {
+        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    }
+
+    $scope.items = [];
+    $scope.totalItems = 0;
+    $scope.itemsPerPage = 20;
+
+
+    $scope.pagination = {
+        current: 1
+    };
+
+    getResultsPage($scope.pagination.current);
+    getCurrType();
+
+    $scope.pageChanged = function (newPage) {
+        getResultsPage(newPage);
+        $scope.pagination.current = newPage;
+    };
+    
+
+    $scope.open = function(){
+        $scope.modalTitle = 'Add Curriculums';
+        target.modal('show');
+    };
+
+    $scope.cancel = function(){
+        target.modal('hide');
+    };
+
+    $scope.ok = function(id){
+        if(id != null){
+            //PUT it now have no url to Update date
+            $http.put().success().error();
+        }else{
+            //POST
+            $scope.newCurr.ageGroup = $scope.selectedAgeGroup.id;
+            $scope.newCurr.curriculumTypeId = $scope.selectedCurriculumTypeId.id; 
+            $http.post(urlTail, $scope.newCurr).success(function(result){
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            }).error(function (data, status, headers, config){
+
+            });
+        }
+    };
     
 
 }]);
@@ -771,6 +874,10 @@ app.controller('NavController', ['$scope', '$http', 'toaster', '$q', '$routePara
 app.controller('StController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location) {
     
 }]);
+
+app.controller('NavController', function(){
+
+});
 
 app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location) {
     
