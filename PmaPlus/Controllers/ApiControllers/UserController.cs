@@ -28,7 +28,6 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             var users = _userServices.GetUsersByRoles(role);
             return Mapper.Map<IEnumerable<User>, IEnumerable<UsersList>>(users);
-
         }
 
 
