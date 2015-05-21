@@ -81,5 +81,16 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
 
             return Ok();
         }
+
+        public IHttpActionResult Delete(int id)
+        {
+            if (!_teamServices.TeamExist(id))
+            {
+                return NotFound();
+            }
+            _teamServices.DeleteTeam(id);
+
+            return Ok();
+        }
     }
 }

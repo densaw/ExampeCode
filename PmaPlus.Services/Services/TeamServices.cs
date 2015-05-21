@@ -16,14 +16,16 @@ namespace PmaPlus.Services.Services
         private readonly ICoachRepository _coachRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ITeamCurriculumRepository _teamCurriculumRepository;
+        private readonly IClubRepository _clubRepository;
 
-        public TeamServices(ITeamRepository teamRepository, IPlayerRepository playerRepository, ICoachRepository coachRepository, ICurriculumRepository curriculumRepository, ITeamCurriculumRepository teamCurriculumRepository)
+        public TeamServices(ITeamRepository teamRepository, IPlayerRepository playerRepository, ICoachRepository coachRepository, ICurriculumRepository curriculumRepository, ITeamCurriculumRepository teamCurriculumRepository, IClubRepository clubRepository)
         {
             _teamRepository = teamRepository;
             _playerRepository = playerRepository;
             _coachRepository = coachRepository;
             _curriculumRepository = curriculumRepository;
             _teamCurriculumRepository = teamCurriculumRepository;
+            _clubRepository = clubRepository;
         }
 
         public bool TeamExist(int id)
@@ -42,27 +44,65 @@ namespace PmaPlus.Services.Services
             var coaches = _coachRepository.GetMany(c => coachesId.Contains(c.Id));
             var players = _playerRepository.GetMany(p => playersId.Contains(p.Id));
             var curriculum = _curriculumRepository.GetById(curriculumId);
+
+
+
+            var newTeam = _teamRepository.Add(team);
+
+            newTeam.Club = _clubRepository.GetById(clubId);
             if (curriculum != null)
             {
                 foreach (var coach in coaches)
                 {
-                    team.Coaches.Add(coach);
+                    newTeam.Coaches.Add(coach);
                 }
                 foreach (var player in players)
                 {
-                    team.Players.Add(player);
+                    newTeam.Players.Add(player);
                 }
 
                 var teamToCurr = new TeamCurriculum()
                 {
                     Curriculum = curriculum,
-                    Team = _teamRepository.Add(team)
+                    Team = newTeam
                 };
                 _teamCurriculumRepository.Add(teamToCurr);
-
+                _teamRepository.Update(newTeam,newTeam.Id);
             }
 
         }
 
+
+        public void UpdateTeam(string teamName, IList<int> playersId, IList<int> coachesId, int teamId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            team.Name = teamName;
+
+            var coaches = _coachRepository.GetMany(c => coachesId.Contains(c.Id));
+            var players = _playerRepository.GetMany(p => playersId.Contains(p.Id));
+
+            foreach (var coach in coaches)
+            {
+                if (!team.Coaches.Contains(coach))
+                {
+                    team.Coaches.Add(coach);
+                }
+            }
+            foreach (var player in players)
+            {
+                if (!team.Players.Contains(player))
+                {
+                    team.Players.Add(player);
+                }
+            }
+
+
+
+        }
+
+        public void DeleteTeam(int id)
+        {
+            _teamRepository.Delete(t => t.Id == id);
+        }
     }
 }

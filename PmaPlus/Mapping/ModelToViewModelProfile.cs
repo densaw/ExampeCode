@@ -100,6 +100,7 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<Curriculum, CurriculumViewModel>();
 
             Mapper.CreateMap<CurriculumDetail, CurriculumDetailViewModel>();
+            Mapper.CreateMap<Curriculum, CurriculumDetailViewModel>();
             Mapper.CreateMap<CurriculumBlock, CurriculumDetailViewModel>();
             Mapper.CreateMap<CurriculumWeek, CurriculumDetailViewModel>();
             Mapper.CreateMap<CurriculumSession, CurriculumDetailViewModel>();
