@@ -887,10 +887,6 @@ app.controller('StController', ['$scope', '$http', 'toaster', '$q', '$routeParam
     
 }]);
 
-app.controller('NavController', function(){
-
-});
-
 app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location) {
     
     var needToDelete = -1;
@@ -1076,4 +1072,106 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 target.modal('show');
             });
     };
+}]);
+
+
+app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location) {
+    var needToDelete = -1;
+    var urlTail = '/api/Teams';
+    var target = angular.element('#addTeamModal');
+
+    $scope.newTeam = {};
+    $scope.curriculumTypesList = [];
+    $scope.teamMembers = {};
+    $scope.teamMembers.coaches = [];
+    $scope.teamMembers.players = [];
+    $scope.freeCoaches = [];
+    $scope.freePlayers = [];
+
+    function shuffle(objArr) {
+        var ids = [];
+        angular.forEach(objArr, function(obj) {
+            this.push(obj.id);
+        }, ids);
+        return ids;
+    }
+
+    function getCoachList(){
+        $http.get('/api/Coaches/list').success(function(result){
+            $scope.freeCoaches = result;
+        });
+    }
+
+    function getPlayerList(){
+        $http.get('/api/Player/Free').success(function(result){
+            $scope.freePlayers = result;
+        });
+    }
+
+    function getResultsPage(pageNumber) {
+        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    }
+
+    function getCurrType(){
+        $http.get('/api/CurriculumTypes/List').success(function(result){
+            $scope.curriculumTypesList = result;
+            $scope.selectedCurriculumTypeId = $scope.curriculumTypesList[0];
+        });
+    }
+
+    $scope.items = [];
+    $scope.totalItems = 0;
+    $scope.itemsPerPage = 20;
+
+
+    $scope.pagination = {
+        current: 1
+    };
+
+    getResultsPage($scope.pagination.current);
+    getCurrType();
+    getPlayerList();
+    getCoachList();
+
+    $scope.pageChanged = function (newPage) {
+        getResultsPage(newPage);
+        $scope.pagination.current = newPage;
+    };
+    
+
+    $scope.open = function(){
+        $scope.modalTitle = 'Add Team';
+        target.modal('show');
+    };
+
+    $scope.cancel = function(){
+        target.modal('hide');
+    };
+
+    $scope.ok = function(id){
+        if(id != null){
+            //PUT it now have no url to Update date
+            $http.put().success().error();
+        }else{
+            //POST
+            console.log('Team prepere');
+            $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
+            $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
+            $scope.newTeam.players = shuffle($scope.teamMembers.players);
+            console.log($scope.newTeam);
+            $http.post(urlTail, $scope.newTeam).success(function(result){
+                console.log('Team Done');
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            }).error(function (data, status, headers, config){
+
+            });
+        }
+    };
+    
+
 }]);
