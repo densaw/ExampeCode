@@ -8,18 +8,21 @@ namespace PmaPlus.Model.ViewModels.Curriculum
 {
     public class CurriculumDetailViewModel
     {
+        public int CurriculumDetailId { get; set; }
+
+        public string CurriculumDetailName { get; set; }
+
+        public string CurriculumDetailNumber { get; set; }
+
+        public string CurriculumDetailCoachPicture { get; set; }
+        public string CurriculumDetailCoachDescription { get; set; }
+
+        public string CurriculumDetailPlayersFriendlyName { get; set; }
+
+        public string CurriculumDetailPlayersFriendlyPicture { get; set; }
+
+        public string CurriculumDetailPlayersDescription { get; set; }
+
         public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Number { get; set; }
-
-        public string CoachDescription { get; set; }
-
-        public string PlayersFriendlyName { get; set; }
-
-        public string PlayersFriendlyPicture { get; set; }
-
-        public string PlayersDescription { get; set; }
     }
 }

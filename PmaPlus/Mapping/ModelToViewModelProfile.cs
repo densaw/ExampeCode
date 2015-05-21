@@ -100,6 +100,10 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<Curriculum, CurriculumViewModel>();
 
             Mapper.CreateMap<CurriculumDetail, CurriculumDetailViewModel>();
+            Mapper.CreateMap<CurriculumBlock, CurriculumDetailViewModel>();
+            Mapper.CreateMap<CurriculumWeek, CurriculumDetailViewModel>();
+            Mapper.CreateMap<CurriculumSession, CurriculumDetailViewModel>();
+
 
             Mapper.CreateMap<CurriculumStatement, CurriculumStatementViewModel>()
                 .ForMember(d => d.Roles, o => o.MapFrom(s => s.Roles.Select(r => r.Role)));

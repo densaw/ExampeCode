@@ -13,6 +13,7 @@ namespace PmaPlus.Model.Models
 
         public string Number { get; set; }
 
+        public string CoachPicture { get; set; }
       
         public string CoachDescription { get; set; }
 

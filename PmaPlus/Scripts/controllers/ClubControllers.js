@@ -690,6 +690,12 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                     $http.put('/api/Clubs/' + id, $scope.newClub)
                         .success(function () {
                             getResults('/Current');
+                            toaster.pop({
+                                type: 'success',
+                                title: 'Success',
+                                bodyOutputType: 'trustedHtml',
+                                body: 'Profile was updated'
+                            });
                         }).error(function (data, status, headers, config) {
                             if (status == 400) {
                                 console.log(data);
@@ -707,6 +713,12 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                     $http.post('/api/Clubs', $scope.newClub)
                         .success(function () {
                             getResults('/Current');
+                            toaster.pop({
+                                type: 'success',
+                                title: 'Success',
+                                bodyOutputType: 'trustedHtml',
+                                body: 'Profile was updated'
+                            });
                         }).error(function (data, status, headers, config) {
                             if (status == 400) {
                                 console.log(data);
