@@ -200,7 +200,7 @@
         @*Modal End*@
         <div class="row">
             <div class="col-lg-4" ng-repeat="item in items">
-                <div class="contact-box animated flipInY">
+                <div class="contact-box">
                     <a href="ProfilePage?par={{item.role}}/{{item.id}}">
                         <div class="col-sm-4">
                             <div class="text-center">
@@ -248,9 +248,6 @@
         });
 
         $('.data-mask').mask('0000-00-00', { placeholder: "YYYY-MM-DD" });
-
-      
-
     });
 
 
