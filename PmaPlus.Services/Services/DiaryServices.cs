@@ -43,7 +43,7 @@ namespace PmaPlus.Services
             List<int> userIds = new List<int>();
             foreach (var role in roles)
             {
-                userIds.AddRange(_userRepository.GetMany(u => u.Role == role).Select(u => u.Id));
+                userIds.AddRange(_userRepository.GetMany(u => u.Role == role ).Select(u => u.Id));
             }
 
             recipientUsers = userIds.Union(recipientUsers).ToList();

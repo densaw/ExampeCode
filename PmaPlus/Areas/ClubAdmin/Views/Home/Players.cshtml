@@ -376,7 +376,9 @@
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="player in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems" >
-                                        <td><img style="width: auto; height: 100px;" class="img-circle m-t-xs img-responsive" ng-src="/api/File/playerProfilePicture/{{player.profilePicture}}/{{player.id}}" /></td>
+                                        <td>
+    <img style="width: auto; height: 100px;" class="img-circle m-t-xs img-responsive" ng-src="/api/File/playerProfilePicture/{{player.profilePicture}}/{{player.id}}" />
+</td>
                                         <td style="text-align: left">{{player.name}}</td>
                                         <td>
                                             <p ng-repeat="team in player.teams">{{team}}</p>
@@ -392,6 +394,7 @@
                                         <td>
                                             <i ng-click="openEdit(player.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(player.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                            <i  class="fa fa-print" style="cursor: pointer;"></i>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -416,7 +419,10 @@
     .table td {
        text-align: center;   
     }
-    
+    .table > tbody > tr > td {
+     vertical-align: middle;
+}
+  
 </style>
 
 
