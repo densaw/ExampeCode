@@ -1812,6 +1812,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     animation-name: flipInY;
 }
 
+
+
 @-webkit-keyframes flipOutX {
     0% {
         -webkit-transform: perspective(400px) rotateX(0deg);

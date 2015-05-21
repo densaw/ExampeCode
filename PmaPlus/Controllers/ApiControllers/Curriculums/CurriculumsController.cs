@@ -5,8 +5,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using PmaPlus.Data;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Curriculum;
+using PmaPlus.Model.ViewModels.Physio;
 using PmaPlus.Services;
 
 namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
@@ -27,7 +29,28 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         {
             var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
             return _curriculumServices.GetClubCurriculumsList(clubId);
-        } 
+        }
+
+        [Route("api/Curriculums/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
+        public CurriculumPage Get(int pageSize, int pageNumber, string orderBy = "")
+        {
+
+            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+          
+
+            var count = _curriculumServices.GetClubCurriculums(clubId).Count();
+            var pages = (int)Math.Ceiling((double)count / pageSize);
+            var curriculums = _curriculumServices.GetClubCurriculums(clubId).OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+            var items = Mapper.Map<IEnumerable<Curriculum>, IEnumerable<CurriculumViewModel>>(curriculums);
+
+            return new CurriculumPage()
+            {
+                Count = count,
+                Pages = pages,
+                Items = items
+            };
+
+        }
 
         public IEnumerable<CurriculumViewModel> Get()
         {

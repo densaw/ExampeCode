@@ -53,7 +53,7 @@
                             <div class="form-group">
                                 <label class="col-lg-4 title-modal">User Role:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <select ng-model="selectedRole" ng-options="role.name for role in rolesVisible | orderBy:'name'" class=" form-control m-b" name="account"></select>
+                                    <select ng-model="selectedRole" ng-options="role.name for role in rolesVisible | orderBy:'name'" class=" form-control" name="account"></select>
                                 </div>
                             </div>
 
@@ -200,7 +200,7 @@
         @*Modal End*@
         <div class="row">
             <div class="col-lg-4" ng-repeat="item in items">
-                <div class="contact-box animated pulse">
+                <div class="contact-box animated flipInY">
                     <a href="ProfilePage?par={{item.role}}/{{item.id}}">
                         <div class="col-sm-4">
                             <div class="text-center">
@@ -244,9 +244,14 @@
 <script>
     $(document).ready(function(){
         $('.contact-box').each(function() {
-            animationHover(this, 'pulse');
+            animationHover(this, 'flipInY');
         });
 
         $('.data-mask').mask('0000-00-00', { placeholder: "YYYY-MM-DD" });
+
+      
+
     });
+
+
 </script>
