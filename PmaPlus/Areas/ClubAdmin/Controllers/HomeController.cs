@@ -9,6 +9,7 @@ using PmaPlus.Tools;
 
 namespace PmaPlus.Areas.ClubAdmin.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ClubServices _clubServices;
