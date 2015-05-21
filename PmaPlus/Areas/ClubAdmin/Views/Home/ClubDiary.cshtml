@@ -119,7 +119,7 @@
                                                 <div class="form-group">
                                                     <label class="col-lg-4 title-modal">Attendee Types:</label>
                                                     <div class="col-lg-7 pull-right">
-                                                        <ui-select multiple ng-model="newEvent.attendeeTypes" ng-disabled="disabled" theme="bootstrap">
+                                                        <ui-select multiple ng-model="help.helpAttend" ng-disabled="disabled" theme="bootstrap">
                                                             <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
                                                             <ui-select-choices repeat="attendeeType in attendeeTypes">
                                                                 <div ng-bind-html="attendeeType.name | highlight: $select.search"></div>
@@ -130,7 +130,7 @@
                                                 <div class="form-group">
                                                     <label class="col-lg-4 title-modal">Specific Persons:</label>
                                                     <div class="col-lg-7 pull-right">
-                                                        <ui-select multiple ng-model="newEvent.specificPersons" ng-disabled="disabled" theme="bootstrap">
+                                                        <ui-select multiple ng-model="help.helpSpecify" ng-disabled="disabled" theme="bootstrap">
                                                             <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
                                                             <ui-select-choices repeat="specificPerson in specificPersons">
                                                                 <div ng-bind-html="specificPerson.name | highlight: $select.search"></div>

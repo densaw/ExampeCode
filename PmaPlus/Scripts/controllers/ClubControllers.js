@@ -364,10 +364,23 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     var target = angular.element('#addDiaryModal');
 
 
+    function shuffle(objArr) {
+        var ids = [];
+        angular.forEach(objArr, function(obj) {
+            this.push(obj.id);
+        }, ids);
+        return ids;
+    }
+
     $scope.newEvent = {};
     $scope.newEvent.attendeeTypes = [];
     $scope.newEvent.specificPersons = [];
     $scope.newEvent.allDay = false;
+
+    //Helper arrays
+    $scope.help = {};
+    $scope.help.helpAttend = [];
+    $scope.help.helpSpecify = [];
 
     /*
         HeadOfAcademies = 2,
@@ -391,7 +404,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         { id: 9, name: 'Player' }
     ];
 
-    $scope.$watch('newEvent.attendeeTypes', function (result) {
+    $scope.$watch('help.helpAttend', function (result) {
         console.log(result);
         if (!result.length) {
 
@@ -437,6 +450,10 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     }
 
     $scope.ok = function () {
+        console.log('Here');
+        console.log(shuffle($scope.help.helpAttend));
+        $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
+        $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
         console.log($scope.newEvent);
         $http.post(urlTail, $scope.newEvent).success(function () {
             getResults();
@@ -447,6 +464,8 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     $scope.cancel = function () {
         target.modal('hide');
     }
+
+
 }]);
 
 app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location', function ($scope, $http, toaster, $location) {
