@@ -106,6 +106,7 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<CurriculumSession, CurriculumDetailViewModel>();
 
 
+
             Mapper.CreateMap<CurriculumStatement, CurriculumStatementViewModel>()
                 .ForMember(d => d.Roles, o => o.MapFrom(s => s.Roles.Select(r => r.Role)));
 
