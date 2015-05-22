@@ -96,8 +96,17 @@ namespace PmaPlus.Services.Services
                 }
             }
 
+            foreach (var item in team.Players.Where(p => !playersId.Contains(p.Id)).ToList())
+            {
+                team.Players.Remove(item);
+            }
 
+            foreach (var item in team.Coaches.Where(p => !coachesId.Contains(p.Id)).ToList())
+            {
+                team.Coaches.Remove(item);
+            }
 
+            _teamRepository.Update(team,team.Id);
 
 
 

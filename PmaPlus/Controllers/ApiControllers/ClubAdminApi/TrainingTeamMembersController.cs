@@ -63,9 +63,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
                     newUser.UserDetail.ProfilePicture = _photoManager.SetDefaultPrifilePic(
                     FileStorageTypes.PlayerProfilePicture, newUser.Id, "ProfilePicture.jpg");
                 }
-
                     _userServices.UpdateUser(newUser);
-               
             }
             return Ok();
         }
