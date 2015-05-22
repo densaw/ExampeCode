@@ -906,7 +906,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         for (var i = 0; i < arrayAvibleTeams.length; i++) {
             for (var j = 0; j < arrayOfTeamIds.length; j++) {
                 if (arrayAvibleTeams[i].id === arrayOfTeamIds[j]) {
-                    connectedTeam.push(arrayAvibleTeams[i]);
+                    connectedTeams.push(arrayAvibleTeams[i]);
                 };
             };
         };
