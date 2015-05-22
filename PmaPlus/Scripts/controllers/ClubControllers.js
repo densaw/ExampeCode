@@ -901,6 +901,18 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         return ids;
     }
 
+    function morph(arrayOfTeamIds, arrayAvibleTeams){
+        var connectedTeams = [];
+        for (var i = 0; i < arrayAvibleTeams.length; i++) {
+            for (var j = 0; j < arrayOfTeamIds.length; j++) {
+                if (arrayAvibleTeams[i].id === arrayOfTeamIds[j]) {
+                    connectedTeam.push(arrayAvibleTeams[i]);
+                };
+            };
+        };
+        return connectedTeams;
+    }
+
     $scope.statuses = [
             { id: 0, name: 'Active' },
             { id: 1, name: 'Blocked' },
@@ -936,6 +948,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
             .success(function (result) {
+                console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
@@ -1086,7 +1099,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 $scope.modalTitle = "Update an Player";
                 console.log('ResArray');
                 console.log($filter('filter')($scope.teams, result.teams));
-                $scope.help.teams = $filter('filter')($scope.teams, result.teams);
+                $scope.help.teams = morph(result.teams, $scope.teams);
                 target.modal('show');
             });
     };
