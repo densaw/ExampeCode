@@ -38,6 +38,11 @@ namespace PmaPlus.Services.Services
             return _teamRepository.GetMany(t => t.Club.Id == clubId);
         }
 
+        public Team GetTeamById(int id)
+        {
+            return _teamRepository.GetById(id);
+        } 
+
 
         public void AddTeam(Team team, int clubId, IList<int> playersId, IList<int> coachesId, int curriculumId)
         {

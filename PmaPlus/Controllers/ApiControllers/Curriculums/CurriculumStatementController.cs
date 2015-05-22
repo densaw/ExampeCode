@@ -8,6 +8,7 @@ using AutoMapper;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Services;
+using PmaPlus.Data;
 
 namespace PmaPlus.Controllers.ApiControllers.Curriculums
 {
@@ -21,6 +22,28 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             _curriculumServices = curriculumServices;
             _userServices = userServices;
         }
+
+        [Route("api/CurriculumStatement/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
+        public CurriculumStatementPage Get(int pageSize, int pageNumber, string orderBy = "")
+        {
+
+            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+
+
+            var count = _curriculumServices.GetCurriculumStatements(clubId).Count();
+            var pages = (int)Math.Ceiling((double)count / pageSize);
+            var curriculumStatements = _curriculumServices.GetCurriculumStatements(clubId).OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+            var items = Mapper.Map<IEnumerable<CurriculumStatement>, IEnumerable<CurriculumStatementViewModel>>(curriculumStatements);
+
+            return new CurriculumStatementPage()
+            {
+                Count = count,
+                Pages = pages,
+                Items = items
+            };
+
+        }
+
 
 
         public IEnumerable<CurriculumStatementViewModel> Get()
@@ -39,6 +62,11 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             _curriculumServices.AddCurricululmStatment(statement, statementViewModel.Roles, _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id);
             return Ok();
 
+        }
+
+        public IHttpActionResult Put(int id, [FromBody] CurriculumStatementViewModel statementViewModel)
+        {
+            return Ok();
         }
 
         public IHttpActionResult Delete(int id)

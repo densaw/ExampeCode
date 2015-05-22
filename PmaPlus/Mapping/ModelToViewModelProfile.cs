@@ -112,6 +112,11 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<Team, TeamTableViewModel>()
                 .ForMember(d => d.CurriculumName, o => o.MapFrom(s => s.TeamCurriculum.Curriculum.Name))
                 .ForMember(d=>d.Progress, o=>  o.MapFrom(s =>s.TeamCurriculum.Progress));
+
+            Mapper.CreateMap<Team, AddTeamViewModel>()
+                .ForMember(d => d.Coaches, o => o.MapFrom(s => s.Coaches.Select(c => c.Id)))
+                .ForMember(d => d.Players, o => o.MapFrom(s => s.Players.Select(p => p.Id)))
+                .ForMember(d => d.CurriculumId, o => o.MapFrom(s => s.TeamCurriculum.Curriculum.Id));
             Mapper.CreateMap<Team, TeamsList>();
         }
     }
