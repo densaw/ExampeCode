@@ -25,7 +25,7 @@ namespace PmaPlus.Controllers
             _faCourseServices = faCourseServices;
         }
 
-        // GET: api/Clubs/pageSize/pageNumber/orderBy(optional) 
+        // GET: api/FaCourses/pageSize/pageNumber/orderBy(optional) 
         [Route("api/FaCourses/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
         public FaCoursePage Get(int pageSize, int pageNumber, string orderBy = "")
         {

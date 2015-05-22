@@ -406,7 +406,6 @@
     <Content Include="Images\DRFC Logo.jpg" />
     <Content Include="Images\DRFC_Logo_mini.png" />
     <Content Include="Images\logo.png" />
-    <Content Include="App_Data\FileStorage\DefaultPics\ProfilePicture.jpg" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-animate.min.js" />
     <Content Include="Scripts\angular\angular-aria.js" />
@@ -3501,6 +3500,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\FileStorage\DefaultPics\" />
     <Folder Include="App_Data\FileStorage\temp\" />
     <Folder Include="Areas\ClubAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Models\" />

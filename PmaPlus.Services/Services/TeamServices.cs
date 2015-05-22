@@ -38,6 +38,11 @@ namespace PmaPlus.Services.Services
             return _teamRepository.GetMany(t => t.Club.Id == clubId);
         }
 
+        public Team GetTeamById(int id)
+        {
+            return _teamRepository.GetById(id);
+        } 
+
 
         public void AddTeam(Team team, int clubId, IList<int> playersId, IList<int> coachesId, int curriculumId)
         {
@@ -78,26 +83,33 @@ namespace PmaPlus.Services.Services
             var team = _teamRepository.GetById(teamId);
             team.Name = teamName;
 
-            var coaches = _coachRepository.GetMany(c => coachesId.Contains(c.Id));
-            var players = _playerRepository.GetMany(p => playersId.Contains(p.Id));
 
-            foreach (var coach in coaches)
+            foreach (var coach in coachesId)
             {
-                if (!team.Coaches.Contains(coach))
+                if (!team.Coaches.Any(c => c.Id == coach))
                 {
-                    team.Coaches.Add(coach);
+                    team.Coaches.Add(_coachRepository.GetById(coach));
                 }
             }
-            foreach (var player in players)
+            foreach (var player in playersId)
             {
-                if (!team.Players.Contains(player))
+                if (!team.Players.Any(p => p.Id == player))
                 {
-                    team.Players.Add(player);
+                    team.Players.Add(_playerRepository.GetById(player));
                 }
             }
 
+            foreach (var item in team.Players.Where(p => !playersId.Contains(p.Id)).ToList())
+            {
+                team.Players.Remove(item);
+            }
 
+            foreach (var item in team.Coaches.Where(p => !coachesId.Contains(p.Id)).ToList())
+            {
+                team.Coaches.Remove(item);
+            }
 
+            _teamRepository.Update(team,team.Id);
 
 
 
