@@ -1189,6 +1189,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     getCurrType();
     getPlayerList();
     getCoachList();
+    getAllPlayer();
 
     $scope.pageChanged = function (newPage) {
         getResultsPage(newPage);
