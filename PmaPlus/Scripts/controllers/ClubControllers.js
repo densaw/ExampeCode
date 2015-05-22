@@ -887,7 +887,7 @@ app.controller('StController', ['$scope', '$http', 'toaster', '$q', '$routeParam
     
 }]);
 
-app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location) {
+app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$filter', function($scope, $http, toaster, $q, $routeParams, $location, $filter) {
     
     var needToDelete = -1;
     var urlTail = '/api/Player';
@@ -1084,6 +1084,9 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 $scope.newPlayer = result;
                 $scope.newPlayer.id = id;
                 $scope.modalTitle = "Update an Player";
+                console.log('ResArray');
+                console.log($filter('filter')($scope.teams, result.teams));
+                $scope.help.teams = $filter('filter')($scope.teams, result.teams);
                 target.modal('show');
             });
     };
