@@ -1119,6 +1119,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     $scope.teamMembers.players = [];
     $scope.freeCoaches = [];
     $scope.freePlayers = [];
+    $scope.allPlayers = [];
 
     function shuffle(objArr) {
         var ids = [];
@@ -1149,6 +1150,12 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     function getPlayerList(){
         $http.get('/api/Player/Free').success(function(result){
             $scope.freePlayers = result;
+        });
+    }
+
+    function getAllPlayer(){
+        $http.get('/api/Player/List').success(function(result){
+            $scope.allPlayers = result;
         });
     }
 
@@ -1232,7 +1239,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
                 console.log(result);
                 $scope.newTeam = result;
                 $scope.teamMembers.coaches = morph(result.coaches, $scope.freeCoaches);
-                $scope.teamMembers.players = morph(result.players, $scope.freePlayers);
+                $scope.teamMembers.players = morph(result.players, $scope.allPlayers);
                 target.modal('show');
             });
     };    
