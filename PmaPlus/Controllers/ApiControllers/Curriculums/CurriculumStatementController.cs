@@ -69,6 +69,9 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             return Ok();
         }
 
+
+
+
         public IHttpActionResult Delete(int id)
         {
             if (!_curriculumServices.StatementExist(id))
