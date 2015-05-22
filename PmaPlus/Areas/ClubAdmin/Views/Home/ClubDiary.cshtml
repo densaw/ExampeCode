@@ -5,7 +5,7 @@
 }
 
 <div ng-controller="ClubDiaryController">
-    <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="row wrapper border-bottom white-bg page-heading ">
         <div class="col-sm-4">
             <h2>Diary</h2>
             <ol class="breadcrumb">
@@ -137,6 +137,7 @@
                                 </div>
                             </div>
                             <div id="calendar" class="fc fc-ltr fc-unthemed">
+
                             </div>
                         </div>
                     </div>
@@ -182,6 +183,7 @@
             var y = date.getFullYear();
 
             $('#calendar').fullCalendar({
+                
                 header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -196,6 +198,7 @@
                         $(this).remove();
                     }
                 },
+               
                 events: []
             });
            
