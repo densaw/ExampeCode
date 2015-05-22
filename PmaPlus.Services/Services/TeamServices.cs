@@ -47,6 +47,12 @@ namespace PmaPlus.Services.Services
 
             team.Club = _clubRepository.GetById(clubId);
 
+            team.TeamCurriculum = new TeamCurriculum()
+            {
+                Curriculum = curriculum,
+            };
+
+
             var newTeam = _teamRepository.Add(team);
 
             if (curriculum != null)
@@ -60,12 +66,6 @@ namespace PmaPlus.Services.Services
                     newTeam.Players.Add(player);
                 }
 
-                var teamToCurr = new TeamCurriculum()
-                {
-                    Curriculum = curriculum,
-                    Team = newTeam
-                };
-                _teamCurriculumRepository.Add(teamToCurr);
                 _teamRepository.Update(newTeam,newTeam.Id);
             }
 
@@ -94,6 +94,9 @@ namespace PmaPlus.Services.Services
                     team.Players.Add(player);
                 }
             }
+
+            
+
 
 
 

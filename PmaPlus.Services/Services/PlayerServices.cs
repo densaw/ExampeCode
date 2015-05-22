@@ -137,8 +137,12 @@ namespace PmaPlus.Services
                 player.Teams.Add(team);
             }
 
+            var newPlayer = _playerRepository.Add(player);
 
-            return _playerRepository.Add(player);
+            UpdateActivityPlayerStatus();
+
+
+            return newPlayer;
         }
 
         public AddPlayerViewModel GetPlayerViewModel(int playerId)
@@ -197,13 +201,13 @@ namespace PmaPlus.Services
                     player.Teams.Add(_teamRepository.GetById(team));
                 }
             }
-            foreach (var team in player.Teams)
-            {
-                if (!playerViewModel.Teams.Contains(team.Id))
-                {
-                    player.Teams.Remove(team);
-                }
-            }
+            //foreach (var team in player.Teams)
+            //{
+            //    if (!playerViewModel.Teams.Contains(team.Id))
+            //    {
+            //        player.Teams.Remove(team);
+            //    }
+            //}
 
 
             player.Status = playerViewModel.UserStatus;
@@ -237,11 +241,14 @@ namespace PmaPlus.Services
             player.SchoolTownCity = playerViewModel.SchoolTownCity;
 
             _playerRepository.Update(player, player.Id);
+
+            UpdateActivityPlayerStatus();
         }
 
         public void UpdatePlayer(Player player)
         {
             _playerRepository.Update(player,player.Id);
+            UpdateActivityPlayerStatus();
         }
         public void DeletePlayer(int id)
         {
@@ -253,10 +260,36 @@ namespace PmaPlus.Services
                 _userRepository.Delete(player.User);
                 _playerRepository.Delete(player);
                 //TODO: Maybe diary delete
+
+                UpdateActivityPlayerStatus();
             }
         }
 
         #endregion
+
+        void UpdateActivityPlayerStatus()
+        {
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month;
+
+            if (_activityStatusChangeRepository.GetMany(a => a.DateTime.Year == year && a.DateTime.Month == month).Any())
+            {
+                var activity =
+                    _activityStatusChangeRepository.Get(a => a.DateTime.Year == year && a.DateTime.Month == month);
+
+                activity.ActiveCount = _playerRepository.GetMany(p => p.Status == UserStatus.Active).Count();
+
+            }
+            else
+            {
+                _activityStatusChangeRepository.Add(new ActivityStatusChange()
+                {
+                    ActiveCount = _playerRepository.GetMany(p => p.Status == UserStatus.Active).Count(),
+                    DateTime = DateTime.Now
+                });
+            }
+        }
+
 
         public int GetActivePlayers()
         {
