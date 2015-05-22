@@ -429,13 +429,20 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     var y = date.getFullYear();
 
     var cal = angular.element('#calendar');
-
     var urlTail = '/api/Diary';
 
+    cal.fullCalendar({
+        eventRender: function (event, element) {
+            element.bind('dblclick', function () {
+                target.modal('show');
+            });
+        }
+    });
     function getResults() {
         $http.get(urlTail)
             .success(function (result) {
                 cal.fullCalendar('removeEvents');
+                
                 console.log(result);
                 $scope.items = result;
                 angular.forEach(result, function(value) {
@@ -457,7 +464,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
         console.log($scope.newEvent);
         $http.post(urlTail, $scope.newEvent).success(function () {
-            getResults();
+            getResults()
             target.modal('hide');
         });
     }
