@@ -111,8 +111,6 @@ namespace PmaPlus.Services.Services
 
             _teamRepository.Update(team,team.Id);
 
-
-
         }
 
         public void DeleteTeam(int id)
