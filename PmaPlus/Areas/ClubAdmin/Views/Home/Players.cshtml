@@ -72,7 +72,7 @@
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Team Names:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <ui-select multiple ng-model="newPlayer.teams" ng-disabled="disabled" theme="bootstrap">
+                                                    <ui-select multiple ng-model="help.teams" ng-disabled="disabled" theme="bootstrap">
                                                         <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
                                                         <ui-select-choices repeat="team in teams">
                                                             <div ng-bind-html="team.name | highlight: $select.search"></div>

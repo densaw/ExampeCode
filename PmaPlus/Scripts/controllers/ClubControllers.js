@@ -892,6 +892,15 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     var needToDelete = -1;
     var urlTail = '/api/Player';
 
+
+     function shuffle(objArr) {
+        var ids = [];
+        angular.forEach(objArr, function(obj) {
+            this.push(obj.id);
+        }, ids);
+        return ids;
+    }
+
     $scope.statuses = [
             { id: 0, name: 'Active' },
             { id: 1, name: 'Blocked' },
@@ -911,6 +920,8 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
 
     $scope.newPlayer = {};
     $scope.newPlayer.teams = [];
+    $scope.help = {};
+    $scope.help.teams = [];
 
     $http.get('/api/Teams/List').success(function (result) {
         console.log(result);
@@ -987,8 +998,10 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
 
                 $scope.newPlayer.status = $scope.selectedStatus.id;
                 $scope.newPlayer.playingFoot = $scope.selectedFoot.id;
-                if ($scope.newPlayer.teams == null) {
+                if ($scope.help.teams == null) {
                     $scope.newPlayer.teams = [];
+                }else{
+                    $scope.newPlayer.teams = shuffle($scope.help.teams);
                 }
                 
                 console.log($scope.newPlayer);
@@ -1016,8 +1029,10 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                     $scope.newPlayer.status = $scope.selectedStatus.id;
                     $scope.newPlayer.playingFoot = $scope.selectedFoot.id;
 
-                    if ($scope.newPlayer.teams == null) {
+                    if ($scope.help.teams == null) {
                         $scope.newPlayer.teams = [];
+                    }else{
+                        $scope.newPlayer.teams = shuffle($scope.help.teams);
                     }
                     $http.post(urlTail, $scope.newPlayer)
                         .success(function () {
