@@ -288,7 +288,7 @@ namespace PmaPlus.Services
             return _curriculumStatementRepository.GetMany(s => s.Id == id).Any();
         }
 
-        public IEnumerable<CurriculumStatement> GetCurriculumStatements(int clubId)
+        public IQueryable<CurriculumStatement> GetCurriculumStatements(int clubId)
         {
             return _curriculumStatementRepository.GetMany(s => s.Club.Id == clubId);
         }

@@ -64,6 +64,10 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
             return Ok(teamViewModel);
         }
 
+        public AddTeamViewModel Get(int id)
+        {
+            return Mapper.Map<Team, AddTeamViewModel>(_teamServices.GetTeamById(id));
+        }
 
         public IHttpActionResult PostTeam([FromBody]AddTeamViewModel teamViewModel)
         {
