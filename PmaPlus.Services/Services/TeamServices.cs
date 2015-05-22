@@ -83,21 +83,19 @@ namespace PmaPlus.Services.Services
             var team = _teamRepository.GetById(teamId);
             team.Name = teamName;
 
-            var coaches = _coachRepository.GetMany(c => coachesId.Contains(c.Id));
-            var players = _playerRepository.GetMany(p => playersId.Contains(p.Id));
 
-            foreach (var coach in coaches)
+            foreach (var coach in coachesId)
             {
-                if (!team.Coaches.Contains(coach))
+                if (!team.Coaches.Any(c => c.Id == coach))
                 {
-                    team.Coaches.Add(coach);
+                    team.Coaches.Add(_coachRepository.GetById(coach));
                 }
             }
-            foreach (var player in players)
+            foreach (var player in playersId)
             {
-                if (!team.Players.Contains(player))
+                if (!team.Players.Any(p => p.Id == player))
                 {
-                    team.Players.Add(player);
+                    team.Players.Add(_playerRepository.GetById(player));
                 }
             }
 
