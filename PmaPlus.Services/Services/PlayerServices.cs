@@ -181,6 +181,7 @@ namespace PmaPlus.Services
                 SchoolPostcode = player.SchoolPostcode,
                 SchoolTelephone = player.SchoolTelephone,
                 SchoolTownCity = player.SchoolTownCity,
+                Teams = player.Teams.Select(t => t.Id).ToList()
             };
 
         }

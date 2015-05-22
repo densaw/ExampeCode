@@ -53,10 +53,11 @@ namespace PmaPlus.Services.Services
             };
 
 
-            var newTeam = _teamRepository.Add(team);
 
             if (curriculum != null)
             {
+                var newTeam = _teamRepository.Add(team);
+                
                 foreach (var coach in coaches)
                 {
                     newTeam.Coaches.Add(coach);
@@ -66,7 +67,7 @@ namespace PmaPlus.Services.Services
                     newTeam.Players.Add(player);
                 }
 
-                _teamRepository.Update(newTeam,newTeam.Id);
+                _teamRepository.Update(newTeam, newTeam.Id);
             }
 
         }
@@ -95,7 +96,7 @@ namespace PmaPlus.Services.Services
                 }
             }
 
-            
+
 
 
 
