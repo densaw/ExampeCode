@@ -7,6 +7,11 @@ namespace PmaPlus.Model.Models
 {
     public class Player
     {
+
+        public Player()
+        {
+            Teams = new HashSet<Team>();
+        }
         public int Id { get; set; }
 
         public Foot PlayingFoot { get; set; }
