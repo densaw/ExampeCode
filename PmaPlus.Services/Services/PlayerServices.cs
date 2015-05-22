@@ -74,7 +74,15 @@ namespace PmaPlus.Services
                    };
         }
 
-
+        public IEnumerable<AvailablePlayersList> GetListPlayers(int clubId)
+        {
+            return from player in _playerRepository.GetMany(p => p.Club.Id == clubId)
+                   select new AvailablePlayersList()
+                   {
+                       Id = player.Id,
+                       Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName
+                   };
+        }
 
         public Player AddPlayer(AddPlayerViewModel playerViewModel, int clubId)
         {

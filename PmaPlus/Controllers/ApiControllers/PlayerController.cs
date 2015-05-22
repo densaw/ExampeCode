@@ -55,6 +55,15 @@ namespace PmaPlus.Controllers.ApiControllers
 
         }
 
+        [Route("api/Player/List")]
+        public IEnumerable<AvailablePlayersList> GetListPlayers()
+        {
+            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            return _playerServices.GetListPlayers(clubId);
+
+        }
+
+
         public AddPlayerViewModel Get(int id)
         {
             return _playerServices.GetPlayerViewModel(id);
