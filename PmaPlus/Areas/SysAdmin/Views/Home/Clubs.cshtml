@@ -177,7 +177,7 @@
                                 <div class="form-group" ng-class="{'has-error':myform.colorHex.$invalid && (myform.colorHex.$dirty||myform.form_Submitted)}">
                                     <label class="col-lg-4 title-modal">Club Colour Theme:</label>
                                     <div class="col-lg-7 pull-right">
-                                        <input name="colorHex" ng-model="newClub.colorTheme" type="text" class="form-control" ng-pattern="'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'">
+                                        <input name="colorHex" ng-model="newClub.colorTheme" type="text" required class="form-control" ng-pattern="'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'">
                                     </div>
                                 </div>
 
