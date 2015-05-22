@@ -300,9 +300,14 @@ namespace PmaPlus.Services
 
         public int GetActivePlayersForMonth(DateTime dateTime)
         {
-            return
-                _activityStatusChangeRepository.GetMany(
-                    a => a.DateTime.Month == dateTime.Month && a.DateTime.Year == dateTime.Year).Count();
+            var act = _activityStatusChangeRepository.Get(
+                    a => a.DateTime.Month == dateTime.Month && a.DateTime.Year == dateTime.Year);
+            if (act == null)
+            {
+                return 0;
+            }
+
+            return act.ActiveCount;
         }
 
         public List<ActivePlayersForLastYearViewModel> GetActivePlayersForLastYear()
