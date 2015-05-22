@@ -1110,6 +1110,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     var needToDelete = -1;
     var urlTail = '/api/Teams';
     var target = angular.element('#addTeamModal');
+    var isEditing = false;
 
     $scope.newTeam = {};
     $scope.curriculumTypesList = [];
@@ -1118,6 +1119,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     $scope.teamMembers.players = [];
     $scope.freeCoaches = [];
     $scope.freePlayers = [];
+    $scope.allPlayers = [];
 
     function shuffle(objArr) {
         var ids = [];
@@ -1125,6 +1127,18 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
             this.push(obj.id);
         }, ids);
         return ids;
+    }
+
+    function morph(arrayOfTeamIds, arrayAvibleTeams){
+        var connectedTeams = [];
+        for (var i = 0; i < arrayAvibleTeams.length; i++) {
+            for (var j = 0; j < arrayOfTeamIds.length; j++) {
+                if (arrayAvibleTeams[i].id === arrayOfTeamIds[j]) {
+                    connectedTeams.push(arrayAvibleTeams[i]);
+                };
+            };
+        };
+        return connectedTeams;
     }
 
     function getCoachList(){
@@ -1136,6 +1150,12 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     function getPlayerList(){
         $http.get('/api/Player/Free').success(function(result){
             $scope.freePlayers = result;
+        });
+    }
+
+    function getAllPlayer(){
+        $http.get('/api/Player/List').success(function(result){
+            $scope.allPlayers = result;
         });
     }
 
@@ -1185,16 +1205,24 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     };
 
     $scope.ok = function(id){
+        
+        $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
+        $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
+        $scope.newTeam.players = shuffle($scope.teamMembers.players);
+            
         if(id != null){
+            isEditing = true;
             //PUT it now have no url to Update date
-            $http.put().success().error();
+            $http.put(urlTail + '/' + id, $scope.newTeam).success(function(){
+                console.log('Team Update');
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            }).error(function (data, status, headers, config){
+
+            });
         }else{
             //POST
-            console.log('Team prepere');
-            $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
-            $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
-            $scope.newTeam.players = shuffle($scope.teamMembers.players);
-            console.log($scope.newTeam);
+            isEditing = false;
             $http.post(urlTail, $scope.newTeam).success(function(result){
                 console.log('Team Done');
                 getResultsPage($scope.pagination.current);
@@ -1205,5 +1233,15 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
         }
     };
     
+    $scope.openEdit = function (id) {
+        $http.get(urlTail + '/' + id)
+            .success(function (result) {
+                console.log(result);
+                $scope.newTeam = result;
+                $scope.teamMembers.coaches = morph(result.coaches, $scope.freeCoaches);
+                $scope.teamMembers.players = morph(result.players, $scope.allPlayers);
+                target.modal('show');
+            });
+    };    
 
 }]);
