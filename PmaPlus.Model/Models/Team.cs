@@ -25,7 +25,7 @@ namespace PmaPlus.Model.Models
         public virtual ICollection<Match> Matches { get; set; }
 
         public virtual ICollection<Player> Players { get; set; }
+        public virtual TeamCurriculum TeamCurriculum { get; set; } 
 
-        
     }
 }

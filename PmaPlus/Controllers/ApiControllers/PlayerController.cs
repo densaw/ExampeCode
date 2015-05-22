@@ -82,7 +82,7 @@ namespace PmaPlus.Controllers.ApiControllers
             return Ok();
         }
 
-        public IHttpActionResult Put(int id, AddPlayerViewModel playerViewModel)
+        public IHttpActionResult Put(int id, [FromBody]AddPlayerViewModel playerViewModel)
         {
 
             if (!_playerServices.PlayerExist(id))

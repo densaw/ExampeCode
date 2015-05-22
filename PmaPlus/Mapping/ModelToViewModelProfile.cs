@@ -109,7 +109,9 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<CurriculumStatement, CurriculumStatementViewModel>()
                 .ForMember(d => d.Roles, o => o.MapFrom(s => s.Roles.Select(r => r.Role)));
 
-            Mapper.CreateMap<Team, TeamTableViewModel>();
+            Mapper.CreateMap<Team, TeamTableViewModel>()
+                .ForMember(d => d.CurriculumName, o => o.MapFrom(s => s.TeamCurriculum.Curriculum.Name))
+                .ForMember(d=>d.Progress, o=>  o.MapFrom(s =>s.TeamCurriculum.Progress));
             Mapper.CreateMap<Team, TeamsList>();
         }
     }

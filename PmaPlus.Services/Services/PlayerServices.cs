@@ -137,8 +137,12 @@ namespace PmaPlus.Services
                 player.Teams.Add(team);
             }
 
+            var newPlayer = _playerRepository.Add(player);
 
-            return _playerRepository.Add(player);
+            UpdateActivityPlayerStatus();
+
+
+            return newPlayer;
         }
 
         public AddPlayerViewModel GetPlayerViewModel(int playerId)
@@ -177,6 +181,7 @@ namespace PmaPlus.Services
                 SchoolPostcode = player.SchoolPostcode,
                 SchoolTelephone = player.SchoolTelephone,
                 SchoolTownCity = player.SchoolTownCity,
+                Teams = player.Teams.Select(t => t.Id).ToList()
             };
 
         }
@@ -190,6 +195,8 @@ namespace PmaPlus.Services
             player.User.UserDetail.FirstName = playerViewModel.FirstName;
             player.User.UserDetail.LastName = playerViewModel.LastName;
             //teams
+
+
             foreach (var team in playerViewModel.Teams)
             {
                 if (!player.Teams.Any(t => t.Id == team))
@@ -197,12 +204,9 @@ namespace PmaPlus.Services
                     player.Teams.Add(_teamRepository.GetById(team));
                 }
             }
-            foreach (var team in player.Teams)
+            foreach (var team in player.Teams.Where(t => !playerViewModel.Teams.Contains(t.Id)).ToList())
             {
-                if (!playerViewModel.Teams.Contains(team.Id))
-                {
-                    player.Teams.Remove(team);
-                }
+                player.Teams.Remove(team);
             }
 
 
@@ -237,11 +241,14 @@ namespace PmaPlus.Services
             player.SchoolTownCity = playerViewModel.SchoolTownCity;
 
             _playerRepository.Update(player, player.Id);
+
+            UpdateActivityPlayerStatus();
         }
 
         public void UpdatePlayer(Player player)
         {
-            _playerRepository.Update(player,player.Id);
+            _playerRepository.Update(player, player.Id);
+            UpdateActivityPlayerStatus();
         }
         public void DeletePlayer(int id)
         {
@@ -253,10 +260,36 @@ namespace PmaPlus.Services
                 _userRepository.Delete(player.User);
                 _playerRepository.Delete(player);
                 //TODO: Maybe diary delete
+
+                UpdateActivityPlayerStatus();
             }
         }
 
         #endregion
+
+        void UpdateActivityPlayerStatus()
+        {
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month;
+
+            if (_activityStatusChangeRepository.GetMany(a => a.DateTime.Year == year && a.DateTime.Month == month).Any())
+            {
+                var activity =
+                    _activityStatusChangeRepository.Get(a => a.DateTime.Year == year && a.DateTime.Month == month);
+
+                activity.ActiveCount = _playerRepository.GetMany(p => p.Status == UserStatus.Active).Count();
+
+            }
+            else
+            {
+                _activityStatusChangeRepository.Add(new ActivityStatusChange()
+                {
+                    ActiveCount = _playerRepository.GetMany(p => p.Status == UserStatus.Active).Count(),
+                    DateTime = DateTime.Now
+                });
+            }
+        }
+
 
         public int GetActivePlayers()
         {
@@ -267,9 +300,14 @@ namespace PmaPlus.Services
 
         public int GetActivePlayersForMonth(DateTime dateTime)
         {
-            return
-                _activityStatusChangeRepository.GetMany(
-                    a => a.DateTime.Month == dateTime.Month && a.DateTime.Year == dateTime.Year).Count();
+            var act = _activityStatusChangeRepository.Get(
+                    a => a.DateTime.Month == dateTime.Month && a.DateTime.Year == dateTime.Year);
+            if (act == null)
+            {
+                return 0;
+            }
+
+            return act.ActiveCount;
         }
 
         public List<ActivePlayersForLastYearViewModel> GetActivePlayersForLastYear()
