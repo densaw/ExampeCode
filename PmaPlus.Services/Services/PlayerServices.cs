@@ -195,6 +195,8 @@ namespace PmaPlus.Services
             player.User.UserDetail.FirstName = playerViewModel.FirstName;
             player.User.UserDetail.LastName = playerViewModel.LastName;
             //teams
+
+
             foreach (var team in playerViewModel.Teams)
             {
                 if (!player.Teams.Any(t => t.Id == team))
@@ -202,13 +204,10 @@ namespace PmaPlus.Services
                     player.Teams.Add(_teamRepository.GetById(team));
                 }
             }
-            //foreach (var team in player.Teams)
-            //{
-            //    if (!playerViewModel.Teams.Contains(team.Id))
-            //    {
-            //        player.Teams.Remove(team);
-            //    }
-            //}
+            foreach (var team in player.Teams.Where(t => !playerViewModel.Teams.Contains(t.Id)).ToList())
+            {
+                player.Teams.Remove(team);
+            }
 
 
             player.Status = playerViewModel.UserStatus;
@@ -248,7 +247,7 @@ namespace PmaPlus.Services
 
         public void UpdatePlayer(Player player)
         {
-            _playerRepository.Update(player,player.Id);
+            _playerRepository.Update(player, player.Id);
             UpdateActivityPlayerStatus();
         }
         public void DeletePlayer(int id)
