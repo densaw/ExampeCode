@@ -138,6 +138,9 @@ namespace PmaPlus.Services
                 SchoolTownCity = playerViewModel.SchoolTownCity,
             };
 
+            //take max 2 items
+            playerViewModel.Teams = playerViewModel.Teams.Take(2).ToList();
+
             var userTeams = _teamRepository.GetMany(t => playerViewModel.Teams.Contains(t.Id));
 
             foreach (var team in userTeams)

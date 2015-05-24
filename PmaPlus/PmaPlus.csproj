@@ -395,6 +395,9 @@
     <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\style.min.css">
+      <DependentUpon>style.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\font-awesome\css\font-awesome.css" />
     <Content Include="fonts\font-awesome\css\font-awesome.min.css" />
@@ -2953,6 +2956,9 @@
     <Content Include="Areas\ClubAdmin\Views\Home\Statements.cshtml" />
     <Content Include="Content\style.less" />
     <Content Include="Areas\ClubAdmin\Views\Home\ProfilePage.cshtml" />
+    <Content Include="Content\style.css.map">
+      <DependentUpon>style.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
