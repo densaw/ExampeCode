@@ -1347,6 +1347,18 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
             return ids;
         }
 
+    function reShuffle(idsArry){
+        var objs = []
+        for (var i = 0; i < idsArry.length; i++) {
+            for (var j = 0; j < $scope.roles.length; j++) {
+                if(idsArry[i] === $scope.roles[j].id){
+                    objs.push($scope.roles[j]);
+                }
+            };
+        };
+        return objs;
+    }    
+
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
             .success(function (result) {
@@ -1431,6 +1443,11 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
     $scope.openEdit = function (id) {
         $http.get(urlTail + '/' + id)
             .success(function (result) {
+                $scope.newStatements = result;
+                $scope.help.usersType = reShuffle(result.roles);
+                stblock.bootstrapToggle(result.chooseBlock ? 'on' : 'off');
+                stWeek.bootstrapToggle(result.chooseWeek ? 'on' : 'off');
+                stSession.bootstrapToggle(result.chooseSession ? 'on' : 'off');
                 target.modal('show');
             });
     };    
