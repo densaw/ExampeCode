@@ -408,6 +408,7 @@
     <Content Include="Images\a4.jpg" />
     <Content Include="Images\DRFC Logo.jpg" />
     <Content Include="Images\DRFC_Logo_mini.png" />
+    <Content Include="Images\Default_background.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-animate.min.js" />

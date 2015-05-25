@@ -186,6 +186,16 @@ namespace PmaPlus.Tools
             return null;
         }
 
+        public byte[] GetFileBytes(string fileName, FileStorageTypes storageTypes, int id)
+        {
+            var fullFilePath = _workingFolder + "\\" + storageTypes.ToString() + "\\" + id + "\\" + fileName;
+            if (File.Exists(fullFilePath))
+            {
+                return File.ReadAllBytes(fullFilePath);
+            }
+            return null;
+        }
+
         public string Move(string fileName, string path, string newFileName)
         {
             if (File.Exists(_workingFolder + "\\" + "temp" + "\\" + fileName))
