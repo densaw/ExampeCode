@@ -476,6 +476,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
                             target.modal('show');
                             console.log('done');
                             console.log(result);
+
                         });
             })
         }
