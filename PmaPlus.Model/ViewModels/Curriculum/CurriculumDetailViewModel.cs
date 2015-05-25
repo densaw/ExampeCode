@@ -23,6 +23,8 @@ namespace PmaPlus.Model.ViewModels.Curriculum
 
         public string CurriculumDetailPlayersDescription { get; set; }
 
+        public int ScenarioId { get; set; }
+
         public int Id { get; set; }
     }
 }

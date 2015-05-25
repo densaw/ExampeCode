@@ -11,6 +11,7 @@ using PmaPlus.Data.Repository;
 using PmaPlus.Model;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
+using PmaPlus.Model.ViewModels.Scenario;
 using PmaPlus.Model.ViewModels.SportsScience;
 using PmaPlus.Services;
 using PmaPlus.Services.Services;
@@ -47,6 +48,12 @@ namespace PmaPlus.Controllers.ApiControllers
                 Items = items
             };
 
+        }
+
+        [Route("api/Scenarios/List")]
+        public IEnumerable<ScenarioList> GetScenarioList()
+        {
+            return Mapper.Map<IEnumerable<Scenario>, IEnumerable<ScenarioList>>(_scenarioServices.GetScenarios());
         }
 
         // GET: api/Scenarios/5

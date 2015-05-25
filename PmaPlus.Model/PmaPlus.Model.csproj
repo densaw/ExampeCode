@@ -168,6 +168,7 @@
     <Compile Include="ViewModels\Player\PlayersPage.cs" />
     <Compile Include="ViewModels\Player\PlayerTableViewModel.cs" />
     <Compile Include="ViewModels\Qualification\QualificationViewModel.cs" />
+    <Compile Include="ViewModels\Scenario\ScenarioList.cs" />
     <Compile Include="ViewModels\Scenario\ScenarioPage.cs" />
     <Compile Include="ViewModels\Scenario\ScenarioTableViewModel.cs" />
     <Compile Include="ViewModels\Scenario\ScenarioViewModel.cs" />

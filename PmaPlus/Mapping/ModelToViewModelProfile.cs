@@ -11,6 +11,7 @@ using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Model.ViewModels.Physio;
 using PmaPlus.Model.ViewModels.PlayerAttribute;
 using PmaPlus.Model.ViewModels.Qualification;
+using PmaPlus.Model.ViewModels.Scenario;
 using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.SportsScience;
@@ -73,6 +74,7 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<Scenario, ScenarioViewModel>();
             Mapper.CreateMap<Scenario, ScenarioTableViewModel>();
+            Mapper.CreateMap<Scenario, ScenarioList>();
 
             //club admin
 
