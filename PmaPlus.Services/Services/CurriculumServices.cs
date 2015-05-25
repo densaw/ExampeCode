@@ -294,6 +294,11 @@ namespace PmaPlus.Services
         }
 
 
+        public CurriculumStatement GetCurriculumStatementById(int id)
+        {
+            return _curriculumStatementRepository.GetById(id);
+        }
+
         public void AddCurricululmStatment(CurriculumStatement statement, IList<Role> rolesList, int clubId)
         {
             statement.Club = _clubRepository.GetById(clubId);
@@ -312,7 +317,6 @@ namespace PmaPlus.Services
                 }
             }
         }
-
 
         public void UpdateCurriculumStatment(CurriculumStatement statement, IList<Role> rolesList, int id)
         {
