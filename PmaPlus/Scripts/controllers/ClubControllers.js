@@ -1510,16 +1510,12 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     var needToDelete = -1;
     var urlTail = '/api/CurriculumDetails';
-    var target = angular.element('#addStateModal');
+    var target = angular.element('#addCurrDetalModal');
     var deleteModal = angular.element('#confDelete');
-    //Toggle
-    var stblock = angular.element('#stblock');
-    var stWeek = angular.element('#stWeek');
-    var stSession = angular.element('#stSession');
 
 
     $scope.help = {};
-    $scope.help.usersType = [];
+    $scope.help.scenarios = [];
 
     $scope.roles = [
        { id: 1, name: 'Club Admin' },
@@ -1558,6 +1554,12 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
+    }
+
+    function getScenarios(){
+        $http.get('').success(function(result){
+
+        }).error();
     }
 
     $scope.items = [];
