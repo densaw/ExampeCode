@@ -1508,6 +1508,10 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
 
 app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location){
 
+    var pathArray = $location.$$absUrl.split("/");
+    $scope.currId = pathArray[pathArray.length - 1];
+
+
     var needToDelete = -1;
     var urlTail = '/api/CurriculumDetails';
     var target = angular.element('#addCurrDetalModal');
@@ -1547,31 +1551,25 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
         return objs;
     }    
 
-    function getResultsPage(pageNumber) {
-        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+    function getResultsPage() {
+        $http.get(urlTail + '/' + $scope.currId)
             .success(function (result) {
                 console.log(result);
-                $scope.items = result.items;
-                $scope.totalItems = result.count;
+                $scope.items = result;
             });
     }
 
     function getScenarios(){
-        $http.get('').success(function(result){
-
+        $http.get('/api/Scenarios/List').success(function(result){
+            $scope.scenarios = result;
+            $scope.selectedScenario = result[0];
         }).error();
     }
 
     $scope.items = [];
-    $scope.totalItems = 0;
-    $scope.itemsPerPage = 20;
 
-
-    $scope.pagination = {
-        current: 1
-    };
-
-    getResultsPage($scope.pagination.current);
+    getResultsPage();
+    getScenarios();
 
     $scope.pageChanged = function (newPage) {
         getResultsPage(newPage);
@@ -1607,31 +1605,69 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     $scope.ok = function(id){
 
-        $scope.newStatements.roles = shuffle($scope.help.usersType);
-        $scope.newStatements.chooseBlock = stblock.prop('checked');
-        $scope.newStatements.chooseWeek = stWeek.prop('checked');
-        $scope.newStatements.chooseSession = stSession.prop('checked');
+        //Files upload
+            var promises = [];
 
-        console.log($scope.newStatements);
-        if(id != null){
+            if ($scope.picC) {
+                var fd = new FormData();
+                fd.append('file', $scope.picC);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newCurrDet.curriculumDetailCoachPicture = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
             
-            //PUT it now have no url to Update date
-            $http.put(urlTail + '/' + id, $scope.newStatements).success(function(){
-                console.log('Team Update');
-                getResultsPage($scope.pagination.current);
-            }).error(function (data, status, headers, config){
+            if ($scope.picPF) {
+                var fd = new FormData();
+                fd.append('file', $scope.picPF);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newCurrDet.curriculumDetailPlayersFriendlyPicture = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+            $q.all(promises).then(function () {
+                $scope.newCurrDet.scenarioId = $scope.selectedScenario.id;
+                if(id != null){
+                    //PUT it now have no url to Update date
+                    $http.put(urlTail + '/' + id, $scope.newCurrDet).success(function(){
+                        getResultsPage();
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config){
 
-            });
-        }else{
-            //POST
-            
-            $http.post(urlTail, $scope.newStatements).success(function(result){
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-            }).error(function (data, status, headers, config){
+                    });
+                }else{
+                    //POST
+                    $http.post(urlTail + '/' + $scope.currId, $scope.newCurrDet).success(function(result){
+                        getResultsPage();
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config){
 
+                    });
+                }
             });
-        }
+        
     };
     
     $scope.openEdit = function (id) {

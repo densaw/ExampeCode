@@ -226,9 +226,9 @@
                                         <td>{{curr.numberOfWeeks}}</td>
                                         <td>{{curr.numberOfSessions}}</td>
                                         <td>
-                                            <i ng-click="openEdit(course.id)" class="fa fa-cog" style="cursor: pointer;"></i>
-                                            <i ng-click="openDelete(course.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                            <a ng-href="CurrDetails" class="fa fa-graduation-cap"></a>
+                                            <i ng-click="openEdit(curr.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                            <i ng-click="openDelete(curr.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                            <a ng-href="CurrDetails/{{curr.id}}" class="fa fa-graduation-cap"></a>
                                         </td>
                                     </tr>
                                 </tbody>
