@@ -31,6 +31,11 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return _curriculumServices.GetClubCurriculumsList(clubId);
         }
 
+        public CurriculumViewModel Get(int id)
+        {
+            return Mapper.Map<Curriculum, CurriculumViewModel>(_curriculumServices.GetCurriculumById(id));
+        }
+
         [Route("api/Curriculums/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
         public CurriculumPage Get(int pageSize, int pageNumber, string orderBy = "")
         {

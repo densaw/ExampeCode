@@ -115,6 +115,11 @@ namespace PmaPlus.Services
             return _curriculumRepository.GetMany(c => c.Id == id).Any();
         }
 
+        public Curriculum GetCurriculumById(int id)
+        {
+            return _curriculumRepository.GetById(id);
+        }
+
         public IEnumerable<CurriculumsList> GetClubCurriculumsList(int clubId)
         {
             return from curri in _curriculumRepository.GetMany(c => c.Club.Id == clubId)
