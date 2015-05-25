@@ -449,7 +449,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         eventRender: function (event, element) {
             $scope.openEdit = element.bind('dblclick', function (id) {
                 console.log('pre get');
-                $http.get('/api/Diary/' + id)
+                $http.get('/api/Diary/' + event.id)
                         .success(function (result) {
                             $scope.newEvent = result;
                             $scope.modalTitle = "Edit Event";
