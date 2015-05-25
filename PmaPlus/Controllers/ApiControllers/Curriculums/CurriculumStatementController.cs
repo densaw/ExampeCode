@@ -55,6 +55,14 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
         }
 
 
+        public CurriculumStatementViewModel Get(int id)
+        {
+            return
+                Mapper.Map<CurriculumStatement, CurriculumStatementViewModel>(
+                    _curriculumServices.GetCurriculumStatementById(id));
+
+        }
+
         public IHttpActionResult Post(CurriculumStatementViewModel statementViewModel)
         {
             var statement = Mapper.Map<CurriculumStatementViewModel, CurriculumStatement>(statementViewModel);
