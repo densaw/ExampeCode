@@ -71,10 +71,10 @@ namespace PmaPlus.Controllers
             ViewBag.ReturnUrl = returnUrl;
             LoginViewModel model = new LoginViewModel();
             model.Email = User.Identity.Name;
-            AuthenticationManager.SignOut();
-            Response.Cookies.Clear();
-            Session.Clear();
-            Session.Abandon();
+            //AuthenticationManager.SignOut();
+            //Response.Cookies.Clear();
+            //Session.Clear();
+            //Session.Abandon();
             return View(model);
         }
 
