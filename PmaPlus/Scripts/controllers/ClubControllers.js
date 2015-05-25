@@ -366,6 +366,11 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
 app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function ($scope, $http, toaster, $compile, uiCalendarConfig) {
 
+    var needToDelete = -1;
+    var needToUpdate = -1;
+
+    //$scope.selectedPriority = $scope.Priority[0];
+
     var target = angular.element('#addDiaryModal');
 
 
@@ -377,6 +382,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         return ids;
     }
 
+    
     $scope.newEvent = {};
     $scope.newEvent.attendeeTypes = [];
     $scope.newEvent.specificPersons = [];
@@ -456,6 +462,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
                 $http.get('/api/Diary/' + event.id)
                         .success(function (result) {
                             $scope.newEvent = result;
+                            needToUpdate = event.id;
                             $scope.modalTitle = "Edit Event";
                             target.modal('show');
                             console.log('done');
@@ -482,24 +489,60 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
 
     getResults();
 
-    $scope.open = function() {
+    $scope.open = function () {
+        $scope.windowTitle = 'Add Event';
         target.modal('show');
     }
 
+    
+
+    $scope.update = function (event) {
+        $scope.windowTitle = 'Update Event';
+        $scope.newEvent = event;
+        needToUpdate = event.id;
+        target.modal('show');
+    }
     $scope.ok = function () {
         console.log('Here');
         console.log(shuffle($scope.help.helpAttend));
         $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
         $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
         console.log($scope.newEvent);
+        
+        //put
+        if (needToUpdate != -1) {
+            $http.put(urlTail + '/' + needToUpdate, $scope.newEvent).success(function () {
+                needToUpdate = -1;
+                getResults();
+                target.modal('hide');
+            });
+        } else {
         $http.post(urlTail, $scope.newEvent).success(function () {
             getResults()
             target.modal('hide');
-        });
+            
+          }).error(function (data, status, headers, config) {
+              console.log(data);
+              if (status == 400) {
+                  console.log(data);
+                  toaster.pop({
+                      type: 'error',
+                      title: 'Error', bodyOutputType: 'trustedHtml',
+                      body: data.message.join("<br />")
+                  });
+              }
+          });
+        }
+        //put
     }
 
     $scope.cancel = function () {
+        $scope.newEvent = {};
+        needToUpdate = -1;
+        needToDelete = -1;
+        getResults();
         target.modal('hide');
+        deleteConf.modal('hide');
     }
 
 
