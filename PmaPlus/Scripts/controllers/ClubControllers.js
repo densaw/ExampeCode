@@ -428,16 +428,41 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     var m = date.getMonth();
     var y = date.getFullYear();
 
+    
+
+
     var cal = angular.element('#calendar');
     var urlTail = '/api/Diary';
 
+
+
+
     cal.fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+
+        editable: true,
+        droppable: true,
         eventRender: function (event, element) {
-            element.bind('dblclick', function () {
-                target.modal('show');
-            });
+            $scope.openEdit = element.bind('dblclick', function (id) {
+                console.log('pre get');
+                $http.get('/api/Diary/' + id)
+                        .success(function (result) {
+                            $scope.newEvent = result;
+                            $scope.modalTitle = "Edit Event";
+                            target.modal('show');
+                            console.log('done');
+                            console.log(result);
+                        });
+            })
         }
-    });
+    })
+
+
+    
     function getResults() {
         $http.get(urlTail)
             .success(function (result) {
