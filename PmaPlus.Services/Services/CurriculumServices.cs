@@ -212,7 +212,7 @@ namespace PmaPlus.Services
 
         public Curriculum GetCurriculumDetails(int curriculumId)
         {
-            return  _curriculumRepository.GetById(curriculumId);
+            return _curriculumRepository.GetById(curriculumId);
         }
 
         public IEnumerable<CurriculumBlock> GetCurriculumBlocks(int curriculumId)
@@ -239,7 +239,7 @@ namespace PmaPlus.Services
             }
             var newDetail = _curriculumDetailRepository.Add(curriculumDetail);
             curriculum.CurriculumDetail = newDetail;
-            _curriculumRepository.Update(curriculum,curriculum.Id);
+            _curriculumRepository.Update(curriculum, curriculum.Id);
             return newDetail;
         }
         public CurriculumDetail AddCurriculumBlockDetails(CurriculumDetail curriculumDetail, int curriculumBlockId)
@@ -248,7 +248,7 @@ namespace PmaPlus.Services
 
             var newDetail = curriculumBlock.CurriculumDetail = _curriculumDetailRepository.Add(curriculumDetail);
 
-            _curriculumBlockRepository.Update(curriculumBlock,curriculumBlock.Id);
+            _curriculumBlockRepository.Update(curriculumBlock, curriculumBlock.Id);
 
             return newDetail;
         }
@@ -276,7 +276,7 @@ namespace PmaPlus.Services
         public void UpdateDetail(CurriculumDetail curriculumDetail, int id)
         {
             curriculumDetail.Id = id;
-            _curriculumDetailRepository.Update(curriculumDetail,curriculumDetail.Id);
+            _curriculumDetailRepository.Update(curriculumDetail, curriculumDetail.Id);
         }
 
         #endregion
@@ -298,14 +298,18 @@ namespace PmaPlus.Services
         {
             statement.Club = _clubRepository.GetById(clubId);
             var newStatment = _curriculumStatementRepository.Add(statement);
-            foreach (var role in rolesList)
+
+            if (newStatment != null)
             {
-                _statementRolesRepository.Add(new StatementRoles()
+                foreach (var role in rolesList)
                 {
-                    Role = role,
-                    Statement = newStatment,
-                    CurriculumStatementId = newStatment.Id
-                });
+                    _statementRolesRepository.Add(new StatementRoles()
+                    {
+                        Role = role,
+                        Statement = newStatment,
+                        CurriculumStatementId = newStatment.Id
+                    });
+                }
             }
         }
 
