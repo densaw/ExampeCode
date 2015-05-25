@@ -329,11 +329,20 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
     $scope.ok = function () {
         $scope.newNote.priority = $scope.selectedPriority.id;
         
-        console.log($scope.newNote.completionDateTime.setHours(0, -$scope.newNote.completionDateTime.getTimezoneOffset(), 0, 0).toISOString());
+        //console.log($scope.newNote.completionDateTime.setHours(0, -$scope.newNote.completionDateTime.getTimezoneOffset(), 0, 0).toISOString());
 
         //$scope.newNote.completionDateTime = $scope.newNote.completionDateTime.setHours(0, -d.getTimezoneOffset(), 0, 0);
 
         //$scope.newNote.completionDateTime = $scope.newNote.completionDateTime.toISOString();
+
+        var d = new Date($scope.newNote.completionDateTime);
+
+
+        d.setHours(0, -d.getTimezoneOffset(), 0, 0);
+
+        console.log(d);
+
+
 
         if (needToUpdate != -1) {
             $http.put(urlTail + '/' + needToUpdate, $scope.newNote).success(function () {
