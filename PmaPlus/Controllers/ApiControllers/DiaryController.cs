@@ -44,6 +44,20 @@ namespace PmaPlus.Controllers.ApiControllers
             return Ok();
         }
 
+        public IHttpActionResult Put(int id, [FromBody] AddDiaryViewModel diaryViewModel)
+        {
+            if (!_diaryServices.DiaryExist(id))
+            {
+                return NotFound();
+            }
+
+            var diary = Mapper.Map<AddDiaryViewModel, Diary>(diaryViewModel);
+            var userId = _userServices.GetUserByEmail(User.Identity.Name).Id;
+
+            _diaryServices.UpdateDiary(diary,id);
+            return Ok();
+        }
+
         public IHttpActionResult Delete(int id)
         {
             if (!_diaryServices.DiaryExist(id))
