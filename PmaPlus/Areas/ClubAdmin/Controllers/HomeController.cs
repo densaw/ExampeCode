@@ -148,6 +148,11 @@ namespace PmaPlus.Areas.ClubAdmin.Controllers
             return View();
         }
 
-
+        public ActionResult CurrDetails()
+        {
+            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
+            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            return View();
+        }
     }
 }
