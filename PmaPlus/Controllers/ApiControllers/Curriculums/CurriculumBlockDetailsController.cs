@@ -21,21 +21,21 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         }
 
 
-        [Route("api/FaCourses/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public FaCoursePage Get(int pageSize, int pageNumber, string orderBy = "")
-        {
-            var count = _curriculumServices.GetCurriculumBlocks(id).Count();
-            var pages = (int)Math.Ceiling((double)count / pageSize);
-            var items = _curriculumServices.GetCurriculumBlocks(id).OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+        //[Route("api/FaCourses/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
+        //public FaCoursePage Get(int pageSize, int pageNumber, string orderBy = "")
+        //{
+        //    var count = _curriculumServices.GetCurriculumBlocks(id).Count();
+        //    var pages = (int)Math.Ceiling((double)count / pageSize);
+        //    var items = _curriculumServices.GetCurriculumBlocks(id).OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+        //
+        //    return new FaCoursePage()
+        //    {
+        //        Count = count,
+        //       Pages = pages,
+        //        Items = items
+        //    };
 
-            return new FaCoursePage()
-            {
-                Count = count,
-                Pages = pages,
-                Items = items
-            };
-
-        }
+        //}
 
 
         public IEnumerable<CurriculumDetailViewModel> Get(int id)

@@ -1566,8 +1566,15 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
         }).error();
     }
 
+    function getParentCurr(){
+        $http.get('/api/Curriculums/' + $scope.currId).success(function(result){
+            $scope.parentCurr = result;
+        });
+    }
+
     $scope.items = [];
 
+    getParentCurr();
     getResultsPage();
     getScenarios();
 
