@@ -38,6 +38,11 @@ namespace PmaPlus.Services
             return ownDiary.Union(recDiary);
         }
 
+        public Diary GetDiaryById(int id)
+        {
+            return _diaryRepository.GetById(id);
+        }
+
         public Diary AddDiary(Diary diary, int ownerUserId, IList<int> recipientUsers,IList<Role> roles)
         {
             List<int> userIds = new List<int>();

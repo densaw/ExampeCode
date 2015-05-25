@@ -406,6 +406,7 @@
     <Content Include="fonts\OpenSans-ExtraBold.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\a4.jpg" />
+    <Content Include="Images\Default-logo.png" />
     <Content Include="Images\DRFC Logo.jpg" />
     <Content Include="Images\DRFC_Logo_mini.png" />
     <Content Include="Images\Default_background.png" />
