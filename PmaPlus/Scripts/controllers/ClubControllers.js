@@ -328,8 +328,21 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
     $scope.ok = function () {
         $scope.newNote.priority = $scope.selectedPriority.id;
-        console.log(needToUpdate);
-        console.log(needToUpdate != -1);
+        
+        //console.log($scope.newNote.completionDateTime.setHours(0, -$scope.newNote.completionDateTime.getTimezoneOffset(), 0, 0).toISOString());
+
+        //$scope.newNote.completionDateTime = $scope.newNote.completionDateTime.setHours(0, -d.getTimezoneOffset(), 0, 0);
+
+        //$scope.newNote.completionDateTime = $scope.newNote.completionDateTime.toISOString();
+
+        var d = new Date($scope.newNote.completionDateTime);
+
+
+        d.setHours(0, -d.getTimezoneOffset(), 0, 0);
+
+        console.log(d);
+
+
 
         if (needToUpdate != -1) {
             $http.put(urlTail + '/' + needToUpdate, $scope.newNote).success(function () {
@@ -449,7 +462,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         eventRender: function (event, element) {
             $scope.openEdit = element.bind('dblclick', function (id) {
                 console.log('pre get');
-                $http.get('/api/Diary/' + id)
+                $http.get('/api/Diary/' + event.id)
                         .success(function (result) {
                             $scope.newEvent = result;
                             $scope.modalTitle = "Edit Event";

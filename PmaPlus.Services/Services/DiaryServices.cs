@@ -84,7 +84,20 @@ namespace PmaPlus.Services
             }
         }
 
+        public void UpdateDiary(Diary diary, int id)
+        {
+            var tempDiary = _diaryRepository.GetById(id);
+            if (tempDiary != null)
+            {
+                tempDiary.Note = diary.Note;
+                tempDiary.Title = diary.Title;
+                tempDiary.AllDay = diary.AllDay;
+                tempDiary.Start = diary.Start;
+                
 
+                _diaryRepository.Update(tempDiary,id);
+            }
+        }
 
         public void DeleteDiary(int id)
         {
