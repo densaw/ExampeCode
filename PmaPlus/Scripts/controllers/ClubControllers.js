@@ -303,6 +303,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
     $scope.open = function () {
         $scope.windowTitle = 'Add Note';
+        $scope.newNote = {};
         target.modal('show');
     }
 
@@ -329,19 +330,13 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
     $scope.ok = function () {
         $scope.newNote.priority = $scope.selectedPriority.id;
         
-        //console.log($scope.newNote.completionDateTime.setHours(0, -$scope.newNote.completionDateTime.getTimezoneOffset(), 0, 0).toISOString());
-
-        //$scope.newNote.completionDateTime = $scope.newNote.completionDateTime.setHours(0, -d.getTimezoneOffset(), 0, 0);
-
-        //$scope.newNote.completionDateTime = $scope.newNote.completionDateTime.toISOString();
-
         var d = new Date($scope.newNote.completionDateTime);
-
 
         d.setHours(0, -d.getTimezoneOffset(), 0, 0);
 
-        console.log(d);
+        console.log(d.toISOString());
 
+        $scope.newNote.completionDateTime = d.toISOString();
 
 
         if (needToUpdate != -1) {
