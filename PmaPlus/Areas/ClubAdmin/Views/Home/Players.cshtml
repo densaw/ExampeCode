@@ -441,12 +441,8 @@
 }
 </style>
 <script>
-    $(document).ready(function() {
-        $('img.prifile').each(function() {
-            console.log(this.width);
-            console.log(this.height);
-            $(this).addClass((this.width > this.height) ? 'landscape' : 'portrait');
+        $('.prifile').each(function() {
+            $(this).addClass(($(this).width > $(this).height) ? 'landscape' : 'portrait');
         });
-    });
 </script>
 

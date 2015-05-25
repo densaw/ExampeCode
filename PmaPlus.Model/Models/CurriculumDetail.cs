@@ -5,8 +5,6 @@ namespace PmaPlus.Model.Models
     public  class CurriculumDetail
     {
        
-
-       
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -22,6 +20,8 @@ namespace PmaPlus.Model.Models
         public string PlayersFriendlyPicture { get; set; }
 
         public string PlayersDescription { get; set; }
+
+        public virtual Scenario Scenario { get; set; }
 
     }
 }

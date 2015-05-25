@@ -29,7 +29,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         public IHttpActionResult PostDetail(int id, [FromBody]CurriculumDetailViewModel detailViewModel)
         {
             var detail = Mapper.Map<CurriculumDetailViewModel, CurriculumDetail>(detailViewModel);
-            var newDetail = _curriculumServices.AddCurriculumDetails(detail,detail.Id);
+            var newDetail = _curriculumServices.AddCurriculumDetails(detail,detail.Id,detailViewModel.ScenarioId);
             if (newDetail == null)
             {
                 return Conflict();

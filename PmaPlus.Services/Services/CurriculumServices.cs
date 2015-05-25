@@ -21,8 +21,9 @@ namespace PmaPlus.Services
         private readonly IClubRepository _clubRepository;
         private readonly IStatementRolesRepository _statementRolesRepository;
         private readonly ICurriculumStatementRepository _curriculumStatementRepository;
+        private readonly IScenarioRepository _scenarioRepository;
 
-        public CurriculumServices(ICurriculumTypeRepository curriculumTypeRepository, ICurriculumRepository curriculumRepository, ICurriculumBlockRepository curriculumBlockRepository, ICurriculumWeekRepository curriculumWeekRepository, ICurriculumSessionRepository curriculumSessionRepository, ICurriculumDetailRepository curriculumDetailRepository, IClubRepository clubRepository, ICurriculumStatementRepository curriculumStatementRepository, IStatementRolesRepository statementRolesRepository)
+        public CurriculumServices(ICurriculumTypeRepository curriculumTypeRepository, ICurriculumRepository curriculumRepository, ICurriculumBlockRepository curriculumBlockRepository, ICurriculumWeekRepository curriculumWeekRepository, ICurriculumSessionRepository curriculumSessionRepository, ICurriculumDetailRepository curriculumDetailRepository, IClubRepository clubRepository, ICurriculumStatementRepository curriculumStatementRepository, IStatementRolesRepository statementRolesRepository, IScenarioRepository scenarioRepository)
         {
             _curriculumTypeRepository = curriculumTypeRepository;
             _curriculumRepository = curriculumRepository;
@@ -33,6 +34,7 @@ namespace PmaPlus.Services
             _clubRepository = clubRepository;
             _curriculumStatementRepository = curriculumStatementRepository;
             _statementRolesRepository = statementRolesRepository;
+            _scenarioRepository = scenarioRepository;
         }
 
         #region CurriculumTypes
@@ -230,17 +232,31 @@ namespace PmaPlus.Services
             return _curriculumWeekRepository.GetById(curriculumWeekId).CurriculumSessions;
         }
 
-        public CurriculumDetail AddCurriculumDetails(CurriculumDetail curriculumDetail, int curriculumId)
+        public CurriculumDetail AddCurriculumDetails(CurriculumDetail curriculumDetail, int curriculumId,int scenariooId)
         {
             var curriculum = _curriculumRepository.GetById(curriculumId);
             if (curriculum.CurriculumDetail != null)
             {
+                curriculum.CurriculumDetail.Name = curriculumDetail.Name;
+                curriculum.CurriculumDetail.Number = curriculumDetail.Number;
+                curriculum.CurriculumDetail.PlayersDescription = curriculumDetail.PlayersDescription;
+                curriculum.CurriculumDetail.PlayersFriendlyName = curriculumDetail.PlayersFriendlyName;
+                curriculum.CurriculumDetail.CoachDescription = curriculumDetail.CoachDescription;
+                curriculum.CurriculumDetail.CoachPicture = curriculumDetail.CoachPicture;
+                curriculum.CurriculumDetail.PlayersFriendlyPicture = curriculumDetail.PlayersFriendlyPicture;
+
+                curriculum.CurriculumDetail.Scenario = _scenarioRepository.GetById(scenariooId);
+
                 return null;
             }
+            else
+            {
+                
             var newDetail = _curriculumDetailRepository.Add(curriculumDetail);
             curriculum.CurriculumDetail = newDetail;
             _curriculumRepository.Update(curriculum, curriculum.Id);
             return newDetail;
+            }
         }
         public CurriculumDetail AddCurriculumBlockDetails(CurriculumDetail curriculumDetail, int curriculumBlockId)
         {
