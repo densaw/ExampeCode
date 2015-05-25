@@ -329,11 +329,20 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
     $scope.ok = function () {
         $scope.newNote.priority = $scope.selectedPriority.id;
         
-        console.log($scope.newNote.completionDateTime.setHours(0, -$scope.newNote.completionDateTime.getTimezoneOffset(), 0, 0).toISOString());
+        //console.log($scope.newNote.completionDateTime.setHours(0, -$scope.newNote.completionDateTime.getTimezoneOffset(), 0, 0).toISOString());
 
         //$scope.newNote.completionDateTime = $scope.newNote.completionDateTime.setHours(0, -d.getTimezoneOffset(), 0, 0);
 
         //$scope.newNote.completionDateTime = $scope.newNote.completionDateTime.toISOString();
+
+        var d = new Date($scope.newNote.completionDateTime);
+
+
+        d.setHours(0, -d.getTimezoneOffset(), 0, 0);
+
+        console.log(d);
+
+
 
         if (needToUpdate != -1) {
             $http.put(urlTail + '/' + needToUpdate, $scope.newNote).success(function () {
@@ -1499,4 +1508,143 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
             });
     };    
 
+}]);
+
+app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location){
+
+    var needToDelete = -1;
+    var urlTail = '/api/CurriculumDetails';
+    var target = angular.element('#addStateModal');
+    var deleteModal = angular.element('#confDelete');
+    //Toggle
+    var stblock = angular.element('#stblock');
+    var stWeek = angular.element('#stWeek');
+    var stSession = angular.element('#stSession');
+
+
+    $scope.help = {};
+    $scope.help.usersType = [];
+
+    $scope.roles = [
+       { id: 1, name: 'Club Admin' },
+       { id: 2, name: 'Head Of Academies' },
+       { id: 3, name: 'Coach' },
+       { id: 4, name: 'Head Of Education' },
+       { id: 5, name: 'Welfare Officer' },
+       { id: 7, name: 'Physiotherapist' },
+       { id: 8, name: 'Sports Scientist' }
+    ];
+
+    function shuffle(objArr) {
+            var ids = [];
+            angular.forEach(objArr, function(obj) {
+                this.push(obj.id);
+            }, ids);
+            return ids;
+        }
+
+    function reShuffle(idsArry){
+        var objs = []
+        for (var i = 0; i < idsArry.length; i++) {
+            for (var j = 0; j < $scope.roles.length; j++) {
+                if(idsArry[i] === $scope.roles[j].id){
+                    objs.push($scope.roles[j]);
+                }
+            };
+        };
+        return objs;
+    }    
+
+    function getResultsPage(pageNumber) {
+        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+            .success(function (result) {
+                console.log(result);
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    }
+
+    $scope.items = [];
+    $scope.totalItems = 0;
+    $scope.itemsPerPage = 20;
+
+
+    $scope.pagination = {
+        current: 1
+    };
+
+    getResultsPage($scope.pagination.current);
+
+    $scope.pageChanged = function (newPage) {
+        getResultsPage(newPage);
+        $scope.pagination.current = newPage;
+    };
+    
+
+    $scope.open = function(){
+        $scope.modalTitle = 'Add Curriculum Statement';
+        target.modal('show');
+    };
+
+    $scope.openDelete = function(id){
+        needToDelete = id;
+        deleteModal.modal('show');
+    };
+
+    $scope.delete = function(){
+        $http.delete(urlTail + '/'+ needToDelete).success(function(){
+            needToDelete = -1;
+            getResultsPage($scope.pagination.current);
+            deleteModal.modal('hide');
+        }).error(function (data, status, headers, config){
+
+        });
+    }
+
+    $scope.cancel = function(){
+        needToDelete = -1;
+        target.modal('hide');
+        deleteModal.modal('hide');
+    };
+
+    $scope.ok = function(id){
+
+        $scope.newStatements.roles = shuffle($scope.help.usersType);
+        $scope.newStatements.chooseBlock = stblock.prop('checked');
+        $scope.newStatements.chooseWeek = stWeek.prop('checked');
+        $scope.newStatements.chooseSession = stSession.prop('checked');
+
+        console.log($scope.newStatements);
+        if(id != null){
+            
+            //PUT it now have no url to Update date
+            $http.put(urlTail + '/' + id, $scope.newStatements).success(function(){
+                console.log('Team Update');
+                getResultsPage($scope.pagination.current);
+            }).error(function (data, status, headers, config){
+
+            });
+        }else{
+            //POST
+            
+            $http.post(urlTail, $scope.newStatements).success(function(result){
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            }).error(function (data, status, headers, config){
+
+            });
+        }
+    };
+    
+    $scope.openEdit = function (id) {
+        $http.get(urlTail + '/' + id)
+            .success(function (result) {
+                $scope.newStatements = result;
+                $scope.help.usersType = reShuffle(result.roles);
+                stblock.bootstrapToggle(result.chooseBlock ? 'on' : 'off');
+                stWeek.bootstrapToggle(result.chooseWeek ? 'on' : 'off');
+                stSession.bootstrapToggle(result.chooseSession ? 'on' : 'off');
+                target.modal('show');
+            });
+    };    
 }]);
