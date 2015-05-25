@@ -30,6 +30,11 @@ namespace PmaPlus.Controllers.ApiControllers
             return Mapper.Map<IEnumerable<Diary>, IEnumerable<DiaryViewModel>>(diaries);
         }
 
+        public DiaryViewModel Get(int id)
+        {
+            return Mapper.Map<Diary, DiaryViewModel>(_diaryServices.GetDiaryById(id));
+        }
+
         public IHttpActionResult Post([FromBody] AddDiaryViewModel diaryViewModel)
         {
             var diary = Mapper.Map<AddDiaryViewModel, Diary>(diaryViewModel);
