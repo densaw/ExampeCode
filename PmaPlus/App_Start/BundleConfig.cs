@@ -55,6 +55,14 @@ namespace PmaPlus
             bundles.Add(new ScriptBundle("~/moments/js").Include(
                         "~/Scripts/plugins/moments/moment.js"));
 
+            //Text Editor
+            bundles.Add(new ScriptBundle("~/texeditor/js").Include(
+                "~/Scripts/plugins/text-editor/textAngular-rangy.min.js",
+                "~/Scripts/plugins/text-editor/textAngular.min.js"));
+
+            bundles.Add(new StyleBundle("~/texeditor/css").Include(
+                      "~/Scripts/plugins/text-editor/textAngular.css"));
+
             // jQuery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-2.1.1.min.js"));
