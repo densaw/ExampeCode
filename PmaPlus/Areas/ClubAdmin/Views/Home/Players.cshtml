@@ -377,8 +377,8 @@
                                 <tbody id="contentTable">
                                     <tr dir-paginate="player in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems" >
                                         <td>
-                                            <div style="width: 100px; height: 100px; position: relative">
-                                                <img class="img-circle m-t-xs img-responsive" ng-src="/api/File/playerProfilePicture/{{player.profilePicture}}/{{player.id}}" />
+                                            <div style="width: 100px; height: 100px; position: relative; overflow: hidden;" class="img-circle ">
+                                                <img class="prifile" ng-src="/api/File/playerProfilePicture/{{player.profilePicture}}/{{player.id}}" />
 
                                             </div>
                                         </td>
@@ -425,7 +425,28 @@
     .table > tbody > tr > td {
      vertical-align: middle;
 }
-  
+  img.prifile {
+      position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+  }
+    img.portrait {
+  width: 100%;
+  height: auto;
+}
 </style>
-
+<script>
+    $(document).ready(function() {
+        $('img.prifile').each(function() {
+            console.log(this.width);
+            console.log(this.height);
+            $(this).addClass((this.width > this.height) ? 'landscape' : 'portrait');
+        });
+    });
+</script>
 
