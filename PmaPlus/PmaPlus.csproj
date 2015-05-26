@@ -2962,6 +2962,8 @@
       <DependentUpon>style.css</DependentUpon>
     </Content>
     <Content Include="Areas\ClubAdmin\Views\Home\CurrDetails.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Block.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Week.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
