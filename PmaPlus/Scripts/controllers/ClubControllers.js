@@ -434,7 +434,13 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     var m = date.getMonth();
     var y = date.getFullYear();
 
-    
+    function getEv() {
+        $scope.Evnotes = [];
+        $http.get('/api/Diary/').success(function (result) {
+            $scope.Evnotes = result;
+
+        });
+    }
 
 
     var cal = angular.element('#calendar');
@@ -502,10 +508,9 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         }
     });
 
-    $scope.Evnotes = [];
-    $http.get('/api/Diary/').success(function (result) {
-        $scope.Evnotes = result;
-    });
+    getEv();
+    
+
     var confDelete = angular.element('#confDelete');
 
     function getResults() {
@@ -548,11 +553,13 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
             $http.put(urlTail + '/' + needToUpdate, $scope.newEvent).success(function () {
                 needToUpdate = -1;
                 getResults();
+                getEv();
                 target.modal('hide');
             });
         } else {
         $http.post(urlTail, $scope.newEvent).success(function () {
             getResults();
+            getEv();
             target.modal('hide');
             
           }).error(function (data, status, headers, config) {
@@ -580,8 +587,9 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     }
     $scope.delete = function () {
         $http.delete(urlTail + '/' + needToDelete).success(function () {
-            //getResults();
+            getResults();
             needToDelete = -1;
+            getEv();
             target.modal('hide');
         });
     };
