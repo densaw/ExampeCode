@@ -23,176 +23,220 @@
             </div>
         </div>
     </div>
-
     <div class="wrapper wrapper-content">
-        <div class="row col-lg-offset-3">
-            <div class="col-lg-12 ">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title ">
-                            <h5>Calendar </h5>
-                            <div class="ibox-tools">
-                                <a @*class="collapse-link"*@>
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a @*class="dropdown-toggle" data-toggle="dropdown"*@ href="#">
-                                    <i class="fa fa-wrench"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user">
-                                    @*<li>
-                                        <a href="#">Config option 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Config option 2</a>
-                                    </li>*@
-                                </ul>
-                                <a @*class="close-link"*@>
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </div>
+       
+            <div class="col-md-3 ">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Nearest Events</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li>
+                                    <a href="#">Config option 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
                         </div>
-                        <div class="ibox-content">
-                            <div class="modal inmodal" id="addDiaryModal" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content animated bounceInRight">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                            <h3 class="modal-title text-left">Add</h3>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form name="myform" class="form-horizontal" novalidate>
-                                                <div class="form-group" ng-class="{'has-error':myform.eventTitle.$invalid && (myform.eventTitle.$dirty||myform.form_Submitted)}">
-                                                    <label class="col-lg-4 title-modal">Title:</label>
-                                                    <div class="col-lg-7 pull-right">
-                                                        <input name="eventTitle" ng-model="newEvent.title" required class="form-control" maxlength="50">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
-                                                    <label class="col-lg-4 title-modal">Note:</label>
-                                                    <div class="col-lg-7 pull-right">
-                                                        <input name="eventNote" ng-model="newEvent.note" required class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 title-modal">Start:</label>
-                                                    <div class="col-lg-7 pull-right">
-                                                        <div class="dropdown">
-                                                            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control" value="{{newEvent.start | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                                </div>
-                                                            </a>
-                                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                                <datetimepicker data-ng-model="newEvent.start" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
-                                                            </ul>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 title-modal">End:</label>
-                                                    <div class="col-lg-7 pull-right">
-                                                        <div class="dropdown">
-                                                            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control" value="{{newEvent.end | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                                </div>
-                                                            </a>
-                                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                                <datetimepicker data-ng-model="newEvent.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
-                                                            </ul>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                               
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 title-modal">Attendee Types:</label>
-                                                    <div class="col-lg-7 pull-right">
-                                                        <ui-select multiple ng-model="help.helpAttend" ng-disabled="disabled" theme="bootstrap">
-                                                            <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
-                                                            <ui-select-choices repeat="attendeeType in attendeeTypes">
-                                                                <div ng-bind-html="attendeeType.name | highlight: $select.search"></div>
-                                                            </ui-select-choices>
-                                                        </ui-select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 title-modal">Specific Persons:</label>
-                                                    <div class="col-lg-7 pull-right">
-                                                        <ui-select multiple ng-model="help.helpSpecify" ng-disabled="disabled" theme="bootstrap">
-                                                            <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
-                                                            <ui-select-choices repeat="specificPerson in specificPersons">
-                                                                <div ng-bind-html="specificPerson.name | highlight: $select.search"></div>
-                                                            </ui-select-choices>
-                                                        </ui-select>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                            <button ng-click="ok()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                                <div id="calendar" class="fc fc-ltr fc-unthemed">
-
-                                </div>
-                            
+                    </div>
+                    <div class="ibox-content">
+                        <div id='external-events'>
+                            <p>Drag a event and drop into callendar.</p>
+                            <div class='external-event navy-bg'>Go to shop and buy some products.</div>
+                            <div class='external-event navy-bg'>Check the new CI from Corporation.</div>
+                            <div class='external-event navy-bg'>Send documents to John.</div>
+                            <div class='external-event navy-bg'>Phone to Sandra.</div>
+                            <div class='external-event navy-bg'>Chat with Michael.</div>
+                            <p class="m-t">
+                                <input type='checkbox' id='drop-remove' class="i-checks" checked /> <label for='drop-remove'>remove after drop</label>
+                            </p>
                         </div>
                     </div>
                 </div>
-        </div>
-    </div>
-</div>
-
-<style>
-   /*Calendar buuton style*/
-</style>
-    <script>
-
-        $('#external-events div.external-event').each(function () {
-
-            // store data so the calendar knows to render an event upon drop
-            $(this).data('event', {
-                title: $.trim($(this).text()), // use the element's text as the event title
-                stick: true // maintain when user navigates (see docs on the renderEvent method)
-            });
-
-            // make the event draggable using jQuery UI
-            $(this).draggable({
-                zIndex: 1111999,
-                revert: true,      // will cause the event to go back to its
-                revertDuration: 0  //  original position after the drag
-            });
-
-        });
-
-
-        /* initialize the calendar
-         -----------------------------------------------------------------*/
-        var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear();
-       
-
-        $('#calendar').fullCalendar({
-            
-            editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar
-            drop: function () {
-                // is the "remove after drop" checkbox checked?
-                if ($('#drop-remove').is(':checked')) {
-                    // if so, remove the element from the "Draggable Events" list
-                    $(this).remove();
-                }
-            },
-            events: [event]
+            </div>
+        
                 
-            
-            });
+                
+        <div class="col-md-9">
+            <div class="col-lg-12 ">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title ">
+                        <h5>Calendar </h5>
+                        <div class="ibox-tools">
+                            <a @*class="collapse-link"*@>
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a @*class="dropdown-toggle" data-toggle="dropdown"*@ href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                @*<li>
+                                    <a href="#">Config option 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Config option 2</a>
+                                </li>*@
+                            </ul>
+                            <a @*class="close-link"*@>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
 
-    </script>
+                    <div class="ibox-content">
+                        <div class="modal inmodal" id="addDiaryModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title text-left">Add</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form name="myform" class="form-horizontal" novalidate>
+                                            <div class="form-group" ng-class="{'has-error':myform.eventTitle.$invalid && (myform.eventTitle.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Title:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="eventTitle" ng-model="newEvent.title" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Note:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="eventNote" ng-model="newEvent.note" required class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Start:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <div class="dropdown">
+                                                        <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" value="{{newEvent.start | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                            </div>
+                                                        </a>
+                                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                            <datetimepicker data-ng-model="newEvent.start" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">End:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <div class="dropdown">
+                                                        <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" value="{{newEvent.end | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                            </div>
+                                                        </a>
+                                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                            <datetimepicker data-ng-model="newEvent.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Attendee Types:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <ui-select multiple ng-model="help.helpAttend" ng-disabled="disabled" theme="bootstrap">
+                                                        <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
+                                                        <ui-select-choices repeat="attendeeType in attendeeTypes">
+                                                            <div ng-bind-html="attendeeType.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Specific Persons:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <ui-select multiple ng-model="help.helpSpecify" ng-disabled="disabled" theme="bootstrap">
+                                                        <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
+                                                        <ui-select-choices repeat="specificPerson in specificPersons">
+                                                            <div ng-bind-html="specificPerson.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                        <button ng-click="ok()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="calendar" class="fc fc-ltr fc-unthemed">
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                </div>
+            </div>
+
+            <style>
+                /*Calendar buuton style*/
+            </style>
+            <script>
+
+                $('#external-events div.external-event').each(function () {
+
+                    // store data so the calendar knows to render an event upon drop
+                    $(this).data('event', {
+                        title: $.trim($(this).text()), // use the element's text as the event title
+                        stick: true // maintain when user navigates (see docs on the renderEvent method)
+                    });
+
+                    // make the event draggable using jQuery UI
+                    $(this).draggable({
+                        zIndex: 1111999,
+                        revert: true,      // will cause the event to go back to its
+                        revertDuration: 0  //  original position after the drag
+                    });
+
+                });
+
+
+                /* initialize the calendar
+                 -----------------------------------------------------------------*/
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+
+
+                $('#calendar').fullCalendar({
+
+                    editable: true,
+                    droppable: true, // this allows things to be dropped onto the calendar
+                    drop: function () {
+                        // is the "remove after drop" checkbox checked?
+                        if ($('#drop-remove').is(':checked')) {
+                            // if so, remove the element from the "Draggable Events" list
+                            $(this).remove();
+                        }
+                    },
+                    events: [event]
+
+
+                });
+
+            </script>

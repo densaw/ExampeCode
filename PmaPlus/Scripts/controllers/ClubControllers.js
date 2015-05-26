@@ -439,7 +439,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
 
     var cal = angular.element('#calendar');
     var urlTail = '/api/Diary';
-
+    
 
     cal.fullCalendar({
         header: {
@@ -449,35 +449,26 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         },
         selectable: true,
         selectHelper: true,
-        select: function(start, end, allDay, event, resourceId) {//select cell (empty)
+        select: function(start, end, jsEvent, view) {//select cell (empty)
 
-            var title = 'Sample event';// event name
-
+            //var allDay = !start.hasTime() && !end.hasTime();
+            $scope.newEvent.start = moment(start).format();
             $('#addDiaryModal').modal();//open the modal
+            //alert(["Event Start date: " + moment(start).format(),
+                   //"Event End date: " + moment(end).format(),
+                   //"AllDay: " + allDay].join("\n"));
+           
+            
+                //console.log("closing");
+                //calendar.fullCalendar('unselect');
 
-            $('#save_appt').click(function(e) {//click on the save button
-                //e.preventDefault();
-
-                if (title) {//Add the event
-                    console.log("CONSOLE select event " + event + title + ", start " + start + ", end " + end + ", allDay " + allDay + ", resource " + resourceId);
-
-                    calendar.fullCalendar('renderEvent',
-                            {
-                                title: title,
-                                start: start,
-                                end: end,
-                                allDay: allDay,
-                                resourceId: resourceId
-                            }, true); // make the event "stick" as true
-
-                }
-                console.log("closing");
-                calendar.fullCalendar('unselect');
-
-                $('#addDiaryModal').modal('hide');//close the modal
-            });
-        
+                //$('#addDiaryModal').modal('hide');//close the modal
+           
         },
+        
+           
+        
+    
 
     editable: true,
         droppable: true,
