@@ -72,7 +72,13 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return Ok();
         }
 
-
+        public IHttpActionResult PutClubCurriculum(int id, [FromBody]CurriculumViewModel curriculumViewModel)
+        {
+            if (!_curriculumServices.CurriculumExist(id))
+                return NotFound();
+            _curriculumServices.UpdateCurriculum(Mapper.Map<CurriculumViewModel, Curriculum>(curriculumViewModel),id);
+            return Ok();
+        }
 
     }
 }

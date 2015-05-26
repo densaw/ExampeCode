@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "PMA+";
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
@@ -198,8 +199,8 @@
         </div>
         @*Modal End*@
         <div class="row">
-            <div class="col-lg-4"  ng-repeat="item in items">
-                <div class="contact-box ">
+            <div class="col-lg-4" ng-repeat="item in items">
+                <div class="contact-box" onmouseenter="inside(this)" onmouseleave="out(this)">
                     <a href="ProfilePage?par={{item.role}}/{{item.id}}">
                         <div class="col-sm-4">
                             <div class="text-center">
@@ -235,29 +236,27 @@
         font-size: 13px;
         font-weight: 600;
     }
-
-    a.dropdown-toggle {
+     a.dropdown-toggle {
         color: #66696B;
         text-decoration: none;
     }
-
-  
 </style>
-
-
 <script>
-
-
-
-
-
-
-
-
-    $(document).ready(function () {
-
-        $('.data-mask').mask('0000-00-00', { placeholder: "YYYY-MM-DD" });
+    $(".contact-box").mouseenter(function() {
+        $(this).addClass("animated flipInY");
+    }).mouseleave(function() {
+        $(this).removeClass("animated flipInY");
     });
 
+    function inside(elem) {
+        
+        $(elem).addClass("animated flipInY");
+
+        setTimeout(function () {
+            $(elem).removeClass("animated flipInY");
+        }, 2000);
+    }
+
+    
 
 </script>
