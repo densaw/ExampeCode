@@ -74,7 +74,8 @@ namespace PmaPlus
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular/angular.js",
                 "~/Scripts/angular/angular-route.js",
-                 "~/Scripts/plugins/ladda/angular-ladda.min.js"));
+                 "~/Scripts/plugins/ladda/angular-ladda.min.js",
+                 "~/Scripts/angular/angular-animate.js"));
 
             //BootStrap File
             //Angular BootStrap

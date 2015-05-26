@@ -2965,6 +2965,9 @@
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
+    <Content Include="Scripts\app\inspinia.min.js.map">
+      <DependentUpon>inspinia.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\ClubControllers.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
