@@ -18,8 +18,8 @@
                     <img class="img-circle m-t-xs img-responsive" ng-src="/api/Clubs/logo" />
                 </div>
             </li>
-            <li class="@Html.IsSelected(controller: "Home", action: "Dashbord")">
-                <a href="@Url.Action("Dashbord", "Home", new {area = "ClubAdmin"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
+            <li class="@Html.IsSelected(controller: "Home", action: "Dashboard")">
+                <a href="@Url.Action("Dashboard", "Home", new {area = "ClubAdmin"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
 
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Attributes")">

@@ -26,7 +26,7 @@ namespace PmaPlus.Areas.ClubAdmin.Controllers
 
 
         // GET: ClubAdmin/Home
-        public ActionResult Dashbord()
+        public ActionResult Dashboard()
         {
             var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
             ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;

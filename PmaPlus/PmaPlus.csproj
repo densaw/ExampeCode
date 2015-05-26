@@ -2893,7 +2893,7 @@
     <Content Include="Areas\SysAdmin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Shared\_Navigation.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Shared\_TopNavbar.cshtml" />
-    <Content Include="Areas\SysAdmin\Views\Home\Dashbord.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Home\Dashboard.cshtml" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -2937,7 +2937,7 @@
     <Content Include="Areas\ClubAdmin\Views\Shared\_Navigation.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Shared\_TopNavbar.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\ClubAdmin\Views\Home\Dashbord.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Dashboard.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\Attributes.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\ClubProfile.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\ClubDiary.cshtml" />
