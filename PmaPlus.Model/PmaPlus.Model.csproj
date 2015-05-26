@@ -131,6 +131,7 @@
     <Compile Include="ViewModels\Club\ClubPage.cs" />
     <Compile Include="ViewModels\Club\ClubTableViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumDetailViewModel.cs" />
+    <Compile Include="ViewModels\Curriculum\CurriculumDetailPage.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumStatementPage.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumsList.cs" />
     <Compile Include="ViewModels\Curriculum\CurriculumStatementViewModel.cs" />

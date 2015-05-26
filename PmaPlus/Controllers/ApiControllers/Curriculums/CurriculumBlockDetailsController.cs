@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using PmaPlus.Data;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Services;
@@ -21,17 +22,19 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         }
 
 
-        //[Route("api/FaCourses/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        //public FaCoursePage Get(int pageSize, int pageNumber, string orderBy = "")
+        //[Route("api/CurriculumDetail/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
+        //public CurriculumDetailPage Get(int pageSize, int pageNumber, string orderBy = "")
         //{
         //    var count = _curriculumServices.GetCurriculumBlocks(id).Count();
         //    var pages = (int)Math.Ceiling((double)count / pageSize);
-        //    var items = _curriculumServices.GetCurriculumBlocks(id).OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
-        //
-        //    return new FaCoursePage()
+        //    var  details = _curriculumServices.GetCurriculumBlocks(id).OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
+
+        //    var items = Mapper.Map<IEnumerable<CurriculumDetail> ,IEnumerable<CurriculumDetailViewModel>>(details);
+
+        //    return new CurriculumDetailPage()
         //    {
         //        Count = count,
-        //       Pages = pages,
+        //        Pages = pages,
         //        Items = items
         //    };
 
