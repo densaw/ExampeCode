@@ -16,9 +16,9 @@ namespace PmaPlus.Controllers
             ViewBag.them = "#eb3bed";
             //TODO: Redirect roles 
             if(User.IsInRole(Role.SystemAdmin.ToString()))
-                return RedirectToAction("Dashbord", "Home", new { area = "SysAdmin" });
+                return RedirectToAction("Dashboard", "Home", new { area = "SysAdmin" });
             if (User.IsInRole(Role.ClubAdmin.ToString()))
-                return RedirectToAction("Dashbord", "Home", new { area = "ClubAdmin" });
+                return RedirectToAction("Dashboard", "Home", new { area = "ClubAdmin" });
             return View();
         }
     }

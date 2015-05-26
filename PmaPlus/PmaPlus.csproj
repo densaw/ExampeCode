@@ -2893,7 +2893,7 @@
     <Content Include="Areas\SysAdmin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Shared\_Navigation.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Shared\_TopNavbar.cshtml" />
-    <Content Include="Areas\SysAdmin\Views\Home\Dashbord.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Home\Dashboard.cshtml" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -2937,7 +2937,7 @@
     <Content Include="Areas\ClubAdmin\Views\Shared\_Navigation.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Shared\_TopNavbar.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\ClubAdmin\Views\Home\Dashbord.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Dashboard.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\Attributes.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\ClubProfile.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\ClubDiary.cshtml" />
@@ -2962,9 +2962,14 @@
       <DependentUpon>style.css</DependentUpon>
     </Content>
     <Content Include="Areas\ClubAdmin\Views\Home\CurrDetails.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Block.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Week.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
+    <Content Include="Scripts\app\inspinia.min.js.map">
+      <DependentUpon>inspinia.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\ClubControllers.js" />
     <Content Include="Scripts\controllers\MainApp.js" />

@@ -156,10 +156,7 @@
             background: @ViewBag.them;
             border-color: @ViewBag.them;
         }
-        a,a:hover {
-  color: @ViewBag.them;
-  text-decoration: none;
-}
+       
 
         body.skin-1 {
             background: #ededed;
@@ -235,7 +232,7 @@
         <!-- Navigation -->
         @Html.Partial("_Navigation")
         <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass @Html.IsSelectedSide(controller: "Home", action: "Dashbord")">
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass @Html.IsSelectedSide(controller: "Home", action: "Dashboard")">
             <!-- Top Navbar -->
             @Html.Partial("_TopNavbar")
             <!-- Main view -->
@@ -297,6 +294,10 @@
     <script>
         $(document).ready(function () {
 
+
+           
+
+
             toastr.options = {
                 closeButton: true,
                 debug: false,
@@ -318,7 +319,6 @@
 </html>
 
 <script>
-
     var idleTime = 0;
     $(document).ready(function () {
         var idleInterval = setInterval(timerIncrement, 60000);
