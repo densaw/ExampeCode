@@ -46,7 +46,7 @@
                 <ul class="todo-list small-list">
                     <li ng-repeat="item in items | orderBy:'complete'">
                         <a href="#" ng-click="check(item)" class="check-link"><i class="fa {{item.complete | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
-                        <span class="m-l-xs {{item.completionDateTime | dayExp: '':'text-danger'}} {{item.complete | todo: 'todo-completed':''}}">{{item.title}}</span>
+                        <span style="color: gray" class="m-l-xs {{item.completionDateTime | dayExp: '':'text-danger'}} {{item.complete | todo: 'todo-completed':''}}">{{item.title}}</span>
                         <i ng-click="showDelete(item.id)" class="fa fa-trash pull-right" style="cursor: pointer;"></i>
                     </li>
                 </ul>
