@@ -449,33 +449,71 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     var urlTail = '/api/Diary';
 
 
-
-
     cal.fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
+        selectable: true,
+        selectHelper: true,
+        select: function(start, end, allDay, event, resourceId) {//select cell (empty)
 
-        editable: true,
+            var title = 'Sample event';// event name
+
+            $('#addDiaryModal').modal();//open the modal
+
+            $('#save_appt').click(function(e) {//click on the save button
+                //e.preventDefault();
+
+                if (title) {//Add the event
+                    console.log("CONSOLE select event " + event + title + ", start " + start + ", end " + end + ", allDay " + allDay + ", resource " + resourceId);
+
+                    calendar.fullCalendar('renderEvent',
+                            {
+                                title: title,
+                                start: start,
+                                end: end,
+                                allDay: allDay,
+                                resourceId: resourceId
+                            }, true); // make the event "stick" as true
+
+                }
+                console.log("closing");
+                calendar.fullCalendar('unselect');
+
+                $('#addDiaryModal').modal('hide');//close the modal
+            });
+        
+        },
+
+    editable: true,
         droppable: true,
-        eventRender: function (event, element) {
-            $scope.openEdit = element.bind('dblclick', function (id) {
+        drop: function() {
+            // is the "remove after drop" checkbox checked?
+            if ($('#drop-remove').is(':checked')) {
+                // if so, remove the element from the "Draggable Events" list
+                $(this).remove();
+            }
+        },
+
+
+        eventRender: function(event, element) {
+            $scope.openEdit = element.bind('dblclick', function(id) {
                 console.log('pre get');
                 $http.get('/api/Diary/' + event.id)
-                        .success(function (result) {
-                            $scope.newEvent = result;
-                            needToUpdate = event.id;
-                            $scope.modalTitle = "Edit Event";
-                            target.modal('show');
-                            console.log('done');
-                            console.log(result);
+                    .success(function(result) {
+                        $scope.newEvent = result;
+                        needToUpdate = event.id;
+                        $scope.modalTitle = "Edit Event";
+                        target.modal('show');
+                        console.log('done');
+                        console.log(result);
 
-                        });
-            })
+                    });
+            });
         }
-    })
+    });
 
 
     
@@ -523,7 +561,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
             });
         } else {
         $http.post(urlTail, $scope.newEvent).success(function () {
-            getResults()
+            getResults();
             target.modal('hide');
             
           }).error(function (data, status, headers, config) {
