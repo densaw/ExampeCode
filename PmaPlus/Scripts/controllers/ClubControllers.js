@@ -13,6 +13,22 @@ app.filter('dayExp', function() {
     };
 });
 
+app.directive('styleParent', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, elem, attr) {
+            elem.on('load', function () {
+                var w = $(this).width(),
+                    h = $(this).height();
+
+                elem.addClass(w > h ? 'landscape' : 'portrait');
+            });
+        }
+    };
+});
+
+
+
 var routing = function ($routeProvider) {
     $routeProvider.when('localhost:1292/ClubAdmin/Home/ProfilePage/:role', {
         templateUrl: function (params) { return '/ClubAdmin/Home/ProfilePage?role=' + params.role; },
@@ -77,10 +93,11 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
     });
 
     $scope.ok = function (id) {
+        $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;
 
         if (id != null) {
-
+            $scope.loginLoading = false;
             $scope.newAttr.type = $scope.selectedType.id;
             $http.put(urlTail + '/' + id, $scope.newAttr).success(function () {
                 getResultsPage($scope.pagination.current);
@@ -97,6 +114,7 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
             });
 
         } else {
+            $scope.loginLoading = false;
             $scope.newAttr.type = $scope.selectedType.id;
             $http.post(urlTail, $scope.newAttr).success(function () {
                 getResultsPage($scope.pagination.current);
@@ -189,10 +207,16 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
     var target = angular.element('#addTeamMember');
     var needstoReport = angular.element('#needstoReport');
 
-    $scope.openModal = function() {
+    $scope.openModal = function () {
+        $scope.myform.form_Submitted = false;
         target.modal('show');
     };
 
+    $scope.cancel = function () {
+        $scope.newMember = {};
+        target.modal('hide');
+    }
+    
     
     $scope.parserJ = function(roleId, userId) {
         return { role: roleId, user: userId };
@@ -200,6 +224,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
 
 
     $scope.send = function () {
+        $scope.loginLoading = true;
 
         //Files upload
 
@@ -207,6 +232,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
 
 
         if ($scope.pic) {
+            $scope.loginLoading = false;
             var fd = new FormData();
             fd.append('file', $scope.pic);
             var promise = $http.post('/api/Files', fd, {
@@ -226,6 +252,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
             promises.push(promise);
         }
         $q.all(promises).then(function () {
+            $scope.loginLoading = false;
             $scope.newMember.userStatus = 0;
             $scope.newMember.role = $scope.selectedRole.id;
             $scope.newMember.needReport = needstoReport.prop('checked');
@@ -329,19 +356,22 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
     }
 
     $scope.ok = function () {
+        $scope.loginLoading = true;
         $scope.newNote.priority = $scope.selectedPriority.id;
-        
+
         if (needToUpdate != -1) {
             $http.put(urlTail + '/' + needToUpdate, $scope.newNote).success(function () {
                 needToUpdate = -1;
                 getResults();
                 target.modal('hide');
+                $scope.loginLoading = false;
             });
         } else {
             $http.post(urlTail, $scope.newNote)
           .success(function (result) {
             getResults();
             target.modal('hide');
+            $scope.loginLoading = false;
           }).error(function (data, status, headers, config) {
               console.log(data);
               if (status == 400) {
@@ -351,6 +381,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
                       title: 'Error', bodyOutputType: 'trustedHtml',
                       body: data.message.join("<br />")
                   });
+                  $scope.loginLoading = false;
               }
           }); 
         }
@@ -445,7 +476,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
 
     var cal = angular.element('#calendar');
     var urlTail = '/api/Diary';
-    
+
 
     
     $scope.events = [];        
@@ -561,6 +592,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         target.modal('show');
     }
     $scope.ok = function () {
+        $scope.loginLoading = true;
         console.log('Here');
         console.log(shuffle($scope.help.helpAttend));
         $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
@@ -577,6 +609,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
             });
         } else {
         $http.post(urlTail, $scope.newEvent).success(function () {
+            $scope.loginLoading = false;
             getResults();
             getEv();
             target.modal('hide');
@@ -591,8 +624,8 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
                       body: data.message.join("<br />")
                   });
               }
-          });
-        }
+        });
+    }
         //put
     }
 
@@ -766,9 +799,10 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
     getResults('/Current');
 
     $scope.ok = function (id) {
-
+        $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;
         if (!$scope.myform.$valid) {
+            $scope.loginLoading = false;
             toaster.pop({
                 type: 'error',
                 title: 'Error',
@@ -778,9 +812,6 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
 
 
         } else {
-
-
-
 
             //Files upload
 
@@ -802,6 +833,8 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                             title: 'Error',
                             body: 'File upload ERROR!'
                         });
+
+                        $scope.loginLoading = false;
                     });
                 promises.push(promise);
             }
@@ -822,7 +855,10 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                             title: 'Error',
                             body: 'File upload ERROR!'
                         });
+
+                        $scope.loginLoading = false;
                     });
+                
                 promises.push(promise);
             }
 
@@ -843,6 +879,7 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                                 bodyOutputType: 'trustedHtml',
                                 body: 'Profile was updated'
                             });
+                            $scope.loginLoading = false;
                         }).error(function (data, status, headers, config) {
                             if (status == 400) {
                                 console.log(data);
@@ -852,6 +889,7 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                                     bodyOutputType: 'trustedHtml',
                                     body: 'Please complete the compulsory fields highlighted in red'
                                 });
+                                $scope.loginLoading = false;
                             }
                         });
 
@@ -866,6 +904,7 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                                 bodyOutputType: 'trustedHtml',
                                 body: 'Profile was updated'
                             });
+                            $scope.loginLoading = false;
                         }).error(function (data, status, headers, config) {
                             if (status == 400) {
                                 console.log(data);
@@ -875,6 +914,7 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                                     bodyOutputType: 'trustedHtml',
                                     body: 'Please complete the compulsory fields highlighted in red'
                                 });
+                                $scope.loginLoading = false;
                             }
                         });
                 };
@@ -1010,8 +1050,10 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
         target.modal('hide');
     };
 
-    $scope.ok = function(id){
-        if(id != null){
+    $scope.ok = function (id) {
+        $scope.loginLoading = true;
+        if (id != null) {
+            $scope.loginLoading = false;
             //PUT it now have no url to Update date
             $http.put().success().error();
         }else{
@@ -1021,6 +1063,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
             $http.post(urlTail, $scope.newCurr).success(function(result){
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
+                $scope.loginLoading = false;
             }).error(function (data, status, headers, config){
 
             });
@@ -1126,9 +1169,13 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     var confDelete = angular.element('#confDelete');
     var maxScore = angular.element('#maxScore');
 
+    
+
     $scope.ok = function (id) {
+        $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;
         if (!$scope.myform.$valid) {
+            $scope.loginLoading = false;
             toaster.pop({
                 type: 'error',
                 title: 'Error',
@@ -1140,7 +1187,6 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         } else {
             //Files upload
             var promises = [];
-
             if ($scope.pic) {
                 var fd = new FormData();
                 fd.append('file', $scope.pic);
@@ -1152,6 +1198,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                         $scope.newPlayer.profilePicture = data.name;
                     })
                     .error(function () {
+                        $scope.loginLoading = false;
                         toaster.pop({
                             type: 'error',
                             title: 'Error',
@@ -1161,9 +1208,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 promises.push(promise);
             }
             $q.all(promises).then(function () {
-
                 console.log();
-
                 $scope.newPlayer.status = $scope.selectedStatus.id;
                 $scope.newPlayer.playingFoot = $scope.selectedFoot.id;
                 if ($scope.help.teams == null) {
@@ -1171,13 +1216,13 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 }else{
                     $scope.newPlayer.teams = shuffle($scope.help.teams);
                 }
-                
                 console.log($scope.newPlayer);
                 if (id != null) {
                     $http.put(urlTail + '/' + id, $scope.newPlayer)
                         .success(function () {
                             getResultsPage($scope.pagination.current);
                             target.modal('hide');
+                            $scope.loginLoading = false;
                         })
                         .error(function (data, status, headers, config) {
                             if (status == 400) {
@@ -1187,12 +1232,12 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                                     title: 'Error',
                                     bodyOutputType: 'trustedHtml',
                                     body: 'Please complete the compulsory fields highlighted in red'
+
                                 });
+                                $scope.loginLoading = false;
                             }
                         });
-
                 } else {
-
 
                     $scope.newPlayer.status = $scope.selectedStatus.id;
                     $scope.newPlayer.playingFoot = $scope.selectedFoot.id;
@@ -1206,6 +1251,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                         .success(function () {
                             getResultsPage($scope.pagination.current);
                             target.modal('hide');
+                            $scope.loginLoading = false;
                         })
                         .error(function (data, status, headers, config) {
                             if (status == 400) {
@@ -1216,6 +1262,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                                     bodyOutputType: 'trustedHtml',
                                     body: 'Please complete the compulsory fields highlighted in red'
                                 });
+                                $scope.loginLoading = false;
                             }
                         });
                 };
@@ -1266,7 +1313,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     var urlTail = '/api/Teams';
     var target = angular.element('#addTeamModal');
     var deleteModal = angular.element('#confDelete');
-    
+
     $scope.isEditing = false;
     $scope.newTeam = {};
     $scope.curriculumTypesList = [];
@@ -1380,6 +1427,8 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
         deleteModal.modal('hide');
     };
 
+    $scope.ok = function (id) {
+        $scope.loginLoading = true;
     $scope.ok = function(id){
         
         $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
@@ -1399,6 +1448,8 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
             }).error(function (data, status, headers, config){
 
             });
+            $http.put().success().error();
+            $scope.loginLoading = false;
         }else{
             //POST
             
@@ -1409,6 +1460,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
                 $scope.newTeam = {};
                 $scope.teamMembers.coaches = [];
                 $scope.teamMembers.players = [];
+                $scope.loginLoading = false;
             }).error(function (data, status, headers, config){
 
             });
@@ -1426,7 +1478,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
                 target.modal('show');
             });
     };    
-
+    
 }]);
 
 app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location){
