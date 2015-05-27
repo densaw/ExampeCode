@@ -80,5 +80,13 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return Ok();
         }
 
+        public IHttpActionResult Delete(int id)
+        {
+            if (!_curriculumServices.CurriculumExist(id))
+                return NotFound();
+            _curriculumServices.DeleteCurriculum(id);
+            return Ok();
+        }
+
     }
 }
