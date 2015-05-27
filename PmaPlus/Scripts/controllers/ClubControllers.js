@@ -445,19 +445,35 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
 
     var cal = angular.element('#calendar');
     var urlTail = '/api/Diary';
-
     
 
-
-
+    
+    $scope.events = [];        
     cal.fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
+        
+        events: 
+            function geteventData() {
+                $http.get(urlTail)
+                    .success(function (result) {
+                        cal.fullCalendar('removeEvents');
+                
+                        console.log(result);
+                        $scope.events = result;
+                        angular.forEach(result, function(value) {
+                            cal.fullCalendar('renderEvent', value);
+                        });
+                    });
+            },
+        
+
         selectable: true,
         selectHelper: true,
+        
         select: function(start, end, jsEvent, view) {//select cell (empty)
 
             //var allDay = !start.hasTime() && !end.hasTime();
@@ -506,7 +522,10 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
                     });
             });
         }
+
     });
+
+   
 
     getEv();
     

@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PmaPlus.Data.Repository.Iterfaces;
-using PmaPlus.Model;
 using PmaPlus.Model.Models;
 
 namespace PmaPlus.Data.Repository
 {
-    class CurriculumDetailRepository : RepositoryBase<CurriculumDetail>, ICurriculumDetailRepository
+    public class SessionRepository : RepositoryBase<Session>, ISessionRepository
     {
-        public CurriculumDetailRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
+        public SessionRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
         {
         }
     }

@@ -244,15 +244,11 @@
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\AttributesController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\CoacheProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumStatementController.cs" />
-    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumWeekDetailsController.cs" />
-    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumSessionDetailsController.cs" />
-    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumBlockDetailsController.cs" />
-    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumDetailsController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumsController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\QualificationController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\TrainingTeamMembersController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubsController.cs" />
-    <Compile Include="Controllers\ApiControllers\CurriculumTypesController.cs" />
+    <Compile Include="Controllers\ApiControllers\Curriculums\SessionsController.cs" />
     <Compile Include="Controllers\ApiControllers\DashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\DiaryController.cs" />
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
