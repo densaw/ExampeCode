@@ -244,15 +244,11 @@
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\AttributesController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\CoacheProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumStatementController.cs" />
-    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumWeekDetailsController.cs" />
-    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumSessionDetailsController.cs" />
-    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumBlockDetailsController.cs" />
-    <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumDetailsController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumsController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\QualificationController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\TrainingTeamMembersController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubsController.cs" />
-    <Compile Include="Controllers\ApiControllers\CurriculumTypesController.cs" />
+    <Compile Include="Controllers\ApiControllers\Curriculums\SessionsController.cs" />
     <Compile Include="Controllers\ApiControllers\DashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\DiaryController.cs" />
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
@@ -395,6 +391,9 @@
     <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\style.min.css">
+      <DependentUpon>style.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\font-awesome\css\font-awesome.css" />
     <Content Include="fonts\font-awesome\css\font-awesome.min.css" />
@@ -403,8 +402,10 @@
     <Content Include="fonts\OpenSans-ExtraBold.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\a4.jpg" />
+    <Content Include="Images\Default-logo.png" />
     <Content Include="Images\DRFC Logo.jpg" />
     <Content Include="Images\DRFC_Logo_mini.png" />
+    <Content Include="Images\Default_background.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-animate.min.js" />
@@ -2888,7 +2889,7 @@
     <Content Include="Areas\SysAdmin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Shared\_Navigation.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Shared\_TopNavbar.cshtml" />
-    <Content Include="Areas\SysAdmin\Views\Home\Dashbord.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Home\Dashboard.cshtml" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -2932,7 +2933,7 @@
     <Content Include="Areas\ClubAdmin\Views\Shared\_Navigation.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Shared\_TopNavbar.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\ClubAdmin\Views\Home\Dashbord.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Dashboard.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\Attributes.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\ClubProfile.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\ClubDiary.cshtml" />
@@ -2953,9 +2954,18 @@
     <Content Include="Areas\ClubAdmin\Views\Home\Statements.cshtml" />
     <Content Include="Content\style.less" />
     <Content Include="Areas\ClubAdmin\Views\Home\ProfilePage.cshtml" />
+    <Content Include="Content\style.css.map">
+      <DependentUpon>style.css</DependentUpon>
+    </Content>
+    <Content Include="Areas\ClubAdmin\Views\Home\CurrDetails.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Block.cshtml" />
+    <Content Include="Areas\ClubAdmin\Views\Home\Week.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
+    <Content Include="Scripts\app\inspinia.min.js.map">
+      <DependentUpon>inspinia.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\ClubControllers.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
@@ -3453,6 +3463,22 @@
     <Content Include="Scripts\plugins\staps\jquery.steps.min.js" />
     <Content Include="Scripts\plugins\summernote\summernote.min.js" />
     <Content Include="Scripts\plugins\switchery\switchery.js" />
+    <Content Include="Scripts\plugins\text-editor\css\bootstrap-colorpicker.css" />
+    <Content Include="Scripts\plugins\text-editor\css\bootstrap-colorpicker.min.css" />
+    <Content Include="Scripts\plugins\text-editor\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Scripts\plugins\text-editor\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Scripts\plugins\text-editor\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Scripts\plugins\text-editor\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="Scripts\plugins\text-editor\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Scripts\plugins\text-editor\js\bootstrap-colorpicker.js" />
+    <Content Include="Scripts\plugins\text-editor\js\bootstrap-colorpicker.min.js" />
+    <Content Include="Scripts\plugins\text-editor\textAngular-rangy.min.js" />
+    <Content Include="Scripts\plugins\text-editor\textAngular-sanitize.js" />
+    <Content Include="Scripts\plugins\text-editor\textAngular-sanitize.min.js" />
+    <Content Include="Scripts\plugins\text-editor\textAngular.css" />
+    <Content Include="Scripts\plugins\text-editor\textAngular.js" />
+    <Content Include="Scripts\plugins\text-editor\textAngular.min.js" />
+    <Content Include="Scripts\plugins\text-editor\textAngularSetup.js" />
     <Content Include="Scripts\plugins\toastr\toastr.min.js" />
     <Content Include="Scripts\plugins\ui-bootstrap\ui-bootstrap-0.13.0.js" />
     <Content Include="Scripts\plugins\ui-bootstrap\ui-bootstrap-tpls-0.12.1.js" />

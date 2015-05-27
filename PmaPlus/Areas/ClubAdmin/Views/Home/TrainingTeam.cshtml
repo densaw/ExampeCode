@@ -202,7 +202,7 @@
         @*Modal End*@
         <div class="row">
             <div class="col-lg-4" ng-repeat="item in items">
-                <div class="contact-box">
+                <div class="contact-box" onmouseenter="inside(this)" onmouseleave="out(this)">
                     <a href="ProfilePage?par={{item.role}}/{{item.id}}">
                         <div class="col-sm-4">
                             <div class="text-center">
@@ -244,13 +244,16 @@
     }
 </style>
 <script>
-    $(document).ready(function(){
-        $('.contact-box').each(function() {
-            animationHover(this, 'flipInY');
-        });
 
-        $('.data-mask').mask('0000-00-00', { placeholder: "YYYY-MM-DD" });
-    });
+    function inside(elem) {
+        
+        $(elem).addClass("animated flipInY");
 
+        setTimeout(function () {
+            $(elem).removeClass("animated flipInY");
+        }, 2000);
+    }
+
+    
 
 </script>

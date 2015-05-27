@@ -1,17 +1,14 @@
-@import url("//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en");
-@font-face {font-family:"OpenSans-Extrabold";
-     src:url("../Fonts/OpenSans-ExtraBold.eot?") format("eot"),url("../Fonts/OpenSans-ExtraBold.woff") format("woff"),url("../Fonts/OpenSans-ExtraBold.ttf") format("truetype"),url("../Fonts/OpenSans-ExtraBold.svg#OpenSans-Extrabold") format("svg");
-     font-weight:normal;
-     font-style:normal;
-
-}
-
-
+﻿@import url("//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en");
 @font-face {
-   font-family: OpenSans-Semibolt;   
-   src:url(../fonts/OpenSans-Semibold.ttf);
+  font-family: "OpenSans-Extrabold";
+  src: url("../Fonts/OpenSans-ExtraBold.eot?") format("eot"), url("../Fonts/OpenSans-ExtraBold.woff") format("woff"), url("../Fonts/OpenSans-ExtraBold.ttf") format("truetype"), url("../Fonts/OpenSans-ExtraBold.svg#OpenSans-Extrabold") format("svg");
+  font-weight: normal;
+  font-style: normal;
 }
-
+@font-face {
+  font-family: OpenSans-Semibolt;
+  src: url(../fonts/OpenSans-Semibold.ttf);
+}
 /*
  *
  *   INSPINIA - Responsive Admin Theme
@@ -19,8 +16,8 @@
  *
 */
 .locked-screen {
-    color: #1c84c6;
-    font-size: 25px; 
+  color: #1c84c6;
+  font-size: 25px;
 }
 h1,
 h2,
@@ -274,7 +271,6 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
   position: absolute;
   left: 70px;
   top: 0px;
-  
   padding: 10px 10px 10px 10px;
   font-size: 12px;
 }
@@ -311,7 +307,7 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
   font-weight: 600;
   color: white;
   display: none;
-  padding: 18px 0;
+  padding: 5px;
 }
 .pace-done .navbar-static-side,
 .pace-done .nav-header,
@@ -580,7 +576,6 @@ body-small.fixed-sidebar.mini-navbar .top-navigation #page-wrapper {
   color: #ffffff;
   background-color: #428bca;
   border-color: #357ebd;
-
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -1580,7 +1575,7 @@ table.dataTable thead .sorting:after {
   transition: width 1s;
 }
 .skin-2 .pace .pace-progress {
-    background: #C61422;
+  background: #C61422;
   position: fixed;
   z-index: 2000;
   top: 0px;
@@ -2744,7 +2739,7 @@ a.forum-item-title:hover {
   padding-right: 20px !important;
 }
 body {
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "OpenSans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #2f4050;
   font-size: 13px;
   color: #676a6c;
@@ -2783,14 +2778,14 @@ a:focus {
   border-bottom: 1px solid #e7eaec !important;
 }
 .font-bold {
-    font-family: OpenSans-ExtraBold;
-    font-size: 50px;
-    font-weight: 600;
+  font-family: OpenSans-ExtraBold;
+  font-size: 50px;
+  font-weight: 600;
 }
 .font-bold-small {
-    font-family: OpenSans-ExtraBold;
-    font-size: 18px;
-    font-weight: 600;
+  font-family: OpenSans-ExtraBold;
+  font-size: 18px;
+  font-weight: 600;
 }
 .font-noraml {
   font-weight: 400;
@@ -3326,7 +3321,7 @@ table.table-mail tr td {
 }
 .progress-mini,
 .progress-mini .progress-bar {
-  height: 5px;
+  height: 12px;
   margin-bottom: 0px;
 }
 .progress-bar-navy-light {
@@ -3730,7 +3725,6 @@ body.modal-open {
   padding-top: 35px;
   font-weight: 800;
   letter-spacing: -10px;
-  
   margin-bottom: 0px;
 }
 .middle-box h1 {
@@ -4645,10 +4639,10 @@ body.rtls.top-navigation .footer.fixed {
   margin: 14px 5px 5px 15px;
 }
 .skin-1 .spin-icon {
-  background: #0e9aef !important;
+  background: #f8ac59 !important;
 }
 .skin-1 .nav-header {
-  background: #0e9aef;
+  background: #f8ac59;
   background: url('patterns/header-profile-skin-1.png');
 }
 .skin-1.mini-navbar .nav-second-level {
@@ -4671,8 +4665,8 @@ body.rtls.top-navigation .footer.fixed {
   color: #586b7d;
 }
 .skin-1 .navbar-minimalize {
-  background: #0e9aef;
-  border-color: #0e9aef;
+  background: #f8ac59;
+  border-color: #f8ac59;
 }
 body.skin-1 {
   background: #ededed;
@@ -4702,7 +4696,6 @@ body.skin-1 {
 .skin-1 .ibox-content:last-child {
   border-style: solid solid solid solid;
 }
-
 .skin-1 .nav-header {
   padding: 40px 25px 40px 25px;
 }
@@ -4767,12 +4760,12 @@ body.skin-2 {
   background: rgba(255, 255, 255, 0.7);
 }
 .skin-2 .nav > li.active {
-    border-left: 4px solid #C61422;
+  border-left: 4px solid #f8ac59;
   background: #e0e0e0;
 }
 .skin-2 .logo-element > img {
-    -ms-interpolation-mode: bicubic;
-    width:51px;
+  -ms-interpolation-mode: bicubic;
+  width: 51px;
 }
 .skin-2 .logo-element {
   padding: 10px 0;
@@ -4854,7 +4847,6 @@ body.skin-2 #wrapper {
 .skin-2 .ibox-content:last-child {
   border-style: solid solid solid solid;
 }
-
 .skin-2 .nav-header a.dropdown-toggle {
   color: #edf6ff;
   margin-top: 10px;
@@ -4866,7 +4858,6 @@ body.skin-2 #wrapper {
 .skin-2 .img-circle {
   border-radius: 10px;
 }
-
 .skin-2 .navbar-default .nav > li > a:hover,
 .skin-2 .navbar-default .nav > li > a:focus {
   background: #e0e0e0;
@@ -5079,3 +5070,4 @@ body.skin-3 {
     display: none;
   }
 }
+/*# sourceMappingURL=style.css.map */

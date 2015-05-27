@@ -74,7 +74,15 @@ namespace PmaPlus.Services
                    };
         }
 
-
+        public IEnumerable<AvailablePlayersList> GetListPlayers(int clubId)
+        {
+            return from player in _playerRepository.GetMany(p => p.Club.Id == clubId)
+                   select new AvailablePlayersList()
+                   {
+                       Id = player.Id,
+                       Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName
+                   };
+        }
 
         public Player AddPlayer(AddPlayerViewModel playerViewModel, int clubId)
         {
@@ -129,6 +137,9 @@ namespace PmaPlus.Services
                 SchoolTelephone = playerViewModel.SchoolTelephone,
                 SchoolTownCity = playerViewModel.SchoolTownCity,
             };
+
+            //take max 2 items
+            playerViewModel.Teams = playerViewModel.Teams.Take(2).ToList();
 
             var userTeams = _teamRepository.GetMany(t => playerViewModel.Teams.Contains(t.Id));
 
@@ -195,6 +206,8 @@ namespace PmaPlus.Services
             player.User.UserDetail.FirstName = playerViewModel.FirstName;
             player.User.UserDetail.LastName = playerViewModel.LastName;
             //teams
+
+
             foreach (var team in playerViewModel.Teams)
             {
                 if (!player.Teams.Any(t => t.Id == team))
@@ -202,13 +215,10 @@ namespace PmaPlus.Services
                     player.Teams.Add(_teamRepository.GetById(team));
                 }
             }
-            //foreach (var team in player.Teams)
-            //{
-            //    if (!playerViewModel.Teams.Contains(team.Id))
-            //    {
-            //        player.Teams.Remove(team);
-            //    }
-            //}
+            foreach (var team in player.Teams.Where(t => !playerViewModel.Teams.Contains(t.Id)).ToList())
+            {
+                player.Teams.Remove(team);
+            }
 
 
             player.Status = playerViewModel.UserStatus;
@@ -248,7 +258,7 @@ namespace PmaPlus.Services
 
         public void UpdatePlayer(Player player)
         {
-            _playerRepository.Update(player,player.Id);
+            _playerRepository.Update(player, player.Id);
             UpdateActivityPlayerStatus();
         }
         public void DeletePlayer(int id)

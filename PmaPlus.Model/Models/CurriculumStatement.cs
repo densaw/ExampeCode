@@ -10,9 +10,6 @@ namespace PmaPlus.Model.Models
     {
         public int Id { get; set; }
         public virtual ICollection<StatementRoles> Roles { get; set; }
-        public bool ChooseBlock { get; set; }
-        public bool ChooseWeek { get; set; }
-        public bool ChooseSession { get; set; }
         public string Statement { get; set; }
         public virtual Club Club { get; set; }
     }

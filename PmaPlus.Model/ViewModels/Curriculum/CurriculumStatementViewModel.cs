@@ -10,9 +10,6 @@ namespace PmaPlus.Model.ViewModels.Curriculum
     {
         public int Id { get; set; }
         public virtual IList<Role> Roles { get; set; }
-        public bool ChooseBlock { get; set; }
-        public bool ChooseWeek { get; set; }
-        public bool ChooseSession { get; set; }
         public string Statement { get; set; }
     }
 }

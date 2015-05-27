@@ -11,6 +11,7 @@ using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Model.ViewModels.Physio;
 using PmaPlus.Model.ViewModels.PlayerAttribute;
 using PmaPlus.Model.ViewModels.Qualification;
+using PmaPlus.Model.ViewModels.Scenario;
 using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.SportsScience;
@@ -32,8 +33,6 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<User, UsersList>()
                 .ForMember(d => d.Name, o => o.MapFrom(s => s.UserDetail.FirstName + " " + s.UserDetail.LastName));
 
-            Mapper.CreateMap<CurriculumType, CurriculumTypeViewModel>();
-            Mapper.CreateMap<CurriculumType, CurriculumTypesList>();
 
             Mapper.CreateMap<SkillLevel, SkillLevelViewModel>();
             Mapper.CreateMap<SkillLevel, SkillLevelTableViewModel>();
@@ -73,6 +72,7 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<Scenario, ScenarioViewModel>();
             Mapper.CreateMap<Scenario, ScenarioTableViewModel>();
+            Mapper.CreateMap<Scenario, ScenarioList>();
 
             //club admin
 
@@ -99,12 +99,11 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<Curriculum, CurriculumViewModel>();
 
-            Mapper.CreateMap<CurriculumDetail, CurriculumDetailViewModel>();
-            Mapper.CreateMap<Curriculum, CurriculumDetailViewModel>();
-            Mapper.CreateMap<CurriculumBlock, CurriculumDetailViewModel>();
-            Mapper.CreateMap<CurriculumWeek, CurriculumDetailViewModel>();
-            Mapper.CreateMap<CurriculumSession, CurriculumDetailViewModel>();
-
+            Mapper.CreateMap<Session, SessionViewModel>()
+                .ForMember(d => d.Scenarios, o => o.MapFrom(s =>s.Scenarios.Select(sc=> sc.Id)));
+            Mapper.CreateMap<Session, SessionTableViewModel>();
+                
+                
 
             Mapper.CreateMap<CurriculumStatement, CurriculumStatementViewModel>()
                 .ForMember(d => d.Roles, o => o.MapFrom(s => s.Roles.Select(r => r.Role)));
@@ -112,6 +111,11 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<Team, TeamTableViewModel>()
                 .ForMember(d => d.CurriculumName, o => o.MapFrom(s => s.TeamCurriculum.Curriculum.Name))
                 .ForMember(d=>d.Progress, o=>  o.MapFrom(s =>s.TeamCurriculum.Progress));
+
+            Mapper.CreateMap<Team, AddTeamViewModel>()
+                .ForMember(d => d.Coaches, o => o.MapFrom(s => s.Coaches.Select(c => c.Id)))
+                .ForMember(d => d.Players, o => o.MapFrom(s => s.Players.Select(p => p.Id)))
+                .ForMember(d => d.CurriculumId, o => o.MapFrom(s => s.TeamCurriculum.Curriculum.Id));
             Mapper.CreateMap<Team, TeamsList>();
         }
     }

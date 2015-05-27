@@ -31,6 +31,11 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return _curriculumServices.GetClubCurriculumsList(clubId);
         }
 
+        public CurriculumViewModel Get(int id)
+        {
+            return Mapper.Map<Curriculum, CurriculumViewModel>(_curriculumServices.GetCurriculumById(id));
+        }
+
         [Route("api/Curriculums/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
         public CurriculumPage Get(int pageSize, int pageNumber, string orderBy = "")
         {
@@ -41,7 +46,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             var count = _curriculumServices.GetClubCurriculums(clubId).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var curriculums = _curriculumServices.GetClubCurriculums(clubId).OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
-            var items = Mapper.Map<IEnumerable<Curriculum>, IEnumerable<CurriculumViewModel>>(curriculums);
+            var items = Mapper.Map<IEnumerable<Curriculum>, IEnumerable<CurriculumTableViewModel>>(curriculums);
 
             return new CurriculumPage()
             {
@@ -67,7 +72,13 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return Ok();
         }
 
-
+        public IHttpActionResult PutClubCurriculum(int id, [FromBody]CurriculumViewModel curriculumViewModel)
+        {
+            if (!_curriculumServices.CurriculumExist(id))
+                return NotFound();
+            _curriculumServices.UpdateCurriculum(Mapper.Map<CurriculumViewModel, Curriculum>(curriculumViewModel),id);
+            return Ok();
+        }
 
     }
 }

@@ -13,6 +13,22 @@ app.filter('dayExp', function() {
     };
 });
 
+app.directive('styleParent', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, elem, attr) {
+            elem.on('load', function () {
+                var w = $(this).width(),
+                    h = $(this).height();
+
+                elem.addClass(w > h ? 'landscape' : 'portrait');
+            });
+        }
+    };
+});
+
+
+
 var routing = function ($routeProvider) {
     $routeProvider.when('localhost:1292/ClubAdmin/Home/ProfilePage/:role', {
         templateUrl: function (params) { return '/ClubAdmin/Home/ProfilePage?role=' + params.role; },
@@ -191,10 +207,16 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
     var target = angular.element('#addTeamMember');
     var needstoReport = angular.element('#needstoReport');
 
-    $scope.openModal = function() {
+    $scope.openModal = function () {
+        $scope.myform.form_Submitted = false;
         target.modal('show');
     };
 
+    $scope.cancel = function () {
+        $scope.newMember = {};
+        target.modal('hide');
+    }
+    
     
     $scope.parserJ = function(roleId, userId) {
         return { role: roleId, user: userId };
@@ -308,6 +330,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
     $scope.open = function () {
         $scope.windowTitle = 'Add Note';
+        $scope.newNote = {};
         target.modal('show');
     }
 
@@ -328,14 +351,13 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
         $scope.windowTitle = 'Update Note';
         $scope.newNote = item;
         needToUpdate = item.id;
+        console.log($scope.newNote.completionDateTime);
         target.modal('show');
     }
 
     $scope.ok = function () {
         $scope.loginLoading = true;
         $scope.newNote.priority = $scope.selectedPriority.id;
-        console.log(needToUpdate);
-        console.log(needToUpdate != -1);
 
         if (needToUpdate != -1) {
             $http.put(urlTail + '/' + needToUpdate, $scope.newNote).success(function () {
@@ -371,6 +393,11 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
 app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function ($scope, $http, toaster, $compile, uiCalendarConfig) {
 
+    var needToDelete = -1;
+    var needToUpdate = -1;
+
+    //$scope.selectedPriority = $scope.Priority[0];
+
     var target = angular.element('#addDiaryModal');
 
 
@@ -382,6 +409,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         return ids;
     }
 
+    
     $scope.newEvent = {};
     $scope.newEvent.attendeeTypes = [];
     $scope.newEvent.specificPersons = [];
@@ -437,14 +465,109 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     var m = date.getMonth();
     var y = date.getFullYear();
 
-    var cal = angular.element('#calendar');
+    function getEv() {
+        $scope.Evnotes = [];
+        $http.get('/api/Diary/').success(function (result) {
+            $scope.Evnotes = result;
 
+        });
+    }
+
+
+    var cal = angular.element('#calendar');
     var urlTail = '/api/Diary';
+
+
+    
+    $scope.events = [];        
+    cal.fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        
+        events: 
+            function geteventData() {
+                $http.get(urlTail)
+                    .success(function (result) {
+                        cal.fullCalendar('removeEvents');
+                
+                        console.log(result);
+                        $scope.events = result;
+                        angular.forEach(result, function(value) {
+                            cal.fullCalendar('renderEvent', value);
+                        });
+                    });
+            },
+        
+
+        selectable: true,
+        selectHelper: true,
+        
+        select: function(start, end, jsEvent, view) {//select cell (empty)
+
+            //var allDay = !start.hasTime() && !end.hasTime();
+            $scope.newEvent.start = moment(start).format();
+            target.modal('show');//open the modal
+            //alert(["Event Start date: " + moment(start).format(),
+                   //"Event End date: " + moment(end).format(),
+                   //"AllDay: " + allDay].join("\n"));
+           
+            
+                //console.log("closing");
+                //calendar.fullCalendar('unselect');
+
+                //$('#addDiaryModal').modal('hide');//close the modal
+           
+        },
+        
+           
+        
+    
+
+    editable: true,
+        droppable: true,
+        drop: function() {
+            // is the "remove after drop" checkbox checked?
+            if ($('#drop-remove').is(':checked')) {
+                // if so, remove the element from the "Draggable Events" list
+                $(this).remove();
+            }
+        },
+
+
+        eventRender: function(event, element) {
+            $scope.openEdit = element.bind('dblclick', function(id) {
+                console.log('pre get');
+                $http.get('/api/Diary/' + event.id)
+                    .success(function(result) {
+                        $scope.newEvent = result;
+                        needToUpdate = event.id;
+                        needToDelete = event.id;
+                        $scope.modalTitle = "Edit Event";
+                        target.modal('show');
+                        console.log('done');
+                        console.log(result);
+
+                    });
+            });
+        }
+
+    });
+
+   
+
+    getEv();
+    
+
+    var confDelete = angular.element('#confDelete');
 
     function getResults() {
         $http.get(urlTail)
             .success(function (result) {
                 cal.fullCalendar('removeEvents');
+                
                 console.log(result);
                 $scope.items = result;
                 angular.forEach(result, function(value) {
@@ -455,10 +578,19 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
 
     getResults();
 
-    $scope.open = function() {
+    $scope.open = function () {
+        $scope.windowTitle = 'Add Event';
         target.modal('show');
     }
 
+    
+
+    $scope.update = function (event) {
+        $scope.windowTitle = 'Update Event';
+        $scope.newEvent = event;
+        needToUpdate = event.id;
+        target.modal('show');
+    }
     $scope.ok = function () {
         $scope.loginLoading = true;
         console.log('Here');
@@ -466,16 +598,53 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
         $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
         console.log($scope.newEvent);
+        
+        //put
+        if (needToUpdate != -1) {
+            $http.put(urlTail + '/' + needToUpdate, $scope.newEvent).success(function () {
+                needToUpdate = -1;
+                getResults();
+                getEv();
+                target.modal('hide');
+            });
+        } else {
         $http.post(urlTail, $scope.newEvent).success(function () {
             $scope.loginLoading = false;
             getResults();
+            getEv();
             target.modal('hide');
+            
+          }).error(function (data, status, headers, config) {
+              console.log(data);
+              if (status == 400) {
+                  console.log(data);
+                  toaster.pop({
+                      type: 'error',
+                      title: 'Error', bodyOutputType: 'trustedHtml',
+                      body: data.message.join("<br />")
+                  });
+              }
         });
+    }
+        //put
     }
 
     $scope.cancel = function () {
+        $scope.newEvent = {};
+        needToUpdate = -1;
+        needToDelete = -1;
+        getResults();
         target.modal('hide');
+        
     }
+    $scope.delete = function () {
+        $http.delete(urlTail + '/' + needToDelete).success(function () {
+            getResults();
+            needToDelete = -1;
+            getEv();
+            target.modal('hide');
+        });
+    };
 
 
 }]);
@@ -908,7 +1077,7 @@ app.controller('StController', ['$scope', '$http', 'toaster', '$q', '$routeParam
     
 }]);
 
-app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location) {
+app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$filter', function($scope, $http, toaster, $q, $routeParams, $location, $filter) {
     
     var needToDelete = -1;
     var urlTail = '/api/Player';
@@ -920,6 +1089,18 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
             this.push(obj.id);
         }, ids);
         return ids;
+    }
+
+    function morph(arrayOfTeamIds, arrayAvibleTeams){
+        var connectedTeams = [];
+        for (var i = 0; i < arrayAvibleTeams.length; i++) {
+            for (var j = 0; j < arrayOfTeamIds.length; j++) {
+                if (arrayAvibleTeams[i].id === arrayOfTeamIds[j]) {
+                    connectedTeams.push(arrayAvibleTeams[i]);
+                };
+            };
+        };
+        return connectedTeams;
     }
 
     $scope.statuses = [
@@ -949,6 +1130,14 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         $scope.teams = result;
     });
 
+    $scope.$watch('help.teams', function(newValue, oldValue, scope) {
+        if(newValue.length > 2){
+            $scope.help.teams = oldValue;
+
+        }   
+        console.log($scope);
+    });
+
 
     $scope.open = function () {
         $scope.opened = true;
@@ -957,6 +1146,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
             .success(function (result) {
+                console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
@@ -992,7 +1182,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 bodyOutputType: 'trustedHtml',
                 body: 'Please complete the compulsory fields highlighted in red'
             });
-            
+
 
         } else {
             //Files upload
@@ -1109,6 +1299,9 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 $scope.newPlayer = result;
                 $scope.newPlayer.id = id;
                 $scope.modalTitle = "Update an Player";
+                console.log('ResArray');
+                console.log($filter('filter')($scope.teams, result.teams));
+                $scope.help.teams = morph(result.teams, $scope.teams);
                 target.modal('show');
             });
     };
@@ -1119,7 +1312,9 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     var needToDelete = -1;
     var urlTail = '/api/Teams';
     var target = angular.element('#addTeamModal');
+    var deleteModal = angular.element('#confDelete');
 
+    $scope.isEditing = false;
     $scope.newTeam = {};
     $scope.curriculumTypesList = [];
     $scope.teamMembers = {};
@@ -1127,6 +1322,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     $scope.teamMembers.players = [];
     $scope.freeCoaches = [];
     $scope.freePlayers = [];
+    $scope.allPlayers = [];
 
     function shuffle(objArr) {
         var ids = [];
@@ -1134,6 +1330,18 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
             this.push(obj.id);
         }, ids);
         return ids;
+    }
+
+    function morph(arrayOfTeamIds, arrayAvibleTeams){
+        var connectedTeams = [];
+        for (var i = 0; i < arrayAvibleTeams.length; i++) {
+            for (var j = 0; j < arrayOfTeamIds.length; j++) {
+                if (arrayAvibleTeams[i].id === arrayOfTeamIds[j]) {
+                    connectedTeams.push(arrayAvibleTeams[i]);
+                };
+            };
+        };
+        return connectedTeams;
     }
 
     function getCoachList(){
@@ -1145,6 +1353,12 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     function getPlayerList(){
         $http.get('/api/Player/Free').success(function(result){
             $scope.freePlayers = result;
+        });
+    }
+
+    function getAllPlayer(){
+        $http.get('/api/Player/List').success(function(result){
+            $scope.allPlayers = result;
         });
     }
 
@@ -1177,6 +1391,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     getCurrType();
     getPlayerList();
     getCoachList();
+    getAllPlayer();
 
     $scope.pageChanged = function (newPage) {
         getResultsPage(newPage);
@@ -1185,31 +1400,66 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     
 
     $scope.open = function(){
+        $scope.isEditing = false;
         $scope.modalTitle = 'Add Team';
         target.modal('show');
     };
 
+    $scope.openDelete = function(id){
+        needToDelete = id;
+        deleteModal.modal('show');
+    };
+
+    $scope.delete = function(){
+        $http.delete(urlTail + '/'+ needToDelete).success(function(){
+            needToDelete = -1;
+            console.log('Delete DONE!');
+            getResultsPage($scope.pagination.current);
+            deleteModal.modal('hide');
+        }).error(function (data, status, headers, config){
+
+        });
+    }
+
     $scope.cancel = function(){
+        needToDelete = -1;
         target.modal('hide');
+        deleteModal.modal('hide');
     };
 
     $scope.ok = function (id) {
         $scope.loginLoading = true;
+    $scope.ok = function(id){
+        
+        $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
+        $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
+        $scope.newTeam.players = shuffle($scope.teamMembers.players);
+        console.log(id);
         if(id != null){
+            
             //PUT it now have no url to Update date
+            $http.put(urlTail + '/' + id, $scope.newTeam).success(function(){
+                console.log('Team Update');
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+                $scope.newTeam = {};
+                $scope.teamMembers.coaches = [];
+                $scope.teamMembers.players = [];
+            }).error(function (data, status, headers, config){
+
+            });
             $http.put().success().error();
             $scope.loginLoading = false;
         }else{
             //POST
-            console.log('Team prepere');
-            $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
-            $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
-            $scope.newTeam.players = shuffle($scope.teamMembers.players);
-            console.log($scope.newTeam);
+            
             $http.post(urlTail, $scope.newTeam).success(function(result){
                 console.log('Team Done');
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
+                $scope.newTeam = {};
+                $scope.teamMembers.coaches = [];
+                $scope.teamMembers.players = [];
                 $scope.loginLoading = false;
             }).error(function (data, status, headers, config){
 
@@ -1217,5 +1467,340 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
         }
     };
     
+    $scope.openEdit = function (id) {
+        $scope.isEditing = true;
+        $http.get(urlTail + '/' + id)
+            .success(function (result) {
+                console.log(result);
+                $scope.newTeam = result;
+                $scope.teamMembers.coaches = morph(result.coaches, $scope.freeCoaches);
+                $scope.teamMembers.players = morph(result.players, $scope.allPlayers);
+                target.modal('show');
+            });
+    };    
+    
+}]);
 
+app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location){
+
+    var needToDelete = -1;
+    var urlTail = '/api/CurriculumStatement';
+    var target = angular.element('#addStateModal');
+    var deleteModal = angular.element('#confDelete');
+    //Toggle
+    var stblock = angular.element('#stblock');
+    var stWeek = angular.element('#stWeek');
+    var stSession = angular.element('#stSession');
+
+
+    $scope.help = {};
+    $scope.help.usersType = [];
+
+    $scope.roles = [
+       { id: 1, name: 'Club Admin' },
+       { id: 2, name: 'Head Of Academies' },
+       { id: 3, name: 'Coach' },
+       { id: 4, name: 'Head Of Education' },
+       { id: 5, name: 'Welfare Officer' },
+       { id: 7, name: 'Physiotherapist' },
+       { id: 8, name: 'Sports Scientist' }
+    ];
+
+    function shuffle(objArr) {
+            var ids = [];
+            angular.forEach(objArr, function(obj) {
+                this.push(obj.id);
+            }, ids);
+            return ids;
+        }
+
+    function reShuffle(idsArry){
+        var objs = []
+        for (var i = 0; i < idsArry.length; i++) {
+            for (var j = 0; j < $scope.roles.length; j++) {
+                if(idsArry[i] === $scope.roles[j].id){
+                    objs.push($scope.roles[j]);
+                }
+            };
+        };
+        return objs;
+    }    
+
+    function getResultsPage(pageNumber) {
+        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+            .success(function (result) {
+                console.log(result);
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    }
+
+    $scope.items = [];
+    $scope.totalItems = 0;
+    $scope.itemsPerPage = 20;
+
+
+    $scope.pagination = {
+        current: 1
+    };
+
+    getResultsPage($scope.pagination.current);
+
+    $scope.pageChanged = function (newPage) {
+        getResultsPage(newPage);
+        $scope.pagination.current = newPage;
+    };
+    
+
+    $scope.open = function(){
+        $scope.modalTitle = 'Add Curriculum Statement';
+        target.modal('show');
+    };
+
+    $scope.openDelete = function(id){
+        needToDelete = id;
+        deleteModal.modal('show');
+    };
+
+    $scope.delete = function(){
+        $http.delete(urlTail + '/'+ needToDelete).success(function(){
+            needToDelete = -1;
+            getResultsPage($scope.pagination.current);
+            deleteModal.modal('hide');
+        }).error(function (data, status, headers, config){
+
+        });
+    }
+
+    $scope.cancel = function(){
+        needToDelete = -1;
+        target.modal('hide');
+        deleteModal.modal('hide');
+    };
+
+    $scope.ok = function(id){
+
+        $scope.newStatements.roles = shuffle($scope.help.usersType);
+        $scope.newStatements.chooseBlock = stblock.prop('checked');
+        $scope.newStatements.chooseWeek = stWeek.prop('checked');
+        $scope.newStatements.chooseSession = stSession.prop('checked');
+
+        console.log($scope.newStatements);
+        if(id != null){
+            
+            //PUT it now have no url to Update date
+            $http.put(urlTail + '/' + id, $scope.newStatements).success(function(){
+                console.log('Team Update');
+                getResultsPage($scope.pagination.current);
+            }).error(function (data, status, headers, config){
+
+            });
+        }else{
+            //POST
+            
+            $http.post(urlTail, $scope.newStatements).success(function(result){
+                getResultsPage($scope.pagination.current);
+                target.modal('hide');
+            }).error(function (data, status, headers, config){
+
+            });
+        }
+    };
+    
+    $scope.openEdit = function (id) {
+        $http.get(urlTail + '/' + id)
+            .success(function (result) {
+                $scope.newStatements = result;
+                $scope.help.usersType = reShuffle(result.roles);
+                stblock.bootstrapToggle(result.chooseBlock ? 'on' : 'off');
+                stWeek.bootstrapToggle(result.chooseWeek ? 'on' : 'off');
+                stSession.bootstrapToggle(result.chooseSession ? 'on' : 'off');
+                target.modal('show');
+            });
+    };    
+
+}]);
+
+app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location){
+
+    var pathArray = $location.$$absUrl.split("/");
+    $scope.currId = pathArray[pathArray.length - 1];
+
+
+    var needToDelete = -1;
+    var urlTail = '/api/CurriculumDetails';
+    var target = angular.element('#addCurrDetalModal');
+    var deleteModal = angular.element('#confDelete');
+
+
+    $scope.help = {};
+    $scope.help.scenarios = [];
+
+    $scope.roles = [
+       { id: 1, name: 'Club Admin' },
+       { id: 2, name: 'Head Of Academies' },
+       { id: 3, name: 'Coach' },
+       { id: 4, name: 'Head Of Education' },
+       { id: 5, name: 'Welfare Officer' },
+       { id: 7, name: 'Physiotherapist' },
+       { id: 8, name: 'Sports Scientist' }
+    ];
+
+    function shuffle(objArr) {
+            var ids = [];
+            angular.forEach(objArr, function(obj) {
+                this.push(obj.id);
+            }, ids);
+            return ids;
+        }
+
+    function reShuffle(idsArry){
+        var objs = []
+        for (var i = 0; i < idsArry.length; i++) {
+            for (var j = 0; j < $scope.roles.length; j++) {
+                if(idsArry[i] === $scope.roles[j].id){
+                    objs.push($scope.roles[j]);
+                }
+            };
+        };
+        return objs;
+    }    
+
+    function getResultsPage() {
+        $http.get(urlTail + '/' + $scope.currId)
+            .success(function (result) {
+                console.log(result);
+                $scope.items = result;
+            });
+    }
+
+    function getScenarios(){
+        $http.get('/api/Scenarios/List').success(function(result){
+            $scope.scenarios = result;
+            $scope.selectedScenario = result[0];
+        }).error();
+    }
+
+    function getParentCurr(){
+        $http.get('/api/Curriculums/' + $scope.currId).success(function(result){
+            $scope.parentCurr = result;
+        });
+    }
+
+    $scope.items = [];
+
+    getParentCurr();
+    getResultsPage();
+    getScenarios();
+
+    $scope.pageChanged = function (newPage) {
+        getResultsPage(newPage);
+        $scope.pagination.current = newPage;
+    };
+    
+
+    $scope.open = function(){
+        $scope.modalTitle = 'Add Curriculum Statement';
+        target.modal('show');
+    };
+
+    $scope.openDelete = function(id){
+        needToDelete = id;
+        deleteModal.modal('show');
+    };
+
+    $scope.delete = function(){
+        $http.delete(urlTail + '/'+ needToDelete).success(function(){
+            needToDelete = -1;
+            getResultsPage($scope.pagination.current);
+            deleteModal.modal('hide');
+        }).error(function (data, status, headers, config){
+
+        });
+    }
+
+    $scope.cancel = function(){
+        needToDelete = -1;
+        target.modal('hide');
+        deleteModal.modal('hide');
+    };
+
+    $scope.ok = function(id){
+
+        //Files upload
+            var promises = [];
+
+            if ($scope.picC) {
+                var fd = new FormData();
+                fd.append('file', $scope.picC);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newCurrDet.curriculumDetailCoachPicture = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+            
+            if ($scope.picPF) {
+                var fd = new FormData();
+                fd.append('file', $scope.picPF);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newCurrDet.curriculumDetailPlayersFriendlyPicture = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+            $q.all(promises).then(function () {
+                $scope.newCurrDet.scenarioId = $scope.selectedScenario.id;
+                if(id != null){
+                    //PUT it now have no url to Update date
+                    $http.put(urlTail + '/' + id, $scope.newCurrDet).success(function(){
+                        getResultsPage();
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config){
+
+                    });
+                }else{
+                    //POST
+                    $http.post(urlTail + '/' + $scope.currId, $scope.newCurrDet).success(function(result){
+                        getResultsPage();
+                        target.modal('hide');
+                    }).error(function (data, status, headers, config){
+
+                    });
+                }
+            });
+        
+    };
+    
+    $scope.openEdit = function (id) {
+        $http.get(urlTail + '/' + id)
+            .success(function (result) {
+                $scope.newStatements = result;
+                $scope.help.usersType = reShuffle(result.roles);
+                stblock.bootstrapToggle(result.chooseBlock ? 'on' : 'off');
+                stWeek.bootstrapToggle(result.chooseWeek ? 'on' : 'off');
+                stSession.bootstrapToggle(result.chooseSession ? 'on' : 'off');
+                target.modal('show');
+            });
+    };    
 }]);

@@ -30,7 +30,8 @@ namespace PmaPlus
 
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
-
+            config.Formatters.JsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+            
             config.AddODataQueryFilter();
             //Odata case insensitive
             config.EnableCaseInsensitive(true);

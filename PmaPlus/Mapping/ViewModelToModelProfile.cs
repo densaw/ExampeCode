@@ -24,7 +24,6 @@ namespace PmaPlus.Mapping
 
         protected override void Configure()
         {
-            Mapper.CreateMap<CurriculumTypeViewModel, CurriculumType>();
             Mapper.CreateMap<SkillLevelViewModel, SkillLevel>();
             Mapper.CreateMap<SkillVideoViewModel, SkillVideo>();
 
@@ -53,6 +52,9 @@ namespace PmaPlus.Mapping
 
             //ClubAdmin
 
+            Mapper.CreateMap<SessionViewModel, Session>()
+                .ForMember(d => d.Scenarios, o => o.Ignore());
+
             Mapper.CreateMap<PlayerAttributeViewModel,PlayerAttribute>();
 
             Mapper.CreateMap<ToDoViewModel, ToDo>();
@@ -63,17 +65,9 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<CurriculumViewModel, Curriculum>();
 
-            Mapper.CreateMap<CurriculumDetailViewModel, CurriculumDetail>()
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.CurriculumDetailId))
-                .ForMember(d => d.Name, o => o.MapFrom(s => s.CurriculumDetailName))
-                .ForMember(d => d.Number, o => o.MapFrom(s => s.CurriculumDetailNumber))
-                .ForMember(d => d.PlayersDescription, o => o.MapFrom(s => s.CurriculumDetailPlayersDescription))
-                .ForMember(d => d.PlayersFriendlyName, o => o.MapFrom(s => s.CurriculumDetailPlayersFriendlyName))
-                .ForMember(d => d.PlayersFriendlyPicture, o => o.MapFrom(s => s.CurriculumDetailPlayersFriendlyPicture))
-                .ForMember(d => d.CoachDescription, o => o.MapFrom(s => s.CurriculumDetailCoachDescription))
-                .ForMember(d => d.CoachPicture, o => o.MapFrom(s => s.CurriculumDetailPlayersFriendlyPicture));
 
-            Mapper.CreateMap<CurriculumStatementViewModel, CurriculumStatement>();
+            Mapper.CreateMap<CurriculumStatementViewModel, CurriculumStatement>()
+                .ForMember(d => d.Roles, o => o.Ignore());
         }
     }
 }

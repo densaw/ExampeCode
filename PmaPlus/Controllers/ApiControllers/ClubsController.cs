@@ -125,7 +125,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 newClub.Logo = _photoManager.MoveFromTemp(newClub.Logo, FileStorageTypes.Clubs, newClub.Id,"logo");
                 newClub.Background = _photoManager.MoveFromTemp(newClub.Background, FileStorageTypes.Clubs, newClub.Id, "Background");
                 _clubServices.UpdateClub(newClub, newClub.Id);
-                return Created(Request.RequestUri + newClub.Id.ToString(), newClub);
+                return Ok();
             }
             return BadRequest();
         }

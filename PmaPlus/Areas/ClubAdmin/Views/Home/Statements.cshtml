@@ -4,25 +4,220 @@
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Statements</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a>Home</a>
-            </li>
-            <li>
-                <a>Curriculum</a>
-            </li>
-            <li class="active">
-                <strong>Statements</strong>
-            </li>
-        </ol>
+
+<div ng-controller="CurrStatementsController">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Statements</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li>
+                    <a>Curriculum</a>
+                </li>
+                <li class="active">
+                    <strong>Statements</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-click="open()">Add a Statement</a>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a class="btn btn-primary">Add a Statement</a>
+
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Teams</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user"></ul>
+                            <a>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        @*Modal*@
+                        <div class="modal inmodal" id="addStateModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title text-left">{{modalTitle}}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form name="myform" class="form-horizontal" novalidate>
+                                            <div class="form-group" ng-class="{'has-error':myform.teamName.$invalid && (myform.teamName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">User Type:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <ui-select multiple ng-model="help.usersType" ng-disabled="disabled" theme="bootstrap">
+                                                        <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
+                                                        <ui-select-choices repeat="role in roles">
+                                                            <div ng-bind-html="role.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Frequency:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <label class="checkbox-inline">
+                                                        <input id="stblock" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default"> Block
+                                                    </label>
+                                                    <label class="checkbox-inline">
+                                                        <input id="stWeek" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default"> Week
+                                                    </label>
+                                                    <label class="checkbox-inline">
+                                                        <input id="stSession" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default"> Session
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Statement:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newStatements.statement" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                        <button ng-click="ok(newStatements.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        @*Modal*@
+                        <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Delete Record?</h3>
+
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
+                                        <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        <div class="row">
+                            <div class="col-sm-9 m-b-xs">
+                                <form class="form-horizontal">
+                                    <div class=" form-group" style="margin-left: 0px;">
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <label ng-click="itemsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                            <label ng-click="itemsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
+                                            <label ng-click="itemsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                                        </div>
+                                        <div class="btn-group">
+                                            <label onclick=" $('.table').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                CSV
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                Excel
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                PDF
+                                            </label>
+                                            <label onclick=" print($('.table')) " class="btn btn-sm btn-white">
+                                                Print
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>User Type</th>
+                                        <th>B\W\S</th>
+                                        <th>Statement</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contentTable">
+                                    <tr dir-paginate="state in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalCourses">
+                                        <td>
+                                            <div ng-repeat="role in state.roles">{{roles[role].name}}</div>
+                                        </td>
+                                        <td>{{state.chooseBlock}} \ {{state.chooseWeek}} \ {{state.chooseSession}}</td>
+                                        <td>{{state.statement}}</td>
+                                        <td>
+                                            <i ng-click="openEdit(state.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                            <i ng-click="openDelete(state.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<style>
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    .m-b {
+        margin-bottom: 0px;
+    }
+
+    .ta-editor, .ta-editor > .ta-bind {
+      min-height: 600px;
+    }
+    .red{
+	    color: red;
+    }
+    .statictoolbar{
+	    position: fixed;
+	    top: 12px;
+	    z-index: 200;
+	    left: 0;
+	    right: 0;
+    }
+
+    .ta-hidden-input {
+        display: none;
+    }
+</style>
+
 

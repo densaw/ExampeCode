@@ -38,6 +38,11 @@ namespace PmaPlus.Services
             return ownDiary.Union(recDiary);
         }
 
+        public Diary GetDiaryById(int id)
+        {
+            return _diaryRepository.GetById(id);
+        }
+
         public Diary AddDiary(Diary diary, int ownerUserId, IList<int> recipientUsers,IList<Role> roles)
         {
             List<int> userIds = new List<int>();
@@ -79,7 +84,20 @@ namespace PmaPlus.Services
             }
         }
 
+        public void UpdateDiary(Diary diary, int id)
+        {
+            var tempDiary = _diaryRepository.GetById(id);
+            if (tempDiary != null)
+            {
+                tempDiary.Note = diary.Note;
+                tempDiary.Title = diary.Title;
+                tempDiary.AllDay = diary.AllDay;
+                tempDiary.Start = diary.Start;
+                
 
+                _diaryRepository.Update(tempDiary,id);
+            }
+        }
 
         public void DeleteDiary(int id)
         {

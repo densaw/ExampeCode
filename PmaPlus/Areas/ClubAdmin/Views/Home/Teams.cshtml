@@ -60,7 +60,7 @@
                                                     <input name="teamName" ng-model="newTeam.name" required class="form-control" maxlength="50">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div ng-if="!isEditing" class="form-group">
                                                 <label class="col-lg-4 title-modal">Curriculum:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <select ng-model="selectedCurriculumTypeId" ng-options="type.name for type in curriculumTypesList | orderBy:'name'" class=" form-control m-b" name="account"></select>

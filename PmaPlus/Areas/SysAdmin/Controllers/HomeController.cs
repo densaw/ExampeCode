@@ -13,7 +13,7 @@ namespace PmaPlus.Areas.SysAdmin.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        public ActionResult Dashbord()
+        public ActionResult Dashboard()
         {
             return View();
         }

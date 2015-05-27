@@ -40,6 +40,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-sanitize.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-cookies.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.js"></script>
+    @Scripts.Render("~/texeditor/js")
     @Scripts.Render("~/plugins/angular-file")
     <!-- Latest compiled and minified JavaScript -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
@@ -66,6 +67,8 @@
     
 
     <style>
+
+
         .btn-success {
   background-color: @ViewBag.them;
   border-color: @ViewBag.them;
@@ -74,6 +77,9 @@
   background-color: @ViewBag.them;
   border-color: @ViewBag.them;
 }
+        .external-event {
+            background-color:@ViewBag.them; 
+        }
          .pace .pace-progress {
              background: @ViewBag.them;
          }
@@ -101,6 +107,11 @@
         .btn-primary[disabled] {
             background-color: @ViewBag.them;
             background-image: none;
+        }
+        .fc-state-active {
+      background-color: @ViewBag.them;
+      border-color: @ViewBag.them;
+        color: #ffffff;
         }
 
         /*
@@ -150,6 +161,8 @@
             background: @ViewBag.them;
             border-color: @ViewBag.them;
         }
+       
+
         body.skin-1 {
             background: #ededed;
         }
@@ -181,7 +194,7 @@
 
         .skin-1 .nav-header {
             padding: 10px 25px 10px 25px;
-            height: 155px;
+        
         }
         .skin-1 .nav-header a.dropdown-toggle {
             color: #fff;
@@ -209,6 +222,10 @@
         .skin-1 .nav.nav-tabs > li.active {
             background: transparent;
         }
+        .fc-event {
+  border: 1px solid @ViewBag.them;
+  background-color: @ViewBag.them;
+}
     </style>
 
 
@@ -220,7 +237,7 @@
         <!-- Navigation -->
         @Html.Partial("_Navigation")
         <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass @Html.IsSelectedSide(controller: "Home", action: "Dashbord")">
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass @Html.IsSelectedSide(controller: "Home", action: "Dashboard")">
             <!-- Top Navbar -->
             @Html.Partial("_TopNavbar")
             <!-- Main view -->
@@ -285,6 +302,10 @@
     <script>
         $(document).ready(function () {
 
+
+           
+
+
             toastr.options = {
                 closeButton: true,
                 debug: false,
@@ -306,7 +327,6 @@
 </html>
 
 <script>
-
     var idleTime = 0;
     $(document).ready(function () {
         var idleInterval = setInterval(timerIncrement, 60000);

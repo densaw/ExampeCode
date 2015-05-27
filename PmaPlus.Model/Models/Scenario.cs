@@ -17,6 +17,7 @@ namespace PmaPlus.Model.Models
         public string Picture { get; set; }             
         public string Description { get; set; }         
         public string Video { get; set; }
-        public string UploadedBy { get; set; }     
+        public string UploadedBy { get; set; }
+        public bool Share { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +8,12 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model;
 using PmaPlus.Model.Models;
 using PmaPlus.Models;
+using PmaPlus.Services;
+using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers
 {
@@ -18,12 +22,16 @@ namespace PmaPlus.Controllers
         private readonly ApplicationSignInManager _signInManager;
         private readonly ApplicationUserManager _userManager;
         private readonly IAuthenticationManager _authenticationManager;
+        private readonly IPhotoManager _photoManager;
+        private readonly UserServices _userServices;
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IAuthenticationManager authenticationManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IAuthenticationManager authenticationManager, IPhotoManager photoManager, UserServices userServices)
         {
             _userManager= userManager;
             _signInManager = signInManager;
             _authenticationManager = authenticationManager;
+            _photoManager = photoManager;
+            _userServices = userServices;
         }
 
         public ApplicationSignInManager SignInManager { get { return _signInManager; } }
@@ -71,6 +79,35 @@ namespace PmaPlus.Controllers
             ViewBag.ReturnUrl = returnUrl;
             LoginViewModel model = new LoginViewModel();
             model.Email = User.Identity.Name;
+
+            var clubAdmin = _userServices.GetClubAdminByUserName(User.Identity.Name);
+            if (clubAdmin != null)
+            {
+                var club = clubAdmin.Club;
+                model.Logo = _photoManager.GetFileBytes(club.Logo, FileStorageTypes.Clubs, club.Id);
+                model.Background = _photoManager.GetFileBytes(club.Background, FileStorageTypes.Clubs, club.Id);
+
+                if (String.IsNullOrWhiteSpace(club.ColorTheme) || String.IsNullOrEmpty(club.ColorTheme))
+                {
+                    model.HexColor = "#3276b1";
+                }
+                else
+                {
+                    model.HexColor = club.ColorTheme;
+                }
+
+            }
+            else
+            {
+                model.Logo = System.IO.File.ReadAllBytes(HttpContext.ApplicationInstance.Server.MapPath(@"~/Images/Default-logo.png"));
+                model.Background = System.IO.File.ReadAllBytes(HttpContext.ApplicationInstance.Server.MapPath(@"~/Images/Default_background.png"));
+                    //model.Background
+                model.HexColor = "#3276b1";
+
+            }
+
+           
+           
             AuthenticationManager.SignOut();
             Response.Cookies.Clear();
             Session.Clear();

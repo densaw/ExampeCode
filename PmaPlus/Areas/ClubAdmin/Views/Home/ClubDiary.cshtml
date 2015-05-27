@@ -5,7 +5,7 @@
 }
 
 <div ng-controller="ClubDiaryController">
-    <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="row wrapper border-bottom white-bg page-heading ">
         <div class="col-sm-4">
             <h2>Diary</h2>
             <ol class="breadcrumb">
@@ -23,12 +23,53 @@
             </div>
         </div>
     </div>
-
     <div class="wrapper wrapper-content">
-        <div class="row">
-            <div class="col-lg-12">
+
+        <div class="col-md-3 ">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
+                    <h5>Nearest Events</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#">Config option 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Config option 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div id='external-events'>
+                        <p>Drag a event and drop into callendar.</p>
+                        <div class='external-event navy-bg' ng-repeat="Evnote in Evnotes">
+                            <p>{{Evnote.note}}</p>
+                        </div>
+
+                        <p class="m-t">
+                            <input type='checkbox' id='drop-remove' class="i-checks" checked/> <label for='drop-remove'>remove after drop</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-9">
+            <div class="col-lg-12 ">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title ">
                             <h5>Calendar </h5>
                             <div class="ibox-tools">
                                 <a @*class="collapse-link"*@>
@@ -50,6 +91,7 @@
                                 </a>
                             </div>
                         </div>
+
                         <div class="ibox-content">
                             <div class="modal inmodal" id="addDiaryModal" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -82,7 +124,7 @@
                                                                 </div>
                                                             </a>
                                                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                                <datetimepicker data-ng-model="newEvent.start" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
+                                                            <datetimepicker data-ng-model="newEvent.start" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }"/>
                                                             </ul>
                                                         </div>
                                                         
@@ -98,18 +140,13 @@
                                                                 </div>
                                                             </a>
                                                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                                <datetimepicker data-ng-model="newEvent.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
+                                                            <datetimepicker data-ng-model="newEvent.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }"/>
                                                             </ul>
                                                         </div>
                                                         
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 title-modal">Url:</label>
-                                                    <div class="col-lg-7 pull-right">
-                                                        <input name="eventNote" ng-model="newEvent.url" required class="form-control">
-                                                    </div>
-                                                </div>
+
                                                 <div class="form-group">
                                                     <label class="col-lg-4 title-modal">Attendee Types:</label>
                                                     <div class="col-lg-7 pull-right">
@@ -143,91 +180,25 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <div id="calendar" class="fc fc-ltr fc-unthemed">
                             </div>
+
+
                         </div>
                     </div>
                 </div>
         </div>
     </div>
 </div>
-
-<style>
-    .fc-button {
-      background-color: #ffffff;
-      background-image: none;
-      background-repeat: repeat-x;
-      box-shadow: none;
-      color: #333333;
-      text-shadow: none;
-    }
-    .fc-button-group {
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-    }
-
-    .fc-state-active {
-      background-color: #337ab7;
-      border-color: #337ab7;
-      color: #ffffff;
-    }
-    a.dropdown-toggle {
-        color: #66696B;
-        text-decoration: none;
-    }
-</style>
     <script>
-
         $(document).ready(function () {
 
-            /* initialize the external events
-             -----------------------------------------------------------------*/
-
-
-            $('#external-events div.external-event').each(function () {
-
-                // store data so the calendar knows to render an event upon drop
-                $(this).data('event', {
-                    title: $.trim($(this).text()), // use the element's text as the event title
-                    stick: true // maintain when user navigates (see docs on the renderEvent method)
-                });
-
-                // make the event draggable using jQuery UI
-                $(this).draggable({
-                    zIndex: 1111999,
-                    revert: true,      // will cause the event to go back to its
-                    revertDuration: 0  //  original position after the drag
-                });
-
-            });
-
-
-            /* initialize the calendar
-             -----------------------------------------------------------------*/
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
+        // page is now ready, initialize the calendar...
 
             $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                editable: true,
-                droppable: true, // this allows things to be dropped onto the calendar
-                drop: function () {
-                    // is the "remove after drop" checkbox checked?
-                    if ($('#drop-remove').is(':checked')) {
-                        // if so, remove the element from the "Draggable Events" list
-                        $(this).remove();
-                    }
-                },
-                events: []
+            // put your options and callbacks here
             });
-
-
         });
-
     </script>
