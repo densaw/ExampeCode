@@ -358,7 +358,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
     $scope.ok = function () {
         $scope.loginLoading = true;
         $scope.newNote.priority = $scope.selectedPriority.id;
-        
+
         if (needToUpdate != -1) {
             $http.put(urlTail + '/' + needToUpdate, $scope.newNote).success(function () {
                 needToUpdate = -1;
@@ -476,7 +476,7 @@ app.controller('ClubDiaryController', [
 
     var cal = angular.element('#calendar');
     var urlTail = '/api/Diary';
-    
+
 
     $scope.events = [];        
     cal.fullCalendar({
@@ -590,7 +590,7 @@ app.controller('ClubDiaryController', [
         console.log($scope.newEvent.completionDateTime);
         target.modal('show');
     }
-        $scope.ok = function () {
+    $scope.ok = function () {
         $scope.myform.form_Submitted = !$scope.myform.$valid;
         $scope.loginLoading = true;
 
@@ -615,22 +615,22 @@ app.controller('ClubDiaryController', [
                             title: 'Error',
                             bodyOutputType: 'trustedHtml',
                             body: 'Please complete the compulsory fields highlighted in red'
-                        });
+            });
                     }
 
             });
 
         } else {
         $http.post(urlTail, $scope.newEvent).success(function () {
-            $scope.loginLoading = false;
             getResults();
             getEv();
             target.modal('hide');
+            $scope.loginLoading = false;
             
                 }).error(function(data, status, headers, config) {
                     //$scope.event.id = $scope.selectedType.id;
                     if (status == 500) {
-                  console.log(data);
+              console.log(data);
 
 
                   toaster.pop({
@@ -639,10 +639,11 @@ app.controller('ClubDiaryController', [
                             bodyOutputType: 'trustedHtml',
                             body: 'Please complete the compulsory fields highlighted in red'
                   });
+                  $scope.loginLoading = false;
               }
 
-          });
-        }
+        });
+    }
             
     }
 
@@ -986,6 +987,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     var needToDelete = -1;
     var urlTail = '/api/Curriculums';
     var target = angular.element('#addCurrModal');
+    var confDelete = angular.element('#confDelete');
     var inpSessions = angular.element('#inpSessions');
     var inpWeeks = angular.element('#inpWeeks');
     var inpBlocks = angular.element('#inpBlocks');
@@ -1026,13 +1028,6 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
         } 
     });
 
-    function getCurrType(){
-        $http.get('/api/CurriculumTypes/List').success(function(result){
-            $scope.curriculumTypesList = result;
-            $scope.selectedCurriculumTypeId = $scope.curriculumTypesList[0];
-        });
-    }
-
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
             .success(function (result) {
@@ -1051,7 +1046,6 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     };
 
     getResultsPage($scope.pagination.current);
-    getCurrType();
 
     $scope.pageChanged = function (newPage) {
         getResultsPage(newPage);
@@ -1066,21 +1060,31 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     $scope.cancel = function(){
         target.modal('hide');
+        confDelete.modal('hide');
+        needToDelete = -1;
     };
 
     $scope.ok = function (id) {
         $scope.loginLoading = true;
+        $scope.newCurr.ageGroup = $scope.selectedAgeGroup.id;
         if (id != null) {
-            $scope.loginLoading = false;
+            
             //PUT it now have no url to Update date
-            $http.put().success().error();
+            $http.put(urlTail + '/' + id, $scope.newCurr).success(function(result){
+                getResultsPage($scope.pagination.current);
+            $scope.loginLoading = false;
+                $scope.newCurr = {};
+                target.modal('hide');
+            }).error(function (data, status, headers, config){
+
+            });
         }else{
             //POST
-            $scope.newCurr.ageGroup = $scope.selectedAgeGroup.id;
-            $scope.newCurr.curriculumTypeId = $scope.selectedCurriculumTypeId.id; 
+            
             $http.post(urlTail, $scope.newCurr).success(function(result){
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
+                $scope.newCurr = {};
                 $scope.loginLoading = false;
             }).error(function (data, status, headers, config){
 
@@ -1088,6 +1092,28 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
         }
     };
     
+    $scope.openDelete = function (id) {
+        confDelete.modal('show');
+        console.log(id);
+        needToDelete = id;
+    };
+    $scope.delete = function () {
+        $http.delete(urlTail + '/' + needToDelete).success(function () {
+            getResultsPage($scope.pagination.current);
+            needToDelete = -1;
+            confDelete.modal('hide');
+        });
+    };
+    $scope.openEdit = function (id) {
+        console.log(id);
+        $http.get(urlTail + '/' + id)
+            .success(function (result) {
+                $scope.newCurr = result;
+                $scope.selectedAgeGroup = $scope.ageGroups[result.ageGroup];
+                $scope.modalTitle = "Update Curriculum";
+                target.modal('show');
+            });
+    };
 
 }]);
 
@@ -1331,7 +1357,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     var urlTail = '/api/Teams';
     var target = angular.element('#addTeamModal');
     var deleteModal = angular.element('#confDelete');
-    
+
     $scope.isEditing = false;
     $scope.newTeam = {};
     $scope.curriculumTypesList = [];
@@ -1448,54 +1474,54 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     $scope.ok = function(id) {
         $scope.loginLoading = true;
         $scope.ok = function(id) {
-        
-        $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
-        $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
-        $scope.newTeam.players = shuffle($scope.teamMembers.players);
-        console.log(id);
+
+            $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
+            $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
+            $scope.newTeam.players = shuffle($scope.teamMembers.players);
+            console.log(id);
             if (id != null) {
-            
-            //PUT it now have no url to Update date
+
+                //PUT it now have no url to Update date
                 $http.put(urlTail + '/' + id, $scope.newTeam).success(function() {
-                console.log('Team Update');
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-                $scope.newTeam = {};
-                $scope.teamMembers.coaches = [];
-                $scope.teamMembers.players = [];
+                    console.log('Team Update');
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                    $scope.newTeam = {};
+                    $scope.teamMembers.coaches = [];
+                    $scope.teamMembers.players = [];
                 }).error(function(data, status, headers, config) {
 
-            });
+                });
                 $http.put().success().error();
                 $scope.loginLoading = false;
             } else {
-            //POST
-            
+                //POST
+
                 $http.post(urlTail, $scope.newTeam).success(function(result) {
-                console.log('Team Done');
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-                $scope.newTeam = {};
-                $scope.teamMembers.coaches = [];
-                $scope.teamMembers.players = [];
+                    console.log('Team Done');
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                    $scope.newTeam = {};
+                    $scope.teamMembers.coaches = [];
+                    $scope.teamMembers.players = [];
                     $scope.loginLoading = false;
                 }).error(function(data, status, headers, config) {
 
-            });
-        }
-    };
-    
+                });
+            }
+        };
+
         $scope.openEdit = function(id) {
-        $scope.isEditing = true;
-        $http.get(urlTail + '/' + id)
+            $scope.isEditing = true;
+            $http.get(urlTail + '/' + id)
                 .success(function(result) {
-                console.log(result);
-                $scope.newTeam = result;
-                $scope.teamMembers.coaches = morph(result.coaches, $scope.freeCoaches);
-                $scope.teamMembers.players = morph(result.players, $scope.allPlayers);
-                target.modal('show');
-            });
-    };    
+                    console.log(result);
+                    $scope.newTeam = result;
+                    $scope.teamMembers.coaches = morph(result.coaches, $scope.freeCoaches);
+                    $scope.teamMembers.players = morph(result.players, $scope.allPlayers);
+                    target.modal('show');
+                });
+        };
     }
 }]);
 
@@ -1646,7 +1672,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
 
     var needToDelete = -1;
-    var urlTail = '/api/CurriculumDetails';
+    var urlTail = '/api/Sessions';
     var target = angular.element('#addCurrDetalModal');
     var deleteModal = angular.element('#confDelete');
 
@@ -1718,7 +1744,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     
 
     $scope.open = function(){
-        $scope.modalTitle = 'Add Curriculum Statement';
+        $scope.modalTitle = 'Add Curriculum Session';
         target.modal('show');
     };
 

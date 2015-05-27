@@ -359,6 +359,7 @@ body.mini-navbar .logo-element {
   display: block;
 }
 body.mini-navbar .nav-header {
+  height: 61px;
   padding: 0;
   background-color: #1ab394;
 }
@@ -4646,6 +4647,7 @@ body.rtls.top-navigation .footer.fixed {
   background: #f8ac59 !important;
 }
 .skin-1 .nav-header {
+  height: 155px;
   background: #f8ac59;
   background: url('patterns/header-profile-skin-1.png');
 }
@@ -4715,6 +4717,7 @@ body.skin-1 {
   text-align: center;
 }
 .skin-1 .img-circle {
+  margin: 0 auto;
   border-radius: 5px;
 }
 .skin-1 .navbar-default .nav > li > a:hover,

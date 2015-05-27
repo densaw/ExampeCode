@@ -202,7 +202,7 @@
         @*Modal End*@
         <div class="row">
             <div class="col-lg-4" ng-repeat="item in items">
-                <div class="contact-box" onmouseenter="inside(this)" onmouseleave="out(this)">
+                <div class="contact-box " onmouseenter="inside(this)" onmouseleave="out(this)">
                     <a href="ProfilePage?par={{item.role}}/{{item.id}}">
                         <div class="col-sm-4">
                             <div class="text-center">
@@ -247,10 +247,10 @@
 
     function inside(elem) {
         
-        $(elem).addClass("animated flipInY");
+        $(elem).addClass("animated pulse");
 
         setTimeout(function () {
-            $(elem).removeClass("animated flipInY");
+            $(elem).removeClass("animated pulse");
         }, 2000);
     }
 
