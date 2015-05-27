@@ -21,7 +21,7 @@ namespace PmaPlus.Model.ViewModels.Curriculum
         public bool ObjectiveReport { get; set; }               
         public bool CoachDetails { get; set; }
         public bool StartOfReviewPeriod { get; set; }
-        public bool ReviewPeriod { get; set; }   
+        public bool EndOfReviewPeriod { get; set; }   
         public string CoachPicture { get; set; }                
         public string CoachDetailsName { get; set; }            
         public bool PlayerDetails { get; set; }                 
@@ -29,6 +29,5 @@ namespace PmaPlus.Model.ViewModels.Curriculum
         public string PlayerDetailsName { get; set; }           
         public bool NeedScenarios { get; set; }                 
         public IList<int> Scenarios { get; set; }               
-        public int CurriculumId { get; set; }
     }
 }
