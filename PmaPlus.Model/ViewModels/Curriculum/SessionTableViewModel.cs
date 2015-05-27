@@ -15,8 +15,9 @@ namespace PmaPlus.Model.ViewModels.Curriculum
         public bool Attendance { get; set; }                    
         public bool Objectives { get; set; }                    
         public bool Rating { get; set; }                        
-        public bool Report { get; set; }                        
+        public bool Report { get; set; }
+        public bool ReviewPeriod { get; set; }
 
-        //TODO: Replase Session Table View Model!
+        
     }
 }
