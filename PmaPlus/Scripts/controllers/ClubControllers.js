@@ -588,8 +588,10 @@ app.controller('ClubDiaryController', [
         console.log($scope.newEvent.completionDateTime);
         target.modal('show');
     }
-    $scope.ok = function () {
+        $scope.ok = function () {
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
         $scope.loginLoading = true;
+
         console.log('Here');
         console.log(shuffle($scope.help.helpAttend));
         $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
@@ -982,6 +984,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     var needToDelete = -1;
     var urlTail = '/api/Curriculums';
     var target = angular.element('#addCurrModal');
+    var confDelete = angular.element('#confDelete');
     var inpSessions = angular.element('#inpSessions');
     var inpWeeks = angular.element('#inpWeeks');
     var inpBlocks = angular.element('#inpBlocks');
@@ -1022,13 +1025,6 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
         } 
     });
 
-    function getCurrType(){
-        $http.get('/api/CurriculumTypes/List').success(function(result){
-            $scope.curriculumTypesList = result;
-            $scope.selectedCurriculumTypeId = $scope.curriculumTypesList[0];
-        });
-    }
-
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
             .success(function (result) {
@@ -1047,7 +1043,6 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     };
 
     getResultsPage($scope.pagination.current);
-    getCurrType();
 
     $scope.pageChanged = function (newPage) {
         getResultsPage(newPage);
@@ -1062,28 +1057,60 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     $scope.cancel = function(){
         target.modal('hide');
+        confDelete.modal('hide');
+        needToDelete = -1;
     };
 
     $scope.ok = function (id) {
         $scope.loginLoading = true;
+        $scope.newCurr.ageGroup = $scope.selectedAgeGroup.id;
         if (id != null) {
-            $scope.loginLoading = false;
+            
             //PUT it now have no url to Update date
-            $http.put().success().error();
+            $http.put(urlTail + '/' + id, $scope.newCurr).success(function(result){
+                getResultsPage($scope.pagination.current);
+                $scope.loginLoading = false;
+                $scope.newCurr = {};
+                target.modal('hide');
+            }).error(function (data, status, headers, config){
+
+            });
         }else{
             //POST
-            $scope.newCurr.ageGroup = $scope.selectedAgeGroup.id;
-            $scope.newCurr.curriculumTypeId = $scope.selectedCurriculumTypeId.id; 
+            
             $http.post(urlTail, $scope.newCurr).success(function(result){
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
+                $scope.newCurr = {};
                 $scope.loginLoading = false;
             }).error(function (data, status, headers, config){
 
             });
         }
     };
-    
+
+    $scope.openDelete = function (id) {
+        confDelete.modal('show');
+        console.log(id);
+        needToDelete = id;
+    };
+    $scope.delete = function () {
+        $http.delete(urlTail + '/' + needToDelete).success(function () {
+            getResultsPage($scope.pagination.current);
+            needToDelete = -1;
+            confDelete.modal('hide');
+        });
+    };
+    $scope.openEdit = function (id) {
+        console.log(id);
+        $http.get(urlTail + '/' + id)
+            .success(function (result) {
+                $scope.newCurr = result;
+                $scope.selectedAgeGroup = $scope.ageGroups[result.ageGroup];
+                $scope.modalTitle = "Update Curriculum";
+                target.modal('show');
+            });
+    };
 
 }]);
 
