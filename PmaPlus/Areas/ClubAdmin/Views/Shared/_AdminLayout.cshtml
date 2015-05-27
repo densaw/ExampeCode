@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" />
+    @Styles.Render("~/bundles/ladda-css")
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.css" rel="stylesheet" />
@@ -59,6 +60,10 @@
     @Scripts.Render("~/calendar/js")
     @Scripts.Render("~/plugins/fullCalendar")
     @Scripts.Render("~/bundles/inspinia")
+    @Scripts.Render("~/bundles/ladda-js-spin")
+    @Scripts.Render("~/bundles/ladda-js-core")
+    @Scripts.Render("~/bundles/ladda-js")
+    
 
     <style>
         .btn-success {
@@ -235,6 +240,9 @@
     @Scripts.Render("~/bundles/ClubAdminCtr")
     @Scripts.Render("~/plugins/dataTables")
     @Scripts.Render("~/plugins/fileinput")
+    @Scripts.Render("~/bundles/angular")
+    
+
 
     <!-- Handler for local scripts -->
     @RenderSection("scripts", required: false)

@@ -1,5 +1,5 @@
 ﻿(function () {
-    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster', 'file-model', 'ngSanitize', 'ui.select', 'ui.bootstrap.datetimepicker', 'ui.calendar', 'ngRoute']);
+    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster', 'file-model', 'ngSanitize', 'ui.select', 'ui.bootstrap.datetimepicker', 'ui.calendar', 'ngRoute', 'ladda']);
 
 
     module.directive('backImg', function () {
@@ -246,10 +246,11 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
             if (id != null) {
-
+                $scope.loginLoading = false;
                 $http.put('/api/FaCourses/' + id, $scope.newCourse)
                     .success(function (data, status, headers, config) {
                         getResultsPage($scope.pagination.current);
@@ -265,6 +266,7 @@
                         }
                     });
             } else {
+                $scope.loginLoading = false;
                 $http.post('/api/FaCourses', $scope.newCourse)
                     .success(function (data, status, headers, config) {
                         getResultsPage($scope.pagination.current);
@@ -354,9 +356,10 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.ok = function (id) {
-
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
             if (!$scope.myform.$valid) {
+                $scope.loginLoading = false;
                 toaster.pop({
                     type: 'error',
                     title: 'Error',
@@ -368,7 +371,7 @@
             } else {
 
 
-
+                
 
                 //Files upload
 
@@ -555,8 +558,10 @@
 
         //Toggle end
         $scope.okCurr = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
             if (id != null) {
+                $scope.loginLoading = false;
                 $http.put('/api/CurriculumTypes/' + id,
                {
                    "name": $scope.currName,
@@ -577,6 +582,7 @@
                    "usesSessionsForReports": sessionsReports.prop('checked')
                }
                ).success(function () {
+                   
                    getResultsPage($scope.pagination.current);
                    target.modal('hide');
                }).error(function (data, status, headers, config) {
@@ -590,6 +596,7 @@
                    }
                });
             } else {
+                $scope.loginLoading = false;
                 $http.post('/api/CurriculumTypes',
                     {
                         "name": $scope.currName,
@@ -719,9 +726,11 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.okLvl = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
             if (id != null) {
+                $scope.loginLoading = false;
                 $http.put('/api/SkillLevels/' + id, $scope.newLevel).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
@@ -739,6 +748,7 @@
 
 
             } else {
+                $scope.loginLoading = false;
                 $http.post('/api/SkillLevels', $scope.newLevel).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
@@ -832,11 +842,13 @@
         var confDelete = angular.element('#confDelete');
 
         $scope.okTest = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
             $scope.newTest.type = $scope.selectedType.id;
             $scope.newTest.zScoreFormula = $scope.selectedFormula.id;
             if (id != null) {
+                $scope.loginLoading = false;
                 $http.put('/api/SportsScienceTests/' + id, $scope.newTest).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
@@ -851,6 +863,7 @@
                     }
                 });
             } else {
+                $scope.loginLoading = false;
                 $http.post('/api/SportsScienceTests', $scope.newTest).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
@@ -958,6 +971,7 @@
 
 
         $scope.okEx = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
 
@@ -1026,6 +1040,7 @@
                 promises.push(promise);
             }
             $q.all(promises).then(function () {
+                $scope.loginLoading = false;
                 $scope.newExercise.type = $scope.selectedType.id;
                 if (id != null) {
                     $http.put('/api/SportsScienceExercises/' + id, $scope.newExercise).success(function () {
@@ -1042,7 +1057,7 @@
                         }
                     });
                 } else {
-
+                    $scope.loginLoading = false;
                     $http.post('/api/SportsScienceExercises', $scope.newExercise).success(function () {
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
@@ -1131,12 +1146,15 @@
         var target = angular.element('#updateLogin');
 
         $scope.ok = function () {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
             $http.post('/api/UpdatePassword', $scope.newPassword).success(function () {
+                $scope.loginLoading = false;
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
             }).error(function (data, status, headers, config) {
+                $scope.loginLoading = false;
                 if (status == 400) {
                     console.log(data);
                     toaster.pop({
@@ -1186,12 +1204,15 @@
         var target = angular.element('#updateTarget');
 
         $scope.okTarget = function () {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
             $http.post('/api/TargetHistory', $scope.newTarget).success(function () {
+                $scope.loginLoading = false;
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
             }).error(function (data, status, headers, config) {
+                $scope.loginLoading = false;
                 if (status == 400) {
                     console.log(data);
                     toaster.pop({
@@ -1273,6 +1294,7 @@
         var picModal = angular.element('#photoModal');
 
         $scope.ok = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
             //---
@@ -1282,6 +1304,7 @@
 
             
             if ($scope.pic) {
+                $scope.loginLoading = false;
                 var fd = new FormData();
                 fd.append('file', $scope.pic);
                 var promise = $http.post('/api/Files', fd, {
@@ -1301,6 +1324,7 @@
                 promises.push(promise);
             }
             $q.all(promises).then(function () {
+                $scope.loginLoading = false;
                 $scope.newFood.whens = [];
                 angular.forEach($scope.multipleDemo.selectedWhen, function(wh) {
                     this.push(wh.id);
@@ -1322,7 +1346,7 @@
                         }
                     });
                 } else {
-
+                    $scope.loginLoading = false;
                     $http.post(urlTail, $scope.newFood).success(function () {
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
@@ -1430,6 +1454,7 @@
         }
 
         $scope.ok = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
             //---
@@ -1477,6 +1502,7 @@
                 promises.push(promise);
             }
             $q.all(promises).then(function () {
+                $scope.loginLoading = false;
                 if (id != null) {
                     $http.put(urlTail + '/' + id, $scope.newAlt).success(function () {
                         getResultsPage($scope.pagination.current);
@@ -1492,7 +1518,7 @@
                         }
                     });
                 } else {
-
+                    $scope.loginLoading = false;
                     $http.post(urlTail, $scope.newAlt).success(function () {
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
@@ -1588,6 +1614,7 @@
         var picModal = angular.element('#photoModal');
 
         $scope.ok = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
             //---
@@ -1595,6 +1622,7 @@
 
             var promises = [];
             if ($scope.pic) {
+                $scope.loginLoading = false;
                 var fd = new FormData();
                 fd.append('file', $scope.pic);
                 var promise = $http.post('/api/Files', fd, {
@@ -1615,6 +1643,7 @@
             }
             $q.all(promises).then(function () {
                 if (id != null) {
+                    $scope.loginLoading = false;
                     $http.put(urlTail + '/' + id, $scope.newRecipt).success(function () {
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
@@ -1630,6 +1659,7 @@
                     });
 
                 } else {
+                    $scope.loginLoading = false;
                     $http.post(urlTail, $scope.newRecipt).success(function () {
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
@@ -1734,6 +1764,7 @@
         }
 
         $scope.ok = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
 
@@ -1762,6 +1793,7 @@
                 promises.push(promise);
             }
             $q.all(promises).then(function () {
+                $scope.loginLoading = false;
                 if (id != null) {
 
                     $http.put('/api/PhysioExercise/' + id, $scope.newExercise).success(function () {
@@ -1779,6 +1811,7 @@
                     });
 
                 } else {
+                    $scope.loginLoading = false;
                     $scope.newExercise.type = $scope.selectedType.id;
                     $scope.newExercise.picture = 'tmp.png';
                     console.log($scope.newExercise);
@@ -1892,6 +1925,7 @@
 
 
         $scope.ok = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
 
@@ -1920,6 +1954,7 @@
                 promises.push(promise);
             }
             $q.all(promises).then(function () {
+                $scope.loginLoading = false;
                 $scope.newScenario.scenarioType = $scope.selectedType.id;
                 if (id != null) {
                     $http.put('/api/Scenarios/' + id, $scope.newScenario).success(function () {
@@ -1937,6 +1972,7 @@
                     });
 
                 } else {
+                    $scope.loginLoading = false;
                     $http.post('/api/Scenarios', $scope.newScenario).success(function () {
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
@@ -2065,6 +2101,7 @@
         var picModal = angular.element('#photoModal');
 
         $scope.ok = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
 
 
@@ -2075,6 +2112,7 @@
 
             
             if ($scope.pic) {
+                $scope.loginLoading = false;
                 var fd = new FormData();
                 fd.append('file', $scope.pic);
                 var promise = $http.post('/api/Files', fd, {
@@ -2095,6 +2133,7 @@
             }
             $q.all(promises).then(function () {
                 if (id != null) {
+                    $scope.loginLoading = false;
                     $scope.newPart.type = $scope.selectedBPart.id;
                     $http.put(urlTail + '/' + id, $scope.newPart).success(function () {
                         getResultsPage($scope.pagination.current);
@@ -2111,7 +2150,7 @@
                     });
 
                 } else {
-
+                    $scope.loginLoading = false;
                     $scope.newPart.picture = 'tmp.png';
                     $scope.newPart.type = $scope.selectedBPart.id;
                     $http.post(urlTail, $scope.newPart).success(function () {
@@ -2216,9 +2255,10 @@
         }
 
         $scope.ok = function (id) {
+            $scope.loginLoading = true;
             $scope.myform.form_Submitted = !$scope.myform.$valid;
-
             if (id != null) {
+                $scope.loginLoading = false;
                 $http.put(urlTail + '/' + id, $scope.newSkill).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
@@ -2234,6 +2274,7 @@
                 });
 
             } else {
+                $scope.loginLoading = false;
                 console.log($scope.newSkill);
                 $http.post(urlTail + '/' + $scope.ids, $scope.newSkill).success(function () {
                     getResultsPage($scope.pagination.current);

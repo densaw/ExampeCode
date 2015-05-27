@@ -246,7 +246,9 @@
                                         </form>
                                         <div class="modal-footer">
                                             <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                            <button ng-click="ok(newPlayer.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                            <button ng-click="ok(newPlayer.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                                                <span class="ladda-label" style="font-size: 14px;">Save changes</span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -377,8 +379,10 @@
                                 <tbody id="contentTable">
                                     <tr dir-paginate="player in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems" >
                                         <td>
-    <img style="width: auto; height: 100px;" class="img-circle m-t-xs img-responsive" ng-src="/api/File/playerProfilePicture/{{player.profilePicture}}/{{player.id}}" />
-</td>
+                                                    <img style="width: auto;  height:100px"class="img-circle m-t-xs img-responsive" ng-src="/api/File/playerProfilePicture/{{player.profilePicture}}/{{player.id}}" />
+                                               
+                                        </td>
+                                            
                                         <td style="text-align: left">{{player.name}}</td>
                                         <td>
                                             <p ng-repeat="team in player.teams">{{team}}</p>
@@ -408,6 +412,8 @@
     </div>
 </div>
 <style>
+
+    
     .form-group {
         margin-bottom: 5px;
     }
