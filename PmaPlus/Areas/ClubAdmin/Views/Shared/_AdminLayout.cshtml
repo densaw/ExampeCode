@@ -28,7 +28,7 @@
     <!-- Add jQuery Style direct - used for jQGrid plugin -->
     <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.css")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Content/css-light")
-    @Styles.Render("~/Content/less")
+    @Styles.Render("~/Content/main")
     @Styles.Render("~/multi-select/css")
     @Styles.Render("~/calendarPicker/css")
     @Styles.Render("~/plugins/fullCalendarStyles")
@@ -70,19 +70,19 @@
 
 
         .btn-success {
-  background-color: @ViewBag.them;
-  border-color: @ViewBag.them;
-}
+            background-color: @ViewBag.them;
+            border-color: @ViewBag.them;
+        }
         .btn-success:hover {
-  background-color: @ViewBag.them;
-  border-color: @ViewBag.them;
-}
+            background-color: @ViewBag.them;
+            border-color: @ViewBag.them;
+        }
         .external-event {
             background-color:@ViewBag.them; 
         }
-         .pace .pace-progress {
-             background: @ViewBag.them;
-         }
+        .pace .pace-progress {
+            background: @ViewBag.them;
+        }
         .btn-primary {
             background-image: -webkit-linear-gradient(top, @ViewBag.them 0%, @ViewBag.them 100%);
             background-image:      -o-linear-gradient(top, @ViewBag.them 0%, @ViewBag.them 100%);
@@ -109,9 +109,9 @@
             background-image: none;
         }
         .fc-state-active {
-      background-color: @ViewBag.them;
-      border-color: @ViewBag.them;
-        color: #ffffff;
+            background-color: @ViewBag.them;
+            border-color: @ViewBag.them;
+            color: #ffffff;
         }
 
         /*
@@ -223,11 +223,19 @@
             background: transparent;
         }
         .fc-event {
-  border: 1px solid @ViewBag.them;
-  background-color: @ViewBag.them;
-}
+            border: 1px solid @ViewBag.them;
+            background-color: @ViewBag.them;
+        }
     </style>
-
+<style>
+    body {
+          font-family: "OpenSans-Semibolt", "Helvetica Neue", Helvetica, Arial, sans-serif;
+          background-color: #2f4050;
+          font-size: 13px;
+          color: #676a6c;
+          overflow-x: hidden;
+        }
+</style>
 
 </head>
 <body id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1  {{expanded | nav: '':'mini-navbar'}}">

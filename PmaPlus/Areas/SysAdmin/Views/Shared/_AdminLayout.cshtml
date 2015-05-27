@@ -28,6 +28,7 @@
     <!-- Add jQuery Style direct - used for jQGrid plugin -->
     <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.css")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/main")
     @Styles.Render("~/multi-select/css")
     @Styles.Render("~/calendarPicker/css")
     @Styles.Render("~/plugins/fullCalendarStyles")
@@ -68,8 +69,16 @@
     @Scripts.Render("~/bundles/ladda-js-spin")
     @Scripts.Render("~/bundles/ladda-js-core")
     @Scripts.Render("~/bundles/ladda-js")
-    
 
+    <style>
+        body {
+          font-family: "OpenSans-Semibolt", "Helvetica Neue", Helvetica, Arial, sans-serif;
+          background-color: #2f4050;
+          font-size: 13px;
+          color: #676a6c;
+          overflow-x: hidden;
+        }
+    </style>
 </head>
 <body ng-cloak id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1 {{expanded | nav: '':'mini-navbar'}}">
     <!-- PageClass give you ability to specify custom style for specific view based on action -->
