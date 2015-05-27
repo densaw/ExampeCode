@@ -588,8 +588,10 @@ app.controller('ClubDiaryController', [
         console.log($scope.newEvent.completionDateTime);
         target.modal('show');
     }
-    $scope.ok = function () {
+        $scope.ok = function () {
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
         $scope.loginLoading = true;
+
         console.log('Here');
         console.log(shuffle($scope.help.helpAttend));
         $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
