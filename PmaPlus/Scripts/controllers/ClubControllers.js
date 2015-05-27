@@ -1427,58 +1427,58 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
         deleteModal.modal('hide');
     };
 
-    $scope.ok = function (id) {
+    $scope.ok = function(id) {
         $scope.loginLoading = true;
-    $scope.ok = function(id){
-        
-        $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
-        $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
-        $scope.newTeam.players = shuffle($scope.teamMembers.players);
-        console.log(id);
-        if(id != null){
-            
-            //PUT it now have no url to Update date
-            $http.put(urlTail + '/' + id, $scope.newTeam).success(function(){
-                console.log('Team Update');
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-                $scope.newTeam = {};
-                $scope.teamMembers.coaches = [];
-                $scope.teamMembers.players = [];
-            }).error(function (data, status, headers, config){
+        $scope.ok = function(id) {
 
-            });
-            $http.put().success().error();
-            $scope.loginLoading = false;
-        }else{
-            //POST
-            
-            $http.post(urlTail, $scope.newTeam).success(function(result){
-                console.log('Team Done');
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-                $scope.newTeam = {};
-                $scope.teamMembers.coaches = [];
-                $scope.teamMembers.players = [];
+            $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
+            $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
+            $scope.newTeam.players = shuffle($scope.teamMembers.players);
+            console.log(id);
+            if (id != null) {
+
+                //PUT it now have no url to Update date
+                $http.put(urlTail + '/' + id, $scope.newTeam).success(function() {
+                    console.log('Team Update');
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                    $scope.newTeam = {};
+                    $scope.teamMembers.coaches = [];
+                    $scope.teamMembers.players = [];
+                }).error(function(data, status, headers, config) {
+
+                });
+                $http.put().success().error();
                 $scope.loginLoading = false;
-            }).error(function (data, status, headers, config){
+            } else {
+                //POST
 
-            });
-        }
-    };
-    
-    $scope.openEdit = function (id) {
-        $scope.isEditing = true;
-        $http.get(urlTail + '/' + id)
-            .success(function (result) {
-                console.log(result);
-                $scope.newTeam = result;
-                $scope.teamMembers.coaches = morph(result.coaches, $scope.freeCoaches);
-                $scope.teamMembers.players = morph(result.players, $scope.allPlayers);
-                target.modal('show');
-            });
-    };    
-    
+                $http.post(urlTail, $scope.newTeam).success(function(result) {
+                    console.log('Team Done');
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                    $scope.newTeam = {};
+                    $scope.teamMembers.coaches = [];
+                    $scope.teamMembers.players = [];
+                    $scope.loginLoading = false;
+                }).error(function(data, status, headers, config) {
+
+                });
+            }
+        };
+
+        $scope.openEdit = function(id) {
+            $scope.isEditing = true;
+            $http.get(urlTail + '/' + id)
+                .success(function(result) {
+                    console.log(result);
+                    $scope.newTeam = result;
+                    $scope.teamMembers.coaches = morph(result.coaches, $scope.freeCoaches);
+                    $scope.teamMembers.players = morph(result.players, $scope.allPlayers);
+                    target.modal('show');
+                });
+        };
+    }
 }]);
 
 app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location){
