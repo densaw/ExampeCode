@@ -391,7 +391,8 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
 }]);
 
-app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function ($scope, $http, toaster, $compile, uiCalendarConfig) {
+app.controller('ClubDiaryController', [
+    '$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function($scope, $http, toaster, $compile, uiCalendarConfig) {
 
     var needToDelete = -1;
     var needToUpdate = -1;
@@ -442,7 +443,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         { id: 9, name: 'Player' }
     ];
 
-    $scope.$watch('help.helpAttend', function (result) {
+        $scope.$watch('help.helpAttend', function(result) {
         console.log(result);
         if (!result.length) {
 
@@ -452,12 +453,11 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
                 stringPar.push('role=' + value.id);
             });
             console.log(stringPar.join('&'));
-            $http.get('/api/Users/List?' + stringPar.join('&')).success(function (result) {
+                $http.get('/api/Users/List?' + stringPar.join('&')).success(function(result) {
                 $scope.specificPersons = result;
             });
         }
     });
-
 
 
     var date = new Date();
@@ -467,7 +467,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
 
     function getEv() {
         $scope.Evnotes = [];
-        $http.get('/api/Diary/').success(function (result) {
+            $http.get('/api/Diary/').success(function(result) {
             $scope.Evnotes = result;
 
         });
@@ -478,7 +478,6 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     var urlTail = '/api/Diary';
 
 
-    
     $scope.events = [];        
     cal.fullCalendar({
         header: {
@@ -486,11 +485,13 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
-        
+            allDayDefault: true,
+            defaultView: 'agendaWeek',
+            aspectRatio: 1.5,
         events: 
             function geteventData() {
                 $http.get(urlTail)
-                    .success(function (result) {
+                        .success(function(result) {
                         cal.fullCalendar('removeEvents');
                 
                         console.log(result);
@@ -505,11 +506,11 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         selectable: true,
         selectHelper: true,
         
-        select: function(start, end, jsEvent, view) {//select cell (empty)
+            select: function(start, end, jsEvent, view) { //select cell (empty)
 
             //var allDay = !start.hasTime() && !end.hasTime();
             $scope.newEvent.start = moment(start).format();
-            target.modal('show');//open the modal
+                target.modal('show'); //open the modal
             //alert(["Event Start date: " + moment(start).format(),
                    //"Event End date: " + moment(end).format(),
                    //"AllDay: " + allDay].join("\n"));
@@ -523,9 +524,6 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         },
         
            
-        
-    
-
     editable: true,
         droppable: true,
         drop: function() {
@@ -557,7 +555,6 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     });
 
    
-
     getEv();
     
 
@@ -565,7 +562,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
 
     function getResults() {
         $http.get(urlTail)
-            .success(function (result) {
+                .success(function(result) {
                 cal.fullCalendar('removeEvents');
                 
                 console.log(result);
@@ -578,21 +575,23 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
 
     getResults();
 
-    $scope.open = function () {
+        $scope.open = function() {
         $scope.windowTitle = 'Add Event';
         target.modal('show');
     }
 
     
-
-    $scope.update = function (event) {
+        $scope.update = function(event) {
         $scope.windowTitle = 'Update Event';
         $scope.newEvent = event;
         needToUpdate = event.id;
+        console.log($scope.newEvent.completionDateTime);
         target.modal('show');
     }
     $scope.ok = function () {
-        $scope.loginLoading = false;
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
+        $scope.loginLoading = true;
+
         console.log('Here');
         console.log(shuffle($scope.help.helpAttend));
         $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
@@ -601,13 +600,24 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         
         //put
         if (needToUpdate != -1) {
-            $http.put(urlTail + '/' + needToUpdate, $scope.newEvent).success(function () {
+                $http.put(urlTail + '/' + needToUpdate, $scope.newEvent).success(function(data, status, headers, config) {
                 needToUpdate = -1;
                 getResults();
                 getEv();
                 target.modal('hide');
-                $scope.loginLoading = false;
+                }).error(function(data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            bodyOutputType: 'trustedHtml',
+                            body: 'Please complete the compulsory fields highlighted in red'
             });
+                    }
+
+            });
+
         } else {
         $http.post(urlTail, $scope.newEvent).success(function () {
             getResults();
@@ -615,21 +625,26 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
             target.modal('hide');
             $scope.loginLoading = false;
             
-          }).error(function (data, status, headers, config) {
+                }).error(function(data, status, headers, config) {
+                    //$scope.event.id = $scope.selectedType.id;
+                    if (status == 500) {
               console.log(data);
-              if (status == 400) {
-                  console.log(data);
+
+
                   toaster.pop({
                       type: 'error',
-                      title: 'Error', bodyOutputType: 'trustedHtml',
-                      body: data.message.join("<br />")
+                            title: 'Error',
+                            bodyOutputType: 'trustedHtml',
+                            body: 'Please complete the compulsory fields highlighted in red'
                   });
                   $scope.loginLoading = false;
               }
+
         });
     }
-        //put
+            
     }
+
 
     $scope.cancel = function () {
         $scope.newEvent = {};
@@ -970,6 +985,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     var needToDelete = -1;
     var urlTail = '/api/Curriculums';
     var target = angular.element('#addCurrModal');
+    var confDelete = angular.element('#confDelete');
     var inpSessions = angular.element('#inpSessions');
     var inpWeeks = angular.element('#inpWeeks');
     var inpBlocks = angular.element('#inpBlocks');
@@ -1010,13 +1026,6 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
         } 
     });
 
-    function getCurrType(){
-        $http.get('/api/CurriculumTypes/List').success(function(result){
-            $scope.curriculumTypesList = result;
-            $scope.selectedCurriculumTypeId = $scope.curriculumTypesList[0];
-        });
-    }
-
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
             .success(function (result) {
@@ -1035,7 +1044,6 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     };
 
     getResultsPage($scope.pagination.current);
-    getCurrType();
 
     $scope.pageChanged = function (newPage) {
         getResultsPage(newPage);
@@ -1050,21 +1058,31 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     $scope.cancel = function(){
         target.modal('hide');
+        confDelete.modal('hide');
+        needToDelete = -1;
     };
 
     $scope.ok = function (id) {
         $scope.loginLoading = true;
+        $scope.newCurr.ageGroup = $scope.selectedAgeGroup.id;
         if (id != null) {
-            $scope.loginLoading = false;
+            
             //PUT it now have no url to Update date
-            $http.put().success().error();
+            $http.put(urlTail + '/' + id, $scope.newCurr).success(function(result){
+                getResultsPage($scope.pagination.current);
+            $scope.loginLoading = false;
+                $scope.newCurr = {};
+                target.modal('hide');
+            }).error(function (data, status, headers, config){
+
+            });
         }else{
             //POST
-            $scope.newCurr.ageGroup = $scope.selectedAgeGroup.id;
-            $scope.newCurr.curriculumTypeId = $scope.selectedCurriculumTypeId.id; 
+            
             $http.post(urlTail, $scope.newCurr).success(function(result){
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
+                $scope.newCurr = {};
                 $scope.loginLoading = false;
             }).error(function (data, status, headers, config){
 
@@ -1072,6 +1090,28 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
         }
     };
     
+    $scope.openDelete = function (id) {
+        confDelete.modal('show');
+        console.log(id);
+        needToDelete = id;
+    };
+    $scope.delete = function () {
+        $http.delete(urlTail + '/' + needToDelete).success(function () {
+            getResultsPage($scope.pagination.current);
+            needToDelete = -1;
+            confDelete.modal('hide');
+        });
+    };
+    $scope.openEdit = function (id) {
+        console.log(id);
+        $http.get(urlTail + '/' + id)
+            .success(function (result) {
+                $scope.newCurr = result;
+                $scope.selectedAgeGroup = $scope.ageGroups[result.ageGroup];
+                $scope.modalTitle = "Update Curriculum";
+                target.modal('show');
+            });
+    };
 
 }]);
 
