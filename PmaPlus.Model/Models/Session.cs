@@ -17,6 +17,7 @@ namespace PmaPlus.Model.Models
         public bool Report { get; set; }                                         
         public bool ObjectiveReport { get; set; }                                
         public bool CoachDetails { get; set; }
+        public bool StartOfReviewPeriod { get; set; }
         public bool ReviewPeriod { get; set; }
         public string CoachPicture { get; set; }                                 
         public string CoachDetailsName { get; set; }                             
