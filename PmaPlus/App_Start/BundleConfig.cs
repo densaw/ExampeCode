@@ -21,7 +21,7 @@ namespace PmaPlus
                       "~/Content/bootstrap.min.css",
                       "~/Content/animate.css",
                       "~/Content/plugins/fileinput/fileinput.min.css"));
-            bundles.Add(new StyleBundle("~/Content/less").Include(
+            bundles.Add(new StyleBundle("~/Content/main").Include(
                 "~/Content/style.css"));
 
             bundles.Add(new ScriptBundle("~/plugins/fileinput").Include(

@@ -358,7 +358,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
     $scope.ok = function () {
         $scope.loginLoading = true;
         $scope.newNote.priority = $scope.selectedPriority.id;
-        
+
         if (needToUpdate != -1) {
             $http.put(urlTail + '/' + needToUpdate, $scope.newNote).success(function () {
                 needToUpdate = -1;
@@ -476,7 +476,7 @@ app.controller('ClubDiaryController', [
 
     var cal = angular.element('#calendar');
     var urlTail = '/api/Diary';
-    
+
 
     $scope.events = [];        
     cal.fullCalendar({
@@ -588,7 +588,7 @@ app.controller('ClubDiaryController', [
         console.log($scope.newEvent.completionDateTime);
         target.modal('show');
     }
-        $scope.ok = function () {
+    $scope.ok = function () {
         $scope.myform.form_Submitted = !$scope.myform.$valid;
         $scope.loginLoading = true;
 
@@ -613,22 +613,22 @@ app.controller('ClubDiaryController', [
                             title: 'Error',
                             bodyOutputType: 'trustedHtml',
                             body: 'Please complete the compulsory fields highlighted in red'
-                        });
+            });
                     }
 
             });
 
         } else {
         $http.post(urlTail, $scope.newEvent).success(function () {
-            $scope.loginLoading = false;
             getResults();
             getEv();
             target.modal('hide');
+            $scope.loginLoading = false;
             
                 }).error(function(data, status, headers, config) {
                     //$scope.event.id = $scope.selectedType.id;
                     if (status == 500) {
-                  console.log(data);
+              console.log(data);
 
 
                   toaster.pop({
@@ -637,10 +637,11 @@ app.controller('ClubDiaryController', [
                             bodyOutputType: 'trustedHtml',
                             body: 'Please complete the compulsory fields highlighted in red'
                   });
+                  $scope.loginLoading = false;
               }
 
-          });
-        }
+        });
+    }
             
     }
 
@@ -1069,7 +1070,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
             //PUT it now have no url to Update date
             $http.put(urlTail + '/' + id, $scope.newCurr).success(function(result){
                 getResultsPage($scope.pagination.current);
-                $scope.loginLoading = false;
+            $scope.loginLoading = false;
                 $scope.newCurr = {};
                 target.modal('hide');
             }).error(function (data, status, headers, config){
@@ -1088,7 +1089,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
             });
         }
     };
-
+    
     $scope.openDelete = function (id) {
         confDelete.modal('show');
         console.log(id);
@@ -1354,7 +1355,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     var urlTail = '/api/Teams';
     var target = angular.element('#addTeamModal');
     var deleteModal = angular.element('#confDelete');
-    
+
     $scope.isEditing = false;
     $scope.newTeam = {};
     $scope.curriculumTypesList = [];
@@ -1471,54 +1472,54 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     $scope.ok = function(id) {
         $scope.loginLoading = true;
         $scope.ok = function(id) {
-        
-        $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
-        $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
-        $scope.newTeam.players = shuffle($scope.teamMembers.players);
-        console.log(id);
+
+            $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
+            $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
+            $scope.newTeam.players = shuffle($scope.teamMembers.players);
+            console.log(id);
             if (id != null) {
-            
-            //PUT it now have no url to Update date
+
+                //PUT it now have no url to Update date
                 $http.put(urlTail + '/' + id, $scope.newTeam).success(function() {
-                console.log('Team Update');
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-                $scope.newTeam = {};
-                $scope.teamMembers.coaches = [];
-                $scope.teamMembers.players = [];
+                    console.log('Team Update');
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                    $scope.newTeam = {};
+                    $scope.teamMembers.coaches = [];
+                    $scope.teamMembers.players = [];
                 }).error(function(data, status, headers, config) {
 
-            });
+                });
                 $http.put().success().error();
                 $scope.loginLoading = false;
             } else {
-            //POST
-            
+                //POST
+
                 $http.post(urlTail, $scope.newTeam).success(function(result) {
-                console.log('Team Done');
-                getResultsPage($scope.pagination.current);
-                target.modal('hide');
-                $scope.newTeam = {};
-                $scope.teamMembers.coaches = [];
-                $scope.teamMembers.players = [];
+                    console.log('Team Done');
+                    getResultsPage($scope.pagination.current);
+                    target.modal('hide');
+                    $scope.newTeam = {};
+                    $scope.teamMembers.coaches = [];
+                    $scope.teamMembers.players = [];
                     $scope.loginLoading = false;
                 }).error(function(data, status, headers, config) {
 
-            });
-        }
-    };
-    
+                });
+            }
+        };
+
         $scope.openEdit = function(id) {
-        $scope.isEditing = true;
-        $http.get(urlTail + '/' + id)
+            $scope.isEditing = true;
+            $http.get(urlTail + '/' + id)
                 .success(function(result) {
-                console.log(result);
-                $scope.newTeam = result;
-                $scope.teamMembers.coaches = morph(result.coaches, $scope.freeCoaches);
-                $scope.teamMembers.players = morph(result.players, $scope.allPlayers);
-                target.modal('show');
-            });
-    };    
+                    console.log(result);
+                    $scope.newTeam = result;
+                    $scope.teamMembers.coaches = morph(result.coaches, $scope.freeCoaches);
+                    $scope.teamMembers.players = morph(result.players, $scope.allPlayers);
+                    target.modal('show');
+                });
+        };
     }
 }]);
 
