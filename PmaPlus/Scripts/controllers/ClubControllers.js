@@ -1670,7 +1670,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
 
     var needToDelete = -1;
-    var urlTail = '/api/CurriculumDetails';
+    var urlTail = '/api/Sessions';
     var target = angular.element('#addCurrDetalModal');
     var deleteModal = angular.element('#confDelete');
 
@@ -1742,7 +1742,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     
 
     $scope.open = function(){
-        $scope.modalTitle = 'Add Curriculum Statement';
+        $scope.modalTitle = 'Add Curriculum Session';
         target.modal('show');
     };
 
