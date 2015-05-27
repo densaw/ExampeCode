@@ -13,6 +13,22 @@ app.filter('dayExp', function() {
     };
 });
 
+app.directive('styleParent', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, elem, attr) {
+            elem.on('load', function () {
+                var w = $(this).width(),
+                    h = $(this).height();
+
+                elem.addClass(w > h ? 'landscape' : 'portrait');
+            });
+        }
+    };
+});
+
+
+
 var routing = function ($routeProvider) {
     $routeProvider.when('localhost:1292/ClubAdmin/Home/ProfilePage/:role', {
         templateUrl: function (params) { return '/ClubAdmin/Home/ProfilePage?role=' + params.role; },
@@ -77,10 +93,11 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
     });
 
     $scope.ok = function (id) {
+        $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;
 
         if (id != null) {
-
+            $scope.loginLoading = false;
             $scope.newAttr.type = $scope.selectedType.id;
             $http.put(urlTail + '/' + id, $scope.newAttr).success(function () {
                 getResultsPage($scope.pagination.current);
@@ -97,6 +114,7 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
             });
 
         } else {
+            $scope.loginLoading = false;
             $scope.newAttr.type = $scope.selectedType.id;
             $http.post(urlTail, $scope.newAttr).success(function () {
                 getResultsPage($scope.pagination.current);
@@ -189,10 +207,16 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
     var target = angular.element('#addTeamMember');
     var needstoReport = angular.element('#needstoReport');
 
-    $scope.openModal = function() {
+    $scope.openModal = function () {
+        $scope.myform.form_Submitted = false;
         target.modal('show');
     };
 
+    $scope.cancel = function () {
+        $scope.newMember = {};
+        target.modal('hide');
+    }
+    
     
     $scope.parserJ = function(roleId, userId) {
         return { role: roleId, user: userId };
@@ -200,6 +224,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
 
 
     $scope.send = function () {
+        $scope.loginLoading = true;
 
         //Files upload
 
@@ -207,6 +232,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
 
 
         if ($scope.pic) {
+            $scope.loginLoading = false;
             var fd = new FormData();
             fd.append('file', $scope.pic);
             var promise = $http.post('/api/Files', fd, {
@@ -226,6 +252,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
             promises.push(promise);
         }
         $q.all(promises).then(function () {
+            $scope.loginLoading = false;
             $scope.newMember.userStatus = 0;
             $scope.newMember.role = $scope.selectedRole.id;
             $scope.newMember.needReport = needstoReport.prop('checked');
@@ -329,6 +356,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
     }
 
     $scope.ok = function () {
+        $scope.loginLoading = true;
         $scope.newNote.priority = $scope.selectedPriority.id;
         
         if (needToUpdate != -1) {
@@ -336,12 +364,14 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
                 needToUpdate = -1;
                 getResults();
                 target.modal('hide');
+                $scope.loginLoading = false;
             });
         } else {
             $http.post(urlTail, $scope.newNote)
           .success(function (result) {
             getResults();
             target.modal('hide');
+            $scope.loginLoading = false;
           }).error(function (data, status, headers, config) {
               console.log(data);
               if (status == 400) {
@@ -351,6 +381,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
                       title: 'Error', bodyOutputType: 'trustedHtml',
                       body: data.message.join("<br />")
                   });
+                  $scope.loginLoading = false;
               }
           }); 
         }
@@ -363,34 +394,34 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 app.controller('ClubDiaryController', [
     '$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function($scope, $http, toaster, $compile, uiCalendarConfig) {
 
-        var needToDelete = -1;
-        var needToUpdate = -1;
+    var needToDelete = -1;
+    var needToUpdate = -1;
 
-        //$scope.selectedPriority = $scope.Priority[0];
+    //$scope.selectedPriority = $scope.Priority[0];
 
-        var target = angular.element('#addDiaryModal');
-
-
-        function shuffle(objArr) {
-            var ids = [];
-            angular.forEach(objArr, function(obj) {
-                this.push(obj.id);
-            }, ids);
-            return ids;
-        }
+    var target = angular.element('#addDiaryModal');
 
 
-        $scope.newEvent = {};
-        $scope.newEvent.attendeeTypes = [];
-        $scope.newEvent.specificPersons = [];
-        $scope.newEvent.allDay = false;
+    function shuffle(objArr) {
+        var ids = [];
+        angular.forEach(objArr, function(obj) {
+            this.push(obj.id);
+        }, ids);
+        return ids;
+    }
 
-        //Helper arrays
-        $scope.help = {};
-        $scope.help.helpAttend = [];
-        $scope.help.helpSpecify = [];
+    
+    $scope.newEvent = {};
+    $scope.newEvent.attendeeTypes = [];
+    $scope.newEvent.specificPersons = [];
+    $scope.newEvent.allDay = false;
 
-        /*
+    //Helper arrays
+    $scope.help = {};
+    $scope.help.helpAttend = [];
+    $scope.help.helpSpecify = [];
+
+    /*
         HeadOfAcademies = 2,
         Coach = 3,
         HeadOfEducation = 4,
@@ -400,178 +431,178 @@ app.controller('ClubDiaryController', [
         SportsScientist = 8,
         Player = 9
         */
-        $scope.specificPersons = [];
-        $scope.attendeeTypes = [
-            { id: 2, name: 'Head Of Academies' },
-            { id: 3, name: 'Coach' },
-            { id: 4, name: 'Head Of Education' },
-            { id: 5, name: 'Welfare Officer' },
-            { id: 6, name: 'Scout' },
-            { id: 7, name: 'Physiotherapist' },
-            { id: 8, name: 'Sports Scientist' },
-            { id: 9, name: 'Player' }
-        ];
+    $scope.specificPersons = [];
+    $scope.attendeeTypes = [
+        { id: 2, name: 'Head Of Academies' },
+        { id: 3, name: 'Coach' },
+        { id: 4, name: 'Head Of Education' },
+        { id: 5, name: 'Welfare Officer' },
+        { id: 6, name: 'Scout' },
+        { id: 7, name: 'Physiotherapist' },
+        { id: 8, name: 'Sports Scientist' },
+        { id: 9, name: 'Player' }
+    ];
 
         $scope.$watch('help.helpAttend', function(result) {
-            console.log(result);
-            if (!result.length) {
+        console.log(result);
+        if (!result.length) {
 
-            } else {
-                var stringPar = [];
-                angular.forEach(result, function(value) {
-                    stringPar.push('role=' + value.id);
-                });
-                console.log(stringPar.join('&'));
+        } else {
+            var stringPar = [];
+            angular.forEach(result, function(value) {
+                stringPar.push('role=' + value.id);
+            });
+            console.log(stringPar.join('&'));
                 $http.get('/api/Users/List?' + stringPar.join('&')).success(function(result) {
-                    $scope.specificPersons = result;
-                });
-            }
-        });
-
-
-        var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear();
-
-        function getEv() {
-            $scope.Evnotes = [];
-            $http.get('/api/Diary/').success(function(result) {
-                $scope.Evnotes = result;
-
+                $scope.specificPersons = result;
             });
         }
+    });
 
 
-        var cal = angular.element('#calendar');
-        var urlTail = '/api/Diary';
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+
+    function getEv() {
+        $scope.Evnotes = [];
+            $http.get('/api/Diary/').success(function(result) {
+            $scope.Evnotes = result;
+
+        });
+    }
 
 
-        $scope.events = [];
-        cal.fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
+    var cal = angular.element('#calendar');
+    var urlTail = '/api/Diary';
+    
+
+    $scope.events = [];        
+    cal.fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
             allDayDefault: true,
             defaultView: 'agendaWeek',
             aspectRatio: 1.5,
-            events:
-                function geteventData() {
-                    $http.get(urlTail)
+        events: 
+            function geteventData() {
+                $http.get(urlTail)
                         .success(function(result) {
-                            cal.fullCalendar('removeEvents');
-
-                            console.log(result);
-                            $scope.events = result;
-                            angular.forEach(result, function(value) {
-                                cal.fullCalendar('renderEvent', value);
-                            });
+                        cal.fullCalendar('removeEvents');
+                
+                        console.log(result);
+                        $scope.events = result;
+                        angular.forEach(result, function(value) {
+                            cal.fullCalendar('renderEvent', value);
                         });
-                },
+                    });
+            },
+        
 
-
-            selectable: true,
-            selectHelper: true,
-
+        selectable: true,
+        selectHelper: true,
+        
             select: function(start, end, jsEvent, view) { //select cell (empty)
 
-                //var allDay = !start.hasTime() && !end.hasTime();
-                $scope.newEvent.start = moment(start).format();
+            //var allDay = !start.hasTime() && !end.hasTime();
+            $scope.newEvent.start = moment(start).format();
                 target.modal('show'); //open the modal
-                //alert(["Event Start date: " + moment(start).format(),
-                //"Event End date: " + moment(end).format(),
-                //"AllDay: " + allDay].join("\n"));
-
-
+            //alert(["Event Start date: " + moment(start).format(),
+                   //"Event End date: " + moment(end).format(),
+                   //"AllDay: " + allDay].join("\n"));
+           
+            
                 //console.log("closing");
                 //calendar.fullCalendar('unselect');
 
                 //$('#addDiaryModal').modal('hide');//close the modal
-
-            },
-
-
-            editable: true,
-            droppable: true,
-            drop: function() {
-                // is the "remove after drop" checkbox checked?
-                if ($('#drop-remove').is(':checked')) {
-                    // if so, remove the element from the "Draggable Events" list
-                    $(this).remove();
-                }
-            },
-
-
-            eventRender: function(event, element) {
-                $scope.openEdit = element.bind('dblclick', function(id) {
-                    console.log('pre get');
-                    $http.get('/api/Diary/' + event.id)
-                        .success(function(result) {
-                            $scope.newEvent = result;
-                            needToUpdate = event.id;
-                            needToDelete = event.id;
-                            $scope.modalTitle = "Edit Event";
-                            target.modal('show');
-                            console.log('done');
-                            console.log(result);
-
-                        });
-                });
+           
+        },
+        
+           
+    editable: true,
+        droppable: true,
+        drop: function() {
+            // is the "remove after drop" checkbox checked?
+            if ($('#drop-remove').is(':checked')) {
+                // if so, remove the element from the "Draggable Events" list
+                $(this).remove();
             }
-
-        });
-
-
-        getEv();
+        },
 
 
-        var confDelete = angular.element('#confDelete');
+        eventRender: function(event, element) {
+            $scope.openEdit = element.bind('dblclick', function(id) {
+                console.log('pre get');
+                $http.get('/api/Diary/' + event.id)
+                    .success(function(result) {
+                        $scope.newEvent = result;
+                        needToUpdate = event.id;
+                        needToDelete = event.id;
+                        $scope.modalTitle = "Edit Event";
+                        target.modal('show');
+                        console.log('done');
+                        console.log(result);
 
-        function getResults() {
-            $http.get(urlTail)
-                .success(function(result) {
-                    cal.fullCalendar('removeEvents');
-
-                    console.log(result);
-                    $scope.items = result;
-                    angular.forEach(result, function(value) {
-                        cal.fullCalendar('renderEvent', value);
                     });
-                });
+            });
         }
 
-        getResults();
+    });
+
+   
+    getEv();
+    
+
+    var confDelete = angular.element('#confDelete');
+
+    function getResults() {
+        $http.get(urlTail)
+                .success(function(result) {
+                cal.fullCalendar('removeEvents');
+                
+                console.log(result);
+                $scope.items = result;
+                angular.forEach(result, function(value) {
+                    cal.fullCalendar('renderEvent', value);
+                });
+            });
+    }
+
+    getResults();
 
         $scope.open = function() {
-            $scope.windowTitle = 'Add Event';
-            target.modal('show');
-        }
+        $scope.windowTitle = 'Add Event';
+        target.modal('show');
+    }
 
-
+    
         $scope.update = function(event) {
-            $scope.windowTitle = 'Update Event';
-            $scope.newEvent = event;
-            needToUpdate = event.id;
-            //console.log($scope.newEvent.completionDateTime);
-            target.modal('show');
-        }
-        $scope.ok = function () {
-            $scope.myform.form_Submitted = !$scope.myform.$valid;
-            //console.log('Here');
-            //console.log(shuffle($scope.help.helpAttend));
-            //$scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
-            //$scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
-            //console.log($scope.newEvent);
-
-            //put
-            if (needToUpdate != -1) {
+        $scope.windowTitle = 'Update Event';
+        $scope.newEvent = event;
+        needToUpdate = event.id;
+        console.log($scope.newEvent.completionDateTime);
+        target.modal('show');
+    }
+    $scope.ok = function () {
+        $scope.loginLoading = true;
+        console.log('Here');
+        console.log(shuffle($scope.help.helpAttend));
+        $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
+        $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
+        console.log($scope.newEvent);
+        
+        //put
+        if (needToUpdate != -1) {
                 $http.put(urlTail + '/' + needToUpdate, $scope.newEvent).success(function(data, status, headers, config) {
-                    needToUpdate = -1;
-                    getResults();
-                    getEv();
-                    target.modal('hide');
+                needToUpdate = -1;
+                getResults();
+                getEv();
+                target.modal('hide');
                 }).error(function(data, status, headers, config) {
                     if (status == 400) {
                         console.log(data);
@@ -583,34 +614,34 @@ app.controller('ClubDiaryController', [
                         });
                     }
 
-                });
+            });
 
-            } else {
-                $http.post(urlTail, $scope.newEvent).success(function (data, status, headers, config) {
-                    
-                    getResults();
-                    getEv();
-                    target.modal('hide');
-
+        } else {
+        $http.post(urlTail, $scope.newEvent).success(function () {
+            $scope.loginLoading = false;
+            getResults();
+            getEv();
+            target.modal('hide');
+            
                 }).error(function(data, status, headers, config) {
                     //$scope.event.id = $scope.selectedType.id;
                     if (status == 500) {
-                        console.log(data);
+                  console.log(data);
 
 
-                        toaster.pop({
-                            type: 'error',
+                  toaster.pop({
+                      type: 'error',
                             title: 'Error',
                             bodyOutputType: 'trustedHtml',
                             body: 'Please complete the compulsory fields highlighted in red'
-                        });
-                    }
+                  });
+              }
 
-                });
-            }
-            
+          });
         }
-    
+            
+    }
+
 
     $scope.cancel = function () {
         $scope.newEvent = {};
@@ -782,9 +813,10 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
     getResults('/Current');
 
     $scope.ok = function (id) {
-
+        $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;
         if (!$scope.myform.$valid) {
+            $scope.loginLoading = false;
             toaster.pop({
                 type: 'error',
                 title: 'Error',
@@ -794,9 +826,6 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
 
 
         } else {
-
-
-
 
             //Files upload
 
@@ -818,6 +847,8 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                             title: 'Error',
                             body: 'File upload ERROR!'
                         });
+
+                        $scope.loginLoading = false;
                     });
                 promises.push(promise);
             }
@@ -838,7 +869,10 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                             title: 'Error',
                             body: 'File upload ERROR!'
                         });
+
+                        $scope.loginLoading = false;
                     });
+                
                 promises.push(promise);
             }
 
@@ -859,6 +893,7 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                                 bodyOutputType: 'trustedHtml',
                                 body: 'Profile was updated'
                             });
+                            $scope.loginLoading = false;
                         }).error(function (data, status, headers, config) {
                             if (status == 400) {
                                 console.log(data);
@@ -868,6 +903,7 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                                     bodyOutputType: 'trustedHtml',
                                     body: 'Please complete the compulsory fields highlighted in red'
                                 });
+                                $scope.loginLoading = false;
                             }
                         });
 
@@ -882,6 +918,7 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                                 bodyOutputType: 'trustedHtml',
                                 body: 'Profile was updated'
                             });
+                            $scope.loginLoading = false;
                         }).error(function (data, status, headers, config) {
                             if (status == 400) {
                                 console.log(data);
@@ -891,6 +928,7 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                                     bodyOutputType: 'trustedHtml',
                                     body: 'Please complete the compulsory fields highlighted in red'
                                 });
+                                $scope.loginLoading = false;
                             }
                         });
                 };
@@ -1026,8 +1064,10 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
         target.modal('hide');
     };
 
-    $scope.ok = function(id){
-        if(id != null){
+    $scope.ok = function (id) {
+        $scope.loginLoading = true;
+        if (id != null) {
+            $scope.loginLoading = false;
             //PUT it now have no url to Update date
             $http.put().success().error();
         }else{
@@ -1037,6 +1077,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
             $http.post(urlTail, $scope.newCurr).success(function(result){
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
+                $scope.loginLoading = false;
             }).error(function (data, status, headers, config){
 
             });
@@ -1142,9 +1183,13 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     var confDelete = angular.element('#confDelete');
     var maxScore = angular.element('#maxScore');
 
+    
+
     $scope.ok = function (id) {
+        $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;
         if (!$scope.myform.$valid) {
+            $scope.loginLoading = false;
             toaster.pop({
                 type: 'error',
                 title: 'Error',
@@ -1156,7 +1201,6 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         } else {
             //Files upload
             var promises = [];
-
             if ($scope.pic) {
                 var fd = new FormData();
                 fd.append('file', $scope.pic);
@@ -1168,6 +1212,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                         $scope.newPlayer.profilePicture = data.name;
                     })
                     .error(function () {
+                        $scope.loginLoading = false;
                         toaster.pop({
                             type: 'error',
                             title: 'Error',
@@ -1177,9 +1222,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 promises.push(promise);
             }
             $q.all(promises).then(function () {
-
                 console.log();
-
                 $scope.newPlayer.status = $scope.selectedStatus.id;
                 $scope.newPlayer.playingFoot = $scope.selectedFoot.id;
                 if ($scope.help.teams == null) {
@@ -1187,13 +1230,13 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 }else{
                     $scope.newPlayer.teams = shuffle($scope.help.teams);
                 }
-                
                 console.log($scope.newPlayer);
                 if (id != null) {
                     $http.put(urlTail + '/' + id, $scope.newPlayer)
                         .success(function () {
                             getResultsPage($scope.pagination.current);
                             target.modal('hide');
+                            $scope.loginLoading = false;
                         })
                         .error(function (data, status, headers, config) {
                             if (status == 400) {
@@ -1203,12 +1246,12 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                                     title: 'Error',
                                     bodyOutputType: 'trustedHtml',
                                     body: 'Please complete the compulsory fields highlighted in red'
+
                                 });
+                                $scope.loginLoading = false;
                             }
                         });
-
                 } else {
-
 
                     $scope.newPlayer.status = $scope.selectedStatus.id;
                     $scope.newPlayer.playingFoot = $scope.selectedFoot.id;
@@ -1222,6 +1265,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                         .success(function () {
                             getResultsPage($scope.pagination.current);
                             target.modal('hide');
+                            $scope.loginLoading = false;
                         })
                         .error(function (data, status, headers, config) {
                             if (status == 400) {
@@ -1232,6 +1276,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                                     bodyOutputType: 'trustedHtml',
                                     body: 'Please complete the compulsory fields highlighted in red'
                                 });
+                                $scope.loginLoading = false;
                             }
                         });
                 };
@@ -1396,45 +1441,50 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
         deleteModal.modal('hide');
     };
 
-    $scope.ok = function(id){
+    $scope.ok = function(id) {
+        $scope.loginLoading = true;
+        $scope.ok = function(id) {
         
         $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
         $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
         $scope.newTeam.players = shuffle($scope.teamMembers.players);
         console.log(id);
-        if(id != null){
+            if (id != null) {
             
             //PUT it now have no url to Update date
-            $http.put(urlTail + '/' + id, $scope.newTeam).success(function(){
+                $http.put(urlTail + '/' + id, $scope.newTeam).success(function() {
                 console.log('Team Update');
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
                 $scope.newTeam = {};
                 $scope.teamMembers.coaches = [];
                 $scope.teamMembers.players = [];
-            }).error(function (data, status, headers, config){
+                }).error(function(data, status, headers, config) {
 
             });
-        }else{
+                $http.put().success().error();
+                $scope.loginLoading = false;
+            } else {
             //POST
             
-            $http.post(urlTail, $scope.newTeam).success(function(result){
+                $http.post(urlTail, $scope.newTeam).success(function(result) {
                 console.log('Team Done');
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
                 $scope.newTeam = {};
                 $scope.teamMembers.coaches = [];
                 $scope.teamMembers.players = [];
-            }).error(function (data, status, headers, config){
+                    $scope.loginLoading = false;
+                }).error(function(data, status, headers, config) {
 
             });
         }
     };
     
-    $scope.openEdit = function (id) {
+        $scope.openEdit = function(id) {
         $scope.isEditing = true;
         $http.get(urlTail + '/' + id)
-            .success(function (result) {
+                .success(function(result) {
                 console.log(result);
                 $scope.newTeam = result;
                 $scope.teamMembers.coaches = morph(result.coaches, $scope.freeCoaches);
@@ -1442,7 +1492,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
                 target.modal('show');
             });
     };    
-
+    }
 }]);
 
 app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location){

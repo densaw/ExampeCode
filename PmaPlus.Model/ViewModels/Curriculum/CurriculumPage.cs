@@ -8,6 +8,6 @@ namespace PmaPlus.Model.ViewModels.Curriculum
 {
     public class CurriculumPage : Page
     {
-        public IEnumerable<CurriculumViewModel> Items { get; set; }
+        public IEnumerable<CurriculumTableViewModel> Items { get; set; }
     }
 }

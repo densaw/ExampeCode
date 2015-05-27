@@ -28,10 +28,7 @@ namespace PmaPlus.Areas.SysAdmin.Controllers
             return View();
         }
 
-        public ActionResult CurriculumTypes()
-        {
-            return View();
-        }
+       
 
         public ActionResult SkillsKnowledge()
         {

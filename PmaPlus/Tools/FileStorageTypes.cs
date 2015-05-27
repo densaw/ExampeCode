@@ -18,6 +18,6 @@ namespace PmaPlus.Tools
         Scenarios,
         SportsScienceExercises,
         PlayerProfilePicture,
-        CurriculumDetails
+        Sessions
     }
 }
