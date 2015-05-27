@@ -57,12 +57,6 @@
                                     </div>
                                     <div class="modal-body">
                                         <form name="myform" class="form-horizontal" novalidate>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Curriculum Type:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <select ng-model="selectedCurriculumTypeId" ng-options="type.name for type in curriculumTypesList | orderBy:'name'" class=" form-control m-b" name="account"></select>
-                                                </div>
-                                            </div>
                                             <div class="form-group" ng-class="{'has-error':myform.currName.$invalid && (myform.currName.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Curriculum Name:</label>
                                                 <div class="col-lg-7 pull-right">
@@ -73,24 +67,6 @@
                                                 <label class="col-lg-4 title-modal">Age Groups:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <select ng-model="selectedAgeGroup" ng-options="ageGroup.name for ageGroup in ageGroups" class=" form-control m-b" name="account"></select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Number of Blocks:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input id="inpBlocks" ng-model="newCurr.numberOfBlocks" ng-disabled="inpBlocks" class="form-control" maxlength="50">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Number of Weeks:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input id="inpWeeks" ng-model="newCurr.numberOfWeeks" ng-disabled="inpBlocks" class="form-control" maxlength="50">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Number of Sessions:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input id="inpSessions" ng-model="newCurr.numberOfSessions" ng-disabled="inpBlocks" class="form-control" maxlength="50">
                                                 </div>
                                             </div>
                                         </form>
@@ -212,8 +188,6 @@
                                 <tr>
                                     <th>Curriculum Name</th>
                                     <th>Age</th>
-                                    <th>Blocks</th>
-                                    <th>Weeks</th>
                                     <th>Sessions</th>
                                     <th>Action</th>
                                 </tr>
@@ -222,8 +196,6 @@
                                     <tr dir-paginate="curr in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
                                         <td>{{curr.name}}</td>
                                         <td>{{ageGroups[curr.ageGroup].name}}</td>
-                                        <td>{{curr.numberOfBlocks}}</td>
-                                        <td>{{curr.numberOfWeeks}}</td>
                                         <td>{{curr.numberOfSessions}}</td>
                                         <td>
                                             <i ng-click="openEdit(curr.id)" class="fa fa-cog" style="cursor: pointer;"></i>
