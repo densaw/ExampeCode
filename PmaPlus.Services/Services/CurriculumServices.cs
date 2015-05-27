@@ -172,7 +172,10 @@ namespace PmaPlus.Services
 
         }
 
-
+        public void UpdateSession(Session session, int id)
+        {
+            _sessionRepository.Update(session, id);
+        }
         public void DeleteSession(int id)
         {
             _sessionRepository.Delete(s => s.Id == id);
@@ -241,6 +244,7 @@ namespace PmaPlus.Services
                 _statementRolesRepository.Delete(s => s.CurriculumStatementId == tempStatement.Id && !rolesList.Contains(s.Role));
             }
         }
+     
 
         public void DeleteCurriculumStatement(int id)
         {
@@ -253,9 +257,5 @@ namespace PmaPlus.Services
 
         #endregion
 
-        public void UpdateSession(Session session, int id)
-        {
-                _sessionRepository.Update(session,id);
-        }
     }
 }
