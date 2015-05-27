@@ -108,9 +108,15 @@ namespace PmaPlus.Services
         }
 
 
+
         public IQueryable<Session> GetSessions(int curriculumId)
         {
             return _sessionRepository.GetMany(s => s.Curriculum.Id == curriculumId);
+        }
+
+        public Session GetSessionById(int id)
+        {
+            return _sessionRepository.GetById(id);
         }
 
         public Session AddSession(Session session, int curriculumId, IList<int> scenariosList)

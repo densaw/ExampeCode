@@ -99,8 +99,11 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<Curriculum, CurriculumViewModel>();
 
-            Mapper.CreateMap<Session, SessionViewModel>();
-
+            Mapper.CreateMap<Session, SessionViewModel>()
+                .ForMember(d => d.Scenarios, o => o.MapFrom(s =>s.Scenarios.Select(sc=> sc.Id)));
+            Mapper.CreateMap<Session, SessionTableViewModel>();
+                
+                
 
             Mapper.CreateMap<CurriculumStatement, CurriculumStatementViewModel>()
                 .ForMember(d => d.Roles, o => o.MapFrom(s => s.Roles.Select(r => r.Role)));

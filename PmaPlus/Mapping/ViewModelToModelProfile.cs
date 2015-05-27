@@ -52,6 +52,9 @@ namespace PmaPlus.Mapping
 
             //ClubAdmin
 
+            Mapper.CreateMap<SessionViewModel, Session>()
+                .ForMember(d => d.Scenarios, o => o.Ignore());
+
             Mapper.CreateMap<PlayerAttributeViewModel,PlayerAttribute>();
 
             Mapper.CreateMap<ToDoViewModel, ToDo>();
