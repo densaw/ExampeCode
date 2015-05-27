@@ -360,36 +360,37 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
 }]);
 
-app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function ($scope, $http, toaster, $compile, uiCalendarConfig) {
+app.controller('ClubDiaryController', [
+    '$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function($scope, $http, toaster, $compile, uiCalendarConfig) {
 
-    var needToDelete = -1;
-    var needToUpdate = -1;
+        var needToDelete = -1;
+        var needToUpdate = -1;
 
-    //$scope.selectedPriority = $scope.Priority[0];
+        //$scope.selectedPriority = $scope.Priority[0];
 
-    var target = angular.element('#addDiaryModal');
+        var target = angular.element('#addDiaryModal');
 
 
-    function shuffle(objArr) {
-        var ids = [];
-        angular.forEach(objArr, function(obj) {
-            this.push(obj.id);
-        }, ids);
-        return ids;
-    }
+        function shuffle(objArr) {
+            var ids = [];
+            angular.forEach(objArr, function(obj) {
+                this.push(obj.id);
+            }, ids);
+            return ids;
+        }
 
-    
-    $scope.newEvent = {};
-    $scope.newEvent.attendeeTypes = [];
-    $scope.newEvent.specificPersons = [];
-    $scope.newEvent.allDay = false;
 
-    //Helper arrays
-    $scope.help = {};
-    $scope.help.helpAttend = [];
-    $scope.help.helpSpecify = [];
+        $scope.newEvent = {};
+        $scope.newEvent.attendeeTypes = [];
+        $scope.newEvent.specificPersons = [];
+        $scope.newEvent.allDay = false;
 
-    /*
+        //Helper arrays
+        $scope.help = {};
+        $scope.help.helpAttend = [];
+        $scope.help.helpSpecify = [];
+
+        /*
         HeadOfAcademies = 2,
         Coach = 3,
         HeadOfEducation = 4,
@@ -399,202 +400,217 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         SportsScientist = 8,
         Player = 9
         */
-    $scope.specificPersons = [];
-    $scope.attendeeTypes = [
-        { id: 2, name: 'Head Of Academies' },
-        { id: 3, name: 'Coach' },
-        { id: 4, name: 'Head Of Education' },
-        { id: 5, name: 'Welfare Officer' },
-        { id: 6, name: 'Scout' },
-        { id: 7, name: 'Physiotherapist' },
-        { id: 8, name: 'Sports Scientist' },
-        { id: 9, name: 'Player' }
-    ];
+        $scope.specificPersons = [];
+        $scope.attendeeTypes = [
+            { id: 2, name: 'Head Of Academies' },
+            { id: 3, name: 'Coach' },
+            { id: 4, name: 'Head Of Education' },
+            { id: 5, name: 'Welfare Officer' },
+            { id: 6, name: 'Scout' },
+            { id: 7, name: 'Physiotherapist' },
+            { id: 8, name: 'Sports Scientist' },
+            { id: 9, name: 'Player' }
+        ];
 
-    $scope.$watch('help.helpAttend', function (result) {
-        console.log(result);
-        if (!result.length) {
+        $scope.$watch('help.helpAttend', function(result) {
+            console.log(result);
+            if (!result.length) {
 
-        } else {
-            var stringPar = [];
-            angular.forEach(result, function(value) {
-                stringPar.push('role=' + value.id);
-            });
-            console.log(stringPar.join('&'));
-            $http.get('/api/Users/List?' + stringPar.join('&')).success(function (result) {
-                $scope.specificPersons = result;
+            } else {
+                var stringPar = [];
+                angular.forEach(result, function(value) {
+                    stringPar.push('role=' + value.id);
+                });
+                console.log(stringPar.join('&'));
+                $http.get('/api/Users/List?' + stringPar.join('&')).success(function(result) {
+                    $scope.specificPersons = result;
+                });
+            }
+        });
+
+
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        function getEv() {
+            $scope.Evnotes = [];
+            $http.get('/api/Diary/').success(function(result) {
+                $scope.Evnotes = result;
+
             });
         }
-    });
 
 
-
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
-
-    function getEv() {
-        $scope.Evnotes = [];
-        $http.get('/api/Diary/').success(function (result) {
-            $scope.Evnotes = result;
-
-        });
-    }
+        var cal = angular.element('#calendar');
+        var urlTail = '/api/Diary';
 
 
-    var cal = angular.element('#calendar');
-    var urlTail = '/api/Diary';
-    
-
-    
-    $scope.events = [];        
-    cal.fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-        },
-        
-        events: 
-            function geteventData() {
-                $http.get(urlTail)
-                    .success(function (result) {
-                        cal.fullCalendar('removeEvents');
-                
-                        console.log(result);
-                        $scope.events = result;
-                        angular.forEach(result, function(value) {
-                            cal.fullCalendar('renderEvent', value);
-                        });
-                    });
+        $scope.events = [];
+        cal.fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
             },
-        
+            allDayDefault: true,
+            defaultView: 'agendaWeek',
+            aspectRatio: 1.5,
+            events:
+                function geteventData() {
+                    $http.get(urlTail)
+                        .success(function(result) {
+                            cal.fullCalendar('removeEvents');
 
-        selectable: true,
-        selectHelper: true,
-        
-        select: function(start, end, jsEvent, view) {//select cell (empty)
+                            console.log(result);
+                            $scope.events = result;
+                            angular.forEach(result, function(value) {
+                                cal.fullCalendar('renderEvent', value);
+                            });
+                        });
+                },
 
-            //var allDay = !start.hasTime() && !end.hasTime();
-            $scope.newEvent.start = moment(start).format();
-            target.modal('show');//open the modal
-            //alert(["Event Start date: " + moment(start).format(),
-                   //"Event End date: " + moment(end).format(),
-                   //"AllDay: " + allDay].join("\n"));
-           
-            
+
+            selectable: true,
+            selectHelper: true,
+
+            select: function(start, end, jsEvent, view) { //select cell (empty)
+
+                //var allDay = !start.hasTime() && !end.hasTime();
+                $scope.newEvent.start = moment(start).format();
+                target.modal('show'); //open the modal
+                //alert(["Event Start date: " + moment(start).format(),
+                //"Event End date: " + moment(end).format(),
+                //"AllDay: " + allDay].join("\n"));
+
+
                 //console.log("closing");
                 //calendar.fullCalendar('unselect');
 
                 //$('#addDiaryModal').modal('hide');//close the modal
-           
-        },
-        
-           
-        
-    
 
-    editable: true,
-        droppable: true,
-        drop: function() {
-            // is the "remove after drop" checkbox checked?
-            if ($('#drop-remove').is(':checked')) {
-                // if so, remove the element from the "Draggable Events" list
-                $(this).remove();
-            }
-        },
+            },
 
 
-        eventRender: function(event, element) {
-            $scope.openEdit = element.bind('dblclick', function(id) {
-                console.log('pre get');
-                $http.get('/api/Diary/' + event.id)
-                    .success(function(result) {
-                        $scope.newEvent = result;
-                        needToUpdate = event.id;
-                        needToDelete = event.id;
-                        $scope.modalTitle = "Edit Event";
-                        target.modal('show');
-                        console.log('done');
-                        console.log(result);
+            editable: true,
+            droppable: true,
+            drop: function() {
+                // is the "remove after drop" checkbox checked?
+                if ($('#drop-remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(this).remove();
+                }
+            },
 
-                    });
-            });
-        }
 
-    });
+            eventRender: function(event, element) {
+                $scope.openEdit = element.bind('dblclick', function(id) {
+                    console.log('pre get');
+                    $http.get('/api/Diary/' + event.id)
+                        .success(function(result) {
+                            $scope.newEvent = result;
+                            needToUpdate = event.id;
+                            needToDelete = event.id;
+                            $scope.modalTitle = "Edit Event";
+                            target.modal('show');
+                            console.log('done');
+                            console.log(result);
 
-   
-
-    getEv();
-    
-
-    var confDelete = angular.element('#confDelete');
-
-    function getResults() {
-        $http.get(urlTail)
-            .success(function (result) {
-                cal.fullCalendar('removeEvents');
-                
-                console.log(result);
-                $scope.items = result;
-                angular.forEach(result, function(value) {
-                    cal.fullCalendar('renderEvent', value);
+                        });
                 });
-            });
-    }
+            }
 
-    getResults();
+        });
 
-    $scope.open = function () {
-        $scope.windowTitle = 'Add Event';
-        target.modal('show');
-    }
 
-    
+        getEv();
 
-    $scope.update = function (event) {
-        $scope.windowTitle = 'Update Event';
-        $scope.newEvent = event;
-        needToUpdate = event.id;
-        target.modal('show');
-    }
-    $scope.ok = function () {
-        console.log('Here');
-        console.log(shuffle($scope.help.helpAttend));
-        $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
-        $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
-        console.log($scope.newEvent);
-        
-        //put
-        if (needToUpdate != -1) {
-            $http.put(urlTail + '/' + needToUpdate, $scope.newEvent).success(function () {
-                needToUpdate = -1;
-                getResults();
-                getEv();
-                target.modal('hide');
-            });
-        } else {
-        $http.post(urlTail, $scope.newEvent).success(function () {
-            getResults();
-            getEv();
-            target.modal('hide');
-            
-          }).error(function (data, status, headers, config) {
-              console.log(data);
-              if (status == 400) {
-                  console.log(data);
-                  toaster.pop({
-                      type: 'error',
-                      title: 'Error', bodyOutputType: 'trustedHtml',
-                      body: data.message.join("<br />")
-                  });
-              }
-          });
+
+        var confDelete = angular.element('#confDelete');
+
+        function getResults() {
+            $http.get(urlTail)
+                .success(function(result) {
+                    cal.fullCalendar('removeEvents');
+
+                    console.log(result);
+                    $scope.items = result;
+                    angular.forEach(result, function(value) {
+                        cal.fullCalendar('renderEvent', value);
+                    });
+                });
         }
-        //put
-    }
+
+        getResults();
+
+        $scope.open = function() {
+            $scope.windowTitle = 'Add Event';
+            target.modal('show');
+        }
+
+
+        $scope.update = function(event) {
+            $scope.windowTitle = 'Update Event';
+            $scope.newEvent = event;
+            needToUpdate = event.id;
+            //console.log($scope.newEvent.completionDateTime);
+            target.modal('show');
+        }
+        $scope.ok = function () {
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+            //console.log('Here');
+            //console.log(shuffle($scope.help.helpAttend));
+            //$scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
+            //$scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
+            //console.log($scope.newEvent);
+
+            //put
+            if (needToUpdate != -1) {
+                $http.put(urlTail + '/' + needToUpdate, $scope.newEvent).success(function(data, status, headers, config) {
+                    needToUpdate = -1;
+                    getResults();
+                    getEv();
+                    target.modal('hide');
+                }).error(function(data, status, headers, config) {
+                    if (status == 400) {
+                        console.log(data);
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            bodyOutputType: 'trustedHtml',
+                            body: 'Please complete the compulsory fields highlighted in red'
+                        });
+                    }
+
+                });
+
+            } else {
+                $http.post(urlTail, $scope.newEvent).success(function (data, status, headers, config) {
+                    
+                    getResults();
+                    getEv();
+                    target.modal('hide');
+
+                }).error(function(data, status, headers, config) {
+                    //$scope.event.id = $scope.selectedType.id;
+                    if (status == 500) {
+                        console.log(data);
+
+
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            bodyOutputType: 'trustedHtml',
+                            body: 'Please complete the compulsory fields highlighted in red'
+                        });
+                    }
+
+                });
+            }
+            
+        }
+    
 
     $scope.cancel = function () {
         $scope.newEvent = {};
