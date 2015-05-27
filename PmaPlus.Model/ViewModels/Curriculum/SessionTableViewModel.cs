@@ -16,7 +16,15 @@ namespace PmaPlus.Model.ViewModels.Curriculum
         public bool Objectives { get; set; }                    
         public bool Rating { get; set; }                        
         public bool Report { get; set; }                        
-
-        //TODO: Replase Session Table View Model!
+        public bool ObjectiveReport { get; set; }               
+        public bool CoachDetails { get; set; }                  
+        public string CoachPicture { get; set; }                
+        public string CoachDetailsName { get; set; }            
+        public bool PlayerDetails { get; set; }                 
+        public string PlayerPicture { get; set; }               
+        public string PlayerDetailsName { get; set; }           
+        public bool NeedScenarios { get; set; }                 
+        public IList<int> Scenarios { get; set; }               
+        public int CurriculumId { get; set; }
     }
 }

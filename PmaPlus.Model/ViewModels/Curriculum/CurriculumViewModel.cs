@@ -13,5 +13,7 @@ namespace PmaPlus.Model.ViewModels.Curriculum
         public string Name { get; set; }
 
         public AgeGroupType AgeGroup { get; set; }
+
+        public int NumberOfSessions { get; set; }
     }
 }

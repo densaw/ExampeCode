@@ -73,20 +73,9 @@ namespace PmaPlus
             //Angular
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular/angular.js",
-                "~/Scripts/angular/angular-route.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/ladda-js").Include(
-                "~/Scripts/plugins/ladda/ladda-angular.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/ladda-js-core").Include(
-                "~/Scripts/plugins/ladda/ladda.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/ladda-js-spin").Include(
-               "~/Scripts/plugins/ladda/spin.js"));
-
-             bundles.Add(new StyleBundle("~/bundles/ladda-css").Include(                
-                "~/Scripts/plugins/ladda/ladda-themeless.min.css",
-                "~/Scripts/plugins/ladda/ladda.min.css"));
+                "~/Scripts/angular/angular-route.js",
+                 "~/Scripts/plugins/ladda/angular-ladda.min.js",
+                 "~/Scripts/angular/angular-animate.js"));
 
             //BootStrap File
             //Angular BootStrap
@@ -97,7 +86,6 @@ namespace PmaPlus
                 "~/Scripts/userSripts.js"));
 
             bundles.Add(new ScriptBundle("~/plugins/angular-file").Include(
-
                 "~/Scripts/angular/angular-file-model.js"));
 
             bundles.Add(new ScriptBundle("~/plugins/angular-dateparser").Include(

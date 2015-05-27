@@ -46,7 +46,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             var count = _curriculumServices.GetClubCurriculums(clubId).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var curriculums = _curriculumServices.GetClubCurriculums(clubId).OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
-            var items = Mapper.Map<IEnumerable<Curriculum>, IEnumerable<CurriculumTableViewModel>>(curriculums);
+            var items = Mapper.Map<IEnumerable<Curriculum>, IEnumerable<CurriculumViewModel>>(curriculums);
 
             return new CurriculumPage()
             {

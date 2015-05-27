@@ -400,7 +400,6 @@
     <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\OpenSans-ExtraBold.svg" />
-    <Content Include="fonts\OpenSans-Semibold.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\a4.jpg" />
     <Content Include="Images\Default-logo.png" />
@@ -2953,6 +2952,7 @@
     <Content Include="Areas\ClubAdmin\Views\Home\Teams.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\ToDoList.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\Statements.cshtml" />
+    <Content Include="Content\style.less" />
     <Content Include="Areas\ClubAdmin\Views\Home\ProfilePage.cshtml" />
     <Content Include="Content\style.css.map">
       <DependentUpon>style.css</DependentUpon>
@@ -2960,8 +2960,6 @@
     <Content Include="Areas\ClubAdmin\Views\Home\CurrDetails.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\Block.cshtml" />
     <Content Include="Areas\ClubAdmin\Views\Home\Week.cshtml" />
-    <Content Include="fonts\OpenSans-Semibold.eot" />
-    <Content Include="fonts\OpenSans-Semibold.woff" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3430,14 +3428,6 @@
     <Content Include="Scripts\plugins\jvectormap\jquery-jvectormap-1.2.2.min.js" />
     <Content Include="Scripts\plugins\jvectormap\jquery-jvectormap-world-mill-en.js" />
     <Content Include="Scripts\plugins\ladda\angular-ladda.min.js" />
-    <Content Include="Scripts\plugins\ladda\ladda-angular.js" />
-    <Content Include="Scripts\plugins\ladda\ladda-themeless.min.css" />
-    <Content Include="Scripts\plugins\ladda\ladda.jquery.min.js" />
-    <Content Include="Scripts\plugins\ladda\ladda.js" />
-    <Content Include="Scripts\plugins\ladda\ladda.min.css" />
-    <Content Include="Scripts\plugins\ladda\ladda.min.js" />
-    <Content Include="Scripts\plugins\ladda\spin.js" />
-    <Content Include="Scripts\plugins\ladda\spin.min.js" />
     <Content Include="Scripts\plugins\metisMenu\metisMenu.min.js" />
     <Content Include="Scripts\plugins\moments\moment.js" />
     <Content Include="Scripts\plugins\morris\morris.js" />

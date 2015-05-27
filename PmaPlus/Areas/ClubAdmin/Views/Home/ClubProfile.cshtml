@@ -159,9 +159,7 @@
 
                     </form>
                     <div class="modal-footer">
-                        <button ng-click="ok(newClub.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
-                            <span class="ladda-label" style="font-size: 14px;">Save changes</span>
-                        </button>
+                        <button ng-click="ok(newClub.id)" id="saveModal" ng-disabled="sending" type="button" class="btn btn-primary ">Save changes</button>
                     </div>
                 </div>
                 
