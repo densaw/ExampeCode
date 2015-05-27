@@ -434,26 +434,51 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
     var m = date.getMonth();
     var y = date.getFullYear();
 
-    
+    function getEv() {
+        $scope.Evnotes = [];
+        $http.get('/api/Diary/').success(function (result) {
+            $scope.Evnotes = result;
+
+        });
+    }
 
 
     var cal = angular.element('#calendar');
     var urlTail = '/api/Diary';
     
 
+    
+    $scope.events = [];        
     cal.fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
+        
+        events: 
+            function geteventData() {
+                $http.get(urlTail)
+                    .success(function (result) {
+                        cal.fullCalendar('removeEvents');
+                
+                        console.log(result);
+                        $scope.events = result;
+                        angular.forEach(result, function(value) {
+                            cal.fullCalendar('renderEvent', value);
+                        });
+                    });
+            },
+        
+
         selectable: true,
         selectHelper: true,
+        
         select: function(start, end, jsEvent, view) {//select cell (empty)
 
             //var allDay = !start.hasTime() && !end.hasTime();
             $scope.newEvent.start = moment(start).format();
-            $('#addDiaryModal').modal();//open the modal
+            target.modal('show');//open the modal
             //alert(["Event Start date: " + moment(start).format(),
                    //"Event End date: " + moment(end).format(),
                    //"AllDay: " + allDay].join("\n"));
@@ -488,6 +513,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
                     .success(function(result) {
                         $scope.newEvent = result;
                         needToUpdate = event.id;
+                        needToDelete = event.id;
                         $scope.modalTitle = "Edit Event";
                         target.modal('show');
                         console.log('done');
@@ -496,10 +522,16 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
                     });
             });
         }
+
     });
 
+   
 
+    getEv();
     
+
+    var confDelete = angular.element('#confDelete');
+
     function getResults() {
         $http.get(urlTail)
             .success(function (result) {
@@ -540,11 +572,13 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
             $http.put(urlTail + '/' + needToUpdate, $scope.newEvent).success(function () {
                 needToUpdate = -1;
                 getResults();
+                getEv();
                 target.modal('hide');
             });
         } else {
         $http.post(urlTail, $scope.newEvent).success(function () {
             getResults();
+            getEv();
             target.modal('hide');
             
           }).error(function (data, status, headers, config) {
@@ -568,8 +602,16 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         needToDelete = -1;
         getResults();
         target.modal('hide');
-        deleteConf.modal('hide');
+        
     }
+    $scope.delete = function () {
+        $http.delete(urlTail + '/' + needToDelete).success(function () {
+            getResults();
+            needToDelete = -1;
+            getEv();
+            target.modal('hide');
+        });
+    };
 
 
 }]);
