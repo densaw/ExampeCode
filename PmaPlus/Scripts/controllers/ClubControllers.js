@@ -13,6 +13,22 @@ app.filter('dayExp', function() {
     };
 });
 
+app.directive('styleParent', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, elem, attr) {
+            elem.on('load', function () {
+                var w = $(this).width(),
+                    h = $(this).height();
+
+                elem.addClass(w > h ? 'landscape' : 'portrait');
+            });
+        }
+    };
+});
+
+
+
 var routing = function ($routeProvider) {
     $routeProvider.when('localhost:1292/ClubAdmin/Home/ProfilePage/:role', {
         templateUrl: function (params) { return '/ClubAdmin/Home/ProfilePage?role=' + params.role; },
@@ -189,9 +205,15 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
     var target = angular.element('#addTeamMember');
     var needstoReport = angular.element('#needstoReport');
 
-    $scope.openModal = function() {
+    $scope.openModal = function () {
+        $scope.myform.form_Submitted = false;
         target.modal('show');
     };
+
+    $scope.cancel = function () {
+        $scope.newMember = {};
+        target.modal('hide');
+    }
 
     
     $scope.parserJ = function(roleId, userId) {
@@ -200,7 +222,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
 
 
     $scope.send = function () {
-
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
         //Files upload
 
         var promises = [];

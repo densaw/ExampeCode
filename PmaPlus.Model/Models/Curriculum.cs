@@ -10,8 +10,6 @@ namespace PmaPlus.Model.Models
 
         public AgeGroupType AgeGroup { get; set; }
 
-        public int NumberOfSessions { get; set; }
-
         public virtual ICollection<Session> Sessions { get; set; }
 
         public virtual Club Club { get; set; }
