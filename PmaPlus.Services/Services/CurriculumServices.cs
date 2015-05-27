@@ -252,5 +252,10 @@ namespace PmaPlus.Services
         }
 
         #endregion
+
+        public void UpdateSession(Session session, int id)
+        {
+                _sessionRepository.Update(session,id);
+        }
     }
 }
