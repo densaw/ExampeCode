@@ -592,7 +592,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
         target.modal('show');
     }
     $scope.ok = function () {
-        $scope.loginLoading = true;
+        $scope.loginLoading = false;
         console.log('Here');
         console.log(shuffle($scope.help.helpAttend));
         $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
@@ -606,13 +606,14 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
                 getResults();
                 getEv();
                 target.modal('hide');
+                $scope.loginLoading = false;
             });
         } else {
         $http.post(urlTail, $scope.newEvent).success(function () {
-            $scope.loginLoading = false;
             getResults();
             getEv();
             target.modal('hide');
+            $scope.loginLoading = false;
             
           }).error(function (data, status, headers, config) {
               console.log(data);
@@ -623,6 +624,7 @@ app.controller('ClubDiaryController', ['$scope', '$http', 'toaster', '$compile',
                       title: 'Error', bodyOutputType: 'trustedHtml',
                       body: data.message.join("<br />")
                   });
+                  $scope.loginLoading = false;
               }
         });
     }
