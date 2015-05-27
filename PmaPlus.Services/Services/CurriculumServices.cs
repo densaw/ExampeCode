@@ -13,90 +13,24 @@ namespace PmaPlus.Services
     public class CurriculumServices
     {
         private readonly ICurriculumRepository _curriculumRepository;
-        private readonly ICurriculumBlockRepository _curriculumBlockRepository;
-        private readonly ICurriculumWeekRepository _curriculumWeekRepository;
-        private readonly ICurriculumSessionRepository _curriculumSessionRepository;
-        private readonly ICurriculumDetailRepository _curriculumDetailRepository;
-        private readonly ICurriculumTypeRepository _curriculumTypeRepository;
+        private readonly ISessionRepository _sessionRepository;
         private readonly IClubRepository _clubRepository;
         private readonly IStatementRolesRepository _statementRolesRepository;
         private readonly ICurriculumStatementRepository _curriculumStatementRepository;
         private readonly IScenarioRepository _scenarioRepository;
+        private readonly IScenarioSessionRepository _scenarioSessionRepository;
 
-        public CurriculumServices(ICurriculumTypeRepository curriculumTypeRepository, ICurriculumRepository curriculumRepository, ICurriculumBlockRepository curriculumBlockRepository, ICurriculumWeekRepository curriculumWeekRepository, ICurriculumSessionRepository curriculumSessionRepository, ICurriculumDetailRepository curriculumDetailRepository, IClubRepository clubRepository, ICurriculumStatementRepository curriculumStatementRepository, IStatementRolesRepository statementRolesRepository, IScenarioRepository scenarioRepository)
+        public CurriculumServices(ICurriculumRepository curriculumRepository, ISessionRepository curriculumSessionRepository, IClubRepository clubRepository, ICurriculumStatementRepository curriculumStatementRepository, IStatementRolesRepository statementRolesRepository, IScenarioRepository scenarioRepository, IScenarioSessionRepository scenarioSessionRepository)
         {
-            _curriculumTypeRepository = curriculumTypeRepository;
             _curriculumRepository = curriculumRepository;
-            _curriculumBlockRepository = curriculumBlockRepository;
-            _curriculumWeekRepository = curriculumWeekRepository;
-            _curriculumSessionRepository = curriculumSessionRepository;
-            _curriculumDetailRepository = curriculumDetailRepository;
+            _sessionRepository = curriculumSessionRepository;
             _clubRepository = clubRepository;
             _curriculumStatementRepository = curriculumStatementRepository;
             _statementRolesRepository = statementRolesRepository;
             _scenarioRepository = scenarioRepository;
+            _scenarioSessionRepository = scenarioSessionRepository;
         }
 
-        #region CurriculumTypes
-
-        public IQueryable<CurriculumTypesTableViewModel> GetCurriculumTypes()
-        {
-            var types = _curriculumTypeRepository.GetAll();
-            var typesView = new List<CurriculumTypesTableViewModel>();
-            foreach (var type in types)
-            {
-                typesView.Add(new CurriculumTypesTableViewModel()
-                {
-                    Id = type.Id,
-                    Name = type.Name,
-                    Blocks = type.UsesBlocks,
-                    BlockATT = type.UsesBlocksForAttendance,
-                    BlockRE = type.UsesBlocksForReports,
-                    BlockRTE = type.UsesBlocksForRatings,
-                    Weeks = type.UsesWeeks,
-                    WeekRE = type.UsesWeeksForReports,
-                    WeekATT = type.UsesBlocksForAttendance,
-                    WeekRTE = type.UsesWeeksForRatings,
-                    Sessions = type.UsesSessions,
-                    SessionsRE = type.UsesSessionsForReports,
-                    SessionsATT = type.UsesSessionsForAttendance,
-                    SessionsRTE = type.UsesSessionsForRatings
-                });
-            }
-
-            return typesView.AsQueryable();
-        }
-
-        public bool CurriculumTypeExist(int id)
-        {
-            return _curriculumTypeRepository.GetMany(c => c.Id == id).Any();
-        }
-
-        public CurriculumType GetCurriculumType(int id)
-        {
-            return _curriculumTypeRepository.GetById(id);
-        }
-
-        public IEnumerable<CurriculumType> GetAllTypes()
-        {
-            return _curriculumTypeRepository.GetAll();
-        }
-
-        public CurriculumType InsertCurriculumType(CurriculumType curriculumType)
-        {
-            return _curriculumTypeRepository.Add(curriculumType);
-        }
-        public void UpdateCurriculumTypes(CurriculumType curriculumType, int id)
-        {
-            curriculumType.Id = id;
-            _curriculumTypeRepository.Update(curriculumType, id);
-        }
-        public void Delete(int id)
-        {
-            if (id != 0)
-                _curriculumTypeRepository.Delete(c => c.Id == id);
-        }
-        #endregion
 
 
         #region Curriculums
@@ -104,7 +38,6 @@ namespace PmaPlus.Services
         public decimal GetProgress(int curriculumId)
         {
             var curriclum = _curriculumRepository.GetById(curriculumId);
-            int sections = curriclum.NumberOfBlocks == 0 ? 1 : curriclum.NumberOfBlocks * curriclum.NumberOfWeeks == 0 ? 1 : curriclum.NumberOfWeeks * curriclum.NumberOfSessions == 0 ? 1 : curriclum.NumberOfSessions;
 
             return 0;
 
@@ -146,61 +79,10 @@ namespace PmaPlus.Services
 
             curriculum.Club = club;
 
-            var curriculumType = _curriculumTypeRepository.Get(t => t.Id == curriculum.CurriculumTypeId);
-            if (curriculumType == null)
-            {
-                return null;
-            }
-
-            if (!curriculumType.UsesBlocks)
-            {
-                curriculum.NumberOfBlocks = 0;
-                curriculum.NumberOfWeeks = 0;
-                curriculum.NumberOfSessions = 0;
-            }
-            if (!curriculumType.UsesWeeks)
-            {
-                curriculum.NumberOfWeeks = 0;
-                curriculum.NumberOfSessions = 0;
-            }
-            if (!curriculumType.UsesSessions)
-            {
-                curriculum.NumberOfSessions = 0;
-            }
-
             var newCurriculum = _curriculumRepository.Add(curriculum);
 
-            for (int i = 0; i < newCurriculum.NumberOfBlocks; i++)
-            {
-                var newBlock = _curriculumBlockRepository.Add(new CurriculumBlock()
-                {
-                    Curriculum = newCurriculum,
-                    CurriculumDetail = new CurriculumDetail()
-                });
-
-
-                for (int j = 0; j < newCurriculum.NumberOfWeeks; j++)
-                {
-                    var newWeek = _curriculumWeekRepository.Add(new CurriculumWeek()
-                    {
-                        CurriculumBlock = newBlock,
-                        CurriculumDetail = new CurriculumDetail()
-                    });
-
-                    for (int k = 0; k < newCurriculum.NumberOfSessions; k++)
-                    {
-                        _curriculumSessionRepository.Add(new CurriculumSession()
-                        {
-                            CurriculumWeek = newWeek,
-                            CurriculumDetail = new CurriculumDetail()
-                        });
-                    }
-
-                }
-
-            }
-
             return newCurriculum;
+
         }
 
         public void UpdateCurriculum(Curriculum curriculum, int id)
@@ -211,96 +93,87 @@ namespace PmaPlus.Services
 
         public void DeleteCurriculum(int id)
         {
+            _sessionRepository.Delete(s => s.Curriculum.Id == id);
             _curriculumRepository.Delete(c => c.Id == id);
         }
+
+
         #endregion
 
-        #region Details
+        #region Sessions
 
-        public Curriculum GetCurriculumDetails(int curriculumId)
+        public bool SessionExist(int id)
         {
-            return _curriculumRepository.GetById(curriculumId);
+            return _sessionRepository.GetMany(s => s.Id == id).Any();
         }
 
-        public IEnumerable<CurriculumBlock> GetCurriculumBlocks(int curriculumId)
+
+        public IQueryable<Session> GetSessions(int curriculumId)
         {
-            return _curriculumRepository.GetById(curriculumId).CurriculumBlocks;
+            return _sessionRepository.GetMany(s => s.Curriculum.Id == curriculumId);
         }
 
-        public IEnumerable<CurriculumWeek> GetCurriculumWeeks(int curriculumBlockId)
-        {
-            return _curriculumBlockRepository.GetById(curriculumBlockId).CurriculumWeeks;
-        }
-
-        public IEnumerable<CurriculumSession> GetCurriculumSessionDetails(int curriculumWeekId)
-        {
-            return _curriculumWeekRepository.GetById(curriculumWeekId).CurriculumSessions;
-        }
-
-        public CurriculumDetail AddCurriculumDetails(CurriculumDetail curriculumDetail, int curriculumId,int scenariooId)
+        public Session AddSession(Session session, int curriculumId, IList<int> scenariosList)
         {
             var curriculum = _curriculumRepository.GetById(curriculumId);
-            if (curriculum.CurriculumDetail != null)
+            if (curriculum != null)
             {
-                curriculum.CurriculumDetail.Name = curriculumDetail.Name;
-                curriculum.CurriculumDetail.Number = curriculumDetail.Number;
-                curriculum.CurriculumDetail.PlayersDescription = curriculumDetail.PlayersDescription;
-                curriculum.CurriculumDetail.PlayersFriendlyName = curriculumDetail.PlayersFriendlyName;
-                curriculum.CurriculumDetail.CoachDescription = curriculumDetail.CoachDescription;
-                curriculum.CurriculumDetail.CoachPicture = curriculumDetail.CoachPicture;
-                curriculum.CurriculumDetail.PlayersFriendlyPicture = curriculumDetail.PlayersFriendlyPicture;
+                session.Curriculum = curriculum;
+                var newSession =_sessionRepository.Add(session);
+                if (newSession != null)
+                {
+                    foreach (var scenario in scenariosList)
+                    {
 
-                curriculum.CurriculumDetail.Scenario = _scenarioRepository.GetById(scenariooId);
+                        if (_scenarioRepository.GetMany(s => s.Id == scenario).Any())
+                        {
+                        _scenarioSessionRepository.Add(new ScenarioSession()
+                        {
+                            Scenario = _scenarioRepository.GetById(scenario),
+                            Session = newSession
+                        });
+                            
+                        }
+
+                    }
+                }
+
 
                 return null;
             }
-            else
+
+            return null;
+        }
+
+        public void UpdateSession(Session session, int id,IList<int> scenariosList )
+        {
+            session.Id = id;
+            _sessionRepository.Update(session, session.Id);
+
+            var tempSession = _sessionRepository.GetById(id);
+            foreach (var scenario in scenariosList)
             {
-                
-            var newDetail = _curriculumDetailRepository.Add(curriculumDetail);
-            curriculum.CurriculumDetail = newDetail;
-            _curriculumRepository.Update(curriculum, curriculum.Id);
-            return newDetail;
+                if (!_scenarioSessionRepository.GetMany(s => s.SessionId == tempSession.Id && !scenariosList.Contains(s.ScenarioId)).Any())
+                {
+                    _scenarioSessionRepository.Add(new ScenarioSession()
+                    {
+                        Scenario = _scenarioRepository.GetById(scenario),
+                        Session = tempSession
+                    });
+                }
             }
-        }
-        public CurriculumDetail AddCurriculumBlockDetails(CurriculumDetail curriculumDetail, int curriculumBlockId)
-        {
-            var curriculumBlock = _curriculumBlockRepository.GetById(curriculumBlockId);
+            _scenarioSessionRepository.Delete(s => s.SessionId == tempSession.Id && !scenariosList.Contains(s.ScenarioId));
 
-            var newDetail = curriculumBlock.CurriculumDetail = _curriculumDetailRepository.Add(curriculumDetail);
-
-            _curriculumBlockRepository.Update(curriculumBlock, curriculumBlock.Id);
-
-            return newDetail;
-        }
-        public CurriculumDetail AddCurriculumWeekDetails(CurriculumDetail curriculumDetail, int curriculumWeekId)
-        {
-            var curriculumWeek = _curriculumWeekRepository.GetById(curriculumWeekId);
-
-            var newDetail = curriculumWeek.CurriculumDetail = _curriculumDetailRepository.Add(curriculumDetail);
-
-            _curriculumWeekRepository.Update(curriculumWeek, curriculumWeek.Id);
-
-            return newDetail;
-        }
-        public CurriculumDetail AddCurriculumSessionDetails(CurriculumDetail curriculumDetail, int curriculumSessionId)
-        {
-            var curriculumSession = _curriculumSessionRepository.GetById(curriculumSessionId);
-
-            var newDetail = curriculumSession.CurriculumDetail = _curriculumDetailRepository.Add(curriculumDetail);
-
-            _curriculumSessionRepository.Update(curriculumSession, curriculumSession.Id);
-
-            return newDetail;
         }
 
-        public void UpdateDetail(CurriculumDetail curriculumDetail, int id)
+
+        public void DeleteSession(int id)
         {
-            curriculumDetail.Id = id;
-            _curriculumDetailRepository.Update(curriculumDetail, curriculumDetail.Id);
+            _sessionRepository.Delete(s => s.Id == id);
         }
 
         #endregion
+
 
         #region Statements
 

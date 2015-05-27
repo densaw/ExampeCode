@@ -33,8 +33,6 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<User, UsersList>()
                 .ForMember(d => d.Name, o => o.MapFrom(s => s.UserDetail.FirstName + " " + s.UserDetail.LastName));
 
-            Mapper.CreateMap<CurriculumType, CurriculumTypeViewModel>();
-            Mapper.CreateMap<CurriculumType, CurriculumTypesList>();
 
             Mapper.CreateMap<SkillLevel, SkillLevelViewModel>();
             Mapper.CreateMap<SkillLevel, SkillLevelTableViewModel>();
@@ -101,12 +99,7 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<Curriculum, CurriculumViewModel>();
 
-            Mapper.CreateMap<CurriculumDetail, CurriculumDetailViewModel>();
-            Mapper.CreateMap<Curriculum, CurriculumDetailViewModel>();
-            Mapper.CreateMap<CurriculumBlock, CurriculumDetailViewModel>();
-            Mapper.CreateMap<CurriculumWeek, CurriculumDetailViewModel>();
-            Mapper.CreateMap<CurriculumSession, CurriculumDetailViewModel>();
-
+            Mapper.CreateMap<Session, SessionViewModel>();
 
 
             Mapper.CreateMap<CurriculumStatement, CurriculumStatementViewModel>()
