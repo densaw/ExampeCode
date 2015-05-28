@@ -1677,6 +1677,8 @@ table.dataTable thead .sorting:after {
   margin-left: 10px;
 }
 .check-link {
+  position: relative;
+  top: 2px;
   font-size: 16px;
 }
 .todo-completed {
@@ -3166,7 +3168,7 @@ code {
 .ibox-content {
   background-color: #ffffff;
   color: inherit;
-  padding: 15px 20px 20px 20px;
+  padding: 10px 10px 10px 10px;
   border-color: #e7eaec;
   border-image: none;
   border-style: solid solid none;
