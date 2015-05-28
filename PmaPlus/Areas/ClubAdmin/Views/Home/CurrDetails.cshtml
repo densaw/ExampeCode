@@ -75,55 +75,55 @@
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Attendance:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input id="" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                                    <input id="toggleAttendance" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Objectives:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input id="" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                                    <input id="toggleObjectives" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Rating:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input id="" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                                    <input id="toggleRating" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Report:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input id="" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                                    <input id="toggleReport" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Objective Report:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input id="" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                                    <input id="toggleObjectiveReport" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Coach Details:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input id="" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                                    <input id="toggleCoachDetails" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Player Details:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input id="" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                                    <input id="togglePlayerDetails" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Start of Review Period:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input id="" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                                    <input id="toggleStartofReviewPeriod" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">End of Review Period:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input id="" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                                    <input id="toggleEndofReviewPeriod" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -154,6 +154,12 @@
                                                 <label class="col-lg-4 title-modal">Players Description:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <input id="inpSessions" ng-model="newCurrDet.numberOfSessions" ng-disabled="inpBlocks" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Need Scenarios:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input id="toggleNeedScenarios" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -253,24 +259,35 @@
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>Curriculum Name</th>
-                                        <th>Name</th>
-                                        <th>Number</th>
-                                        <th>Action</th>
-                                    </tr>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Number</th>
+                                    <th>Attendance</th>
+                                    <th>Objectives</th>
+                                    <th>Rating</th>
+                                    <th>Report</th>
+                                    <th>Start Of Review Period</th>
+                                    <th>End Of Review Period</th>
+                                    <th>Action</th>
+                                </tr>
                                 </thead>
                                 <tbody id="contentTable">
-                                    <tr>
-                                        <td>{{parentCurr.name}}</td>
-                                        <td>{{items.curriculumDetailName}}</td>
-                                        <td>{{items.curriculumDetailNumber}}</td>
-                                        <td>
-                                            <i ng-click="openEdit(items.id)" class="fa fa-cog" style="cursor: pointer;"></i>
-                                        </td>
-                                    </tr>
+                                <tr dir-paginate="session in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalCourses">
+                                    <td>{{session.name}}</td>
+                                    <td>{{session.number}}</td>
+                                    <td>{{session.attendance}}</td>
+                                    <td>{{session.objectives}}</td>
+                                    <td>{{session.rating}}</td>
+                                    <td>{{session.report}}</td>
+                                    <td>{{session.startOfReviewPeriod}}</td>
+                                    <td>{{session.endOfReviewPeriod}}</td>
+                                    <td>
+                                        <i ng-click="openEdit(items.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
+                            <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
                         </div>
                     </div>
                 </div>
