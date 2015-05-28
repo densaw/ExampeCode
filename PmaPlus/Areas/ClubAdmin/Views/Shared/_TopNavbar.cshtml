@@ -9,7 +9,7 @@
             <li>
                 <span class="m-r-sm text-muted welcome-message">Welcome to PMA+</span>
             </li>
-            <li class="dropdown" ng-controller="ClubDiaryController">
+            <li class="dropdown" ng-controller="DairyNotifyController">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-calendar"></i>
                     <span ng-if="itemCount > 0" class="label label-danger" style="border-radius: 100%;">{{itemCount}}</span>
@@ -18,12 +18,12 @@
                     <li ng-repeat="item in items">
                         <a>
                             <div>
-                                <i class="a fa-calendar"></i> {{newEvent.start | date : 'dd-MM-yyyy HH:mm'}}
+                                <i class="a fa-calendar"></i> {{item.completionDateTime  | date : 'dd-MM-yyyy HH:mm'}}
                             </div>
                             <div>
-                                <strong>{{Evnote.title}}</strong>
+                                <strong>{{item.title}}</strong>
                                 <br />
-                                {{Evnote.note}}
+                                {{item.note}}
                             </div>
                         </a>
                         <div class="divider"></div>
