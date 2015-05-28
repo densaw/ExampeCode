@@ -9,6 +9,27 @@
             <li>
                 <span class="m-r-sm text-muted welcome-message">Welcome to PMA+</span>
             </li>
+            <li class="dropdown" ng-controller="DairyNotifyController">
+                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                    <i class="fa fa-calendar"></i>
+                    <span ng-if="itemCount > 0" class="label label-danger" style="border-radius: 100%;">{{itemCount}}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-alerts">
+                    <li ng-repeat="item in items">
+                        <a>
+                            <div>
+                                <i class="a fa-calendar"></i> {{item.completionDateTime  | date : 'dd-MM-yyyy HH:mm'}}
+                            </div>
+                            <div>
+                                <strong>{{item.title}}</strong>
+                                <br />
+                                {{item.note}}
+                            </div>
+                        </a>
+                        <div class="divider"></div>
+                    </li>
+                </ul>
+            </li>
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-envelope"></i>
@@ -35,6 +56,7 @@
                     </li>
                 </ul>
             </li>
+            
             <li>
                 <a href="@Url.Action("LockScreen", "Account", new {area = ""})"><i class="fa fa-power-off"></i></a>
             </li>
