@@ -1755,7 +1755,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
         for (var i = 0; i < idsArry.length; i++) {
             for (var j = 0; j < $scope.scenarios.length; j++) {
                 if(idsArry[i] === $scope.scenarios[j].id){
-                    objs.push($scope.roles[j]);
+                    objs.push($scope.scenarios[j]);
                 }
             };
         };
