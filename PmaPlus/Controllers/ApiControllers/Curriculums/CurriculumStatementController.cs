@@ -80,7 +80,7 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             }
             var statement = Mapper.Map<CurriculumStatementViewModel, CurriculumStatement>(statementViewModel);
 
-            _curriculumServices.UpdateCurriculumStatment(statement, statementViewModel.Roles, _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id);
+            _curriculumServices.UpdateCurriculumStatment(statement, statementViewModel.Roles, id);
             return Ok();
         }
 
