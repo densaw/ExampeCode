@@ -1709,7 +1709,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
-
+    $scope.scenarios = [];
 
     var needToDelete = -1;
     var urlTail = '/api/Sessions';
@@ -1753,8 +1753,8 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     function reShuffle(idsArry){
         var objs = []
         for (var i = 0; i < idsArry.length; i++) {
-            for (var j = 0; j < $scope.roles.length; j++) {
-                if(idsArry[i] === $scope.roles[j].id){
+            for (var j = 0; j < $scope.scenarios.length; j++) {
+                if(idsArry[i] === $scope.scenarios[j].id){
                     objs.push($scope.roles[j]);
                 }
             };
@@ -1912,11 +1912,23 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     $scope.openEdit = function (id) {
         $http.get(urlTail + '/' + id)
             .success(function (result) {
-                $scope.newStatements = result;
-                $scope.help.usersType = reShuffle(result.roles);
-                stblock.bootstrapToggle(result.chooseBlock ? 'on' : 'off');
-                stWeek.bootstrapToggle(result.chooseWeek ? 'on' : 'off');
-                stSession.bootstrapToggle(result.chooseSession ? 'on' : 'off');
+                console.log(result);
+
+
+                $scope.newCurrDet = result;
+                $scope.help.scenarios = reShuffle(result.scenarios);
+
+                toggleAttendance.bootstrapToggle(result.attendance ? 'on' : 'off');
+                toggleObjectives.bootstrapToggle(result.objectives ? 'on' : 'off');
+                toggleRating.bootstrapToggle(result.rating ? 'on' : 'off');
+                toggleReport.bootstrapToggle(result.report ? 'on' : 'off');
+                toggleObjectiveReport.bootstrapToggle(result.objectiveReport ? 'on' : 'off');
+                toggleCoachDetails.bootstrapToggle(result.coachDetails ? 'on' : 'off');
+                togglePlayerDetails.bootstrapToggle(result.playerDetails ? 'on' : 'off');
+                toggleStartofReviewPeriod.bootstrapToggle(result.startOfReviewPeriod ? 'on' : 'off');
+                toggleEndofReviewPeriod.bootstrapToggle(result.endOfReviewPeriod ? 'on' : 'off');
+                toggleNeedScenarios.bootstrapToggle(result.needScenarios ? 'on' : 'off');
+
                 target.modal('show');
             });
     };    
