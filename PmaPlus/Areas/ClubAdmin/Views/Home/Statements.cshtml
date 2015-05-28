@@ -157,7 +157,7 @@
                                 <tbody id="contentTable">
                                     <tr dir-paginate="state in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalCourses">
                                         <td>
-                                            <div ng-repeat="role in state.roles">{{roles[role].name}}</div>
+                                            <div ng-repeat="role in state.roles">{{rolesDate[role].name}}</div>
                                         </td>
                                         <td>{{state.statement}}</td>
                                         <td>

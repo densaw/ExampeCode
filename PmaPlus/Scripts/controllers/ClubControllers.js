@@ -1546,6 +1546,17 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
        { id: 8, name: 'Sports Scientist' }
     ];
 
+    $scope.rolesDate = [
+       { id: 0, name: 'SysAdmin' },
+       { id: 1, name: 'Club Admin' },
+       { id: 2, name: 'Head Of Academies' },
+       { id: 3, name: 'Coach' },
+       { id: 4, name: 'Head Of Education' },
+       { id: 5, name: 'Welfare Officer' },
+       { id: 7, name: 'Physiotherapist' },
+       { id: 8, name: 'Sports Scientist' }
+    ];
+
     function shuffle(objArr) {
             var ids = [];
             angular.forEach(objArr, function(obj) {
