@@ -496,7 +496,7 @@ app.controller('ClubDiaryController', [
                     this.push(item);
                 }
             }, $scope.actual);
-            
+           
         });
     }
 
@@ -540,7 +540,7 @@ app.controller('ClubDiaryController', [
             select: function(start, end, jsEvent, view) { //select cell (empty)
 
                 //var allDay = !start.hasTime() && !end.hasTime();
-                //$scope.newEvent.start = {};
+                $scope.newEvent.start = {};
                 $scope.newEvent.start = moment(start).format('YYYY-MM-DDTHH:mm');
                 target.modal('show'); //open the modal
             
@@ -628,7 +628,7 @@ app.controller('ClubDiaryController', [
                 needToUpdate = -1;
                 getResults();
                 getEv();
-                    getactualEv();
+                getactualEv();
                 target.modal('hide');
                 }).error(function(data, status, headers, config) {
                     if (status == 400) {
@@ -684,12 +684,13 @@ app.controller('ClubDiaryController', [
         $http.delete(urlTail + '/' + needToDelete).success(function () {
             getResults();
             needToDelete = -1;
+            needToUpdate = -1;
             getEv();
             getactualEv();
             target.modal('hide');
         });
     };
-
+   
 
 }]);
 
@@ -800,7 +801,24 @@ app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location',
             });
     };
 }]);
+app.controller('DairyNotifyController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
+    var urlTail = '/api/Dairy/';
+   
+    $scope.itemCount = 0;
+
+
+    function getResults() {
+        $http.get(urlTail)
+           .success(function (result) {
+               $scope.items = result;
+               $scope.itemCount = result.length;
+           });
+
+    }
+
+    getResults();
+}]);
 app.controller('ToDoNotifyController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
 
     var urlTail = '/api/ToDo/Today';
@@ -1755,7 +1773,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
         for (var i = 0; i < idsArry.length; i++) {
             for (var j = 0; j < $scope.scenarios.length; j++) {
                 if(idsArry[i] === $scope.scenarios[j].id){
-                    objs.push($scope.roles[j]);
+                    objs.push($scope.scenarios[j]);
                 }
             };
         };

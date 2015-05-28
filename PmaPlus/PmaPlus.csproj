@@ -3546,6 +3546,7 @@
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
     <Folder Include="Images\Clubs\" />
+    <Folder Include="Scripts\plugins\datapicker\icons\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

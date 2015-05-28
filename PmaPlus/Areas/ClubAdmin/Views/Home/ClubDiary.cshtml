@@ -5,6 +5,7 @@
 }
 
 <div ng-controller="ClubDiaryController">
+
     <div class="row wrapper border-bottom white-bg page-heading ">
         <div class="col-sm-4">
             <h2>Diary</h2>
@@ -25,7 +26,7 @@
     </div>
     <div class="wrapper wrapper-content">
 
-        <div class="col-md-3" style="padding: 0px 5px 0px 0px;">
+        <div class="col-md-3" style="padding: 0px 5px 0px 15px;">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Diary Events</h5>
@@ -62,7 +63,7 @@
             </div>
         </div>
 
-        <div class="col-md-9" style="padding: 0px 0px 0px 5px;">
+        <div class="col-md-9" style="padding: 0px 15px 0px 5px;">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title ">
                         <h5>Calendar </h5>
@@ -106,7 +107,7 @@
                                             <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Note:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input name="eventNote" ng-model="newEvent.note" required class="form-control">
+                                                <textarea name="eventNote" ng-model="newEvent.note" required class="form-control"></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -119,7 +120,7 @@
                                                             </div>
                                                         </a>
                                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                        <datetimepicker data-ng-model="newEvent.start" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day' }" />
+                                                        <datetimepicker data-ng-model="newEvent.start" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day' }"/>
                                                         </ul>
                                                     </div>
 
@@ -135,7 +136,7 @@
                                                             </div>
                                                         </a>
                                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                        <datetimepicker data-ng-model="newEvent.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
+                                                        <datetimepicker data-ng-model="newEvent.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }"/>
                                                         </ul>
                                                     </div>
 
@@ -169,7 +170,7 @@
                                     <div class="modal-footer">
                                         <button ng-click="delete()" id="deleteConf" type="button" class="btn btn-white pull-left">Delete</button>
                                         <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                    <button ng-click="ok()" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                                    <button ng-click="ok()" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color: @ViewBag.them;">
                                         <span class="ladda-label" style="font-size: 14px;">Save changes</span>
                                     </button>
                                     </div>
