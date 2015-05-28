@@ -16,7 +16,8 @@ namespace PmaPlus.Model.ViewModels.Curriculum
         public bool Objectives { get; set; }                    
         public bool Rating { get; set; }                        
         public bool Report { get; set; }
-        public bool ReviewPeriod { get; set; }
+        public bool StartOfReviewPeriod { get; set; }
+        public bool EndOfReviewPeriod { get; set; }
 
         
     }

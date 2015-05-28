@@ -44,16 +44,20 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             };
         }
 
-
+        [Route("api/Sessions/{id:int}")]
         public SessionViewModel Get(int id)
         {
-            return Mapper.Map<Session,SessionViewModel>(_curriculumServices.GetSessionById(id));
+            var sess = _curriculumServices.GetSessionById(id);
+            var scens = sess.Scenarios.ToList();
+            return Mapper.Map<Session, SessionViewModel>(sess);
         }
 
-        public IHttpActionResult Post(int id, [FromBody]SessionViewModel sessionViewModel)
+
+        [Route("api/Sessions/{curriculumId:int}")]
+        public IHttpActionResult Post(int curriculumId, [FromBody]SessionViewModel sessionViewModel)
         {
             var session = Mapper.Map<SessionViewModel, Session>(sessionViewModel);
-            var newSession = _curriculumServices.AddSession(session, id, sessionViewModel.Scenarios);
+            var newSession = _curriculumServices.AddSession(session, curriculumId, sessionViewModel.Scenarios);
 
             if (newSession != null)
             {
@@ -78,6 +82,8 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
 
         }
 
+
+        [Route("api/Sessions/{id:int}")]
         public IHttpActionResult Put(int id, [FromBody] SessionViewModel sessionViewModel)
         {
             if (!_curriculumServices.SessionExist(id))
@@ -104,6 +110,7 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             return Ok();
         }
 
+        [Route("api/Sessions/{id:int}")]
         public IHttpActionResult Delete(int id)
         {
             if (!_curriculumServices.SessionExist(id))

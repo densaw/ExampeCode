@@ -52,7 +52,7 @@
                 <div class="ibox-content">
                     <div id='external-events'>
                         <p></p>
-                        <div class='external-event navy-bg' ng-repeat="Evnote in Evnotes">
+                        <div class='external-event navy-bg' ng-repeat="Evnote in actual">
                             <p>{{Evnote.note}}</p>
                         </div>
 
@@ -92,7 +92,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content animated bounceInRight">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                         <h3 class="modal-title text-left">Add</h3>
                                     </div>
                                     <div class="modal-body">

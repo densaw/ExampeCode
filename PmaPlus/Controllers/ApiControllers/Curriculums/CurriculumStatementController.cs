@@ -74,10 +74,13 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
 
         public IHttpActionResult Put(int id, [FromBody] CurriculumStatementViewModel statementViewModel)
         {
-
+            if (!_curriculumServices.StatementExist(id))
+            {
+                return NotFound();
+            }
             var statement = Mapper.Map<CurriculumStatementViewModel, CurriculumStatement>(statementViewModel);
 
-            _curriculumServices.UpdateCurriculumStatment(statement, statementViewModel.Roles, _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id);
+            _curriculumServices.UpdateCurriculumStatment(statement, statementViewModel.Roles, id);
             return Ok();
         }
 

@@ -78,7 +78,6 @@
     <Compile Include="Models\ClubNeeds.cs" />
     <Compile Include="Models\Coach.cs" />
     <Compile Include="Models\Curriculum.cs" />
-    <Compile Include="Models\ScenarioSession.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\CurriculumStatement.cs" />
     <Compile Include="Enums\AgeGroup.cs" />
@@ -108,6 +107,7 @@
     <Compile Include="Models\Qualification.cs" />
     <Compile Include="Models\QualificationToFaCourse.cs" />
     <Compile Include="Models\Scenario.cs" />
+    <Compile Include="Models\SessionScenario.cs" />
     <Compile Include="Models\SkillLevel.cs" />
     <Compile Include="Models\StatementRoles.cs" />
     <Compile Include="Models\TargetHistory.cs" />

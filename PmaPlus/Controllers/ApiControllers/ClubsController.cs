@@ -92,7 +92,7 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
             return _clubServices.GetClubById(club.Club.Id).ColorTheme;
-        }    
+        }
 
         [Route("api/Clubs/background")]
         public HttpResponseMessage GetBackground()
@@ -122,8 +122,15 @@ namespace PmaPlus.Controllers.ApiControllers
             var newClub = _clubServices.AddClub(clubViewModel);
             if (newClub != null)
             {
-                newClub.Logo = _photoManager.MoveFromTemp(newClub.Logo, FileStorageTypes.Clubs, newClub.Id,"logo");
-                newClub.Background = _photoManager.MoveFromTemp(newClub.Background, FileStorageTypes.Clubs, newClub.Id, "Background");
+                if (_photoManager.FileExists(clubViewModel.Logo))
+                {
+                    newClub.Logo = _photoManager.MoveFromTemp(newClub.Logo, FileStorageTypes.Clubs, newClub.Id, "logo");
+                }
+                if (_photoManager.FileExists(clubViewModel.Background))
+                {
+                    newClub.Background = _photoManager.MoveFromTemp(newClub.Background, FileStorageTypes.Clubs,
+                        newClub.Id, "Background");
+                }
                 _clubServices.UpdateClub(newClub, newClub.Id);
                 return Ok();
             }
@@ -137,11 +144,11 @@ namespace PmaPlus.Controllers.ApiControllers
             {
                 return NotFound();
             }
-            if (!clubViewModel.Logo.Contains("logo"))
+            if (_photoManager.FileExists(clubViewModel.Logo))
             {
-                clubViewModel.Logo = _photoManager.MoveFromTemp(clubViewModel.Logo, FileStorageTypes.Clubs, clubViewModel.Id,"logo");
+                clubViewModel.Logo = _photoManager.MoveFromTemp(clubViewModel.Logo, FileStorageTypes.Clubs, clubViewModel.Id, "logo");
             }
-            if (!clubViewModel.Logo.Contains("Background"))
+            if (_photoManager.FileExists(clubViewModel.Background))
             {
                 clubViewModel.Background = _photoManager.MoveFromTemp(clubViewModel.Background, FileStorageTypes.Clubs,
                     clubViewModel.Id, "Background");
