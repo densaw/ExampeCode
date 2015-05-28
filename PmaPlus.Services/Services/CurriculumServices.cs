@@ -38,7 +38,6 @@ namespace PmaPlus.Services
         public decimal GetProgress(int curriculumId)
         {
             var curriclum = _curriculumRepository.GetById(curriculumId);
-
             return 0;
 
         }
@@ -125,7 +124,7 @@ namespace PmaPlus.Services
             if (curriculum != null)
             {
                 session.Curriculum = curriculum;
-                var newSession =_sessionRepository.Add(session);
+                var newSession = _sessionRepository.Add(session);
                 if (newSession != null)
                 {
                     foreach (var scenario in scenariosList)
@@ -133,12 +132,12 @@ namespace PmaPlus.Services
 
                         if (_scenarioRepository.GetMany(s => s.Id == scenario).Any())
                         {
-                        _scenarioSessionRepository.Add(new ScenarioSession()
-                        {
-                            Scenario = _scenarioRepository.GetById(scenario),
-                            Session = newSession
-                        });
-                            
+                            _scenarioSessionRepository.Add(new ScenarioSession()
+                            {
+                                Scenario = _scenarioRepository.GetById(scenario),
+                                Session = newSession
+                            });
+
                         }
 
                     }
@@ -151,15 +150,21 @@ namespace PmaPlus.Services
             return null;
         }
 
-        public void UpdateSession(Session session, int id,IList<int> scenariosList )
+        public void UpdateSession(Session session, int id, IList<int> scenariosList)
         {
             session.Id = id;
             _sessionRepository.Update(session, session.Id);
 
             var tempSession = _sessionRepository.GetById(id);
+
+            if (tempSession == null)
+            {
+                return;
+            }
+
             foreach (var scenario in scenariosList)
             {
-                if (!_scenarioSessionRepository.GetMany(s => s.SessionId == tempSession.Id && !scenariosList.Contains(s.ScenarioId)).Any())
+                if (!_scenarioSessionRepository.GetMany(s => s.SessionId == tempSession.Id && s.ScenarioId == scenario).Any())
                 {
                     _scenarioSessionRepository.Add(new ScenarioSession()
                     {
@@ -168,6 +173,7 @@ namespace PmaPlus.Services
                     });
                 }
             }
+            
             _scenarioSessionRepository.Delete(s => s.SessionId == tempSession.Id && !scenariosList.Contains(s.ScenarioId));
 
         }
@@ -178,6 +184,7 @@ namespace PmaPlus.Services
         }
         public void DeleteSession(int id)
         {
+            _scenarioSessionRepository.Delete(ss => ss.SessionId == id);
             _sessionRepository.Delete(s => s.Id == id);
         }
 
@@ -229,13 +236,19 @@ namespace PmaPlus.Services
                 _curriculumStatementRepository.Update(statement, id);
 
                 var tempStatement = _curriculumStatementRepository.GetById(id);
-                foreach (var role in rolesList)
+
+                if (tempStatement == null)
                 {
-                    if (!_statementRolesRepository.GetMany(s => s.CurriculumStatementId == tempStatement.Id && s.Role == role).Any())
+                    return;
+                }
+
+                foreach (var rolee in rolesList)
+                {
+                    if (!_statementRolesRepository.GetMany(s => s.CurriculumStatementId == tempStatement.Id && s.Role == rolee).Any())
                     {
                         _statementRolesRepository.Add(new StatementRoles()
                         {
-                            Role = role,
+                            Role = rolee,
                             Statement = tempStatement,
                             CurriculumStatementId = tempStatement.Id
                         });
@@ -244,7 +257,7 @@ namespace PmaPlus.Services
                 _statementRolesRepository.Delete(s => s.CurriculumStatementId == tempStatement.Id && !rolesList.Contains(s.Role));
             }
         }
-     
+
 
         public void DeleteCurriculumStatement(int id)
         {

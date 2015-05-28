@@ -1556,16 +1556,23 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
     var urlTail = '/api/CurriculumStatement';
     var target = angular.element('#addStateModal');
     var deleteModal = angular.element('#confDelete');
-    //Toggle
-    var stblock = angular.element('#stblock');
-    var stWeek = angular.element('#stWeek');
-    var stSession = angular.element('#stSession');
 
 
     $scope.help = {};
     $scope.help.usersType = [];
 
     $scope.roles = [
+       { id: 1, name: 'Club Admin' },
+       { id: 2, name: 'Head Of Academies' },
+       { id: 3, name: 'Coach' },
+       { id: 4, name: 'Head Of Education' },
+       { id: 5, name: 'Welfare Officer' },
+       { id: 7, name: 'Physiotherapist' },
+       { id: 8, name: 'Sports Scientist' }
+    ];
+
+    $scope.rolesDate = [
+       { id: 0, name: 'SysAdmin' },
        { id: 1, name: 'Club Admin' },
        { id: 2, name: 'Head Of Academies' },
        { id: 3, name: 'Coach' },
@@ -1650,17 +1657,14 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
     $scope.ok = function(id){
 
         $scope.newStatements.roles = shuffle($scope.help.usersType);
-        $scope.newStatements.chooseBlock = stblock.prop('checked');
-        $scope.newStatements.chooseWeek = stWeek.prop('checked');
-        $scope.newStatements.chooseSession = stSession.prop('checked');
 
         console.log($scope.newStatements);
         if(id != null){
             
             //PUT it now have no url to Update date
             $http.put(urlTail + '/' + id, $scope.newStatements).success(function(){
-                console.log('Team Update');
                 getResultsPage($scope.pagination.current);
+                target.modal('hide');
             }).error(function (data, status, headers, config){
 
             });
@@ -1681,9 +1685,6 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
             .success(function (result) {
                 $scope.newStatements = result;
                 $scope.help.usersType = reShuffle(result.roles);
-                stblock.bootstrapToggle(result.chooseBlock ? 'on' : 'off');
-                stWeek.bootstrapToggle(result.chooseWeek ? 'on' : 'off');
-                stSession.bootstrapToggle(result.chooseSession ? 'on' : 'off');
                 target.modal('show');
             });
     };    

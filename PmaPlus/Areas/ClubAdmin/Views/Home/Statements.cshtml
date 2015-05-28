@@ -33,7 +33,7 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Teams</h5>
+                        <h5>Curriculum Statements</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -62,25 +62,11 @@
                                                 <label class="col-lg-4 title-modal">User Type:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <ui-select multiple ng-model="help.usersType" ng-disabled="disabled" theme="bootstrap">
-                                                        <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
+                                                        <ui-select-match placeholder="Select User Types...">{{$item.name}}</ui-select-match>
                                                         <ui-select-choices repeat="role in roles">
                                                             <div ng-bind-html="role.name | highlight: $select.search"></div>
                                                         </ui-select-choices>
                                                     </ui-select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Frequency:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <label class="checkbox-inline">
-                                                        <input id="stblock" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default"> Block
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input id="stWeek" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default"> Week
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input id="stSession" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default"> Session
-                                                    </label>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -164,7 +150,6 @@
                                 <thead>
                                     <tr>
                                         <th>User Type</th>
-                                        <th>B\W\S</th>
                                         <th>Statement</th>
                                         <th>Action</th>
                                     </tr>
@@ -172,9 +157,8 @@
                                 <tbody id="contentTable">
                                     <tr dir-paginate="state in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalCourses">
                                         <td>
-                                            <div ng-repeat="role in state.roles">{{roles[role].name}}</div>
+                                            <div ng-repeat="role in state.roles">{{rolesDate[role].name}}</div>
                                         </td>
-                                        <td>{{state.chooseBlock}} \ {{state.chooseWeek}} \ {{state.chooseSession}}</td>
                                         <td>{{state.statement}}</td>
                                         <td>
                                             <i ng-click="openEdit(state.id)" class="fa fa-cog" style="cursor: pointer;"></i>
