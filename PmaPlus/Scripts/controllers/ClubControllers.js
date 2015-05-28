@@ -485,6 +485,7 @@ app.controller('ClubDiaryController', [
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
+            
             allDayDefault: true,
             defaultView: 'agendaWeek',
             aspectRatio: 1.5,
@@ -508,8 +509,9 @@ app.controller('ClubDiaryController', [
         
             select: function(start, end, jsEvent, view) { //select cell (empty)
 
-            //var allDay = !start.hasTime() && !end.hasTime();
-            $scope.newEvent.start = moment(start).format();
+                //var allDay = !start.hasTime() && !end.hasTime();
+
+                $scope.newEvent.start = moment(start).format('YYYY-MM-DDTHH:mm');
                 target.modal('show'); //open the modal
             //alert(["Event Start date: " + moment(start).format(),
                    //"Event End date: " + moment(end).format(),
@@ -524,8 +526,8 @@ app.controller('ClubDiaryController', [
         },
         
            
-    editable: true,
-        droppable: true,
+    editable: false,
+        droppable: false,
         drop: function() {
             // is the "remove after drop" checkbox checked?
             if ($('#drop-remove').is(':checked')) {
