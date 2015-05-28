@@ -1842,7 +1842,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                     headers: { 'Content-Type': undefined }
                 })
                     .success(function (data) {
-                        $scope.newCurrDet.curriculumDetailCoachPicture = data.name;
+                        $scope.newCurrDet.coachPicture = data.name;
                     })
                     .error(function () {
                         toaster.pop({
@@ -1862,7 +1862,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                     headers: { 'Content-Type': undefined }
                 })
                     .success(function (data) {
-                        $scope.newCurrDet.curriculumDetailPlayersFriendlyPicture = data.name;
+                        $scope.newCurrDet.playerPicture = data.name;
                     })
                     .error(function () {
                         toaster.pop({
@@ -1885,11 +1885,13 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                 $scope.newCurrDet.endOfReviewPeriod = toggleEndofReviewPeriod.prop('checked');
                 $scope.newCurrDet.playerDetails = togglePlayerDetails.prop('checked');
                 $scope.newCurrDet.needScenarios = toggleNeedScenarios.prop('checked');
+                $scope.newCurrDet.scenarios = shuffle($scope.help.scenarios);
 
+                console.log($scope.newCurrDet);
                 if(id != null){
                     //PUT it now have no url to Update date
                     $http.put(urlTail + '/' + id, $scope.newCurrDet).success(function(){
-                        getResultsPage();
+                        getResultsPage($scope.pagination.current);
                         target.modal('hide');
                     }).error(function (data, status, headers, config){
 
@@ -1897,7 +1899,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                 }else{
                     //POST
                     $http.post(urlTail + '/' + $scope.currId, $scope.newCurrDet).success(function(result){
-                        getResultsPage();
+                        getResultsPage($scope.pagination.current);
                         target.modal('hide');
                     }).error(function (data, status, headers, config){
 
