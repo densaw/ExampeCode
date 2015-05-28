@@ -1825,6 +1825,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     $scope.cancel = function(){
         needToDelete = -1;
+        $scope.newCurrDet = {}
         target.modal('hide');
         deleteModal.modal('hide');
     };
@@ -1891,6 +1892,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                 if(id != null){
                     //PUT it now have no url to Update date
                     $http.put(urlTail + '/' + id, $scope.newCurrDet).success(function(){
+                        $scope.newCurrDet = {}
                         getResultsPage($scope.pagination.current);
                         target.modal('hide');
                     }).error(function (data, status, headers, config){
@@ -1900,6 +1902,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                     //POST
                     $http.post(urlTail + '/' + $scope.currId, $scope.newCurrDet).success(function(result){
                         getResultsPage($scope.pagination.current);
+                        $scope.newCurrDet = {};
                         target.modal('hide');
                     }).error(function (data, status, headers, config){
 
@@ -1910,6 +1913,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     };
     
     $scope.openEdit = function (id) {
+        $scope.modalTitle = 'Update Curriculum Session';
         $http.get(urlTail + '/' + id)
             .success(function (result) {
                 console.log(result);
