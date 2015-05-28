@@ -70,20 +70,6 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Frequency:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <label class="checkbox-inline">
-                                                        <input id="stblock" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default"> Block
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input id="stWeek" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default"> Week
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input id="stSession" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default"> Session
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Statement:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <input ng-model="newStatements.statement" required class="form-control" maxlength="50">
@@ -164,7 +150,6 @@
                                 <thead>
                                     <tr>
                                         <th>User Type</th>
-                                        <th>B\W\S</th>
                                         <th>Statement</th>
                                         <th>Action</th>
                                     </tr>
@@ -174,7 +159,6 @@
                                         <td>
                                             <div ng-repeat="role in state.roles">{{roles[role].name}}</div>
                                         </td>
-                                        <td>{{state.chooseBlock}} \ {{state.chooseWeek}} \ {{state.chooseSession}}</td>
                                         <td>{{state.statement}}</td>
                                         <td>
                                             <i ng-click="openEdit(state.id)" class="fa fa-cog" style="cursor: pointer;"></i>
