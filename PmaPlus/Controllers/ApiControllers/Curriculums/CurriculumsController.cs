@@ -64,6 +64,17 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         }
 
 
+        [Route("api/Curriculum/ToLive/{id:int}")]
+        public IHttpActionResult PutLiveMode(int id)
+        {
+            if (!_curriculumServices.CurriculumExist(id))
+                return NotFound();
+
+            _curriculumServices.SetCurriculumToLive(id);
+            return Ok();
+
+        }
+
         public IHttpActionResult Post([FromBody] CurriculumViewModel curriculumViewModel)
         {
             var curriculum = Mapper.Map<CurriculumViewModel, Curriculum>(curriculumViewModel);
