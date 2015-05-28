@@ -40,7 +40,6 @@ namespace PmaPlus.Data
         public virtual DbSet<SportsScienceExercise> SportsScienceExercises { get; set; }
         public virtual DbSet<SportsScienceTest> SportsScienceTests { get; set; }
         public virtual DbSet<Scenario> Scenarios { get; set; }
-        //public virtual DbSet<SessionScenario> SessionScenarios { get; set; } 
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
