@@ -38,7 +38,6 @@ namespace PmaPlus.Services
         public decimal GetProgress(int curriculumId)
         {
             var curriclum = _curriculumRepository.GetById(curriculumId);
-
             return 0;
 
         }
@@ -229,13 +228,13 @@ namespace PmaPlus.Services
                 _curriculumStatementRepository.Update(statement, id);
 
                 var tempStatement = _curriculumStatementRepository.GetById(id);
-                foreach (var role in rolesList)
+                foreach (var rolee in rolesList)
                 {
-                    if (!_statementRolesRepository.GetMany(s => s.CurriculumStatementId == tempStatement.Id && s.Role == role).Any())
+                    if (!_statementRolesRepository.GetMany(s => s.CurriculumStatementId == tempStatement.Id &&    s.Role == rolee).Any())
                     {
                         _statementRolesRepository.Add(new StatementRoles()
                         {
-                            Role = role,
+                            Role = rolee,
                             Statement = tempStatement,
                             CurriculumStatementId = tempStatement.Id
                         });
