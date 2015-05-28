@@ -22,7 +22,6 @@ namespace PmaPlus.Data
         public virtual DbSet<Curriculum> Curriculums { get; set; }
         public virtual DbSet<TeamCurriculum> TeamCurriculum { get; set; } 
         public virtual DbSet<Session> CurriculumSessions { get; set; }
-        public virtual DbSet<ScenarioSession> ScenarioSessions { get;set; }
         public virtual DbSet<FACourse> FACourses { get; set; }
         public virtual DbSet<HeadOfAcademy> HeadOfAcademies { get; set; }
         public virtual DbSet<HeadOfEducation> HeadOfEducations { get; set; }
@@ -40,7 +39,7 @@ namespace PmaPlus.Data
         public virtual DbSet<SportScientist> SportScientists { get; set; }
         public virtual DbSet<SportsScienceExercise> SportsScienceExercises { get; set; }
         public virtual DbSet<SportsScienceTest> SportsScienceTests { get; set; }
-        public virtual DbSet<Scenario> Scenarios { get; set; } 
+        public virtual DbSet<Scenario> Scenarios { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
@@ -90,6 +89,7 @@ namespace PmaPlus.Data
                 .HasOptional(u => u.Address)
                 .WithOptionalDependent()
                 .WillCascadeOnDelete(false);
+
 
             base.OnModelCreating(modelBuilder);
         }

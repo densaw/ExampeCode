@@ -1,5 +1,5 @@
 ﻿@import url("//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en");
-@font-face {
+/*@font-face {
   font-family: "OpenSans-Extrabold";
   src: url("../Fonts/OpenSans-ExtraBold.eot?") format("eot"), url("../Fonts/OpenSans-ExtraBold.woff") format("woff"), url("../Fonts/OpenSans-ExtraBold.ttf") format("truetype"), url("../Fonts/OpenSans-ExtraBold.svg#OpenSans-Extrabold") format("svg");
   font-weight: normal;
@@ -11,7 +11,7 @@
   src: url("../Fonts/OpenSans-Semibold.eot?") format("eot"), url("../Fonts/OpenSans-Semibold.woff") format("woff"), url("../fonts/OpenSans-Semibold.ttf") format("truetype"), url("../Fonts/OpenSans-Semibold.svg#OpenSans-Semibold") format("svg");
   font-weight: normal;
   font-style: normal;
-}
+}*/
 
 /*
  *
@@ -2193,7 +2193,7 @@ table.dataTable thead .sorting:after {
   width: 100%;
   font-size: 0.75em;
   line-height: 1.333333em;
-  font-family: open sans, lucida grande, lucida sans unicode, helvetica, arial, sans-serif;
+  font-family: 'Open Sans', lucida grande, lucida sans unicode, helvetica, arial, sans-serif;
   padding: 5px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -2744,7 +2744,7 @@ a.forum-item-title:hover {
   padding-right: 20px !important;
 }
 body {
-  font-family: "OpenSans-Semibolt", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background-color: #2f4050;
   font-size: 13px;
   color: #676a6c;
@@ -2783,12 +2783,12 @@ a:focus {
   border-bottom: 1px solid #e7eaec !important;
 }
 .font-bold {
-  font-family: OpenSans-ExtraBold;
+  font-family: 'Open Sans', sans-serif;
   font-size: 50px;
   font-weight: 600;
 }
 .font-bold-small {
-  font-family: OpenSans-ExtraBold;
+  font-family: 'Open Sans', sans-serif;
   font-size: 18px;
   font-weight: 600;
 }
@@ -3724,7 +3724,7 @@ body.modal-open {
 }
 .logo-name {
   color: #e6e6e6;
-  font-family: "OpenSans-ExtraBold";
+  font-family: 'Open Sans', sans-serif;
   font-size: 160px;
   padding-bottom: 20px;
   padding-top: 35px;
@@ -4640,6 +4640,12 @@ body.rtls.top-navigation .footer.fixed {
 .skin-1 .navbar-top-links li:last-child {
   margin-right: 30px;
 }
+
+.skin-1 .navbar-top-links li:last-child a:hover {
+    background-color: #f4f6fa;
+    color: #333333;
+}
+
 .skin-1.fixed-nav .minimalize-styl-2 {
   margin: 14px 5px 5px 15px;
 }

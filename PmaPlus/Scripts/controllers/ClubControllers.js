@@ -1561,7 +1561,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     }
 }]);
 
-app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location){
+app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$filter', function($scope, $http, toaster, $q, $routeParams, $location, $filter){
 
     var needToDelete = -1;
     var urlTail = '/api/CurriculumStatement';
@@ -1571,6 +1571,7 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
 
     $scope.help = {};
     $scope.help.usersType = [];
+    $scope.revers = false;
 
     $scope.roles = [
        { id: 1, name: 'Club Admin' },
@@ -1633,6 +1634,18 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
 
     getResultsPage($scope.pagination.current);
 
+    $scope.order = function(field){
+        console.log(field);
+        if ($scope.revers) {
+            $scope.revers = false;
+            $scope.items = $filter('orderBy')($scope.items, field, true);
+        }else{
+            $scope.revers = true;
+            $scope.items = $filter('orderBy')($scope.items, field);  
+        }
+        
+    }
+
     $scope.pageChanged = function (newPage) {
         getResultsPage(newPage);
         $scope.pagination.current = newPage;
@@ -1694,6 +1707,7 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
     $scope.openEdit = function (id) {
         $http.get(urlTail + '/' + id)
             .success(function (result) {
+                console.log(result);
                 $scope.newStatements = result;
                 $scope.help.usersType = reShuffle(result.roles);
                 target.modal('show');
@@ -1706,12 +1720,24 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
-
+    $scope.scenarios = [];
 
     var needToDelete = -1;
     var urlTail = '/api/Sessions';
     var target = angular.element('#addCurrDetalModal');
     var deleteModal = angular.element('#confDelete');
+
+    //toggle
+    var toggleAttendance = angular.element('#toggleAttendance');
+    var toggleObjectives = angular.element('#toggleObjectives');
+    var toggleRating = angular.element('#toggleRating');
+    var toggleReport = angular.element('#toggleReport');
+    var toggleObjectiveReport = angular.element('#toggleObjectiveReport');
+    var toggleCoachDetails = angular.element('#toggleCoachDetails');
+    var togglePlayerDetails = angular.element('#togglePlayerDetails');
+    var toggleStartofReviewPeriod = angular.element('#toggleStartofReviewPeriod');
+    var toggleEndofReviewPeriod = angular.element('#toggleEndofReviewPeriod');
+    var toggleNeedScenarios = angular.element('#toggleNeedScenarios');
 
 
     $scope.help = {};
@@ -1738,21 +1764,13 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     function reShuffle(idsArry){
         var objs = []
         for (var i = 0; i < idsArry.length; i++) {
-            for (var j = 0; j < $scope.roles.length; j++) {
-                if(idsArry[i] === $scope.roles[j].id){
-                    objs.push($scope.roles[j]);
+            for (var j = 0; j < $scope.scenarios.length; j++) {
+                if(idsArry[i] === $scope.scenarios[j].id){
+                    objs.push($scope.scenarios[j]);
                 }
             };
         };
         return objs;
-    }    
-
-    function getResultsPage() {
-        $http.get(urlTail + '/' + $scope.currId)
-            .success(function (result) {
-                console.log(result);
-                $scope.items = result;
-            });
     }
 
     function getScenarios(){
@@ -1768,10 +1786,26 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
         });
     }
 
-    $scope.items = [];
+    function getResultsPage(pageNumber) {
+        $http.get(urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber)
+            .success(function (result) {
+                console.log(result);
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    }
 
+    $scope.items = [];
+    $scope.totalItems = 0;
+    $scope.itemsPerPage = 20;
+
+
+    $scope.pagination = {
+        current: 1
+    };
+
+    getResultsPage($scope.pagination.current);
     getParentCurr();
-    getResultsPage();
     getScenarios();
 
     $scope.pageChanged = function (newPage) {
@@ -1802,6 +1836,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     $scope.cancel = function(){
         needToDelete = -1;
+        $scope.newCurrDet = {}
         target.modal('hide');
         deleteModal.modal('hide');
     };
@@ -1819,7 +1854,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                     headers: { 'Content-Type': undefined }
                 })
                     .success(function (data) {
-                        $scope.newCurrDet.curriculumDetailCoachPicture = data.name;
+                        $scope.newCurrDet.coachPicture = data.name;
                     })
                     .error(function () {
                         toaster.pop({
@@ -1839,7 +1874,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                     headers: { 'Content-Type': undefined }
                 })
                     .success(function (data) {
-                        $scope.newCurrDet.curriculumDetailPlayersFriendlyPicture = data.name;
+                        $scope.newCurrDet.playerPicture = data.name;
                     })
                     .error(function () {
                         toaster.pop({
@@ -1852,10 +1887,24 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
             }
             $q.all(promises).then(function () {
                 $scope.newCurrDet.scenarioId = $scope.selectedScenario.id;
+                $scope.newCurrDet.attendance = toggleAttendance.prop('checked');
+                $scope.newCurrDet.objectives = toggleObjectives.prop('checked');
+                $scope.newCurrDet.rating = toggleRating.prop('checked');
+                $scope.newCurrDet.report = toggleReport.prop('checked');
+                $scope.newCurrDet.objectiveReport = toggleObjectiveReport.prop('checked');
+                $scope.newCurrDet.coachDetails = toggleCoachDetails.prop('checked');
+                $scope.newCurrDet.startOfReviewPeriod = toggleStartofReviewPeriod.prop('checked');
+                $scope.newCurrDet.endOfReviewPeriod = toggleEndofReviewPeriod.prop('checked');
+                $scope.newCurrDet.playerDetails = togglePlayerDetails.prop('checked');
+                $scope.newCurrDet.needScenarios = toggleNeedScenarios.prop('checked');
+                $scope.newCurrDet.scenarios = shuffle($scope.help.scenarios);
+
+                console.log($scope.newCurrDet);
                 if(id != null){
                     //PUT it now have no url to Update date
                     $http.put(urlTail + '/' + id, $scope.newCurrDet).success(function(){
-                        getResultsPage();
+                        $scope.newCurrDet = {}
+                        getResultsPage($scope.pagination.current);
                         target.modal('hide');
                     }).error(function (data, status, headers, config){
 
@@ -1863,7 +1912,8 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                 }else{
                     //POST
                     $http.post(urlTail + '/' + $scope.currId, $scope.newCurrDet).success(function(result){
-                        getResultsPage();
+                        getResultsPage($scope.pagination.current);
+                        $scope.newCurrDet = {};
                         target.modal('hide');
                     }).error(function (data, status, headers, config){
 
@@ -1874,13 +1924,26 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     };
     
     $scope.openEdit = function (id) {
+        $scope.modalTitle = 'Update Curriculum Session';
         $http.get(urlTail + '/' + id)
             .success(function (result) {
-                $scope.newStatements = result;
-                $scope.help.usersType = reShuffle(result.roles);
-                stblock.bootstrapToggle(result.chooseBlock ? 'on' : 'off');
-                stWeek.bootstrapToggle(result.chooseWeek ? 'on' : 'off');
-                stSession.bootstrapToggle(result.chooseSession ? 'on' : 'off');
+                console.log(result);
+
+
+                $scope.newCurrDet = result;
+                $scope.help.scenarios = reShuffle(result.scenarios);
+
+                toggleAttendance.bootstrapToggle(result.attendance ? 'on' : 'off');
+                toggleObjectives.bootstrapToggle(result.objectives ? 'on' : 'off');
+                toggleRating.bootstrapToggle(result.rating ? 'on' : 'off');
+                toggleReport.bootstrapToggle(result.report ? 'on' : 'off');
+                toggleObjectiveReport.bootstrapToggle(result.objectiveReport ? 'on' : 'off');
+                toggleCoachDetails.bootstrapToggle(result.coachDetails ? 'on' : 'off');
+                togglePlayerDetails.bootstrapToggle(result.playerDetails ? 'on' : 'off');
+                toggleStartofReviewPeriod.bootstrapToggle(result.startOfReviewPeriod ? 'on' : 'off');
+                toggleEndofReviewPeriod.bootstrapToggle(result.endOfReviewPeriod ? 'on' : 'off');
+                toggleNeedScenarios.bootstrapToggle(result.needScenarios ? 'on' : 'off');
+
                 target.modal('show');
             });
     };    

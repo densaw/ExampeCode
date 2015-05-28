@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +19,8 @@ namespace PmaPlus.Services
         private readonly IStatementRolesRepository _statementRolesRepository;
         private readonly ICurriculumStatementRepository _curriculumStatementRepository;
         private readonly IScenarioRepository _scenarioRepository;
-        private readonly IScenarioSessionRepository _scenarioSessionRepository;
 
-        public CurriculumServices(ICurriculumRepository curriculumRepository, ISessionRepository curriculumSessionRepository, IClubRepository clubRepository, ICurriculumStatementRepository curriculumStatementRepository, IStatementRolesRepository statementRolesRepository, IScenarioRepository scenarioRepository, IScenarioSessionRepository scenarioSessionRepository)
+        public CurriculumServices(ICurriculumRepository curriculumRepository, ISessionRepository curriculumSessionRepository, IClubRepository clubRepository, ICurriculumStatementRepository curriculumStatementRepository, IStatementRolesRepository statementRolesRepository, IScenarioRepository scenarioRepository)
         {
             _curriculumRepository = curriculumRepository;
             _sessionRepository = curriculumSessionRepository;
@@ -28,7 +28,6 @@ namespace PmaPlus.Services
             _curriculumStatementRepository = curriculumStatementRepository;
             _statementRolesRepository = statementRolesRepository;
             _scenarioRepository = scenarioRepository;
-            _scenarioSessionRepository = scenarioSessionRepository;
         }
 
 
@@ -132,15 +131,13 @@ namespace PmaPlus.Services
 
                         if (_scenarioRepository.GetMany(s => s.Id == scenario).Any())
                         {
-                            _scenarioSessionRepository.Add(new ScenarioSession()
-                            {
-                                Scenario = _scenarioRepository.GetById(scenario),
-                                Session = newSession
-                            });
+                           newSession.Scenarios.Add(_scenarioRepository.GetById(scenario));
 
                         }
 
                     }
+
+                    _sessionRepository.Update(newSession,newSession.Id);
                 }
 
 
@@ -153,28 +150,39 @@ namespace PmaPlus.Services
         public void UpdateSession(Session session, int id, IList<int> scenariosList)
         {
             session.Id = id;
-            _sessionRepository.Update(session, session.Id);
 
+            
             var tempSession = _sessionRepository.GetById(id);
+
 
             if (tempSession == null)
             {
                 return;
             }
 
+            session.Scenarios = tempSession.Scenarios;
+            
+            
             foreach (var scenario in scenariosList)
             {
-                if (!_scenarioSessionRepository.GetMany(s => s.SessionId == tempSession.Id && s.ScenarioId == scenario).Any())
+                if (!tempSession.Scenarios.Any(s => s.Id == scenario))
                 {
-                    _scenarioSessionRepository.Add(new ScenarioSession()
-                    {
-                        Scenario = _scenarioRepository.GetById(scenario),
-                        Session = tempSession
-                    });
+                    tempSession.Scenarios.Add(_scenarioRepository.GetById(scenario));
                 }
             }
+
+          
+
+            foreach (var item in tempSession.Scenarios.Where(scenario => !scenariosList.Contains(scenario == null ? 0 : scenario.Id)).ToList())
+            {
+                tempSession.Scenarios.Remove(item);
+            }
             
-            _scenarioSessionRepository.Delete(s => s.SessionId == tempSession.Id && !scenariosList.Contains(s.ScenarioId));
+           
+
+
+            
+            _sessionRepository.Update(session, session.Id);
 
         }
 
@@ -184,7 +192,6 @@ namespace PmaPlus.Services
         }
         public void DeleteSession(int id)
         {
-            _scenarioSessionRepository.Delete(ss => ss.SessionId == id);
             _sessionRepository.Delete(s => s.Id == id);
         }
 
