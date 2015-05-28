@@ -47,7 +47,9 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
         [Route("api/Sessions/{id:int}")]
         public SessionViewModel Get(int id)
         {
-            return Mapper.Map<Session,SessionViewModel>(_curriculumServices.GetSessionById(id));
+            var sess = _curriculumServices.GetSessionById(id);
+            var scens = sess.Scenarios.ToList();
+            return Mapper.Map<Session, SessionViewModel>(sess);
         }
 
 

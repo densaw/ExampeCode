@@ -8,6 +8,11 @@ namespace PmaPlus.Model.Models
 {
     public class Session
     {
+        public Session()
+        {
+            Scenarios = new HashSet<Scenario>();
+        }
+
         public int Id { get; set; }
         public int Number { get; set; }                                          
         public string Name { get; set; }                                         
@@ -24,7 +29,7 @@ namespace PmaPlus.Model.Models
         public bool PlayerDetails { get; set; }                                  
         public string  PlayerPicture { get; set; }                               
         public string PlayerDetailsName { get; set; }                            
-        public bool NeedScenarios { get; set; }                                  
+        public bool NeedScenarios { get; set; }
         public virtual ICollection<Scenario> Scenarios { get; set; }             
         public virtual Curriculum Curriculum { get; set; }
     }
