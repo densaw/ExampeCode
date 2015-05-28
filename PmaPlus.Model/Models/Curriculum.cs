@@ -13,6 +13,8 @@ namespace PmaPlus.Model.Models
         public virtual ICollection<Session> Sessions { get; set; }
 
 
+        public bool IsLive { get; set; }
+
         public virtual ICollection<TeamCurriculum> TeamCurricula { get; set; }
         public virtual Club Club { get; set; }
     }

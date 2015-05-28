@@ -136,6 +136,7 @@
     <Compile Include="ViewModels\Curriculum\CurriculumViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\SessionTableViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\SessionViewModel.cs" />
+    <Compile Include="ViewModels\DashboardContent\PlayersScoreGraph.cs" />
     <Compile Include="ViewModels\Diary\AddDiaryViewModel.cs" />
     <Compile Include="ViewModels\Diary\DiaryViewModel.cs" />
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />

@@ -99,7 +99,7 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<Curriculum, CurriculumViewModel>();
             Mapper.CreateMap<Curriculum, CurriculumTableViewModel>()
-                .ForMember(d => d.Started, o => o.MapFrom(d => d.TeamCurricula.FirstOrDefault() != null ? d.TeamCurricula.First().StartedOn.HasValue : false));
+                .ForMember(d => d.Started, o => o.MapFrom(d => d.TeamCurricula.FirstOrDefault() != null ? d.TeamCurricula.FirstOrDefault().StartedOn.HasValue : false));
 
             Mapper.CreateMap<Session, SessionViewModel>()
                 .ForMember(d => d.Scenarios, o => o.MapFrom(s =>s.Scenarios.Select(sc=> sc.Id)));
