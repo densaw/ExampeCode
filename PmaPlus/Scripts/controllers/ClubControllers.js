@@ -496,7 +496,7 @@ app.controller('ClubDiaryController', [
                     this.push(item);
                 }
             }, $scope.actual);
-            
+           
         });
     }
 
@@ -689,7 +689,18 @@ app.controller('ClubDiaryController', [
             target.modal('hide');
         });
     };
+        
+    function getRes() {
+        $http.get('/api/Diary/')
+           .success(function (result) {
+               $scope.items = result;
+               $scope.itemCount = $scope.items.length;
+           });
 
+    }
+
+    getRes();
+    
 
 }]);
 
