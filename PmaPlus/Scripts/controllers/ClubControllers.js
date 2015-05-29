@@ -1,5 +1,20 @@
 ﻿var app = angular.module('MainApp');
 
+
+app.filter('utc', function () {
+
+    return function (val) {
+        var date = new Date(val);
+        return new Date(date.getUTCFullYear(),
+                        date.getUTCMonth(),
+                        date.getUTCDate(),
+                        date.getUTCHours(),
+                        date.getUTCMinutes(),
+                        date.getUTCSeconds());
+    };
+
+});
+
 app.filter('todo', function () {
     return function (v, yes, no) {
         return v ? yes : no;
@@ -476,9 +491,11 @@ app.controller('ClubDiaryController', [
 
 
     var date = new Date();
+       
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
+        
 
     function getEv() {
         $scope.Evnotes = [];
@@ -554,7 +571,7 @@ app.controller('ClubDiaryController', [
 
                 //var allDay = !start.hasTime() && !end.hasTime();
                 $scope.newEvent.start = {};
-                $scope.newEvent.start = moment(start).format('YYYY-MM-DDTHH:mm');
+                $scope.newEvent.start = moment(start).format('YYYY-MM-DDTHH:mmZ');
                 target.modal('show'); //open the modal
             
         },
@@ -572,17 +589,19 @@ app.controller('ClubDiaryController', [
 
 
         eventRender: function(event, element) {
-            $scope.openEdit = element.bind('dblclick', function(id) {
+            $scope.openEdit = element.bind('dblclick', function() {
                 console.log('pre get');
                 
                 $http.get('/api/Diary/' + event.id)
-                    .success(function(result) {
+                    .success(function (result) {
+                        
                         $scope.newEvent = result;
                         needToUpdate = event.id;
                         needToDelete = event.id;
                         $scope.modalTitle = "Edit Event";
                         target.modal('show');
                         console.log('done');
+                        console.log($scope.newEvent.start);
                         console.log(result);
 
                     });
@@ -622,7 +641,7 @@ app.controller('ClubDiaryController', [
         $scope.windowTitle = 'Update Event';
         $scope.newEvent = event;
         needToUpdate = event.id;
-        //console.log($scope.newEvent.completionDateTime);
+        console.log($scope.newEvent.start);
         target.modal('show');
     }
     $scope.ok = function () {
@@ -1175,12 +1194,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     };
 
     $scope.check = function(currObj){
-        var sendObj = {};
-        sendObj.isLive = !currObj.isLive;
-        console.log(currObj.isLive);
-        console.log(!currObj.isLive);
-        console.log(sendObj);
-        $http.put(urlTail + '/ToLive/' + currObj.id, sendObj).success(function(result){
+        $http.put(urlTail + '/ToLive/' + currObj.id, !currObj.isLive).success(function(result){
             getResultsPage($scope.pagination.current);
         }).error(function (data, status, headers, config){
 
