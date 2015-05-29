@@ -19,7 +19,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             _userServices = userServices;
         }
 
-        [Route("api/ClubAdminDashboard/ClubName/")]
+        [Route("api/ClubAdminDashboard/ClubName")]
         public string GetClubName()
         {
             var clubAdmin = _userServices.GetClubAdminByUserName(User.Identity.Name);
