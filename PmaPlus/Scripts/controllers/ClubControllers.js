@@ -391,8 +391,21 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function($scope,
 
 }]);
 
+app.controller('MyCtrlDiary', function ($scope) {
+    $scope.cols = 0;
+    $scope.colsChanged = function () {
+        $scope.items = actual(+$scope.cols);
+    };
+
+    //optional: if you're starting with 1 or more "cols"
+    $scope.colsChanged();
+});
+
 app.controller('ClubDiaryController', [
     '$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function($scope, $http, toaster, $compile, uiCalendarConfig) {
+
+
+
 
     var needToDelete = -1;
     var needToUpdate = -1;

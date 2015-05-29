@@ -5,16 +5,10 @@
     ViewBag.Title = "PMA+";
 }
 
-@{
-
-    string logo = Convert.ToBase64String(Model.Logo);
-    string background = Convert.ToBase64String(Model.Background);
-}
-@*<img src="/Images/logo.png" class="img-circle circle-border m-b-md" alt="profile">*@
 <style>
     .lock-logo {
         margin: auto;
-        background: url("@String.Format("data:image/*;base64,{0}", background)");
+        background: url(@Model.Background);
         width:200px;
         height: 200px;
         text-align: center;
@@ -52,7 +46,7 @@
 </style>
 
 <div class="lock-logo img-circle circle-border">
-    <img src="@String.Format("data:image/*;base64,{0}", logo)" class=" m-b-md" alt="profile">
+    <img src="@Model.Logo" class=" m-b-md" alt="profile"> 
 </div>
 <h3 class="locked-screen">LOCKED SCREEN</h3>
 
@@ -67,6 +61,11 @@
         @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password" })
         @Html.ValidationMessageFor(model => model.Password)
     </div>
+
+    @Html.HiddenFor(model => model.Logo)
+    @Html.HiddenFor(model => model.Background)
+    @Html.HiddenFor(model => model.HexColor)
+
     <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
 
