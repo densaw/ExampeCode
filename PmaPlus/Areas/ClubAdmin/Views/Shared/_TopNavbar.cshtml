@@ -27,8 +27,12 @@
                             </div>
                         </a>
                         <div class="divider"></div>
-                    </li>
+                    </li> 
+                    <li>
+                        <div class="see-all"><a href="@Url.Action("ClubDiary", "Home", new { area="ClubAdmin" })">See all Diary Events ></a></div>
+                    </li>                    
                 </ul>
+                
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -53,10 +57,13 @@
                             </div>
                         </a>
                         <div class="divider"></div>
+                        
                     </li>
-                </ul>
+                        <li>                    
+                            <div class="see-all"><a href="@Url.Action("ToDoList", "Home", new { area="ClubAdmin" })">See all To-do Items ></a></div>
+                        </li>    
+                </ul>                
             </li>
-            
             <li>
                 <a href="@Url.Action("LockScreen", "Account", new {area = ""})"><i class="fa fa-power-off"></i></a>
             </li>
@@ -68,3 +75,22 @@
         </ul>
     </nav>
 </div>
+
+<style>
+    .see-all{
+        display: block;
+        text-align: center;
+        margin-left: 25px;
+    }
+
+    .see-all a{
+        color: #676a6c;   
+        font-size: 13px !important;
+        font-weight: 700 !important;   
+    }
+
+    .see-all a:hover{
+        background:#ffffff !important;
+    }
+
+</style>
