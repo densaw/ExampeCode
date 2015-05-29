@@ -65,12 +65,12 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
 
 
         [Route("api/Curriculum/ToLive/{id:int}")]
-        public IHttpActionResult PutLiveMode(int id)
+        public IHttpActionResult PutLiveMode(int id, [FromBody]bool isLive)
         {
             if (!_curriculumServices.CurriculumExist(id))
                 return NotFound();
 
-            _curriculumServices.SetCurriculumToLive(id);
+            _curriculumServices.SetCurriculumToLive(id,isLive);
             return Ok();
 
         }

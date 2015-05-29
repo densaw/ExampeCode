@@ -253,10 +253,12 @@
     <Compile Include="Controllers\ApiControllers\Curriculums\SessionsController.cs" />
     <Compile Include="Controllers\ApiControllers\DashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\DiaryController.cs" />
+    <Compile Include="Controllers\ApiControllers\ExerciseNewsController.cs" />
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
     <Compile Include="Controllers\ApiControllers\FilesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionAlternativesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionFoodTypesController.cs" />
+    <Compile Include="Controllers\ApiControllers\NutritionNewsController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionRecipesController.cs" />
     <Compile Include="Controllers\ApiControllers\PhysioBodyPartsController.cs" />
     <Compile Include="Controllers\ApiControllers\PhysioExerciseController.cs" />
