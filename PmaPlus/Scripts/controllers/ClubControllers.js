@@ -687,7 +687,7 @@ app.controller('ClubDiaryController', [
             
                 }).error(function(data, status, headers, config) {
                     //$scope.event.id = $scope.selectedType.id;
-                    if (status == 500) {
+                    if (status == 400) {
               console.log(data);
 
 
