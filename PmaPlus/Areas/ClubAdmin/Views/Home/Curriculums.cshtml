@@ -198,7 +198,7 @@
                                     <tr dir-paginate="curr in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
                                         <td>{{curr.name}}</td>
                                         <td>{{ageGroups[curr.ageGroup].name}}</td>
-                                        <td>{{curr.numberOfSessions}}</td>
+                                        <td>{{curr.sessionsCount}}</td>
                                         <td>
                                             <i ng-click="openEdit(curr.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(curr.id)" class="fa fa-trash" style="cursor: pointer;"></i>
