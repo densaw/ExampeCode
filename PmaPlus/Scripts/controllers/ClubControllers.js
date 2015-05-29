@@ -656,6 +656,7 @@ app.controller('ClubDiaryController', [
         
         //put
         if (needToUpdate != -1) {
+            $scope.loginLoading = false;
                 $http.put(urlTail + '/' + needToUpdate, $scope.newEvent).success(function(data, status, headers, config) {
                 needToUpdate = -1;
                 getResults();
@@ -670,7 +671,8 @@ app.controller('ClubDiaryController', [
                             title: 'Error',
                             bodyOutputType: 'trustedHtml',
                             body: 'Please complete the compulsory fields highlighted in red'
-            });
+                        });
+                        $scope.loginLoading = false;
                     }
 
             });
@@ -695,9 +697,9 @@ app.controller('ClubDiaryController', [
                             bodyOutputType: 'trustedHtml',
                             body: 'Please complete the compulsory fields highlighted in red'
                   });
-                  $scope.loginLoading = false;
+                  
               }
-
+                    $scope.loginLoading = false;
         });
     }
             
