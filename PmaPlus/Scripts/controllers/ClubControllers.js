@@ -1106,6 +1106,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
             .success(function (result) {
+                console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
@@ -1189,6 +1190,14 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
                 target.modal('show');
             });
     };
+
+    $scope.check = function(currObj){
+        $http.put(urlTail + '/ToLive/' + currObj.id, !currObj.isLive).success(function(result){
+            getResultsPage($scope.pagination.current);
+        }).error(function (data, status, headers, config){
+
+        });
+    }
 
 }]);
 

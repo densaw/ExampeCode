@@ -78,6 +78,8 @@
     <Compile Include="Models\ClubNeeds.cs" />
     <Compile Include="Models\Coach.cs" />
     <Compile Include="Models\Curriculum.cs" />
+    <Compile Include="Models\ExcerciseNew.cs" />
+    <Compile Include="Models\NutritionNew.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\CurriculumStatement.cs" />
     <Compile Include="Enums\AgeGroup.cs" />
@@ -141,6 +143,12 @@
     <Compile Include="ViewModels\Diary\DiaryViewModel.cs" />
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
+    <Compile Include="ViewModels\News\NutritionNewPage.cs" />
+    <Compile Include="ViewModels\News\ExerciseNewPage.cs" />
+    <Compile Include="ViewModels\News\NutritionNewTableViewModel.cs" />
+    <Compile Include="ViewModels\News\ExerciseNewTableViewModel.cs" />
+    <Compile Include="ViewModels\News\NutritionNewViewModel.cs" />
+    <Compile Include="ViewModels\News\ExerciseNewViewModel.cs" />
     <Compile Include="ViewModels\Nutrition\AlternativesPage.cs" />
     <Compile Include="ViewModels\Nutrition\FoodTypePage.cs" />
     <Compile Include="ViewModels\Nutrition\NutritionAlternativeTableViewModel.cs" />

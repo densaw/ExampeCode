@@ -72,6 +72,10 @@
     <Compile Include="Repository\ClubAdminRepository.cs" />
     <Compile Include="Repository\ClubRepository.cs" />
     <Compile Include="Repository\CoachRepository.cs" />
+    <Compile Include="Repository\ExcerciseNewRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IExcerciseNewsRepository.cs" />
+    <Compile Include="Repository\Iterfaces\INutritionNewsRepository.cs" />
+    <Compile Include="Repository\NutritionNewsRepository.cs" />
     <Compile Include="Repository\SessionRepository.cs" />
     <Compile Include="Repository\CurriculumStatementRepository.cs" />
     <Compile Include="Repository\DiaryRecipientRepository.cs" />

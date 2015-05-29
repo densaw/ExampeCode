@@ -70,13 +70,13 @@
                                                 </div>
                                             </div>
                                         </form>
+                                    </div>
                                         <div class="modal-footer">
                                             <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
                                             <button ng-click="ok(newCurr.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
                                                 <span class="ladda-label" style="font-size: 14px;">Save changes</span>
                                             </button>
-                                        </div>
-                                    </div>
+                                        </div>                                    
                                 </div>
                             </div>
                         </div>
@@ -191,6 +191,7 @@
                                     <th>Curriculum Name</th>
                                     <th>Age</th>
                                     <th>Sessions</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -198,7 +199,10 @@
                                     <tr dir-paginate="curr in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
                                         <td>{{curr.name}}</td>
                                         <td>{{ageGroups[curr.ageGroup].name}}</td>
-                                        <td>{{curr.numberOfSessions}}</td>
+                                        <td>{{curr.sessionsCount}}</td>
+                                        <td>
+                                            <a href="#" ng-click="check(curr)" class="check-link"><i class="fa {{curr.isLive | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                        </td>
                                         <td>
                                             <i ng-click="openEdit(curr.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(curr.id)" class="fa fa-trash" style="cursor: pointer;"></i>
