@@ -41,6 +41,16 @@ namespace PmaPlus.Services
 
         }
 
+
+        public void SetCurriculumToLive(int curriculumId)
+        {
+            var curriclum = _curriculumRepository.GetById(curriculumId);
+            curriclum.IsLive = true;
+            _curriculumRepository.Update(curriclum,curriclum.Id);
+        }
+
+
+
         public bool CurriculumExist(int id)
         {
             return _curriculumRepository.GetMany(c => c.Id == id).Any();

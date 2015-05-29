@@ -56,13 +56,9 @@
     <Compile Include="Infrastructure\IDatabaseFactory.cs" />
     <Compile Include="Infrastructure\Page.cs" />
     <Compile Include="Infrastructure\QueryOrder.cs" />
-    <Compile Include="Migrations\201505281159321_sss.cs" />
-    <Compile Include="Migrations\201505281159321_sss.Designer.cs">
-      <DependentUpon>201505281159321_sss.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505281433027_aa.cs" />
-    <Compile Include="Migrations\201505281433027_aa.Designer.cs">
-      <DependentUpon>201505281433027_aa.cs</DependentUpon>
+    <Compile Include="Migrations\201505281650429_fixdd.cs" />
+    <Compile Include="Migrations\201505281650429_fixdd.Designer.cs">
+      <DependentUpon>201505281650429_fixdd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -171,11 +167,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505281159321_sss.resx">
-      <DependentUpon>201505281159321_sss.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505281433027_aa.resx">
-      <DependentUpon>201505281433027_aa.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505281650429_fixdd.resx">
+      <DependentUpon>201505281650429_fixdd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

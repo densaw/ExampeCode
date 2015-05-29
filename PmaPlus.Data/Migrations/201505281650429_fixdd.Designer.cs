@@ -7,13 +7,13 @@ namespace PmaPlus.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class aa : IMigrationMetadata
+    public sealed partial class fixdd : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(aa));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(fixdd));
         
         string IMigrationMetadata.Id
         {
-            get { return "201505281433027_aa"; }
+            get { return "201505281650429_fixdd"; }
         }
         
         string IMigrationMetadata.Source

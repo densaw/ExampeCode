@@ -16,6 +16,9 @@ namespace PmaPlus.Model.ViewModels.Curriculum
 
         public int SessionsCount { get; set; }
 
+        public bool IsLive { get; set; }
+
+
         public bool Started { get; set; }
     }
 }

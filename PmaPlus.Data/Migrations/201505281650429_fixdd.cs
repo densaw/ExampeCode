@@ -3,17 +3,12 @@ namespace PmaPlus.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class aa : DbMigration
+    public partial class fixdd : DbMigration
     {
         public override void Up()
         {
             DropForeignKey("dbo.Scenarios", "Session_Id", "dbo.Sessions");
-            DropForeignKey("dbo.ScenarioSessions", "ScenarioId", "dbo.Scenarios");
-            DropForeignKey("dbo.ScenarioSessions", "SessionId", "dbo.Sessions");
             DropIndex("dbo.Scenarios", new[] { "Session_Id" });
-            DropIndex("dbo.ScenarioSessions", new[] { "SessionId" });
-            DropIndex("dbo.ScenarioSessions", new[] { "ScenarioId" });
-            DropTable("dbo.ScenarioSessions");
             CreateTable(
                 "dbo.ScenarioSessions",
                 c => new
@@ -27,6 +22,10 @@ namespace PmaPlus.Data.Migrations
                 .Index(t => t.Scenario_Id)
                 .Index(t => t.Session_Id);
             
+            AddColumn("dbo.Curricula", "IsLive", c => c.Boolean(nullable: false));
+            AddColumn("dbo.Sessions", "EndOfReviewPeriod", c => c.Boolean(nullable: false));
+            DropColumn("dbo.Sessions", "ReviewPeriod");
+            DropColumn("dbo.Scenarios", "Session_Id");
         }
         
         public override void Down()
@@ -41,10 +40,13 @@ namespace PmaPlus.Data.Migrations
                 .PrimaryKey(t => new { t.SessionId, t.ScenarioId });
             
             AddColumn("dbo.Scenarios", "Session_Id", c => c.Int());
+            AddColumn("dbo.Sessions", "ReviewPeriod", c => c.Boolean(nullable: false));
             DropForeignKey("dbo.ScenarioSessions", "Session_Id", "dbo.Sessions");
             DropForeignKey("dbo.ScenarioSessions", "Scenario_Id", "dbo.Scenarios");
             DropIndex("dbo.ScenarioSessions", new[] { "Session_Id" });
             DropIndex("dbo.ScenarioSessions", new[] { "Scenario_Id" });
+            DropColumn("dbo.Sessions", "EndOfReviewPeriod");
+            DropColumn("dbo.Curricula", "IsLive");
             DropTable("dbo.ScenarioSessions");
             CreateIndex("dbo.ScenarioSessions", "ScenarioId");
             CreateIndex("dbo.ScenarioSessions", "SessionId");
