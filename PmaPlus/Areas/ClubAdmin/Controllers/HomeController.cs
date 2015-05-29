@@ -29,7 +29,7 @@ namespace PmaPlus.Areas.ClubAdmin.Controllers
         public ActionResult Dashboard()
         {
             var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            ViewBag.them = club != null ? club.Club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Alternatives()
