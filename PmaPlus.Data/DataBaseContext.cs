@@ -58,6 +58,9 @@ namespace PmaPlus.Data
         public virtual DbSet<CurriculumStatement> CurriculumStatements { get; set; }
         public virtual DbSet<StatementRoles> StatementRoles { get; set; }
 
+        public virtual DbSet<ExcerciseNew> ExcerciseNews { get; set; }
+        public virtual DbSet<NutritionNew> NutritionNews { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
