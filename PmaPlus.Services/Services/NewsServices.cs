@@ -22,9 +22,20 @@ namespace PmaPlus.Services.Services
 
         #region NutritionNews
 
+        public bool NutritionNewExist(int id)
+        {
+            return _nutritionNewsRepository.GetMany(n => n.Id == id).Any();
+        }
+
+
         public IQueryable<NutritionNew> GetNutritionNews()
         {
             return _nutritionNewsRepository.GetAll();
+        }
+
+        public NutritionNew GetNutritionNewById(int id)
+        {
+            return _nutritionNewsRepository.GetById(id);
         }
 
         public NutritionNew AddNutrittionNew(NutritionNew nutritionNew)
@@ -48,9 +59,19 @@ namespace PmaPlus.Services.Services
 
         #region ExerciseNews
 
+
+        public bool ExerciseNewExist(int id)
+        {
+            return _excerciseNewRepository.GetMany(n => n.Id == id).Any();
+        }
         public IQueryable<ExcerciseNew> GetExcerciseNews()
         {
             return _excerciseNewRepository.GetAll();
+        }
+
+        public ExcerciseNew GetExcerciseNewById(int id)
+        {
+            return _excerciseNewRepository.GetById(id);
         }
 
         public ExcerciseNew AddExcerciseNew(ExcerciseNew excerciseNew)

@@ -18,6 +18,8 @@ namespace PmaPlus.Tools
         Scenarios,
         SportsScienceExercises,
         PlayerProfilePicture,
-        Sessions
+        Sessions,
+        ExerciseNews,
+        NutritionNews
     }
 }
