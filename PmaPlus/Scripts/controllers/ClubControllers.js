@@ -774,14 +774,14 @@ app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location',
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
             }).error(function (data, status, headers, config) {
-                if (status == 400) {
+               
                     console.log(data);
                     toaster.pop({
                         type: 'error',
                         title: 'Error', bodyOutputType: 'trustedHtml',
                         body: 'Please complete the compulsory fields highlighted in red'
                     });
-                }
+                
             });
 
         } else {
@@ -790,14 +790,14 @@ app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location',
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
             }).error(function (data, status, headers, config) {
-                if (status == 400) {
+                
                     console.log(data);
                     toaster.pop({
                         type: 'error',
                         title: 'Error', bodyOutputType: 'trustedHtml',
                         body: 'Please complete the compulsory fields highlighted in red'
                     });
-                }
+                
             });
         }
 

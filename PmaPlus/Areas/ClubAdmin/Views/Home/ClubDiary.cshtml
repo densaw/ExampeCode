@@ -121,7 +121,7 @@
                                                 <textarea name="eventNote" ng-model="newEvent.note" required class="form-control"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                                            <div class="form-group" ng-class="{'has-error':myform.eventStart.$invalid && (myform.eventStart.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Start:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <div class="dropdown">
@@ -131,13 +131,13 @@
                                                             </div>
                                                         </a>
                                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                            <datetimepicker data-ng-model="newEvent.start" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day' }" />
+                                                            <datetimepicker required  name="eventStart" data-ng-model="newEvent.start" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day' }" />
                                                         </ul>
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                                            <div class="form-group" ng-class="{'has-error':myform.eventEnd.$invalid && (myform.eventEnd.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">End:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <div class="dropdown">
@@ -147,7 +147,7 @@
                                                             </div>
                                                         </a>
                                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                            <datetimepicker data-ng-model="newEvent.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
+                                                            <datetimepicker required  name="eventEnd" data-ng-model="newEvent.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
                                                         </ul>
                                                     </div>
 
