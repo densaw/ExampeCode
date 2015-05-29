@@ -244,15 +244,15 @@
                                             </div>
                                         </form>
                                     </div>
-                                        <div class="modal-footer">
-                                            <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                            <button ng-click="ok(newPlayer.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
-                                                <span class="ladda-label" style="font-size: 14px;">Save changes</span>
-                                            </button>
-                                        </div>                                    
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                        <button ng-click="ok(newPlayer.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                                            <span class="ladda-label" style="font-size: 14px;">Save changes</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                         @*Modal End*@
                         @*Modal*@
                         <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
@@ -378,10 +378,11 @@
                                 <tbody id="contentTable">
                                     <tr dir-paginate="player in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
                                         <td>
-                                                    <img style="width: auto;  height:100px"class="img-circle m-t-xs img-responsive" ng-src="/api/File/playerProfilePicture/{{player.profilePicture}}/{{player.id}}" />
-                                               
-</td>
-                                            
+                                            <div style="width: 100px; height: 100px; position: relative; overflow: hidden;" class="img-circle ">
+                                                <img class="prifile" ng-src="/api/File/playerProfilePicture/{{player.profilePicture}}/{{player.id}}" style-parent />
+                                            </div>
+                                        </td>
+
                                         <td style="text-align: left">{{player.name}}</td>
                                         <td style="text-align: left">
                                             <div ng-repeat="team in player.teams">{{team}} </div>
@@ -411,8 +412,6 @@
     </div>
 </div>
 <style>
-
-    
     .form-group {
         margin-bottom: 5px;
     }
@@ -422,13 +421,13 @@
     }
 
     .table td {
-       text-align: center;   
+        text-align: center;
     }
 
     .table > tbody > tr > td {
-     vertical-align: middle;
-}
-  
+        vertical-align: middle;
+    }
+
     img.prifile {
         position: absolute;
         left: 50%;
