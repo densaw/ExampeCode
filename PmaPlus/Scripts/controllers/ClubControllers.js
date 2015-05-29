@@ -1173,12 +1173,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     };
 
     $scope.check = function(currObj){
-        var sendObj = {};
-        sendObj.isLive = !currObj.isLive;
-        console.log(currObj.isLive);
-        console.log(!currObj.isLive);
-        console.log(sendObj);
-        $http.put(urlTail + '/ToLive/' + currObj.id, sendObj).success(function(result){
+        $http.put(urlTail + '/ToLive/' + currObj.id, !currObj.isLive).success(function(result){
             getResultsPage($scope.pagination.current);
         }).error(function (data, status, headers, config){
 
