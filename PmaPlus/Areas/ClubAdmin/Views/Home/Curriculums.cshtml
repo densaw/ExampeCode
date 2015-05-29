@@ -201,7 +201,7 @@
                                         <td>{{ageGroups[curr.ageGroup].name}}</td>
                                         <td>{{curr.sessionsCount}}</td>
                                         <td>
-                                            <a href="#" ng-click="check(curr)" class="check-link"><i class="fa {{curr.true | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                            <a href="#" ng-click="check(curr)" class="check-link"><i class="fa {{curr.isLive | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
                                         </td>
                                         <td>
                                             <i ng-click="openEdit(curr.id)" class="fa fa-cog" style="cursor: pointer;"></i>
