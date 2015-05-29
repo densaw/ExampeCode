@@ -21,8 +21,8 @@ namespace PmaPlus.Models
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
 
-        public byte[] Logo { get; set; }
-        public byte[] Background { get; set; }
+        public string Logo { get; set; }
+        public string Background { get; set; }
 
         public string HexColor { get; set; }
     }

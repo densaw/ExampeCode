@@ -84,8 +84,8 @@ namespace PmaPlus.Controllers
             if (clubAdmin != null)
             {
                 var club = clubAdmin.Club;
-                model.Logo = _photoManager.GetFileBytes(club.Logo, FileStorageTypes.Clubs, club.Id);
-                model.Background = _photoManager.GetFileBytes(club.Background, FileStorageTypes.Clubs, club.Id);
+                model.Logo =  _photoManager.FileExistInStorage(FileStorageTypes.Clubs, club.Logo,club.Id) ? "../api/file/Clubs/"+club.Logo+"/"+club.Id : "../Images/Default-logo.png";
+                model.Background = _photoManager.FileExistInStorage(FileStorageTypes.Clubs, club.Background, club.Id) ? "../api/file/Clubs/" + club.Background + "/" + club.Id : "../Images/Default_background.png";
 
                 if (String.IsNullOrWhiteSpace(club.ColorTheme) || String.IsNullOrEmpty(club.ColorTheme))
                 {
@@ -99,8 +99,8 @@ namespace PmaPlus.Controllers
             }
             else
             {
-                model.Logo = System.IO.File.ReadAllBytes(HttpContext.ApplicationInstance.Server.MapPath(@"~/Images/Default-logo.png"));
-                model.Background = System.IO.File.ReadAllBytes(HttpContext.ApplicationInstance.Server.MapPath(@"~/Images/Default_background.png"));
+                model.Logo = "../Images/Default-logo.png";
+                model.Background = "../Images/Default_background.png";
                     //model.Background
                 model.HexColor = "#3276b1";
 
@@ -166,6 +166,7 @@ namespace PmaPlus.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("PassValid", "Please enter password");
+
                 return View(model);
             }
 
