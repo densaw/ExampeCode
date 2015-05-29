@@ -776,14 +776,14 @@ app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location',
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
             }).error(function (data, status, headers, config) {
-                if (status == 400) {
+               
                     console.log(data);
                     toaster.pop({
                         type: 'error',
                         title: 'Error', bodyOutputType: 'trustedHtml',
                         body: 'Please complete the compulsory fields highlighted in red'
                     });
-                }
+                
             });
 
         } else {
@@ -792,14 +792,14 @@ app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location',
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
             }).error(function (data, status, headers, config) {
-                if (status == 400) {
+                
                     console.log(data);
                     toaster.pop({
                         type: 'error',
                         title: 'Error', bodyOutputType: 'trustedHtml',
                         body: 'Please complete the compulsory fields highlighted in red'
                     });
-                }
+                
             });
         }
 
@@ -1075,6 +1075,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     $scope.inpSessions = false;
     $scope.inpWeeks = false;
     $scope.inpBlocks = false;
+    $scope.clubName = '';
 
     $scope.newCurr = {};
 
@@ -1107,6 +1108,15 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
             }); 
         } 
     });
+
+    function getClubName(){
+        $http.get('/api/ClubAdminDashboard/ClubName').success(function(result){
+            $scope.clubName = result;
+        }).error(function(data, status, headers, config){
+
+        });
+    }
+    getClubName();
 
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)

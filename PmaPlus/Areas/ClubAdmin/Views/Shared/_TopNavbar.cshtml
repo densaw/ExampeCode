@@ -24,23 +24,23 @@
                                         <i class="fa fa-briefcase"></i>
                                         {{item.start | date:'HH:mm'}}
 
-                                    </div>
+                            </div>
                                     <div class="col-xs-7 content no-top-border">
                                         <p class="m-b-xs">
-                                            <strong>{{item.title}}</strong>
+                                <strong>{{item.title}}</strong>
                                         </p>
                                         <p>
-                                            {{item.note}}
+                                {{item.note}}
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
+                            </div>
+                    </li> 
 
                     <li>
                         <div class="see-all"><a href="@Url.Action("ClubDiary", "Home", new { area="ClubAdmin" })">See all Diary Events ></a></div>
-                    </li>
+                    </li>                    
                 </ul>
                 
             </li>
