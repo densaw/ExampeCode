@@ -42,10 +42,10 @@ namespace PmaPlus.Services
         }
 
 
-        public void SetCurriculumToLive(int curriculumId)
+        public void SetCurriculumToLive(int curriculumId,bool isLive)
         {
             var curriclum = _curriculumRepository.GetById(curriculumId);
-            curriclum.IsLive = true;
+            curriclum.IsLive = isLive;
             _curriculumRepository.Update(curriclum,curriclum.Id);
         }
 

@@ -3,6 +3,7 @@ using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Model.ViewModels.Diary;
+using PmaPlus.Model.ViewModels.News;
 using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Model.ViewModels.Physio;
 using PmaPlus.Model.ViewModels.PlayerAttribute;
@@ -49,6 +50,11 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<PasswordViewModel, PasswordHistory>();
 
             Mapper.CreateMap<ScenarioViewModel,Scenario>();
+
+            Mapper.CreateMap<NutritionNewViewModel,NutritionNew >();
+
+            Mapper.CreateMap<ExerciseNewViewModel,ExcerciseNew >();
+
 
             //ClubAdmin
 
