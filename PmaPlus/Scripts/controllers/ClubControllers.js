@@ -1172,6 +1172,16 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
             });
     };
 
+    $scope.check = function(currObj){
+        var sendObj = {};
+        sendObj.isLive = !currObj.isLive;
+        $http.put(urlTail + '/ToLive/' + currObj.id, sendObj).success(function(result){
+            getResultsPage($scope.pagination.current);
+        }).error(function (data, status, headers, config){
+
+        });
+    }
+
 }]);
 
 app.controller('StController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function($scope, $http, toaster, $q, $routeParams, $location) {

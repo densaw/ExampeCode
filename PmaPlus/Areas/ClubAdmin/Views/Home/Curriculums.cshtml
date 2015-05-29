@@ -191,6 +191,7 @@
                                     <th>Curriculum Name</th>
                                     <th>Age</th>
                                     <th>Sessions</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -199,6 +200,9 @@
                                         <td>{{curr.name}}</td>
                                         <td>{{ageGroups[curr.ageGroup].name}}</td>
                                         <td>{{curr.sessionsCount}}</td>
+                                        <td>
+                                            <a href="#" ng-click="check(curr)" class="check-link"><i class="fa {{curr.true | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                        </td>
                                         <td>
                                             <i ng-click="openEdit(curr.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(curr.id)" class="fa fa-trash" style="cursor: pointer;"></i>
