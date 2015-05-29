@@ -64,7 +64,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         }
 
 
-        [Route("api/Curriculum/ToLive/{id:int}")]
+        [Route("api/Curriculums/ToLive/{id:int}")]
         public IHttpActionResult PutLiveMode(int id)
         {
             if (!_curriculumServices.CurriculumExist(id))
