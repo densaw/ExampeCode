@@ -59,6 +59,7 @@
                     <li class="@Html.IsSelected(action: "Alternatives")"><a href="@Url.Action("Alternatives", "Home", new { area = "ClubAdmin" })">Alternatives</a></li>
                     <li class="@Html.IsSelected(action: "FoodTypes")"><a href="@Url.Action("FoodTypes", "Home", new { area = "ClubAdmin" })">Food Types</a></li>
                     <li class="@Html.IsSelected(action: "Recipes")"><a href="@Url.Action("Recipes", "Home", new { area = "ClubAdmin" })">Recipes</a></li>
+                    
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Reports")">
@@ -75,7 +76,7 @@
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "ToDoList")">
                 <a href="@Url.Action("ToDoList", "Home", new { area = "ClubAdmin" })"><i class="fa fa-list-ul"></i> <span class="nav-label">To Do List</span></a>
-            </li>
+            </li>            
         </ul>
     </div>
 </nav>

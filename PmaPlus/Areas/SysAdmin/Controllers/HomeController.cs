@@ -87,6 +87,15 @@ namespace PmaPlus.Areas.SysAdmin.Controllers
             return View();
         }
 
+        public ActionResult Exercise()
+        {           
+            return View();
+        }
+        public ActionResult NutritionNews()
+        {
+            return View();
+        }
+
         public ActionResult Empty(RouteData rd)
         {
             var routeValueDictionary = rd.Values;
