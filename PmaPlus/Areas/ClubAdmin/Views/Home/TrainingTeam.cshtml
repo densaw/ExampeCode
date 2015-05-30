@@ -203,7 +203,7 @@
         <div class="row">
             <div class="col-lg-4" ng-repeat="item in items">
                 <div class="contact-box " onmouseenter="inside(this)" onmouseleave="out(this)">
-                    <a href="ProfilePage?par={{item.role}}/{{item.id}}">
+                    
                         <div class="col-sm-4">
                             <div class="text-center">
                                 <img alt="image" class="img-circle m-t-xs img-responsive" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}">
@@ -224,9 +224,10 @@
                                 First Aid Expiry: {{item.firstAidExpiry | date:'dd.MM.yyyy'}}<br>
                                 Last Login: <strong>{{item.lastLogin | date:'dd.MM.yyyy'}}</strong>
                             </address>
+                            <a><i class="fa fa-cog" style="float:right" ng-click="edit(item.id)"></i></a>
                         </div>
                         <div class="clearfix"></div>
-                    </a>
+                    
                 </div>
             </div>
         </div>
