@@ -3,19 +3,16 @@
     Layout = "~/Areas/SysAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div ng-controller="NFTController">
+<div ng-controller="ExerciseNewsController">
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>Nutrition News</h2>
+            <h2>Exercise</h2>
             <ol class="breadcrumb">
                 <li>
                     <a>Home</a>
-                </li>
-                <li>
-                    <a>Nutrition</a>
-                </li>
+                </li>                
                 <li class="active">
-                    <strong>Nutrition News</strong>
+                    <strong>Exercise</strong>
                 </li>
             </ol>
         </div>
@@ -47,7 +44,7 @@
                     </div>
                     <div class="ibox-content">
                         @*Modal*@
-                        <div class="modal inmodal" id="addFoodType" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal inmodal" id="addNews" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content animated bounceInRight">
                                     <div class="modal-header">
@@ -63,11 +60,11 @@
                                                     <div class="dropdown">
                                                         <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" value="{{newEvent.start | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                                <input type="text" class="form-control" value="{{newNews.addNews | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                                             </div>
                                                         </a>
                                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                            <datetimepicker required name="eventStart" data-ng-model="newEvent.start" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day' }" />
+                                                            <datetimepicker required name="eventStart" data-ng-model="newNews.newDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day' }" />
                                                         </ul>
                                                     </div>
 
@@ -78,49 +75,49 @@
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Title:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newFood.portionSize" class="form-control">
+                                                    <input ng-model="newNews.title" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="form-group" ng-class="{'has-error':myform.description.$invalid && (myform.description.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Content:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <textarea name="description" ng-model="newFood.description" required class="form-control"></textarea>
+                                                    <textarea name="description" ng-model="newNews.content" required class="form-control"></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Author Name:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newFood.portionSize" class="form-control">
+                                                    <input ng-model="newNews.authorName" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Author Picture:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input file-model="pic" type="file" accept="image/*" class="pma-fileupload">
+                                                    <input file-model="authorPicture" type="file" accept="image/*" class="pma-fileupload">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Main Picture:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input file-model="pic" type="file" accept="image/*" class="pma-fileupload">
+                                                    <input file-model="mainPicture" type="file" accept="image/*" class="pma-fileupload">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Sponsored by:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input file-model="pic" type="file" accept="image/*" class="pma-fileupload">
+                                                    <input file-model="sponsoredBy" type="file" accept="image/*" class="pma-fileupload">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Picture 1:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input file-model="pic" type="file" accept="image/*" class="pma-fileupload">
+                                                    <input file-model="picture" type="file" accept="image/*" class="pma-fileupload">
                                                 </div>
                                             </div>
 
@@ -128,7 +125,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                        <button ng-click="ok(newFood.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                                        <button ng-click="send(newNews.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
                                             <span class="ladda-label" style="font-size: 14px;">Save changes</span>
                                         </button>
                                     </div>
@@ -228,10 +225,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr dir-paginate="foodType in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{foodType.foodName}}</td>
-                                        <td> <div ng-repeat="whenone in foodType.when">{{when[whenone].name}},</div> </td>
-                                        <td>{{foodType.portionSize}}</td>
+                                    <tr dir-paginate="news in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                        <td>{{news.newsDate}}</td>
+                                        <td>{{news.tittle}}</td>
+                                        <td>{{news.authorName}}</td>
                                         <td>
                                             <i ng-click="openEdit(foodType.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(foodType.id)" class="fa fa-trash" style="cursor: pointer;"></i>
