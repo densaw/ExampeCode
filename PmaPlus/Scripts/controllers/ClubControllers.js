@@ -616,7 +616,7 @@ app.controller('ClubDiaryController', [
 
                 //var allDay = !start.hasTime() && !end.hasTime();
                 $scope.newEvent.start = {};
-                $scope.newEvent.start = moment(start).format('YYYY-MM-DDTHH:mmZ');
+                $scope.newEvent.start = moment(start).format('YYYY-MM-DDTHH:mm');
                 target.modal('show'); //open the modal
 
             },
