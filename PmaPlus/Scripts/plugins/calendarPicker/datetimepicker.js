@@ -382,10 +382,6 @@
 
           var getUTCTime = function getUTCTime(modelValue) {
               var tempDate = (modelValue ? moment(modelValue).toDate() : new Date());
-              console.log('From LIB');
-              console.log(tempDate);
-              console.log(tempDate.getTime());
-              console.log(tempDate.getTime() - (tempDate.getTimezoneOffset() * 60000));
             return tempDate.getTime() /*- (tempDate.getTimezoneOffset() * 60000)*/;
           };
 
