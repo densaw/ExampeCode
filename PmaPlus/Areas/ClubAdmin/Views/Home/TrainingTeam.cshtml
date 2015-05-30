@@ -206,9 +206,11 @@
                     
                         <div class="col-sm-4">
                             <div class="text-center">
-                                <img alt="image" class="img-circle m-t-xs img-responsive" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}">
-                                <div class="m-t-xs font-bold">{{roles[item.role].name}}</div>
-                            </div>
+                                <div style="width: 100px; height: 100px; position: relative; overflow: hidden;" class="img-circle">
+                                    <img alt="image" class="prifile" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent/>
+                                    </div>
+                                    <div class="m-t-xs font-bold">{{roles[item.role].name}}</div>
+                                </div>
                         </div>
                         <div class="col-sm-8">
                             <h3>
@@ -223,7 +225,7 @@
                                 CRB\DBS Expiry: {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}<br>
                                 First Aid Expiry: {{item.firstAidExpiry | date:'dd.MM.yyyy'}}<br>
                                 Last Login: <strong>{{item.lastLogin | date:'dd.MM.yyyy'}}</strong>
-                                <br><span style="font-size: 12px">Email address:</span> {{item.email}}
+                                <br><span style="font-size: 12px">Email:</span> {{item.email}}
                             </address>
                             <a><i class="fa fa-cog" style="float:right" ng-click="edit(item.id)"></i></a>
                         </div>
@@ -243,6 +245,26 @@
      a.dropdown-toggle {
         color: #66696B;
         text-decoration: none;
+    }
+     img.prifile {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+
+    img.landscape {
+        height: 100%;
+        width: auto;
+    }
+
+    img.portrait {
+        width: 100%;
+        height: auto;
     }
 </style>
 <script>
