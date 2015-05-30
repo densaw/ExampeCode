@@ -192,7 +192,21 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
             });
     };
 }]);
+app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$filter', function ($scope, $http, toaster, $q, $filter) {
 
+
+    $scope.add = function () {
+        var f = document.getElementById('file').files[0],
+            r = new FileReader();
+        r.onloadend = function (e) {
+            var data = e.target.result;
+            //send you binary data via $http or $resource or do anything else with it
+        }
+        r.readAsBinaryString(f);
+    }
+
+
+}]);
 app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$filter', function ($scope, $http, toaster, $q, $filter) {
 
 
@@ -628,7 +642,7 @@ app.controller('ClubDiaryController', [
 
                 //var allDay = !start.hasTime() && !end.hasTime();
                 $scope.newEvent.start = {};
-                $scope.newEvent.start = moment(start).format('YYYY-MM-DDTHH:mmZ');
+                $scope.newEvent.start = moment(start).format('YYYY-MM-DDTHH:mm');
                 target.modal('show'); //open the modal
 
             },
