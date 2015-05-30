@@ -33,6 +33,7 @@ namespace PmaPlus.Controllers.ApiControllers
 
             diaries = from dr in diaries
                 where dr.Start.Day == today.Day && dr.Start.Month == today.Month && dr.Start.Year == today.Year && (dr.Start > today || dr.End > today)
+                orderby dr.Start
                 select dr;
 
             return Mapper.Map<IEnumerable<Diary>, IEnumerable<DiaryViewModel>>(diaries.Take(2));
@@ -48,6 +49,7 @@ namespace PmaPlus.Controllers.ApiControllers
 
             diaries = from dr in diaries
                       where dr.Start > today 
+                      orderby dr.Start
                       select dr;
 
             return Mapper.Map<IEnumerable<Diary>, IEnumerable<DiaryViewModel>>(diaries.Take(3));
