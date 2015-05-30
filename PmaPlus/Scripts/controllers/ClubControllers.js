@@ -248,7 +248,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
             .success(function (result) {
                 $scope.newMember = result;
                 console.log(result);
-            $scope.selectedRole = $scope.roles[3];
+                $scope.selectedRole = $scope.roles[result.roles];
                 target.modal('show');
             });
 
