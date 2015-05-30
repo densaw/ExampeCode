@@ -15,6 +15,18 @@ app.filter('utc', function () {
 
 });
 
+app.filter('getById', function () {
+    return function (input, id) {
+        var i = 0, len = input.length;
+        for (; i < len; i++) {
+            if (+input[i].id == +id) {
+                return input[i];
+            }
+        }
+        return null;
+    }
+});
+
 app.filter('todo', function () {
     return function (v, yes, no) {
         return v ? yes : no;
@@ -181,7 +193,7 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
     };
 }]);
 
-app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$filter', function ($scope, $http, toaster, $q, $filter) {
 
 
     function getResultsPage() {
@@ -247,8 +259,8 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
         $http.get(urlTail + '/' + id)
             .success(function (result) {
                 $scope.newMember = result;
-            console.log(result);
-                $scope.selectedRole = $scope.rolesVisible[result.role];
+                console.log(result);
+                $scope.selectedRole = $filter('getById')($scope.rolesVisible, result.role);
                 target.modal('show');
             });
 
@@ -288,9 +300,9 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
             //$scope.newMember.profilePicture = 'tmp.png';
             console.log($scope.newMember);
 
-            if (id != 0) {
+            if ($scope.newMember.id != 0) {
 
-                $http.put(urlTail + '/' + id, $scope.newMember)
+                $http.put(urlTail + '/' + $scope.newMember.id, $scope.newMember)
                 .success(function (result) {
                     getResultsPage();
                     target.modal('hide');
@@ -653,6 +665,11 @@ app.controller('ClubDiaryController', [
                 });
             }
 
+        });
+
+        $scope.$watch('newEvent.start', function (newValue, oldValue, scope) {
+            console.log('Data'); 
+            console.log(newValue);   
         });
 
         getactualEv();
