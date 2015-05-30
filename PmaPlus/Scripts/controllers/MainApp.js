@@ -848,10 +848,11 @@
             $scope.newTest.type = $scope.selectedType.id;
             $scope.newTest.zScoreFormula = $scope.selectedFormula.id;
             if (id != null) {
-                $scope.loginLoading = false;
+                
                 $http.put('/api/SportsScienceTests/' + id, $scope.newTest).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                    $scope.loginLoading = false;
                 }).error(function (data, status, headers, config) {
                     if (status == 400) {
                         console.log(data);
@@ -861,12 +862,14 @@
                             body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
+                    $scope.loginLoading = false;
                 });
             } else {
-                $scope.loginLoading = false;
+               
                 $http.post('/api/SportsScienceTests', $scope.newTest).success(function () {
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                    $scope.loginLoading = false;
                 }).error(function (data, status, headers, config) {
                     if (status == 400) {
                         console.log(data);
@@ -876,6 +879,7 @@
                             body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
+                    $scope.loginLoading = false;
                 });
 
             }
@@ -2326,4 +2330,214 @@
         };
     }]);
 
+    //News Controllers
+
+    module.controller('ExerciseNewsController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+       
+
+        var needToDelete = -1;
+
+        function getResultsPage(pageNumber) {
+            $http.get('api/ExerciseNews/' + $scope.exercisesPerPage + '/' + pageNumber)
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        }
+
+        $scope.items = [];
+        $scope.totalItems = 0;
+        $scope.itemsPerPage = 20; // this should match however many results your API puts on one page
+
+
+        $scope.pagination = {
+            current: 1
+        };
+        getResultsPage($scope.pagination.current);
+        $scope.pageChanged = function (newPage) {
+            getResultsPage(newPage);
+            $scope.pagination.current = newPage;
+        };
+        var target = angular.element('#addNews');
+        var confDelete = angular.element('#confDelete');
+        var picModal = angular.element('#photoModal');
+
+
+
+        $scope.send = function (id) {
+            $scope.loginLoading = true;
+            $scope.myform.form_Submitted = !$scope.myform.$valid;
+
+
+            //---
+            //Files upload
+
+            var promises = [];
+
+            if ($scope.authorPicture/*File model name*/) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic1);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newNews.authorPicture = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+
+            if ($scope.mainPicture/*File model name*/) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic2);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newNews.mainPicture = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+
+            if ($scope.sponsoredBy) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic3);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newNews.sponsoredBy = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+
+            if ($scope.picture) {
+                var fd = new FormData();
+                fd.append('file', $scope.pic3);
+                var promise = $http.post('/api/Files', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .success(function (data) {
+                        $scope.newNews.picture = data.name;
+                    })
+                    .error(function () {
+                        toaster.pop({
+                            type: 'error',
+                            title: 'Error',
+                            body: 'File upload ERROR!'
+                        });
+                    });
+                promises.push(promise);
+            }
+
+
+            $q.all(promises).then(function () {
+               
+                if (id != null) {
+                    $http.put('/api/ExerciseNews/' + id, $scope.newNews).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                        $scope.loginLoading = false;
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                        $scope.loginLoading = false;
+                    });
+                } else {
+                    
+                    $http.post('/api/ExerciseNews', $scope.newNews).success(function () {
+                        getResultsPage($scope.pagination.current);
+                        target.modal('hide');
+                        $scope.loginLoading = false;
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: 'Please complete the compulsory fields highlighted in red'
+                            });
+                        }
+                        $scope.loginLoading = false;
+                    });
+                }
+            });
+            //--
+
+
+        };
+        $scope.cancel = function () {
+            target.modal('hide');
+            confDelete.modal('hide');
+            needToDelete = -1;
+        };
+        $scope.openDelete = function (id) {
+            confDelete.modal('show');
+            console.log(id);
+            needToDelete = id;
+        };
+        $scope.openAdd = function () {
+            $scope.modalTitle = "Add an Exercise News";
+            $scope.newNews = {};
+            $scope.myform.form_Submitted = false;
+            target.modal('show');
+        };
+        $scope.delete = function () {
+            $http.delete('/api/ExerciseNews/' + needToDelete).success(function () {
+                getResultsPage($scope.pagination.current);
+                needToDelete = -1;
+                confDelete.modal('hide');
+            });
+        };
+
+        $scope.openEdit = function (id) {
+            $http.get('/api/ExerciseNews/' + id)
+                .success(function (result) {
+                    $scope.newNews = result;
+                    $scope.myform.form_Submitted = false;
+                    $scope.modalTitle = "Update Exercise News";
+                    target.modal('show');
+                });
+        };
+        $scope.openPic = function (id) {
+            $http.get('/api/ExerciseNews/' + id)
+                .success(function (result) {
+                    $scope.newNews = result;
+                    picModal.modal('show');
+                });
+        };
+
+    }]);
+
+   
 })();

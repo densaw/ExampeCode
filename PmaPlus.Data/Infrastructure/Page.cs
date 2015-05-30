@@ -18,6 +18,14 @@ namespace PmaPlus.Data
               .Take(pageSize);
         }
 
+        public static IEnumerable<T> Paged<T>(this IEnumerable<T> source, int page,
+                                                                       int pageSize)
+        {
+            return source
+              .Skip((page - 1) * pageSize)
+              .Take(pageSize);
+        }
+
         public static IQueryable<T> OrderQuery<T, TProperty>(this IQueryable<T> source, string propertyName,Expression<Func<T,TProperty>> defaulProperty)
         {
             if (typeof(T).GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) == null)
@@ -31,6 +39,42 @@ namespace PmaPlus.Data
             var orderExpression =  (Expression<Func<T, string>>)Expression.Lambda(Expression.PropertyOrField(paramterExpression, propertyName), paramterExpression);
 
             return source.OrderBy(orderExpression);
-        } 
+        }
+
+        public static IEnumerable<T> OrderQuery<T, TProperty>(this IEnumerable<T> list, string sortExpression, Expression<Func<T, TProperty>> defaulProperty, string direction = "")
+        {
+            sortExpression += "";
+            string[] parts = sortExpression.Split(' ');
+            bool descending = direction.ToLower().Contains("des");
+
+
+            string property = "";
+
+            if (parts.Length > 0 && parts[0] != "")
+            {
+                property = parts[0];
+
+                if (parts.Length > 1)
+                {
+                    descending = parts[1].ToLower().Contains("esc");
+                }
+
+                PropertyInfo prop = typeof(T).GetProperty(property, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+
+                if (prop == null)
+                {
+
+                    return list.OrderBy(x => typeof(T).GetProperty(defaulProperty.ToString()));
+                    throw new Exception("No property '" + property + "' in + " + typeof(T).Name + "'");
+                }
+
+                if (descending)
+                    return list.OrderByDescending(x => prop.GetValue(x, null));
+                else
+                    return list.OrderBy(x => prop.GetValue(x, null));
+            }
+
+            return list;
+        }
     }
 }
