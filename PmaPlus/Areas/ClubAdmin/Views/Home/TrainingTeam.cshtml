@@ -206,7 +206,7 @@
                     
                         <div class="col-sm-4">
                             <div class="text-center">
-                                <div style="width: 100px; height: 100px; position: relative; overflow: hidden;" class="img-circle">
+                                <div style="width: 67px; height: 67px; position: relative; overflow: hidden;" class="img-circle">
                                     <img alt="image" class="prifile" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent/>
                                     </div>
                                     <div class="m-t-xs font-bold">{{roles[item.role].name}}</div>
@@ -225,7 +225,7 @@
                                 CRB\DBS Expiry: {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}<br>
                                 First Aid Expiry: {{item.firstAidExpiry | date:'dd.MM.yyyy'}}<br>
                                 Last Login: <strong>{{item.lastLogin | date:'dd.MM.yyyy'}}</strong>
-                                <br><span style="font-size: 12px">Email:</span> {{item.email}}
+                                <br><span style="font-size: 12px">Email: {{item.email}}</span>
                             </address>
                             <a><i class="fa fa-cog" style="float:right" ng-click="edit(item.id)"></i></a>
                         </div>
