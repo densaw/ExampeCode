@@ -43,6 +43,13 @@ namespace PmaPlus.Controllers.ApiControllers
 
         }
 
+        [Route("api/PhysioBodyParts/GetAll")]
+        public IEnumerable<PhysioBodyPartTableViewModel> GetAll()
+        {
+            var bodyParts = _physiotherapyServices.GetBodyParts();
+            return Mapper.Map<IEnumerable<BodyPart>, IEnumerable<PhysioBodyPartTableViewModel>>(bodyParts);
+        }
+
         // GET: api/PhysioBodyParts
         //public IEnumerable<string> Get()
         //{
