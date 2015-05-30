@@ -32,11 +32,27 @@ namespace PmaPlus.Controllers.ApiControllers
             var today = DateTime.Now;
 
             diaries = from dr in diaries
-                where dr.Start.Day == today.Day && dr.Start.Month == today.Month && dr.Start.Year == today.Year
+                where dr.Start.Day == today.Day && dr.Start.Month == today.Month && dr.Start.Year == today.Year && (dr.Start > today || dr.End > today)
                 select dr;
 
             return Mapper.Map<IEnumerable<Diary>, IEnumerable<DiaryViewModel>>(diaries.Take(2));
         }
+
+
+        [Route("api/Diary/Future")]
+        public IEnumerable<DiaryViewModel> GetUserFutureDiaies()
+        {
+            var diaries = _diaryServices.GetUserDiaries(_userServices.GetUserByEmail(User.Identity.Name).Id);
+
+            var today = DateTime.Now;
+
+            diaries = from dr in diaries
+                      where dr.Start > today 
+                      select dr;
+
+            return Mapper.Map<IEnumerable<Diary>, IEnumerable<DiaryViewModel>>(diaries.Take(3));
+        }
+
 
 
 
