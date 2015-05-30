@@ -655,6 +655,11 @@ app.controller('ClubDiaryController', [
 
         });
 
+        $scope.$watch('newEvent.start', function(newValue, oldValue, scope) {
+            console.log('Data'); 
+            console.log(newValue);   
+        });
+
         getactualEv();
         getEv();
 
