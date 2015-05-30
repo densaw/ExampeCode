@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Microsoft.OData.Edm.Library;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.DashboardContent;
 using PmaPlus.Services;
@@ -36,7 +37,21 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         [Route("api/ClubAdminDashboard/Players/ScoreGraph")]
         public IEnumerable<PlayersScoreGraph> GetPlayersScoreGraphs()
         {
-            return null; //TODO: Players score graph
+            var temp = new List<PlayersScoreGraph>();
+
+            var today = DateTime.Now.Month;
+
+            for (int i = 0; i < 11; i++)
+            {
+                if (today + 1 > 12)
+                {
+                    today = 1;
+                }
+                temp.Add(new PlayersScoreGraph(){Month = today,PlayersScore = 0});
+                today++;
+            }
+
+            return temp; //TODO: Players score graph
         }
 
 
