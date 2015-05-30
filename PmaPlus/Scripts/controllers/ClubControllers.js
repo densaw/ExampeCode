@@ -15,6 +15,18 @@ app.filter('utc', function () {
 
 });
 
+app.filter('getById', function () {
+    return function (input, id) {
+        var i = 0, len = input.length;
+        for (; i < len; i++) {
+            if (+input[i].id == +id) {
+                return input[i];
+            }
+        }
+        return null;
+    }
+});
+
 app.filter('todo', function () {
     return function (v, yes, no) {
         return v ? yes : no;
@@ -181,7 +193,7 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
     };
 }]);
 
-app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$filter', function ($scope, $http, toaster, $q, $filter) {
 
 
     function getResultsPage() {
@@ -248,7 +260,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
             .success(function (result) {
                 $scope.newMember = result;
                 console.log(result);
-            $scope.selectedRole = $scope.roles[3];
+                $scope.selectedRole = $filter('getById')($scope.rolesVisible, result.role);
                 target.modal('show');
             });
 
@@ -655,9 +667,9 @@ app.controller('ClubDiaryController', [
 
         });
 
-        $scope.$watch('newEvent.start', function(newValue, oldValue, scope) {
-            console.log('Data'); 
-            console.log(newValue);   
+        $scope.$watch('newEvent.start', function (newValue, oldValue, scope) {
+            console.log('Data');
+            console.log(newValue);
         });
 
         getactualEv();
