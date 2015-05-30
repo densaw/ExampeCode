@@ -27,12 +27,14 @@
                             </div>
                                     <div class="col-xs-7 content no-top-border">
                                         <p class="m-b-xs">
-                                <strong>{{item.title}}</strong>
+                                            <strong>{{item.title}}</strong>
                                         </p>
-                                        <p>
-                                {{item.note}}
-                                        </p>
-                                    </div>
+                                        <div class="col">
+                                            <p>
+                                                {{item.note}}
+                                            </p>
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                             </div>
@@ -87,11 +89,14 @@
 </div>
 
 <style>
-    .see-all{
-        display: block;
-        text-align: center;
-        margin-left: 25px;
+    .col {
+        word-wrap: break-word; /* Перенос слов */
     }
+     .see-all{
+         display: block;
+         text-align: center;
+         margin-left: 25px;
+     }
 
     .see-all a{
         color: #676a6c;   
