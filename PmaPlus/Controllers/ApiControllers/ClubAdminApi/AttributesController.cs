@@ -24,13 +24,13 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         }
 
         // GET: api/Attributes
-        [Route("api/Attributes/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public PlayerAttributePage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/Attributes/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:alpha?}")]
+        public PlayerAttributePage Get(int pageSize, int pageNumber, string orderBy = "",string direction = "")
         {
             var count = _playerAttributeServices.GetPlayerAttributes().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var scenario = _playerAttributeServices.GetPlayerAttributes().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
-            var items = Mapper.Map<IEnumerable<PlayerAttribute>, IEnumerable<PlayerAttributeTableViewModel>>(scenario);
+            var scenario = _playerAttributeServices.GetPlayerAttributes();
+            var items = Mapper.Map<IEnumerable<PlayerAttribute>, IEnumerable<PlayerAttributeTableViewModel>>(scenario).OrderQuery(orderBy,x => x.Id,direction).Paged(pageNumber, pageSize);
 
             return new PlayerAttributePage()
             {

@@ -154,5 +154,6 @@ namespace PmaPlus.Areas.ClubAdmin.Controllers
             ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
             return View();
         }
+        
     }
 }
