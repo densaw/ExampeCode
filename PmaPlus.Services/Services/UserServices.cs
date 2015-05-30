@@ -85,6 +85,7 @@ namespace PmaPlus.Services
                     Id = user.Id,
                     Name = user.UserDetail.FirstName + " " + user.UserDetail.LastName,
                     Role = user.Role,
+                    Email = user.Email,
                     TownCity = user.UserDetail.Address.TownCity,
                     Mobile = user.UserDetail.Address.Mobile,
                     LastLogin = user.LoggedAt,
@@ -242,6 +243,7 @@ namespace PmaPlus.Services
             var member = new AddTrainingTeamMemberViewModel()
             {
                 Id = trTeamMember.Id,
+                Role = trTeamMember.Role,
                 FirstName = trTeamMember.UserDetail.FirstName,
                 LastName = trTeamMember.UserDetail.LastName,
                 AboutMe = trTeamMember.UserDetail.AboutMe,

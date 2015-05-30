@@ -241,11 +241,14 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
     }
 
     $scope.edit = function (id) {
+
         $scope.newMember = {};
         $scope.myform.form_Submitted = false;
         $http.get(urlTail + '/' + id)
             .success(function (result) {
                 $scope.newMember = result;
+            console.log(result);
+                $scope.selectedRole = $scope.rolesVisible[result.role];
                 target.modal('show');
             });
 
@@ -309,23 +312,23 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
             } else {
 
 
-            $http.post(urlTail, $scope.newMember)
-                .success(function (result) {
-                    getResultsPage();
-                    target.modal('hide');
-                    $scope.loginLoading = false;
-                }).error(function (data, status, headers, config) {
-                    console.log(data);
-                    if (status == 400) {
+                $http.post(urlTail, $scope.newMember)
+                    .success(function (result) {
+                        getResultsPage();
+                        target.modal('hide');
+                        $scope.loginLoading = false;
+                    }).error(function (data, status, headers, config) {
                         console.log(data);
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
-                        });
-                    }
-                    $scope.loginLoading = false;
-                });
+                        if (status == 400) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error', bodyOutputType: 'trustedHtml',
+                                body: data.message.join("<br />")
+                            });
+                        }
+                        $scope.loginLoading = false;
+                    });
 
             }
 

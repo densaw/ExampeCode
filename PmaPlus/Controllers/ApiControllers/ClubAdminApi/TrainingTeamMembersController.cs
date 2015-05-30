@@ -33,18 +33,17 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return  _userServices.GetTrainingTeamMembers();
         }
 
-        [ResponseType(typeof(AddTrainingTeamMemberViewModel))]
-        [Route("api/TrainingTeamMembers/{id}/detailed")]
-        public IHttpActionResult GetDetailedMemberProfile(int id)
-        {
-            return Ok(_userServices.GetDetailedTrainingTeamMemberViewModel(id));
-        }
+        //[ResponseType(typeof(AddTrainingTeamMemberViewModel))]
+        //[Route("api/TrainingTeamMembers/{id}/detailed")]
+        //public IHttpActionResult GetDetailedMemberProfile(int id)
+        //{
+        //    return Ok(_userServices.GetDetailedTrainingTeamMemberViewModel(id));
+        //}
 
 
-        [ResponseType(typeof(TrainingTeamMemberViewModel))]
-        public IHttpActionResult GetMemberProfile(int id)
+        public AddTrainingTeamMemberViewModel GetMemberProfile(int id)
         {
-            return Ok(_userServices.GetTrainingTeamMemberViewModel(id));
+            return _userServices.GetDetailedTrainingTeamMemberViewModel(id);
         }
 
         public IHttpActionResult Post(AddTrainingTeamMemberViewModel memberViewModel)
