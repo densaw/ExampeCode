@@ -247,8 +247,8 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
         $http.get(urlTail + '/' + id)
             .success(function (result) {
                 $scope.newMember = result;
-            console.log(result);
-                $scope.selectedRole = $scope.rolesVisible[result.role];
+                console.log(result);
+            $scope.selectedRole = $scope.roles[3];
                 target.modal('show');
             });
 
@@ -288,9 +288,9 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', fu
             //$scope.newMember.profilePicture = 'tmp.png';
             console.log($scope.newMember);
 
-            if (id != 0) {
+            if ($scope.newMember.id != 0) {
 
-                $http.put(urlTail + '/' + id, $scope.newMember)
+                $http.put(urlTail + '/' + $scope.newMember.id, $scope.newMember)
                 .success(function (result) {
                     getResultsPage();
                     target.modal('hide');
