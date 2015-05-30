@@ -317,9 +317,9 @@
                 var hourMoment = moment.utc(selectedDate).add(i, 'hours');
                 var dateValue = {
                   'utcDateValue': hourMoment.valueOf(),
-                  'display': hourMoment.format('LT'),
+                  'display': hourMoment.format('HH:mm'), // 24hour
                   'active': hourMoment.format('YYYY-MM-DD H') === activeFormat,
-                    'today': new Date().getDay()
+                  'today': new Date().getDay()
                 };
 
                 result.dates.push(new DateObject(dateValue));
@@ -352,7 +352,7 @@
                 var hourMoment = moment.utc(selectedDate).add(i * configuration.minuteStep, 'minute');
                 var dateValue = {
                   'utcDateValue': hourMoment.valueOf(),
-                  'display': hourMoment.format('LT'),
+                  'display': hourMoment.format('HH:mm'),// 24hour
                   'active': hourMoment.format('YYYY-MM-DD H:mm') === activeFormat,
                   'today': new Date().getDay()
                 };
@@ -381,8 +381,8 @@
           };
 
           var getUTCTime = function getUTCTime(modelValue) {
-            var tempDate = (modelValue ? moment(modelValue).toDate() : new Date());
-            return tempDate.getTime() - (tempDate.getTimezoneOffset() * 60000);
+              var tempDate = (modelValue ? moment(modelValue).toDate() : new Date());
+            return tempDate.getTime() /*- (tempDate.getTimezoneOffset() * 60000)*/;
           };
 
           scope.changeView = function changeView(viewName, dateObject, event) {
