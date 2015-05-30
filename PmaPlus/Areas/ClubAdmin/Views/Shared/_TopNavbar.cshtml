@@ -15,19 +15,29 @@
                     <span ng-if="itemCount > 0" class="label label-danger" style="border-radius: 100%;">{{itemCount}}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-alerts">
-                    <li ng-repeat="item in items">
-                        <a>
-                            <div>
-                                <i class="a fa-calendar"></i> {{item.completionDateTime  | date : 'dd-MM-yyyy HH:mm'}}
+                    <li>
+                        <div class="ibox-content inspinia-timeline" ng-model="cols" ng-change="colsChanged()">
+                            <div class="timeline-item" ng-repeat="item in items">
+                                <div class="row">
+                                    <div class="col-xs-3 date">
+
+                                        <i class="fa fa-briefcase"></i>
+                                        {{item.start | date:'HH:mm'}}
+
                             </div>
-                            <div>
+                                    <div class="col-xs-7 content no-top-border">
+                                        <p class="m-b-xs">
                                 <strong>{{item.title}}</strong>
-                                <br />
+                                        </p>
+                                        <p>
                                 {{item.note}}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                        </a>
-                        <div class="divider"></div>
+                            </div>
                     </li> 
+
                     <li>
                         <div class="see-all"><a href="@Url.Action("ClubDiary", "Home", new { area="ClubAdmin" })">See all Diary Events ></a></div>
                     </li>                    
@@ -92,10 +102,8 @@
     .see-all a:hover{
         background:#ffffff !important;
     }
-
     .nav.navbar-top-links .dropdown-alerts a:hover{
         background-color: #f4f6fa;
         color: #333333;
     }
-
 </style>

@@ -632,7 +632,8 @@ app.controller('ClubDiaryController', [
     getResults();
 
         $scope.open = function() {
-        $scope.windowTitle = 'Add Event';
+            $scope.windowTitle = 'Add Event';
+            $scope.myform.form_Submitted = false;
         target.modal('show');
     }
 
@@ -642,6 +643,7 @@ app.controller('ClubDiaryController', [
         $scope.newEvent = event;
         needToUpdate = event.id;
         console.log($scope.newEvent.start);
+        $scope.myform.form_Submitted = false;
         target.modal('show');
     }
     $scope.ok = function () {
@@ -837,14 +839,15 @@ app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location',
 }]);
 app.controller('DairyNotifyController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
-    var urlTail = '/api/Dairy/';
+    var urlTail = '/api/Diary/today';
    
     $scope.itemCount = 0;
 
-
+   
     function getResults() {
         $http.get(urlTail)
            .success(function (result) {
+            console.log(result);
                $scope.items = result;
                $scope.itemCount = result.length;
            });
