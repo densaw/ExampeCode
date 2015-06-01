@@ -38,23 +38,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-lg-4 title-modal">Club Logo:</label>
-                            <div class="col-lg-7 pull-right ">
-                                <div class="thumbnail" ng-show="oldLogo" style="width: auto; float: none !important; margin-bottom: 5px;">
-                                    <img ng-src='/api/file/clubs/{{newClub.logo}}/{{newClub.id}}' style="width: auto; float: none !important;"/>
-                                </div>
-                                <input id="logoFile" file-model='logoFile' type="file" accept="image/*" class="pma-fileupload">
-
-                            </div>
-                        </div>
+                       
                         <div class="form-group">
                             <label class="col-lg-4 title-modal">Club Status:</label>
                             <div class="col-lg-7 pull-right">
                                 <select ng-model="selectedStatus" ng-options="status.name for status in statuses" class="form-control m-b" name="account"></select>
                             </div>
                         </div>
-
                         <div class="form-group" ng-class="{'has-error':myform.adminName.$invalid && (myform.adminName.$dirty||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Club Administrator Name:</label>
                             <div class="col-lg-7 pull-right">
@@ -72,18 +62,9 @@
                             <label class="col-lg-4 title-modal">ClubAdmin Password:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="adminPassword" ng-model="newClub.clubAdminPassword" required class="form-control">
-
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 title-modal">Club Background:</label>
-                            <div class="col-lg-7 pull-right">
-                                <div class="thumbnail" ng-show="oldBackground" style="width: auto; float: none !important; margin-bottom: 5px;">
-                                    <img ng-src='/api/file/clubs/{{newClub.background}}/{{newClub.id}}' style="width: auto; float: none !important;"/>
-                                </div>
-                                <input type="file" file-model='backgroundFile' accept="image/*" class="pma-fileupload" multiple="false">
-                            </div>
-                        </div>
+                       
                         <div class="form-group" ng-class="{'has-error':myform.established.$invalid && (myform.established.$dirty||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Established:</label>
                             <div class="col-lg-7 pull-right">
@@ -150,13 +131,6 @@
                                 <input ng-model="newClub.chairmanTelephone" class="form-control" maxlength="12">
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{'has-error':myform.colorHex.$invalid && (myform.colorHex.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Club Colour Theme:</label>
-                            <div class="col-lg-7 pull-right">
-                                <input name="colorHex" ng-model="newClub.colorTheme" type="text" class="form-control" ng-pattern="'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'">
-                            </div>
-                        </div>
-
                     </form>
                     <div class="modal-footer">
                         <button ng-click="ok(newClub.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
