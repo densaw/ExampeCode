@@ -174,12 +174,12 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
         $scope.opened = true;
     };
 
-    $scope.test = function(){
+    $scope.test = function () {
         console.log('in factory');
-        tableHttpOrderBy.orderBy(urlTail + '/' + $scope.itemsPerPage + '/' + $scope.pagination.current, 'test').success(function(result){
+        tableHttpOrderBy.orderBy(urlTail + '/' + $scope.itemsPerPage + '/' + $scope.pagination.current, 'test').success(function (result) {
             console.log(result);
         });
-        
+
     }
 
     function getResultsPage(pageNumber) {
@@ -681,15 +681,10 @@ app.controller('ClubDiaryController', [
             console.log(moment());
             $scope.actualEvnotes = [];
             $http.get('/api/Diary/').success(function (result) {
-                console.log('result');
-                console.log(result);
                 $scope.actualEvnotes = result;
                 $scope.actual = [];
 
                 angular.forEach($scope.actualEvnotes, function (item) {
-                    console.log('iter');
-                    console.log(item);
-                    console.log(moment(item.start).isAfter(moment()));
                     if (moment(item.start).isAfter(moment())) {
                         this.push(item);
                     }
@@ -723,7 +718,6 @@ app.controller('ClubDiaryController', [
                             .success(function (result) {
                                 cal.fullCalendar('removeEvents');
 
-                                console.log(result);
                                 $scope.events = result;
                                 angular.forEach(result, function (value) {
                                     cal.fullCalendar('renderEvent', value);
@@ -758,19 +752,20 @@ app.controller('ClubDiaryController', [
 
             eventRender: function (event, element) {
                 $scope.openEdit = element.bind('dblclick', function () {
-                    console.log('pre get');
 
                     $http.get('/api/Diary/' + event.id)
                         .success(function (result) {
 
                             $scope.newEvent = result;
+
+                            $scope.newEvent.start = moment(result.start).format('YYYY-MM-DDTHH:mm');
+                            $scope.newEvent.end = moment(result.end).format('YYYY-MM-DDTHH:mm');
+
                             needToUpdate = event.id;
                             needToDelete = event.id;
                             $scope.modalTitle = "Edit Event";
                             target.modal('show');
-                            console.log('done');
-                            console.log($scope.newEvent.start);
-                            console.log(result);
+
 
                         });
                 });
@@ -815,7 +810,6 @@ app.controller('ClubDiaryController', [
             $scope.windowTitle = 'Update Event';
             $scope.newEvent = event;
             needToUpdate = event.id;
-            console.log($scope.newEvent.start);
             $scope.myform.form_Submitted = false;
             target.modal('show');
         }
@@ -823,11 +817,15 @@ app.controller('ClubDiaryController', [
             $scope.myform.form_Submitted = !$scope.myform.$valid;
             $scope.loginLoading = true;
 
-            console.log('Here');
-            console.log(shuffle($scope.help.helpAttend));
+
+            $scope.newEvent.start = moment($scope.newEvent.start).format('YYYY-MM-DDTHH:mm');
+            $scope.newEvent.end = moment($scope.newEvent.end).format('YYYY-MM-DDTHH:mm');
+
+            console.log('start' + $scope.newEvent.start);
+            console.log('end' + $scope.newEvent.end);
+
             $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
             $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
-            console.log($scope.newEvent);
 
             //put
             if (needToUpdate != -1) {
@@ -840,7 +838,6 @@ app.controller('ClubDiaryController', [
                     target.modal('hide');
                 }).error(function (data, status, headers, config) {
                     if (status == 400) {
-                        console.log(data);
                         toaster.pop({
                             type: 'error',
                             title: 'Error',
@@ -863,9 +860,6 @@ app.controller('ClubDiaryController', [
                 }).error(function (data, status, headers, config) {
                     //$scope.event.id = $scope.selectedType.id;
                     if (status == 400) {
-                        console.log(data);
-
-
                         toaster.pop({
                             type: 'error',
                             title: 'Error',
@@ -1086,57 +1080,57 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
         } else {
 
 
-                $scope.newClub.status = $scope.selectedStatus.id;
-                console.log($scope.newClub);
-                if (id != null) {
-                    $http.put('/api/Clubs/' + id, $scope.newClub)
-                        .success(function () {
-                            getResults('/Current');
+            $scope.newClub.status = $scope.selectedStatus.id;
+            console.log($scope.newClub);
+            if (id != null) {
+                $http.put('/api/Clubs/' + id, $scope.newClub)
+                    .success(function () {
+                        getResults('/Current');
+                        toaster.pop({
+                            type: 'success',
+                            title: 'Success',
+                            bodyOutputType: 'trustedHtml',
+                            body: 'Profile was updated'
+                        });
+                        $scope.loginLoading = false;
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
                             toaster.pop({
-                                type: 'success',
-                                title: 'Success',
+                                type: 'error',
+                                title: 'Error',
                                 bodyOutputType: 'trustedHtml',
-                                body: 'Profile was updated'
+                                body: 'Please complete the compulsory fields highlighted in red'
                             });
                             $scope.loginLoading = false;
-                        }).error(function (data, status, headers, config) {
-                            if (status == 400) {
-                                console.log(data);
-                                toaster.pop({
-                                    type: 'error',
-                                    title: 'Error',
-                                    bodyOutputType: 'trustedHtml',
-                                    body: 'Please complete the compulsory fields highlighted in red'
-                                });
-                                $scope.loginLoading = false;
-                            }
+                        }
+                    });
+
+            } else {
+
+                $http.post('/api/Clubs', $scope.newClub)
+                    .success(function () {
+                        getResults('/Current');
+                        toaster.pop({
+                            type: 'success',
+                            title: 'Success',
+                            bodyOutputType: 'trustedHtml',
+                            body: 'Profile was updated'
                         });
-
-                } else {
-
-                    $http.post('/api/Clubs', $scope.newClub)
-                        .success(function () {
-                            getResults('/Current');
+                        $scope.loginLoading = false;
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
                             toaster.pop({
-                                type: 'success',
-                                title: 'Success',
+                                type: 'error',
+                                title: 'Error',
                                 bodyOutputType: 'trustedHtml',
-                                body: 'Profile was updated'
+                                body: 'Please complete the compulsory fields highlighted in red'
                             });
                             $scope.loginLoading = false;
-                        }).error(function (data, status, headers, config) {
-                            if (status == 400) {
-                                console.log(data);
-                                toaster.pop({
-                                    type: 'error',
-                                    title: 'Error',
-                                    bodyOutputType: 'trustedHtml',
-                                    body: 'Please complete the compulsory fields highlighted in red'
-                                });
-                                $scope.loginLoading = false;
-                            }
-                        });
-                };
+                        }
+                    });
+            };
         }
 
 
