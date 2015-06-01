@@ -191,6 +191,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
+                        <button ng-click="delete(newMember.id)" id="deleteConf" type="button" class="btn btn-white pull-left">Delete</button>
                         <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
                         <button ng-click="send(newMember.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
                             <span class="ladda-label" style="font-size: 14px;">Save changes</span>

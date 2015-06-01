@@ -356,7 +356,12 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
         target.modal('hide');
     }
 
-
+    $scope.delete = function (id) {
+        $http.delete(urlTail + '/' + id).success(function () {
+            getResultsPage();
+        });
+        target.modal('hide');
+    }
 
 
     $scope.parserJ = function (roleId, userId) {
