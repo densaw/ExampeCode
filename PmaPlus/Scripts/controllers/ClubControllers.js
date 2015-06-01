@@ -344,7 +344,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
 
     }
 
-    $scope.send = function () {
+    $scope.send = function (id) {
         $scope.loginLoading = true;
 
         //Files upload
@@ -378,7 +378,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
             //$scope.newMember.profilePicture = 'tmp.png';
             console.log($scope.newMember);
 
-            if ($scope.newMember.id != 0) {
+            if (id != null) {
 
                 $http.put(urlTail + '/' + $scope.newMember.id, $scope.newMember)
                 .success(function (result) {
