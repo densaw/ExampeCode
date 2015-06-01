@@ -262,7 +262,7 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
     $scope.add = function () {
         var f = document.getElementById('file').files[0],
             r = new FileReader();
-        r.onloadend = function (e) {
+        r.onloadend = function (e) {  
             var data = e.target.result;
             //send you binary data via $http or $resource or do anything else with it
         }
@@ -344,7 +344,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
 
     }
 
-    $scope.send = function () {
+    $scope.send = function (id) {
         $scope.loginLoading = true;
 
         //Files upload
@@ -378,7 +378,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
             //$scope.newMember.profilePicture = 'tmp.png';
             console.log($scope.newMember);
 
-            if ($scope.newMember.id != 0) {
+            if (id != null) {
 
                 $http.put(urlTail + '/' + $scope.newMember.id, $scope.newMember)
                 .success(function (result) {
