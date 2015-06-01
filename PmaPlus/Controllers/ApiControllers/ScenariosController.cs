@@ -33,13 +33,13 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         // GET: api/Scenarios
-        [Route("api/Scenarios/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public ScenarioPage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/Scenarios/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public ScenarioPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _scenarioServices.GetScenarios().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var scenario = _scenarioServices.GetScenarios().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
-            var items = Mapper.Map<IEnumerable<Scenario>, IEnumerable<ScenarioTableViewModel>>(scenario);
+            var scenario = _scenarioServices.GetScenarios().AsEnumerable();
+            var items = Mapper.Map<IEnumerable<Scenario>, IEnumerable<ScenarioTableViewModel>>(scenario).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new ScenarioPage()
             {

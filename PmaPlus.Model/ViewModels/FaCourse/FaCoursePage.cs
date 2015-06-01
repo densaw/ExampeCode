@@ -9,6 +9,6 @@ namespace PmaPlus.Model.ViewModels
 {
     public class FaCoursePage : Page
     {
-        public IQueryable<FACourse> Items { get; set; }
+        public IEnumerable<FACourse> Items { get; set; }
     }
 }

@@ -26,12 +26,12 @@ namespace PmaPlus.Controllers
         }
 
         // GET: api/FaCourses/pageSize/pageNumber/orderBy(optional) 
-        [Route("api/FaCourses/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public FaCoursePage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/FaCourses/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public FaCoursePage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _faCourseServices.GetFaCourses().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var items = _faCourseServices.GetFaCourses().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+            var items = _faCourseServices.GetFaCourses().AsEnumerable().OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new FaCoursePage()
             {

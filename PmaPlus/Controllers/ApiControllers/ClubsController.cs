@@ -32,12 +32,12 @@ namespace PmaPlus.Controllers.ApiControllers
             //_photoManager = new LocalPhotoManager(HttpContext.Current.Server.MapPath(@"~/App_Data/temp"));
         }
 
-        [Route("api/Clubs/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public ClubPage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/Clubs/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public ClubPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _clubServices.GetClubsTableViewModels().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var items = _clubServices.GetClubsTableViewModels().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+            var items = _clubServices.GetClubsTableViewModels().OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new ClubPage()
             {

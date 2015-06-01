@@ -25,13 +25,13 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
 
-        [Route("api/NutritionNews/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public NutritionNewPage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/NutritionNews/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public NutritionNewPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _newsServices.GetNutritionNews().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var news = _newsServices.GetNutritionNews().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
-            var items = Mapper.Map<IEnumerable<NutritionNew>, IEnumerable<NutritionNewTableViewModel>>(news);
+            var news = _newsServices.GetNutritionNews().AsEnumerable();
+            var items = Mapper.Map<IEnumerable<NutritionNew>, IEnumerable<NutritionNewTableViewModel>>(news).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize); 
 
             return new NutritionNewPage()
             {
