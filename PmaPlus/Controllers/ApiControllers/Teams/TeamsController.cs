@@ -33,8 +33,8 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
             return Mapper.Map<IEnumerable<Team>, IEnumerable<TeamsList>>(_teamServices.GetClubTeams(clubId));
         }
 
-        [Route("api/Teams/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public TeamsPage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/Teams/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public TeamsPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
 
             var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
@@ -42,8 +42,8 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
 
             var count = _teamServices.GetClubTeams(clubId).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var curriculums = _teamServices.GetClubTeams(clubId).OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
-            var items = Mapper.Map<IEnumerable<Team>, IEnumerable<TeamTableViewModel>>(curriculums);
+            var curriculums = _teamServices.GetClubTeams(clubId);
+            var items = Mapper.Map<IEnumerable<Team>, IEnumerable<TeamTableViewModel>>(curriculums).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new TeamsPage()
             {

@@ -28,13 +28,13 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
 
-        [Route("api/NutritionFoodTypes/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public FoodTypePage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/NutritionFoodTypes/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public FoodTypePage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _nutritionServices.GetFoodTypes().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var foodTypes = _nutritionServices.GetFoodTypes().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
-            var items = Mapper.Map<IEnumerable<NutritionFoodType>, IEnumerable<NutritionFoodTypeTableViewModel>>(foodTypes);
+            var foodTypes = _nutritionServices.GetFoodTypes().AsEnumerable();
+            var items = Mapper.Map<IEnumerable<NutritionFoodType>, IEnumerable<NutritionFoodTypeTableViewModel>>(foodTypes).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new FoodTypePage()
             {

@@ -25,16 +25,14 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
         }
 
 
-        [Route("api/Sessions/{curriculumId:int}/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public SessionPage Get(int curriculumId, int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/Sessions/{curriculumId:int}/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public SessionPage Get(int curriculumId, int pageSize, int pageNumber, string orderBy = "",bool direction = false)
         {
             var count = _curriculumServices.GetSessions(curriculumId).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var sessions = _curriculumServices.GetSessions(curriculumId)
-                    .OrderQuery(orderBy, f => f.Id)
-                    .Paged(pageNumber, pageSize);
+            var sessions = _curriculumServices.GetSessions(curriculumId);
 
-            var items = Mapper.Map<IEnumerable<Session>, IEnumerable<SessionTableViewModel>>(sessions);
+            var items = Mapper.Map<IEnumerable<Session>, IEnumerable<SessionTableViewModel>>(sessions).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new SessionPage()
             {

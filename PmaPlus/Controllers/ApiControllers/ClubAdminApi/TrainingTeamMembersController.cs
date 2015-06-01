@@ -60,7 +60,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
                 else
                 {
                     newUser.UserDetail.ProfilePicture = _photoManager.SetDefaultPrifilePic(
-                    FileStorageTypes.PlayerProfilePicture, newUser.Id, "ProfilePicture.jpg");
+                    FileStorageTypes.ProfilePicture, newUser.Id, "ProfilePicture.jpg");
                 }
                     _userServices.UpdateUser(newUser);
             }
@@ -80,6 +80,18 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
                 
             }
             _userServices.UpdateTrainigTeamMember(memberViewModel,id);
+            return Ok();
+        }
+
+        public IHttpActionResult Delete(int id)
+        {
+            if (!_userServices.UserExist(id))
+            {
+                return NotFound();
+            }
+
+            _userServices.DeleteTrainigTeamMember(id);
+
             return Ok();
         }
 

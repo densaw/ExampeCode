@@ -23,13 +23,13 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
 
-        [Route("api/SkillLevels/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public SkillLevelPage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/SkillLevels/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public SkillLevelPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _skillServices.GetSkillLevels().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var skillLevels = _skillServices.GetSkillLevels().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
-            var items = Mapper.Map<IEnumerable<SkillLevel>, IEnumerable<SkillLevelTableViewModel>>(skillLevels);
+            var skillLevels = _skillServices.GetSkillLevels().AsEnumerable();
+            var items = Mapper.Map<IEnumerable<SkillLevel>, IEnumerable<SkillLevelTableViewModel>>(skillLevels).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new SkillLevelPage()
             {

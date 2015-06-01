@@ -16,7 +16,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-alerts">
                     <li>
-                        <div class="ibox-content inspinia-timeline" ng-model="cols" ng-change="colsChanged()">
+                        <div class="ibox-content inspinia-timeline" style="border: none;" ng-model="cols" ng-change="colsChanged()">
                             <div class="timeline-item" ng-repeat="item in items">
                                 <div class="row">
                                     <div class="col-xs-3 date">
@@ -24,18 +24,20 @@
                                         <i class="fa fa-calendar"></i>
                                         {{item.start | date:'HH:mm'}}
 
-                            </div>
+                                    </div>
                                     <div class="col-xs-7 content no-top-border">
                                         <p class="m-b-xs">
-                                <strong>{{item.title}}</strong>
+                                            <strong>{{item.title}}</strong>
                                         </p>
-                                        <p>
-                                {{item.note}}
-                                        </p>
+                                        <div class="col">
+                                            <p>
+                                                {{item.note}}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                     </li> 
                     <div class="divider"></div>
                     <li>
@@ -87,11 +89,14 @@
 </div>
 
 <style>
-    .see-all{
-        display: block;
-        text-align: center;
-        margin-left: 25px;
+    .col {
+        word-wrap: break-word; /* Перенос слов */
     }
+     .see-all{
+         display: block;
+         text-align: center;
+         margin-left: 25px;
+     }
 
     .see-all a{
         color: #676a6c;   

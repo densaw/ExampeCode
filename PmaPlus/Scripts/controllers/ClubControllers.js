@@ -67,7 +67,71 @@ routing.$inject = ['$routeProvider'];
 
 app.config(routing);
 
-app.controller('AttributesController', ['$scope', '$http', 'toaster', 'tableHttpOrderBy', function ($scope, $http, toaster, tableHttpOrderBy) {
+
+app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
+    
+    var monthNames = ['Jan',
+           'Feb',
+           'Mar',
+           'Apr',
+           'May',
+           'Jun',
+           'Jul',
+           'Aug',
+           'Sep',
+           'Oct',
+           'Nov',
+           'Dec'];
+  
+
+    $http.get('/api/ClubAdminDashboard/Players/ScoreGraph').success(function (data) {
+
+        var monthArray = new Array;
+        var playerCountArray = new Array;
+        data.forEach(function (val) {
+            monthArray.push(monthNames[val.month - 1]);
+            playerCountArray.push(val.activePlayers);
+        });
+
+        $scope.data = {
+            labels: monthArray,
+            datasets: [
+                {
+                    label: "Example dataset",
+                    fillColor: "rgba(66,139,202,0.5)",
+                    strokeColor: "rgba(66,139,202,0.7)",
+                    pointColor: "rgba(66,139,202,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(26,179,148,1)",
+                    data: playerCountArray
+                }
+               
+            ]
+        };
+
+        $scope.options = {
+            scaleShowGridLines: true,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 1,
+            bezierCurve: true,
+            bezierCurveTension: 0.4,
+            pointDot: true,
+            pointDotRadius: 4,
+            pointDotStrokeWidth: 1,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 2,
+            datasetFill: true,
+            responsive: true
+        };
+
+
+    });
+
+}]);
+
+app.controller('AttributesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
 
     var needToDelete = -1;
@@ -288,7 +352,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
 
     }
 
-    $scope.send = function () {
+    $scope.send = function (id) {
         $scope.loginLoading = true;
 
         //Files upload
@@ -322,7 +386,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
             //$scope.newMember.profilePicture = 'tmp.png';
             console.log($scope.newMember);
 
-            if ($scope.newMember.id != 0) {
+            if (id != null) {
 
                 $http.put(urlTail + '/' + $scope.newMember.id, $scope.newMember)
                 .success(function (result) {

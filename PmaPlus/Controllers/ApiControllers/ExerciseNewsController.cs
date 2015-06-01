@@ -25,13 +25,13 @@ namespace PmaPlus.Controllers.ApiControllers
             _photoManager = photoManager;
         }
 
-        [Route("api/ExerciseNews/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public ExerciseNewPage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/ExerciseNews/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public ExerciseNewPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _newsServices.GetExcerciseNews().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var foodTypes = _newsServices.GetExcerciseNews().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
-            var items = Mapper.Map<IEnumerable<ExcerciseNew>, IEnumerable<ExerciseNewTableViewModel>>(foodTypes);
+            var foodTypes = _newsServices.GetExcerciseNews().AsEnumerable();
+            var items = Mapper.Map<IEnumerable<ExcerciseNew>, IEnumerable<ExerciseNewTableViewModel>>(foodTypes).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize); 
 
             return new ExerciseNewPage()
             {

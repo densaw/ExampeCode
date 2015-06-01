@@ -50,7 +50,6 @@ namespace PmaPlus.Services
                 diary.End = diary.Start;
             }
 
-
             List<int> userIds = new List<int>();
             foreach (var role in roles)
             {
@@ -97,6 +96,8 @@ namespace PmaPlus.Services
             {
                 tempDiary.Note = diary.Note;
                 tempDiary.Title = diary.Title;
+                tempDiary.Start = diary.Start;
+                tempDiary.End = diary.End;
                 tempDiary.AllDay = diary.AllDay;
                 tempDiary.Start = diary.Start;
                 

@@ -2384,6 +2384,7 @@
             var promises = [];
 
             if ($scope.authorPicture/*File model name*/) {
+                $scope.loginLoading = false;
                 var fd = new FormData();
                 fd.append('file', $scope.pic1);
                 var promise = $http.post('/api/Files', fd, {
@@ -2399,6 +2400,7 @@
                             title: 'Error',
                             body: 'File upload ERROR!'
                         });
+                        $scope.loginLoading = false;
                     });
                 promises.push(promise);
             }
@@ -2419,6 +2421,7 @@
                             title: 'Error',
                             body: 'File upload ERROR!'
                         });
+                        $scope.loginLoading = false;
                     });
                 promises.push(promise);
             }
@@ -2439,6 +2442,7 @@
                             title: 'Error',
                             body: 'File upload ERROR!'
                         });
+                        $scope.loginLoading = false;
                     });
                 promises.push(promise);
             }
