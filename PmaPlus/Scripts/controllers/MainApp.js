@@ -2412,6 +2412,7 @@
                             title: 'Error',
                             body: 'File upload ERROR!'
                         });
+                        $scope.loginLoading = false;
                     });
                 promises.push(promise);
             }
@@ -2432,6 +2433,7 @@
                             title: 'Error',
                             body: 'File upload ERROR!'
                         });
+                        $scope.loginLoading = false;
                     });
                 promises.push(promise);
             }
