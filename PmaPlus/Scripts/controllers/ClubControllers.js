@@ -1085,59 +1085,6 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
 
         } else {
 
-            //Files upload
-
-            var promises = [];
-
-            if ($scope.logoFile) {
-                var fd = new FormData();
-                fd.append('file', $scope.logoFile);
-                var promise = $http.post('/api/Files', fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                })
-                    .success(function (data) {
-                        $scope.newClub.logo = data.name;
-                    })
-                    .error(function () {
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error',
-                            body: 'File upload ERROR!'
-                        });
-
-                        $scope.loginLoading = false;
-                    });
-                promises.push(promise);
-            }
-
-            if ($scope.backgroundFile) {
-                var fd = new FormData();
-                fd.append('file', $scope.backgroundFile);
-                var promise = $http.post('/api/Files', fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                })
-                    .success(function (data) {
-                        $scope.newClub.background = data.name;
-                    })
-                    .error(function () {
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error',
-                            body: 'File upload ERROR!'
-                        });
-
-                        $scope.loginLoading = false;
-                    });
-
-                promises.push(promise);
-            }
-
-
-            //$scope.newClub.logo = 'tmp.jpeg';
-            //$scope.newClub.background = 'tmp.jpeg';
-            $q.all(promises).then(function () {
 
                 $scope.newClub.status = $scope.selectedStatus.id;
                 console.log($scope.newClub);
@@ -1190,7 +1137,6 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                             }
                         });
                 };
-            });
         }
 
 
