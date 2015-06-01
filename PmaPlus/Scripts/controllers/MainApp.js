@@ -1,6 +1,10 @@
 ﻿(function () {
     var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster', 'file-model', 'ngSanitize', 'ui.select', 'ui.bootstrap.datetimepicker', 'ui.calendar', 'ngRoute', 'ladda']);
 
+    module.run(['$rootScope', function($rootScope){
+        $rootScope.revers = true;
+        $rootScope.preOrderField = '';
+    }]);
 
     module.directive('backImg', function () {
         return function (scope, element, attrs) {
@@ -14,6 +18,7 @@
         };
     });
 
+    
     module.config(['uiSelectConfig', function (uiSelectConfig) {
         uiSelectConfig.theme = 'bootstrap';
     }]);
@@ -25,7 +30,35 @@
                 return $http.get(url /*+ '/' + orderField + '/' + revers*/);
             }
         };
-    }])
+    }]);
+
+
+    module.controller('orderFieldsController', ['$scope', '$filter', '$rootScope',  function($scope, $filter, $rootScope){
+        $scope.order = function(orderFieldName){
+            if($rootScope.preOrderField === orderFieldName){
+                $rootScope.revers = !$rootScope.revers;
+            }else{
+                $rootScope.revers = false;
+                $rootScope.preOrderField = orderFieldName;
+            }
+            $rootScope.orderField = orderFieldName;
+            console.log($rootScope.revers);
+        }
+    }]);
+
+    module.directive('orderHeader', ['tableHttpOrderBy', function(tableHttpOrderBy){
+        return{
+            restrict: 'A',
+            scope: true,
+            scope: {
+              header: '@head',
+              orderField: '@order'
+            },
+            template: '<p ng-click="order(orderField)">{{header}}</p>'/* + '<i class="fa fa-cog"></i>'*/,
+            controller: 'orderFieldsController'
+        }
+    }]);
+
 
 
     module.filter('curr', function () {
