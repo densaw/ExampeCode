@@ -24,8 +24,8 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         }
 
         // GET: api/Attributes
-        [Route("api/Attributes/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:alpha?}")]
-        public PlayerAttributePage Get(int pageSize, int pageNumber, string orderBy = "",string direction = "")
+        [Route("api/Attributes/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public PlayerAttributePage Get(int pageSize, int pageNumber, string orderBy = "",bool direction = false)
         {
             var count = _playerAttributeServices.GetPlayerAttributes().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);

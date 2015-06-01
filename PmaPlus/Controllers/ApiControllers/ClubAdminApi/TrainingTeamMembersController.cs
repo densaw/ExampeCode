@@ -83,6 +83,18 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return Ok();
         }
 
+        public IHttpActionResult Delete(int id)
+        {
+            if (!_userServices.UserExist(id))
+            {
+                return NotFound();
+            }
+
+            _userServices.DeleteTrainigTeamMember(id);
+
+            return Ok();
+        }
+
         [Route("api/Coaches/list")]
         public IEnumerable<CoachesList> GetCoaches()
         {

@@ -41,11 +41,11 @@ namespace PmaPlus.Data
             return source.OrderBy(orderExpression);
         }
 
-        public static IEnumerable<T> OrderQuery<T, TProperty>(this IEnumerable<T> list, string sortExpression, Expression<Func<T, TProperty>> defaulProperty, string direction = "")
+        public static IEnumerable<T> OrderQuery<T, TProperty>(this IEnumerable<T> list, string sortExpression, Expression<Func<T, TProperty>> defaulProperty, bool direction )
         {
             sortExpression += "";
             string[] parts = sortExpression.Split(' ');
-            bool descending = direction.ToLower().Contains("des");
+            bool descending = direction;
 
 
             string property = "";

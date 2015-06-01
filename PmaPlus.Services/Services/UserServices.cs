@@ -31,8 +31,10 @@ namespace PmaPlus.Services
         private readonly IScoutRepository _scoutRepository;
         private readonly IWelfareOfficerRepository _welfareOfficerRepository;
         private readonly ISportScientistRepository _sportScientistRepository;
+        private readonly IAddressRepository _addressRepository;
+        private readonly IUserDetailRepository _userDetailRepository;
 
-        public UserServices(IUserRepository userRepository, IClubAdminRepository clubAdminRepository, ICoachRepository coachRepository, IClubRepository clubRepository, IWelfareOfficerRepository welfareOfficerRepository, IScoutRepository scoutRepository, IPhysiotherapistRepository physiotherapistRepository, IHeadOfEducationRepository headOfEducationRepository, IHeadOfAcademyRepository headOfAcademyRepository, ISportScientistRepository sportScientistRepository)
+        public UserServices(IUserRepository userRepository, IClubAdminRepository clubAdminRepository, ICoachRepository coachRepository, IClubRepository clubRepository, IWelfareOfficerRepository welfareOfficerRepository, IScoutRepository scoutRepository, IPhysiotherapistRepository physiotherapistRepository, IHeadOfEducationRepository headOfEducationRepository, IHeadOfAcademyRepository headOfAcademyRepository, ISportScientistRepository sportScientistRepository, IAddressRepository addressRepository, IUserDetailRepository userDetailRepository)
         {
             _userRepository = userRepository;
             _clubAdminRepository = clubAdminRepository;
@@ -44,6 +46,8 @@ namespace PmaPlus.Services
             _headOfEducationRepository = headOfEducationRepository;
             _headOfAcademyRepository = headOfAcademyRepository;
             _sportScientistRepository = sportScientistRepository;
+            _addressRepository = addressRepository;
+            _userDetailRepository = userDetailRepository;
         }
 
         public ClubAdmin GetClubAdminByUserName(string name)
@@ -330,7 +334,7 @@ namespace PmaPlus.Services
                 member.UserDetail.Address.PostCode = memberViewModel.Postcode;
                 member.UserDetail.Address.TownCity = memberViewModel.TownCity;
                 member.UserDetail.CrbDbsExpiry = memberViewModel.CrbDbsExpiry;
-                member.UserDetail.CrbDbsExpiry = memberViewModel.FirstAidExpiry;
+                member.UserDetail.FirstAidExpiry = memberViewModel.FirstAidExpiry;
 
 
                 _userRepository.Update(member, member.Id);
@@ -412,6 +416,59 @@ namespace PmaPlus.Services
                 }
             }
 
+        }
+
+
+        public void DeleteTrainigTeamMember(int id)
+        {
+            var user = _userRepository.GetById(id);
+            if (user != null)
+            {
+                _addressRepository.Delete(user.UserDetail.Address);
+                _userDetailRepository.Delete(user.UserDetail);
+                _userRepository.Delete(user);
+
+                switch (user.Role)
+                {
+                    case Role.Coach:
+                        {
+                            _coachRepository.Delete(c => c.User.Id == user.Id);
+                            break;
+                        }
+                    case Role.HeadOfAcademies:
+                        {
+                            _headOfAcademyRepository.Delete(c => c.User.Id == user.Id);
+                            break;
+                        }
+                    case Role.HeadOfEducation:
+                        {
+                            _headOfEducationRepository.Delete(c => c.User.Id == user.Id);
+                            break;
+                        }
+                    case Role.Scout:
+                        {
+                            _scoutRepository.Delete(c => c.User.Id == user.Id);
+                            break;
+                        }
+                    case Role.Physiotherapist:
+                        {
+                            _physiotherapistRepository.Delete(c => c.User.Id == user.Id);
+                            break;
+                        }
+                    case Role.SportsScientist:
+                        {
+                            _sportScientistRepository.Delete(c => c.User.Id == user.Id);
+                            break;
+                        }
+                    case Role.WelfareOfficer:
+                        {
+                            _welfareOfficerRepository.Delete(c => c.User.Id == user.Id);
+                            break;
+                        }
+                }
+
+                _userRepository.Delete(user);
+            }
         }
 
         #endregion
