@@ -26,13 +26,13 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
 
-        [Route("api/NutritionAlternatives/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public AlternativesPage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/NutritionAlternatives/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public AlternativesPage Get(int pageSize, int pageNumber, string orderBy = "",bool direction = false)
         {
             var count = _nutritionServices.GetAlternatives().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var alternatives = _nutritionServices.GetAlternatives().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
-            var items = Mapper.Map<IEnumerable<NutritionAlternative>, IEnumerable<NutritionAlternativeTableViewModel>>(alternatives);
+            var alternatives = _nutritionServices.GetAlternatives().AsEnumerable();
+            var items = Mapper.Map<IEnumerable<NutritionAlternative>, IEnumerable<NutritionAlternativeTableViewModel>>(alternatives).OrderQuery(orderBy,x => x.Id,direction).Paged(pageNumber, pageSize);
 
             return new AlternativesPage()
             {

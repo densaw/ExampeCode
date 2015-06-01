@@ -23,13 +23,13 @@ namespace PmaPlus.Controllers.ApiControllers
            _photoManager = photoManager;
        }
 
-        [Route("api/PhysioExercise/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-       public PhysioExercisePage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/PhysioExercise/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+       public PhysioExercisePage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _physiotherapyServices.GetExercises().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var exercises = _physiotherapyServices.GetExercises().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
-            var items = Mapper.Map<IEnumerable<PhysiotherapyExercise>, IEnumerable<PhysiotherapyExerciseTableViewModel>>(exercises);
+            var items = Mapper.Map<IEnumerable<PhysiotherapyExercise>, IEnumerable<PhysiotherapyExerciseTableViewModel>>(exercises).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new PhysioExercisePage()
             {

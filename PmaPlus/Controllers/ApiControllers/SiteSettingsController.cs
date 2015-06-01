@@ -29,13 +29,13 @@ namespace PmaPlus.Controllers.ApiControllers
 
         #region Targets
 
-        [Route("api/TargetHistory/{pageSize:int}/{pageNumber:int}")]
-        public TargetHistoryPage GetTargets(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/TargetHistory/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public TargetHistoryPage GetTargets(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _siteSettingsServices.GetTargetHistories().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var targets = _siteSettingsServices.GetTargetHistories().Paged(pageNumber, pageSize).AsEnumerable();
-            var items = Mapper.Map<IEnumerable<TargetHistory>, IEnumerable<TargetHistoryTableViewModel>>(targets);
+            var targets = _siteSettingsServices.GetTargetHistories().AsEnumerable();
+            var items = Mapper.Map<IEnumerable<TargetHistory>, IEnumerable<TargetHistoryTableViewModel>>(targets).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new TargetHistoryPage()
             {
