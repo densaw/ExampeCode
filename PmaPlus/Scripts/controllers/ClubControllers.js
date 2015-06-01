@@ -361,7 +361,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
             getResultsPage();
         });
         target.modal('hide');
-    }
+    }   
 
 
     $scope.parserJ = function (roleId, userId) {
