@@ -2791,8 +2791,8 @@ a:focus {
 }
 .font-bold-small {
   font-family: 'Open Sans', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 400;
 }
 .font-noraml {
   font-weight: 400;
@@ -3146,6 +3146,9 @@ code {
   margin-top: 0;
   padding: 0;
 }
+.ibox a{
+    color: #c4c4c4;
+}
 .ibox:after,
 .ibox:before {
   display: table;
@@ -3168,7 +3171,7 @@ code {
 .ibox-content {
   background-color: #ffffff;
   color: inherit;
-  padding: 10px 10px 10px 10px;
+  padding: 10px 10px 0px 10px;
   border-color: #e7eaec;
   border-image: none;
   border-style: solid solid none;
@@ -3800,7 +3803,7 @@ ul.clear-list:first-child {
 }
 .timeline-item .date {
   text-align: right;
-  width: 110px;
+  width: 90px;
   position: relative;
   padding-top: 30px;
 }

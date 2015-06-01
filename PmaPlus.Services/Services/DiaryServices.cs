@@ -45,10 +45,6 @@ namespace PmaPlus.Services
 
         public Diary AddDiary(Diary diary, int ownerUserId, IList<int> recipientUsers,IList<Role> roles)
         {
-            if (diary.End < diary.Start)
-            {
-                diary.End = diary.Start;
-            }
 
             List<int> userIds = new List<int>();
             foreach (var role in roles)

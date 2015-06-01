@@ -55,6 +55,21 @@ app.directive('styleParent', function () {
 });
 
 
+function hexToRgb(hex) {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
 
 var routing = function ($routeProvider) {
     $routeProvider.when('localhost:1292/ClubAdmin/Home/ProfilePage/:role', {
@@ -68,7 +83,7 @@ routing.$inject = ['$routeProvider'];
 app.config(routing);
 
 
-app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
+app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
     
     var monthNames = ['Jan',
            'Feb',
@@ -83,6 +98,11 @@ app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', fu
            'Nov',
            'Dec'];
   
+    var hexClub = "";
+
+    $http.get('/api/clubs/color').success(function (data) {
+        hexClub = data;
+
 
     $http.get('/api/ClubAdminDashboard/Players/ScoreGraph').success(function (data) {
 
@@ -93,17 +113,20 @@ app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', fu
             playerCountArray.push(val.activePlayers);
         });
 
+
+            var clubRgb = hexToRgb(hexClub);
+
         $scope.data = {
             labels: monthArray,
             datasets: [
                 {
                     label: "Example dataset",
-                    fillColor: "rgba(66,139,202,0.5)",
-                    strokeColor: "rgba(66,139,202,0.7)",
-                    pointColor: "rgba(66,139,202,1)",
+                        fillColor: "rgba(" + clubRgb.r + "," + clubRgb.g + "," + clubRgb.b + ",0.5)",
+                        strokeColor: hexClub,
+                        pointColor: hexClub,
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(26,179,148,1)",
+                        pointHighlightStroke: hexClub,
                     data: playerCountArray
                 }
                
@@ -126,6 +149,9 @@ app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', fu
             responsive: true
         };
     });
+
+
+    });
 }]);
 
 app.controller('AttributesController', ['$scope', '$http', 'toaster', '$filter', '$rootScope', function ($scope, $http, toaster, $filter, $rootScope) {
@@ -145,7 +171,15 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', '$filter',
         $scope.opened = true;
     };
 
-    function getResultsPage(pageNumber, orderField) {
+    $scope.test = function () {
+        console.log('in factory');
+        tableHttpOrderBy.orderBy(urlTail + '/' + $scope.itemsPerPage + '/' + $scope.pagination.current, 'test').success(function (result) {
+            console.log(result);
+        });
+
+    }
+
+    function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
             .success(function (result) {
                 $scope.items = result.items;
@@ -328,7 +362,12 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
         target.modal('hide');
     }
 
-
+    $scope.delete = function (id) {
+        $http.delete(urlTail + '/' + id).success(function () {
+            getResultsPage();
+        });
+        target.modal('hide');
+    }   
 
 
     $scope.parserJ = function (roleId, userId) {
@@ -653,15 +692,10 @@ app.controller('ClubDiaryController', [
             console.log(moment());
             $scope.actualEvnotes = [];
             $http.get('/api/Diary/').success(function (result) {
-                console.log('result');
-                console.log(result);
                 $scope.actualEvnotes = result;
                 $scope.actual = [];
 
                 angular.forEach($scope.actualEvnotes, function (item) {
-                    console.log('iter');
-                    console.log(item);
-                    console.log(moment(item.start).isAfter(moment()));
                     if (moment(item.start).isAfter(moment())) {
                         this.push(item);
                     }
@@ -695,7 +729,6 @@ app.controller('ClubDiaryController', [
                             .success(function (result) {
                                 cal.fullCalendar('removeEvents');
 
-                                console.log(result);
                                 $scope.events = result;
                                 angular.forEach(result, function (value) {
                                     cal.fullCalendar('renderEvent', value);
@@ -730,19 +763,20 @@ app.controller('ClubDiaryController', [
 
             eventRender: function (event, element) {
                 $scope.openEdit = element.bind('dblclick', function () {
-                    console.log('pre get');
 
                     $http.get('/api/Diary/' + event.id)
                         .success(function (result) {
 
                             $scope.newEvent = result;
+
+                            $scope.newEvent.start = moment(result.start).format('YYYY-MM-DDTHH:mm');
+                            $scope.newEvent.end = moment(result.end).format('YYYY-MM-DDTHH:mm');
+
                             needToUpdate = event.id;
                             needToDelete = event.id;
                             $scope.modalTitle = "Edit Event";
                             target.modal('show');
-                            console.log('done');
-                            console.log($scope.newEvent.start);
-                            console.log(result);
+
 
                         });
                 });
@@ -787,7 +821,6 @@ app.controller('ClubDiaryController', [
             $scope.windowTitle = 'Update Event';
             $scope.newEvent = event;
             needToUpdate = event.id;
-            console.log($scope.newEvent.start);
             $scope.myform.form_Submitted = false;
             target.modal('show');
         }
@@ -795,11 +828,15 @@ app.controller('ClubDiaryController', [
             $scope.myform.form_Submitted = !$scope.myform.$valid;
             $scope.loginLoading = true;
 
-            console.log('Here');
-            console.log(shuffle($scope.help.helpAttend));
+
+            $scope.newEvent.start = moment($scope.newEvent.start).format('YYYY-MM-DDTHH:mm');
+            $scope.newEvent.end = moment($scope.newEvent.end).format('YYYY-MM-DDTHH:mm');
+
+            console.log('start' + $scope.newEvent.start);
+            console.log('end' + $scope.newEvent.end);
+
             $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
             $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
-            console.log($scope.newEvent);
 
             //put
             if (needToUpdate != -1) {
@@ -812,7 +849,6 @@ app.controller('ClubDiaryController', [
                     target.modal('hide');
                 }).error(function (data, status, headers, config) {
                     if (status == 400) {
-                        console.log(data);
                         toaster.pop({
                             type: 'error',
                             title: 'Error',
@@ -835,9 +871,6 @@ app.controller('ClubDiaryController', [
                 }).error(function (data, status, headers, config) {
                     //$scope.event.id = $scope.selectedType.id;
                     if (status == 400) {
-                        console.log(data);
-
-
                         toaster.pop({
                             type: 'error',
                             title: 'Error',
@@ -1057,59 +1090,6 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
 
         } else {
 
-            //Files upload
-
-            var promises = [];
-
-            if ($scope.logoFile) {
-                var fd = new FormData();
-                fd.append('file', $scope.logoFile);
-                var promise = $http.post('/api/Files', fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                })
-                    .success(function (data) {
-                        $scope.newClub.logo = data.name;
-                    })
-                    .error(function () {
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error',
-                            body: 'File upload ERROR!'
-                        });
-
-                        $scope.loginLoading = false;
-                    });
-                promises.push(promise);
-            }
-
-            if ($scope.backgroundFile) {
-                var fd = new FormData();
-                fd.append('file', $scope.backgroundFile);
-                var promise = $http.post('/api/Files', fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                })
-                    .success(function (data) {
-                        $scope.newClub.background = data.name;
-                    })
-                    .error(function () {
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error',
-                            body: 'File upload ERROR!'
-                        });
-
-                        $scope.loginLoading = false;
-                    });
-
-                promises.push(promise);
-            }
-
-
-            //$scope.newClub.logo = 'tmp.jpeg';
-            //$scope.newClub.background = 'tmp.jpeg';
-            $q.all(promises).then(function () {
 
                 $scope.newClub.status = $scope.selectedStatus.id;
                 console.log($scope.newClub);
@@ -1162,7 +1142,6 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
                             }
                         });
                 };
-            });
         }
 
 

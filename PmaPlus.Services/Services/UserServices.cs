@@ -33,8 +33,14 @@ namespace PmaPlus.Services
         private readonly ISportScientistRepository _sportScientistRepository;
         private readonly IAddressRepository _addressRepository;
         private readonly IUserDetailRepository _userDetailRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public UserServices(IUserRepository userRepository, IClubAdminRepository clubAdminRepository, ICoachRepository coachRepository, IClubRepository clubRepository, IWelfareOfficerRepository welfareOfficerRepository, IScoutRepository scoutRepository, IPhysiotherapistRepository physiotherapistRepository, IHeadOfEducationRepository headOfEducationRepository, IHeadOfAcademyRepository headOfAcademyRepository, ISportScientistRepository sportScientistRepository, IAddressRepository addressRepository, IUserDetailRepository userDetailRepository)
+        public UserServices(IUserRepository userRepository, IClubAdminRepository clubAdminRepository,
+            ICoachRepository coachRepository, IClubRepository clubRepository,
+            IWelfareOfficerRepository welfareOfficerRepository, IScoutRepository scoutRepository,
+            IPhysiotherapistRepository physiotherapistRepository, IHeadOfEducationRepository headOfEducationRepository,
+            IHeadOfAcademyRepository headOfAcademyRepository, ISportScientistRepository sportScientistRepository,
+            IAddressRepository addressRepository, IUserDetailRepository userDetailRepository, IPlayerRepository playerRepository)
         {
             _userRepository = userRepository;
             _clubAdminRepository = clubAdminRepository;
@@ -48,6 +54,7 @@ namespace PmaPlus.Services
             _sportScientistRepository = sportScientistRepository;
             _addressRepository = addressRepository;
             _userDetailRepository = userDetailRepository;
+            _playerRepository = playerRepository;
         }
 
         public ClubAdmin GetClubAdminByUserName(string name)
@@ -69,22 +76,28 @@ namespace PmaPlus.Services
         {
             return _userRepository.GetMany(u => u.Id == id).Any();
         }
+
         public bool UserExist(string userEmail)
         {
             return _userRepository.GetMany(u => u.Email.ToLower() == userEmail.ToLower()).Any();
         }
+
         public User GetUserByEmail(string email)
         {
             return _userRepository.Get(u => u.Email.ToLower() == email.ToLower());
         }
+
         #region TeamMembers
 
 
         public IEnumerable<TrainingTeamMemberPlateViewModel> GetTrainingTeamMembers()
         {
 
-            var trTeamMember = from user in _userRepository.GetMany(u => u.Role != Role.SystemAdmin && u.Role != Role.ClubAdmin && u.Role != Role.Player)
-                               select new TrainingTeamMemberPlateViewModel()
+            var trTeamMember =
+                from user in
+                    _userRepository.GetMany(
+                        u => u.Role != Role.SystemAdmin && u.Role != Role.ClubAdmin && u.Role != Role.Player)
+                select new TrainingTeamMemberPlateViewModel()
                 {
                     Id = user.Id,
                     Name = user.UserDetail.FirstName + " " + user.UserDetail.LastName,
@@ -144,82 +157,82 @@ namespace PmaPlus.Services
             switch (newUser.Role)
             {
                 case Role.Coach:
+                {
+                    var newCoach = new Coach()
                     {
-                        var newCoach = new Coach()
-                        {
-                            User = newUser,
-                            Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
-                        };
-                        _coachRepository.Add(newCoach);
-                        break;
-                    }
+                        User = newUser,
+                        Status = UserStatus.Active,
+                        Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                    };
+                    _coachRepository.Add(newCoach);
+                    break;
+                }
                 case Role.HeadOfAcademies:
+                {
+                    var newHeadofA = new HeadOfAcademy()
                     {
-                        var newHeadofA = new HeadOfAcademy()
-                        {
-                            User = newUser,
-                            Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
-                        };
-                        _headOfAcademyRepository.Add(newHeadofA);
-                        break;
-                    }
+                        User = newUser,
+                        Status = UserStatus.Active,
+                        Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                    };
+                    _headOfAcademyRepository.Add(newHeadofA);
+                    break;
+                }
                 case Role.HeadOfEducation:
+                {
+                    var newHeadofE = new HeadOfEducation()
                     {
-                        var newHeadofE = new HeadOfEducation()
-                        {
-                            User = newUser,
-                            Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
-                        };
-                        _headOfEducationRepository.Add(newHeadofE);
-                        break;
-                    }
+                        User = newUser,
+                        Status = UserStatus.Active,
+                        Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                    };
+                    _headOfEducationRepository.Add(newHeadofE);
+                    break;
+                }
                 case Role.Scout:
+                {
+                    var scout = new Scout()
                     {
-                        var scout = new Scout()
-                        {
-                            User = newUser,
-                            Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
-                        };
-                        _scoutRepository.Add(scout);
-                        break;
-                    }
+                        User = newUser,
+                        Status = UserStatus.Active,
+                        Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                    };
+                    _scoutRepository.Add(scout);
+                    break;
+                }
                 case Role.Physiotherapist:
+                {
+                    var physiotherapist = new Physiotherapist()
                     {
-                        var physiotherapist = new Physiotherapist()
-                        {
-                            User = newUser,
-                            Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
-                        };
-                        _physiotherapistRepository.Add(physiotherapist);
-                        break;
-                    }
+                        User = newUser,
+                        Status = UserStatus.Active,
+                        Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                    };
+                    _physiotherapistRepository.Add(physiotherapist);
+                    break;
+                }
                 case Role.SportsScientist:
+                {
+                    var sportScientist = new SportScientist()
                     {
-                        var sportScientist = new SportScientist()
-                        {
-                            User = newUser,
-                            Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
-                        };
-                        _sportScientistRepository.Add(sportScientist);
-                        break;
-                    }
+                        User = newUser,
+                        Status = UserStatus.Active,
+                        Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                    };
+                    _sportScientistRepository.Add(sportScientist);
+                    break;
+                }
                 case Role.WelfareOfficer:
+                {
+                    var welfareOfficer = new WelfareOfficer()
                     {
-                        var welfareOfficer = new WelfareOfficer()
-                        {
-                            User = newUser,
-                            Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
-                        };
-                        _welfareOfficerRepository.Add(welfareOfficer);
-                        break;
-                    }
+                        User = newUser,
+                        Status = UserStatus.Active,
+                        Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                    };
+                    _welfareOfficerRepository.Add(welfareOfficer);
+                    break;
+                }
 
             }
             _userRepository.Update(newUser, newUser.Id);
@@ -271,40 +284,44 @@ namespace PmaPlus.Services
             switch (trTeamMember.Role)
             {
                 case Role.Coach:
-                    {
-                        member.UserStatus = _coachRepository.Get(c => c.User.Id == id).Status;
-                        break;
-                    }
+                {
+                    member.UserStatus = _coachRepository.Get(c => c.User.Id == id).Status;
+                    break;
+                }
                 case Role.HeadOfAcademies:
-                    {
-                        member.UserStatus = _headOfAcademyRepository.Get(c => c.User.Id == id).Status; ;
-                        break;
-                    }
+                {
+                    member.UserStatus = _headOfAcademyRepository.Get(c => c.User.Id == id).Status;
+                    ;
+                    break;
+                }
                 case Role.HeadOfEducation:
-                    {
-                        member.UserStatus = _headOfEducationRepository.Get(c => c.User.Id == id).Status; ;
-                        break;
-                    }
+                {
+                    member.UserStatus = _headOfEducationRepository.Get(c => c.User.Id == id).Status;
+                    ;
+                    break;
+                }
                 case Role.Scout:
-                    {
-                        member.UserStatus = _scoutRepository.Get(c => c.User.Id == id).Status; ;
-                        break;
-                    }
+                {
+                    member.UserStatus = _scoutRepository.Get(c => c.User.Id == id).Status;
+                    ;
+                    break;
+                }
                 case Role.Physiotherapist:
-                    {
-                        member.UserStatus = _physiotherapistRepository.Get(c => c.User.Id == id).Status; ;
-                        break;
-                    }
+                {
+                    member.UserStatus = _physiotherapistRepository.Get(c => c.User.Id == id).Status;
+                    ;
+                    break;
+                }
                 case Role.SportsScientist:
-                    {
-                        member.UserStatus = _sportScientistRepository.Get(c => c.User.Id == id).Status;
-                        break;
-                    }
+                {
+                    member.UserStatus = _sportScientistRepository.Get(c => c.User.Id == id).Status;
+                    break;
+                }
                 case Role.WelfareOfficer:
-                    {
-                        member.UserStatus = _welfareOfficerRepository.Get(c => c.User.Id == id).Status;
-                        break;
-                    }
+                {
+                    member.UserStatus = _welfareOfficerRepository.Get(c => c.User.Id == id).Status;
+                    break;
+                }
 
             }
 
@@ -342,76 +359,76 @@ namespace PmaPlus.Services
                 switch (member.Role)
                 {
                     case Role.Coach:
+                    {
+                        var coach = _coachRepository.Get(c => c.User.Id == id);
+                        if (coach != null)
                         {
-                            var coach = _coachRepository.Get(c => c.User.Id == id);
-                            if (coach != null)
-                            {
-                                coach.Status = memberViewModel.UserStatus;
-                                _coachRepository.Update(coach, coach.Id);
-                            }
+                            coach.Status = memberViewModel.UserStatus;
+                            _coachRepository.Update(coach, coach.Id);
+                        }
 
-                            break;
-                        }
+                        break;
+                    }
                     case Role.HeadOfAcademies:
+                    {
+                        var headofa = _headOfAcademyRepository.Get(c => c.User.Id == id);
+                        if (headofa != null)
                         {
-                            var headofa = _headOfAcademyRepository.Get(c => c.User.Id == id);
-                            if (headofa != null)
-                            {
-                                headofa.Status = memberViewModel.UserStatus;
-                                _headOfAcademyRepository.Update(headofa, headofa.Id);
-                            }
-                            break;
+                            headofa.Status = memberViewModel.UserStatus;
+                            _headOfAcademyRepository.Update(headofa, headofa.Id);
                         }
+                        break;
+                    }
                     case Role.HeadOfEducation:
+                    {
+                        var headofe = _headOfEducationRepository.Get(c => c.User.Id == id);
+                        if (headofe != null)
                         {
-                            var headofe = _headOfEducationRepository.Get(c => c.User.Id == id);
-                            if (headofe != null)
-                            {
-                                headofe.Status = memberViewModel.UserStatus;
-                                _headOfEducationRepository.Update(headofe, headofe.Id);
-                            }
-                            break;
+                            headofe.Status = memberViewModel.UserStatus;
+                            _headOfEducationRepository.Update(headofe, headofe.Id);
                         }
+                        break;
+                    }
                     case Role.Scout:
+                    {
+                        var scout = _scoutRepository.Get(c => c.User.Id == id);
+                        if (scout != null)
                         {
-                            var scout = _scoutRepository.Get(c => c.User.Id == id);
-                            if (scout != null)
-                            {
-                                scout.Status = memberViewModel.UserStatus;
-                                _scoutRepository.Update(scout, scout.Id);
-                            }
-                            break;
+                            scout.Status = memberViewModel.UserStatus;
+                            _scoutRepository.Update(scout, scout.Id);
                         }
+                        break;
+                    }
                     case Role.Physiotherapist:
+                    {
+                        var terapist = _physiotherapistRepository.Get(c => c.User.Id == id);
+                        if (terapist != null)
                         {
-                            var terapist = _physiotherapistRepository.Get(c => c.User.Id == id);
-                            if (terapist != null)
-                            {
-                                terapist.Status = memberViewModel.UserStatus;
-                                _physiotherapistRepository.Update(terapist, terapist.Id);
-                            }
-                            break;
+                            terapist.Status = memberViewModel.UserStatus;
+                            _physiotherapistRepository.Update(terapist, terapist.Id);
                         }
+                        break;
+                    }
                     case Role.SportsScientist:
+                    {
+                        var scientist = _sportScientistRepository.Get(c => c.User.Id == id);
+                        if (scientist != null)
                         {
-                            var scientist = _sportScientistRepository.Get(c => c.User.Id == id);
-                            if (scientist != null)
-                            {
-                                scientist.Status = memberViewModel.UserStatus;
-                                _sportScientistRepository.Update(scientist, scientist.Id);
-                            }
-                            break;
+                            scientist.Status = memberViewModel.UserStatus;
+                            _sportScientistRepository.Update(scientist, scientist.Id);
                         }
+                        break;
+                    }
                     case Role.WelfareOfficer:
+                    {
+                        var welfare = _welfareOfficerRepository.Get(c => c.User.Id == id);
+                        if (welfare != null)
                         {
-                            var welfare = _welfareOfficerRepository.Get(c => c.User.Id == id);
-                            if (welfare != null)
-                            {
-                                welfare.Status = memberViewModel.UserStatus;
-                                _welfareOfficerRepository.Update(welfare, welfare.Id);
-                            }
-                            break;
+                            welfare.Status = memberViewModel.UserStatus;
+                            _welfareOfficerRepository.Update(welfare, welfare.Id);
                         }
+                        break;
+                    }
 
                 }
             }
@@ -426,45 +443,44 @@ namespace PmaPlus.Services
             {
                 _addressRepository.Delete(user.UserDetail.Address);
                 _userDetailRepository.Delete(user.UserDetail);
-                _userRepository.Delete(user);
 
                 switch (user.Role)
                 {
                     case Role.Coach:
-                        {
-                            _coachRepository.Delete(c => c.User.Id == user.Id);
-                            break;
-                        }
+                    {
+                        _coachRepository.Delete(c => c.User.Id == user.Id);
+                        break;
+                    }
                     case Role.HeadOfAcademies:
-                        {
-                            _headOfAcademyRepository.Delete(c => c.User.Id == user.Id);
-                            break;
-                        }
+                    {
+                        _headOfAcademyRepository.Delete(c => c.User.Id == user.Id);
+                        break;
+                    }
                     case Role.HeadOfEducation:
-                        {
-                            _headOfEducationRepository.Delete(c => c.User.Id == user.Id);
-                            break;
-                        }
+                    {
+                        _headOfEducationRepository.Delete(c => c.User.Id == user.Id);
+                        break;
+                    }
                     case Role.Scout:
-                        {
-                            _scoutRepository.Delete(c => c.User.Id == user.Id);
-                            break;
-                        }
+                    {
+                        _scoutRepository.Delete(c => c.User.Id == user.Id);
+                        break;
+                    }
                     case Role.Physiotherapist:
-                        {
-                            _physiotherapistRepository.Delete(c => c.User.Id == user.Id);
-                            break;
-                        }
+                    {
+                        _physiotherapistRepository.Delete(c => c.User.Id == user.Id);
+                        break;
+                    }
                     case Role.SportsScientist:
-                        {
-                            _sportScientistRepository.Delete(c => c.User.Id == user.Id);
-                            break;
-                        }
+                    {
+                        _sportScientistRepository.Delete(c => c.User.Id == user.Id);
+                        break;
+                    }
                     case Role.WelfareOfficer:
-                        {
-                            _welfareOfficerRepository.Delete(c => c.User.Id == user.Id);
-                            break;
-                        }
+                    {
+                        _welfareOfficerRepository.Delete(c => c.User.Id == user.Id);
+                        break;
+                    }
                 }
 
                 _userRepository.Delete(user);
@@ -472,12 +488,122 @@ namespace PmaPlus.Services
         }
 
         #endregion
+
         public void UpdateUser(User user)
         {
             _userRepository.Update(user, user.Id);
         }
 
-        public InfoBoxViewModel GetUsersLoggedThisWeek(Role role = 0)
+
+
+        public string GetClubColorByUser(string email)
+        {
+            var user = GetUserByEmail(email);
+
+            if (user == null)
+            {
+                return "#3276b1";
+            }
+
+
+
+            switch (user.Role)
+            {
+
+                case Role.ClubAdmin:
+                    {
+                        var coach = _clubAdminRepository.Get(c => c.User.Id == user.Id);
+                        if (coach != null)
+                        {
+                            return coach.Club.ColorTheme;
+                        }
+
+                        break;
+                    }
+
+                case Role.Coach:
+                {
+                    var coach = _coachRepository.Get(c => c.User.Id == user.Id);
+                    if (coach != null)
+                    {
+                        return coach.Club.ColorTheme;
+                    }
+
+                    break;
+                }
+                case Role.HeadOfAcademies:
+                {
+                    var headofa = _headOfAcademyRepository.Get(c => c.User.Id == user.Id);
+                    if (headofa != null)
+                    {
+                        return headofa.Club.ColorTheme;
+                    }
+                    break;
+                }
+                case Role.HeadOfEducation:
+                {
+                    var headofe = _headOfEducationRepository.Get(c => c.User.Id == user.Id);
+                    if (headofe != null)
+                    {
+                        return headofe.Club.ColorTheme;
+                    }
+                    break;
+                }
+                case Role.Scout:
+                {
+                    var scout = _scoutRepository.Get(c => c.User.Id == user.Id);
+                    if (scout != null)
+                    {
+                        return scout.Club.ColorTheme;
+                    }
+                    break;
+                }
+                case Role.Physiotherapist:
+                {
+                    var terapist = _physiotherapistRepository.Get(c => c.User.Id == user.Id);
+                    if (terapist != null)
+                    {
+                        return terapist.Club.ColorTheme;
+                    }
+                    break;
+                }
+                case Role.SportsScientist:
+                {
+                    var scientist = _sportScientistRepository.Get(c => c.User.Id == user.Id);
+                    if (scientist != null)
+                    {
+                        return scientist.Club.ColorTheme;
+                    }
+                    break;
+                }
+                case Role.WelfareOfficer:
+                {
+                    var welfare = _welfareOfficerRepository.Get(c => c.User.Id == user.Id);
+                    if (welfare != null)
+                    {
+                        return welfare.Club.ColorTheme;
+                    }
+                    break;
+                }
+
+                case Role.Player:
+                {
+                    var player = _playerRepository.Get(c => c.User.Id == user.Id);
+                    if (player != null)
+                    {
+                        return player.Club.ColorTheme;
+                    }
+                    break;
+                }
+
+            }
+
+            return "#3276b1";
+        }
+    
+
+
+    public InfoBoxViewModel GetUsersLoggedThisWeek(Role role = 0)
         {
             int clubsThisWeek, clubsLastWeek;
 
