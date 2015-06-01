@@ -23,8 +23,8 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             _userServices = userServices;
         }
 
-        [Route("api/CurriculumStatement/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public CurriculumStatementPage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/CurriculumStatement/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public CurriculumStatementPage Get(int pageSize, int pageNumber, string orderBy = "",bool direction = false)
         {
 
             var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
@@ -32,8 +32,8 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
 
             var count = _curriculumServices.GetCurriculumStatements(clubId).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var curriculumStatements = _curriculumServices.GetCurriculumStatements(clubId).OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
-            var items = Mapper.Map<IEnumerable<CurriculumStatement>, IEnumerable<CurriculumStatementViewModel>>(curriculumStatements);
+            var curriculumStatements = _curriculumServices.GetCurriculumStatements(clubId);
+            var items = Mapper.Map<IEnumerable<CurriculumStatement>, IEnumerable<CurriculumStatementViewModel>>(curriculumStatements).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new CurriculumStatementPage()
             {

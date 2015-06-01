@@ -27,8 +27,8 @@ namespace PmaPlus.Controllers.ApiControllers
             _userServices = userServices;
             _photoManager = photoManager;
         }
-        [Route("api/Player/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public PlayersPage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/Player/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public PlayersPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
 
@@ -37,7 +37,7 @@ namespace PmaPlus.Controllers.ApiControllers
 
             var count = _playerServices.GetPlayersTable(clubId).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var items = _playerServices.GetPlayersTable(clubId).Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var items = _playerServices.GetPlayersTable(clubId).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new PlayersPage()
             {

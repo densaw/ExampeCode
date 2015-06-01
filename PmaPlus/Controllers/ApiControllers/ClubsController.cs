@@ -9,6 +9,7 @@ using System.Net.Mime;
 using System.Web;
 using System.Web.Http;
 using PmaPlus.Data;
+using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Filters;
 using PmaPlus.Model;
 using PmaPlus.Model.ViewModels.Club;
@@ -23,6 +24,8 @@ namespace PmaPlus.Controllers.ApiControllers
         private readonly ClubServices _clubServices;
         private readonly IPhotoManager _photoManager;
         private readonly UserServices _userServices;
+        private readonly ICoachRepository _coachRepository;
+
 
         public ClubsController(ClubServices clubServices, IPhotoManager photoManager, UserServices userServices)
         {
@@ -32,12 +35,12 @@ namespace PmaPlus.Controllers.ApiControllers
             //_photoManager = new LocalPhotoManager(HttpContext.Current.Server.MapPath(@"~/App_Data/temp"));
         }
 
-        [Route("api/Clubs/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public ClubPage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/Clubs/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public ClubPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _clubServices.GetClubsTableViewModels().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var items = _clubServices.GetClubsTableViewModels().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize);
+            var items = _clubServices.GetClubsTableViewModels().OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new ClubPage()
             {
@@ -90,8 +93,7 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Clubs/color")]
         public string GetColor()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            return _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            return _userServices.GetClubColorByUser(User.Identity.Name);
         }
 
         [Route("api/Clubs/background")]

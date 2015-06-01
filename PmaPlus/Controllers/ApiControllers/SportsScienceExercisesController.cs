@@ -25,13 +25,13 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         // GET: api/SportsScienceExercises
-        [Route("api/SportsScienceExercises/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public SportsScienceExercisePage Get(int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/SportsScienceExercises/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public SportsScienceExercisePage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _sportsScienceServices.GetSportsScienceExercises().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var tests = _sportsScienceServices.GetSportsScienceExercises().OrderQuery(orderBy, f => f.Id).Paged(pageNumber, pageSize).AsEnumerable();
-            var items = Mapper.Map<IEnumerable<SportsScienceExercise>, IEnumerable<SportsScienceExerciseTableViewModel>>(tests);
+            var tests = _sportsScienceServices.GetSportsScienceExercises().AsEnumerable();
+            var items = Mapper.Map<IEnumerable<SportsScienceExercise>, IEnumerable<SportsScienceExerciseTableViewModel>>(tests).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new SportsScienceExercisePage()
             {

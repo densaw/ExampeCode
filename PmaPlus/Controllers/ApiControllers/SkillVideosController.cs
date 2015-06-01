@@ -22,8 +22,8 @@ namespace PmaPlus.Controllers.ApiControllers
             _skillServices = skillServices;
         }
 
-        [Route("api/SkillVideos/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}")]
-        public SkillVideoPage Get( int pageSize, int pageNumber, string orderBy = "")
+        [Route("api/SkillVideos/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public SkillVideoPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var count = _skillServices.GetSallkillVideos().Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
@@ -31,7 +31,7 @@ namespace PmaPlus.Controllers.ApiControllers
                     .OrderQuery(orderBy, f => f.Id)
                     .Paged(pageNumber, pageSize);
 
-            var items = Mapper.Map<IEnumerable<SkillVideo>, IEnumerable<SkillVideoTableViewModel>>(skillVideos);
+            var items = Mapper.Map<IEnumerable<SkillVideo>, IEnumerable<SkillVideoTableViewModel>>(skillVideos).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new SkillVideoPage()
             {
