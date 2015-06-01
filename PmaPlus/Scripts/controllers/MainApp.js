@@ -1,6 +1,10 @@
 ﻿(function () {
     var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster', 'file-model', 'ngSanitize', 'ui.select', 'ui.bootstrap.datetimepicker', 'ui.calendar', 'ngRoute', 'ladda']);
 
+    module.run(['$rootScope', function($rootScope){
+        $rootScope.revers = true;
+        $rootScope.preOrderField = '';
+    }]);
 
     module.directive('backImg', function () {
         return function (scope, element, attrs) {
@@ -14,6 +18,7 @@
         };
     });
 
+    
     module.config(['uiSelectConfig', function (uiSelectConfig) {
         uiSelectConfig.theme = 'bootstrap';
     }]);
@@ -25,7 +30,35 @@
                 return $http.get(url /*+ '/' + orderField + '/' + revers*/);
             }
         };
-    }])
+    }]);
+
+
+    module.controller('orderFieldsController', ['$scope', '$filter', '$rootScope',  function($scope, $filter, $rootScope){
+        $scope.order = function(orderFieldName){
+            if($rootScope.preOrderField === orderFieldName){
+                $rootScope.revers = !$rootScope.revers;
+            }else{
+                $rootScope.revers = false;
+                $rootScope.preOrderField = orderFieldName;
+            }
+            $rootScope.orderField = orderFieldName;
+            console.log($rootScope.revers);
+        }
+    }]);
+
+    module.directive('orderHeader', ['tableHttpOrderBy', function(tableHttpOrderBy){
+        return{
+            restrict: 'A',
+            scope: true,
+            scope: {
+              header: '@head',
+              orderField: '@order'
+            },
+            template: '<p ng-click="order(orderField)">{{header}}</p>'/* + '<i class="fa fa-cog"></i>'*/,
+            controller: 'orderFieldsController'
+        }
+    }]);
+
 
 
     module.filter('curr', function () {
@@ -2347,7 +2380,7 @@
         var needToDelete = -1;
 
         function getResultsPage(pageNumber) {
-            $http.get('api/ExerciseNews/' + $scope.exercisesPerPage + '/' + pageNumber)
+            $http.get('/api/ExerciseNews/' + $scope.itemsPerPage + '/' + pageNumber)
                 .success(function (result) {
                     $scope.items = result.items;
                     $scope.totalItems = result.count;
@@ -2358,6 +2391,7 @@
         $scope.totalItems = 0;
         $scope.itemsPerPage = 20; // this should match however many results your API puts on one page
 
+        $scope.newNews = {};
 
         $scope.pagination = {
             current: 1
@@ -2386,7 +2420,7 @@
             if ($scope.authorPicture/*File model name*/) {
                 $scope.loginLoading = false;
                 var fd = new FormData();
-                fd.append('file', $scope.pic1);
+                fd.append('file', $scope.authorPicture);
                 var promise = $http.post('/api/Files', fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
@@ -2407,7 +2441,7 @@
 
             if ($scope.mainPicture/*File model name*/) {
                 var fd = new FormData();
-                fd.append('file', $scope.pic2);
+                fd.append('file', $scope.mainPicture);
                 var promise = $http.post('/api/Files', fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
@@ -2428,7 +2462,7 @@
 
             if ($scope.sponsoredBy) {
                 var fd = new FormData();
-                fd.append('file', $scope.pic3);
+                fd.append('file', $scope.sponsoredBy);
                 var promise = $http.post('/api/Files', fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
@@ -2449,7 +2483,7 @@
 
             if ($scope.picture) {
                 var fd = new FormData();
-                fd.append('file', $scope.pic3);
+                fd.append('file', $scope.picture);
                 var promise = $http.post('/api/Files', fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
