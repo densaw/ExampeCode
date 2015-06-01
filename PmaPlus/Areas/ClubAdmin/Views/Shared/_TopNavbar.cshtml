@@ -15,9 +15,9 @@
                     <span ng-if="itemCount > 0" class="label label-danger" style="border-radius: 100%;">{{itemCount}}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-alerts">
-                    <li>
+                    <li ng-repeat="item in items">
                         <div class="ibox-content inspinia-timeline" style="border: none;" ng-model="cols" ng-change="colsChanged()">
-                            <div class="timeline-item" ng-repeat="item in items">
+                            <div class="timeline-item">
                                 <div class="row">
                                     <div class="col-xs-3 date">
 
@@ -38,8 +38,8 @@
                                 </div>
                             </div>
                         </div>
-                    </li> 
                     <div class="divider"></div>
+                    </li> 
                     <li>
                         <div class="see-all"><a href="@Url.Action("ClubDiary", "Home", new { area="ClubAdmin" })">See all Diary Events ></a></div>
                     </li>                    
