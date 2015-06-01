@@ -2968,6 +2968,8 @@
     <Content Include="Areas\ClubAdmin\Views\Home\Week.cshtml" />
     <Content Include="fonts\OpenSans-Semibold.eot" />
     <Content Include="fonts\OpenSans-Semibold.woff" />
+    <Content Include="Areas\SysAdmin\Views\Home\Exercise.cshtml" />
+    <Content Include="Areas\SysAdmin\Views\Home\NutritionNews.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />

@@ -34,6 +34,7 @@
                     <li class="@Html.IsSelected(controller: "Home", action: "NutritionAlternatives")"><a href="@Url.Action("NutritionAlternatives", "Home", new {area = "SysAdmin"})">Alternatives</a></li>
                     <li class="@Html.IsSelected(controller: "Home", action: "NutritionFoodType")"><a href="@Url.Action("NutritionFoodType", "Home", new {area = "SysAdmin"})">Food Types</a></li>
                     <li class="@Html.IsSelected(controller: "Home", action: "NutritionRecipes")"><a href="@Url.Action("NutritionRecipes", "Home", new {area = "SysAdmin"})">Recipes</a></li>
+                    <li class="@Html.IsSelected(controller: "Home", action: "NutritionNews")"><a href="@Url.Action("NutritionNews", "Home", new { area = "SysAdmin" })">Nutrition News</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] {"PhysiotherapyBodyParts", "PhysiotherapyExercise"})">
@@ -68,6 +69,9 @@
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Reports")">
                 <a href="@Url.Action("Reports", "Home", new {area = "SysAdmin"})"><i class="fa fa-bar-chart"></i> <span class="nav-label">Reports</span></a>
+            </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "Exercise")">
+                <a href="@Url.Action("Exercise", "Home", new { area = "SysAdmin" })"><i class="fa fa-heart-o"></i> <span class="nav-label">Exercise</span></a>
             </li>
 
         </ul>
