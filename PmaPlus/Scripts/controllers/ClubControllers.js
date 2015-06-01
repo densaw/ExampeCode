@@ -55,6 +55,21 @@ app.directive('styleParent', function () {
 });
 
 
+function hexToRgb(hex) {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
 
 var routing = function ($routeProvider) {
     $routeProvider.when('localhost:1292/ClubAdmin/Home/ProfilePage/:role', {
@@ -68,8 +83,8 @@ routing.$inject = ['$routeProvider'];
 app.config(routing);
 
 
-app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', function($scope, $http, toaster) {
-    
+app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+
     var monthNames = ['Jan',
            'Feb',
            'Mar',
@@ -82,53 +97,63 @@ app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', fu
            'Oct',
            'Nov',
            'Dec'];
-  
 
-    $http.get('/api/ClubAdminDashboard/Players/ScoreGraph').success(function (data) {
+    var hexClub = "";
 
-        var monthArray = new Array;
-        var playerCountArray = new Array;
-        data.forEach(function (val) {
-            monthArray.push(monthNames[val.month - 1]);
-            playerCountArray.push(val.activePlayers);
+    $http.get('/api/clubs/color').success(function (data) {
+        hexClub = data;
+
+
+        $http.get('/api/ClubAdminDashboard/Players/ScoreGraph').success(function (data) {
+
+            var monthArray = new Array;
+            var playerCountArray = new Array;
+            data.forEach(function (val) {
+                monthArray.push(monthNames[val.month - 1]);
+                playerCountArray.push(val.activePlayers);
+            });
+
+
+            var clubRgb = hexToRgb(hexClub);
+
+            $scope.data = {
+                labels: monthArray,
+                datasets: [
+                    {
+                        label: "Example dataset",
+                        fillColor: "rgba(" + clubRgb.r + "," + clubRgb.g + "," + clubRgb.b + ",0.5)",
+                        strokeColor: hexClub,
+                        pointColor: hexClub,
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: hexClub,
+                        data: playerCountArray
+                    }
+
+                ]
+            };
+
+            $scope.options = {
+                scaleShowGridLines: true,
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineWidth: 1,
+                bezierCurve: true,
+                bezierCurveTension: 0.4,
+                pointDot: true,
+                pointDotRadius: 4,
+                pointDotStrokeWidth: 1,
+                pointHitDetectionRadius: 20,
+                datasetStroke: true,
+                datasetStrokeWidth: 2,
+                datasetFill: true,
+                responsive: true
+            };
+
+
         });
-
-        $scope.data = {
-            labels: monthArray,
-            datasets: [
-                {
-                    label: "Example dataset",
-                    fillColor: "rgba(66,139,202,0.5)",
-                    strokeColor: "rgba(66,139,202,0.7)",
-                    pointColor: "rgba(66,139,202,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(26,179,148,1)",
-                    data: playerCountArray
-                }
-               
-            ]
-        };
-
-        $scope.options = {
-            scaleShowGridLines: true,
-            scaleGridLineColor: "rgba(0,0,0,.05)",
-            scaleGridLineWidth: 1,
-            bezierCurve: true,
-            bezierCurveTension: 0.4,
-            pointDot: true,
-            pointDotRadius: 4,
-            pointDotStrokeWidth: 1,
-            pointHitDetectionRadius: 20,
-            datasetStroke: true,
-            datasetStrokeWidth: 2,
-            datasetFill: true,
-            responsive: true
-        };
 
 
     });
-
 }]);
 
 app.controller('AttributesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
@@ -262,7 +287,7 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
     $scope.add = function () {
         var f = document.getElementById('file').files[0],
             r = new FileReader();
-        r.onloadend = function (e) {  
+        r.onloadend = function (e) {
             var data = e.target.result;
             //send you binary data via $http or $resource or do anything else with it
         }
@@ -746,8 +771,8 @@ app.controller('ClubDiaryController', [
         });
 
         $scope.$watch('newEvent.start', function (newValue, oldValue, scope) {
-            console.log('Data'); 
-            console.log(newValue);   
+            console.log('Data');
+            console.log(newValue);
         });
 
         getactualEv();
