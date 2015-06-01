@@ -443,7 +443,6 @@ namespace PmaPlus.Services
             {
                 _addressRepository.Delete(user.UserDetail.Address);
                 _userDetailRepository.Delete(user.UserDetail);
-                _userRepository.Delete(user);
 
                 switch (user.Role)
                 {
