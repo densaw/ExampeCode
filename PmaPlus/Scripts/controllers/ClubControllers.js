@@ -174,6 +174,14 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
         $scope.opened = true;
     };
 
+    $scope.test = function(){
+        console.log('in factory');
+        tableHttpOrderBy.orderBy(urlTail + '/' + $scope.itemsPerPage + '/' + $scope.pagination.current, 'test').success(function(result){
+            console.log(result);
+        });
+        
+    }
+
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
             .success(function (result) {
