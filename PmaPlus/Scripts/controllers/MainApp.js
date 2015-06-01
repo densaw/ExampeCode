@@ -18,6 +18,15 @@
         uiSelectConfig.theme = 'bootstrap';
     }]);
 
+    module.factory('tableHttpOrderBy', ['$http', function($http){
+        return {
+            orderBy: function(url, orderField){
+                var revers = false;
+                return $http.get(url /*+ '/' + orderField + '/' + revers*/);
+            }
+        };
+    }])
+
 
     module.filter('curr', function () {
         return function (v, yes, no) {

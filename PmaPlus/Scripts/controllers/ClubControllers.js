@@ -67,7 +67,7 @@ routing.$inject = ['$routeProvider'];
 
 app.config(routing);
 
-app.controller('AttributesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+app.controller('AttributesController', ['$scope', '$http', 'toaster', 'tableHttpOrderBy', function ($scope, $http, toaster, tableHttpOrderBy) {
 
 
     var needToDelete = -1;
@@ -84,6 +84,14 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
 
         $scope.opened = true;
     };
+
+    $scope.test = function(){
+        console.log('in factory');
+        tableHttpOrderBy.orderBy(urlTail + '/' + $scope.itemsPerPage + '/' + $scope.pagination.current, 'test').success(function(result){
+            console.log(result);
+        });
+        
+    }
 
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
