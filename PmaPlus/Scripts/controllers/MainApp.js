@@ -2347,7 +2347,7 @@
         var needToDelete = -1;
 
         function getResultsPage(pageNumber) {
-            $http.get('api/ExerciseNews/' + $scope.exercisesPerPage + '/' + pageNumber)
+            $http.get('/api/ExerciseNews/' + $scope.itemsPerPage + '/' + pageNumber)
                 .success(function (result) {
                     $scope.items = result.items;
                     $scope.totalItems = result.count;
@@ -2358,6 +2358,7 @@
         $scope.totalItems = 0;
         $scope.itemsPerPage = 20; // this should match however many results your API puts on one page
 
+        $scope.newNews = {};
 
         $scope.pagination = {
             current: 1
@@ -2386,7 +2387,7 @@
             if ($scope.authorPicture/*File model name*/) {
                 $scope.loginLoading = false;
                 var fd = new FormData();
-                fd.append('file', $scope.pic1);
+                fd.append('file', $scope.authorPicture);
                 var promise = $http.post('/api/Files', fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
@@ -2407,7 +2408,7 @@
 
             if ($scope.mainPicture/*File model name*/) {
                 var fd = new FormData();
-                fd.append('file', $scope.pic2);
+                fd.append('file', $scope.mainPicture);
                 var promise = $http.post('/api/Files', fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
@@ -2428,7 +2429,7 @@
 
             if ($scope.sponsoredBy) {
                 var fd = new FormData();
-                fd.append('file', $scope.pic3);
+                fd.append('file', $scope.sponsoredBy);
                 var promise = $http.post('/api/Files', fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
@@ -2449,7 +2450,7 @@
 
             if ($scope.picture) {
                 var fd = new FormData();
-                fd.append('file', $scope.pic3);
+                fd.append('file', $scope.picture);
                 var promise = $http.post('/api/Files', fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
