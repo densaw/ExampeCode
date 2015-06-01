@@ -3171,7 +3171,7 @@ code {
 .ibox-content {
   background-color: #ffffff;
   color: inherit;
-  padding: 10px 10px 10px 10px;
+  padding: 10px 10px 0px 10px;
   border-color: #e7eaec;
   border-image: none;
   border-style: solid solid none;
@@ -3803,7 +3803,7 @@ ul.clear-list:first-child {
 }
 .timeline-item .date {
   text-align: right;
-  width: 110px;
+  width: 90px;
   position: relative;
   padding-top: 30px;
 }
