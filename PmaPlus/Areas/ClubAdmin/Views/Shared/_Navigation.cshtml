@@ -53,15 +53,7 @@
             <li class="@Html.IsSelected(controller: "Home", action: "MatchReports")">
                 <a href="@Url.Action("MatchReports", "Home", new { area = "ClubAdmin" })"><i class="fa fa-futbol-o"></i> <span class="nav-label">Match Reports</span></a>
             </li>
-            <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] { "Alternatives", "FoodTypes", "Recipes" })">
-                <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">Nutrition</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "Alternatives")"><a href="@Url.Action("Alternatives", "Home", new { area = "ClubAdmin" })">Alternatives</a></li>
-                    <li class="@Html.IsSelected(action: "FoodTypes")"><a href="@Url.Action("FoodTypes", "Home", new { area = "ClubAdmin" })">Food Types</a></li>
-                    <li class="@Html.IsSelected(action: "Recipes")"><a href="@Url.Action("Recipes", "Home", new { area = "ClubAdmin" })">Recipes</a></li>
-                    
-                </ul>
-            </li>
+            
             <li class="@Html.IsSelected(controller: "Home", action: "Reports")">
                 <a href="@Url.Action("Reports", "Home", new {area = "ClubAdmin"})"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Reports</span></a>
             </li>

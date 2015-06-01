@@ -222,8 +222,8 @@
                             <address>
                                 {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}}<br>
                                 {{item.mobile}} <br />
-                                CRB\DBS Expiry: {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}<br>
-                                First Aid Expiry: {{item.firstAidExpiry | date:'dd.MM.yyyy'}}<br>
+                                <span style="font-size: 10px">CRB\DBS Expiry: {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}</span><br>
+                                <span style="font-size: 10px">First Aid Expiry: {{item.firstAidExpiry | date:'dd.MM.yyyy'}}</span><br>
                                 Last Login: <strong>{{item.lastLogin | date:'dd.MM.yyyy'}}</strong>                                
                             </address>
                             <a><i class="fa fa-cog" style="float:right" ng-click="edit(item.id)"></i></a>

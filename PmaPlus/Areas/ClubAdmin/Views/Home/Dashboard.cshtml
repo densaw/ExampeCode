@@ -53,52 +53,7 @@
 
             </div>
 
-            <div class="ibox " ng-controller="ClubDiaryController">
-                <div class="ibox-title">
-                    <h5>Diary Events</h5>
-                    <div class="ibox-tools">
-                        <a @*class="collapse-link"*@>
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a @*class="dropdown-toggle" data-toggle="dropdown" href="#*@>
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            @*<li>
-                            <a href="#">Config option 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Config option 2</a>
-                        </li>*@
-                        </ul>
-                        <a @*class="close-link"*@>
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="ibox-content float-e-margins inspinia-timeline" ng-model="cols" ng-change="colsChanged()">
-                    <div class="timeline-item" ng-repeat="Evenote in actual track by $index">
-                        <div class="row">
-                            <div class="col-xs-1 date">
-
-                                <i class="fa fa-calendar"></i>
-                                {{Evenote.start | date:'HH:mm'}}
-
-                            </div>
-                            <div class="col-xs-5 content no-top-border">
-                                <p class="m-b-xs">
-                                    <strong>{{Evenote.title}}</strong>
-                                </p>
-                                <p>
-                                    {{Evenote.note}}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            
         </div>
 </div>
 <div class="wrapper wrapper-content" style="padding-right: 260px !important">
@@ -125,9 +80,9 @@
                         <span class="pull-right text-right">
                             <small>Present Score vs Previous 6 months in:  <strong>Doncaster Rovers FC</strong></small>
                             <br>
-                            Active Players: {{playerCount}}  -  Est. Revenue: £{{playerCount * targets.value}}
+                            Active Players: {{playerCount}} 
                         </span>
-                        <h1 style="margin-bottom: 0px; margin-top: 10px;">Curriculum Averages</h1>
+                        <h1 style="margin-bottom: 0px; margin-top: 10px; font-size: 24px">Curriculum Averages</h1>
                         <small>Clubs average player curriculum score</small>
 
                     </div>
@@ -142,7 +97,9 @@
         <div class="col-lg-4" ng-controller="PlayersBoxController">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-primary pull-right">Week</span>
+                    <a class="dropdown-toggle pull-right" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-wrench"></i>
+                    </a>
                     <h5>Week Attendance</h5>
                 </div>
                 <div class="ibox-content" ng-switch on="progressPlayer">
@@ -163,7 +120,9 @@
         <div class="col-lg-4" ng-controller="CoachsBoxController">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-primary pull-right">Week</span>
+                    <a class="dropdown-toggle pull-right" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-wrench"></i>
+                    </a>
                     <h5>Quarter Attendance</h5>
                 </div>
                 <div class="ibox-content" ng-switch on="progressCoach">
@@ -184,7 +143,9 @@
         <div class="col-lg-4" ng-controller="ClubsBoxController">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-primary pull-right">Week</span>
+                    <a class="dropdown-toggle pull-right" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-wrench"></i>
+                    </a>
                     <h5>Player Injuries</h5>
                 </div>
                 <div class="ibox-content" ng-switch on="progressClub">
