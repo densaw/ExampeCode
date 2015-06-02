@@ -22,9 +22,9 @@ namespace PmaPlus.Services.Services
             return _playerAttributeRepository.GetMany(s => s.Id == id).Any();
         }
 
-        public IQueryable<PlayerAttribute> GetPlayerAttributes()
+        public IQueryable<PlayerAttribute> GetPlayerAttributes(int clubId)
         {
-            return _playerAttributeRepository.GetAll();
+            return _playerAttributeRepository.GetMany(a =>a.ClubId == clubId);
         }
 
         public PlayerAttribute GetPlayerAttributeById(int id)

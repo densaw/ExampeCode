@@ -27,7 +27,7 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
         public CurriculumStatementPage Get(int pageSize, int pageNumber, string orderBy = "",bool direction = false)
         {
 
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
 
 
             var count = _curriculumServices.GetCurriculumStatements(clubId).Count();
@@ -50,7 +50,7 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
         {
             var statements =
                 _curriculumServices.GetCurriculumStatements(
-                    _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id);
+                    _userServices.GetClubByUserName(User.Identity.Name).Id);
             return Mapper.Map<IEnumerable<CurriculumStatement>, IEnumerable<CurriculumStatementViewModel>>(statements);
         }
 
@@ -67,7 +67,7 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
         {
             var statement = Mapper.Map<CurriculumStatementViewModel, CurriculumStatement>(statementViewModel);
 
-            _curriculumServices.AddCurricululmStatment(statement, statementViewModel.Roles, _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id);
+            _curriculumServices.AddCurricululmStatment(statement, statementViewModel.Roles, _userServices.GetClubByUserName(User.Identity.Name).Id);
             return Ok();
 
         }

@@ -30,7 +30,9 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
 
         public IEnumerable<TrainingTeamMemberPlateViewModel> Get()
         {
-            return  _userServices.GetTrainingTeamMembers();
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name) != null ? _userServices.GetClubByUserName(User.Identity.Name).Id : 0;
+
+            return  _userServices.GetTrainingTeamMembers(clubId,User.Identity.Name);
         }
 
         //[ResponseType(typeof(AddTrainingTeamMemberViewModel))]

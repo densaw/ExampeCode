@@ -27,7 +27,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         [Route("api/Curriculums/List")]
         public IEnumerable<CurriculumsList> GetCurriculumsLists()
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
             return _curriculumServices.GetClubCurriculumsList(clubId);
         }
 
@@ -40,7 +40,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         public CurriculumPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
 
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
           
 
             var count = _curriculumServices.GetClubCurriculums(clubId).Count();
@@ -59,7 +59,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
 
         public IEnumerable<CurriculumViewModel> Get()
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
             return Mapper.Map<IEnumerable<Curriculum>, IEnumerable<CurriculumViewModel>>(_curriculumServices.GetClubCurriculums(clubId));
         }
 
@@ -78,7 +78,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         public IHttpActionResult Post([FromBody] CurriculumViewModel curriculumViewModel)
         {
             var curriculum = Mapper.Map<CurriculumViewModel, Curriculum>(curriculumViewModel);
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
             _curriculumServices.AddCurriculum(curriculum,clubId);
             return Ok();
         }
