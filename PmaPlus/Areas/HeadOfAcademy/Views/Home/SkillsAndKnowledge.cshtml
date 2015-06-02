@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "PMA+";
-    Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div ng-controller="SkillVidController" ng-cloak>
@@ -343,12 +343,12 @@
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
-                                <tr>
-                                    <th order-header head="Level Name" order="skillLevelName"></th>
-                                    <th order-header head="Training Item Name" order="trainingItemName">Training Item Name</th>
-                                    <th order-header head="Practice Time" order="time">Practice Time</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>Level Name</th>
+                                        <th>Training Item Name</th>
+                                        <th>Practice Time</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="skill in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
