@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PmaPlus.Data.Repository;
+﻿using System.Linq;
+using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model.Models;
 
 namespace PmaPlus.Services.Services
 {
     public class NewsServices
     {
-        private readonly ExcerciseNewRepository _excerciseNewRepository;
-        private readonly NutritionNewsRepository _nutritionNewsRepository;
+        private readonly IExcerciseNewsRepository _excerciseNewRepository;
+        private readonly INutritionNewsRepository _nutritionNewsRepository;
 
-        public NewsServices(ExcerciseNewRepository excerciseNewRepository, NutritionNewsRepository nutritionNewsRepository)
+        public NewsServices(IExcerciseNewsRepository excerciseNewRepository, INutritionNewsRepository nutritionNewsRepository)
         {
             _excerciseNewRepository = excerciseNewRepository;
             _nutritionNewsRepository = nutritionNewsRepository;
