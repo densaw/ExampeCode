@@ -107,7 +107,7 @@
             <div class="wrapper wrapper-content animated fadeInUp">
                 <ul class="notes">
                     <li ng-repeat="item in items">
-                        <div>
+                        <div ng-cloak>
                             <small>{{item.completionDateTime | date:'dd/MM/yyyy - HH:mm'}}</small>
                             <h4>{{item.title}}</h4>
                             <p>{{item.note}}</p>
