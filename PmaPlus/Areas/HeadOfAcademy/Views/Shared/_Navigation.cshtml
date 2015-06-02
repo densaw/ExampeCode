@@ -37,10 +37,10 @@
                 <a href="@Url.Action("ClubDiary", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-calendar"></i> <span class="nav-label">Club Diary</span></a>
             </li>
             <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] { "Curriculums", "Statements" })">
-                <a href="@Url.Action("Curriculums", "Home", new { area = "ClubAdmin" })"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Curriculums</span><span class="fa arrow"></span></a>
+                <a href="@Url.Action("Curriculums", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Curriculums</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "Curriculums")"><a href="@Url.Action("Curriculums", "Home", new { area = "ClubAdmin" })">Curriculums</a></li>
-                    <li class="@Html.IsSelected(action: "Statements")"><a href="@Url.Action("Statements", "Home", new { area = "ClubAdmin" })">Statements</a></li>
+                    <li class="@Html.IsSelected(action: "Curriculums")"><a href="@Url.Action("Curriculums", "Home", new { area = "HeadOfAcademy" })">Curriculums</a></li>
+                    <li class="@Html.IsSelected(action: "Statements")"><a href="@Url.Action("Statements", "Home", new { area = "HeadOfAcademy" })">Statements</a></li>
 
                 </ul>
             </li>
@@ -55,7 +55,7 @@
             </li>
             
             <li class="@Html.IsSelected(controller: "Home", action: "Reports")">
-                <a href="@Url.Action("Reports", "Home", new {area = "ClubAdmin"})"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Reports</span></a>
+                <a href="@Url.Action("Reports", "Home", new {area = "HeadOfAcademy"})"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Reports</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Scenarios")">
                 <a href="@Url.Action("Scenarios", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-futbol-o"></i> <span class="nav-label">Scenarios</span></a>

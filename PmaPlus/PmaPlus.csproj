@@ -274,6 +274,7 @@
     <Compile Include="Controllers\ApiControllers\Teams\TeamsController.cs" />
     <Compile Include="Controllers\ApiControllers\ToDoController.cs" />
     <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\CoachProfileController.cs" />
+    <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\PhysiotherapistsProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\UserController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
     <Compile Include="Filters\PhotoStreamProvider.cs" />
@@ -2981,12 +2982,15 @@
     <Content Include="Areas\HeadOfAcademy\Views\Shared\_Footer.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\ClubDiary.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Curriculums.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Statements.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\ToDoList.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Teams.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Scenarios.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\SkillsAndKnowledge.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Injuries.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Documents.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Reports.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />

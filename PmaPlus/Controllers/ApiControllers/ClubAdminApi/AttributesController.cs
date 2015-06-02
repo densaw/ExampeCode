@@ -10,6 +10,7 @@ using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.PlayerAttribute;
+using PmaPlus.Services;
 using PmaPlus.Services.Services;
 
 namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
@@ -17,19 +18,24 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
     public class AttributesController : ApiController
     {
         private readonly PlayerAttributeServices _playerAttributeServices;
+        private readonly UserServices _userServices;
 
-        public AttributesController(PlayerAttributeServices playerAttributeServices)
+        public AttributesController(PlayerAttributeServices playerAttributeServices, UserServices userServices)
         {
             _playerAttributeServices = playerAttributeServices;
+            _userServices = userServices;
         }
 
         // GET: api/Attributes
         [Route("api/Attributes/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
         public PlayerAttributePage Get(int pageSize, int pageNumber, string orderBy = "",bool direction = false)
         {
-            var count = _playerAttributeServices.GetPlayerAttributes().Count();
+
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name) != null ? _userServices.GetClubByUserName(User.Identity.Name).Id : 0;
+
+            var count = _playerAttributeServices.GetPlayerAttributes(clubId).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var scenario = _playerAttributeServices.GetPlayerAttributes();
+            var scenario = _playerAttributeServices.GetPlayerAttributes(clubId);
             var items = Mapper.Map<IEnumerable<PlayerAttribute>, IEnumerable<PlayerAttributeTableViewModel>>(scenario).OrderQuery(orderBy,x => x.Id,direction).Paged(pageNumber, pageSize);
 
             return new PlayerAttributePage()
@@ -51,7 +57,8 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         public IHttpActionResult Post([FromBody]PlayerAttributeViewModel scenarioViewModel)
         {
             var scenario = Mapper.Map<PlayerAttributeViewModel, PlayerAttribute>(scenarioViewModel);
-          
+
+            scenario.ClubId = _userServices.GetClubByUserName(User.Identity.Name) != null ? _userServices.GetClubByUserName(User.Identity.Name).Id : 0;
             var newPlayerAttribute = _playerAttributeServices.AddPlayerAttribute(scenario);
             return Created(Request.RequestUri + newPlayerAttribute.Id.ToString(), newPlayerAttribute);
         }

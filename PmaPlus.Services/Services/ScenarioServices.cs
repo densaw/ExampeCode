@@ -22,9 +22,9 @@ namespace PmaPlus.Services.Services
             return _scenarioRepository.GetMany(s => s.Id == id).Any();
         }
 
-        public IQueryable<Scenario> GetScenarios()
+        public IQueryable<Scenario> GetScenarios(string name)
         {
-            return _scenarioRepository.GetAll();
+            return _scenarioRepository.GetMany(s => s.UploadedBy.ToLower() == name || s.UploadedBy.ToLower() == "SysAdmin");
         }
 
         public Scenario GetScenarioById(int id)

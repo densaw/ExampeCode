@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using PmaPlus.Model.Enums;
 
 namespace PmaPlus.Model.Models
@@ -15,5 +16,10 @@ namespace PmaPlus.Model.Models
         public int AgeFrom { get; set; }
 
         public int AgeTo { get; set; }
+
+
+        public int ClubId { get; set; }
+
+        public virtual Club Club { get; set; }
     }
 }

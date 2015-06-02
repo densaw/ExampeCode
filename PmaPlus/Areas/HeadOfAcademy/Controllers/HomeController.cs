@@ -19,6 +19,17 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
             
             return View();
         }
+        public ActionResult Curriculums()
+        {
+            
+            return View();
+        }
+
+        public ActionResult Statements()
+        {
+           
+            return View();
+        }
         public ActionResult Teams()
         {
            
@@ -45,6 +56,11 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
         }
         public ActionResult Documents()
         {
+            return View();
+        }
+        public ActionResult Reports()
+        {
+
             return View();
         }
     }
