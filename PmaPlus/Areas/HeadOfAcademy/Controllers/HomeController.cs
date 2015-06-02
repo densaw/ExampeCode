@@ -14,45 +14,56 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
         {
             return View();
         }
+
         public ActionResult ClubDiary()
         {
-            
             return View();
         }
+
         public ActionResult Curriculums()
         {
-            
             return View();
         }
 
         public ActionResult Statements()
         {
-           
             return View();
         }
+
         public ActionResult Teams()
         {
-           
             return View();
         }
+
         public ActionResult ToDoList()
         {
-           
             return View();
         }
+
         public ActionResult Scenarios()
         {
-           
             return View();
         }
+
         public ActionResult SkillsAndKnowledge()
         {
-            
+            return View();
+        }
+        public ActionResult Injuries()
+        {
+            return View();
+        }
+        public ActionResult Documents()
+        {
             return View();
         }
         public ActionResult Reports()
         {
+            return View();
+        }
 
+        public ActionResult Profile()
+        {
             return View();
         }
     }
