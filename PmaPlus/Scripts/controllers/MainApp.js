@@ -54,7 +54,7 @@
               header: '@head',
               orderField: '@order'
             },
-            template: '<p ng-click="order(orderField)">{{header}}</p>'/* + '<i class="fa fa-cog"></i>'*/,
+            template: '<p ng-click="order(orderField)" style="cursor: pointer;">{{header}}</p>'/* + '<i class="fa fa-cog"></i>'*/,
             controller: 'orderFieldsController'
         }
     }]);
@@ -256,20 +256,38 @@
         });
     }]);
 
-    module.controller('FaCoursesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+    module.controller('FaCoursesController', ['$scope', '$http', 'toaster', '$rootScope', function ($scope, $http, toaster, $rootScope) {
+        var sortArray = [];
 
-
+        var urlTail = '/api/FaCourses';
 
         var needToDelete = -1;
 
+        function createTail(pageNumber){
+            if(sortArray.length > 0){
+                return urlTail + '/' + $scope.coursePerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            }else{
+                return urlTail + '/' + $scope.coursePerPage + '/' + pageNumber;
+            }
+        }
+
         function getResultsPage(pageNumber) {
-            console.log($scope.coursePerPage);
-            $http.get('/api/FaCourses/' + $scope.coursePerPage + '/' + pageNumber)
+            console.log(pageNumber);
+            $http.get(createTail(pageNumber))
                 .success(function (result) {
                     $scope.courses = result.items;
                     $scope.totalCourses = result.count;
                 });
         }
+
+         $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.courses = result.items;
+                    $scope.totalCourses = result.count;
+                });
+        });  
 
         $scope.courses = [];
         $scope.totalCourses = 0;
@@ -361,9 +379,11 @@
 
     }]);
 
-    module.controller('ClubsController', ['$scope', '$http', '$q', 'toaster', function ($scope, $http, $q, toaster) {
+    module.controller('ClubsController', ['$scope', '$http', '$q', 'toaster', '$rootScope', function ($scope, $http, $q, toaster, $rootScope) {
 
         var needToDelete = -1;
+        var urlTail = '/api/Clubs';
+        var sortArray = [];
 
         $scope.statuses = [
             { id: 0, name: 'Active' },
@@ -372,13 +392,30 @@
         ];
         $scope.selectedStatus = $scope.statuses[0];
 
+        function createTail(pageNumber){
+            if(sortArray.length > 0){
+                return urlTail + '/' + $scope.clubsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            }else{
+                return urlTail + '/' + $scope.clubsPerPage + '/' + pageNumber;
+            }
+        }
+
         function getResultsPage(pageNumber) {
-            $http.get('/api/Clubs/' + $scope.clubsPerPage + '/' + pageNumber)
+            $http.get(pageNumber)
                 .success(function (result) {
                     $scope.clubs = result.items;
                     $scope.totalClubs = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.clubs = result.items;
+                    $scope.totalClubs = result.count;
+                });
+        });    
 
         $scope.clubs = [];
         $scope.totalClubs = 0;
@@ -737,18 +774,38 @@
         };
     }]);
 
-    module.controller('SkillsKnowledgeController', ['$scope', '$http', 'toaster', '$location', function ($scope, $http, toaster, $location) {
+    module.controller('SkillsKnowledgeController', ['$scope', '$http', 'toaster', '$location', '$rootScope', function ($scope, $http, toaster, $location, $rootScope) {
 
-        console.log($location);
+        
         var needToDelete = -1;
+        var urlTail = '/api/SkillLevels';
+        var sortArray = [];
+
+
+        function createTail(pageNumber){
+            if(sortArray.length > 0){
+                return urlTail + '/' + $scope.skillsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            }else{
+                return urlTail + '/' + $scope.skillsPerPage + '/' + pageNumber;
+            }
+        }
 
         function getResultsPage(pageNumber) {
-            $http.get('/api/SkillLevels/' + $scope.skillsPerPage + '/' + pageNumber)
+            $http.get(createTail(pageNumber))
                 .success(function (result) {
                     $scope.skills = result.items;
                     $scope.totalSkills = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.skills = result.items;
+                    $scope.totalSkills = result.count;
+                });
+        });    
 
         $scope.skills = [];
         $scope.totalSkills = 0;
@@ -840,7 +897,10 @@
         };
     }]);
 
-    module.controller('ScienceTestsController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+    module.controller('ScienceTestsController', ['$scope', '$http', 'toaster', '$rootScope', function ($scope, $http, toaster, $rootScope) {
+
+        var sortArray = [];
+        var urlTail = '/api/SportsScienceTests';
 
         $scope.testTypes = [
             { id: 0, name: 'Agility' },
@@ -859,13 +919,30 @@
 
         var needToDelete = -1;
 
+        function createTail(pageNumber){
+            if(sortArray.length > 0){
+                return urlTail + '/' + $scope.testsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            }else{
+                return urlTail + '/' + $scope.testsPerPage + '/' + pageNumber;
+            }
+        }
+
         function getResultsPage(pageNumber) {
-            $http.get('/api/SportsScienceTests/' + $scope.testsPerPage + '/' + pageNumber)
+            $http.get(createTail(pageNumber))
                 .success(function (result) {
                     $scope.sportTests = result.items;
                     $scope.totalTests = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.sportTests = result.items;
+                    $scope.totalTests = result.count;
+                });
+        });    
 
         $scope.sportTests = [];
         $scope.totalTests = 0;
@@ -971,7 +1048,11 @@
         };
     }]);
 
-    module.controller('ScienceExercisesController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+    module.controller('ScienceExercisesController', ['$scope', '$http', 'toaster', '$q', '$rootScope', function ($scope, $http, toaster, $q, $rootScope) {
+        
+        var sortArray = [];
+        var urlTail = '/api/SportsScienceExercises';
+
         $scope.exerciseTypes = [
            { id: 0, name: 'Mobility' },
            { id: 1, name: 'Movement' },
@@ -982,13 +1063,30 @@
 
         var needToDelete = -1;
 
+        function createTail(pageNumber){
+            if(sortArray.length > 0){
+                return urlTail + '/' + $scope.exercisesPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            }else{
+                return urlTail + '/' + $scope.exercisesPerPage + '/' + pageNumber;
+            }
+        }
+
         function getResultsPage(pageNumber) {
-            $http.get('/api/SportsScienceExercises/' + $scope.exercisesPerPage + '/' + pageNumber)
+            $http.get(createTail(pageNumber))
                 .success(function (result) {
                     $scope.sportExercises = result.items;
                     $scope.totalExercises = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.sportExercises = result.items;
+                    $scope.totalExercises = result.count;
+                });
+        });  
 
         $scope.sportExercises = [];
         $scope.totalExercises = 0;
@@ -1279,7 +1377,10 @@
         };
     }]);
 
-    module.controller('NFTController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+    module.controller('NFTController', ['$scope', '$http', 'toaster', '$q', '$rootScope', function ($scope, $http, toaster, $q, $rootScope) {
+
+
+        var sortArray = [];
 
         $scope.foodType = [
              { id: 0, name: 'Fruit' },
@@ -1310,13 +1411,30 @@
 
         var needToDelete = -1;
 
+        function createTail(pageNumber){
+                if(sortArray.length > 0){
+                    return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+                }else{
+                    return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+                }
+            }
+
         function getResultsPage(pageNumber) {
-            $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+            $http.get(createTail(pageNumber))
                 .success(function (result) {
                     $scope.items = result.items;
                     $scope.totalItems = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        });    
 
         $scope.items = [];
         $scope.totalItems = 0;
@@ -1460,18 +1578,36 @@
         }
     }]);
 
-    module.controller('NAController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+    module.controller('NAController', ['$scope', '$http', 'toaster', '$q', '$rootScope', function ($scope, $http, toaster, $q, $rootScope) {
 
         var needToDelete = -1;
         var urlTail = '/api/NutritionAlternatives';
+        var sortArray = [];
+
+        function createTail(pageNumber){
+            if(sortArray.length > 0){
+                return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            }else{
+                return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+            }
+        }
 
         function getResultsPage(pageNumber) {
-            $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+            $http.get(createTail(pageNumber))
                 .success(function (result) {
                     $scope.items = result.items;
                     $scope.totalItems = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        });   
 
         $scope.items = [];
         $scope.totalItems = 0;
@@ -1625,9 +1761,18 @@
 
     }]);
 
-    module.controller('NRController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+    module.controller('NRController', ['$scope', '$http', 'toaster', '$q', '$rootScope', function ($scope, $http, toaster, $q, $rootScope) {
         var needToDelete = -1;
         var urlTail = '/api/NutritionRecipes';
+        var sortArray = [];
+
+        function createTail(pageNumber){
+            if(sortArray.length > 0){
+                return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            }else{
+                return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+            }
+        }
 
         function getResultsPage(pageNumber) {
             $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
@@ -1636,6 +1781,15 @@
                     $scope.totalItems = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        }); 
 
         $scope.items = [];
         $scope.totalItems = 0;
@@ -1764,7 +1918,10 @@
         };
     }]);
 
-    module.controller('PhysioExerciseController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+    module.controller('PhysioExerciseController', ['$scope', '$http', 'toaster', '$q', '$rootScope', function ($scope, $http, toaster, $q, $rootScope) {
+
+        var urlTail = '/api/PhysioExercise';
+        var sortArray = [];
 
         $scope.exType = [
             { id: 0, name: 'Exercise' },
@@ -1775,14 +1932,31 @@
 
         var needToDelete = -1;
 
+        function createTail(pageNumber){
+            if(sortArray.length > 0){
+                return urlTail + '/' + $scope.exercisePerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            }else{
+                return urlTail + '/' + $scope.exercisePerPage + '/' + pageNumber;
+            }
+        }
+
         function getResultsPage(pageNumber) {
             console.log($scope.exercisePerPage);
-            $http.get('/api/PhysioExercise/' + $scope.exercisePerPage + '/' + pageNumber)
+            $http.get(createTail(pageNumber))
                 .success(function (result) {
                     $scope.exercises = result.items;
                     $scope.totalExercises = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.exercises = result.items;
+                    $scope.totalExercises = result.count;
+                });
+        });    
 
         $scope.exercises = [];
         $scope.totalExercises = 0;
@@ -1921,8 +2095,10 @@
 
     }]);
 
-    module.controller('ScenariosController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+    module.controller('ScenariosController', ['$scope', '$http', 'toaster', '$q', '$rootScope', function ($scope, $http, toaster, $q, $rootScope) {
         var needToDelete = -1;
+        var urlTail = '/api/Scenarios';
+        var sortArray = [];
 
         $scope.scenarioType = [
            { id: 0, name: 'Attacking' },
@@ -1936,13 +2112,30 @@
 
         $scope.selectedType = $scope.scenarioType[0];
 
+        function createTail(pageNumber){
+            if(sortArray.length > 0){
+                return urlTail + '/' + $scope.scenariosPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            }else{
+                return urlTail + '/' + $scope.scenariosPerPage + '/' + pageNumber;
+            }
+        }
+
         function getResultsPage(pageNumber) {
-            $http.get('/api/Scenarios/' + $scope.scenariosPerPage + '/' + pageNumber)
+            $http.get(createTail(pageNumber))
                 .success(function (result) {
                     $scope.scenarios = result.items;
                     $scope.totalScenarios = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.scenarios = result.items;
+                    $scope.totalScenarios = result.count;
+                });
+        });   
 
         $scope.scenarios = [];
         $scope.totalScenarios = 0;
@@ -2100,9 +2293,10 @@
 
     }]);
 
-    module.controller('BodyPartController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+    module.controller('BodyPartController', ['$scope', '$http', 'toaster', '$q', '$rootScope', function ($scope, $http, toaster, $q, $rootScope) {
         var needToDelete = -1;
         var urlTail = '/api/PhysioBodyParts';
+        var sortArray = [];
 
         $scope.parts = [
            { id: 0, name: 'Ankle' },
@@ -2120,13 +2314,31 @@
 
         $scope.selectedBPart = $scope.parts[0];
 
+        function createTail(pageNumber){
+                if(sortArray.length > 0){
+                    return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+                }else{
+                    return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+                }
+            }
+
+
         function getResultsPage(pageNumber) {
-            $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+            $http.get(createTail(pageNumber))
                 .success(function (result) {
                     $scope.items = result.items;
                     $scope.totalItems = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        });   
 
         $scope.items = [];
         $scope.totalItems = 0;
@@ -2260,7 +2472,7 @@
         };
     }]);
 
-    module.controller('SkillLevelsController', ['$scope', '$http', 'toaster', '$location', function ($scope, $http, toaster, $location) {
+    module.controller('SkillLevelsController', ['$scope', '$http', 'toaster', '$location', '$rootScope', function ($scope, $http, toaster, $location, $rootScope) {
         
         $scope.modalTitle = "Add a Skill";
         var pathArray = $location.$$absUrl.split("/");
@@ -2268,6 +2480,15 @@
 
         var needToDelete = -1;
         var urlTail = '/api/SkillVideos';
+        var sortArray = [];
+
+        function createTail(pageNumber){
+            if(sortArray.length > 0){
+                return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            }else{
+                return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+            }
+        }
 
         function getResultsPage(pageNumber) {
             $http.get(urlTail + '/' + $scope.ids + '/' + $scope.itemsPerPage + '/' + pageNumber)
@@ -2276,6 +2497,14 @@
                     $scope.totalItems = result.count;
                 });
         }
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        });   
 
         $scope.items = [];
         $scope.totalItems = 0;
@@ -2374,18 +2603,36 @@
 
     //News Controllers
 
-    module.controller('ExerciseNewsController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+    module.controller('ExerciseNewsController', ['$scope', '$http', 'toaster', '$q', '$rootScope', function ($scope, $http, toaster, $q, $rootScope) {
        
-
+        var urlTail = '/api/ExerciseNews';
         var needToDelete = -1;
+        var sortArray = [];
+
+        function createTail(pageNumber){
+                if(sortArray.length > 0){
+                    return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+                }else{
+                    return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+                }
+            }        
 
         function getResultsPage(pageNumber) {
-            $http.get('/api/ExerciseNews/' + $scope.itemsPerPage + '/' + pageNumber)
+            $http.get(createTail(pageNumber))
                 .success(function (result) {
                     $scope.items = result.items;
                     $scope.totalItems = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+            sortArray = newValue;
+            $http.get(createTail($scope.pagination.current))
+                .success(function (result) {
+                    $scope.items = result.items;
+                    $scope.totalItems = result.count;
+                });
+        });   
 
         $scope.items = [];
         $scope.totalItems = 0;
@@ -2587,18 +2834,36 @@
     }]);
 
 
-    module.controller('NutritionNewsController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
+    module.controller('NutritionNewsController', ['$scope', '$http', 'toaster', '$q', '$rootScope', function ($scope, $http, toaster, $q, $rootScope) {
 
-
+        var sortArray = [];
         var needToDelete = -1;
+        var urlTail = '/api/NutritionNews';
+
+        function createTail(pageNumber){
+            if(sortArray.length > 0){
+                return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            }else{
+                return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+            }
+        }
 
         function getResultsPage(pageNumber) {
-            $http.get('/api/NutritionNews/' + $scope.itemsPerPage + '/' + pageNumber)
+            $http.get(createTail(pageNumber))
                 .success(function (result) {
                     $scope.items = result.items;
                     $scope.totalItems = result.count;
                 });
         }
+
+        $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    });   
 
         $scope.items = [];
         $scope.totalItems = 0;
