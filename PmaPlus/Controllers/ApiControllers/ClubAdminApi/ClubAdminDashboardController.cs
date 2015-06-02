@@ -23,12 +23,12 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         [Route("api/ClubAdminDashboard/ClubName")]
         public string GetClubName()
         {
-            var clubAdmin = _userServices.GetClubAdminByUserName(User.Identity.Name);
+            var clubAdmin = _userServices.GetClubByUserName(User.Identity.Name);
             if (clubAdmin == null)
             {
                 return "";
             }
-            return clubAdmin.Club.Name;
+            return clubAdmin.Name;
 
         }
 

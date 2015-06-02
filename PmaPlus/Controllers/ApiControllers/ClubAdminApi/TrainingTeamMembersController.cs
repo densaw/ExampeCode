@@ -100,7 +100,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         [Route("api/Coaches/list")]
         public IEnumerable<CoachesList> GetCoaches()
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
             return _teamMembersServices.GetClubCoaches(clubId);
         }
     

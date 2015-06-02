@@ -76,7 +76,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 }
                 case Role.ClubAdmin:
                 {
-                    scenario.UploadedBy = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Name;
+                    scenario.UploadedBy = _userServices.GetClubByUserName(User.Identity.Name).Name;
                     break;
                 }
                 case Role.Coach:

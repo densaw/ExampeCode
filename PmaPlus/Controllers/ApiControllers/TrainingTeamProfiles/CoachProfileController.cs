@@ -85,7 +85,7 @@ namespace PmaPlus.Controllers.ApiControllers.TrainingTeamProfiles
         [Route("api/TrainingTeam/Coach/Players/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
         public PlayersDetailPage GetPlayers(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
 
             var count = _playerServices.GetPlayersDetailTable(clubId).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
