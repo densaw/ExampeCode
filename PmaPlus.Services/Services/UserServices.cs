@@ -70,6 +70,23 @@ namespace PmaPlus.Services
             {
                 switch (user.Role)
                 {
+                    case Role.Player:
+                        {
+                            var member = _playerRepository.Get(c => c.User.Id == user.Id);
+                            if (member != null)
+                                return member.Club;
+
+                            break;
+                        }
+                    case Role.ClubAdmin:
+                        {
+                            var member = _clubAdminRepository.Get(c => c.User.Id == user.Id);
+                            if (member != null)
+                                return member.Club;
+
+                            break;
+                        }
+
                     case Role.Coach:
                         {
                             var member = _coachRepository.Get(c => c.User.Id == user.Id);
