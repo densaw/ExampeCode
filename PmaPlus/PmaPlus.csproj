@@ -2981,6 +2981,8 @@
     <Content Include="Areas\HeadOfAcademy\Views\Shared\_Footer.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\ClubDiary.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Curriculums.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Statements.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\ToDoList.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Teams.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Scenarios.cshtml" />
