@@ -39,5 +39,13 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
             
             return View();
         }
+        public ActionResult Injuries()
+        {
+            return View();
+        }
+        public ActionResult Documents()
+        {
+            return View();
+        }
     }
 }
