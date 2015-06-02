@@ -170,7 +170,9 @@
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributeViewModel.cs" />
     <Compile Include="ViewModels\Player\AddPlayerViewModel.cs" />
     <Compile Include="ViewModels\Player\AvailablePlayersList.cs" />
+    <Compile Include="ViewModels\Player\PlayersDetailPage.cs" />
     <Compile Include="ViewModels\Player\PlayersPage.cs" />
+    <Compile Include="ViewModels\Player\PlayerDetailTableViewModel.cs" />
     <Compile Include="ViewModels\Player\PlayerTableViewModel.cs" />
     <Compile Include="ViewModels\Qualification\QualificationViewModel.cs" />
     <Compile Include="ViewModels\Scenario\ScenarioList.cs" />

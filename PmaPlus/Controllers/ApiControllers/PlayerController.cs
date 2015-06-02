@@ -32,8 +32,6 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
 
-            _playerServices.GetPlayersTable(clubId);
-
 
             var count = _playerServices.GetPlayersTable(clubId).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
