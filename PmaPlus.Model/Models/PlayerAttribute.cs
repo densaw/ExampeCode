@@ -17,8 +17,9 @@ namespace PmaPlus.Model.Models
 
         public int AgeTo { get; set; }
 
-        [ForeignKey("Club")]
+
         public int ClubId { get; set; }
+
         public virtual Club Club { get; set; }
     }
 }
