@@ -100,34 +100,35 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
-        public ActionResult BlockReports()
-        {
-
-            return View();
-        }
+       
         public ActionResult Nutrition()
         {
-
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Alternatives()
         {
-
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Food_Types()
         {
-
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Recipes()
         {
-
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult TalentIndefication()
         {
-
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
     }
