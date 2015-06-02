@@ -66,5 +66,35 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
         {
             return View();
         }
+        public ActionResult BlockReports()
+        {
+
+            return View();
+        }
+        public ActionResult Nutrition()
+        {
+
+            return View();
+        }
+        public ActionResult Alternatives()
+        {
+
+            return View();
+        }
+        public ActionResult Food_Types()
+        {
+
+            return View();
+        }
+        public ActionResult Recipes()
+        {
+
+            return View();
+        }
+        public ActionResult TalentIndefication()
+        {
+
+            return View();
+        }
     }
 }
