@@ -84,7 +84,7 @@ app.config(routing);
 
 
 app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
-
+    
     var monthNames = ['Jan',
            'Feb',
            'Mar',
@@ -97,67 +97,64 @@ app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', fu
            'Oct',
            'Nov',
            'Dec'];
-
+  
     var hexClub = "";
 
     $http.get('/api/clubs/color').success(function (data) {
         hexClub = data;
 
 
-        $http.get('/api/ClubAdminDashboard/Players/ScoreGraph').success(function (data) {
+    $http.get('/api/ClubAdminDashboard/Players/ScoreGraph').success(function (data) {
 
-            var monthArray = new Array;
-            var playerCountArray = new Array;
-            data.forEach(function (val) {
-                monthArray.push(monthNames[val.month - 1]);
-                playerCountArray.push(val.activePlayers);
-            });
+        var monthArray = new Array;
+        var playerCountArray = new Array;
+        data.forEach(function (val) {
+            monthArray.push(monthNames[val.month - 1]);
+            playerCountArray.push(val.activePlayers);
+        });
 
 
             var clubRgb = hexToRgb(hexClub);
 
-            $scope.data = {
-                labels: monthArray,
-                datasets: [
-                    {
-                        label: "Example dataset",
+        $scope.data = {
+            labels: monthArray,
+            datasets: [
+                {
+                    label: "Example dataset",
                         fillColor: "rgba(" + clubRgb.r + "," + clubRgb.g + "," + clubRgb.b + ",0.5)",
                         strokeColor: hexClub,
                         pointColor: hexClub,
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
                         pointHighlightStroke: hexClub,
-                        data: playerCountArray
-                    }
+                    data: playerCountArray
+                }
+               
+            ]
+        };
 
-                ]
-            };
-
-            $scope.options = {
-                scaleShowGridLines: true,
-                scaleGridLineColor: "rgba(0,0,0,.05)",
-                scaleGridLineWidth: 1,
-                bezierCurve: true,
-                bezierCurveTension: 0.4,
-                pointDot: true,
-                pointDotRadius: 4,
-                pointDotStrokeWidth: 1,
-                pointHitDetectionRadius: 20,
-                datasetStroke: true,
-                datasetStrokeWidth: 2,
-                datasetFill: true,
-                responsive: true
-            };
-
-
-        });
+        $scope.options = {
+            scaleShowGridLines: true,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 1,
+            bezierCurve: true,
+            bezierCurveTension: 0.4,
+            pointDot: true,
+            pointDotRadius: 4,
+            pointDotStrokeWidth: 1,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 2,
+            datasetFill: true,
+            responsive: true
+        };
+    });
 
 
     });
 }]);
 
-app.controller('AttributesController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
-
+app.controller('AttributesController', ['$scope', '$http', 'toaster', '$filter', '$rootScope', function ($scope, $http, toaster, $filter, $rootScope) {
 
     var needToDelete = -1;
     var urlTail = '/api/Attributes';
@@ -174,14 +171,6 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
         $scope.opened = true;
     };
 
-    $scope.test = function () {
-        console.log('in factory');
-        tableHttpOrderBy.orderBy(urlTail + '/' + $scope.itemsPerPage + '/' + $scope.pagination.current, 'test').success(function (result) {
-            console.log(result);
-        });
-
-    }
-
     function getResultsPage(pageNumber) {
         $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
             .success(function (result) {
@@ -195,9 +184,20 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
     $scope.itemsPerPage = 20;
     $scope.newAttr = {};
 
+    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+        console.log('Root');
+        console.log(newValue);
+        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + $scope.pagination.current + '/' + newValue[0] + '/' + newValue[1])
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    });    
+
     $scope.pagination = {
         current: 1
     };
+
     getResultsPage($scope.pagination.current);
     $scope.pageChanged = function (newPage) {
         getResultsPage(newPage);
@@ -219,7 +219,6 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
     $scope.ok = function (id) {
         $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;
-
         if (id != null) {
             $scope.loginLoading = false;
             $scope.newAttr.type = $scope.selectedType.id;
@@ -236,7 +235,6 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
                     });
                 }
             });
-
         } else {
             $scope.loginLoading = false;
             $scope.newAttr.type = $scope.selectedType.id;
@@ -285,10 +283,10 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', function (
                 $scope.selectedType = $scope.attrTypes[result.type];
                 $scope.modalTitle = "Update an Attribute";
                 target.modal('show');
-
             });
     };
 }]);
+
 app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$filter', function ($scope, $http, toaster, $q, $filter) {
 
 
@@ -779,8 +777,8 @@ app.controller('ClubDiaryController', [
         });
 
         $scope.$watch('newEvent.start', function (newValue, oldValue, scope) {
-            console.log('Data');
-            console.log(newValue);
+            console.log('Data'); 
+            console.log(newValue);   
         });
 
         getactualEv();
@@ -1085,57 +1083,57 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
         } else {
 
 
-            $scope.newClub.status = $scope.selectedStatus.id;
-            console.log($scope.newClub);
-            if (id != null) {
-                $http.put('/api/Clubs/' + id, $scope.newClub)
-                    .success(function () {
-                        getResults('/Current');
-                        toaster.pop({
-                            type: 'success',
-                            title: 'Success',
-                            bodyOutputType: 'trustedHtml',
-                            body: 'Profile was updated'
-                        });
-                        $scope.loginLoading = false;
-                    }).error(function (data, status, headers, config) {
-                        if (status == 400) {
-                            console.log(data);
+                $scope.newClub.status = $scope.selectedStatus.id;
+                console.log($scope.newClub);
+                if (id != null) {
+                    $http.put('/api/Clubs/' + id, $scope.newClub)
+                        .success(function () {
+                            getResults('/Current');
                             toaster.pop({
-                                type: 'error',
-                                title: 'Error',
+                                type: 'success',
+                                title: 'Success',
                                 bodyOutputType: 'trustedHtml',
-                                body: 'Please complete the compulsory fields highlighted in red'
+                                body: 'Profile was updated'
                             });
                             $scope.loginLoading = false;
-                        }
-                    });
-
-            } else {
-
-                $http.post('/api/Clubs', $scope.newClub)
-                    .success(function () {
-                        getResults('/Current');
-                        toaster.pop({
-                            type: 'success',
-                            title: 'Success',
-                            bodyOutputType: 'trustedHtml',
-                            body: 'Profile was updated'
+                        }).error(function (data, status, headers, config) {
+                            if (status == 400) {
+                                console.log(data);
+                                toaster.pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    bodyOutputType: 'trustedHtml',
+                                    body: 'Please complete the compulsory fields highlighted in red'
+                                });
+                                $scope.loginLoading = false;
+                            }
                         });
-                        $scope.loginLoading = false;
-                    }).error(function (data, status, headers, config) {
-                        if (status == 400) {
-                            console.log(data);
+
+                } else {
+
+                    $http.post('/api/Clubs', $scope.newClub)
+                        .success(function () {
+                            getResults('/Current');
                             toaster.pop({
-                                type: 'error',
-                                title: 'Error',
+                                type: 'success',
+                                title: 'Success',
                                 bodyOutputType: 'trustedHtml',
-                                body: 'Please complete the compulsory fields highlighted in red'
+                                body: 'Profile was updated'
                             });
                             $scope.loginLoading = false;
-                        }
-                    });
-            };
+                        }).error(function (data, status, headers, config) {
+                            if (status == 400) {
+                                console.log(data);
+                                toaster.pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    bodyOutputType: 'trustedHtml',
+                                    body: 'Please complete the compulsory fields highlighted in red'
+                                });
+                                $scope.loginLoading = false;
+                            }
+                        });
+                };
         }
 
 

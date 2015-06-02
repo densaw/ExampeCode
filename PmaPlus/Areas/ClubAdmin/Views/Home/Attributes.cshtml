@@ -158,27 +158,27 @@
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>Attribute Name</th>
-                                        <th>Type</th>
-                                        <th>From (age)</th>
-                                        <th>To (age)</th>
-                                        <th>Max Score</th>
-                                        <th>Action</th>
-                                    </tr>
+                                <tr>
+                                    <th order-header head="Attribute Name" order="name"></th>
+                                    <th>Type</th>
+                                    <th order-header head="From (age)" order="ageFrom"></th>
+                                    <th order-header head="To (age)" order="ageTo"></th>
+                                    <th order-header head="Max Score" order="maxScore"></th>
+                                    <th>Action</th>
+                                </tr>
                                 </thead>
                                 <tbody id="contentTable">
-                                    <tr dir-paginate="attribute in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{attribute.name}}</td>
-                                        <td>{{attrTypes[attribute.type].name}}</td>
-                                        <td>{{attribute.ageFrom}}</td>
-                                        <td>{{attribute.ageTo}}</td>
-                                        <td>{{attribute.maxScore}}</td>
-                                        <td>
-                                            <i ng-click="openEdit(attribute.id)" class="fa fa-cog" style="cursor: pointer;"></i>
-                                            <i ng-click="openDelete(attribute.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                        </td>
-                                    </tr>
+                                <tr dir-paginate="attribute in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                    <td>{{attribute.name}}</td>
+                                    <td>{{attrTypes[attribute.type].name}}</td>
+                                    <td>{{attribute.ageFrom}}</td>
+                                    <td>{{attribute.ageTo}}</td>
+                                    <td>{{attribute.maxScore}}</td>
+                                    <td>
+                                        <i ng-click="openEdit(attribute.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                        <i ng-click="openDelete(attribute.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                             <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
