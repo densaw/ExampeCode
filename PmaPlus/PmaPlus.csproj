@@ -274,6 +274,7 @@
     <Compile Include="Controllers\ApiControllers\Teams\TeamsController.cs" />
     <Compile Include="Controllers\ApiControllers\ToDoController.cs" />
     <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\CoachProfileController.cs" />
+    <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\PhysiotherapistsProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\UserController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
     <Compile Include="Filters\PhotoStreamProvider.cs" />
@@ -2987,6 +2988,8 @@
     <Content Include="Areas\HeadOfAcademy\Views\Home\Teams.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Scenarios.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\SkillsAndKnowledge.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Injuries.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Documents.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Reports.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Profile.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
