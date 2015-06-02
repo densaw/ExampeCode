@@ -2988,6 +2988,7 @@
     <Content Include="Areas\HeadOfAcademy\Views\Home\Teams.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Scenarios.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\SkillsAndKnowledge.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Reports.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
