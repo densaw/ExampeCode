@@ -9,7 +9,7 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
     public class HomeController : Controller
     {
         // GET: HeadOfAcademy/Home
-        public ActionResult Index()
+        public ActionResult Dashboard()
         {
             return View();
         }
