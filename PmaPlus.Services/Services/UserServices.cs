@@ -160,13 +160,21 @@ namespace PmaPlus.Services
         #region TeamMembers
 
 
-        public IEnumerable<TrainingTeamMemberPlateViewModel> GetTrainingTeamMembers()
+        public IEnumerable<TrainingTeamMemberPlateViewModel> GetTrainingTeamMembers(int clubId, string name)
         {
+            List<User> userList = new List<User>();
 
-            var trTeamMember =
-                from user in
-                    _userRepository.GetMany(
-                        u => u.Role != Role.SystemAdmin && u.Role != Role.ClubAdmin && u.Role != Role.Player)
+            userList.AddRange(_headOfAcademyRepository.GetMany(h => h.Club.Id == clubId && h.User.Email.ToLower() != name.ToLower()).Select(h => h.User));
+            userList.AddRange(_headOfEducationRepository.GetMany(h => h.Club.Id == clubId).Select(h => h.User));
+            userList.AddRange(_coachRepository.GetMany(h => h.Club.Id == clubId).Select(h => h.User));
+            userList.AddRange(_physiotherapistRepository.GetMany(h => h.Club.Id == clubId).Select(h => h.User));
+            userList.AddRange(_scoutRepository.GetMany(h => h.Club.Id == clubId).Select(h => h.User));
+            userList.AddRange(_sportScientistRepository.GetMany(h => h.Club.Id == clubId).Select(h => h.User));
+            userList.AddRange(_welfareOfficerRepository.GetMany(h => h.Club.Id == clubId).Select(h => h.User));
+
+
+            var trTeamMember = from user in userList
+                    
                 select new TrainingTeamMemberPlateViewModel()
                 {
                     Id = user.Id,
