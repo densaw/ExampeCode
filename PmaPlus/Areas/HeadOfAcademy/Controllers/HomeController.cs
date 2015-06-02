@@ -13,5 +13,10 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
         {
             return View();
         }
+        public ActionResult ClubDiary()
+        {
+            
+            return View();
+        }
     }
 }
