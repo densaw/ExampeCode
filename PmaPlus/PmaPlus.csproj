@@ -2981,6 +2981,8 @@
     <Content Include="Areas\HeadOfAcademy\Views\Shared\_Footer.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\ClubDiary.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Curriculums.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Statements.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
