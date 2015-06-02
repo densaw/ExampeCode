@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace PmaPlus.Areas.HeadOfAcademy.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         // GET: HeadOfAcademy/Home

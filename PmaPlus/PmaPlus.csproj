@@ -245,7 +245,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\AttributesController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\ClubAdminDashboardController.cs" />
-    <Compile Include="Controllers\ApiControllers\ClubAdminApi\CoacheProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\TeamMemberProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumStatementController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumsController.cs" />
@@ -258,6 +257,7 @@
     <Compile Include="Controllers\ApiControllers\ExerciseNewsController.cs" />
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
     <Compile Include="Controllers\ApiControllers\FilesController.cs" />
+    <Compile Include="Controllers\ApiControllers\HeadOfAcademyApi\HeadOfAcademyDashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionAlternativesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionFoodTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionNewsController.cs" />

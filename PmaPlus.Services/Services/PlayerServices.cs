@@ -59,6 +59,19 @@ namespace PmaPlus.Services
                    };
         }
 
+        public IEnumerable<PlayerDetailTableViewModel> GetPlayersDetailTable(int clubId)
+        {
+            return from player in _playerRepository.GetMany(p => p.Club.Id == clubId)
+                   select new PlayerDetailTableViewModel()
+                   {
+                       Id = player.Id,
+                       Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
+                       Age = DateTime.Now.Year - (player.User.UserDetail.Birthday ?? DateTime.Now).Year,
+                       //TODO:Finish player table
+                   };
+        }
+
+
         public IEnumerable<Player> GetClubPlayers(int clubId)
         {
             return _playerRepository.GetMany(p => p.Club.Id == clubId);
