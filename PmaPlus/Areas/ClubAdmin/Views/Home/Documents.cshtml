@@ -3,7 +3,7 @@
     ViewBag.Title = "PMA+";
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
-<div ng-controller="ClubDocumetsController">
+<div ng-controller="ClubDocumetsController" ng-cloak>
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
@@ -30,9 +30,9 @@
                             <a href="#" class="file-control">Audio</a>
                             <a href="#" class="file-control">Images</a>
                             <div class="hr-line-dashed"></div>
-                           
-                                <button type="file" id="file"class="btn btn-primary btn-block" ng-click="add()">Upload Files</button>
-                            
+
+                            <button type="file" id="file" class="btn btn-primary btn-block" ng-click="add()">Upload Files</button>
+
                             <div class="hr-line-dashed"></div>
                             <h5>Folders</h5>
 

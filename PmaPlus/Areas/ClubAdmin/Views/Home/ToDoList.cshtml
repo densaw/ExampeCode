@@ -5,7 +5,7 @@
 }
 
 
-<div ng-controller="ToDoController">
+<div ng-controller="ToDoController" ng-cloak>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
             <h2>To-Do List</h2>
@@ -68,7 +68,7 @@
                                             </div>
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                            <datetimepicker data-ng-model="newNote.completionDateTime" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }"  />
+                                            <datetimepicker data-ng-model="newNote.completionDateTime" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
                                         </ul>
                                     </div>
                                 </div>

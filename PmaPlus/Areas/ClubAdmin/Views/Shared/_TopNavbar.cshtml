@@ -9,7 +9,7 @@
             <li>
                 <span class="m-r-sm text-muted welcome-message">Welcome to PMA+</span>
             </li>
-            <li class="dropdown" ng-controller="DairyNotifyController">
+            <li class="dropdown" ng-controller="DairyNotifyController" ng-cloak>
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-calendar"></i>
                     <span  ng-if="itemCount > 0" class="label label-danger" style="border-radius: 100%;">{{itemCount}}</span>
@@ -51,7 +51,7 @@
                     <i class="fa fa-envelope"></i>
                 </a>
             </li>
-            <li class="dropdown" ng-controller="ToDoNotifyController">
+            <li class="dropdown" ng-controller="ToDoNotifyController" ng-cloak>
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-bell"></i>
                     <span ng-if="itemCount > 0" class="label label-danger" style="border-radius: 100%;">{{itemCount}}</span>
@@ -64,17 +64,17 @@
                             </div>
                             <div>
                                 <strong>{{item.title}}</strong>
-                                <br/>
+                                <br />
                                 {{item.note}}
                             </div>
                         </a>
                         <div class="divider"></div>
-                        
+
                     </li>
-                        <li>                    
-                            <div class="see-all"><a href="@Url.Action("ToDoList", "Home", new { area="ClubAdmin" })">See all To-do Items ></a></div>
-                        </li>    
-                </ul>                
+                    <li>
+                        <div class="see-all"><a href="@Url.Action("ToDoList", "Home", new { area="ClubAdmin" })">See all To-do Items ></a></div>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="@Url.Action("LockScreen", "Account", new {area = ""})"><i class="fa fa-power-off"></i></a>
