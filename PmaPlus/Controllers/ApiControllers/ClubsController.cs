@@ -61,7 +61,7 @@ namespace PmaPlus.Controllers.ApiControllers
         public AddClubViewModel GetCurrentClub()
         {
 
-            return _clubServices.GetClubById(_userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id);
+            return _clubServices.GetClubById(_userServices.GetClubByUserName(User.Identity.Name).Id);
         }
 
 
@@ -74,9 +74,9 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Clubs/logo")]
         public HttpResponseMessage GetLogo()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
             HttpResponseMessage result;
-            FileStream _fileStream = _photoManager.GetFileStream(club.Club.Logo, FileStorageTypes.Clubs, club.Club.Id);
+            FileStream _fileStream = _photoManager.GetFileStream(club.Logo, FileStorageTypes.Clubs, club.Id);
             if (_fileStream == null)
             {
                 result = Request.CreateResponse(HttpStatusCode.NotFound);
@@ -85,7 +85,7 @@ namespace PmaPlus.Controllers.ApiControllers
             {
                 result = Request.CreateResponse(HttpStatusCode.OK);
                 result.Content = new StreamContent(_fileStream);
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(club.Club.Logo)));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(club.Logo)));
             }
             return result;
         }
@@ -99,9 +99,9 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Clubs/background")]
         public HttpResponseMessage GetBackground()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
             HttpResponseMessage result;
-            FileStream _fileStream = _photoManager.GetFileStream(club.Club.Background, FileStorageTypes.Clubs, club.Club.Id);
+            FileStream _fileStream = _photoManager.GetFileStream(club.Background, FileStorageTypes.Clubs, club.Id);
             if (_fileStream == null)
             {
                 result = Request.CreateResponse(HttpStatusCode.NotFound);
@@ -112,7 +112,7 @@ namespace PmaPlus.Controllers.ApiControllers
             {
                 result = Request.CreateResponse(HttpStatusCode.OK);
                 result.Content = new StreamContent(_fileStream);
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(club.Club.Background)));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(club.Background)));
             }
             return result;
 

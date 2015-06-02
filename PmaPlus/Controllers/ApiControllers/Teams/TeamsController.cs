@@ -29,7 +29,7 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
         [Route("api/Teams/List")]
         public IEnumerable<TeamsList> GetTeamsList()
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
             return Mapper.Map<IEnumerable<Team>, IEnumerable<TeamsList>>(_teamServices.GetClubTeams(clubId));
         }
 
@@ -37,7 +37,7 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
         public TeamsPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
 
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
 
 
             var count = _teamServices.GetClubTeams(clubId).Count();
@@ -57,7 +57,7 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
 
         public IHttpActionResult GetTeams()
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
             var teams = _teamServices.GetClubTeams(clubId);
             var teamViewModel = Mapper.Map<IEnumerable<Team>, IEnumerable<TeamTableViewModel>>(teams);
             //teamViewModel.ForEach(t => t.); //TODO: CurriculumProgress for teams
@@ -71,7 +71,7 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
 
         public IHttpActionResult PostTeam([FromBody]AddTeamViewModel teamViewModel)
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
             _teamServices.AddTeam(new Team() { Name = teamViewModel.Name }, clubId, teamViewModel.Players, teamViewModel.Coaches, teamViewModel.CurriculumId);
             return Ok();
         }

@@ -30,7 +30,9 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
 
         public IEnumerable<TrainingTeamMemberPlateViewModel> Get()
         {
-            return  _userServices.GetTrainingTeamMembers();
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name) != null ? _userServices.GetClubByUserName(User.Identity.Name).Id : 0;
+
+            return  _userServices.GetTrainingTeamMembers(clubId,User.Identity.Name);
         }
 
         //[ResponseType(typeof(AddTrainingTeamMemberViewModel))]
@@ -98,7 +100,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         [Route("api/Coaches/list")]
         public IEnumerable<CoachesList> GetCoaches()
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
             return _teamMembersServices.GetClubCoaches(clubId);
         }
     

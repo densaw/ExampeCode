@@ -8,8 +8,8 @@ namespace PmaPlus.Model.Models
     {
         public int Id { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public UserStatus Status { get; set; }
-        public Club Club { get; set; }
+        public virtual Club Club { get; set; }
     }
 }

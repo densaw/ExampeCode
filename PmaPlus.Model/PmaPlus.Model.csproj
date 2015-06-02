@@ -170,7 +170,11 @@
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributeViewModel.cs" />
     <Compile Include="ViewModels\Player\AddPlayerViewModel.cs" />
     <Compile Include="ViewModels\Player\AvailablePlayersList.cs" />
+    <Compile Include="ViewModels\Player\PlayersForPhisiotherapistPage.cs" />
+    <Compile Include="ViewModels\Player\PlayerTableForPhisiotherapistViewModel.cs" />
+    <Compile Include="ViewModels\Player\PlayersDetailPage.cs" />
     <Compile Include="ViewModels\Player\PlayersPage.cs" />
+    <Compile Include="ViewModels\Player\PlayerDetailTableViewModel.cs" />
     <Compile Include="ViewModels\Player\PlayerTableViewModel.cs" />
     <Compile Include="ViewModels\Qualification\QualificationViewModel.cs" />
     <Compile Include="ViewModels\Scenario\ScenarioList.cs" />
@@ -196,8 +200,10 @@
     <Compile Include="ViewModels\SportsScience\SportsScienceTestTableViewModel.cs" />
     <Compile Include="ViewModels\SportsScience\SportsScienceTestViewModel.cs" />
     <Compile Include="ViewModels\Team\AddTeamViewModel.cs" />
+    <Compile Include="ViewModels\Team\TeamsForPhisiotherapistPage.cs" />
     <Compile Include="ViewModels\Team\TeamsPage.cs" />
     <Compile Include="ViewModels\Team\TeamsList.cs" />
+    <Compile Include="ViewModels\Team\TeamTableForPhisiotherapistViewModel.cs" />
     <Compile Include="ViewModels\Team\TeamTableViewModel.cs" />
     <Compile Include="ViewModels\ToDo\ToDoViewModel.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\AddTrainingTeamMemberViewModel.cs" />

@@ -80,10 +80,10 @@ namespace PmaPlus.Controllers
             LoginViewModel model = new LoginViewModel();
             model.Email = User.Identity.Name;
 
-            var clubAdmin = _userServices.GetClubAdminByUserName(User.Identity.Name);
+            var clubAdmin = _userServices.GetClubByUserName(User.Identity.Name);
             if (clubAdmin != null)
             {
-                var club = clubAdmin.Club;
+                var club = clubAdmin;
                 model.Logo =  _photoManager.FileExistInStorage(FileStorageTypes.Clubs, club.Logo,club.Id) ? "../api/file/Clubs/"+club.Logo+"/"+club.Id : "../Images/Default-logo.png";
                 model.Background = _photoManager.FileExistInStorage(FileStorageTypes.Clubs, club.Background, club.Id) ? "../api/file/Clubs/" + club.Background + "/" + club.Id : "../Images/Default_background.png";
 

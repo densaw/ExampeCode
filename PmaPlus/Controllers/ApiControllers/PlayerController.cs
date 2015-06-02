@@ -30,9 +30,7 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Player/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
         public PlayersPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
-
-            _playerServices.GetPlayersTable(clubId);
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
 
 
             var count = _playerServices.GetPlayersTable(clubId).Count();
@@ -50,7 +48,7 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Player/Free")]
         public IEnumerable<AvailablePlayersList> GetFreePlayers()
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
             return _playerServices.GetFreePlayers(clubId);
 
         }
@@ -58,7 +56,7 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Player/List")]
         public IEnumerable<AvailablePlayersList> GetListPlayers()
         {
-            var clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
             return _playerServices.GetListPlayers(clubId);
 
         }
@@ -71,7 +69,7 @@ namespace PmaPlus.Controllers.ApiControllers
 
         public IHttpActionResult Post(AddPlayerViewModel playerViewModel)
         {
-            int clubId = _userServices.GetClubAdminByUserName(User.Identity.Name).Club.Id;
+            int clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
 
             var player = _playerServices.AddPlayer(playerViewModel, clubId);
             if (player.Id > 0)

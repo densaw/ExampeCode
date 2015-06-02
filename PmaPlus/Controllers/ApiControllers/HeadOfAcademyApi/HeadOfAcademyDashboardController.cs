@@ -4,37 +4,35 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Microsoft.OData.Edm.Library;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.DashboardContent;
 using PmaPlus.Services;
 
-namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
+namespace PmaPlus.Controllers.ApiControllers.HeadOfAcademyApi
 {
-    public class ClubAdminDashboardController : ApiController
+    public class HeadOfAcademyDashboardController : ApiController
     {
-        private readonly UserServices _userServices;
+          private readonly UserServices _userServices;
 
-        public ClubAdminDashboardController(UserServices userServices)
+          public HeadOfAcademyDashboardController(UserServices userServices)
         {
             _userServices = userServices;
         }
 
-        [Route("api/ClubAdminDashboard/ClubName")]
+        [Route("api/HeadOfAcademyDashboard/ClubName")]
         public string GetClubName()
         {
-            var clubAdmin = _userServices.GetClubByUserName(User.Identity.Name);
-            if (clubAdmin == null)
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            if (club == null)
             {
                 return "";
             }
-            return clubAdmin.Name;
-
+            return club.Name;
         }
 
 
 
-        [Route("api/ClubAdminDashboard/Players/ScoreGraph")]
+        [Route("api/HeadOfAcademyDashboard/Players/ScoreGraph")]
         public IEnumerable<PlayersScoreGraph> GetPlayersScoreGraphs()
         {
             var temp = new List<PlayersScoreGraph>();
@@ -55,28 +53,22 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         }
 
 
-        [Route("api/ClubAdminDashboard/Players/Attendance/Week")]
+        [Route("api/HeadOfAcademyDashboard/Players/Attendance/Week")]
         public InfoBoxViewModel GetWeekAttendance()
         {
             return null; //TODO: Week attendance players for club
         }
 
-        [Route("api/ClubAdminDashboard/Players/Attendance/Quarter")]
+        [Route("api/HeadOfAcademyDashboard/Players/Attendance/Quarter")]
         public InfoBoxViewModel GetQuarterAttendance()
         {
             return null; //TODO: quarter attendance players for club
         }
 
-        [Route("api/ClubAdminDashboard/Players/Ijuries")]
+        [Route("api/HeadOfAcademyDashboard/Players/Ijuries")]
         public InfoBoxViewModel GetPlayersIjuries()
         {
             return null; //TODO:  players with active injuries for club
         }
-
-
-
-
-
-
     }
 }

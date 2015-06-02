@@ -28,130 +28,130 @@ namespace PmaPlus.Areas.ClubAdmin.Controllers
         // GET: ClubAdmin/Home
         public ActionResult Dashboard()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = club != null ? club.Club.ColorTheme : "#3276b1";
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Alternatives()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Attributes()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult ClubDiary()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult ClubProfile()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Curriculums()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Documents()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult FoodTypes()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Injuries()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult MatchReports()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Players()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Recipes()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Reports()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Scenarios()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult SkillsAndKnowledge()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Statements()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult Teams()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult ToDoList()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         public ActionResult TrainingTeam()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
 
         public ActionResult ProfilePage()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
 
         public ActionResult CurrDetails()
         {
-            var club = _userServices.GetClubAdminByUserName(User.Identity.Name);
-            ViewBag.them = _clubServices.GetClubById(club.Club.Id).ColorTheme;
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
         

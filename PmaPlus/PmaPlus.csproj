@@ -245,7 +245,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\AttributesController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\ClubAdminDashboardController.cs" />
-    <Compile Include="Controllers\ApiControllers\ClubAdminApi\CoacheProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\TeamMemberProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumStatementController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumsController.cs" />
@@ -258,6 +257,7 @@
     <Compile Include="Controllers\ApiControllers\ExerciseNewsController.cs" />
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
     <Compile Include="Controllers\ApiControllers\FilesController.cs" />
+    <Compile Include="Controllers\ApiControllers\HeadOfAcademyApi\HeadOfAcademyDashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionAlternativesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionFoodTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionNewsController.cs" />
@@ -274,6 +274,7 @@
     <Compile Include="Controllers\ApiControllers\Teams\TeamsController.cs" />
     <Compile Include="Controllers\ApiControllers\ToDoController.cs" />
     <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\CoachProfileController.cs" />
+    <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\PhysiotherapistsProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\UserController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
     <Compile Include="Filters\PhotoStreamProvider.cs" />
@@ -2981,10 +2982,22 @@
     <Content Include="Areas\HeadOfAcademy\Views\Shared\_Footer.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\ClubDiary.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Curriculums.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Statements.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\ToDoList.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Teams.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Scenarios.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\SkillsAndKnowledge.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Injuries.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Documents.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Reports.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\BlockReports.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Nutrition.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Alternatives.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Food_Types.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Recipes.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Profile.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\TalentIndefication.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
