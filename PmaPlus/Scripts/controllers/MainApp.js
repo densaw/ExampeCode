@@ -54,7 +54,7 @@
               header: '@head',
               orderField: '@order'
             },
-            template: '<p ng-click="order(orderField)">{{header}}</p>'/* + '<i class="fa fa-cog"></i>'*/,
+            template: '<p ng-click="order(orderField)" style="cursor: pointer;">{{header}}</p>'/* + '<i class="fa fa-cog"></i>'*/,
             controller: 'orderFieldsController'
         }
     }]);
