@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="wrapper wrapper-content" ng-controller="ClubProfileController">
+<div class="wrapper wrapper-content" ng-controller="ClubProfileController" ng-cloak>
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
@@ -38,7 +38,7 @@
                             </div>
                         </div>
 
-                       
+
                         <div class="form-group">
                             <label class="col-lg-4 title-modal">Club Status:</label>
                             <div class="col-lg-7 pull-right">
@@ -64,7 +64,7 @@
                                 <input name="adminPassword" ng-model="newClub.clubAdminPassword" required class="form-control">
                             </div>
                         </div>
-                       
+
                         <div class="form-group" ng-class="{'has-error':myform.established.$invalid && (myform.established.$dirty||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Established:</label>
                             <div class="col-lg-7 pull-right">
@@ -138,7 +138,7 @@
                         </button>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 

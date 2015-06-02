@@ -4,7 +4,7 @@
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div ng-controller="TrainingTeamController">
+<div ng-controller="TrainingTeamController" ng-cloak>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
             <h2>Training Team</h2>
@@ -204,33 +204,33 @@
         <div class="row">
             <div class="col-lg-4" ng-repeat="item in items">
                 <div class="contact-box " onmouseenter="inside(this)" onmouseleave="out(this)">
-                    
-                        <div class="col-sm-4">
-                            <div class="text-center">
-                                <div style="width: 67px; height: 67px; position: relative; overflow: hidden;" class="img-circle">
-                                    <img alt="image" class="prifile" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent/>
-                                    </div>
-                                    <div class="m-t-xs font-bold">{{roles[item.role].name}}</div>
-                                </div>
+
+                    <div class="col-sm-4">
+                        <div class="text-center">
+                            <div style="width: 67px; height: 67px; position: relative; overflow: hidden;" class="img-circle">
+                                <img alt="image" class="prifile" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent />
+                            </div>
+                            <div class="m-t-xs font-bold">{{roles[item.role].name}}</div>
                         </div>
-                        <div class="col-sm-8">
-                            <h3>
-                                <strong>{{item.name}}</strong>
-                            </h3>
-                            <p>
-                                <i class="fa fa-map-marker"></i> {{item.townCity}}
-                            </p>
-                            <address>
-                                {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}}<br>
-                                {{item.mobile}} <br />
-                                <span style="font-size: 10px">CRB\DBS Expiry: {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}</span><br>
-                                <span style="font-size: 10px">First Aid Expiry: {{item.firstAidExpiry | date:'dd.MM.yyyy'}}</span><br>
-                                Last Login: <strong>{{item.lastLogin | date:'dd.MM.yyyy'}}</strong>                                
-                            </address>
-                            <a><i class="fa fa-cog" style="float:right" ng-click="edit(item.id)"></i></a>
-                        </div>
-                        <div class="clearfix"></div>
-                    
+                    </div>
+                    <div class="col-sm-8">
+                        <h3>
+                            <strong>{{item.name}}</strong>
+                        </h3>
+                        <p>
+                            <i class="fa fa-map-marker"></i> {{item.townCity}}
+                        </p>
+                        <address>
+                            {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}}<br>
+                            {{item.mobile}} <br />
+                            <span style="font-size: 10px">CRB\DBS Expiry: {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}</span><br>
+                            <span style="font-size: 10px">First Aid Expiry: {{item.firstAidExpiry | date:'dd.MM.yyyy'}}</span><br>
+                            Last Login: <strong>{{item.lastLogin | date:'dd.MM.yyyy'}}</strong>
+                        </address>
+                        <a><i class="fa fa-cog" style="float:right" ng-click="edit(item.id)"></i></a>
+                    </div>
+                    <div class="clearfix"></div>
+
                 </div>
             </div>
         </div>

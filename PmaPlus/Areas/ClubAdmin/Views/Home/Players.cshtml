@@ -3,7 +3,7 @@
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div ng-controller="ClubPlayerController">
+<div ng-controller="ClubPlayerController" ng-cloak>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
             <h2>Club Players</h2>
@@ -377,14 +377,14 @@
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="player in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td >
+                                        <td>
                                             <div style="width: 100px; height: 100px; position: relative; overflow: hidden;" class="img-circle pull-left">
                                                 <img class="prifile" ng-src="/api/File/playerProfilePicture/{{player.profilePicture}}/{{player.id}}" style-parent />
                                             </div>
                                         </td>
 
-                                        <td >{{player.name}}</td>
-                                        <td >
+                                        <td>{{player.name}}</td>
+                                        <td>
                                             <div ng-repeat="team in player.teams">{{team}} </div>
                                         </td>
                                         <td>{{player.age}}</td>

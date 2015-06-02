@@ -210,6 +210,8 @@
   <ItemGroup>
     <Compile Include="Areas\ClubAdmin\ClubAdminAreaRegistration.cs" />
     <Compile Include="Areas\ClubAdmin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\HeadOfAcademy\Controllers\HomeController.cs" />
+    <Compile Include="Areas\HeadOfAcademy\HeadOfAcademyAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -2970,6 +2972,19 @@
     <Content Include="fonts\OpenSans-Semibold.woff" />
     <Content Include="Areas\SysAdmin\Views\Home\Exercise.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\NutritionNews.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\web.config" />
+    <Content Include="Areas\HeadOfAcademy\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Dashboard.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Shared\_TopNavbar.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Shared\_Navigation.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\ClubDiary.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\ToDoList.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Teams.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Scenarios.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\SkillsAndKnowledge.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3547,6 +3562,7 @@
     <Folder Include="App_Data\FileStorage\DefaultPics\" />
     <Folder Include="App_Data\FileStorage\temp\" />
     <Folder Include="Areas\ClubAdmin\Models\" />
+    <Folder Include="Areas\HeadOfAcademy\Models\" />
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
     <Folder Include="Images\Clubs\" />
