@@ -2996,6 +2996,7 @@
     <Content Include="Areas\HeadOfAcademy\Views\Home\Alternatives.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Food_Types.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Recipes.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Profile.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />

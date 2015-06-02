@@ -63,7 +63,9 @@
 
                 </ul>
             </li>
-            
+            <li class="@Html.IsSelected(controller: "Home", action: "Profile")">
+                <a href="@Url.Action("Profile", "Home", new {area = "HeadOfAcademy"})"><i class="fa fa-cogs"></i> <span class="nav-label">Profile</span></a>
+            </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Reports")">
                 <a href="@Url.Action("Reports", "Home", new {area = "HeadOfAcademy"})"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Reports</span></a>
             </li>
