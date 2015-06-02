@@ -107,10 +107,10 @@
             <div class="wrapper wrapper-content animated fadeInUp">
                 <ul class="notes">
                     <li ng-repeat="item in items">
-                        <div>
-                            <small ng-cloak>{{item.completionDateTime | date:'dd/MM/yyyy - HH:mm'}}</small>
-                            <h4 ng-cloak>{{item.title}}</h4>
-                            <p ng-cloak>{{item.note}}</p>
+                        <div ng-cloak>
+                            <small>{{item.completionDateTime | date:'dd/MM/yyyy - HH:mm'}}</small>
+                            <h4>{{item.title}}</h4>
+                            <p>{{item.note}}</p>
                             <a href="#"><i class="fa fa-trash-o" ng-click="showDelete(item.id)"></i> &nbsp;<i class="fa fa-cog" ng-click="update(item)"></i></a>
                         </div>
                     </li>
