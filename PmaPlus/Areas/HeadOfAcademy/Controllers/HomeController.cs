@@ -91,5 +91,10 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
 
             return View();
         }
+        public ActionResult TalentIndefication()
+        {
+
+            return View();
+        }
     }
 }
