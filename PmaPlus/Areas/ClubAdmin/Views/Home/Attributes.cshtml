@@ -4,7 +4,7 @@
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div ng-controller="AttributesController">
+<div ng-controller="AttributesController" ng-cloak>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
             <h2>Attributes</h2>
@@ -158,27 +158,27 @@
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
-                                <tr>
-                                    <th>Attribute Name</th>
-                                    <th>Type</th>
-                                    <th>From (age)</th>
-                                    <th>To (age)</th>
-                                    <th>Max Score</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>Attribute Name</th>
+                                        <th>Type</th>
+                                        <th>From (age)</th>
+                                        <th>To (age)</th>
+                                        <th>Max Score</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="contentTable">
-                                <tr dir-paginate="attribute in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                    <td>{{attribute.name}}</td>
-                                    <td>{{attrTypes[attribute.type].name}}</td>
-                                    <td>{{attribute.ageFrom}}</td>
-                                    <td>{{attribute.ageTo}}</td>
-                                    <td>{{attribute.maxScore}}</td>
-                                    <td>
-                                        <i ng-click="openEdit(attribute.id)" class="fa fa-cog" style="cursor: pointer;"></i>
-                                        <i ng-click="openDelete(attribute.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                    </td>
-                                </tr>
+                                    <tr dir-paginate="attribute in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                        <td>{{attribute.name}}</td>
+                                        <td>{{attrTypes[attribute.type].name}}</td>
+                                        <td>{{attribute.ageFrom}}</td>
+                                        <td>{{attribute.ageTo}}</td>
+                                        <td>{{attribute.maxScore}}</td>
+                                        <td>
+                                            <i ng-click="openEdit(attribute.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                            <i ng-click="openDelete(attribute.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>

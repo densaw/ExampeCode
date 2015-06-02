@@ -4,7 +4,7 @@
     Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div ng-controller="ScenariosController">
+<div ng-controller="ScenariosController" ng-cloak>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
             <h2>Scenarios</h2>
@@ -240,13 +240,13 @@
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
-                                <tr>
-                                    <th>Uploaded By</th>
-                                    <th>Scenario Name</th>
-                                    <th>Type</th>
-                                    <th>Age Range</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>Uploaded By</th>
+                                        <th>Scenario Name</th>
+                                        <th>Type</th>
+                                        <th>Age Range</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="scenario in scenarios | filter:q | itemsPerPage: scenariosPerPage" total-items="totalScenarios">
