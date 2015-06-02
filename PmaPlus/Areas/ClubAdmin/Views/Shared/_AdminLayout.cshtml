@@ -268,7 +268,7 @@
 </style>
 
 </head>
-<body id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1  {{expanded | nav: '':'mini-navbar'}}">
+<body ng-cloak id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1  {{expanded | nav: '':'mini-navbar'}}">
     <!-- PageClass give you ability to specify custom style for specific view based on action -->
     <toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
     <div id="wrapper" class="@Html.PageClass()">
@@ -295,7 +295,7 @@
     @Scripts.Render("~/bundles/ClubAdminCtr")
     @Scripts.Render("~/plugins/dataTables")
     @Scripts.Render("~/plugins/fileinput")
-    
+
 
 
     <!-- Handler for local scripts -->
@@ -345,7 +345,7 @@
         $(document).ready(function () {
 
 
-           
+
 
 
             toastr.options = {
@@ -366,6 +366,7 @@
         });
     </script>
 </body>
+
 </html>
 
 <script>
