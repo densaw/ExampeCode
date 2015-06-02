@@ -158,6 +158,7 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', '$filter',
 
     var needToDelete = -1;
     var urlTail = '/api/Attributes';
+    var sortArray = [];
 
     $scope.attrTypes = [
        { id: 0, name: 'Yes/No' },
@@ -171,8 +172,16 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', '$filter',
         $scope.opened = true;
     };
 
+    function createTail(pageNumber){
+        if(sortArray.length > 0){
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+        }else{
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+        }
+    }
+
     function getResultsPage(pageNumber) {
-        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+        $http.get(createTail(pageNumber))
             .success(function (result) {
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
@@ -185,9 +194,8 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', '$filter',
     $scope.newAttr = {};
 
     $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
-        console.log('Root');
-        console.log(newValue);
-        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + $scope.pagination.current + '/' + newValue[0] + '/' + newValue[1])
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
             .success(function (result) {
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
@@ -302,8 +310,7 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
 
 
 }]);
-app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$filter', function ($scope, $http, toaster, $q, $filter) {
-
+app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$filter', '$rootScope', function ($scope, $http, toaster, $q, $filter, $rootScope) {
 
     function getResultsPage() {
         $http.get(urlTail)
@@ -900,20 +907,39 @@ app.controller('ClubDiaryController', [
 
     }]);
 
-app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location', function ($scope, $http, toaster, $location) {
+app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location', '$rootScope', function ($scope, $http, toaster, $location, $rootScope) {
 
     $scope.modalTitle = "Add a Skill";
 
     var needToDelete = -1;
     var urlTail = '/api/SkillVideos';
+    var sortArray = [];
 
     function getResultsPage(pageNumber) {
-        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+        $http.get(createTail(pageNumber))
             .success(function (result) {
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
     }
+
+    function createTail(pageNumber){
+        if(sortArray.length > 0){
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+        }else{
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+        }
+    }
+
+    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    });  
+
 
     $scope.items = [];
     $scope.totalItems = 0;
@@ -1177,7 +1203,7 @@ app.controller('ProfilePageController', ['$scope', '$http', 'toaster', '$q', '$r
     ];
 }]);
 
-app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function ($scope, $http, toaster, $q, $routeParams, $location) {
+app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
 
     //Variable section
     var needToDelete = -1;
@@ -1187,6 +1213,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     var inpSessions = angular.element('#inpSessions');
     var inpWeeks = angular.element('#inpWeeks');
     var inpBlocks = angular.element('#inpBlocks');
+    var sortArray = [];
 
     $scope.inpSessions = false;
     $scope.inpWeeks = false;
@@ -1234,14 +1261,31 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     }
     getClubName();
 
+    function createTail(pageNumber){
+        if(sortArray.length > 0){
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+        }else{
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+        }
+    }
+
     function getResultsPage(pageNumber) {
-        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+        $http.get(createTail(pageNumber))
             .success(function (result) {
                 console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
     }
+
+    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    });    
 
     $scope.items = [];
     $scope.totalItems = 0;
@@ -1336,10 +1380,11 @@ app.controller('StController', ['$scope', '$http', 'toaster', '$q', '$routeParam
 
 }]);
 
-app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$filter', function ($scope, $http, toaster, $q, $routeParams, $location, $filter) {
+app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$filter', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $filter, $rootScope) {
 
     var needToDelete = -1;
     var urlTail = '/api/Player';
+    var sortArray = [];
 
 
     function shuffle(objArr) {
@@ -1402,14 +1447,31 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         $scope.opened = true;
     };
 
+    function createTail(pageNumber){
+        if(sortArray.length > 0){
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+        }else{
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+        }
+    }
+
     function getResultsPage(pageNumber) {
-        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+        $http.get(createTail(pageNumber))
             .success(function (result) {
                 console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
     }
+
+    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    });    
 
     $scope.items = [];
     $scope.totalItems = 0;
@@ -1567,11 +1629,12 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
 }]);
 
 
-app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function ($scope, $http, toaster, $q, $routeParams, $location) {
+app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
     var needToDelete = -1;
     var urlTail = '/api/Teams';
     var target = angular.element('#addTeamModal');
     var deleteModal = angular.element('#confDelete');
+    var sortArray = [];
 
     $scope.isEditing = false;
     $scope.newTeam = {};
@@ -1621,14 +1684,31 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
         });
     }
 
+    function createTail(pageNumber){
+        if(sortArray.length > 0){
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+        }else{
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+        }
+    }
+
     function getResultsPage(pageNumber) {
-        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+        $http.get(createTail(pageNumber))
             .success(function (result) {
                 console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
     }
+
+    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    });  
 
     function getCurrType() {
         $http.get('/api/Curriculums/List').success(function (result) {
@@ -1740,13 +1820,13 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     }
 }]);
 
-app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$filter', function ($scope, $http, toaster, $q, $routeParams, $location, $filter) {
+app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$filter', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $filter, $rootScope) {
 
     var needToDelete = -1;
     var urlTail = '/api/CurriculumStatement';
     var target = angular.element('#addStateModal');
     var deleteModal = angular.element('#confDelete');
-
+    var sortArray = [];
 
     $scope.help = {};
     $scope.help.usersType = [];
@@ -1793,14 +1873,31 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
         return objs;
     }
 
+    function createTail(pageNumber){
+        if(sortArray.length > 0){
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+        }else{
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+        }
+    }
+
     function getResultsPage(pageNumber) {
-        $http.get(urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber)
+        $http.get(createTail(pageNumber))
             .success(function (result) {
                 console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
     }
+
+    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    });   
 
     $scope.items = [];
     $scope.totalItems = 0;
@@ -1813,17 +1910,6 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
 
     getResultsPage($scope.pagination.current);
 
-    $scope.order = function (field) {
-        console.log(field);
-        if ($scope.revers) {
-            $scope.revers = false;
-            $scope.items = $filter('orderBy')($scope.items, field, true);
-        } else {
-            $scope.revers = true;
-            $scope.items = $filter('orderBy')($scope.items, field);
-        }
-
-    }
 
     $scope.pageChanged = function (newPage) {
         getResultsPage(newPage);
@@ -1895,11 +1981,12 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
 
 }]);
 
-app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function ($scope, $http, toaster, $q, $routeParams, $location) {
+app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
     $scope.scenarios = [];
+    var sortArray = [];
 
     var needToDelete = -1;
     var urlTail = '/api/Sessions';
@@ -1965,14 +2052,31 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
         });
     }
 
+    function createTail(pageNumber){
+        if(sortArray.length > 0){
+            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+        }else{
+            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber;
+        }
+    }
+
     function getResultsPage(pageNumber) {
-        $http.get(urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber)
+        $http.get(createTail(pageNumber))
             .success(function (result) {
                 console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
     }
+
+    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    }); 
 
     $scope.items = [];
     $scope.totalItems = 0;

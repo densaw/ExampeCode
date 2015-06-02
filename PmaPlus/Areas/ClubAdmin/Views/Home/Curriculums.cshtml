@@ -71,12 +71,12 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                        <button ng-click="ok(newCurr.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
-                                            <span class="ladda-label" style="font-size: 14px;">Save changes</span>
-                                        </button>
-                                    </div>
+                                        <div class="modal-footer">
+                                            <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                            <button ng-click="ok(newCurr.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                                                <span class="ladda-label" style="font-size: 14px;">Save changes</span>
+                                            </button>
+                                        </div>                                    
                                 </div>
                             </div>
                         </div>
@@ -187,13 +187,13 @@
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>Curriculum Name</th>
-                                        <th>Age</th>
-                                        <th>Sessions</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
+                                <tr>
+                                    <th order-header head="Curriculum Name" order="name">Curriculum Name</th>
+                                    <th order-header head="Age" order="ageGroup">Age</th>
+                                    <th order-header head="Sessions" order="sessionsCount">Sessions</th>
+                                    <th order-header head="Status" order="isLive">Status</th>
+                                    <th>Action</th>
+                                </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="curr in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
