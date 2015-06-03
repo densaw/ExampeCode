@@ -33,9 +33,9 @@ namespace PmaPlus.Controllers.ApiControllers.HeadOfAcademyApi
 
 
         [Route("api/HeadOfAcademyDashboard/Players/ScoreGraph")]
-        public IEnumerable<PlayersScoreGraph> GetPlayersScoreGraphs()
+        public IEnumerable<GraphBoxViewModel> GetPlayersScoreGraphs()
         {
-            var temp = new List<PlayersScoreGraph>();
+            var temp = new List<GraphBoxViewModel>();
 
             var today = DateTime.Now.Month;
 
@@ -45,7 +45,7 @@ namespace PmaPlus.Controllers.ApiControllers.HeadOfAcademyApi
                 {
                     today = 1;
                 }
-                temp.Add(new PlayersScoreGraph(){Month = today,PlayersScore = 0});
+                temp.Add(new GraphBoxViewModel(){Month = today,PlayersScore = 0});
                 today++;
             }
 
