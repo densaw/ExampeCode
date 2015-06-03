@@ -84,7 +84,7 @@ app.config(routing);
 
 
 app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
-    
+
     var monthNames = ['Jan',
            'Feb',
            'Mar',
@@ -97,58 +97,58 @@ app.controller('ClubAdminDashboardController', ['$scope', '$http', 'toaster', fu
            'Oct',
            'Nov',
            'Dec'];
-  
+
     var hexClub = "";
 
     $http.get('/api/clubs/color').success(function (data) {
         hexClub = data;
 
 
-    $http.get('/api/ClubAdminDashboard/Players/ScoreGraph').success(function (data) {
+        $http.get('/api/ClubAdminDashboard/Players/ScoreGraph').success(function (data) {
 
-        var monthArray = new Array;
-        var playerCountArray = new Array;
-        data.forEach(function (val) {
-            monthArray.push(monthNames[val.month - 1]);
-            playerCountArray.push(val.activePlayers);
-        });
+            var monthArray = new Array;
+            var playerCountArray = new Array;
+            data.forEach(function (val) {
+                monthArray.push(monthNames[val.month - 1]);
+                playerCountArray.push(val.activePlayers);
+            });
 
 
             var clubRgb = hexToRgb(hexClub);
 
-        $scope.data = {
-            labels: monthArray,
-            datasets: [
-                {
-                    label: "Example dataset",
+            $scope.data = {
+                labels: monthArray,
+                datasets: [
+                    {
+                        label: "Example dataset",
                         fillColor: "rgba(" + clubRgb.r + "," + clubRgb.g + "," + clubRgb.b + ",0.5)",
                         strokeColor: hexClub,
                         pointColor: hexClub,
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
                         pointHighlightStroke: hexClub,
-                    data: playerCountArray
-                }
-               
-            ]
-        };
+                        data: playerCountArray
+                    }
 
-        $scope.options = {
-            scaleShowGridLines: true,
-            scaleGridLineColor: "rgba(0,0,0,.05)",
-            scaleGridLineWidth: 1,
-            bezierCurve: true,
-            bezierCurveTension: 0.4,
-            pointDot: true,
-            pointDotRadius: 4,
-            pointDotStrokeWidth: 1,
-            pointHitDetectionRadius: 20,
-            datasetStroke: true,
-            datasetStrokeWidth: 2,
-            datasetFill: true,
-            responsive: true
-        };
-    });
+                ]
+            };
+
+            $scope.options = {
+                scaleShowGridLines: true,
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineWidth: 1,
+                bezierCurve: true,
+                bezierCurveTension: 0.4,
+                pointDot: true,
+                pointDotRadius: 4,
+                pointDotStrokeWidth: 1,
+                pointHitDetectionRadius: 20,
+                datasetStroke: true,
+                datasetStrokeWidth: 2,
+                datasetFill: true,
+                responsive: true
+            };
+        });
 
 
     });
@@ -172,10 +172,10 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', '$filter',
         $scope.opened = true;
     };
 
-    function createTail(pageNumber){
-        if(sortArray.length > 0){
+    function createTail(pageNumber) {
+        if (sortArray.length > 0) {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
-        }else{
+        } else {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
         }
     }
@@ -193,14 +193,14 @@ app.controller('AttributesController', ['$scope', '$http', 'toaster', '$filter',
     $scope.itemsPerPage = 20;
     $scope.newAttr = {};
 
-    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
         sortArray = newValue;
         $http.get(createTail($scope.pagination.current))
             .success(function (result) {
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
-    });    
+    });
 
     $scope.pagination = {
         current: 1
@@ -366,7 +366,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
             getResultsPage();
         });
         target.modal('hide');
-    }   
+    }
 
 
     $scope.parserJ = function (roleId, userId) {
@@ -389,7 +389,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
 
     $scope.send = function (id) {
         $scope.loginLoading = true;
-
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
         //Files upload
 
         var promises = [];
@@ -419,7 +419,6 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
             $scope.newMember.role = $scope.selectedRole.id;
             $scope.newMember.needReport = needstoReport.prop('checked');
             //$scope.newMember.profilePicture = 'tmp.png';
-            console.log($scope.newMember);
 
             if (id != null) {
 
@@ -435,7 +434,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
                         toaster.pop({
                             type: 'error',
                             title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
+                            body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
                     $scope.loginLoading = false;
@@ -451,13 +450,12 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
                         target.modal('hide');
                         $scope.loginLoading = false;
                     }).error(function (data, status, headers, config) {
-                        console.log(data);
                         if (status == 400) {
                             console.log(data);
                             toaster.pop({
                                 type: 'error',
                                 title: 'Error', bodyOutputType: 'trustedHtml',
-                                body: data.message.join("<br />")
+                                body: 'Please complete the compulsory fields highlighted in red'
                             });
                         }
                         $scope.loginLoading = false;
@@ -784,8 +782,8 @@ app.controller('ClubDiaryController', [
         });
 
         $scope.$watch('newEvent.start', function (newValue, oldValue, scope) {
-            console.log('Data'); 
-            console.log(newValue);   
+            console.log('Data');
+            console.log(newValue);
         });
 
         getactualEv();
@@ -923,22 +921,22 @@ app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location',
             });
     }
 
-    function createTail(pageNumber){
-        if(sortArray.length > 0){
+    function createTail(pageNumber) {
+        if (sortArray.length > 0) {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
-        }else{
+        } else {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
         }
     }
 
-    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
         sortArray = newValue;
         $http.get(createTail($scope.pagination.current))
             .success(function (result) {
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
-    });  
+    });
 
 
     $scope.items = [];
@@ -1109,57 +1107,57 @@ app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', fun
         } else {
 
 
-                $scope.newClub.status = $scope.selectedStatus.id;
-                console.log($scope.newClub);
-                if (id != null) {
-                    $http.put('/api/Clubs/' + id, $scope.newClub)
-                        .success(function () {
-                            getResults('/Current');
+            $scope.newClub.status = $scope.selectedStatus.id;
+            console.log($scope.newClub);
+            if (id != null) {
+                $http.put('/api/Clubs/' + id, $scope.newClub)
+                    .success(function () {
+                        getResults('/Current');
+                        toaster.pop({
+                            type: 'success',
+                            title: 'Success',
+                            bodyOutputType: 'trustedHtml',
+                            body: 'Profile was updated'
+                        });
+                        $scope.loginLoading = false;
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
                             toaster.pop({
-                                type: 'success',
-                                title: 'Success',
+                                type: 'error',
+                                title: 'Error',
                                 bodyOutputType: 'trustedHtml',
-                                body: 'Profile was updated'
+                                body: 'Please complete the compulsory fields highlighted in red'
                             });
                             $scope.loginLoading = false;
-                        }).error(function (data, status, headers, config) {
-                            if (status == 400) {
-                                console.log(data);
-                                toaster.pop({
-                                    type: 'error',
-                                    title: 'Error',
-                                    bodyOutputType: 'trustedHtml',
-                                    body: 'Please complete the compulsory fields highlighted in red'
-                                });
-                                $scope.loginLoading = false;
-                            }
+                        }
+                    });
+
+            } else {
+
+                $http.post('/api/Clubs', $scope.newClub)
+                    .success(function () {
+                        getResults('/Current');
+                        toaster.pop({
+                            type: 'success',
+                            title: 'Success',
+                            bodyOutputType: 'trustedHtml',
+                            body: 'Profile was updated'
                         });
-
-                } else {
-
-                    $http.post('/api/Clubs', $scope.newClub)
-                        .success(function () {
-                            getResults('/Current');
+                        $scope.loginLoading = false;
+                    }).error(function (data, status, headers, config) {
+                        if (status == 400) {
+                            console.log(data);
                             toaster.pop({
-                                type: 'success',
-                                title: 'Success',
+                                type: 'error',
+                                title: 'Error',
                                 bodyOutputType: 'trustedHtml',
-                                body: 'Profile was updated'
+                                body: 'Please complete the compulsory fields highlighted in red'
                             });
                             $scope.loginLoading = false;
-                        }).error(function (data, status, headers, config) {
-                            if (status == 400) {
-                                console.log(data);
-                                toaster.pop({
-                                    type: 'error',
-                                    title: 'Error',
-                                    bodyOutputType: 'trustedHtml',
-                                    body: 'Please complete the compulsory fields highlighted in red'
-                                });
-                                $scope.loginLoading = false;
-                            }
-                        });
-                };
+                        }
+                    });
+            };
         }
 
 
@@ -1261,10 +1259,10 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     }
     getClubName();
 
-    function createTail(pageNumber){
-        if(sortArray.length > 0){
+    function createTail(pageNumber) {
+        if (sortArray.length > 0) {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
-        }else{
+        } else {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
         }
     }
@@ -1278,14 +1276,14 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
             });
     }
 
-    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
         sortArray = newValue;
         $http.get(createTail($scope.pagination.current))
             .success(function (result) {
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
-    });    
+    });
 
     $scope.items = [];
     $scope.totalItems = 0;
@@ -1447,10 +1445,10 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         $scope.opened = true;
     };
 
-    function createTail(pageNumber){
-        if(sortArray.length > 0){
+    function createTail(pageNumber) {
+        if (sortArray.length > 0) {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
-        }else{
+        } else {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
         }
     }
@@ -1464,14 +1462,14 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
             });
     }
 
-    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
         sortArray = newValue;
         $http.get(createTail($scope.pagination.current))
             .success(function (result) {
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
-    });    
+    });
 
     $scope.items = [];
     $scope.totalItems = 0;
@@ -1684,10 +1682,10 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
         });
     }
 
-    function createTail(pageNumber){
-        if(sortArray.length > 0){
+    function createTail(pageNumber) {
+        if (sortArray.length > 0) {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
-        }else{
+        } else {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
         }
     }
@@ -1701,14 +1699,14 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
             });
     }
 
-    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
         sortArray = newValue;
         $http.get(createTail($scope.pagination.current))
             .success(function (result) {
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
-    });  
+    });
 
     function getCurrType() {
         $http.get('/api/Curriculums/List').success(function (result) {
@@ -1873,10 +1871,10 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
         return objs;
     }
 
-    function createTail(pageNumber){
-        if(sortArray.length > 0){
+    function createTail(pageNumber) {
+        if (sortArray.length > 0) {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
-        }else{
+        } else {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
         }
     }
@@ -1890,14 +1888,14 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
             });
     }
 
-    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
         sortArray = newValue;
         $http.get(createTail($scope.pagination.current))
             .success(function (result) {
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
-    });   
+    });
 
     $scope.items = [];
     $scope.totalItems = 0;
@@ -2052,10 +2050,10 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
         });
     }
 
-    function createTail(pageNumber){
-        if(sortArray.length > 0){
+    function createTail(pageNumber) {
+        if (sortArray.length > 0) {
             return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
-        }else{
+        } else {
             return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber;
         }
     }
@@ -2069,14 +2067,14 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
             });
     }
 
-    $rootScope.$watchGroup(['orderField', 'revers'], function(newValue, oldValue, scope) {
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
         sortArray = newValue;
         $http.get(createTail($scope.pagination.current))
             .success(function (result) {
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
-    }); 
+    });
 
     $scope.items = [];
     $scope.totalItems = 0;

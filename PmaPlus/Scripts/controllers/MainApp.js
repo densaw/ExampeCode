@@ -90,7 +90,7 @@
         }
     }]);
 
-    module.controller('MainController', ['$scope', '$cookies', 'toaster', function ($scope, $cookies, toaster) {
+    module.controller('MainController', ['$scope', '$cookies', 'toaster','$http', function ($scope, $cookies, toaster,$http) {
         $scope.showTost = function () {
             toaster.pop({
                 type: 'error',
@@ -104,6 +104,14 @@
             $scope.expanded = !$scope.expanded;
             $cookies.expanded = $scope.expanded;
         }
+
+        $scope.userName = "";
+
+        $http.get("/api/User/Name").success(function(result) {
+            $scope.userName = result;
+        });
+
+
     }]);
 
     module.controller('ChartController', ['$scope', '$http', function ($scope, $http) {
