@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" />
+    @Styles.Render("~/bundles/ladda-css")
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600,800,400' rel='stylesheet' type='text/css'>
+    <link href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.css" rel="stylesheet" />
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet" />
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)
+    }
+    @Scripts.Render("~/bundles/jquery")
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+
+    <!-- Add jQuery Style direct - used for jQGrid plugin -->
+    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/css-light")
+    @Styles.Render("~/Content/main")
+    @Styles.Render("~/multi-select/css")
+    @Styles.Render("~/calendarPicker/css")
+    @Styles.Render("~/plugins/fullCalendarStyles")
+    <link href="@Url.Content("~/Content/plugins/toastr/toastr.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/plugins/toastr/toastr-font-awesome.css")" rel="stylesheet" type="text/css" />
+    <script src="http://code.angularjs.org/1.3.9/angular.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.9/angular-route.min.js"></script>
+    <script src="https://code.angularjs.org/1.3.9/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-sanitize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-cookies.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.js"></script>
+    @Scripts.Render("~/texeditor/js")
+    @Scripts.Render("~/plugins/angular-file")
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
+
+    @Scripts.Render("~/plugins/ngChartJs")
+    @Scripts.Render("~/plugins/chartJs")
+    <script src="http://omnipotent.net/jquery.sparkline/2.1.2/jquery.sparkline.min.js"></script>
+    @Scripts.Render("~/plugins/spark")
+    @Scripts.Render("~/plugins/pagination")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/toastr")
+    @Scripts.Render("~/plugins/ui-bootstrap")
+    @Scripts.Render("~/plugins/jquery-mask")
+    @Scripts.Render("~/multi-select/js")
+    @Scripts.Render("~/moments/js")
+    @Scripts.Render("~/calendarPicker/js")
+    @Scripts.Render("~/dateTimeInput/js")
+    @Scripts.Render("~/calendar/js")
+    @Scripts.Render("~/plugins/fullCalendar")
+    @Scripts.Render("~/bundles/inspinia")
+    @Scripts.Render("~/bundles/ladda-js-spin")
+    @Scripts.Render("~/bundles/ladda-js-core")
+    @Scripts.Render("~/bundles/ladda-js")
+    
+
+    <style>
+
+
+        .btn-success {
+            background-color: @ViewBag.them;
+            border-color: @ViewBag.them;
+        }
+        .btn-success:hover {
+            background-color: @ViewBag.them;
+            border-color: @ViewBag.them;
+        }
+        .external-event {
+            background-color:@ViewBag.them; 
+        }
+        .pace .pace-progress {
+            background: @ViewBag.them;
+        }
+        .btn-primary {
+            background-image: -webkit-linear-gradient(top, @ViewBag.them 0%, @ViewBag.them 100%);
+            background-image:      -o-linear-gradient(top, @ViewBag.them 0%, @ViewBag.them 100%);
+            background-image: -webkit-gradient(linear, left top, left bottom, from(@ViewBag.them), to(@ViewBag.them));
+            background-image:         linear-gradient(to bottom, @ViewBag.them 0%, @ViewBag.them 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@ViewBag.them', endColorstr='@ViewBag.them', GradientType=0);
+            filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+            background-repeat: repeat-x;
+            border-color: @ViewBag.them;
+        }
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: @ViewBag.them;
+            background-position: 0 -15px;
+        }
+        .btn-primary:active,
+        .btn-primary.active {
+            background-color: @ViewBag.them;
+            border-color: @ViewBag.them;
+        }
+        .btn-primary:disabled,
+        .btn-primary[disabled] {
+            background-color: @ViewBag.them;
+            background-image: none;
+        }
+        .fc-state-active {
+            background-color: @ViewBag.them;
+            border-color: @ViewBag.them;
+            color: #ffffff;
+        }
+
+        /*
+     *
+     *   SKIN 1 - INSPINIA - Responsive Admin Theme
+     *   NAME - Blue light
+     *
+    */
+        .skin-1 .minimalize-styl-2 {
+            margin: 14px 5px 5px 30px;
+        }
+        .skin-1 .navbar-top-links li:last-child {
+            margin-right: 30px;
+        }
+        .skin-1.fixed-nav .minimalize-styl-2 {
+            margin: 14px 5px 5px 15px;
+        }
+        .skin-1 .spin-icon {
+            background: @ViewBag.them !important;
+        }
+        .skin-1 .nav-header {
+
+            background: @ViewBag.them;
+            background: url('/api/Clubs/background');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+        .skin-1.mini-navbar .nav-second-level {
+            background: #e0e0e0;
+        }
+        .skin-1 .breadcrumb {
+            background: transparent;
+        }
+        .skin-1 .page-heading {
+            border: none;
+        }
+        .skin-1 .nav > li.active {
+            border-left: 4px solid @ViewBag.them;
+            background: #e0e0e0;
+        }
+        .skin-1 .nav > li > a {
+            color: #888888;
+        }
+        .skin-1 .nav > li.active > a {
+            color: #586b7d;
+        }
+        .skin-1 .navbar-minimalize {
+            background: @ViewBag.them;
+            border-color: @ViewBag.them;
+        }
+       
+
+        body.skin-1 {
+            background: #ededed;
+        }
+        .skin-1 .navbar-static-top {
+            background: #ffffff;
+        }
+        .skin-1 .dashboard-header {
+            background: transparent;
+            border-bottom: none !important;
+            border-top: none;
+            padding: 20px 30px 10px 30px;
+        }
+        .fixed-nav.skin-1 .navbar-fixed-top {
+            background: #fff;
+        }
+        .skin-1 .wrapper-content {
+            padding: 30px 15px;
+        }
+        .skin-1 #page-wrapper {
+            background: #f4f6fa;
+        }
+        .skin-1 .ibox-title,
+        .skin-1 .ibox-content {
+            border-width: 1px;
+        }
+        .skin-1 .ibox-content:last-child {
+            border-style: solid solid solid solid;
+        }
+
+        .skin-1 .nav-header {
+            padding: 10px 25px 10px 25px;
+        
+        }
+        .skin-1 .nav-header a.dropdown-toggle {
+            color: #fff;
+            margin-top: 10px;
+        }
+        .skin-1 .nav-header a.dropdown-toggle .text-muted {
+            color: #fff;
+            opacity: 0.8;
+        }
+        .skin-1 .profile-element {
+            text-align: center;
+        }
+        .skin-1 .img-circle {
+            border-radius: 5px;
+            max-height: 130px;
+        }
+        .skin-1 .navbar-default .nav > li > a:hover,
+        .skin-1 .navbar-default .nav > li > a:focus {
+            background: #e0e0e0;
+            color: #213a53;
+        }
+        .skin-1 .nav.nav-tabs > li.active > a {
+            color: #555;
+        }
+        .skin-1 .nav.nav-tabs > li.active {
+            background: transparent;
+        }
+        .fc-event {
+            border: 1px solid @ViewBag.them;
+            background-color: @ViewBag.them;
+        }
+    </style>
+<style>
+    body {
+          font-family: 'Open Sans', sans-serif;
+          background-color: #2f4050;
+          font-size: 13px;
+          color: #676a6c;
+          overflow-x: hidden;
+        }
+    .ta-hidden-input {
+        display: none;
+    }
+
+    .skin-1 .nav-header {
+        height: 156px;
+    }
+
+    body.mini-navbar .nav-header{
+        height: 61px;
+    }
+
+    .skin-1 .img-circle{
+        margin: 0 auto;
+    }
+
+    .ibox-content{
+        padding: 10px 10px 10px 10px;
+    }
+
+    .m-l-xs{
+        margin-bottom: 5px;
+    } 
+
+    .fa.pull-right{
+        margin-top: 5px;
+        margin-right: 3px;
+    }
+
+</style>
+
+</head>
+<body ng-cloak id="bodyMain" ng-app="MainApp" ng-controller="MainController" class="skin-1  {{expanded | nav: '':'mini-navbar'}}">
+    <!-- PageClass give you ability to specify custom style for specific view based on action -->
+    <toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
+    <div id="wrapper" class="@Html.PageClass()">
+        <!-- Navigation -->
+        @Html.Partial("_Navigation")
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass @Html.IsSelectedSide(controller: "Home", action: "Dashboard")">
+            <!-- Top Navbar -->
+            @Html.Partial("_TopNavbar")
+            <!-- Main view -->
+            @RenderBody()
+            <!-- Footer -->
+            @Html.Partial("_Footer")
+        </div>
+        <!-- End page wrapper-->
+    </div>
+    <!-- End wrapper-->
+    <!-- Section for main scripts render -->
+    @*Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+    @Scripts.Render("~/bundles/jquery-session")
+    @Scripts.Render("~/bundles/SysAdminCtr")
+    @Scripts.Render("~/bundles/ClubAdminCtr")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/fileinput")
+
+
+
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
+    <style>
+        .sidebar-content .wrapper,
+        .wrapper.sidebar-content {
+            padding-right: 300px !important;
+        }
+
+        .sidebard-panel {
+            width: 250px;
+            background: #ebebed;
+            padding: 10px 10px;
+            position: absolute;
+            right: 0;
+        }
+
+        .title-modal {
+            font-family: 'Open Sans';
+            font-size: 12px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            line-height: 12px;
+        }
+
+        .container-canter {
+            display: table;
+            width: 100%;
+            height: 100%; /* For at least Firefox */
+            min-height: 100%;
+        }
+
+        .inner-container-center {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .skin-1 .navbar-top-links li:last-child a:hover {
+            background-color: #f4f6fa !important;
+            color: #333333;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+
+
+
+
+
+            toastr.options = {
+                closeButton: true,
+                debug: false,
+                progressBar: false,
+                positionClass: "toast-top-full-width",
+                onclick: null,
+                showDuration: 400,
+                hideDuration: 1000,
+                timeOut: 7000,
+                extendedTimeOut: 1000,
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut"
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+<script>
+    var idleTime = 0;
+    $(document).ready(function () {
+        var idleInterval = setInterval(timerIncrement, 60000);
+        $(this).mousemove(function (e) {
+            idleTime = 0;
+        });
+        $(this).keypress(function (e) {
+            idleTime = 0;
+        });
+    });
+
+    function timerIncrement() {
+        idleTime = idleTime + 1;
+        if (idleTime > 9)
+            window.location.replace('@Url.Action("LockScreen", "Account", new {area = ""})');
+
+    }
+</script>

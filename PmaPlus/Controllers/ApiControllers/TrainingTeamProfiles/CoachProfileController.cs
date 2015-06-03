@@ -30,13 +30,13 @@ namespace PmaPlus.Controllers.ApiControllers.TrainingTeamProfiles
 
 
         [Route("api/TrainingTeam/Coach/MatchFormGraph")]
-        public IEnumerable<PlayersScoreGraph> GetMatchFormGraph()
+        public IEnumerable<GraphBoxViewModel> GetMatchFormGraph()
         {
-            var temp = new List<PlayersScoreGraph>();
+            var temp = new List<GraphBoxViewModel>();
 
             for (int i = 0; i < 11; i++)
             {
-                temp.Add(new PlayersScoreGraph() { Month = i, PlayersScore = 0 });
+                temp.Add(new GraphBoxViewModel() { Month = i, PlayersScore = 0 });
             }
 
             return temp; //TODO: Players score graph

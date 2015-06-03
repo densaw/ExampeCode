@@ -19,7 +19,7 @@
                 </div>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Dashboard")">
-                <a href="@Url.Action("Dashboard", "Home", new {area = "HeadOfAcademy"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
+                <a href="@Url.Action("Dashboard", "Home", new {area = "Coach"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
 
             </li>
             
@@ -31,7 +31,7 @@
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "ClubDiary")">
-                <a href="@Url.Action("ClubDiary", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-calendar"></i> <span class="nav-label">Club Diary</span></a>
+                <a href="@Url.Action("ClubDiary", "Home", new { area = "Coach" })"><i class="fa fa-calendar"></i> <span class="nav-label">Club Diary</span></a>
             </li>
             <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] { "Curriculums", "Statements" })">
                 <a href="@Url.Action("Curriculums", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Curriculums</span><span class="fa arrow"></span></a>
@@ -42,7 +42,7 @@
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Documents")">
-                <a href="@Url.Action("Documents", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-file-text-o"></i> <span class="nav-label">Documents</span></a>
+                <a href="@Url.Action("Documents", "Home", new { area = "Coach" })"><i class="fa fa-file-text-o"></i> <span class="nav-label">Documents</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Injuries")">
                 <a href="@Url.Action("Injuries", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-medkit"></i> <span class="nav-label">Injuries</span></a>
@@ -54,12 +54,12 @@
                 <a href="@Url.Action("Player_Reviews", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-dashboard"></i> <span class="nav-label">Player Reviews</span></a>
             </li>
             <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] {"Health & Fitness", "Nutrition", "Fitness", "Tracker", "Wellbeing" })">
-                <a href="@Url.Action("Health & Fitness", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-heart-o"></i> <span class="nav-label">Health & Fitness</span><span class="fa arrow"></span></a>
+                <a href="@Url.Action("Health & Fitness", "Home", new { area = "Coach" })"><i class="fa fa-heart-o"></i> <span class="nav-label">Health & Fitness</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "Nutrition")"><a href="@Url.Action("Nutrition", "Home", new { area = "HeadOfAcademy" })">Nutrition</a></li>
-                    <li class="@Html.IsSelected(action: "Fitness")"><a href="@Url.Action("Fitness", "Home", new { area = "HeadOfAcademy" })">Fitness</a></li>
-                    <li class="@Html.IsSelected(action: "Tracker")"><a href="@Url.Action("Tracker", "Home", new { area = "HeadOfAcademy" })">Tracker</a></li>
-                    <li class="@Html.IsSelected(action: "Wellbeing")"><a href="@Url.Action("Wellbeing", "Home", new { area = "HeadOfAcademy" })">Wellbeing</a></li>
+                    <li class="@Html.IsSelected(action: "Nutrition")"><a href="@Url.Action("Nutrition", "Home", new { area = "Coach" })">Nutrition</a></li>
+                    <li class="@Html.IsSelected(action: "Fitness")"><a href="@Url.Action("Fitness", "Home", new { area = "Coach" })">Fitness</a></li>
+                    <li class="@Html.IsSelected(action: "Tracker")"><a href="@Url.Action("Tracker", "Home", new { area = "Coach" })">Tracker</a></li>
+                    <li class="@Html.IsSelected(action: "Wellbeing")"><a href="@Url.Action("Wellbeing", "Home", new { area = "Coach" })">Wellbeing</a></li>
 
                 </ul>
             </li>
