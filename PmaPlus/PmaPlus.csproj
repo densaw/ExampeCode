@@ -3021,6 +3021,13 @@
     <Content Include="Areas\Coach\Views\Home\Fitness.cshtml" />
     <Content Include="Areas\Coach\Views\Home\Tracker.cshtml" />
     <Content Include="Areas\Coach\Views\Home\Wellbeing.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\MatchReports.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Profile.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Reports.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Scenarios.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\SkillsAndKnowledge.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\SkillTestRequests.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\SkillVideos.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
