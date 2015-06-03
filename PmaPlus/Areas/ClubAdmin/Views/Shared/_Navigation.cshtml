@@ -15,9 +15,9 @@
 
                 </div>
                 <div class="logo-element">
-                    <img class="img-circle m-t-xs img-responsive" ng-src="/api/Clubs/logo" />
+                    <img class="img-circle m-t-xs img-responsive" ng-src="/api/Clubs/logo" style="max-height: 51px"/>
                 </div>
-            </li>
+
             <li class="@Html.IsSelected(controller: "Home", action: "Dashboard")">
                 <a href="@Url.Action("Dashboard", "Home", new {area = "ClubAdmin"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
 
