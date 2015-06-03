@@ -80,6 +80,7 @@
     <Compile Include="Models\Curriculum.cs" />
     <Compile Include="Models\ExcerciseNew.cs" />
     <Compile Include="Models\NutritionNew.cs" />
+    <Compile Include="Models\PlayerNote.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\CurriculumStatement.cs" />
     <Compile Include="Enums\AgeGroup.cs" />
