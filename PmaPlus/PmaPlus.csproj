@@ -3003,6 +3003,8 @@
     <Content Include="Areas\HeadOfAcademy\Views\Home\TalentIndefication.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Player_Reviews.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\MatchReports.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\TrainingTeam.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Players.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
