@@ -210,6 +210,8 @@
   <ItemGroup>
     <Compile Include="Areas\ClubAdmin\ClubAdminAreaRegistration.cs" />
     <Compile Include="Areas\ClubAdmin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Coach\CoachAreaRegistration.cs" />
+    <Compile Include="Areas\Coach\Controllers\HomeController.cs" />
     <Compile Include="Areas\HeadOfAcademy\Controllers\HomeController.cs" />
     <Compile Include="Areas\HeadOfAcademy\HeadOfAcademyAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
@@ -3002,6 +3004,20 @@
     <Content Include="Areas\HeadOfAcademy\Views\Home\MatchReports.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\TrainingTeam.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Players.cshtml" />
+    <Content Include="Areas\Coach\Views\web.config" />
+    <Content Include="Areas\Coach\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Coach\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Coach\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Areas\Coach\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Coach\Views\Shared\_Navigation.cshtml" />
+    <Content Include="Areas\Coach\Views\Shared\_TopNavbar.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Dashboard.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\ClubDiary.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Documents.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Nutrition.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Fitness.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Tracker.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Wellbeing.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3579,6 +3595,7 @@
     <Folder Include="App_Data\FileStorage\DefaultPics\" />
     <Folder Include="App_Data\FileStorage\temp\" />
     <Folder Include="Areas\ClubAdmin\Models\" />
+    <Folder Include="Areas\Coach\Models\" />
     <Folder Include="Areas\HeadOfAcademy\Models\" />
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
