@@ -269,6 +269,7 @@
     <Compile Include="Controllers\ApiControllers\PhysioBodyPartsController.cs" />
     <Compile Include="Controllers\ApiControllers\PhysioExerciseController.cs" />
     <Compile Include="Controllers\ApiControllers\PLayers\PlayerController.cs" />
+    <Compile Include="Controllers\ApiControllers\PLayers\PlayerNoteController.cs" />
     <Compile Include="Controllers\ApiControllers\PLayers\PlayerProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\ScenariosController.cs" />
     <Compile Include="Controllers\ApiControllers\SiteSettingsController.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="Controllers\ApiControllers\SkillVideosController.cs" />
     <Compile Include="Controllers\ApiControllers\SportsScienceExercisesController.cs" />
     <Compile Include="Controllers\ApiControllers\SportsScienceTestsController.cs" />
+    <Compile Include="Controllers\ApiControllers\TalentIdentificationController.cs" />
     <Compile Include="Controllers\ApiControllers\Teams\TeamsController.cs" />
     <Compile Include="Controllers\ApiControllers\ToDoController.cs" />
     <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\CoachProfileController.cs" />
