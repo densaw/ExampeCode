@@ -80,6 +80,7 @@
     <Compile Include="Models\Curriculum.cs" />
     <Compile Include="Models\ExcerciseNew.cs" />
     <Compile Include="Models\NutritionNew.cs" />
+    <Compile Include="Models\PlayerNote.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\CurriculumStatement.cs" />
     <Compile Include="Enums\AgeGroup.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Models\SessionScenario.cs" />
     <Compile Include="Models\SkillLevel.cs" />
     <Compile Include="Models\StatementRoles.cs" />
+    <Compile Include="Models\TalentIdentification.cs" />
     <Compile Include="Models\TargetHistory.cs" />
     <Compile Include="Models\TeamCurriculum.cs" />
     <Compile Include="Models\ToDo.cs" />
@@ -202,6 +204,8 @@
     <Compile Include="ViewModels\SportsScience\SportsScienceTestPage.cs" />
     <Compile Include="ViewModels\SportsScience\SportsScienceTestTableViewModel.cs" />
     <Compile Include="ViewModels\SportsScience\SportsScienceTestViewModel.cs" />
+    <Compile Include="ViewModels\TalentIdentification\TalentIdentificationViewModel.cs" />
+    <Compile Include="ViewModels\TalentIdentification\TalentIdentificationPage.cs" />
     <Compile Include="ViewModels\Team\AddTeamViewModel.cs" />
     <Compile Include="ViewModels\Team\TeamsForPhisiotherapistPage.cs" />
     <Compile Include="ViewModels\Team\TeamsPage.cs" />

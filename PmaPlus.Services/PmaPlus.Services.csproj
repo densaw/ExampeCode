@@ -61,6 +61,7 @@
     <Compile Include="Services\SiteSettingsServices.cs" />
     <Compile Include="Services\SkillServices.cs" />
     <Compile Include="Services\SportsScienceServices.cs" />
+    <Compile Include="Services\TalentServices.cs" />
     <Compile Include="Services\TeamServices.cs" />
     <Compile Include="Services\ToDoServices.cs" />
     <Compile Include="Services\TrainingTeamMembersServices.cs" />
