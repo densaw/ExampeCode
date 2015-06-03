@@ -79,6 +79,7 @@
     <Compile Include="Repository\ExcerciseNewRepository.cs" />
     <Compile Include="Repository\Iterfaces\IExcerciseNewsRepository.cs" />
     <Compile Include="Repository\Iterfaces\INutritionNewsRepository.cs" />
+    <Compile Include="Repository\Iterfaces\ITalentIdentificationRepository.cs" />
     <Compile Include="Repository\NutritionNewsRepository.cs" />
     <Compile Include="Repository\SessionRepository.cs" />
     <Compile Include="Repository\CurriculumStatementRepository.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Repository\SportsScienceExerciseRepository.cs" />
     <Compile Include="Repository\SportsScienceTestRepository.cs" />
     <Compile Include="Repository\StatementRolesRepository.cs" />
+    <Compile Include="Repository\TalentIdentificationRepository.cs" />
     <Compile Include="Repository\TargetHistoryRepository.cs" />
     <Compile Include="Repository\TeamCurriculumRepository.cs" />
     <Compile Include="Repository\TeamRepository.cs" />
