@@ -127,6 +127,12 @@ namespace PmaPlus.Areas.Coach.Controllers
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
+        public ActionResult Communications()
+        {
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
+            return View();
+        }
 
     }
 }
