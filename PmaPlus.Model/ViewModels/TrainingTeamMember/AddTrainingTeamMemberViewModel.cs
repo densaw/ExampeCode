@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,9 @@ namespace PmaPlus.Model.ViewModels.TrainingTeamMember
     public class AddTrainingTeamMemberViewModel
     {
         public int Id { get; set; }
+        [Required]
         public string FirstName { get; set; }                               
+        [Required]
         public string  LastName { get; set; }                               
         public Role Role { get; set; }                                      
         public UserStatus UserStatus { get; set; }                          
@@ -18,7 +21,9 @@ namespace PmaPlus.Model.ViewModels.TrainingTeamMember
         public string AboutMe { get; set; }                                 
         public string Telephone { get; set; }                               
         public string  Mobile { get; set; }                                 
+        [Required]
         public string Email { get; set; }                                   
+        [Required]
         public string Password { get; set; }                                
         public int? FaNumber { get; set; }                                   
         public DateTime? BirthDate { get; set; }                             
