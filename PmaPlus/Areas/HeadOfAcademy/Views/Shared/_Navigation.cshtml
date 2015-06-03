@@ -22,8 +22,7 @@
                 <a href="@Url.Action("Dashboard", "Home", new {area = "HeadOfAcademy"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
 
             </li>
-            <li class="@Html.IsSelected(controller: "Home", action: "Attributes")">
-                <a href="@Url.Action("Attributes", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-dashboard"></i> <span class="nav-label">Attributes</span></a>
+            
             <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] { "TrainingTeam", "Players", "ClubProfile"})">
                 <a href="@Url.Action("TrainingTeam", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-users"></i> <span class="nav-label">Club</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -49,15 +48,18 @@
                 <a href="@Url.Action("Injuries", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-medkit"></i> <span class="nav-label">Injuries</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "MatchReports")">
-                <a href="@Url.Action("MatchReports", "Home", new {area = "ClubAdmin"})"><i class="fa fa-futbol-o"></i> <span class="nav-label">Match Reports</span></a>
+                <a href="@Url.Action("MatchReports", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-futbol-o"></i> <span class="nav-label">Match Reports</span></a>
             </li>
-            <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] { "Nutrition", "Alternatives", "Food_Types", "Recipes" })">
-                <a href="@Url.Action("Nutrition", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-cutlery"></i> <span class="nav-label">Nutrition</span><span class="fa arrow"></span></a>
+            <li class="@Html.IsSelected(controller: "Home", action: "Player_Reviews")">
+                <a href="@Url.Action("Player_Reviews", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-dashboard"></i> <span class="nav-label">Player Reviews</span></a>
+            </li>
+            <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] {"Health & Fitness", "Nutrition", "Fitness", "Tracker", "Wellbeing" })">
+                <a href="@Url.Action("Health & Fitness", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-heart-o"></i> <span class="nav-label">Health & Fitness</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li class="@Html.IsSelected(action: "Nutrition")"><a href="@Url.Action("Nutrition", "Home", new { area = "HeadOfAcademy" })">Nutrition</a></li>
-                    <li class="@Html.IsSelected(action: "Alternatives")"><a href="@Url.Action("Alternatives", "Home", new { area = "HeadOfAcademy" })">Alternatives</a></li>
-                    <li class="@Html.IsSelected(action: "Food_Types")"><a href="@Url.Action("Food_Types", "Home", new { area = "HeadOfAcademy" })">Food Types</a></li>
-                    <li class="@Html.IsSelected(action: "Recipes")"><a href="@Url.Action("Recipes", "Home", new { area = "HeadOfAcademy" })">Recipes</a></li>
+                    <li class="@Html.IsSelected(action: "Fitness")"><a href="@Url.Action("Fitness", "Home", new { area = "HeadOfAcademy" })">Fitness</a></li>
+                    <li class="@Html.IsSelected(action: "Tracker")"><a href="@Url.Action("Tracker", "Home", new { area = "HeadOfAcademy" })">Tracker</a></li>
+                    <li class="@Html.IsSelected(action: "Wellbeing")"><a href="@Url.Action("Wellbeing", "Home", new { area = "HeadOfAcademy" })">Wellbeing</a></li>
 
                 </ul>
             </li>

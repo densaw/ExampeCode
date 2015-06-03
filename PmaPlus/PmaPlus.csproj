@@ -2993,11 +2993,13 @@
     <Content Include="Areas\HeadOfAcademy\Views\Home\Reports.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\BlockReports.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Nutrition.cshtml" />
-    <Content Include="Areas\HeadOfAcademy\Views\Home\Alternatives.cshtml" />
-    <Content Include="Areas\HeadOfAcademy\Views\Home\Food_Types.cshtml" />
-    <Content Include="Areas\HeadOfAcademy\Views\Home\Recipes.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Fitness.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Tracker.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Wellbeing.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\Profile.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\TalentIndefication.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\Player_Reviews.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\MatchReports.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />

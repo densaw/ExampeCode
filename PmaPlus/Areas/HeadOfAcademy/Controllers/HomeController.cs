@@ -100,26 +100,33 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
-       
+
         public ActionResult Nutrition()
         {
             var club = _userServices.GetClubByUserName(User.Identity.Name);
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
-        public ActionResult Alternatives()
+
+        public ActionResult Player_Reviews()
         {
             var club = _userServices.GetClubByUserName(User.Identity.Name);
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
-        public ActionResult Food_Types()
+        public ActionResult Fitness()
         {
             var club = _userServices.GetClubByUserName(User.Identity.Name);
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
-        public ActionResult Recipes()
+        public ActionResult Tracker()
+        {
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
+            return View();
+        }
+        public ActionResult Wellbeing()
         {
             var club = _userServices.GetClubByUserName(User.Identity.Name);
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
@@ -131,5 +138,12 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
+        public ActionResult MatchReports()
+        {
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
+            return View();
+        }
+
     }
 }
