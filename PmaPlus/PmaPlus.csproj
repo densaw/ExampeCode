@@ -264,7 +264,8 @@
     <Compile Include="Controllers\ApiControllers\NutritionRecipesController.cs" />
     <Compile Include="Controllers\ApiControllers\PhysioBodyPartsController.cs" />
     <Compile Include="Controllers\ApiControllers\PhysioExerciseController.cs" />
-    <Compile Include="Controllers\ApiControllers\PlayerController.cs" />
+    <Compile Include="Controllers\ApiControllers\PLayers\PlayerController.cs" />
+    <Compile Include="Controllers\ApiControllers\PLayers\PlayerProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\ScenariosController.cs" />
     <Compile Include="Controllers\ApiControllers\SiteSettingsController.cs" />
     <Compile Include="Controllers\ApiControllers\SkillLevelsController.cs" />
@@ -275,6 +276,8 @@
     <Compile Include="Controllers\ApiControllers\ToDoController.cs" />
     <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\CoachProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\PhysiotherapistsProfileController.cs" />
+    <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\ScoutProfileController.cs" />
+    <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\SportsScientistController.cs" />
     <Compile Include="Controllers\ApiControllers\UserController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
     <Compile Include="Filters\PhotoStreamProvider.cs" />

@@ -4,31 +4,19 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using AutoMapper;
-using PmaPlus.Data;
-using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
-using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Model.ViewModels.DashboardContent;
 using PmaPlus.Model.ViewModels.Player;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.Team;
-using PmaPlus.Services;
 
 namespace PmaPlus.Controllers.ApiControllers.TrainingTeamProfiles
 {
-    public class PhysiotherapistsProfileController : ApiController
+    public class SportsScientistController : ApiController
     {
-        private readonly UserServices _userServices;
 
-        public PhysiotherapistsProfileController(UserServices userServices)
-        {
-            _userServices = userServices;
-        }
-
-
-        [Route("api/TrainingTeam/Physiotherapist/MatchFormGraph")]
-        public IEnumerable<GraphBoxViewModel> GetMatchFormGraph()
+        [Route("api/TrainingTeam/SportsScientist/ClubInjuresGraph")]
+        public IEnumerable<GraphBoxViewModel> GetClubInjuresGraph()
         {
             var temp = new List<GraphBoxViewModel>();
 
@@ -37,10 +25,17 @@ namespace PmaPlus.Controllers.ApiControllers.TrainingTeamProfiles
                 temp.Add(new GraphBoxViewModel() { Month = i, PlayersScore = 0 });
             }
 
-            return temp; //TODO: coach match forms graph
+            return temp; //TODO: club injures graph
         }
 
-        [Route("api/TrainingTeam/Physiotherapist/Players/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        [Route("api/TrainingTeam/SportsScientist/ClubInjuresGraph")]
+        public IEnumerable<PieChart> GetInjuryTypes()
+        {
+            return new List<PieChart>();
+        }
+
+
+        [Route("api/TrainingTeam/SportsScientist/Players/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
         public PlayersForPhisiotherapistPage GetPlayers(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
 
@@ -60,7 +55,7 @@ namespace PmaPlus.Controllers.ApiControllers.TrainingTeamProfiles
 
         }
 
-        [Route("api/TrainingTeam/Physiotherapist/Teams/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        [Route("api/TrainingTeam/SportsScientist/Teams/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
         public TeamsForPhisiotherapistPage GetTeams(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
 
