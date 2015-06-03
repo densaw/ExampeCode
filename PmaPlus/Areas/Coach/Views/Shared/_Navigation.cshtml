@@ -23,13 +23,14 @@
 
             </li>
 
-            <li class="@Html.IsSelected(controller: "Home", action: "ClubDiary")">
-                <a href="@Url.Action("ClubDiary", "Home", new {area = "Coach"})"><i class="fa fa-calendar"></i> <span class="nav-label">Club Diary</span></a>
+            <li class="@Html.IsSelected(controller: "Home", action: "Communications")">
+                <a href="@Url.Action("Communications", "Home", new {area = "Coach"})"><i class="fa fa-comments"></i> <span class="nav-label">Communications</span></a>
             </li>
 
-            <li class="@Html.IsSelected(controller: "Home", action: "Communications")">
-                <a href="@Url.Action("Communications", "Home", new { area = "Coach" })"><i class="fa fa-comments"></i> <span class="nav-label">Communications</span></a>
+            <li class="@Html.IsSelected(controller: "Home", action: "ClubDiary")">
+                <a href="@Url.Action("ClubDiary", "Home", new {area = "Coach"})"><i class="fa fa-calendar"></i> <span class="nav-label">Diary</span></a>
             </li>
+
 
             <li class="@Html.IsSelected(controller: "Home", action: "Documents")">
                 <a href="@Url.Action("Documents", "Home", new {area = "Coach"})"><i class="fa fa-file-text-o"></i> <span class="nav-label">Documents</span></a>
