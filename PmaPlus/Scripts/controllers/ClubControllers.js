@@ -521,6 +521,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function ($scope
 
     $scope.open = function () {
         $scope.windowTitle = 'Add Note';
+        $scope.myform.form_Submitted = false;
         $scope.newNote = {};
         target.modal('show');
     }
@@ -539,6 +540,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function ($scope
     }
 
     $scope.update = function (item) {
+        $scope.myform.form_Submitted = false;
         $scope.windowTitle = 'Update Note';
         $scope.newNote = item;
         needToUpdate = item.id;
@@ -548,6 +550,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function ($scope
 
     $scope.ok = function () {
         $scope.loginLoading = true;
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
         $scope.newNote.priority = $scope.selectedPriority.id;
 
         if (needToUpdate != -1) {
@@ -570,7 +573,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function ($scope
                   toaster.pop({
                       type: 'error',
                       title: 'Error', bodyOutputType: 'trustedHtml',
-                      body: data.message.join("<br />")
+                      body: 'Please complete the compulsory fields highlighted in red'
                   });
                   $scope.loginLoading = false;
               }
