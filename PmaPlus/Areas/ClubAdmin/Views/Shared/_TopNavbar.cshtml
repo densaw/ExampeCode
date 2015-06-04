@@ -15,7 +15,7 @@
                     <span  ng-if="itemCount > 0" class="label label-danger" style="border-radius: 100%;">{{itemCount}}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-alerts">
-                    <li ng-repeat="item in items| orderBy:'start'">
+                    <li ng-repeat="item in items">
                         <div class="ibox-content inspinia-timeline" style="border: none; padding: 10px 10px 0px 0px;" ng-model="cols" ng-change="colsChanged()">
                             <div class="timeline-item">
                                 <div class="row">
@@ -57,7 +57,7 @@
                     <span ng-if="itemCount > 0" class="label label-danger" style="border-radius: 100%;">{{itemCount}}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-alerts">
-                    <li ng-repeat="item in items">
+                    <li ng-repeat="item in items| orderBy:'completionDateTime'">
                         <a>
                             <div>
                                 <i class="fa fa-bell"></i> {{item.completionDateTime | date : 'dd-MM-yyyy HH:mm'}}
