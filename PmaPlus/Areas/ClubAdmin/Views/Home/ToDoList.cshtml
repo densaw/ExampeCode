@@ -85,10 +85,10 @@
                                     <select ng-model="selectedPriority" ng-options="pry.name for pry in Priority" class=" form-control m-b" name="account"></select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':myform.NoteNote.$invalid && (myform.NoteNote.$dirty||myform.form_Submitted)}">
                                 <label class="col-lg-4 title-modal">Note:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <textarea ng-model="newNote.note" maxlength="229" ng-maxlength="229" class="form-control"></textarea>
+                                    <textarea name="NoteNote" ng-model="newNote.note" maxlength="229" ng-maxlength="229" required class="form-control"></textarea>
                                 </div>
                             </div>
                         </form>
