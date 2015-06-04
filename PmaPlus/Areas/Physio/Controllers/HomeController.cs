@@ -9,7 +9,7 @@ using PmaPlus.Tools;
 
 namespace PmaPlus.Areas.Physio.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Physiotherapist")]
     public class HomeController : Controller
     {
         private readonly ClubServices _clubServices;

@@ -7,7 +7,7 @@ using PmaPlus.Services;
 
 namespace PmaPlus.Areas.HeadOfEducation.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "HeadOfEducation")]
     public class HomeController : Controller
     {
         private readonly UserServices _userServices;

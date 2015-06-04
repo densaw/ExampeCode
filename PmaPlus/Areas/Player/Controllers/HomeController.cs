@@ -7,7 +7,7 @@ using PmaPlus.Services;
 
 namespace PmaPlus.Areas.Player.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Player")]
     public class HomeController : Controller
     {
         private readonly UserServices _userServices;

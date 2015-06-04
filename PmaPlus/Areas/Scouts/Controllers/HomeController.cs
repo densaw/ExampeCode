@@ -9,7 +9,7 @@ using PmaPlus.Tools;
 
 namespace PmaPlus.Areas.Scouts.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Scout")]
     public class HomeController : Controller
     {
         private readonly ClubServices _clubServices;
