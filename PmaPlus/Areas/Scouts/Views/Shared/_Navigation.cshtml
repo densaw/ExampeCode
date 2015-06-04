@@ -27,6 +27,9 @@
             <li class="@Html.IsSelected(controller: "Home", action: "Documents")">
                 <a href="@Url.Action("Documents", "Home", new { area = "Scouts" })"><i class="fa fa-file-text-o"></i> <span class="nav-label">Documents</span></a>
             </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "Communications")">
+                <a href="@Url.Action("Communications", "Home", new { area = "Scouts" })"><i class="fa fa-comments"></i> <span class="nav-label">Communications</span></a>
+            </li>
             <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] {"HealthFitness", "Nutrition", "Fitness", "Tracker", "Wellbeing" })">
                 <a href="@Url.Action("HealthFitness", "Home", new { area = "Scouts" })"><i class="fa fa-heart-o"></i> <span class="nav-label">Health & Fitness</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">

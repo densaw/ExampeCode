@@ -33,14 +33,17 @@
             <li class="@Html.IsSelected(controller: "Home", action: "ClubDiary")">
                 <a href="@Url.Action("ClubDiary", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-calendar"></i> <span class="nav-label">Club Diary</span></a>
             </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "Communications")">
+                <a href="@Url.Action("Communications", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-comments"></i> <span class="nav-label">Communications</span></a>
+            </li>
             <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] { "Curriculums", "Statements" })">
                 <a href="@Url.Action("Curriculums", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Curriculums</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li class="@Html.IsSelected(action: "Curriculums")"><a href="@Url.Action("Curriculums", "Home", new { area = "HeadOfAcademy" })">Curriculums</a></li>
                     <li class="@Html.IsSelected(action: "Statements")"><a href="@Url.Action("Statements", "Home", new { area = "HeadOfAcademy" })">Statements</a></li>
-
                 </ul>
             </li>
+            
             <li class="@Html.IsSelected(controller: "Home", action: "Documents")">
                 <a href="@Url.Action("Documents", "Home", new { area = "HeadOfAcademy" })"><i class="fa fa-file-text-o"></i> <span class="nav-label">Documents</span></a>
             </li>
