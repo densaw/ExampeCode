@@ -21,6 +21,8 @@ namespace PmaPlus.Controllers
                 return RedirectToAction("Dashboard", "Home", new { area = "ClubAdmin" });
             if (User.IsInRole(Role.HeadOfAcademies.ToString()))
                 return RedirectToAction("Dashboard", "Home", new { area = "HeadOfAcademy" });
+            if (User.IsInRole(Role.Coach.ToString()))
+                return RedirectToAction("Dashboard", "Home", new { area = "Coach" });
             return View();
         }
     }
