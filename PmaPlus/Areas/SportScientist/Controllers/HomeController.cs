@@ -7,7 +7,7 @@ using PmaPlus.Services;
 
 namespace PmaPlus.Areas.SportScientist.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "SportsScientist")]
     public class HomeController : Controller
     {
         private readonly UserServices _userServices;

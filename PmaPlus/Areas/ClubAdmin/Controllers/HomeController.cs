@@ -4,12 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper.Internal;
+using PmaPlus.Model;
 using PmaPlus.Services;
 using PmaPlus.Tools;
 
 namespace PmaPlus.Areas.ClubAdmin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "ClubAdmin")]
+    
     public class HomeController : Controller
     {
         private readonly ClubServices _clubServices;

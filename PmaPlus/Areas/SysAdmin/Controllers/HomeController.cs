@@ -8,9 +8,9 @@ using PmaPlus.Models;
 
 namespace PmaPlus.Areas.SysAdmin.Controllers
 {
-    
 
-    [Authorize]
+
+    [Authorize(Roles = "SystemAdmin")]
     public class HomeController : Controller
     {
         public ActionResult Dashboard()

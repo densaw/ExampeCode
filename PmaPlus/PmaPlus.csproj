@@ -3724,6 +3724,8 @@
     <Content Include="Scripts\plugins\toastr\toastr.js.map" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Partials\_ToDoPartial.cshtml" />
+    <Content Include="Views\Partials\_DiaryPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

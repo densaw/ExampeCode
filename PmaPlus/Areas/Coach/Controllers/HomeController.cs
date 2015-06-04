@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PmaPlus.Model;
 using PmaPlus.Services;
 
 namespace PmaPlus.Areas.Coach.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Coach")]
     public class HomeController : Controller
     {
         private readonly UserServices _userServices;
@@ -16,7 +17,7 @@ namespace PmaPlus.Areas.Coach.Controllers
         {
             _userServices = userServices;
         }
-
+        
     
         // GET: Coach/Home
         public ActionResult Dashboard()
