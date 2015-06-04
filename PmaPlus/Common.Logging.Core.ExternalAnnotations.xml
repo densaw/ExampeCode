@@ -1,0 +1,32 @@
+﻿<assembly name="Common.Logging.Core">
+  <member name="M:Common.Logging.ILog.Fatal(System.Action{Common.Logging.FormatMessageHandler})">
+    <parameter name="formatMessageCallback">
+      <attribute ctor="M:JetBrains.Annotations.InstantHandleAttribute.#ctor"/>
+    </parameter>
+  </member>
+  <member name="M:Common.Logging.ILog.Error(System.Action{Common.Logging.FormatMessageHandler})">
+    <parameter name="formatMessageCallback">
+      <attribute ctor="M:JetBrains.Annotations.InstantHandleAttribute.#ctor"/>
+    </parameter>
+  </member>
+  <member name="M:Common.Logging.ILog.Trace(System.Action{Common.Logging.FormatMessageHandler})">
+    <parameter name="formatMessageCallback">
+      <attribute ctor="M:JetBrains.Annotations.InstantHandleAttribute.#ctor"/>
+    </parameter>
+  </member>
+  <member name="M:Common.Logging.ILog.Debug(System.Action{Common.Logging.FormatMessageHandler})">
+    <parameter name="formatMessageCallback">
+      <attribute ctor="M:JetBrains.Annotations.InstantHandleAttribute.#ctor"/>
+    </parameter>
+  </member>
+  <member name="M:Common.Logging.ILog.Info(System.Action{Common.Logging.FormatMessageHandler})">
+    <parameter name="formatMessageCallback">
+      <attribute ctor="M:JetBrains.Annotations.InstantHandleAttribute.#ctor"/>
+    </parameter>
+  </member>
+  <member name="M:Common.Logging.ILog.Warn(System.Action{Common.Logging.FormatMessageHandler})">
+    <parameter name="formatMessageCallback">
+      <attribute ctor="M:JetBrains.Annotations.InstantHandleAttribute.#ctor"/>
+    </parameter>
+  </member>  
+</assembly>
