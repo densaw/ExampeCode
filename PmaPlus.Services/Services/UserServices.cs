@@ -435,6 +435,7 @@ namespace PmaPlus.Services
                 member.UserDetail.Address.Telephone = memberViewModel.Telephone;
                 member.UserDetail.Address.Mobile = memberViewModel.Mobile;
                 member.Email = memberViewModel.Email;
+                member.UserName = memberViewModel.Email;
                 member.Password = memberViewModel.Password;
                 member.UserDetail.FaNumber = memberViewModel.FaNumber;
                 member.UserDetail.Birthday = memberViewModel.BirthDate;
