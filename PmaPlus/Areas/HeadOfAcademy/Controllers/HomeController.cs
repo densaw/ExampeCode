@@ -7,7 +7,7 @@ using PmaPlus.Services;
 
 namespace PmaPlus.Areas.HeadOfAcademy.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "HeadOfAcademies")]
     public class HomeController : Controller
     {
         private readonly UserServices _userServices;
@@ -151,6 +151,12 @@ namespace PmaPlus.Areas.HeadOfAcademy.Controllers
             return View();
         }
         public ActionResult Players()
+        {
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
+            return View();
+        }
+        public ActionResult Communications()
         {
             var club = _userServices.GetClubByUserName(User.Identity.Name);
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";

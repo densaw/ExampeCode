@@ -9,7 +9,7 @@ using PmaPlus.Tools;
 
 namespace PmaPlus.Areas.Scouts.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Scout")]
     public class HomeController : Controller
     {
         private readonly ClubServices _clubServices;
@@ -95,6 +95,12 @@ namespace PmaPlus.Areas.Scouts.Controllers
             return View();
         }
         public ActionResult TrainingTeam()
+        {
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
+            return View();
+        }
+        public ActionResult Communications()
         {
             var club = _userServices.GetClubByUserName(User.Identity.Name);
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
