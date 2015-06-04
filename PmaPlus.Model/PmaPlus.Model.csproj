@@ -70,6 +70,7 @@
     <Compile Include="Enums\ZScoreFormulaType.cs" />
     <Compile Include="Models\ActivityStatusChange.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\AttributesOfTalent.cs" />
     <Compile Include="Models\BodyPart.cs" />
     <Compile Include="Models\Certificate.cs" />
     <Compile Include="Models\Chairman.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Models\SkillLevel.cs" />
     <Compile Include="Models\StatementRoles.cs" />
     <Compile Include="Models\TalentIdentification.cs" />
+    <Compile Include="Models\TalentNote.cs" />
     <Compile Include="Models\TargetHistory.cs" />
     <Compile Include="Models\TeamCurriculum.cs" />
     <Compile Include="Models\ToDo.cs" />

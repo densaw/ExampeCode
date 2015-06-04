@@ -8,6 +8,11 @@ namespace PmaPlus.Model.Models
 {
     public class TalentIdentification
     {
+        public TalentIdentification()
+        {
+            TalentNotes = new HashSet<TalentNote>();
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -19,6 +24,8 @@ namespace PmaPlus.Model.Models
         public string ParentsEmail { get; set; }
         public string ParentsMobile { get; set; }
         public string ParentsNote { get; set; }
+
+        public virtual ICollection<TalentNote> TalentNotes { get; set; }
 
         public int ClubId { get; set; }
         public virtual Club Club { get; set; }
