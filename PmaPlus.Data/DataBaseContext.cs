@@ -55,7 +55,12 @@ namespace PmaPlus.Data
         public virtual DbSet<Diary> Diaries { get; set; }
         public virtual DbSet<DiaryRecipient> DairyRecipients { get; set; }
 
-        public virtual DbSet<TalentIdentification> TalentIdentifications { get; set; } 
+        public virtual DbSet<TalentIdentification> TalentIdentifications { get; set; }
+        public virtual DbSet<TalentNote> TalentNotes { get; set; }
+        public virtual DbSet<AttributesOfTalent> AttributesOfTalents { get; set; } 
+
+
+
         public virtual DbSet<CurriculumStatement> CurriculumStatements { get; set; }
         public virtual DbSet<StatementRoles> StatementRoles { get; set; }
 

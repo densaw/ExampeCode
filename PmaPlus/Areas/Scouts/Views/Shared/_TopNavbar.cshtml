@@ -57,7 +57,7 @@
                     <span ng-if="itemCount > 0" class="label label-danger" style="border: 1px solid white;border-radius: 100%;background-color: #CC0000;">{{itemCount}}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-alerts">
-                    <li ng-repeat="item in items">
+                    <li ng-repeat="item in items| orderBy:'completionDateTime'">
                         <a>
                             <div>
                                 <i class="fa fa-bell"></i> {{item.completionDateTime | date : 'dd-MM-yyyy HH:mm'}}
