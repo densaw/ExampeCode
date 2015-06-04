@@ -3141,6 +3141,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\ClubControllers.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
+    <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\datapickersecond\bootstrap-datepicker.js" />
     <Content Include="Scripts\datapickersecond\locales\bootstrap-datepicker.bg.js" />
     <Content Include="Scripts\datapickersecond\locales\bootstrap-datepicker.ca.js" />
@@ -3713,8 +3714,8 @@
     <Folder Include="Areas\HeadOfAcademy\Models\" />
     <Folder Include="Areas\HeadOfEducation\Models\" />
     <Folder Include="Areas\Player\Models\" />
-    <Folder Include="Areas\SportScientist\Models\" />
     <Folder Include="Areas\Scouts\Models\" />
+    <Folder Include="Areas\SportScientist\Models\" />
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
     <Folder Include="Images\Clubs\" />
