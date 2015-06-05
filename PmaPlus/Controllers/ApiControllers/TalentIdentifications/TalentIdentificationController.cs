@@ -36,7 +36,6 @@ namespace PmaPlus.Controllers.ApiControllers
             var bodyParts = _talentServices.GetTalentIdentifications(clubId);
             var items = Mapper.Map<IEnumerable<TalentIdentification>, IEnumerable<TalentIdentificationTableViewModel>>(bodyParts).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
-
             return new TalentIdentificationPage()
             {
                 Count = count,

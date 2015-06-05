@@ -213,6 +213,8 @@ namespace PmaPlus.Services
 
         public User AddTrainingTeamMember(AddTrainingTeamMemberViewModel user, string clubAdminEmail)
         {
+            var club = GetClubByUserName(clubAdminEmail);
+
             var trTeam = new User
             {
                 UserDetail = new UserDetail
@@ -257,7 +259,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _coachRepository.Add(newCoach);
                         break;
@@ -268,7 +270,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _headOfAcademyRepository.Add(newHeadofA);
                         break;
@@ -279,7 +281,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _headOfEducationRepository.Add(newHeadofE);
                         break;
@@ -290,7 +292,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _scoutRepository.Add(scout);
                         break;
@@ -301,7 +303,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _physiotherapistRepository.Add(physiotherapist);
                         break;
@@ -312,7 +314,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _sportScientistRepository.Add(sportScientist);
                         break;
@@ -323,7 +325,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _welfareOfficerRepository.Add(welfareOfficer);
                         break;
