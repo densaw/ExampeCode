@@ -10,6 +10,6 @@ namespace PmaPlus.Model.Models
 
         public virtual User User { get; set; }
         public UserStatus Status { get; set; }
-        public Club Club { get; set; }
+        public virtual Club Club { get; set; }
     }
 }

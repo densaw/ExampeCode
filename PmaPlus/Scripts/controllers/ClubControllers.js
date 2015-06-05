@@ -328,7 +328,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
        { id: 4, name: 'Head Of Education' },
        { id: 5, name: 'Welfare Officer' },
        { id: 6, name: 'Scout' },
-       { id: 7, name: 'Physiotherapist' },
+       { id: 7, name: 'Physio' },
        { id: 8, name: 'Sports Scientist' },
        { id: 9, name: 'Player' }
     ];
