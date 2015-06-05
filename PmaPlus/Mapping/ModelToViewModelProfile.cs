@@ -20,11 +20,16 @@ using PmaPlus.Model.ViewModels.TalentIdentifications;
 using PmaPlus.Model.ViewModels.Team;
 using PmaPlus.Model.ViewModels.ToDo;
 using PmaPlus.Model.ViewModels.TrainingTeamMember;
+using PmaPlus.Services.Services;
 
 namespace PmaPlus.Mapping
 {
     class ModelToViewModelProfile : Profile
     {
+        
+
+        
+
         public override string ProfileName
         {
             get { return "ModelToViewModelProfile"; }
@@ -134,6 +139,12 @@ namespace PmaPlus.Mapping
             //TalenIdentification
 
             Mapper.CreateMap<TalentIdentification, TalentIdentificationViewModel>();
+            Mapper.CreateMap<TalentIdentification, TalentIdentificationTableViewModel>()
+                .ForMember(d => d.Age, o => o.MapFrom(s => DateTime.Now.Year - s.BirthDate.Year))
+                .ForMember(d => d.Name, o=>o.MapFrom(s => s.FirstName + " " + s.LastName))
+                //.ForMember(d => d.Score, o => o.MapFrom(s => _talentServices.GetTalentPercentageScore(s.Id) ))
+                .ForMember(d => d.ScouteName, o => o.MapFrom(s => s.Scout.User.UserDetail.FirstName + " " + s.Scout.User.UserDetail.LastName));
+
             Mapper.CreateMap<TalentIdentification, TalentIdentificationDetailViewModel>();
 
             Mapper.CreateMap<AttributesOfTalent, AttributesOfTalentViewModel>();
