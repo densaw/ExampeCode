@@ -8,7 +8,7 @@ using AutoMapper;
 using PmaPlus.Data;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Skill;
-using PmaPlus.Model.ViewModels.TalentIdentification;
+using PmaPlus.Model.ViewModels.TalentIdentifications;
 using PmaPlus.Services;
 using PmaPlus.Services.Services;
 
@@ -46,6 +46,8 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
 
+
+
         public TalentIdentificationViewModel Get(int id)
         {
             return
@@ -53,6 +55,18 @@ namespace PmaPlus.Controllers.ApiControllers
                     _talentServices.GetTalentIdentificationById(id));
         }
 
+        [Route("api/TalentIdentification/Detail/{id:int}")]
+        public TalentIdentificationDetailViewModel GetDetail(int id)
+        {
+
+            var detail = Mapper.Map<TalentIdentification, TalentIdentificationDetailViewModel>(
+                    _talentServices.GetTalentIdentificationById(id));
+
+            detail.AttributeScorePers = _talentServices.GetTalentPercentageScore(id);
+            
+            return detail;
+
+        }
 
         public IHttpActionResult Post(TalentIdentificationViewModel identificationViewModel)
         {
@@ -73,6 +87,18 @@ namespace PmaPlus.Controllers.ApiControllers
             var talent = Mapper.Map<TalentIdentificationViewModel, TalentIdentification>(identificationViewModel);
             
             _talentServices.UpdateTalentIdentification(talent,id);
+            return Ok();
+        }
+
+
+        [Route("api/TalentIdentification/Invite/{id:int}")]
+        public IHttpActionResult PutInvite(int id, [FromBody] TalentInviteViewModel talentInviteViewModel)
+        {
+            if (!_talentServices.TalentExist(id))
+            {
+                return NotFound();
+            }
+            _talentServices.InviteTalent(id,talentInviteViewModel);
             return Ok();
         }
 

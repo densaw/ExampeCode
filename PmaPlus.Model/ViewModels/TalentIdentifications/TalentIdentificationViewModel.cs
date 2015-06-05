@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PmaPlus.Model.ViewModels.TalentIdentification
+namespace PmaPlus.Model.ViewModels.TalentIdentifications
 {
     public class TalentIdentificationViewModel
     {

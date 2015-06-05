@@ -16,6 +16,7 @@ using PmaPlus.Model.ViewModels.Scenario;
 using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.SportsScience;
+using PmaPlus.Model.ViewModels.TalentIdentifications;
 using PmaPlus.Model.ViewModels.Team;
 using PmaPlus.Model.ViewModels.ToDo;
 using PmaPlus.Model.ViewModels.TrainingTeamMember;
@@ -127,6 +128,19 @@ namespace PmaPlus.Mapping
                 .ForMember(d => d.Players, o => o.MapFrom(s => s.Players.Select(p => p.Id)))
                 .ForMember(d => d.CurriculumId, o => o.MapFrom(s => s.TeamCurriculum.Curriculum.Id));
             Mapper.CreateMap<Team, TeamsList>();
+
+
+
+            //TalenIdentification
+
+            Mapper.CreateMap<TalentIdentification, TalentIdentificationViewModel>();
+            Mapper.CreateMap<TalentIdentification, TalentIdentificationDetailViewModel>();
+
+            Mapper.CreateMap<AttributesOfTalent, AttributesOfTalentViewModel>();
+
+            Mapper.CreateMap<TalentNote, TalentNoteViewModel>();
+
+
         }
     }
 }
