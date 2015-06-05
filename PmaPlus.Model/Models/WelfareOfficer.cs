@@ -12,7 +12,7 @@ namespace PmaPlus.Model.Models
         public virtual ICollection<Club> Clubs { get; set; }
         
         public virtual User User { get; set; }
-        public Club Club { get; set; }
+        public virtual Club Club { get; set; }
         public UserStatus Status { get; set; }
     }
 }
