@@ -208,6 +208,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\ClubAdmin\ClubAdminAreaRegistration.cs" />
     <Compile Include="Areas\ClubAdmin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Coach\CoachAreaRegistration.cs" />
@@ -254,6 +260,8 @@
     <Compile Include="Areas\SportScientist\SportScientistAreaRegistration.cs" />
     <Compile Include="Areas\SysAdmin\Controllers\HomeController.cs" />
     <Compile Include="Areas\SysAdmin\SysAdminAreaRegistration.cs" />
+    <Compile Include="Areas\WelfareOfficer\Controllers\HomeController.cs" />
+    <Compile Include="Areas\WelfareOfficer\WelfareOfficerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\AttributesController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\ClubAdminDashboardController.cs" />
@@ -2652,7 +2660,6 @@
     <Content Include="Scripts\app\skin.config.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Content Include="Areas\SysAdmin\Views\web.config" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
@@ -3160,6 +3167,25 @@
     <Content Include="Areas\ClubAdmin\Views\Home\Communications.cshtml" />
     <Content Include="Areas\Physio\Views\Home\Communications.cshtml" />
     <Content Include="Areas\Scouts\Views\Home\Communications.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\web.config" />
+    <Content Include="Areas\WelfareOfficer\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Shared\_Navigation.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Shared\_TopNavbar.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\Communications.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\Dashboard.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\Diary.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\Documents.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\Fitness.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\MatchReports.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\Nutrition.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\Profile.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\Reports.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\ToDoList.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\Tracker.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\TrainingTeam.cshtml" />
+    <Content Include="Areas\WelfareOfficer\Views\Home\Wellbeing.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3695,11 +3721,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -3739,6 +3760,7 @@
   <ItemGroup>
     <Folder Include="App_Data\FileStorage\DefaultPics\" />
     <Folder Include="App_Data\FileStorage\temp\" />
+    <Folder Include="Areas\App_Start\" />
     <Folder Include="Areas\ClubAdmin\Models\" />
     <Folder Include="Areas\Coach\Models\" />
     <Folder Include="Areas\HeadOfAcademy\Models\" />
@@ -3749,6 +3771,7 @@
     <Folder Include="Areas\SportScientist\Models\" />
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
+    <Folder Include="Areas\WelfareOfficer\Models\" />
     <Folder Include="Images\Clubs\" />
     <Folder Include="Scripts\plugins\datapicker\icons\" />
   </ItemGroup>

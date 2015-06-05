@@ -7,9 +7,9 @@ using System.Web.Mvc;
 using PmaPlus.Services;
 using PmaPlus.Tools;
 
-namespace PmaPlus.Areas.Physio.Controllers
+namespace PmaPlus.Areas.WelfareOfficer.Controllers
 {
-    [Authorize(Roles = "Physiotherapist")]
+    [Authorize(Roles = "WelfareOfficer")]
     public class HomeController : Controller
     {
         private readonly ClubServices _clubServices;
@@ -106,25 +106,15 @@ namespace PmaPlus.Areas.Physio.Controllers
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
-        public ActionResult Injuries()
-        {
-            var club = _userServices.GetClubByUserName(User.Identity.Name);
-            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
-            return View();
-        }
+       
         public ActionResult Communications()
         {
             var club = _userServices.GetClubByUserName(User.Identity.Name);
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
-        public ActionResult Player_Reviews()
-        {
-            var club = _userServices.GetClubByUserName(User.Identity.Name);
-            ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
-            return View();
-        }
         
+
 
 
     }

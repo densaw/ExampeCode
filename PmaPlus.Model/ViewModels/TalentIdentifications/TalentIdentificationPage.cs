@@ -10,6 +10,6 @@ namespace PmaPlus.Model.ViewModels.Skill
 {
     public class TalentIdentificationPage : Page
     {
-        public IEnumerable<TalentIdentificationViewModel> Items { get; set; }
+        public IEnumerable<TalentIdentificationTableViewModel> Items { get; set; }
     }
 }
