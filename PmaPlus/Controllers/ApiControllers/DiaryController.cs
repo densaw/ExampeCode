@@ -36,7 +36,7 @@ namespace PmaPlus.Controllers.ApiControllers
                 orderby dr.Start
                 select dr;
 
-            return Mapper.Map<IEnumerable<Diary>, IEnumerable<DiaryViewModel>>(diaries.Take(2));
+            return Mapper.Map<IEnumerable<Diary>, IEnumerable<DiaryViewModel>>(diaries.Take(5)).OrderByDescending(d => d.Start);
         }
 
 
@@ -52,7 +52,7 @@ namespace PmaPlus.Controllers.ApiControllers
                       orderby dr.Start
                       select dr;
 
-            return Mapper.Map<IEnumerable<Diary>, IEnumerable<DiaryViewModel>>(diaries.Take(3));
+            return Mapper.Map<IEnumerable<Diary>, IEnumerable<DiaryViewModel>>(diaries.Take(5)).OrderBy(d => d.Start);
         }
 
 
@@ -62,7 +62,7 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             var diaries = _diaryServices.GetUserDiaries(_userServices.GetUserByEmail(User.Identity.Name).Id);
 
-            return Mapper.Map<IEnumerable<Diary>, IEnumerable<DiaryViewModel>>(diaries);
+            return Mapper.Map<IEnumerable<Diary>, IEnumerable<DiaryViewModel>>(diaries).OrderBy(d => d.Start);
         }
 
         public DiaryViewModel Get(int id)
