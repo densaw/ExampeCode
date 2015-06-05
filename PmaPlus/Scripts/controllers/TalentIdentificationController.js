@@ -126,8 +126,8 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
     };
 
 
-    $scope.check = function (currObj) {
-        $http.put(urlTail + '/Invite/' + currObj.id, !currObj.isLive).success(function (result) {
+    $scope.check = function (playerObj) {
+        $http.put(urlTail + '/Invite/' + playerObj.id, !playerObj.isLive).success(function (result) {
             getResultsPage($scope.pagination.current);
         }).error(function (data, status, headers, config) {
 
