@@ -201,7 +201,33 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
+                                <tbody id="contentTable">
+                                    <tr dir-paginate="newScoutP in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
+                                        <td>{{newScoutP.firstName}}</td>
+                                        <td>{{newScoutP.firstName}}</td>
+                                        <td>{{newScoutP.firstName}}</td>
+                                        <td>{{newScoutP.presentClub}}</td>
+                                        <td>{{newScoutP.birthDate}}</td>
+                                        <td>{{newScoutP.parentsMobile}}</td>
+                                        <td>{{newScoutP.firstName}}</td>
+                                        <td>{{newScoutP.invitedToTrial}}</td>
+                                        <td>
+                                            <a href="#" ng-click="check(newScoutP)" class="check-link">
+                                                <i class="fa{{newScoutP.attendedTrail | todo :'fa-check-square ':'fa-square-o'}}"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" ng-click="check(newScoutP)" class="check-link"><i class="fa {{curr.isLive | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                        </td>
+                                        <td>
+                                            <i ng-click="openEdit(newScoutP.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                            <i ng-click="openDelete(newScoutP.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                            <a ng-href="CurrDetails/{{newScoutP.id}}" class="fa fa-graduation-cap"></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
+                            <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
                         </div>
 
                     </div>

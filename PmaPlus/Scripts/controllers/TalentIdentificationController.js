@@ -75,7 +75,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
 
     $scope.ok = function (id) {
         $scope.loginLoading = true;
-        $scope.newScoutP.ageGroup = $scope.selectedAgeGroup.id;
+        //$scope.newScoutP.ageGroup = $scope.selectedAgeGroup.id;
         if (id != null) {
 
             //PUT it now have no url to Update date
