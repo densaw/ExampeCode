@@ -293,7 +293,9 @@
     <Compile Include="Controllers\ApiControllers\SkillVideosController.cs" />
     <Compile Include="Controllers\ApiControllers\SportsScienceExercisesController.cs" />
     <Compile Include="Controllers\ApiControllers\SportsScienceTestsController.cs" />
-    <Compile Include="Controllers\ApiControllers\TalentIdentificationController.cs" />
+    <Compile Include="Controllers\ApiControllers\TalentIdentifications\TalentIdentificationController.cs" />
+    <Compile Include="Controllers\ApiControllers\TalentIdentifications\TalentIdentificationNotesController.cs" />
+    <Compile Include="Controllers\ApiControllers\TalentIdentifications\TalentPlayerAttributesController.cs" />
     <Compile Include="Controllers\ApiControllers\Teams\TeamsController.cs" />
     <Compile Include="Controllers\ApiControllers\ToDoController.cs" />
     <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\CoachProfileController.cs" />
@@ -3193,6 +3195,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\ClubControllers.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
+    <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\datapickersecond\bootstrap-datepicker.js" />
     <Content Include="Scripts\datapickersecond\locales\bootstrap-datepicker.bg.js" />
     <Content Include="Scripts\datapickersecond\locales\bootstrap-datepicker.ca.js" />

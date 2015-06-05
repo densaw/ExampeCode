@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model.Models;
+using PmaPlus.Model.ViewModels.TalentIdentifications;
 
 namespace PmaPlus.Services.Services
 {
@@ -35,9 +36,37 @@ namespace PmaPlus.Services.Services
             return _talentIdentificationRepository.GetMany(t => t.ClubId == clubId);
         }
 
-        public TalentIdentification GetTalentIdentificationById(int Id)
+        public decimal GetTalentPercentageScore(int id)
         {
-            return _talentIdentificationRepository.GetById(Id);
+
+            var attributes =
+                _attributesOfTalentRepository.GetMany(a => a.TalentIdentificationId == id && a.HaveAttribute == true);
+
+            int maxScore = attributes.Sum(t => t.Attribute.MaxScore);
+            int actualScore = attributes.Sum(t => t.Score);
+
+
+            return (decimal)maxScore / actualScore;
+
+        }
+
+
+        public void InviteTalent(int talentId, TalentInviteViewModel talentInvite)
+        {
+            var talent = _talentIdentificationRepository.GetById(talentId);
+            if (talent != null)
+            {
+                talent.AttendedTrail = talentInvite.AttendedTrail;
+                talent.InvitedToTrial = talentInvite.InvitedToTrial;
+                talent.JoinedClub = talentInvite.JoinedClub;
+
+                _talentIdentificationRepository.Update(talent, talent.Id);
+            }
+        }
+
+        public TalentIdentification GetTalentIdentificationById(int id)
+        {
+            return _talentIdentificationRepository.GetById(id);
         }
 
         public TalentIdentification AddTalentIdentification(TalentIdentification talentIdentification, int clubId)
@@ -61,6 +90,12 @@ namespace PmaPlus.Services.Services
 
         #region Talent Notes
 
+        public bool NoteExist(int id)
+        {
+            return _talentNoteRepository.GetMany(n => n.Id == id).Any();
+        }
+
+
         public IEnumerable<TalentNote> GetTalentNotes(int talentId)
         {
             return _talentNoteRepository.GetMany(t => t.TalentIdentificationId == talentId);
@@ -74,7 +109,7 @@ namespace PmaPlus.Services.Services
 
         public void UpdateTalentNote(TalentNote talentNote)
         {
-             _talentNoteRepository.Update(talentNote,talentNote.Id);
+            _talentNoteRepository.Update(talentNote, talentNote.Id);
         }
 
         public void DeleteTalentNote(int id)
@@ -88,34 +123,39 @@ namespace PmaPlus.Services.Services
 
         #region Attributes
 
-        public IEnumerable<AttributesOfTalent> GAttributesOfTalents(int talentId,int clubId)
+        public IEnumerable<AttributesOfTalent> GetAttributesOfTalents(int talentId, int clubId)
         {
-            var presentAttributes = _attributesOfTalentRepository.GetMany(a => a.TalentIdentificationId == talentId);               
-            
+            var presentAttributes = _attributesOfTalentRepository.GetMany(a => a.TalentIdentificationId == talentId);
+
             var list = new List<AttributesOfTalent>();
 
             list.AddRange(presentAttributes);
 
             var leftAttributes =
-                _playerAttributeRepository.GetMany(p =>  !presentAttributes.Select(a => a.AttributeId).Contains(p.Id) && p.ClubId == clubId );
+                _playerAttributeRepository.GetMany(p => !presentAttributes.Select(a => a.AttributeId).Contains(p.Id) && p.ClubId == clubId);
 
             foreach (var attribute in leftAttributes)
             {
-                list.Add(new AttributesOfTalent(){AttributeId = attribute.Id,HaveAttribute = false,TalentIdentificationId = talentId,Rating = 0});
+                list.Add(new AttributesOfTalent() { AttributeId = attribute.Id, HaveAttribute = false, TalentIdentificationId = talentId, Score = 0 });
             }
 
             return list;
         }
 
 
-        public AttributesOfTalent AddAttributesOfTalent(AttributesOfTalent attributesOfTalent)
-        {
-            return _attributesOfTalentRepository.Add(attributesOfTalent);
-        }
 
         public void UpdateAttributesOfTalent(AttributesOfTalent attributesOfTalent)
         {
-            _attributesOfTalentRepository.Update(attributesOfTalent);
+            if (_attributesOfTalentRepository.GetMany(a => a.AttributeId == attributesOfTalent.AttributeId && a.TalentIdentificationId == attributesOfTalent.TalentIdentificationId).Any())
+            {
+                _attributesOfTalentRepository.Update(attributesOfTalent);
+
+            }
+            else
+            {
+                _attributesOfTalentRepository.Add(attributesOfTalent);
+
+            }
         }
 
         public void DeleteAttributesOfTalent(int talentId, int attributeId)
