@@ -23,10 +23,7 @@
 
             </li>
 
-            <li class="@Html.IsSelected(controller: "Home", action: "PlayerReviews")">
-                <a href="@Url.Action("PlayerReviews", "Home", new { area = "SportScientist" })"><i class="fa fa-dashboard"></i> <span class="nav-label">Player Reviews</span></a>
-
-            </li>
+            
 
             <li class="@Html.IsSelected(controller: "Home", action: "ClubDiary")">
                 <a href="@Url.Action("ClubDiary", "Home", new {area = "SportScientist"})"><i class="fa fa-calendar"></i> <span class="nav-label">Diary</span></a>
@@ -62,6 +59,11 @@
 
             <li class="@Html.IsSelected(controller: "Home", action: "Profile")">
                 <a href="@Url.Action("Profile", "Home", new {area = "SportScientist"})"><i class="fa fa-cogs"></i> <span class="nav-label">Profile</span></a>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Home", action: "PlayerReviews")">
+                <a href="@Url.Action("PlayerReviews", "Home", new {area = "SportScientist"})"><i class="fa fa-dashboard"></i> <span class="nav-label">Player Reviews</span></a>
+
             </li>
 
             <li class="@Html.IsSelected(controller: "Home", action: "Reports")">
