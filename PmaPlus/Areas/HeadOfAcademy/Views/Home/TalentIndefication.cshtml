@@ -145,7 +145,28 @@
                                 </div>
                             </div>
                         </div>
+                        @*Modal*@
+                        <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
 
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Delete Record?</h3>
+
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
+                                        <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
 
                         <div class="row">
                             <div class="col-sm-9 m-b-xs">
@@ -210,14 +231,14 @@
                                         <td>{{newScoutP.birthDate}}</td>
                                         <td>{{newScoutP.parentsMobile}}</td>
                                         <td>{{newScoutP.firstName}}</td>
-                                        <td>{{newScoutP.invitedToTrial}}</td>
                                         <td>
-                                            <a href="#" ng-click="check(newScoutP)" class="check-link">
-                                                <i class="fa{{newScoutP.attendedTrail | todo :'fa-check-square ':'fa-square-o'}}"></i>
-                                            </a>
+                                            <a href="#" ng-click="check(newScoutP)" class="check-link"><i class="fa {{newScoutP.isLive | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
                                         </td>
                                         <td>
-                                            <a href="#" ng-click="check(newScoutP)" class="check-link"><i class="fa {{curr.isLive | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                            <a href="#" ng-click="check(newScoutP)" class="check-link"><i class="fa {{newScoutP.isLive | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" ng-click="check(newScoutP)" class="check-link"><i class="fa {{newScoutP.isLive | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
                                         </td>
                                         <td>
                                             <i ng-click="openEdit(newScoutP.id)" class="fa fa-cog" style="cursor: pointer;"></i>

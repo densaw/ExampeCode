@@ -113,24 +113,35 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
             confDelete.modal('hide');
         });
     };
+
     $scope.openEdit = function (id) {
         console.log(id);
         $http.get(urlTail + '/' + id)
             .success(function (result) {
                 $scope.newScoutP = result;
-                $scope.selectedAgeGroup = $scope.ageGroups[result.ageGroup];
+                //$scope.selectedAgeGroup = $scope.ageGroups[result.ageGroup];
                 $scope.modalTitle = "Update Scouted Player";
                 target.modal('show');
             });
     };
 
+
     $scope.check = function (currObj) {
-        $http.put(urlTail + '/' + currObj.id, !currObj.isLive).success(function (result) {
+        $http.put(urlTail + '/Invite/' + currObj.id, !currObj.isLive).success(function (result) {
             getResultsPage($scope.pagination.current);
         }).error(function (data, status, headers, config) {
 
         });
     }
+
+    function getClubName() {
+        $http.get('/api/ClubAdminDashboard/ClubName').success(function (result) {
+            $scope.clubName = result;
+        }).error(function (data, status, headers, config) {
+
+        });
+    }
+    getClubName();
 
 
 }]);
