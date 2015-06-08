@@ -15,12 +15,14 @@ namespace PmaPlus.Services.Services
         private readonly ITalentNoteRepository _talentNoteRepository;
         private readonly IAttributesOfTalentRepository _attributesOfTalentRepository;
         private readonly IPlayerAttributeRepository _playerAttributeRepository;
-        public TalentServices(ITalentIdentificationRepository talentIdentificationRepository, ITalentNoteRepository talentNoteRepository, IAttributesOfTalentRepository attributesOfTalentRepository, IPlayerAttributeRepository playerAttributeRepository)
+        private readonly IScoutRepository _scoutRepository;
+        public TalentServices(ITalentIdentificationRepository talentIdentificationRepository, ITalentNoteRepository talentNoteRepository, IAttributesOfTalentRepository attributesOfTalentRepository, IPlayerAttributeRepository playerAttributeRepository, IScoutRepository scoutRepository)
         {
             _talentIdentificationRepository = talentIdentificationRepository;
             _talentNoteRepository = talentNoteRepository;
             _attributesOfTalentRepository = attributesOfTalentRepository;
             _playerAttributeRepository = playerAttributeRepository;
+            _scoutRepository = scoutRepository;
         }
 
         #region Talent identification
@@ -42,11 +44,11 @@ namespace PmaPlus.Services.Services
             var attributes =
                 _attributesOfTalentRepository.GetMany(a => a.TalentIdentificationId == id && a.HaveAttribute == true);
 
-            int maxScore = attributes.Sum(t => t.Attribute.MaxScore);
+            int maxScore = attributes.Sum(t => t.Attribute.MaxScore) == 0 ? 1 : attributes.Sum(t => t.Attribute.MaxScore);
             int actualScore = attributes.Sum(t => t.Score);
 
 
-            return (decimal)maxScore / actualScore;
+            return actualScore / (decimal)maxScore * 100;
 
         }
 

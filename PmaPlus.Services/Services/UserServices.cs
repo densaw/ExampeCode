@@ -790,77 +790,9 @@ namespace PmaPlus.Services
 
         #region Users List
 
-        public IEnumerable<User> GetUsers(Role role, int clubId = 0)
+        public IEnumerable<Scout> GetClubScouts(int clubId)
         {
-            if (clubId == 0)
-            {
-                return _userRepository.GetMany(u => u.Role == role);
-            }
-            else
-            {
-                switch (role)
-                {
-                    case Role.Player:
-                        {
-                            var member = _playerRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
-                            return member;
-                            break;
-                        }
-                    case Role.ClubAdmin:
-                        {
-                            var member = _clubAdminRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
-                            return member;
-                            break;
-                        }
-
-                    case Role.Coach:
-                        {
-                            var member = _coachRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
-                            return member;
-                            break;
-                        }
-                    case Role.HeadOfAcademies:
-                        {
-                            var member = _headOfAcademyRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
-                            return member;
-                            break;
-                        }
-                    case Role.HeadOfEducation:
-                        {
-                            var member = _headOfEducationRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
-                            return member;
-                            break;
-                        }
-                    case Role.Scout:
-                        {
-                            var member = _scoutRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
-                            return member;
-                            break;
-                        }
-                    case Role.Physiotherapist:
-                        {
-                            var member = _physiotherapistRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
-                            return member;
-                            break;
-                        }
-                    case Role.SportsScientist:
-                        {
-                            var member = _sportScientistRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
-                            return member;
-                            break;
-                        }
-                    case Role.WelfareOfficer:
-                        {
-                            var member = _welfareOfficerRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
-                            return member;
-                            break;
-                        }
-                    default:
-                        {
-                            return null;
-                        }
-                }
-            }
+            return _scoutRepository.GetMany(c => c.Club.Id == clubId);
         }
 
         #endregion

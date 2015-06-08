@@ -11,12 +11,12 @@ namespace PmaPlus.Model.Models
         public TalentIdentification()
         {
             TalentNotes = new HashSet<TalentNote>();
+            Attributes = new HashSet<AttributesOfTalent>();
         }
 
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string ScoutName { get; set; }
         public DateTime DateIdentificated { get; set; }
         public string PresentClub { get; set; }
         public DateTime BirthDate { get; set; }
