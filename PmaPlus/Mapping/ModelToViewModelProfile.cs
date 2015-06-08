@@ -105,6 +105,10 @@ namespace PmaPlus.Mapping
                 .ForMember(d => d.LastLogin, o => o.MapFrom(s => s.LoggedAt))
                 .ForMember(d => d.ProfilePicture, o => o.MapFrom(s => s.UserDetail.ProfilePicture));
 
+            Mapper.CreateMap<User, UsersList>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.UserDetail.FirstName + " " + s.UserDetail.LastName));
+
+
             Mapper.CreateMap<ToDo, ToDoViewModel>();
 
             Mapper.CreateMap<Diary, DiaryViewModel>();

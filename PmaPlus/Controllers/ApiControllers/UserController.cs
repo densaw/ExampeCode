@@ -42,7 +42,16 @@ namespace PmaPlus.Controllers.ApiControllers
             return Mapper.Map<IEnumerable<User>, IEnumerable<UsersList>>(users);
         }
 
-
+        [Route("api/Scouts/List")]
+        public IEnumerable<UsersList> GetScouts()
+        {
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            if (club != null)
+            {
+                return Mapper.Map<IEnumerable<User>,IEnumerable<UsersList>>(_userServices.GetUsers(Role.Scout, club.Id));
+            }
+            return null;
+        }
 
 
     }

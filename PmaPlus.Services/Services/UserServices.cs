@@ -63,6 +63,7 @@ namespace PmaPlus.Services
         }
 
 
+
         public Club GetClubByUserName(string name)
         {
             var user = _userRepository.Get(u => u.Email.ToLower() == name.ToLower());
@@ -191,22 +192,22 @@ namespace PmaPlus.Services
 
 
             var trTeamMember = from user in userList
-                    
-                select new TrainingTeamMemberPlateViewModel()
-                {
-                    Id = user.Id,
-                    Name = user.UserDetail.FirstName + " " + user.UserDetail.LastName,
-                    Role = user.Role,
-                    Email = user.Email,
-                    TownCity = user.UserDetail.Address.TownCity,
-                    Mobile = user.UserDetail.Address.Mobile,
-                    LastLogin = user.LoggedAt,
-                    ProfilePicture = user.UserDetail.ProfilePicture,
-                    BirthDay = user.UserDetail.Birthday,
-                    CrbDbsExpiry = user.UserDetail.CrbDbsExpiry,
-                    FirstAidExpiry = user.UserDetail.FirstAidExpiry,
-                    Age = DateTime.Now.Year - (user.UserDetail.Birthday ?? DateTime.Now).Year
-                };
+
+                               select new TrainingTeamMemberPlateViewModel()
+                               {
+                                   Id = user.Id,
+                                   Name = user.UserDetail.FirstName + " " + user.UserDetail.LastName,
+                                   Role = user.Role,
+                                   Email = user.Email,
+                                   TownCity = user.UserDetail.Address.TownCity,
+                                   Mobile = user.UserDetail.Address.Mobile,
+                                   LastLogin = user.LoggedAt,
+                                   ProfilePicture = user.UserDetail.ProfilePicture,
+                                   BirthDay = user.UserDetail.Birthday,
+                                   CrbDbsExpiry = user.UserDetail.CrbDbsExpiry,
+                                   FirstAidExpiry = user.UserDetail.FirstAidExpiry,
+                                   Age = DateTime.Now.Year - (user.UserDetail.Birthday ?? DateTime.Now).Year
+                               };
 
             return trTeamMember;
         }
@@ -785,6 +786,84 @@ namespace PmaPlus.Services
             return usersList;
 
         }
+
+
+        #region Users List
+
+        public IEnumerable<User> GetUsers(Role role, int clubId = 0)
+        {
+            if (clubId == 0)
+            {
+                return _userRepository.GetMany(u => u.Role == role);
+            }
+            else
+            {
+                switch (role)
+                {
+                    case Role.Player:
+                        {
+                            var member = _playerRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
+                            return member;
+                            break;
+                        }
+                    case Role.ClubAdmin:
+                        {
+                            var member = _clubAdminRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
+                            return member;
+                            break;
+                        }
+
+                    case Role.Coach:
+                        {
+                            var member = _coachRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
+                            return member;
+                            break;
+                        }
+                    case Role.HeadOfAcademies:
+                        {
+                            var member = _headOfAcademyRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
+                            return member;
+                            break;
+                        }
+                    case Role.HeadOfEducation:
+                        {
+                            var member = _headOfEducationRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
+                            return member;
+                            break;
+                        }
+                    case Role.Scout:
+                        {
+                            var member = _scoutRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
+                            return member;
+                            break;
+                        }
+                    case Role.Physiotherapist:
+                        {
+                            var member = _physiotherapistRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
+                            return member;
+                            break;
+                        }
+                    case Role.SportsScientist:
+                        {
+                            var member = _sportScientistRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
+                            return member;
+                            break;
+                        }
+                    case Role.WelfareOfficer:
+                        {
+                            var member = _welfareOfficerRepository.GetMany(c => c.Club.Id == clubId).Select(u => u.User).AsEnumerable();
+                            return member;
+                            break;
+                        }
+                    default:
+                        {
+                            return null;
+                        }
+                }
+            }
+        }
+
+        #endregion
 
     }
 }
