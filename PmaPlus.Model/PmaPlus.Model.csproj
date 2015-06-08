@@ -226,7 +226,8 @@
     <Compile Include="ViewModels\TrainingTeamMember\CoachesList.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberPlateViewModel - Copy.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberViewModel.cs" />
-    <Compile Include="ViewModels\User\UsersList.cs" />
+    <Compile Include="ViewModels\Users\UserAvatar.cs" />
+    <Compile Include="ViewModels\Users\UsersList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
