@@ -64,14 +64,14 @@
                 <a href="@Url.Action("Profile", "Home", new {area = "Player"})"><i class="fa fa-cogs"></i> <span class="nav-label">Profile</span></a>
             </li>
 
-            <li class="@Html.IsSelected(controller: "Home", action: "SkillAndKnowledge")">
-                <a href="@Url.Action("SkillAndKnowledge", "Home", new {area = "Player"})"><i class="fa fa-futbol-o"></i> <span class="nav-label">Skill & Knowledge</span></a>
-            </li>
-
             <li class="@Html.IsSelected(controller: "Home", action: "ReviewReports")">
                 <a href="@Url.Action("ReviewReports", "Home", new { area = "Player" })"><i class="fa fa-dashboard"></i> <span class="nav-label">Review Reports</span></a>
 
             </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "SkillAndKnowledge")">
+                <a href="@Url.Action("SkillAndKnowledge", "Home", new {area = "Player"})"><i class="fa fa-futbol-o"></i> <span class="nav-label">Skill & Knowledge</span></a>
+            </li>
+
 
             <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] {"SportsScience", "Exercise", "Testing"})">
                 <a href="@Url.Action("SportsScience", "Home", new {area = "Player"})"><i class="fa fa-flask"></i> <span class="nav-label">Sports Science</span><span class="fa arrow"></span></a>
