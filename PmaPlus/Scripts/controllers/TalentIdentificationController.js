@@ -2,6 +2,9 @@
 
 app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
 
+
+   
+
     //Variable section
     var date = new Date();
 
