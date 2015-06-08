@@ -84,21 +84,22 @@ namespace PmaPlus.Controllers.ApiControllers
             return Ok();
         }
 
-        public IHttpActionResult Put(int id, [FromBody] TalentIdentificationViewModel identificationViewModel)
+        public IHttpActionResult Put(int id, [FromBody]TalentIdentificationViewModel identificationViewModel)
         {
             if (!_talentServices.TalentExist(id))
             {
                 return NotFound();
             }
             var talent = Mapper.Map<TalentIdentificationViewModel, TalentIdentification>(identificationViewModel);
-            
-            _talentServices.UpdateTalentIdentification(talent,id);
+
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
+            _talentServices.UpdateTalentIdentification(talent,id,clubId);
             return Ok();
         }
 
 
         [Route("api/TalentIdentification/Invite/{id:int}")]
-        public IHttpActionResult PutInvite(int id, [FromBody] TalentInviteViewModel talentInviteViewModel)
+        public IHttpActionResult PutInvite(int id, [FromBody]TalentInviteViewModel talentInviteViewModel)
         {
             if (!_talentServices.TalentExist(id))
             {
