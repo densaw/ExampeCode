@@ -1,10 +1,13 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "PMA+";
     Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="sidebard-panel" style="min-height: 1185px;">
+
+  @Html.Partial("~/Views/Partials/_UserAvaterPartial.cshtml")
+
+
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <h5>To Do List</h5>
@@ -20,6 +23,9 @@
                 </a>
             </div>
         </div>
+
+
+
         <div class="ibox-content" ng-controller="ToDoController" ng-cloak>
             @*Modal*@
             <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
@@ -165,6 +171,12 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+
+    <script src="~/Scripts/controllers/UserAvatarController.js"></script>
+}
+
 <style>
 
     .font-bold-small {
@@ -180,5 +192,26 @@
   color: @ViewBag.them;
   text-decoration: none;
 }
+
+     img.prifile {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+
+    img.landscape {
+        height: 100%;
+        width: auto;
+    }
+
+    img.portrait {
+        width: 100%;
+        height: auto;
+    }
 </style>
 

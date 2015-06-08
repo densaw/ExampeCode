@@ -156,7 +156,6 @@ namespace PmaPlus.Services.Services
             if (_attributesOfTalentRepository.GetMany(a => a.AttributeId == attributesOfTalent.AttributeId && a.TalentIdentificationId == attributesOfTalent.TalentIdentificationId).Any())
             {
                 _attributesOfTalentRepository.Update(attributesOfTalent);
-
             }
             else
             {
