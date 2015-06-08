@@ -232,7 +232,7 @@
                                 <tbody id="contentTable">
                                     <tr dir-paginate="newScoutP in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
                                         <td>{{newScoutP.scouteName}}</td>
-                                        <td>{{newScoutP.dateIdentificated}}</td>
+                                        <td>{{newScoutP.dateIdentificated | date:'dd-MM-yyyy'}}</td>
                                         <td>{{newScoutP.name}}</td>
                                         <td>{{newScoutP.presentClub}}</td>
                                         <td>{{newScoutP.age}}</td>
@@ -251,7 +251,7 @@
                                         <td>
                                             <i ng-click="openEdit(newScoutP.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(newScoutP.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                            <a ng-href="TalenIdProfile" class="fa fa-graduation-cap"></a>
+                                            <a ng-href="TalenIdProfile/{{newScoutP.id}}" class="fa fa-graduation-cap"></a>
                                         </td>
                                     </tr>
                                 </tbody>
