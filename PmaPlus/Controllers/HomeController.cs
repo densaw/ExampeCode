@@ -32,7 +32,7 @@ namespace PmaPlus.Controllers
             if (User.IsInRole(Role.Scout.ToString()))
                 return RedirectToAction("Dashboard", "Home", new { area = "Scouts" });
             if (User.IsInRole(Role.SportsScientist.ToString()))
-                return RedirectToAction("Dashboard", "Home", new { area = "SportsScientist" });
+                return RedirectToAction("Dashboard", "Home", new { area = "SportScientist" });
             if (User.IsInRole(Role.WelfareOfficer.ToString()))
                 return RedirectToAction("Dashboard", "Home", new { area = "WelfareOfficer" });
             return View();
