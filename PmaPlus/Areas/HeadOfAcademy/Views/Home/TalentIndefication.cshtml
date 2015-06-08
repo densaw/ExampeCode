@@ -58,16 +58,16 @@
                                                     <select name="scoutName" ng-model="newScoutP.scoutId" ng-options="scout.id as scout.name for scout in scouts" class=" form-control"></select>
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.eventTitle.$invalid && (myform.eventTitle.$dirty||myform.form_Submitted)}">
+                                            <div class="form-group" ng-class="{'has-error':myform.firstname.$invalid && (myform.firstname.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Player First Name:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input name="playerTitle" ng-model="newScoutP.firstname" required class="form-control" maxlength="50">
+                                                    <input name="firstName" ng-model="newScoutP.firstName" required class="form-control" maxlength="50">
                                                 </div>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                                            <div class="form-group" >
                                                 <label class="col-lg-4 title-modal">Player Last Name:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input name="playertNote" ng-model="newScoutP.lastname" required class="form-control" maxlength="50">
+                                                    <input name="lastName" ng-model="newScoutP.lastName" required class="form-control" maxlength="50">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -90,7 +90,7 @@
                                             <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Preset Club:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input name="presetClub" ng-model="newScoutP.presentclub" required class="form-control">
+                                                    <input name="presentClub" ng-model="newScoutP.presentClub" required class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group" ng-class="{'has-error':myform.eventEnd.$invalid && (myform.eventEnd.$dirty||myform.form_Submitted)}">
@@ -251,7 +251,7 @@
                                         <td>
                                             <i ng-click="openEdit(newScoutP.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(newScoutP.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                            <a ng-href="CurrDetails/{{newScoutP.id}}" class="fa fa-graduation-cap"></a>
+                                            <a ng-href="TalenIdProfile" class="fa fa-graduation-cap"></a>
                                         </td>
                                     </tr>
                                 </tbody>
