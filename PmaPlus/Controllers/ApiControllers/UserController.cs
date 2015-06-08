@@ -48,7 +48,7 @@ namespace PmaPlus.Controllers.ApiControllers
             var club = _userServices.GetClubByUserName(User.Identity.Name);
             if (club != null)
             {
-                return Mapper.Map<IEnumerable<User>,IEnumerable<UsersList>>(_userServices.GetUsers(Role.Scout, club.Id));
+                return Mapper.Map<IEnumerable<Scout>,IEnumerable<UsersList>>(_userServices.GetClubScouts(club.Id));
             }
             return null;
         }

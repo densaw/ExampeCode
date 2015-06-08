@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using PmaPlus.Data;
+using PmaPlus.Model;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.TalentIdentifications;
@@ -46,7 +47,6 @@ namespace PmaPlus.Controllers.ApiControllers
 
 
 
-
         public TalentIdentificationViewModel Get(int id)
         {
             return
@@ -70,6 +70,13 @@ namespace PmaPlus.Controllers.ApiControllers
         public IHttpActionResult Post(TalentIdentificationViewModel identificationViewModel)
         {
             var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+            if (user != null && user.Role == Role.Scout)
+            {
+                var scout = _userServices.GetClubScouts(clubId).FirstOrDefault(s => s.User.Id == user.Id);
+                if (scout != null)
+                    identificationViewModel.ScoutId = scout.Id;
+            }
 
             var talent = Mapper.Map<TalentIdentificationViewModel, TalentIdentification>(identificationViewModel);
 
