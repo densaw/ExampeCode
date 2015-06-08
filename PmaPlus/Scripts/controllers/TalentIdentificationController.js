@@ -11,8 +11,16 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
     var confDelete = angular.element('#confDelete');
     
     var sortArray = [];
+    //get scout
+    
 
-   
+    $scope.scouts = [];
+
+    $http.get('api/Scouts/List').success(function (result) {
+        $scope.scouts = result;
+
+    $scope.selectedRole = $scope.rolesVisible[0];
+   //end
 
     $scope.newScoutP = {};
 
