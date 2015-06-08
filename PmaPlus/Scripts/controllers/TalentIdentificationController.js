@@ -84,7 +84,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
 
     $scope.ok = function (id) {
         $scope.loginLoading = true;
-        //$scope.newScoutP.ageGroup = $scope.selectedAgeGroup.id;
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
         if (id != null) {
 
             //PUT it now have no url to Update date
@@ -128,7 +128,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         $http.get(urlTail + '/' + id)
             .success(function (result) {
                 $scope.newScoutP = result;
-                
+                $scope.myform.form_Submitted = false;
                 $scope.modalTitle = "Update Scouted Player";
                 target.modal('show');
             });
@@ -142,7 +142,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
 
         });
     }
-
+    
     function getClubName() {
         $http.get('/api/ClubAdminDashboard/ClubName').success(function (result) {
             $scope.clubName = result;
@@ -151,6 +151,6 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         });
     }
     getClubName();
-
+    
 
 }]);
