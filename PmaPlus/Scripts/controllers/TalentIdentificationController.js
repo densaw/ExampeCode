@@ -15,11 +15,13 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
     
 
     $scope.scouts = [];
-
-    $http.get('api/Scouts/List').success(function (result) {
+    
+    $http.get('api/Scouts/List').success(function(result) {
         $scope.scouts = result;
-
-    $scope.selectedRole = $scope.rolesVisible[0];
+        console.log(result);
+    });
+   
+    
    //end
 
     $scope.newScoutP = {};
