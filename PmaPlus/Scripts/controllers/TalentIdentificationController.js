@@ -16,13 +16,12 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
 
     $scope.scouts = [];
     
-    $http.get('api/Scouts/List').success(function(result) {
+    $http.get('/api/Scouts/List').success(function(result) {
         $scope.scouts = result;
-        console.log(result);
     });
-   
-    
+
    //end
+   
 
     $scope.newScoutP = {};
 
@@ -95,7 +94,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
                 $scope.newScoutP = {};
                 target.modal('hide');
             }).error(function (data, status, headers, config) {
-
+                $scope.loginLoading = false;
             });
         } else {
             //POST
@@ -106,7 +105,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
                 $scope.newScoutP = {};
                 $scope.loginLoading = false;
             }).error(function (data, status, headers, config) {
-
+                $scope.loginLoading = false;
             });
         }
     };
