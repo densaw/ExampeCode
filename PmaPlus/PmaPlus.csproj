@@ -3186,6 +3186,7 @@
     <Content Include="Areas\WelfareOfficer\Views\Home\Tracker.cshtml" />
     <Content Include="Areas\WelfareOfficer\Views\Home\TrainingTeam.cshtml" />
     <Content Include="Areas\WelfareOfficer\Views\Home\Wellbeing.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\TalenIdProfile.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />

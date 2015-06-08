@@ -128,7 +128,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         $http.get(urlTail + '/' + id)
             .success(function (result) {
                 $scope.newScoutP = result;
-                //$scope.selectedAgeGroup = $scope.ageGroups[result.ageGroup];
+                
                 $scope.modalTitle = "Update Scouted Player";
                 target.modal('show');
             });
