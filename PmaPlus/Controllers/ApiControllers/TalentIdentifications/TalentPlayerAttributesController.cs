@@ -26,20 +26,6 @@ namespace PmaPlus.Controllers.ApiControllers.TalentIdentifications
         }
 
 
-        //public IEnumerable<AttributesOfTalentViewModel> Get(int id)
-        //{
-        //    var club = _userServices.GetClubByUserName(User.Identity.Name);
-
-        //    if (club == null)
-        //    {
-        //        return null;
-        //    }
-
-        //    var attrbts = _talentServices.GetAttributesOfTalents(id, club.Id);
-        //    return Mapper.Map<IEnumerable<AttributesOfTalent>, IEnumerable<AttributesOfTalentViewModel>>(attrbts);
-        //}
-
-
 
         [Route("api/TalentPlayerAttributes/{talentId:int}/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
         public AttributesOfTalentPage Get(int talentId, int pageSize, int pageNumber, string orderBy = "", bool direction = false)
@@ -51,7 +37,6 @@ namespace PmaPlus.Controllers.ApiControllers.TalentIdentifications
             var attrbts = _talentServices.GetAttributesOfTalents(talentId, clubId);
             var items = Mapper.Map<IEnumerable<AttributesOfTalent>, IEnumerable<AttributesOfTalentViewModel>>(attrbts).OrderQuery(orderBy, x => x.HaveAttribute, direction).Paged(pageNumber, pageSize);
 
-
             return new AttributesOfTalentPage()
             {
                 Count = count,
@@ -62,7 +47,7 @@ namespace PmaPlus.Controllers.ApiControllers.TalentIdentifications
 
 
 
-        public IHttpActionResult Post(AttributesOfTalentViewModel talentViewModel)
+        public IHttpActionResult Post([FromBody]AttributesOfTalentViewModel talentViewModel)
         {
             var attribute = Mapper.Map<AttributesOfTalentViewModel, AttributesOfTalent>(talentViewModel);
 

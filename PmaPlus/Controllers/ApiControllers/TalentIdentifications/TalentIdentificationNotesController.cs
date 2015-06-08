@@ -5,7 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using PmaPlus.Data;
 using PmaPlus.Model.Models;
+using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.TalentIdentifications;
 using PmaPlus.Services.Services;
 
@@ -20,17 +22,38 @@ namespace PmaPlus.Controllers.ApiControllers.TalentIdentifications
             _talentServices = talentServices;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id">Talent Id</param>
-        /// <returns></returns>
-        public IEnumerable<TalentNoteViewModel> Get(int id)
+      
+
+
+
+        [Route("api/TalentIdentificationNotes/{talentId:int}/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public TalentIdentificationNotesPage  Get(int talentId, int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
-            return Mapper.Map<IEnumerable<TalentNote>,IEnumerable<TalentNoteViewModel>>(_talentServices.GetTalentNotes(id));
+
+            var count = _talentServices.GetTalentNotes(talentId).Count();
+            var pages = (int)Math.Ceiling((double)count / pageSize);
+            var notes = _talentServices.GetTalentNotes(talentId);
+            var items = Mapper.Map<IEnumerable<TalentNote>,IEnumerable<TalentNoteViewModel>>(notes).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
+
+            return new TalentIdentificationNotesPage()
+            {
+                Count = count,
+                Pages = pages,
+                Items = items
+            };
         }
 
-        public IHttpActionResult Post(int id, [FromBody]TalentNoteViewModel noteViewModel)
+
+
+        public TalentNoteViewModel Get(int id)
+        {
+            return Mapper.Map<TalentNote,TalentNoteViewModel>(_talentServices.GetTalentNoteById(id));
+        }
+
+
+
+
+        public IHttpActionResult Post([FromBody]TalentNoteViewModel noteViewModel)
         {
             var note = Mapper.Map<TalentNoteViewModel, TalentNote>(noteViewModel);
 

@@ -77,9 +77,10 @@ namespace PmaPlus.Services.Services
             return _talentIdentificationRepository.Add(talentIdentification);
         }
 
-        public void UpdateTalentIdentification(TalentIdentification talentIdentification, int id)
+        public void UpdateTalentIdentification(TalentIdentification talentIdentification, int id, int clubId)
         {
             talentIdentification.Id = id;
+            talentIdentification.ClubId = clubId;
             _talentIdentificationRepository.Update(talentIdentification, talentIdentification.Id);
         }
 
@@ -97,6 +98,10 @@ namespace PmaPlus.Services.Services
             return _talentNoteRepository.GetMany(n => n.Id == id).Any();
         }
 
+        public TalentNote GetTalentNoteById(int id)
+        {
+            return _talentNoteRepository.GetById(id);
+        }
 
         public IEnumerable<TalentNote> GetTalentNotes(int talentId)
         {

@@ -208,6 +208,7 @@
     <Compile Include="ViewModels\SportsScience\SportsScienceTestViewModel.cs" />
     <Compile Include="ViewModels\TalentIdentifications\AttributesOfTalentViewModel.cs" />
     <Compile Include="ViewModels\TalentIdentifications\AttributesOfTalentPage.cs" />
+    <Compile Include="ViewModels\TalentIdentifications\TalentIdentificationNotesPage.cs" />
     <Compile Include="ViewModels\TalentIdentifications\TalentIdentificationTableViewModel.cs" />
     <Compile Include="ViewModels\TalentIdentifications\TalentIdentificationViewModel.cs" />
     <Compile Include="ViewModels\TalentIdentifications\TalentIdentificationDetailViewModel.cs" />
