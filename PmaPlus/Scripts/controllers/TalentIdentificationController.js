@@ -2,9 +2,17 @@
 
 app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
 
-
+    var pathArray = $location.$$absUrl.split("/");
+    $scope.currId = pathArray[pathArray.length - 1];
+    
+    function getParentCurr() {
+        $http.get('/api/TalentIdentification/' + $scope.currId).success(function (result) {
+            $scope.parentCurr = result;
+        });
+    }
    
-
+    getParentCurr();
+    
     //Variable section
     var date = new Date();
 
