@@ -70,6 +70,7 @@
     <Compile Include="Enums\ZScoreFormulaType.cs" />
     <Compile Include="Models\ActivityStatusChange.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\AttributesOfTalent.cs" />
     <Compile Include="Models\BodyPart.cs" />
     <Compile Include="Models\Certificate.cs" />
     <Compile Include="Models\Chairman.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Models\MessageRating.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\NutritionNew.cs" />
+    <Compile Include="Models\PlayerNote.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\CurriculumStatement.cs" />
     <Compile Include="Enums\AgeGroup.cs" />
@@ -115,6 +117,8 @@
     <Compile Include="Models\SessionScenario.cs" />
     <Compile Include="Models\SkillLevel.cs" />
     <Compile Include="Models\StatementRoles.cs" />
+    <Compile Include="Models\TalentIdentification.cs" />
+    <Compile Include="Models\TalentNote.cs" />
     <Compile Include="Models\TargetHistory.cs" />
     <Compile Include="Models\TeamCurriculum.cs" />
     <Compile Include="Models\ToDo.cs" />
@@ -128,7 +132,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserDetail.cs" />
     <Compile Include="Models\WelfareOfficer.cs" />
-    <Compile Include="ViewModels\ActivePlayersForLastYearViewModel.cs" />
+    <Compile Include="ViewModels\DashboardContent\ActivePlayersForLastYearViewModel.cs" />
     <Compile Include="ViewModels\Club\AddClubViewModel.cs" />
     <Compile Include="ViewModels\Club\ClubPage.cs" />
     <Compile Include="ViewModels\Club\ClubTableViewModel.cs" />
@@ -141,10 +145,11 @@
     <Compile Include="ViewModels\Curriculum\CurriculumViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\SessionTableViewModel.cs" />
     <Compile Include="ViewModels\Curriculum\SessionViewModel.cs" />
-    <Compile Include="ViewModels\DashboardContent\PlayersScoreGraph.cs" />
+    <Compile Include="ViewModels\DashboardContent\GraphBoxViewModel.cs" />
     <Compile Include="ViewModels\Diary\AddDiaryViewModel.cs" />
     <Compile Include="ViewModels\Diary\DiaryViewModel.cs" />
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />
+    <Compile Include="ViewModels\DashboardContent\InfoBoxViewModel.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
     <Compile Include="ViewModels\MessageWall\MessageCommentViewModel.cs" />
     <Compile Include="ViewModels\MessageWall\MessageViewModel.cs" />
@@ -171,12 +176,15 @@
     <Compile Include="ViewModels\Physio\PhysioExercisePage.cs" />
     <Compile Include="ViewModels\Physio\PhysiotherapyExerciseTableViewModel.cs" />
     <Compile Include="ViewModels\Physio\PhysiotherapyExerciseViewModel.cs" />
+    <Compile Include="ViewModels\DashboardContent\PieChart.cs" />
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributePage.cs" />
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributeTableViewModel.cs" />
     <Compile Include="ViewModels\PlayerAttribute\PlayerAttributeViewModel.cs" />
     <Compile Include="ViewModels\Player\AddPlayerViewModel.cs" />
     <Compile Include="ViewModels\Player\AvailablePlayersList.cs" />
+    <Compile Include="ViewModels\Player\PlayersForScoutPage.cs" />
     <Compile Include="ViewModels\Player\PlayersForPhisiotherapistPage.cs" />
+    <Compile Include="ViewModels\Player\PlayerTableForScoutViewModel.cs" />
     <Compile Include="ViewModels\Player\PlayerTableForPhisiotherapistViewModel.cs" />
     <Compile Include="ViewModels\Player\PlayersDetailPage.cs" />
     <Compile Include="ViewModels\Player\PlayersPage.cs" />
@@ -205,6 +213,15 @@
     <Compile Include="ViewModels\SportsScience\SportsScienceTestPage.cs" />
     <Compile Include="ViewModels\SportsScience\SportsScienceTestTableViewModel.cs" />
     <Compile Include="ViewModels\SportsScience\SportsScienceTestViewModel.cs" />
+    <Compile Include="ViewModels\TalentIdentifications\AttributesOfTalentViewModel.cs" />
+    <Compile Include="ViewModels\TalentIdentifications\AttributesOfTalentPage.cs" />
+    <Compile Include="ViewModels\TalentIdentifications\TalentIdentificationNotesPage.cs" />
+    <Compile Include="ViewModels\TalentIdentifications\TalentIdentificationTableViewModel.cs" />
+    <Compile Include="ViewModels\TalentIdentifications\TalentIdentificationViewModel.cs" />
+    <Compile Include="ViewModels\TalentIdentifications\TalentIdentificationDetailViewModel.cs" />
+    <Compile Include="ViewModels\TalentIdentifications\TalentIdentificationPage.cs" />
+    <Compile Include="ViewModels\TalentIdentifications\TalentInviteViewModel.cs" />
+    <Compile Include="ViewModels\TalentIdentifications\TalentNoteViewModel.cs" />
     <Compile Include="ViewModels\Team\AddTeamViewModel.cs" />
     <Compile Include="ViewModels\Team\TeamsForPhisiotherapistPage.cs" />
     <Compile Include="ViewModels\Team\TeamsPage.cs" />
@@ -218,6 +235,8 @@
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberViewModel.cs" />
     <Compile Include="ViewModels\User\UsersList.cs" />
     <Compile Include="ViewModels\User\UserViewModel.cs" />
+    <Compile Include="ViewModels\Users\UserAvatar.cs" />
+    <Compile Include="ViewModels\Users\UsersList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

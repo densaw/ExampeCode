@@ -16,14 +16,20 @@ using PmaPlus.Model.ViewModels.Scenario;
 using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.SportsScience;
+using PmaPlus.Model.ViewModels.TalentIdentifications;
 using PmaPlus.Model.ViewModels.Team;
 using PmaPlus.Model.ViewModels.ToDo;
 using PmaPlus.Model.ViewModels.TrainingTeamMember;
+using PmaPlus.Services.Services;
 
 namespace PmaPlus.Mapping
 {
     class ModelToViewModelProfile : Profile
     {
+        
+
+        
+
         public override string ProfileName
         {
             get { return "ModelToViewModelProfile"; }
@@ -99,6 +105,10 @@ namespace PmaPlus.Mapping
                 .ForMember(d => d.LastLogin, o => o.MapFrom(s => s.LoggedAt))
                 .ForMember(d => d.ProfilePicture, o => o.MapFrom(s => s.UserDetail.ProfilePicture));
 
+            Mapper.CreateMap<Scout, UsersList>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.User.UserDetail.FirstName + " " + s.User.UserDetail.LastName));
+
+
             Mapper.CreateMap<ToDo, ToDoViewModel>();
 
             Mapper.CreateMap<Diary, DiaryViewModel>();
@@ -127,6 +137,26 @@ namespace PmaPlus.Mapping
                 .ForMember(d => d.Players, o => o.MapFrom(s => s.Players.Select(p => p.Id)))
                 .ForMember(d => d.CurriculumId, o => o.MapFrom(s => s.TeamCurriculum.Curriculum.Id));
             Mapper.CreateMap<Team, TeamsList>();
+
+
+
+            //TalenIdentification
+
+            Mapper.CreateMap<TalentIdentification, TalentIdentificationViewModel>();
+            Mapper.CreateMap<TalentIdentification, TalentIdentificationTableViewModel>()
+                .ForMember(d => d.Age, o => o.MapFrom(s => DateTime.Now.Year - s.BirthDate.Year))
+                .ForMember(d => d.Name, o=>o.MapFrom(s => s.FirstName + " " + s.LastName))
+                .ForMember(d => d.Score, o => o.MapFrom(s => (s.Attributes.Sum(a => a.Score) /  (s.Attributes.Sum(a => a.Attribute.MaxScore) == 0 ? 1: s.Attributes.Sum(a => a.Attribute.MaxScore)))*100 ))
+                .ForMember(d => d.ScouteName, o => o.MapFrom(s => s.Scout.User.UserDetail.FirstName + " " + s.Scout.User.UserDetail.LastName));
+
+            Mapper.CreateMap<TalentIdentification, TalentIdentificationDetailViewModel>()
+                .ForMember(d => d.AttributeScorePers, o => o.MapFrom(s => (s.Attributes.Sum(a => a.Score) / (s.Attributes.Sum(a => a.Attribute.MaxScore) == 0 ? 1 : s.Attributes.Sum(a => a.Attribute.MaxScore))) * 100));
+
+            Mapper.CreateMap<AttributesOfTalent, AttributesOfTalentViewModel>();
+
+            Mapper.CreateMap<TalentNote, TalentNoteViewModel>();
+
+
         }
     }
 }

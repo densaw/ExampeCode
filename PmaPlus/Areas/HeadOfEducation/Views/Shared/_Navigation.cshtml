@@ -1,0 +1,76 @@
+﻿@using Action = Antlr.Runtime.Misc.Action
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <img class="img-circle m-t-xs img-responsive" ng-src="/api/Clubs/logo" />
+                            </span>
+                        </span>
+                    </a>
+
+                </div>
+                <div class="logo-element">
+                    <img class="img-circle m-t-xs img-responsive" ng-src="/api/Clubs/logo" />
+                </div>
+            </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "Dashboard")">
+                <a href="@Url.Action("Dashboard", "Home", new {area = "HeadOfEducation"})"><i class="fa fa-home"></i> <span class="nav-label">Dashboard</span></a>
+
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Home", action: "ClubDiary")">
+                <a href="@Url.Action("ClubDiary", "Home", new {area = "HeadOfEducation"})"><i class="fa fa-calendar"></i> <span class="nav-label">Diary</span></a>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Home", action: "Communications")">
+                <a href="@Url.Action("Communications", "Home", new { area = "HeadOfEducation" })"><i class="fa fa-comments"></i> <span class="nav-label">Communications</span></a>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Home", action: "Documents")">
+                <a href="@Url.Action("Documents", "Home", new {area = "HeadOfEducation"})"><i class="fa fa-file-text-o"></i> <span class="nav-label">Documents</span></a>
+            </li>
+
+            <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] {"Health & Fitness", "Nutrition", "Fitness", "Tracker", "Wellbeing"})">
+                <a href="@Url.Action("HealthAndFitness", "Home", new {area = "HeadOfEducation"})"><i class="fa fa-heart-o"></i> <span class="nav-label">Health & Fitness</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="@Html.IsSelected(action: "Nutrition")"><a href="@Url.Action("Nutrition", "Home", new {area = "HeadOfEducation"})">Nutrition</a></li>
+                    <li class="@Html.IsSelected(action: "Fitness")"><a href="@Url.Action("Fitness", "Home", new {area = "HeadOfEducation"})">Fitness</a></li>
+                    <li class="@Html.IsSelected(action: "Tracker")"><a href="@Url.Action("Tracker", "Home", new {area = "HeadOfEducation"})">Tracker</a></li>
+                    <li class="@Html.IsSelected(action: "Wellbeing")"><a href="@Url.Action("Wellbeing", "Home", new {area = "HeadOfEducation"})">Wellbeing</a></li>
+
+                </ul>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Home", action: "MatchReports")">
+                <a href="@Url.Action("MatchReports", "Home", new { area = "HeadOfEducation" })"><i class="fa fa-futbol-o"></i> <span class="nav-label">Match Reports</span></a>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Home", action: "PlayerReviews")">
+                <a href="@Url.Action("PlayerReviews", "Home", new {area = "HeadOfEducation"})"><i class="fa fa-dashboard"></i> <span class="nav-label">Player Reviews</span></a>
+
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Home", action: "Profile")">
+                <a href="@Url.Action("Profile", "Home", new {area = "HeadOfEducation"})"><i class="fa fa-cogs"></i> <span class="nav-label">Profile</span></a>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Home", action: "Reports")">
+                <a href="@Url.Action("Reports", "Home", new {area = "HeadOfEducation"})"><i class="fa fa-edit"></i> <span class="nav-label">Reports</span></a>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Home", action: "ToDoList")">
+                <a href="@Url.Action("ToDoList", "Home", new { area = "HeadOfEducation" })"><i class="fa fa-list-ul"></i> <span class="nav-label">To Do List</span></a>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Home", action: "TrainingTeam")">
+                <a href="@Url.Action("TrainingTeam", "Home", new {area = "HeadOfEducation"})"><i class="fa fa-users"></i> <span class="nav-label">Training Team</span></a>
+            </li>
+
+        </ul>
+    </div>
+</nav>

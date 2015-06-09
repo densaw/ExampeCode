@@ -11,7 +11,7 @@ namespace PmaPlus.Model.Models
 
         public AttributeType Type { get; set; }
 
-        public int? MaxScore { get; set; }
+        public int MaxScore { get; set; }
 
         public int AgeFrom { get; set; }
 

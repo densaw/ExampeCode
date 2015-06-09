@@ -78,6 +78,7 @@ namespace PmaPlus.Services
             return null;
         }
 
+
         public Club GetClubByUserName(string name)
         {
             var user = _userRepository.Get(u => u.Email.ToLower() == name.ToLower());
@@ -206,28 +207,30 @@ namespace PmaPlus.Services
 
 
             var trTeamMember = from user in userList
-                    
-                select new TrainingTeamMemberPlateViewModel()
-                {
-                    Id = user.Id,
-                    Name = user.UserDetail.FirstName + " " + user.UserDetail.LastName,
-                    Role = user.Role,
-                    Email = user.Email,
-                    TownCity = user.UserDetail.Address.TownCity,
-                    Mobile = user.UserDetail.Address.Mobile,
-                    LastLogin = user.LoggedAt,
-                    ProfilePicture = user.UserDetail.ProfilePicture,
-                    BirthDay = user.UserDetail.Birthday,
-                    CrbDbsExpiry = user.UserDetail.CrbDbsExpiry,
-                    FirstAidExpiry = user.UserDetail.FirstAidExpiry,
-                    Age = DateTime.Now.Year - (user.UserDetail.Birthday ?? DateTime.Now).Year
-                };
+
+                               select new TrainingTeamMemberPlateViewModel()
+                               {
+                                   Id = user.Id,
+                                   Name = user.UserDetail.FirstName + " " + user.UserDetail.LastName,
+                                   Role = user.Role,
+                                   Email = user.Email,
+                                   TownCity = user.UserDetail.Address.TownCity,
+                                   Mobile = user.UserDetail.Address.Mobile,
+                                   LastLogin = user.LoggedAt,
+                                   ProfilePicture = user.UserDetail.ProfilePicture,
+                                   BirthDay = user.UserDetail.Birthday,
+                                   CrbDbsExpiry = user.UserDetail.CrbDbsExpiry,
+                                   FirstAidExpiry = user.UserDetail.FirstAidExpiry,
+                                   Age = DateTime.Now.Year - (user.UserDetail.Birthday ?? DateTime.Now).Year
+                               };
 
             return trTeamMember;
         }
 
         public User AddTrainingTeamMember(AddTrainingTeamMemberViewModel user, string clubAdminEmail)
         {
+            var club = GetClubByUserName(clubAdminEmail);
+
             var trTeam = new User
             {
                 UserDetail = new UserDetail
@@ -272,7 +275,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _coachRepository.Add(newCoach);
                         break;
@@ -283,7 +286,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _headOfAcademyRepository.Add(newHeadofA);
                         break;
@@ -294,7 +297,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _headOfEducationRepository.Add(newHeadofE);
                         break;
@@ -305,7 +308,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _scoutRepository.Add(scout);
                         break;
@@ -316,7 +319,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _physiotherapistRepository.Add(physiotherapist);
                         break;
@@ -327,7 +330,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _sportScientistRepository.Add(sportScientist);
                         break;
@@ -338,7 +341,7 @@ namespace PmaPlus.Services
                         {
                             User = newUser,
                             Status = UserStatus.Active,
-                            Club = _clubRepository.Get(c => c.ClubAdmin.User.Email.ToLower() == clubAdminEmail.ToLower()),
+                            Club = club
                         };
                         _welfareOfficerRepository.Add(welfareOfficer);
                         break;
@@ -450,6 +453,7 @@ namespace PmaPlus.Services
                 member.UserDetail.Address.Telephone = memberViewModel.Telephone;
                 member.UserDetail.Address.Mobile = memberViewModel.Mobile;
                 member.Email = memberViewModel.Email;
+                member.UserName = memberViewModel.Email;
                 member.Password = memberViewModel.Password;
                 member.UserDetail.FaNumber = memberViewModel.FaNumber;
                 member.UserDetail.Birthday = memberViewModel.BirthDate;
@@ -797,6 +801,16 @@ namespace PmaPlus.Services
             return usersList;
 
         }
+
+
+        #region Users List
+
+        public IEnumerable<Scout> GetClubScouts(int clubId)
+        {
+            return _scoutRepository.GetMany(c => c.Club.Id == clubId);
+        }
+
+        #endregion
 
     }
 }

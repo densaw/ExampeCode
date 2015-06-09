@@ -24,8 +24,6 @@ namespace PmaPlus.Model.Models
 
        
         public virtual ClubAdmin ClubAdmin { get; set; }
-        public virtual Physiotherapist Physiotherapist { get; set; }
-        public virtual WelfareOfficer WelfareOfficer { get; set; }
         public virtual ICollection<Coach> Coaches { get; set; }
         public virtual ICollection<HeadOfEducation> HeadOfEducations { get; set; }
         public virtual ICollection<Player> Players { get; set; }

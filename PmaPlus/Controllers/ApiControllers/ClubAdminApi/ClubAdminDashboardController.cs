@@ -35,9 +35,9 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
 
 
         [Route("api/ClubAdminDashboard/Players/ScoreGraph")]
-        public IEnumerable<PlayersScoreGraph> GetPlayersScoreGraphs()
+        public IEnumerable<GraphBoxViewModel> GetPlayersScoreGraphs()
         {
-            var temp = new List<PlayersScoreGraph>();
+            var temp = new List<GraphBoxViewModel>();
 
             var today = DateTime.Now.Month;
 
@@ -47,7 +47,7 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
                 {
                     today = 1;
                 }
-                temp.Add(new PlayersScoreGraph(){Month = today,PlayersScore = 0});
+                temp.Add(new GraphBoxViewModel(){Month = today,PlayersScore = 0});
                 today++;
             }
 

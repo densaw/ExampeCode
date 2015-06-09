@@ -11,6 +11,7 @@ using PmaPlus.Model.ViewModels.Qualification;
 using PmaPlus.Model.ViewModels.SiteSettings;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.SportsScience;
+using PmaPlus.Model.ViewModels.TalentIdentifications;
 using PmaPlus.Model.ViewModels.ToDo;
 using PmaPlus.Model.ViewModels.TrainingTeamMember;
 
@@ -74,6 +75,17 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<CurriculumStatementViewModel, CurriculumStatement>()
                 .ForMember(d => d.Roles, o => o.Ignore());
+
+
+
+            //Talent Identification
+
+            Mapper.CreateMap<TalentIdentificationViewModel,TalentIdentification>();
+
+            Mapper.CreateMap< AttributesOfTalentViewModel,AttributesOfTalent>();
+
+            Mapper.CreateMap<TalentNoteViewModel,TalentNote>();
+
         }
     }
 }

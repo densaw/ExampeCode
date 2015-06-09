@@ -1,0 +1,285 @@
+﻿@{
+    ViewBag.Title = "PMA+";
+    Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div ng-controller="TrainingTeamController" ng-cloak>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Training Team</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li>
+                    <a>Club</a>
+                </li>
+                <li class="active">
+                    <strong>Training Team</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-click="openModal()">Add a Team Member</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        @*Modal*@
+        <div class="modal inmodal" id="addTeamMember" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h3 class="modal-title text-left">Add a Team Member</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form name="myform" class="form-horizontal" novalidate>
+                            <div class="form-group" ng-class="{'has-error':myform.memberFirstName.$invalid && (myform.memberFirstName.$dirty||myform.form_Submitted)}">
+                                <label class="col-lg-4 title-modal">First Name:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input name="memberFirstName" ng-model="newMember.firstName" required class="form-control" maxlength="50">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':myform.memberLastName.$invalid && (myform.memberLastName.$dirty||myform.form_Submitted)}">
+                                <label class="col-lg-4 title-modal">Last Name:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input name="memberLastName" ng-model="newMember.lastName" required class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">User Role:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <select ng-model="selectedRole" ng-options="role.name for role in rolesVisible | orderBy:'name'" class=" form-control" name="account"></select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Needs to Report:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input id="needstoReport" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">About Me:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <textarea ng-model="newMember.aboutMe" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Telephone:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.telephone" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Mobile:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.mobile" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':myform.memberEmail.$invalid && (myform.memberEmail.$dirty||myform.form_Submitted)}">
+                                <label class="col-lg-4 title-modal">Email:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input name="memberEmail" ng-model="newMember.email" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':myform.memberPassword.$invalid && (myform.memberPassword.$dirty||myform.form_Submitted)}">
+                                <label class="col-lg-4 title-modal">Password:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input name="memberPassword" ng-model="newMember.password" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">FA Number:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.faNumber" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Birth Date:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" value="{{newMember.birthDate | date:'dd-MM-yyyy' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="newMember.birthDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day', minView:'day' }" />
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Profile Picture:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input file-model="pic" type="file" accept="image/*" class="pma-fileupload">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Nationality:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.nationality" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Address 1:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.address1" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Address 2:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.address2" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Address 3:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.address3" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Town City:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.townCity" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Post Code:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMember.postcode" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">CRB\DBS Expiry:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" value="{{newMember.crbDbsExpiry | date:'dd-MM-yyyy' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="newMember.crbDbsExpiry" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day' }" />
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">First Aid Expiry:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" id="dropdown3" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" value="{{newMember.firstAidExpiry | date:'dd-MM-yyyy' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="newMember.firstAidExpiry" data-datetimepicker-config="{ dropdownSelector: '#dropdown3', startView:'day', minView:'day' }" />
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-click="delete(newMember.id)" id="deleteConf" type="button" class="btn btn-white pull-left">Delete</button>
+                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                        <button ng-click="send(newMember.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                            <span class="ladda-label" style="font-size: 14px;">Save changes</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Modal End*@
+        <div class="row">
+            <div class="col-lg-4" ng-repeat="item in items">
+                <div class="contact-box " onmouseenter="inside(this)" onmouseleave="out(this)">
+
+                    <div class="col-sm-4">
+                        <div class="text-center">
+                            <div style="width: 67px; height: 67px; position: relative; overflow: hidden;" class="img-circle">
+                                <img alt="image" class="prifile" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent />
+                            </div>
+                            <div class="m-t-xs font-bold">{{roles[item.role].name}}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <h3>
+                            <strong>{{item.name}}</strong>
+                        </h3>
+                        <p>
+                            <i class="fa fa-map-marker"></i> {{item.townCity}}
+                        </p>
+                        <address>
+                            {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}}<br>
+                            {{item.mobile}} <br />
+                            <span style="font-size: 10px">CRB\DBS Expiry: {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}</span><br>
+                            <span style="font-size: 10px">First Aid Expiry: {{item.firstAidExpiry | date:'dd.MM.yyyy'}}</span><br>
+                            Last Login: <strong>{{item.lastLogin | date:'dd.MM.yyyy'}}</strong>
+                        </address>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .font-bold {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    a.dropdown-toggle {
+        color: #66696B;
+        text-decoration: none;
+    }
+
+    img.prifile {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+
+    img.landscape {
+        height: 100%;
+        width: auto;
+    }
+
+    img.portrait {
+        width: 100%;
+        height: auto;
+    }
+</style>
+<script>
+
+    function inside(elem) {
+
+        $(elem).addClass("animated pulse");
+
+        setTimeout(function () {
+            $(elem).removeClass("animated pulse");
+        }, 2000);
+    }
+
+
+
+</script>

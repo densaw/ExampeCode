@@ -117,6 +117,14 @@
             $scope.expanded = !$scope.expanded;
             $cookies.expanded = $scope.expanded;
         }
+
+        $scope.userName = "";
+
+        $http.get("/api/User/Name").success(function(result) {
+            $scope.userName = result;
+        });
+
+
     }]);
 
     module.controller('ChartController', ['$scope', '$http', function ($scope, $http) {

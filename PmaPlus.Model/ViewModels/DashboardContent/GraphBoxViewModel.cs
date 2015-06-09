@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PmaPlus.Model.ViewModels.DashboardContent
 {
-    public class PlayersScoreGraph
+    public class GraphBoxViewModel
     {
         public int Month { get; set; }
         public decimal PlayersScore { get; set; }
