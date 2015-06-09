@@ -4,19 +4,23 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
-    
+    $scope.profileTalents = [];
+
     function getParentCurr() {
         $http.get('/api/TalentIdentification/' + $scope.currId).success(function (result) {
-            $scope.parentCurr = result;
+            $scope.profileTalents = result;
+            console.log($scope.profileTalents);
         });
     }
    
-    getParentCurr();
+    
     
     //Variable section
     var date = new Date();
 
+    
     var needToDelete = -1;
+
     var urlTail = '/api/TalentIdentification';
     var target = angular.element('#addScoutP');
     var confDelete = angular.element('#confDelete');
@@ -53,6 +57,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
                 console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
+        
             });
     }
 
@@ -81,7 +86,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         $scope.pagination.current = newPage;
     };
 
-
+    getParentCurr();
     $scope.open = function () {
         $scope.modalTitle = 'Add Scouted Player';
         target.modal('show');
@@ -93,6 +98,18 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         needToDelete = -1;
     };
 
+
+    $scope.openEdit = function (id) {
+        console.log(id);
+        $http.get(urlTail + '/' + id)
+            .success(function (result) {
+                $scope.newScoutP = result;
+                $scope.myform.form_Submitted = false;
+                $scope.modalTitle = "Update Scouted Player";
+                target.modal('show');
+            });
+    };
+
     $scope.ok = function (id) {
         $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;
@@ -101,6 +118,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
             //PUT it now have no url to Update date
             $http.put(urlTail + '/' + id, $scope.newScoutP).success(function (result) {
                 getResultsPage($scope.pagination.current);
+                console.log(id);
                 $scope.loginLoading = false;
                 $scope.newScoutP = {};
                 target.modal('hide');
@@ -109,7 +127,6 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
             });
         } else {
             //POST
-
             $http.post(urlTail, $scope.newScoutP).success(function (result) {
                 getResultsPage($scope.pagination.current);
                 target.modal('hide');
@@ -134,16 +151,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         });
     };
 
-    $scope.openEdit = function (id) {
-        console.log(id);
-        $http.get(urlTail + '/' + id)
-            .success(function (result) {
-                $scope.newScoutP = result;
-                $scope.myform.form_Submitted = false;
-                $scope.modalTitle = "Update Scouted Player";
-                target.modal('show');
-            });
-    };
+  
 
 
     $scope.check = function (playerObj) {
