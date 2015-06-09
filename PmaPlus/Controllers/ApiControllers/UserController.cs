@@ -20,6 +20,7 @@ namespace PmaPlus.Controllers.ApiControllers
     {
         private readonly UserServices _userServices;
         private readonly IPhotoManager _photoManager;
+        private readonly PlayerServices _playerServices;
 
         public UserController(UserServices userServices, IPhotoManager photoManager)
         {
@@ -90,6 +91,8 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             var user = _userServices.GetUserByEmail(User.Identity.Name);
             string role = "";
+            string pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + user.Id;
+
             switch (user.Role)
             {
                 case Role.HeadOfAcademies:
@@ -115,6 +118,10 @@ namespace PmaPlus.Controllers.ApiControllers
                 case Role.Player:
                 {
                     role = "Player";
+                    var player = _playerServices.QueryPlayer(p => p.User.Id == user.Id);
+                    pic = "/api/file/PlayerProfilePicture/" + user.UserDetail.ProfilePicture + "/" + player.Id;
+
+
                     break;
                 }
                 case Role.Scout:
@@ -147,7 +154,7 @@ namespace PmaPlus.Controllers.ApiControllers
             return new UserAvatar()
             {
                 Name = user.UserDetail.FirstName + " " + user.UserDetail.LastName,
-                Picture = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + user.Id,
+                Picture = pic,
                 Role = role
             };
 
