@@ -7,7 +7,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
     $scope.profileTalents = [];
 
     function getParentCurr() {
-        $http.get('/api/TalentIdentification/' + $scope.currId).success(function (result) {
+        $http.get('/api/TalentIdentification/Detail/' + $scope.currId).success(function (result) {
             $scope.profileTalents = result;
             console.log($scope.profileTalents);
         });
