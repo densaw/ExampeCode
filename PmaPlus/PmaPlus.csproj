@@ -3778,6 +3778,7 @@
     <Folder Include="Areas\SysAdmin\Models\" />
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
     <Folder Include="Areas\WelfareOfficer\Models\" />
+    <Folder Include="Controllers\ApiControllers\HealthandFitness\" />
     <Folder Include="Images\Clubs\" />
     <Folder Include="Scripts\plugins\datapicker\icons\" />
   </ItemGroup>
