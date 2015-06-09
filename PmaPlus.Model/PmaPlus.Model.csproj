@@ -150,7 +150,6 @@
     <Compile Include="ViewModels\Diary\DiaryViewModel.cs" />
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />
     <Compile Include="ViewModels\DashboardContent\InfoBoxViewModel.cs" />
-    <Compile Include="ViewModels\InfoBoxViewModel.cs" />
     <Compile Include="ViewModels\MessageWall\MessageCommentViewModel.cs" />
     <Compile Include="ViewModels\MessageWall\MessageViewModel.cs" />
     <Compile Include="ViewModels\MessageWall\MessageRatingViewModel.cs" />
@@ -233,8 +232,6 @@
     <Compile Include="ViewModels\TrainingTeamMember\CoachesList.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberPlateViewModel - Copy.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberViewModel.cs" />
-    <Compile Include="ViewModels\User\UsersList.cs" />
-    <Compile Include="ViewModels\User\UserViewModel.cs" />
     <Compile Include="ViewModels\Users\UserAvatar.cs" />
     <Compile Include="ViewModels\Users\UsersList.cs" />
   </ItemGroup>
