@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+
+
+<div class="col-lg-9" ng-controller="MessageWallController">
+    @*Modal*@
+    <div class="modal inmodal" id="addCurseModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title text-left">{{modalTitle}}</h3>
+                </div>
+                <div class="modal-body">
+                    <form name="myform" class="form-horizontal" novalidate>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Message:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="courseName" ng-model="newMessage.name" required class="form-control" maxlength="50">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':myform.courseDuration.$invalid && (myform.courseDuration.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Course Duration:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="courseDuration" ng-model="newCourse.duration" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Description:</label>
+                            <div class="col-lg-7 pull-right">
+                                <textarea ng-model="newCourse.description" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                    <button ng-click="ok(newCourse.id)" id="saveModal" ng-disabled="laddaLoading" type="button" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                        <span class="ladda-label" style="font-size: 14px;">Save changes</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Modal End*@
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Message Wall</h5>
+            <div class="ibox-tools">
+                <a class="btn btn-primary" style="font-size: 10px;"><i class="fa fa-envelope-o"></i> Send Message</a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div ng-repeat="msg in message">
+                <p>{{msg.sendAt}} - {{msg.message}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -12,7 +12,9 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
             console.log($scope.profileTalents);
         });
     }
-   
+    var toggleAttendance = angular.element('#toggleAttendance');
+    var toggleInvite = angular.element('#toggleInvite');
+    var toggleJoined = angular.element('#toggleJoined');
     
     
     //Variable section

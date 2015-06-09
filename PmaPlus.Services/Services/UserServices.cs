@@ -62,7 +62,7 @@ namespace PmaPlus.Services
             return _clubAdminRepository.Get(a => a.User.UserName == name);
         }
 
-
+        
 
         public Club GetClubByUserName(string name)
         {
