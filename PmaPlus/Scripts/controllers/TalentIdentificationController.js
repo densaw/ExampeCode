@@ -4,14 +4,41 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
+
+    //get Player Detail
     $scope.profileTalents = [];
 
     function getParentCurr() {
         $http.get('/api/TalentIdentification/Detail/' + $scope.currId).success(function (result) {
-            $scope.profileTalents = result;
-            console.log($scope.profileTalents);
+            $scope.profileTalents = result;           
+            console.log($scope.profileTalents);           
         });
     }
+    //get Assesments
+    $scope.profileAssesments = [];
+
+    function getParentAssesmets() {
+        $http.get('/api/TalentIdentificationNotes/' + $scope.currId).success(function (result) {
+            $scope.profileAssesments = result;
+            
+            console.log($scope.profileAssesments);
+            console.log("get");
+        });
+    }
+    //get Attributes
+
+    $scope.profileAttributes = [];
+
+    function profileAttributes() {
+        $http.get('/api/TalentPlayerAttributes/' + $scope.currId).success(function (result) {
+            $scope.profileAttributes = result;
+            console.log("pre");
+            console.log($scope.profileAttributes);
+            console.log("get");
+        });
+    }
+
+
     var toggleAttendance = angular.element('#toggleAttendance');
     var toggleInvite = angular.element('#toggleInvite');
     var toggleJoined = angular.element('#toggleJoined');
@@ -89,7 +116,10 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         $scope.pagination.current = newPage;
     };
 
+    profileAttributes();
+    getParentAssesmets();
     getParentCurr();
+
     $scope.open = function () {
         $scope.modalTitle = 'Add Scouted Player';
         target.modal('show');
