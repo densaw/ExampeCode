@@ -1920,6 +1920,7 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
 
     $scope.open = function () {
         $scope.modalTitle = 'Add Curriculum Statement';
+        $scope.newStatements = {};
         target.modal('show');
     };
 
