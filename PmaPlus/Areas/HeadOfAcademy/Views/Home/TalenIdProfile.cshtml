@@ -3,7 +3,7 @@
     Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div ng-controller="TalentIdentificationController" ng-cloak>
+<div ng-controller="TalentIdController" ng-cloak>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
             <h2>Talent ID Profile</h2>
@@ -22,11 +22,11 @@
                 <a class="btn btn-primary" ng-href="@Url.Action("TalentIndefication", "Home", new {area = "HeadOfAcademy"})">Back</a>
                 <a class="btn btn-primary" ng-click="invite()">Invite to Club</a>
             </div>
-            
+
         </div>
-       
+
     </div>
-    
+
     <div class="wrapper wrapper-content animated fadeIn">
         <div class="row">
 
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form class="form-horizontal line">
+                        <form class="form-horizontal">
 
                             <div class=" form-group">
                                 <label class="col-lg-4 control-label">Player Name:</label>
@@ -150,11 +150,11 @@
                             </a>
                             <ul class="dropdown-menu dropdown-user">
                                 @*<li>
-                                <a href="#">Config option 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Config option 2</a>
-                            </li>*@
+                                        <a href="#">Config option 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Config option 2</a>
+                                    </li>*@
                             </ul>
                             <a @*class="close-link"*@>
                                 <i class="fa fa-times"></i>
@@ -163,28 +163,30 @@
                     </div>
                     <div class="table-responsive">
                         <div class="ibox-title">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Scout</th>
-                                        <th>Location</th>
-                                        <th>Notes</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="contentTable1">
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <a href="#" ng-click="check()" class="check-link"><i class="fa {{}}"></i> </a>
-                                        </td>
-                                        <td></td>
+                            <form class="form-horizontal">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Scout</th>
+                                            <th>Location</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="contentTable1">
+                                        <tr>
+                                            <td>{{profileAssesments.addDate}}</td>
+                                            <td>{{profileAssesments.scout}}</td>
+                                            <td>
+                                                {{profileAssesments.location}}
+                                            </td>
+                                            <td>{{profileAssesments.note}}</td>
 
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -215,31 +217,31 @@
                             </a>
                         </div>
                     </div>
-                      <div class="table-responsive">
-                        <div class="ibox-title">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Attribute Name</th>
-                                    <th>Player</th>
-                                    <th>Score</th>
-                                    
-                                </tr>
-                                </thead>
-                                <tbody id="contentTable">
-                                <tr dir-paginate="newScoutP in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
-                                    <td></td>
-                                    <td>
-                                        <a href="#" ng-click="check()" class="check-link"><i class="fa {{}}"></i> </a>
-                                    </td>
-                                    <td></td>
-                                 
-                                </tr>
-                                </tbody>
-                            </table>
+                    <div class="table-responsive">
+                        <div class="ibox-title">                          
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Attribute Name</th>
+                                            <th>Player</th>
+                                            <th>Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="contentTable3">
+                                        <tr dir-paginate="item in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
+                                            <td>{{item.attributeName}}</td>
+                                            <td>
+                                                <a href="#" ng-click="check()" class="check-link"><i class="fa{{item.haveAttribute}}"></i> </a>
+                                            </td>
+                                            <td>{{item.score}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
                             <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                            
                         </div>
-                        </div>
+                    </div>
                     @*Modal*@
                     <div class="modal inmodal" id="confInvite" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
@@ -250,7 +252,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <form name="myform" class="form-horizontal" novalidate>
-                                      
+
                                         <div class="form-group">
                                             <label class="col-lg-4 title-modal">Invited to Trial:</label>
                                             <div class="col-lg-7 pull-right">
@@ -269,7 +271,7 @@
                                                 <input id="toggleJoined" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
                                             </div>
                                         </div>
-                                        
+
                                     </form>
 
                                 </div>
