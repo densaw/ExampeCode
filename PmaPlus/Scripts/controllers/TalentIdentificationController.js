@@ -3,10 +3,12 @@
 
 app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
 
-
+    
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
     var confInvite = angular.element('#confInvite');
+    var confaddNotes = angular.element('#confaddNotes');
+
     var sortArray = [];
     var urlTail = '/api/TalentPlayerAttributes/';
     //get Player Detail
@@ -43,6 +45,10 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
     $scope.invite = function () {
         $scope.modalTitle = 'Invite Player';
         confInvite.modal('show');
+    };
+    $scope.addNotes = function () {
+        $scope.modalTitle = 'Add Notes';
+        confaddNotes.modal('show');
     };
     /*
     $scope.invite = function () {
