@@ -55,6 +55,12 @@ namespace PmaPlus.Controllers.ApiControllers
             return Mapper.Map<NutritionRecipe, NutritionRecipeViewModel>(_nutritionServices.GetRecipeById(id));
         }
 
+        [Route("api/NutritionRecipes/Last")]
+        public NutritionRecipeViewModel GetLast()
+        {
+            return Mapper.Map<NutritionRecipe, NutritionRecipeViewModel>(_nutritionServices.GetLastRecipe());
+        }
+
         // POST: api/NutritionRecipes/
         public IHttpActionResult Post([FromBody]NutritionRecipeViewModel recipeViewModel)
         {

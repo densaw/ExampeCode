@@ -52,6 +52,7 @@
     <Compile Include="Services\CurriculumServices.cs" />
     <Compile Include="Services\DiaryServices.cs" />
     <Compile Include="Services\FACourseServices.cs" />
+    <Compile Include="Services\HealthAndFitnessServices.cs" />
     <Compile Include="Services\MessageServices.cs" />
     <Compile Include="Services\NewsServices.cs" />
     <Compile Include="Services\NutritionServices.cs" />

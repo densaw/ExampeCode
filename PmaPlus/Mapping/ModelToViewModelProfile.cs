@@ -152,7 +152,8 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<TalentIdentification, TalentIdentificationDetailViewModel>()
                 .ForMember(d => d.AttributeScorePers, o => o.MapFrom(s => (s.Attributes.Sum(a => a.Score) / (s.Attributes.Sum(a => a.Attribute.MaxScore) == 0 ? 1 : s.Attributes.Sum(a => a.Attribute.MaxScore))) * 100));
 
-            Mapper.CreateMap<AttributesOfTalent, AttributesOfTalentViewModel>();
+            Mapper.CreateMap<AttributesOfTalent, AttributesOfTalentViewModel>()
+                .ForMember(d => d.AttributeName, o => o.MapFrom(s=> s.Attribute.Name));
 
             Mapper.CreateMap<TalentNote, TalentNoteViewModel>();
 

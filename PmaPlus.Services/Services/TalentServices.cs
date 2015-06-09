@@ -129,7 +129,7 @@ namespace PmaPlus.Services.Services
 
             foreach (var attribute in leftAttributes)
             {
-                list.Add(new AttributesOfTalent() { AttributeId = attribute.Id, HaveAttribute = false, TalentIdentificationId = talentId, Score = 0 });
+                list.Add(new AttributesOfTalent() { AttributeId = attribute.Id, HaveAttribute = false, TalentIdentificationId = talentId, Score = 0,Attribute = _playerAttributeRepository.GetById(attribute.Id)});
             }
 
             return list;
