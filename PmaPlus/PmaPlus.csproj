@@ -266,6 +266,7 @@
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\AttributesController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\ClubAdminDashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\TeamMemberProfileController.cs" />
+    <Compile Include="Controllers\ApiControllers\Communication\MessageController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumStatementController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumsController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\QualificationController.cs" />
@@ -303,6 +304,7 @@
     <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\ScoutProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\TrainingTeamProfiles\SportsScientistController.cs" />
     <Compile Include="Controllers\ApiControllers\UserController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
     <Compile Include="Filters\PhotoStreamProvider.cs" />
     <Compile Include="Filters\ValidateModelStateFilter.cs" />
@@ -3750,6 +3752,7 @@
     <Content Include="Scripts\plugins\toastr\toastr.js.map" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Messages\Index.cshtml" />
     <Content Include="Views\Partials\_ToDoPartial.cshtml" />
     <Content Include="Views\Partials\_DiaryPartial.cshtml" />
     <Content Include="Views\Partials\_UserAvaterPartial.cshtml" />

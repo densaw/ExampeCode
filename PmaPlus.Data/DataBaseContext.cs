@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Reflection.Emit;
 using PmaPlus.Data.Migrations;
 using PmaPlus.Model;
 using PmaPlus.Model.Models;
@@ -67,6 +69,10 @@ namespace PmaPlus.Data
         public virtual DbSet<ExcerciseNew> ExcerciseNews { get; set; }
         public virtual DbSet<NutritionNew> NutritionNews { get; set; }
 
+        public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<MessageRating> MessageRatings { get; set; }
+        public virtual DbSet<MessageComment> MessageComments { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -97,6 +103,30 @@ namespace PmaPlus.Data
             modelBuilder.Entity<UserDetail>()
                 .HasOptional(u => u.Address)
                 .WithOptionalDependent()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<MessageComment>()
+                .HasRequired(s => s.Message)
+                .WithMany(s => s.Comments)
+                .HasForeignKey(s => s.MessageId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<MessageRating>()
+                .HasRequired(s => s.Messages)
+                .WithMany(s => s.Ratings)
+                .HasForeignKey(s => s.MessagesId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<MessageComment>()
+                .HasRequired(s => s.User)
+                .WithMany(s => s.Comments)
+                .HasForeignKey(s => s.UserId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<MessageRating>()
+                .HasRequired(s => s.User)
+                .WithMany(s => s.Ratings)
+                .HasForeignKey(s => s.UserId)
                 .WillCascadeOnDelete(false);
 
 
