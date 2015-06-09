@@ -61,7 +61,6 @@ namespace PmaPlus.Controllers.ApiControllers
             var detail = Mapper.Map<TalentIdentification, TalentIdentificationDetailViewModel>(
                     _talentServices.GetTalentIdentificationById(id));
 
-            detail.AttributeScorePers = _talentServices.GetTalentPercentageScore(id);
             
             return detail;
 

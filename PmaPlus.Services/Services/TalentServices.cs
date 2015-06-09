@@ -38,20 +38,6 @@ namespace PmaPlus.Services.Services
             return _talentIdentificationRepository.GetMany(t => t.ClubId == clubId);
         }
 
-        public decimal GetTalentPercentageScore(int id)
-        {
-
-            var attributes =
-                _attributesOfTalentRepository.GetMany(a => a.TalentIdentificationId == id && a.HaveAttribute == true);
-
-            int maxScore = attributes.Sum(t => t.Attribute.MaxScore) == 0 ? 1 : attributes.Sum(t => t.Attribute.MaxScore);
-            int actualScore = attributes.Sum(t => t.Score);
-
-
-            return actualScore / (decimal)maxScore * 100;
-
-        }
-
 
         public void InviteTalent(int talentId, TalentInviteViewModel talentInvite)
         {
