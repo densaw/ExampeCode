@@ -103,7 +103,7 @@
         getResultsPage();
     }]);
 
-    module.controller('MainController', ['$scope', '$cookies', 'toaster', function ($scope, $cookies, toaster) {
+    module.controller('MainController', ['$scope', '$cookies', 'toaster', '$http', function ($scope, $cookies, toaster, $http) {
         $scope.showTost = function () {
             toaster.pop({
                 type: 'error',
