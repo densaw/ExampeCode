@@ -1,17 +1,23 @@
 ﻿var app = angular.module('MainApp');
 
-app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
 
+app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
+
+    
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
+    var confInvite = angular.element('#confInvite');
+    var confaddNotes = angular.element('#confaddNotes');
 
+    var sortArray = [];
+    var urlTail = '/api/TalentPlayerAttributes/';
     //get Player Detail
     $scope.profileTalents = [];
 
     function getParentCurr() {
         $http.get('/api/TalentIdentification/Detail/' + $scope.currId).success(function (result) {
-            $scope.profileTalents = result;           
-            console.log($scope.profileTalents);           
+            $scope.profileTalents = result;
+            console.log($scope.profileTalents);
         });
     }
     //get Assesments
@@ -20,29 +26,90 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
     function getParentAssesmets() {
         $http.get('/api/TalentIdentificationNotes/' + $scope.currId).success(function (result) {
             $scope.profileAssesments = result;
-            
+
             console.log($scope.profileAssesments);
             console.log("get");
         });
     }
     //get Attributes
 
-    $scope.profileAttributes = [];
-
-    function profileAttributes() {
-        $http.get('/api/TalentPlayerAttributes/' + $scope.currId).success(function (result) {
-            $scope.profileAttributes = result;
-            console.log("pre");
-            console.log($scope.profileAttributes);
-            console.log("get");
-        });
-    }
-
-
+   
     var toggleAttendance = angular.element('#toggleAttendance');
     var toggleInvite = angular.element('#toggleInvite');
     var toggleJoined = angular.element('#toggleJoined');
+
     
+    getParentAssesmets();
+    getParentCurr();
+
+    $scope.invite = function () {
+        $scope.modalTitle = 'Invite Player';
+        confInvite.modal('show');
+    };
+    $scope.addNotes = function () {
+        $scope.modalTitle = 'Add Notes';
+        confaddNotes.modal('show');
+    };
+    /*
+    $scope.invite = function () {
+        $http.get('/api/TalentIdentification/Detail/' + currId).success(function () {
+            getResultsPage($scope.pagination.current);
+            confInvite.modal('show');            
+        });
+    };
+  */
+    function createTail(pageNumber) {
+        if (sortArray.length > 0) {
+            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+        } else {
+            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber;
+        }
+    }
+
+    function getResultsPage(pageNumber) {
+        $http.get(createTail(pageNumber))
+            .success(function (result) {
+                console.log(result);
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+
+            });
+    }
+
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    });
+
+    $scope.items = [];
+    $scope.totalItems = 0;
+    $scope.itemsPerPage = 20;
+
+
+    $scope.pagination = {
+        current: 1
+    };
+
+    getResultsPage($scope.pagination.current);
+
+    $scope.pageChanged = function (newPage) {
+        getResultsPage(newPage);
+        $scope.pagination.current = newPage;
+    };
+
+    
+    getParentAssesmets();
+    getParentCurr();
+}]);
+
+
+app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
+    var pathArray = $location.$$absUrl.split("/");
+    $scope.currId = pathArray[pathArray.length - 1];
     
     //Variable section
     var date = new Date();
@@ -53,7 +120,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
     var urlTail = '/api/TalentIdentification';
     var target = angular.element('#addScoutP');
     var confDelete = angular.element('#confDelete');
-    var confInvite = angular.element('#confInvite');
+   
 
     var sortArray = [];
     //get scout
@@ -116,9 +183,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         $scope.pagination.current = newPage;
     };
 
-    profileAttributes();
-    getParentAssesmets();
-    getParentCurr();
+    
 
     $scope.open = function () {
         $scope.modalTitle = 'Add Scouted Player';
@@ -185,18 +250,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         });
     };
 
-    $scope.invite = function () {
-        $scope.modalTitle = 'Invite Player';
-        confInvite.modal('show');
-    };
-    /*
-    $scope.invite = function () {
-        $http.get('/api/TalentIdentification/Detail/' + currId).success(function () {
-            getResultsPage($scope.pagination.current);
-            confInvite.modal('show');            
-        });
-    };
-  */
+   
 
 
     $scope.check = function (playerObj) {
