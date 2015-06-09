@@ -62,6 +62,21 @@ namespace PmaPlus.Services
             return _clubAdminRepository.Get(a => a.User.UserName == name);
         }
 
+        public UserViewModel GetUserViewModelById(int id)
+        {
+            var user = _userRepository.GetById(id);
+            if (user != null)
+            {
+                return new UserViewModel()
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Role = user.Role,
+                    Avatar = user.UserDetail.ProfilePicture
+                };
+            }
+            return null;
+        }
 
         public Club GetClubByUserName(string name)
         {

@@ -78,7 +78,13 @@
     <Compile Include="Repository\CoachRepository.cs" />
     <Compile Include="Repository\ExcerciseNewRepository.cs" />
     <Compile Include="Repository\Iterfaces\IExcerciseNewsRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IMessageCommentRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IMessageRatingRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IMessageRepository.cs" />
     <Compile Include="Repository\Iterfaces\INutritionNewsRepository.cs" />
+    <Compile Include="Repository\MessageCommentRepository.cs" />
+    <Compile Include="Repository\MessageRatingRepository.cs" />
+    <Compile Include="Repository\MessageRepository.cs" />
     <Compile Include="Repository\NutritionNewsRepository.cs" />
     <Compile Include="Repository\SessionRepository.cs" />
     <Compile Include="Repository\CurriculumStatementRepository.cs" />

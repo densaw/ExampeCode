@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,7 @@
     <Compile Include="Services\CurriculumServices.cs" />
     <Compile Include="Services\DiaryServices.cs" />
     <Compile Include="Services\FACourseServices.cs" />
+    <Compile Include="Services\MessageServices.cs" />
     <Compile Include="Services\NewsServices.cs" />
     <Compile Include="Services\NutritionServices.cs" />
     <Compile Include="Services\PhysiotherapyServices.cs" />

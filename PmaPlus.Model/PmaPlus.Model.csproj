@@ -79,6 +79,9 @@
     <Compile Include="Models\Coach.cs" />
     <Compile Include="Models\Curriculum.cs" />
     <Compile Include="Models\ExcerciseNew.cs" />
+    <Compile Include="Models\MessageComment.cs" />
+    <Compile Include="Models\MessageRating.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\NutritionNew.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\CurriculumStatement.cs" />
@@ -143,6 +146,9 @@
     <Compile Include="ViewModels\Diary\DiaryViewModel.cs" />
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />
     <Compile Include="ViewModels\InfoBoxViewModel.cs" />
+    <Compile Include="ViewModels\MessageWall\MessageCommentViewModel.cs" />
+    <Compile Include="ViewModels\MessageWall\MessageViewModel.cs" />
+    <Compile Include="ViewModels\MessageWall\MessageRatingViewModel.cs" />
     <Compile Include="ViewModels\News\NutritionNewPage.cs" />
     <Compile Include="ViewModels\News\ExerciseNewPage.cs" />
     <Compile Include="ViewModels\News\NutritionNewTableViewModel.cs" />
@@ -211,6 +217,7 @@
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberPlateViewModel - Copy.cs" />
     <Compile Include="ViewModels\TrainingTeamMember\TrainingTeamMemberViewModel.cs" />
     <Compile Include="ViewModels\User\UsersList.cs" />
+    <Compile Include="ViewModels\User\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

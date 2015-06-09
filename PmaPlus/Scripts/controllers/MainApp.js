@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster', 'file-model', 'ngSanitize', 'ui.select', 'ui.bootstrap.datetimepicker', 'ui.calendar', 'ngRoute', 'ladda']);
 
     module.run(['$rootScope', function($rootScope){
@@ -88,6 +88,19 @@
                 console.log(date);
             });
         }
+    }]);
+
+    module.controller('MessageWallController', ['$scope', '$cookies', 'toaster', '$http', function ($scope, $cookies, toaster, $http) {
+
+        $scope.message = [];
+
+        function getResultsPage() {
+            $http.get('/api/Message?page=0')
+                .success(function (result) {
+                    $scope.message = result;
+                });
+        }
+        getResultsPage();
     }]);
 
     module.controller('MainController', ['$scope', '$cookies', 'toaster', function ($scope, $cookies, toaster) {
