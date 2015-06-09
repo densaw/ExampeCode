@@ -26,7 +26,8 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
     var urlTail = '/api/TalentIdentification';
     var target = angular.element('#addScoutP');
     var confDelete = angular.element('#confDelete');
-    
+    var confInvite = angular.element('#confInvite');
+
     var sortArray = [];
     //get scout
     
@@ -145,6 +146,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         console.log(id);
         needToDelete = id;
     };
+
     $scope.delete = function () {
         $http.delete(urlTail + '/' + needToDelete).success(function () {
             getResultsPage($scope.pagination.current);
@@ -153,7 +155,18 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         });
     };
 
-  
+    $scope.invite = function () {
+        $scope.modalTitle = 'Invite Player';
+        confInvite.modal('show');
+    };
+    /*
+    $scope.invite = function () {
+        $http.get('/api/TalentIdentification/Detail/' + currId).success(function () {
+            getResultsPage($scope.pagination.current);
+            confInvite.modal('show');            
+        });
+    };
+  */
 
 
     $scope.check = function (playerObj) {
