@@ -100,7 +100,7 @@ namespace PmaPlus.Services.Services
             return from coach in _coachRepository.GetMany(c => c.Club.Id == clubId)
                 select new CoachesList()
                 {
-                    Id = coach.Id,
+                    Id = coach.User.Id,
                     Name = coach.User.UserDetail.FirstName + " " + coach.User.UserDetail.LastName
                 };
         }
