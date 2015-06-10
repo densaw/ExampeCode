@@ -25,6 +25,9 @@
             <li class="@Html.IsSelected(controller: "Home", action: "Clubs")">
                 <a href="@Url.Action("Clubs", "Home", new {area = "SysAdmin"})"><i class="fa fa-university"></i> <span class="nav-label">Clubs</span></a>
             </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "Exercise")">
+                <a href="@Url.Action("Exercise", "Home", new { area = "SysAdmin" })"><i class="fa fa-heart-o"></i> <span class="nav-label">Exercise</span></a>
+            </li>
             <li class="@Html.IsSelected(controller: "Home", action: "FaCourses")">
                 <a href="@Url.Action("FaCourses", "Home", new {area = "SysAdmin"})"><i class="fa fa-plus-square"></i> <span class="nav-label">FA Courses</span> </a>
             </li>
@@ -44,6 +47,9 @@
                     <li class="@Html.IsSelected(action: "PhysiotherapyExercise")"><a href="@Url.Action("PhysiotherapyExercise", "Home", new {area = "SysAdmin"})">Exercises</a></li>
 
                 </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "Reports")">
+                <a href="@Url.Action("Reports", "Home", new {area = "SysAdmin"})"><i class="fa fa-bar-chart"></i> <span class="nav-label">Reports</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Scenarios")">
                 <a href="@Url.Action("Scenarios", "Home", new {area = "SysAdmin"})"><i class="fa fa-futbol-o"></i> <span class="nav-label">Scenarios</span></a>
@@ -67,12 +73,8 @@
 
                 </ul>
             </li>
-            <li class="@Html.IsSelected(controller: "Home", action: "Reports")">
-                <a href="@Url.Action("Reports", "Home", new {area = "SysAdmin"})"><i class="fa fa-bar-chart"></i> <span class="nav-label">Reports</span></a>
-            </li>
-            <li class="@Html.IsSelected(controller: "Home", action: "Exercise")">
-                <a href="@Url.Action("Exercise", "Home", new { area = "SysAdmin" })"><i class="fa fa-heart-o"></i> <span class="nav-label">Exercise</span></a>
-            </li>
+           
+          
 
         </ul>
     </div>

@@ -118,8 +118,8 @@ namespace PmaPlus.Controllers.ApiControllers
                 case Role.Player:
                 {
                     role = "Player";
-                    var player = _playerServices.QueryPlayer(p => p.User.Id == user.Id);
-                    pic = "/api/file/PlayerProfilePicture/" + user.UserDetail.ProfilePicture + "/" + player.Id;
+                    //var player = _playerServices.QueryPlayer(p => p.User.Id == user.Id);
+                    //pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + player.Id;
 
 
                     break;

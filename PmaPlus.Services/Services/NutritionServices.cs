@@ -183,11 +183,11 @@ namespace PmaPlus.Services.Services
         }
 
 
-        #endregion
 
         public NutritionRecipe GetLastRecipe()
         {
             return _nutritionRecipeRepository.GetAll().LastOrDefault();
         }
+        #endregion
     }
 }

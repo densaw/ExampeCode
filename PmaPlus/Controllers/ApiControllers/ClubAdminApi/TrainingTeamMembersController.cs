@@ -35,13 +35,6 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
             return  _userServices.GetTrainingTeamMembers(clubId,User.Identity.Name);
         }
 
-        //[ResponseType(typeof(AddTrainingTeamMemberViewModel))]
-        //[Route("api/TrainingTeamMembers/{id}/detailed")]
-        //public IHttpActionResult GetDetailedMemberProfile(int id)
-        //{
-        //    return Ok(_userServices.GetDetailedTrainingTeamMemberViewModel(id));
-        //}
-
 
         public AddTrainingTeamMemberViewModel GetMemberProfile(int id)
         {

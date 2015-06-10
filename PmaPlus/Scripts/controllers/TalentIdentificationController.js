@@ -1,13 +1,70 @@
 ﻿var app = angular.module('MainApp');
 
 
+app.controller('GetAssesments', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
+    var pathArray = $location.$$absUrl.split("/");
+    $scope.currId = pathArray[pathArray.length - 1];
+
+    var sortArray = [];
+    var urlTail = '/api/TalentIdentificationNotes/';
+
+  
+    function createTail(pageNumber) {
+        if (sortArray.length > 0) {
+            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+        } else {
+            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber;
+        }
+    }
+
+    function getResultsPage(pageNumber) {
+        $http.get(createTail(pageNumber))
+            .success(function (result) {
+                console.log(result);
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+
+            });
+    }
+
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    });
+
+    $scope.items = [];
+    $scope.totalItems = 0;
+    $scope.itemsPerPage = 20;
+
+
+    $scope.pagination = {
+        current: 1
+    };
+
+    getResultsPage($scope.pagination.current);
+
+    $scope.pageChanged = function (newPage) {
+        getResultsPage(newPage);
+        $scope.pagination.current = newPage;
+    };
+
+
+}]);
+
 app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
 
     
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
+
     var confInvite = angular.element('#confInvite');
     var confaddNotes = angular.element('#confaddNotes');
+    var cancelNotes = angular.element('#cancelNotes');
+
 
     var sortArray = [];
     var urlTail = '/api/TalentPlayerAttributes/';
@@ -26,7 +83,7 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
     function getParentAssesmets() {
         $http.get('/api/TalentIdentificationNotes/' + $scope.currId).success(function (result) {
             $scope.profileAssesments = result;
-
+            console.log("ass");
             console.log($scope.profileAssesments);
             console.log("get");
         });
@@ -39,25 +96,61 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
     var toggleJoined = angular.element('#toggleJoined');
 
     
-    getParentAssesmets();
-    getParentCurr();
 
     $scope.invite = function () {
         $scope.modalTitle = 'Invite Player';
         confInvite.modal('show');
     };
+
+    //Notes start-----------------------------------------------------------------------------------
+    $scope.scouts = [];
+
+    $http.get('/api/Scouts/List').success(function (result) {
+        $scope.scouts = result;
+    });
+    $scope.newNote = {};
+
+    $scope.okNotes = function (id) {
+        $scope.loginLoading = true;
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
+        if (id != null) {
+
+            //PUT it now have no url to Update date
+            $http.put('/api/TalentIdentificationNotes' + id, $scope.newNote).success(function (result) {
+                
+                console.log(id);
+                $scope.loginLoading = false;
+                $scope.newNote = {};
+                confaddNotes.modal('hide');
+            }).error(function (data, status, headers, config) {
+                $scope.loginLoading = false;
+            });
+        } else {
+            //POST
+            $scope.newNote.talentIdentificationId = $scope.currId;
+            $http.post('/api/TalentIdentificationNotes', $scope.newNote).success(function (result) {
+                
+                confaddNotes.modal('hide');
+                $scope.newNote = {};
+                $scope.loginLoading = false;
+            }).error(function (data, status, headers, config) {
+                $scope.loginLoading = false;
+            });
+        }
+    };
     $scope.addNotes = function () {
         $scope.modalTitle = 'Add Notes';
         confaddNotes.modal('show');
+        
     };
-    /*
-    $scope.invite = function () {
-        $http.get('/api/TalentIdentification/Detail/' + currId).success(function () {
-            getResultsPage($scope.pagination.current);
-            confInvite.modal('show');            
-        });
+
+    $scope.cancelNotes = function () {
+        
+        confaddNotes.modal('hide');
     };
-  */
+
+    //Notes end----------------------------------------------------------------------------------------------------
+   
     function createTail(pageNumber) {
         if (sortArray.length > 0) {
             return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
@@ -269,6 +362,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         });
     }
     getClubName();
-    
+
+   
 
 }]);

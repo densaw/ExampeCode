@@ -138,7 +138,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6" ng-controller="GetAssesments" ng-cloak>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Assessments</h5>
@@ -151,11 +151,11 @@
                             </a>
                             <ul class="dropdown-menu dropdown-user">
                                 @*<li>
-                                        <a href="#">Config option 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Config option 2</a>
-                                    </li>*@
+                                <a href="#">Config option 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Config option 2</a>
+                            </li>*@
                             </ul>
                             <a @*class="close-link"*@>
                                 <i class="fa fa-times"></i>
@@ -163,7 +163,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <div class="ibox-title">
+                        <div class="ibox-content">
                             <form class="form-horizontal">
                                 <table class="table table-striped">
                                     <thead>
@@ -174,16 +174,16 @@
                                             <th>Notes</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="contentTable1">
-                                        <tr>
-                                            <td>{{profileAssesments.addDate}}</td>
-                                        <td>{{profileAssesments.scout}}</td>
-                                        <td>
-                                            {{profileAssesments.location}}
-                                        </td>
-                                        <td>{{profileAssesments.note}}</td>
+                                    <tbody id="contentTable9">
+                                        <tr dir-paginate="item in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
+                                            <td>{{item.addDate}}</td>
+                                            <td>{{item.scout}}</td>
+                                            <td>
+                                                {{item.location}}
+                                            </td>
+                                            <td>{{item.note}}</td>
 
-                                    </tr>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
@@ -338,20 +338,20 @@
                                     <div class="form-group" ng-class="{'has-error':myform.eventTitle.$invalid && (myform.eventTitle.$dirty||myform.form_Submitted)}">
                                         <label class="col-lg-4 title-modal">Scout:</label>
                                         <div class="col-lg-7 pull-right">
-                                            <input name="eventTitle" ng-model="newNote.scout" required class="form-control" maxlength="50">
+                                            <select name="scoutName" ng-model="newNote.scout" ng-options="scout.id as scout.name for scout in scouts" class=" form-control"></select>
                                         </div>
                                     </div>
                                     <div class="form-group" ng-class="{'has-error':myform.eventStart.$invalid && (myform.eventStart.$dirty||myform.form_Submitted)}">
-                                        <label class="col-lg-4 title-modal">Data:</label>
+                                        <label class="col-lg-4 title-modal">Date:</label>
                                         <div class="col-lg-7 pull-right">
                                             <div class="dropdown">
-                                                <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                <a class="dropdown-toggle" id="dropdown8" role="button" data-toggle="dropdown" data-target="#" href="#">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" value="{{newEvent.start | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                        <input type="text" class="form-control" value="{{newNote.addDate | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                                     </div>
                                                 </a>
                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                    <datetimepicker required name="eventStart" data-ng-model="newNote.addDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day' }" />
+                                                    <datetimepicker required name="eventStart" data-ng-model="newNote.addDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown8', startView:'day' }" />
                                                 </ul>
                                             </div>
 
@@ -369,13 +369,13 @@
                                             <textarea name="eventNote" ng-model="newNote.note" required class="form-control"></textarea>
                                         </div>
                                     </div>
-
+                                   
                                 </form>
 
                             </div>
                             <div class="modal-footer">
-                                <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                <button ng-click="ok(newCurrDet.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                <button ng-click="cancelNotes()" id="closeNote" type="button" class="btn btn-white">Close</button>
+                                <button ng-click="okNotes(newNote.id)" id="saveNotes" type="button" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -390,3 +390,8 @@
 @section scripts{
     <script src="~/Scripts/controllers/TalentIdentificationController.js"></script>
 }
+<style>
+    .form-group {
+  margin-bottom: 0px;
+}
+</style>

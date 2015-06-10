@@ -44,14 +44,14 @@ namespace PmaPlus.Services
 
         public bool PlayerExist(int id)
         {
-            return _playerRepository.GetMany(p => p.Id == id).Any();
+            return _playerRepository.GetMany(p => p.User.Id == id).Any();
         }
         public IEnumerable<PlayerTableViewModel> GetPlayersTable(int clubId)
         {
             return from player in _playerRepository.GetMany(p => p.Club.Id == clubId)
                    select new PlayerTableViewModel()
                    {
-                       Id = player.Id,
+                       Id = player.User.Id,
                        Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                        Age = DateTime.Now.Year - (player.User.UserDetail.Birthday ?? DateTime.Now).Year,
                        ProfilePicture = player.User.UserDetail.ProfilePicture,
@@ -65,7 +65,7 @@ namespace PmaPlus.Services
             return from player in _playerRepository.GetMany(p => p.Club.Id == clubId)
                    select new PlayerDetailTableViewModel()
                    {
-                       Id = player.Id,
+                       Id = player.User.Id,
                        Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                        Age = DateTime.Now.Year - (player.User.UserDetail.Birthday ?? DateTime.Now).Year,
                        //TODO:Finish player table
@@ -83,7 +83,7 @@ namespace PmaPlus.Services
             return from player in _playerRepository.GetMany(p => p.Club.Id == clubId && p.Teams.Count < 2)
                    select new AvailablePlayersList()
                    {
-                       Id = player.Id,
+                       Id = player.User.Id,
                        Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName
                    };
         }
@@ -93,7 +93,7 @@ namespace PmaPlus.Services
             return from player in _playerRepository.GetMany(p => p.Club.Id == clubId)
                    select new AvailablePlayersList()
                    {
-                       Id = player.Id,
+                       Id = player.User.Id,
                        Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName
                    };
         }
@@ -172,11 +172,11 @@ namespace PmaPlus.Services
 
         public AddPlayerViewModel GetPlayerViewModel(int playerId)
         {
-            var player = _playerRepository.GetById(playerId);
+            var player = _playerRepository.Get(p => p.User.Id == playerId);
 
             return new AddPlayerViewModel()
             {
-                Id = player.Id,
+                Id = player.User.Id,
                 FirstName = player.User.UserDetail.FirstName,
                 LastName = player.User.UserDetail.LastName,
                 UserStatus = player.Status,
@@ -215,7 +215,7 @@ namespace PmaPlus.Services
             //Cut teams count
             playerViewModel.Teams = playerViewModel.Teams.Take(2).ToList();
 
-            var player = _playerRepository.GetById(playerId);
+            var player = _playerRepository.Get(p => p.User.Id == playerId);
 
             player.User.UserDetail.FirstName = playerViewModel.FirstName;
             player.User.UserDetail.LastName = playerViewModel.LastName;
@@ -277,7 +277,7 @@ namespace PmaPlus.Services
         }
         public void DeletePlayer(int id)
         {
-            var player = _playerRepository.GetById(id);
+            var player = _playerRepository.Get(p => p.User.Id == id);
             if (player != null)
             {
                 _addressRepository.Delete(player.User.UserDetail.Address);
@@ -325,7 +325,6 @@ namespace PmaPlus.Services
         {
             return _playerRepository.GetMany(p => p.Status == UserStatus.Active).Count();
         }
-
 
 
         public int GetActivePlayersForMonth(DateTime dateTime)

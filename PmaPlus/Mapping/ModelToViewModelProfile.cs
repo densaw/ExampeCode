@@ -106,6 +106,7 @@ namespace PmaPlus.Mapping
                 .ForMember(d => d.ProfilePicture, o => o.MapFrom(s => s.UserDetail.ProfilePicture));
 
             Mapper.CreateMap<Scout, UsersList>()
+                .ForMember(d => d.Id, o => o.MapFrom(s=> s.User.Id))
                 .ForMember(d => d.Name, o => o.MapFrom(s => s.User.UserDetail.FirstName + " " + s.User.UserDetail.LastName));
 
 
