@@ -47,12 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\MessagePrivateExtensions.cs" />
+    <Compile Include="Extensions\UserExtensions.cs" />
     <Compile Include="Services\ClubServices.cs" />
     <Compile Include="Services\CoachSerivces.cs" />
     <Compile Include="Services\CurriculumServices.cs" />
     <Compile Include="Services\DiaryServices.cs" />
     <Compile Include="Services\FACourseServices.cs" />
     <Compile Include="Services\HealthAndFitnessServices.cs" />
+    <Compile Include="Services\MessagePrivateServices.cs" />
     <Compile Include="Services\MessageServices.cs" />
     <Compile Include="Services\NewsServices.cs" />
     <Compile Include="Services\NutritionServices.cs" />

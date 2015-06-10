@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using PmaPlus.Model;
+using PmaPlus.Model.ViewModels;
+using PmaPlus.Model.ViewModels.MessagePrivate;
 using PmaPlus.Model.ViewModels.MessageWall;
 using PmaPlus.Services;
 
@@ -14,11 +16,13 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
     {
         private readonly MessageServices _messageServices;
         private readonly UserServices _userServices;
+        private readonly MessagePrivateServices _messagePrivateServices;
 
-        public MessageController(MessageServices messageServices, UserServices userServices)
+        public MessageController(MessageServices messageServices, UserServices userServices, MessagePrivateServices messagePrivateServices)
         {
             _messageServices = messageServices;
             _userServices = userServices;
+            _messagePrivateServices = messagePrivateServices;
         }
 
         public IHttpActionResult Post(MessageViewModel message)

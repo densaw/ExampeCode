@@ -81,6 +81,8 @@
     <Compile Include="Models\Curriculum.cs" />
     <Compile Include="Models\ExcerciseNew.cs" />
     <Compile Include="Models\MessageComment.cs" />
+    <Compile Include="Models\MessageGroup.cs" />
+    <Compile Include="Models\MessagePrivate.cs" />
     <Compile Include="Models\MessageRating.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\NutritionNew.cs" />
@@ -150,6 +152,9 @@
     <Compile Include="ViewModels\Diary\DiaryViewModel.cs" />
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />
     <Compile Include="ViewModels\DashboardContent\InfoBoxViewModel.cs" />
+    <Compile Include="ViewModels\MessagePrivate\GroupMessageViewModel.cs" />
+    <Compile Include="ViewModels\MessagePrivate\MessageGroupViewModel.cs" />
+    <Compile Include="ViewModels\MessagePrivate\MessagePrivateViewModel.cs" />
     <Compile Include="ViewModels\PictureLinkViewModel.cs" />
     <Compile Include="ViewModels\MessageWall\MessageCommentViewModel.cs" />
     <Compile Include="ViewModels\MessageWall\MessageViewModel.cs" />
