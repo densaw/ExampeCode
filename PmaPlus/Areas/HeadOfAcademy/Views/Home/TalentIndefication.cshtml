@@ -64,7 +64,7 @@
                                                     <input name="firstName" ng-model="newScoutP.firstName" required class="form-control" maxlength="50">
                                                 </div>
                                             </div>
-                                            <div class="form-group" >
+                                            <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Player Last Name:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <input name="lastName" ng-model="newScoutP.lastName" required class="form-control" maxlength="50">
@@ -80,7 +80,7 @@
                                                             </div>
                                                         </a>
                                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                            <datetimepicker required name="dateIdentified" data-ng-model="newScoutP.dateIdentificated" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day' }"/>
+                                                            <datetimepicker required name="dateIdentified" data-ng-model="newScoutP.dateIdentificated" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day' }" />
                                                         </ul>
                                                     </div>
 
@@ -103,7 +103,7 @@
                                                             </div>
                                                         </a>
                                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                            <datetimepicker required name="dateOfBirth" data-ng-model="newScoutP.birthDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }"/>
+                                                            <datetimepicker required name="dateOfBirth" data-ng-model="newScoutP.birthDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
                                                         </ul>
                                                     </div>
 
@@ -215,19 +215,19 @@
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
-                                <tr>
-                                    <th>Scout Name</th>
-                                    <th>Date Found</th>
-                                    <th>Player Name</th>
-                                    <th>Present Club</th>
-                                    <th>Age</th>
-                                    <th>Contact Telephone</th>
-                                    <th>Rating</th>
-                                    <th>Invite</th>
-                                    <th>Attended</th>
-                                    <th>Joined</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>Scout Name</th>
+                                        <th>Date Found</th>
+                                        <th>Player Name</th>
+                                        <th>Present Club</th>
+                                        <th>Age</th>
+                                        <th>Contact Telephone</th>
+                                        <th>Rating</th>
+                                        <th>Invite</th>
+                                        <th>Attended</th>
+                                        <th>Joined</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="newScoutP in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
@@ -247,7 +247,7 @@
                                         <td>
                                             <a href="#" ng-click="check(newScoutP)" class="check-link"><i class="fa {{newScoutP.joinedClub | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
                                         </td>
-                                       
+
                                         <td>
                                             <i ng-click="openEdit(newScoutP.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(newScoutP.id)" class="fa fa-trash" style="cursor: pointer;"></i>
@@ -266,5 +266,5 @@
     </div>
 </div>
 @section scripts{
-<script src="~/Scripts/controllers/TalentIdentificationController.js"></script>
+    <script src="~/Scripts/controllers/TalentIdentificationController.js"></script>
 }
