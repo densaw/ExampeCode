@@ -16,6 +16,7 @@ namespace PmaPlus.Model
         {
             Comments = new List<MessageComment>();
             Ratings = new List<MessageRating>();
+            MessagePrivates = new List<MessagePrivate>();
         }
 
         public int Id { get; set; }
@@ -32,7 +33,9 @@ namespace PmaPlus.Model
 
         public virtual ICollection<Qualification> Qualifications { get; set; }
         public virtual ICollection<MessageComment> Comments { get; set; }
-        public virtual ICollection<MessageRating> Ratings { get; set; } 
+        public virtual ICollection<MessageRating> Ratings { get; set; }
+        public virtual ICollection<MessagePrivate> MessagePrivates { get; set; } 
+        public virtual ICollection<MessageGroup> MessageGroups { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

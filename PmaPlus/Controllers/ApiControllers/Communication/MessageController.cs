@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using PmaPlus.Model;
+using PmaPlus.Model.ViewModels;
+using PmaPlus.Model.ViewModels.MessagePrivate;
 using PmaPlus.Model.ViewModels.MessageWall;
 using PmaPlus.Services;
 
@@ -14,11 +16,13 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
     {
         private readonly MessageServices _messageServices;
         private readonly UserServices _userServices;
+        private readonly MessagePrivateServices _messagePrivateServices;
 
-        public MessageController(MessageServices messageServices, UserServices userServices)
+        public MessageController(MessageServices messageServices, UserServices userServices, MessagePrivateServices messagePrivateServices)
         {
             _messageServices = messageServices;
             _userServices = userServices;
+            _messagePrivateServices = messagePrivateServices;
         }
 
         public IHttpActionResult Post(MessageViewModel message)
@@ -28,7 +32,7 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
             return Ok(newMessage.MessageId);
         }
 
-        public IEnumerable<MessageViewModel> Get(int page)
+        public MessageWallPage Get(int page)
         {
             var messageList = _messageServices.GetAllWallMessage(page).ToList();
             foreach (var message in messageList)
@@ -38,7 +42,15 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
                 message.RatingPositive = _messageServices.GetMessageRatings(message.Id, true).ToList();
                 message.RatingNegative = _messageServices.GetMessageRatings(message.Id, false).ToList();
             }
-            return messageList;
+            var count = _messageServices.GetAllMessageCount();
+            var pages = (int)Math.Ceiling((double)count / 20);
+            var items = messageList;
+            return new MessageWallPage()
+            {
+                Count = count,
+                Pages = pages,
+                Items = items
+            };
         }
         [Route("api/Message/Comment/{messageId:int}")]
         public IHttpActionResult PostComment(int messageId, [FromBody] MessageCommentViewModel comment)

@@ -130,6 +130,28 @@ namespace PmaPlus.Data
                 .HasForeignKey(s => s.UserId)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<MessagePrivate>()
+                .HasRequired(s => s.MessageGroup)
+                .WithMany(s => s.MessagePrivates)
+                .HasForeignKey(s => s.MessageGroupId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<MessagePrivate>()
+                .HasRequired(s => s.User)
+                .WithMany(s => s.MessagePrivates)
+                .HasForeignKey(s => s.UserId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(c => c.MessageGroups)
+                .WithMany(c => c.Users)
+                .Map(cs =>
+                {
+                    cs.MapLeftKey("UserRefId");
+                    cs.MapRightKey("MessageGroupRefId");
+                    cs.ToTable("User");
+                });
+
 
             base.OnModelCreating(modelBuilder);
         }

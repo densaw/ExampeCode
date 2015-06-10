@@ -81,11 +81,15 @@
     <Compile Include="Repository\Iterfaces\IAttributesOfTalentRepository.cs" />
     <Compile Include="Repository\Iterfaces\IExcerciseNewsRepository.cs" />
     <Compile Include="Repository\Iterfaces\IMessageCommentRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IMessageGroupRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IMessagePrivateRepository.cs" />
     <Compile Include="Repository\Iterfaces\IMessageRatingRepository.cs" />
     <Compile Include="Repository\Iterfaces\IMessageRepository.cs" />
     <Compile Include="Repository\Iterfaces\INutritionNewsRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISessionResultRepository.cs" />
     <Compile Include="Repository\MessageCommentRepository.cs" />
+    <Compile Include="Repository\MessageGroupRepository.cs" />
+    <Compile Include="Repository\MessagePrivateRepository.cs" />
     <Compile Include="Repository\MessageRatingRepository.cs" />
     <Compile Include="Repository\MessageRepository.cs" />
     <Compile Include="Repository\Iterfaces\ITalentIdentificationRepository.cs" />
