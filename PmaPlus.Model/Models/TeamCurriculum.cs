@@ -15,5 +15,6 @@ namespace PmaPlus.Model.Models
         public int TrainingTime { get; set; }
         public int Progress { get; set; }
 
+        public virtual ICollection<SessionResult> SessionResults { get; set; }
     }
 }

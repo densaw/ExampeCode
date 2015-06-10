@@ -114,6 +114,7 @@
     <Compile Include="Models\Qualification.cs" />
     <Compile Include="Models\QualificationToFaCourse.cs" />
     <Compile Include="Models\Scenario.cs" />
+    <Compile Include="Models\SessionResult.cs" />
     <Compile Include="Models\SessionScenario.cs" />
     <Compile Include="Models\SkillLevel.cs" />
     <Compile Include="Models\StatementRoles.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserDetail.cs" />
     <Compile Include="Models\WelfareOfficer.cs" />
+    <Compile Include="ViewModels\CurriculumProcess\SessionsWizardViewModel.cs" />
     <Compile Include="ViewModels\DashboardContent\ActivePlayersForLastYearViewModel.cs" />
     <Compile Include="ViewModels\Club\AddClubViewModel.cs" />
     <Compile Include="ViewModels\Club\ClubPage.cs" />

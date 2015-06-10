@@ -593,7 +593,10 @@ namespace PmaPlus.Services
             _userRepository.Update(user, user.Id);
         }
 
-
+        public Coach GetCoachByUserName(string name)
+        {
+            return _coachRepository.Get(c => c.User.UserName.ToLower() == name.ToLower());
+        }
 
         public string GetClubColorByUser(string email)
         {

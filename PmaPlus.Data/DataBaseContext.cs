@@ -21,6 +21,7 @@ namespace PmaPlus.Data
         public virtual DbSet<Club> Clubs { get; set; }
         public virtual DbSet<ClubAdmin> ClubAdmins { get; set; }
         public virtual DbSet<Coach> Coaches { get; set; }
+        public virtual DbSet<SessionResult> SessionResults { get; set; } 
         public virtual DbSet<Curriculum> Curriculums { get; set; }
         public virtual DbSet<TeamCurriculum> TeamCurriculum { get; set; } 
         public virtual DbSet<Session> CurriculumSessions { get; set; }

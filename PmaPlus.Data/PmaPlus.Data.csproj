@@ -84,6 +84,7 @@
     <Compile Include="Repository\Iterfaces\IMessageRatingRepository.cs" />
     <Compile Include="Repository\Iterfaces\IMessageRepository.cs" />
     <Compile Include="Repository\Iterfaces\INutritionNewsRepository.cs" />
+    <Compile Include="Repository\Iterfaces\ISessionResultRepository.cs" />
     <Compile Include="Repository\MessageCommentRepository.cs" />
     <Compile Include="Repository\MessageRatingRepository.cs" />
     <Compile Include="Repository\MessageRepository.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Repository\QualificationToFaCourseRepository.cs" />
     <Compile Include="Repository\ScenarioRepository.cs" />
     <Compile Include="Repository\ScoutRepository.cs" />
+    <Compile Include="Repository\SessionResultRepository.cs" />
     <Compile Include="Repository\SkillLevelRepository.cs" />
     <Compile Include="Repository\SkillVideoRepository.cs" />
     <Compile Include="Repository\SportScientistRepository.cs" />

@@ -30,6 +30,8 @@ namespace PmaPlus.Model.Models
         public string  PlayerPicture { get; set; }                               
         public string PlayerDetailsName { get; set; }                            
         public bool NeedScenarios { get; set; }
+
+
         public virtual ICollection<Scenario> Scenarios { get; set; }             
         public virtual Curriculum Curriculum { get; set; }
     }

@@ -121,7 +121,9 @@ namespace PmaPlus.Services.Services
 
         public void DeleteTeam(int id)
         {
-            _teamRepository.Delete(t => t.Id == id);
+            var team = _teamRepository.GetById(id);
+            _teamCurriculumRepository.Delete(team.TeamCurriculum);
+            _teamRepository.Delete(team);
         }
     }
 }

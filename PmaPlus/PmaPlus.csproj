@@ -267,6 +267,7 @@
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\ClubAdminDashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\TeamMemberProfileController.cs" />
     <Compile Include="Controllers\ApiControllers\Communication\MessageController.cs" />
+    <Compile Include="Controllers\ApiControllers\CurriculumProcess\CurriculumWizardController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumStatementController.cs" />
     <Compile Include="Controllers\ApiControllers\Curriculums\CurriculumsController.cs" />
     <Compile Include="Controllers\ApiControllers\ClubAdminApi\QualificationController.cs" />
