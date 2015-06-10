@@ -77,12 +77,12 @@ namespace PmaPlus.Controllers.ApiControllers
                 if (_photoManager.FileExists(playerViewModel.ProfilePicture))
                 {
                     player.User.UserDetail.ProfilePicture = _photoManager.MoveFromTemp(player.User.UserDetail.ProfilePicture,
-                        FileStorageTypes.PlayerProfilePicture, player.Id, "ProfilePicture");
+                        FileStorageTypes.ProfilePicture, player.User.Id, "ProfilePicture");
                 }
                 else
                 {
                     player.User.UserDetail.ProfilePicture = _photoManager.SetDefaultPrifilePic(
-                    FileStorageTypes.PlayerProfilePicture, player.Id, "ProfilePicture.jpg");
+                    FileStorageTypes.ProfilePicture, player.User.Id, "ProfilePicture.jpg");
                 }
             }
             _playerServices.UpdatePlayer(player);
@@ -101,7 +101,7 @@ namespace PmaPlus.Controllers.ApiControllers
             {
 
                 playerViewModel.ProfilePicture = _photoManager.MoveFromTemp(playerViewModel.ProfilePicture,
-                    FileStorageTypes.PlayerProfilePicture, id, "ProfilePicture");
+                    FileStorageTypes.ProfilePicture, id, "ProfilePicture");
             }
             _playerServices.UpdatePlayer(playerViewModel, id);
             return Ok();
@@ -113,7 +113,7 @@ namespace PmaPlus.Controllers.ApiControllers
             {
                 return NotFound();
             }
-            _photoManager.Delete(FileStorageTypes.PlayerProfilePicture, id);
+            _photoManager.Delete(FileStorageTypes.ProfilePicture, id);
 
             _playerServices.DeletePlayer(id);
             return Ok();
