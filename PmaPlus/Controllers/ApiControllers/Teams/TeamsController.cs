@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using PmaPlus.Data;
+using PmaPlus.Model;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Skill;
 using PmaPlus.Model.ViewModels.Team;
@@ -38,12 +39,20 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
         {
 
             var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
 
 
             var count = _teamServices.GetClubTeams(clubId).Count();
+            var teams = _teamServices.GetClubTeams(clubId);
+            if (user != null && user.Role == Role.Coach)
+            {
+                count = _teamServices.GetClubCoachTeams(clubId,user.Id).Count();
+                teams = _teamServices.GetClubCoachTeams(clubId, user.Id);
+            }
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var curriculums = _teamServices.GetClubTeams(clubId);
-            var items = Mapper.Map<IEnumerable<Team>, IEnumerable<TeamTableViewModel>>(curriculums).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
+            var items = Mapper.Map<IEnumerable<Team>, IEnumerable<TeamTableViewModel>>(teams).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
+
+
 
             return new TeamsPage()
             {

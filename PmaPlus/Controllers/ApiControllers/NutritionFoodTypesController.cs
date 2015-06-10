@@ -57,6 +57,13 @@ namespace PmaPlus.Controllers.ApiControllers
             return Mapper.Map<NutritionFoodType, NutritionFoodTypeViewModel>(_nutritionServices.GetFoodTypeById(id));
         }
 
+        [Route("api/NutritionFoodTypes/Last")]
+        public NutritionFoodTypeViewModel GetLast()
+        {
+            return Mapper.Map<NutritionFoodType, NutritionFoodTypeViewModel>(_nutritionServices.GetLastFoodType());
+        }
+
+
         // POST: api/NutritionFoodTypes/
         public IHttpActionResult Post([FromBody]NutritionFoodTypeViewModel foodTypeViewModel)
         {

@@ -285,6 +285,10 @@
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
     <Compile Include="Controllers\ApiControllers\FilesController.cs" />
     <Compile Include="Controllers\ApiControllers\HeadOfAcademyApi\HeadOfAcademyDashboardController.cs" />
+    <Compile Include="Controllers\ApiControllers\HealthandFitness\HAFFitnessController.cs" />
+    <Compile Include="Controllers\ApiControllers\HealthandFitness\HAFNutritionController.cs" />
+    <Compile Include="Controllers\ApiControllers\HealthandFitness\HAFNutritionRecipesController.cs" />
+    <Compile Include="Controllers\ApiControllers\HealthandFitness\HAFNutritionTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionAlternativesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionFoodTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionNewsController.cs" />

@@ -94,6 +94,10 @@ namespace PmaPlus.Services.Services
         {
             return _nutritionFoodTypeRepository.GetById(id);
         }
+        public NutritionFoodType GetLastFoodType()
+        {
+            return _nutritionFoodTypeRepository.GetAll().LastOrDefault();
+        }
         #endregion
 
 
@@ -181,5 +185,9 @@ namespace PmaPlus.Services.Services
 
         #endregion
 
+        public NutritionRecipe GetLastRecipe()
+        {
+            return _nutritionRecipeRepository.GetAll().LastOrDefault();
+        }
     }
 }

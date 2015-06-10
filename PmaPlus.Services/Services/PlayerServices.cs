@@ -290,12 +290,12 @@ namespace PmaPlus.Services
             }
         }
 
-        #endregion
-
         public Player QueryPlayer(Expression<Func<Player, bool>> query)
         {
             return _playerRepository.Get(query);
         }
+        #endregion
+
 
         void UpdateActivityPlayerStatus()
         {

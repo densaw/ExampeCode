@@ -38,6 +38,12 @@ namespace PmaPlus.Services.Services
             return _teamRepository.GetMany(t => t.Club.Id == clubId);
         }
 
+        public IQueryable<Team> GetClubCoachTeams(int clubId,int coachId)
+        {
+            return _teamRepository.GetMany(t => t.Club.Id == clubId && t.Coaches.Select(c => c.User.Id).Contains(coachId));
+        }
+
+
         public Team GetTeamById(int id)
         {
             return _teamRepository.GetById(id);

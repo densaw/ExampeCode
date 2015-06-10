@@ -3,9 +3,9 @@
     Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div ng-controller="TalentIdentificationController" ng-cloak>
+<div ng-controller="TalentIdController" ng-cloak>
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-10">
+        <div class="col-sm-4">
             <h2>Talent ID Profile</h2>
             <ol class="breadcrumb">
 
@@ -17,56 +17,20 @@
                 </li>
             </ol>
         </div>
-        <div class="col-lg-2">
+        <div class="col-sm-8">
             <div class="title-action">
                 <a class="btn btn-primary" ng-href="@Url.Action("TalentIndefication", "Home", new {area = "HeadOfAcademy"})">Back</a>
+                <a class="btn btn-primary" ng-click="invite()">Invite to Club</a>
+                <a class="btn btn-primary" ng-click="addNotes()">Add Notes</a>
             </div>
+
         </div>
+
     </div>
-    <div class="col-sm-8">
-    </div>
+
     <div class="wrapper wrapper-content animated fadeIn">
         <div class="row">
-            <div class="col-lg-6">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Player Attributes</h5>
-                        <div class="ibox-tools">
-                            <a @*class="collapse-link"*@>
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a @*class="dropdown-toggle" data-toggle="dropdown" href="#"*@>
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                @*<li>
-                                        <a href="#">Config option 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Config option 2</a>
-                                    </li>*@
-                            </ul>
-                            <a @*class="close-link"*@>
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="alert alert-success">
-                            How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>.
-                        </div>
-                        <div class="alert alert-info">
-                            How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>.
-                        </div>
-                        <div class="alert alert-warning">
-                            How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>.
-                        </div>
-                        <div class="alert alert-danger">
-                            How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>.
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <div class="col-lg-6">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -92,79 +56,79 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form class="form-horizontal line">
+                        <form class="form-horizontal">
 
                             <div class=" form-group">
                                 <label class="col-lg-4 control-label">Player Name:</label>
 
                                 <div class="col-lg-8">
-                                    <p  class="form-control" style="border: none">{{profileTalents.FirstName}} {{profileTalents.LastName}}</p>
+                                    <p class="form-control" style="border: none">{{profileTalents.firstName}} {{profileTalents.lastName}}</p>
                                 </div>
-                           </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Date Identificated:</label>
 
                                 <div class="col-lg-8">
-                                    <p  class="form-control" style="border: none">{{profileTalents.DateIdentificated | date:'dd-MM-yyyy'}}</p>
+                                    <p class="form-control" style="border: none">{{profileTalents.dateIdentificated | date:'dd-MM-yyyy'}}</p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Present Club:</label>
 
                                 <div class="col-lg-8">
-                                    <p  class="form-control" style="border: none">{{profileTalents.PresentClub}}</p>
+                                    <p class="form-control" style="border: none">{{profileTalents.presentClub}}</p>
                                 </div>
                             </div>
-                           
+
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Birth Date:</label>
 
                                 <div class="col-lg-8">
-                                    <p  class="form-control" style="border: none">{{profileTalents.BirthDate}}</p>
+                                    <p class="form-control" style="border: none">{{profileTalents.birthDate}}</p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Parents Name</label>
 
                                 <div class="col-lg-8">
-                                    <p  class="form-control" style="border: none">{{profileTalents.ParentsFirstName}} {{profileTalents.ParentsLastName}}</p>
+                                    <p class="form-control" style="border: none">{{profileTalents.parentsFirstName}} {{profileTalents.parentsLastName}}</p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Email:</label>
 
                                 <div class="col-lg-8">
-                                    <p  class="form-control" style="border: none">{{profileTalents.ParentsEmail}}</p>
+                                    <p class="form-control" style="border: none">{{profileTalents.parentsEmail}}</p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Mobile:</label>
 
                                 <div class="col-lg-8">
-                                    <p  class="form-control" style="border: none">{{profileTalents.ParentsMobile}}</p>
+                                    <p class="form-control" style="border: none">{{profileTalents.parentsMobile}}</p>
                                 </div>
                             </div>
-                                <div class="form-group">
-                                    <label class="col-lg-4 control-label">Invited:</label>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Invited:</label>
 
-                                    <div class="col-lg-8">
-                                        
-                                        <p class="form-control" style="border: none">{{profileTalents.InvitedToTrial}}</p>
-                                    </div>
+                                <div class="col-lg-8">
+
+                                    <p class="form-control" style="border: none">{{profileTalents.invitedToTrial}}</p>
                                 </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Attended:</label>
 
                                 <div class="col-lg-8">
-                                    
-                                    <p class="form-control" style="border: none">{{profileTalents.AttendedTrail}}</p>
+
+                                    <p class="form-control" style="border: none">{{profileTalents.attendedTrail}}</p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Joined:</label>
 
                                 <div class="col-lg-8">
-                                    <p  class="form-control" style="border: none">{{profileTalents.JoinedClub}}</p>
+                                    <p class="form-control" style="border: none">{{profileTalents.joinedClub}}</p>
                                 </div>
                             </div>
 
@@ -172,13 +136,69 @@
                     </div>
 
                 </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Assessments</h5>
+                        <div class="ibox-tools">
+                            <a @*class="collapse-link"*@>
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a @*class="dropdown-toggle" data-toggle="dropdown" href="#"*@>
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                @*<li>
+                                        <a href="#">Config option 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Config option 2</a>
+                                    </li>*@
+                            </ul>
+                            <a @*class="close-link"*@>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <div class="ibox-title">
+                            <form class="form-horizontal">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Scout</th>
+                                            <th>Location</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="contentTable1">
+                                        <tr>
+                                            <td>{{profileAssesments.addDate}}</td>
+                                        <td>{{profileAssesments.scout}}</td>
+                                        <td>
+                                            {{profileAssesments.location}}
+                                        </td>
+                                        <td>{{profileAssesments.note}}</td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Custom responsive table</h5>
+                        <h5>Player Attributes</h5>
                         <div class="ibox-tools">
                             <a @*class="collapse-link"*@>
                                 <i class="fa fa-chevron-up"></i>
@@ -198,32 +218,169 @@
                                 <i class="fa fa-times"></i>
                             </a>
                         </div>
+
                     </div>
-                    <div class="ibox-content text-center">
-                        <h4>Tooltip Demo <small>Background color more gentle.</small></h4>
-                        <div class="tooltip-demo">
-                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Tooltip on left</button>
-                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Tooltip on top</button>
-                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
-                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Tooltip on right">Tooltip on right</button>
+
+                    <div class="table-responsive">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-sm-9 m-b-xs">
+                                    <form class="form-horizontal">
+                                        <div class=" form-group" style="margin-left: 0px;">
+                                            <div data-toggle="buttons" class="btn-group">
+                                                <label ng-click="itemsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                                <label ng-click="itemsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
+                                                <label ng-click="itemsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                                            </div>
+                                            <div class="btn-group">
+                                                <label onclick=" $('.tablea').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                    CSV
+                                                </label>
+                                                <label onclick=" $('.tablea').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                    Excel
+                                                </label>
+                                                <label onclick=" $('.tablea').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                    PDF
+                                                </label>
+                                                <label onclick=" print($('.tablea')) " class="btn btn-sm btn-white">
+                                                    Print
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                            <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <table class="table tablea table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Attribute Name</th>
+                                        <th>Player</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="item in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
+                                        <td>{{item.attributeName}}</td>
+                                        <td>
+                                            <a href="#" ng-click="check()" class="check-link"><i class="fa{{item.haveAttribute}}"></i> </a>
+                                        </td>
+                                        <td>{{item.score}}</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                                <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                                </div>
+                            </div>
                         </div>
-                        <br>
-                        <h4>Clickable Popover Demo</h4>
-                        <div class="tooltip-demo">
-                            <button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-                                Popover on left
-                            </button>
-                            <button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-                                Popover on top
-                            </button>
-                            <button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-                                Popover on bottom
-                            </button>
-                            <button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-                                Popover on right
-                            </button>
+                    @*Modal*@
+                    <div class="modal inmodal" id="confInvite" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content animated bounceInRight">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h3 class="modal-title text-left">Invite</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <form name="myform" class="form-horizontal" novalidate>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-4 title-modal">Invited to Trial:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input id="toggleInvite" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 title-modal">Attended Trail:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input id="toggleAttendance" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-4 title-modal">Joined Club:</label>
+                                            <div class="col-lg-7 pull-right">
+                                                <input id="toggleJoined" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                    <button ng-click="ok(newCurrDet.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                @*Modal End*@
+                @*Modal*@
+                <div class="modal inmodal" id="confaddNotes" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content animated bounceInRight">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h3 class="modal-title text-left">Add Notes</h3>
+                            </div>
+                            <div class="modal-body">
+                                <form name="myform" class="form-horizontal" novalidate>
+
+                                    <div class="form-group" ng-class="{'has-error':myform.eventTitle.$invalid && (myform.eventTitle.$dirty||myform.form_Submitted)}">
+                                        <label class="col-lg-4 title-modal">Scout:</label>
+                                        <div class="col-lg-7 pull-right">
+                                            <input name="eventTitle" ng-model="newNote.scout" required class="form-control" maxlength="50">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':myform.eventStart.$invalid && (myform.eventStart.$dirty||myform.form_Submitted)}">
+                                        <label class="col-lg-4 title-modal">Data:</label>
+                                        <div class="col-lg-7 pull-right">
+                                            <div class="dropdown">
+                                                <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" value="{{newEvent.start | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                    </div>
+                                                </a>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                    <datetimepicker required name="eventStart" data-ng-model="newNote.addDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day' }" />
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                                        <label class="col-lg-4 title-modal">Location:</label>
+                                        <div class="col-lg-7 pull-right">
+                                            <input name="eventNote" ng-model="newNote.location" required class="form-control" maxlength="50">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                                        <label class="col-lg-4 title-modal">Note:</label>
+                                        <div class="col-lg-7 pull-right">
+                                            <textarea name="eventNote" ng-model="newNote.note" required class="form-control"></textarea>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                <button ng-click="ok(newCurrDet.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*Modal End*@
                 </div>
             </div>
 
