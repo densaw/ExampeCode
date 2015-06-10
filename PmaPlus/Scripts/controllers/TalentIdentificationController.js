@@ -269,6 +269,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         });
     }
     getClubName();
-    
+
+   
 
 }]);
