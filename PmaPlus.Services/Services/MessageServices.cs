@@ -68,8 +68,14 @@ namespace PmaPlus.Services
             return _messageRatingRepository.Add(rat);
         }
 
+        public int GetAllMessageCount()
+        {
+            return _messageRepository.GetAll().Count();
+        }
+
         public IQueryable<MessageViewModel> GetAllWallMessage(int page)
         {
+
             return 
                 _messageRepository.GetAll()
                 .OrderBy(j => j.SendAt)

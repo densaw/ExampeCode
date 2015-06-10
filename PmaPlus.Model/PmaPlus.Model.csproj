@@ -153,6 +153,7 @@
     <Compile Include="ViewModels\MessageWall\MessageCommentViewModel.cs" />
     <Compile Include="ViewModels\MessageWall\MessageViewModel.cs" />
     <Compile Include="ViewModels\MessageWall\MessageRatingViewModel.cs" />
+    <Compile Include="ViewModels\MessageWall\MessageWallPage.cs" />
     <Compile Include="ViewModels\News\NutritionNewPage.cs" />
     <Compile Include="ViewModels\News\ExerciseNewPage.cs" />
     <Compile Include="ViewModels\News\NutritionNewTableViewModel.cs" />

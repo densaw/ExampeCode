@@ -54,9 +54,26 @@
             </div>
         </div>
         <div class="ibox-content">
-            <div ng-repeat="msg in message">
-                <p>{{msg.sendAt}} - {{msg.message}}</p>
+            <div class="chat-activity-list">
+                <div ng-repeat="msg in message">
+                    <div class="chat-element">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div></div>
+                                <div class="col-lg-3">{{msg.message}}</div>
+                                <div class="col-lg-3 pull-right">{{msg.sendAt}}</div>
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">!</span>
+                        <input type="text" placeholder="Username" class="form-control">
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
 </div>

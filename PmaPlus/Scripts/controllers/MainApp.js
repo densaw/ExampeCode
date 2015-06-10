@@ -97,7 +97,7 @@
         function getResultsPage() {
             $http.get('/api/Message?page=0')
                 .success(function (result) {
-                    $scope.message = result;
+                    $scope.message = result.items;
                 });
         }
         getResultsPage();
