@@ -3090,7 +3090,7 @@
     <Content Include="Areas\Player\Views\Home\Communications.cshtml" />
     <Content Include="Areas\Player\Views\Home\Exercise.cshtml" />
     <Content Include="Areas\Player\Views\Home\Testing.cshtml" />
-    <Content Include="Areas\Player\Views\Home\Traning.cshtml" />
+    <Content Include="Areas\Player\Views\Home\Training.cshtml" />
     <Content Include="Areas\SportScientist\Views\web.config" />
     <Content Include="Areas\SportScientist\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SportScientist\Views\Shared\_Layout.cshtml" />
