@@ -27,5 +27,7 @@ namespace PmaPlus.Model.ViewModels
         public string Video { get; set; }
 
         public bool Share { get; set; }
+
+        public int? ClubId { get; set; }
     }
 }

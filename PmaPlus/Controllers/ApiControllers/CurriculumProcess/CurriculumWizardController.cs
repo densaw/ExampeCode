@@ -25,17 +25,15 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             _teamServices = teamServices;
         }
 
-
-        public IEnumerable<SessionsWizardViewModel> GetWizard(int id)
+        [Route("api/Curriculum/Wizard/{teamId:int}")]
+        public IEnumerable<SessionsWizardViewModel> GetWizard(int teamId)
         {
             //var coach = _userServices.GetCoachByUserName(User.Identity.Name);
 
             //if (coach == null)
             //    return null;
 
-
-
-            return _curriculumProcessServices.GetCurriculumSessionsWizard(id);
+            return _curriculumProcessServices.GetCurriculumSessionsWizard(teamId);
         }
 
 
