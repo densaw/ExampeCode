@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "PMA+";
-    Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div ng-controller="CurrDetailsController">
@@ -25,7 +25,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a class="btn btn-primary" ng-href="@Url.Action("Curriculums", "Home", new { area = "HeadOfAcademy" })">Back to Curriculums</a>
+                <a class="btn btn-primary" ng-href="@Url.Action("Curriculums", "Home", new { area = "ClubAdmin" })">Back to Curriculums</a>
                 <a class="btn btn-primary" ng-click="open()">Add Detail</a>
             </div>
         </div>
