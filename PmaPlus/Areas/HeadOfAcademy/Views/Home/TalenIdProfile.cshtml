@@ -20,7 +20,7 @@
         <div class="col-sm-8">
             <div class="title-action">
                 <a class="btn btn-primary" ng-href="@Url.Action("TalentIndefication", "Home", new {area = "HeadOfAcademy"})">Back</a>
-                <a class="btn btn-primary" ng-click="invite()">Invite to Club</a>
+                <a class="btn btn-primary" ng-click="confInvite()">Invite to Club</a>
                 <a class="btn btn-primary" ng-click="addNotes()">Add Notes</a>
             </div>
 
@@ -31,7 +31,7 @@
     <div class="wrapper wrapper-content animated fadeIn">
         <div class="row">
 
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Player Details</h5>
@@ -56,23 +56,23 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" >
 
-                            <div class=" form-group">
+                            <div class=" form-group" style="margin-bottom: 0px;">
                                 <label class="col-lg-4 control-label">Player Name:</label>
 
                                 <div class="col-lg-8">
                                     <p class="form-control" style="border: none">{{profileTalents.firstName}} {{profileTalents.lastName}}</p>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="margin-bottom: 0px;">
                                 <label class="col-lg-4 control-label">Date Identificated:</label>
 
                                 <div class="col-lg-8">
                                     <p class="form-control" style="border: none">{{profileTalents.dateIdentificated | date:'dd-MM-yyyy'}}</p>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="margin-bottom: 0px;">
                                 <label class="col-lg-4 control-label">Present Club:</label>
 
                                 <div class="col-lg-8">
@@ -80,35 +80,35 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="margin-bottom: 0px;">
                                 <label class="col-lg-4 control-label">Birth Date:</label>
 
                                 <div class="col-lg-8">
                                     <p class="form-control" style="border: none">{{profileTalents.birthDate}}</p>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="margin-bottom: 0px;">
                                 <label class="col-lg-4 control-label">Parents Name</label>
 
                                 <div class="col-lg-8">
                                     <p class="form-control" style="border: none">{{profileTalents.parentsFirstName}} {{profileTalents.parentsLastName}}</p>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="margin-bottom: 0px;">
                                 <label class="col-lg-4 control-label">Email:</label>
 
                                 <div class="col-lg-8">
                                     <p class="form-control" style="border: none">{{profileTalents.parentsEmail}}</p>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="margin-bottom: 0px;">
                                 <label class="col-lg-4 control-label">Mobile:</label>
 
                                 <div class="col-lg-8">
                                     <p class="form-control" style="border: none">{{profileTalents.parentsMobile}}</p>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="margin-bottom: 0px;">
                                 <label class="col-lg-4 control-label">Invited:</label>
 
                                 <div class="col-lg-8">
@@ -116,7 +116,7 @@
                                     <p class="form-control" style="border: none">{{profileTalents.invitedToTrial}}</p>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="margin-bottom: 0px;">
                                 <label class="col-lg-4 control-label">Attended:</label>
 
                                 <div class="col-lg-8">
@@ -124,7 +124,7 @@
                                     <p class="form-control" style="border: none">{{profileTalents.attendedTrail}}</p>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="margin-bottom: 0px;">
                                 <label class="col-lg-4 control-label">Joined:</label>
 
                                 <div class="col-lg-8">
@@ -138,7 +138,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-6" ng-controller="GetAssesments" ng-cloak>
+            <div class="col-lg-8">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Assessments</h5>
@@ -162,32 +162,43 @@
                             </a>
                         </div>
                     </div>
+                                
                     <div class="table-responsive">
                         <div class="ibox-content">
-                            <form class="form-horizontal">
+                            <form class="form-horizontal ">
+
                                 <table class="table table-striped">
                                     <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Scout</th>
-                                            <th>Location</th>
-                                            <th>Notes</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Scout</th>
+                                        <th>Location</th>
+                                        <th>Notes</th>
+                                    </tr>
                                     </thead>
-                                    <tbody id="contentTable9">
-                                        <tr dir-paginate="item in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
-                                            <td>{{item.addDate}}</td>
-                                            <td>{{item.scout}}</td>
-                                            <td>
-                                                {{item.location}}
-                                            </td>
-                                            <td>{{item.note}}</td>
-
-                                        </tr>
-                                    </tbody>
                                 </table>
-                                <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-                            </form>
+                                <div class="bodycontainer scrollable">
+                                    <table class="table table-striped">
+                                        <tbody id="user-rows">
+                                            <tr dir-paginate="item in items1 | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
+                                                <td class="user-row" style="opacity: 1;">{{item.addDate | date:'dd-MM-yyyy' }}</td>
+                                                <td class="user-row" style="opacity: 1;">{{item.scout}}</td>
+                                                <td cclass="user-row" style="opacity: 1;">
+                                                    {{item.location}}
+                                                </td>
+                                                <td class="user-row" style="opacity: 1;" ">{{item.note}}</td>
+
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                    </div>
+                                    <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+
+
+
+</form>
+                        
                         </div>
                     </div>
                 </div>
@@ -317,8 +328,8 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                    <button ng-click="ok(newCurrDet.id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    <button ng-click="cancelInvite()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                    <button ng-click="okInvite(id)" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -391,7 +402,22 @@
     <script src="~/Scripts/controllers/TalentIdentificationController.js"></script>
 }
 <style>
-    .form-group {
-  margin-bottom: 0px;
-}
+   
+    .scrollable {
+        overflow-y: scroll;
+        height: 400px;
+    }
+
+    .bodycontainer {
+        height: 385px !important;
+        
+    }
+    table thead > tr > th {
+        width: 20% !important; /* 20% for 5, 25% for 4, etc */
+    }
+
+    table tbody > tr > td {
+        width: 20% !important; /* 20% for 5, 25% for 4, etc */
+    }
+
 </style>
