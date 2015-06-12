@@ -193,7 +193,7 @@
 
                                     </table>
                                     </div>
-                                <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                                
                             </form>                       
                         </div>
                     </div>
@@ -276,7 +276,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr dir-paginate="item in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
+                                    <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
                                         <td>{{item.attributeName}}</td>
                                         <td>
                                             <a href="#" ng-click="check()" class="check-link"><i class="fa{{item.haveAttribute}}"></i> </a>

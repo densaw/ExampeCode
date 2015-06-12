@@ -124,13 +124,14 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
 
     $scope.items = [];
     $scope.totalItems = 0;
-    $scope.itemsPerPage = 10;
+    $scope.itemsPerPage = 20;
 
 
     $scope.pagination = {
         current: 1
     };
-
+    
+   
     getResultsPage($scope.pagination.current);
 
     $scope.pageChanged = function (newPage) {
