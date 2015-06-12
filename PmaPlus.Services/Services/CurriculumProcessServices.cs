@@ -32,7 +32,7 @@ namespace PmaPlus.Services.Services
 
         public IEnumerable<SessionsWizardViewModel> GetCurriculumSessionsWizard(int teamId)
         {
-            var sessions = _teamRepository.GetById(teamId).TeamCurriculum.Curriculum.Sessions.ToList();
+            var sessions = _teamRepository.GetById(teamId).TeamCurriculum.Curriculum.Sessions.ToList().OrderBy(s =>s.Number);
             var sesResults = _teamRepository.GetById(teamId).TeamCurriculum.SessionResults;
 
             var team = _teamRepository.GetById(teamId).TeamCurriculum.Id;
