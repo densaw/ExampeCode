@@ -11,7 +11,7 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
     var cancelInvite = angular.element('#cancelInvite');
     var confaddNotes = angular.element('#confaddNotes');
     var cancelNotes = angular.element('#cancelNotes');
-
+    var saveInvite = angular.element('#saveInvite');
 
     var sortArray = [];
     var urlTail = '/api/TalentPlayerAttributes/';
@@ -45,10 +45,19 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
 
     //invite-------------------------------------------------------------------------
     $scope.currName = '';
-
+    
     $scope.confInvite = function () {
+
+        toggleInvite.bootstrapToggle('off');
+        toggleJoined.bootstrapToggle('off');
+        toggleAttendance.bootstrapToggle('off');
+
         $scope.modalTitle = 'Invite Player';
-        confInvite.modal('show');
+        getParentCurr();
+
+        console.log($scope.currId);
+        $scope.modalTitle = "Update Type";
+        confInvite.modal('show');     
     };
 
     $scope.cancelInvite = function () {
@@ -56,57 +65,32 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
         confInvite.modal('hide');
     };
 
-    $scope.okIvite = function (id) {
+    $scope.okInvite = function () {
         $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;
-        if (id != null) {
-            $scope.loginLoading = false;
-            $http.put('/api/TalentIdentification/Invite/' + id,
-           {
-               "name": $scope.currName,
-              
-               "usesSessionsForObjectives": sessionsObjectives.prop('checked'),
-               "usesSessionsForRatings": sessionsRetings.prop('checked'),
-               "usesSessionsForReports": sessionsReports.prop('checked')
-           }
-           ).success(function () {
 
-               //getResultsPage($scope.pagination.current);
-               target.modal('hide');
-           }).error(function (data, status, headers, config) {
-               if (status == 400) {
-                   console.log(data);
-                   toaster.pop({
-                       type: 'error',
-                       title: 'Error', bodyOutputType: 'trustedHtml',
-                       body: 'Please complete the compulsory fields highlighted in red'
-                   });
-               }
-           });
-        } else {
-            $scope.loginLoading = false;
-            $http.post('/api/TalentIdentification/Invite/',
-                {
-                    "name": $scope.currName,
-                   
-                    "usesSessionsForObjectives": sessionsObjectives.prop('checked'),
-                    "usesSessionsForRatings": sessionsRetings.prop('checked'),
-                    "usesSessionsForReports": sessionsReports.prop('checked')
-                }
-                ).success(function () {
-                    //getResultsPage($scope.pagination.current);
-                    target.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: 'Please complete the compulsory fields highlighted in red'
-                        });
-                    }
+        $scope.loginLoading = false;
+        $http.put('/api/TalentIdentification/Invite/' + $scope.currId,
+            {
+                "invitedToTrial": toggleInvite.prop('checked'),
+                "joinedClub": toggleJoined.prop('checked'),
+                "attendedTrail": toggleAttendance.prop('checked')
+            }
+        ).success(function () {
+
+            getParentCurr();
+            confInvite.modal('hide');
+        }).error(function (data, status, headers, config) {
+            if (status == 400) {
+                console.log(data);
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error', bodyOutputType: 'trustedHtml',
+                    body: 'Please complete the compulsory fields highlighted in red'
                 });
-        }
+            }
+        });
+       
     };
 
     //ivite end---------------------------------------------------------------------
