@@ -31,9 +31,6 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             return _curriculumProcessServices.GetCurriculumSessionsWizard(teamId);
         }
 
-
-
-
         [Route("api/Curriculum/Wizard/Session/Save/{teamCurriculumId:int}/{sessionId:int}")]
         public IHttpActionResult Post(int teamCurriculumId,int sessionId)
         {
@@ -42,7 +39,6 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
 
             return Ok();
         }
-
 
         [Route("api/Curriculum/Wizard/Session/AttendanceTable/{teamId:int}/{sessionId:int}")]
         public IEnumerable<SessionAttendanceTableViewModel> GetPlayersAttendance(int teamId, int sessionId)
@@ -74,6 +70,9 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
 
             return Ok();
         }
+
+
+
 
 
 

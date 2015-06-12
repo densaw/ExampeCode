@@ -87,6 +87,7 @@
     <Compile Include="Models\MessageRating.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\NutritionNew.cs" />
+    <Compile Include="Models\PlayerBlockObjective.cs" />
     <Compile Include="Models\PlayerNote.cs" />
     <Compile Include="Models\PlayerObjective.cs" />
     <Compile Include="Models\Session.cs" />
