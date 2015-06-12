@@ -3090,7 +3090,7 @@
     <Content Include="Areas\Player\Views\Home\Communications.cshtml" />
     <Content Include="Areas\Player\Views\Home\Exercise.cshtml" />
     <Content Include="Areas\Player\Views\Home\Testing.cshtml" />
-    <Content Include="Areas\Player\Views\Home\Traning.cshtml" />
+    <Content Include="Areas\Player\Views\Home\Training.cshtml" />
     <Content Include="Areas\SportScientist\Views\web.config" />
     <Content Include="Areas\SportScientist\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SportScientist\Views\Shared\_Layout.cshtml" />
@@ -3200,6 +3200,9 @@
     <Content Include="Areas\WelfareOfficer\Views\Home\TrainingTeam.cshtml" />
     <Content Include="Areas\WelfareOfficer\Views\Home\Wellbeing.cshtml" />
     <Content Include="Areas\HeadOfAcademy\Views\Home\TalenIdProfile.cshtml" />
+    <Content Include="Areas\HeadOfAcademy\Views\Home\CurrDetails.cshtml" />
+    <Content Include="Areas\Scouts\Views\Home\TalentIndefication.cshtml" />
+    <Content Include="Areas\Scouts\Views\Home\TalenIdProfile.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3772,6 +3775,7 @@
     <Content Include="Views\Partials\_UserAvaterPartial.cshtml" />
     <Content Include="Views\Partials\_MatchReports.cshtml" />
     <Content Include="Views\Partials\_Injuries.cshtml" />
+    <Content Include="Views\Partials\_VideoModalPartial.cshtml" />
     <Content Include="Views\Partials\_PrivateMessage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -1,14 +1,98 @@
 ﻿var app = angular.module('MainApp');
 
 
-app.controller('GetAssesments', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
+app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
+
+    
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    var sortArray = [];
-    var urlTail = '/api/TalentIdentificationNotes/';
+    var confInvite = angular.element('#confInvite');
+    var cancelInvite = angular.element('#cancelInvite');
+    var confaddNotes = angular.element('#confaddNotes');
+    var cancelNotes = angular.element('#cancelNotes');
+    var saveInvite = angular.element('#saveInvite');
 
-  
+    var sortArray = [];
+    var urlTail = '/api/TalentPlayerAttributes/';
+    //get Player Detail
+    $scope.profileTalents = [];
+
+    function getParentCurr() {
+        $http.get('/api/TalentIdentification/Detail/' + $scope.currId).success(function (result) {
+            $scope.profileTalents = result;
+           
+        });
+    }
+    //get Assesments
+    $scope.profileAssesments = [];
+
+    function getParentAssesmets() {
+        $http.get('/api/TalentIdentificationNotes/' + $scope.currId).success(function (result) {
+            $scope.profileAssesments = result;
+            
+        });
+    }
+    //get Attributes
+
+   
+    var toggleAttendance = angular.element('#toggleAttendance');
+    var toggleInvite = angular.element('#toggleInvite');
+    var toggleJoined = angular.element('#toggleJoined');
+   
+
+    //invite-------------------------------------------------------------------------
+    $scope.currName = '';
+    
+    $scope.confInvite = function () {
+
+        toggleInvite.bootstrapToggle('off');
+        toggleJoined.bootstrapToggle('off');
+        toggleAttendance.bootstrapToggle('off');
+
+        $scope.modalTitle = 'Invite Player';
+        getParentCurr();
+
+        console.log($scope.currId);
+        $scope.modalTitle = "Update Type";
+        confInvite.modal('show');     
+    };
+
+    $scope.cancelInvite = function () {
+        $scope.modalTitle = 'Invite Player';
+        confInvite.modal('hide');
+    };
+
+    $scope.okInvite = function () {
+        $scope.loginLoading = true;
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
+
+        $scope.loginLoading = false;
+        $http.put('/api/TalentIdentification/Invite/' + $scope.currId,
+            {
+                "invitedToTrial": toggleInvite.prop('checked'),
+                "joinedClub": toggleJoined.prop('checked'),
+                "attendedTrail": toggleAttendance.prop('checked')
+            }
+        ).success(function () {
+
+            getParentCurr();
+            confInvite.modal('hide');
+        }).error(function (data, status, headers, config) {
+            if (status == 400) {
+                console.log(data);
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error', bodyOutputType: 'trustedHtml',
+                    body: 'Please complete the compulsory fields highlighted in red'
+                });
+            }
+        });
+       
+    };
+
+    //ivite end---------------------------------------------------------------------
+   
     function createTail(pageNumber) {
         if (sortArray.length > 0) {
             return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
@@ -44,7 +128,8 @@ app.controller('GetAssesments', ['$scope', '$http', 'toaster', '$q', '$routePara
     $scope.pagination = {
         current: 1
     };
-
+    
+   
     getResultsPage($scope.pagination.current);
 
     $scope.pageChanged = function (newPage) {
@@ -52,57 +137,60 @@ app.controller('GetAssesments', ['$scope', '$http', 'toaster', '$q', '$routePara
         $scope.pagination.current = newPage;
     };
 
-
-}]);
-
-app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
-
     
-    var pathArray = $location.$$absUrl.split("/");
-    $scope.currId = pathArray[pathArray.length - 1];
+    getParentAssesmets();
+    getParentCurr();
 
-    var confInvite = angular.element('#confInvite');
-    var confaddNotes = angular.element('#confaddNotes');
-    var cancelNotes = angular.element('#cancelNotes');
-
-
-    var sortArray = [];
-    var urlTail = '/api/TalentPlayerAttributes/';
-    //get Player Detail
-    $scope.profileTalents = [];
-
-    function getParentCurr() {
-        $http.get('/api/TalentIdentification/Detail/' + $scope.currId).success(function (result) {
-            $scope.profileTalents = result;
-            console.log($scope.profileTalents);
-        });
-    }
-    //get Assesments
-    $scope.profileAssesments = [];
-
-    function getParentAssesmets() {
-        $http.get('/api/TalentIdentificationNotes/' + $scope.currId).success(function (result) {
-            $scope.profileAssesments = result;
-            console.log("ass");
-            console.log($scope.profileAssesments);
-            console.log("get");
-        });
-    }
-    //get Attributes
-
-   
-    var toggleAttendance = angular.element('#toggleAttendance');
-    var toggleInvite = angular.element('#toggleInvite');
-    var toggleJoined = angular.element('#toggleJoined');
-
-    
-
-    $scope.invite = function () {
-        $scope.modalTitle = 'Invite Player';
-        confInvite.modal('show');
-    };
 
     //Notes start-----------------------------------------------------------------------------------
+    var sortArray1 = [];
+    var aTail = '/api/TalentIdentificationNotes';
+
+    $scope.items1 = [];
+    $scope.totalItems1 = 0;
+    $scope.itemsPerPage1 = 20;
+
+
+    $scope.pagination1 = {
+        current: 1
+    };
+
+    function eTail(pageNumber1) {
+        if (sortArray1.length > 0) {
+            return aTail + '/' + $scope.currId + '/' + $scope.itemsPerPage1 + '/' + pageNumber1 + '/' + sortArray1[0] + '/' + sortArray1[1];
+        } else {
+            return aTail + '/' + $scope.currId + '/' + $scope.itemsPerPage1 + '/' + pageNumber1;
+        }
+    }
+
+    function getPage(pageNumber1) {
+        $http.get(eTail(pageNumber1))
+            .success(function (result1) {
+                console.log("log");
+                console.log(result1);
+                $scope.items1 = result1.items;
+                $scope.totalItems1 = result1.count;
+
+            });
+    }
+
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
+        sortArray1 = newValue;
+        $http.get(eTail($scope.pagination1.current))
+            .success(function (result1) {
+                $scope.items1 = result1.items;
+                $scope.totalItems1 = result1.count;
+            });
+    });
+
+   
+
+    getPage($scope.pagination1.current);
+
+    $scope.pageC = function (newPage1) {
+        getPage(newPage1);
+        $scope.pagination1.current = newPage1;
+    };
     $scope.scouts = [];
 
     $http.get('/api/Scouts/List').success(function (result) {
@@ -117,7 +205,7 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
 
             //PUT it now have no url to Update date
             $http.put('/api/TalentIdentificationNotes' + id, $scope.newNote).success(function (result) {
-                
+                getPage($scope.pagination1.current);
                 console.log(id);
                 $scope.loginLoading = false;
                 $scope.newNote = {};
@@ -129,7 +217,7 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
             //POST
             $scope.newNote.talentIdentificationId = $scope.currId;
             $http.post('/api/TalentIdentificationNotes', $scope.newNote).success(function (result) {
-                
+                getPage($scope.pagination1.current);
                 confaddNotes.modal('hide');
                 $scope.newNote = {};
                 $scope.loginLoading = false;
@@ -141,62 +229,31 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
     $scope.addNotes = function () {
         $scope.modalTitle = 'Add Notes';
         confaddNotes.modal('show');
-        
+
     };
 
     $scope.cancelNotes = function () {
-        
+
         confaddNotes.modal('hide');
     };
 
     //Notes end----------------------------------------------------------------------------------------------------
-   
-    function createTail(pageNumber) {
-        if (sortArray.length > 0) {
-            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
-        } else {
-            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber;
-        }
-    }
-
-    function getResultsPage(pageNumber) {
-        $http.get(createTail(pageNumber))
-            .success(function (result) {
-                console.log(result);
-                $scope.items = result.items;
-                $scope.totalItems = result.count;
-
-            });
-    }
-
-    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
-        sortArray = newValue;
-        $http.get(createTail($scope.pagination.current))
-            .success(function (result) {
-                $scope.items = result.items;
-                $scope.totalItems = result.count;
-            });
-    });
-
-    $scope.items = [];
-    $scope.totalItems = 0;
-    $scope.itemsPerPage = 20;
+    $scope.checkAtt = function (item) {
+        
+        $http.post('/api/TalentPlayerAttributes', item).success(function() {
 
 
-    $scope.pagination = {
-        current: 1
+        });
+
     };
+    $scope.checkScore = function (item) {
+        console.log(" lox");
+        $http.post('/api/TalentPlayerAttributes', item).success(function () {
 
-    getResultsPage($scope.pagination.current);
 
-    $scope.pageChanged = function (newPage) {
-        getResultsPage(newPage);
-        $scope.pagination.current = newPage;
+        });
+
     };
-
-    
-    getParentAssesmets();
-    getParentCurr();
 }]);
 
 

@@ -2,6 +2,7 @@
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Curriculum;
+using PmaPlus.Model.ViewModels.CurriculumProcess;
 using PmaPlus.Model.ViewModels.Diary;
 using PmaPlus.Model.ViewModels.News;
 using PmaPlus.Model.ViewModels.Nutrition;
@@ -86,6 +87,10 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<TalentNoteViewModel,TalentNote>();
 
+
+            Mapper.CreateMap<SessionAttendanceTableViewModel, SessionAttendance>();
+
+            Mapper.CreateMap<PlayerObjectiveTableViewModel, PlayerObjective>();
         }
     }
 }

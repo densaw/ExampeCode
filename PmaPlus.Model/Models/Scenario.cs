@@ -22,6 +22,8 @@ namespace PmaPlus.Model.Models
         public string UploadedBy { get; set; }
         public bool Share { get; set; }
 
+        public int? ClubId { get; set; }
+        public virtual Club Club { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "PMA+";
-    Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Scouts/Views/Shared/_AdminLayout.cshtml";
 }
 
 
@@ -52,12 +52,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <form name="myform" class="form-horizontal" novalidate>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Scouts:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <select name="scoutName" ng-model="newScoutP.scoutId" ng-options="scout.id as scout.name for scout in scouts" class=" form-control"></select>
-                                                </div>
-                                            </div>
+                                           
                                             <div class="form-group" ng-class="{'has-error':myform.firstname.$invalid && (myform.firstname.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Player First Name:</label>
                                                 <div class="col-lg-7 pull-right">

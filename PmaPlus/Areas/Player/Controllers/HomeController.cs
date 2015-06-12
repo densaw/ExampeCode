@@ -113,7 +113,7 @@ namespace PmaPlus.Areas.Player.Controllers
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";
             return View();
         }
-        public ActionResult Traning()
+        public ActionResult Training()
         {
             var club = _userServices.GetClubByUserName(User.Identity.Name);
             ViewBag.them = club != null ? club.ColorTheme : "#3276b1";

@@ -22,9 +22,13 @@ namespace PmaPlus.Services.Services
             return _scenarioRepository.GetMany(s => s.Id == id).Any();
         }
 
-        public IQueryable<Scenario> GetScenarios(string name)
+        public IQueryable<Scenario> GetScenarios(string name, int clubId,bool isSysAdmin = false)
         {
-            return _scenarioRepository.GetMany(s => s.UploadedBy.ToLower() == name || s.UploadedBy.ToLower() == "SysAdmin");
+            if (isSysAdmin)
+            {
+                return _scenarioRepository.GetAll();
+            }
+            return _scenarioRepository.GetMany(s => s.UploadedBy.ToLower() == name || s.UploadedBy.ToLower() == "SysAdmin" || s.ClubId == clubId || s.Share);
         }
 
         public Scenario GetScenarioById(int id)

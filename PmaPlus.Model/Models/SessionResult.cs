@@ -20,5 +20,10 @@ namespace PmaPlus.Model.Models
         public DateTime? ComletedOn { get; set; }
 
         public bool Done { get; set; }
+
+
+        public virtual ICollection<SessionAttendance> SessionAttendances { get; set; }
+
+        public virtual ICollection<PlayerObjective> PlayerObjectives { get; set; } 
     }
 }

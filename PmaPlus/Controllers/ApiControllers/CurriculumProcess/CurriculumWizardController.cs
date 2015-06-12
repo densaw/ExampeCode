@@ -25,89 +25,52 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             _teamServices = teamServices;
         }
 
-
-        public IEnumerable<SessionsWizardViewModel> GetWizard(int id)
+        [Route("api/Curriculum/Wizard/{teamId:int}")]
+        public IEnumerable<SessionsWizardViewModel> GetWizard(int teamId)
         {
-            //var coach = _userServices.GetCoachByUserName(User.Identity.Name);
-
-            //if (coach == null)
-            //    return null;
-
-            var sessions = _curriculumProcessServices.GetTeamSessions(id);
-            var sesResults = _curriculumProcessServices.GetTeamSessionsResult(id);
-
-            var team = _teamServices.GetTeamById(id).TeamCurriculum.Id;
-
-
-            var result = from s in sessions
-
-                // These two lines are the left join. 
-                join sr in sesResults on s.Id equals sr.SessionId  into leftm
-                from m in leftm.DefaultIfEmpty()
-
-               //let description = m == null ? 0 : m.SessionId
-
-                select new SessionsWizardViewModel()
-                {
-                    Attendance = s.Attendance,
-                    Name = s.Name,
-                    Rating = s.Rating,
-                    Number = s.Number,
-                    NeedScenarios = s.NeedScenarios,
-                    EndOfReviewPeriod = s.EndOfReviewPeriod,
-                    Done = m.Done,
-                    ObjectiveReport = s.ObjectiveReport,
-                    Objectives = s.Objectives,
-                    Report = s.Report,
-                    CoachDetails = s.CoachDetails,
-                    CoachDetailsName = s.CoachDetailsName,
-                    CoachPicture = s.CoachPicture,
-                    PlayerDetails = s.PlayerDetails,
-                    PlayerDetailsName = s.PlayerDetailsName,
-                    PlayerPicture = s.PlayerPicture,
-                    StartOfReviewPeriod = s.StartOfReviewPeriod,
-                    StartedOn = m.StartedOn,
-                    ComletedOn = m.ComletedOn,
-                    SessionId = s.Id,
-                    TeamCurriculumId = team
-                };
-
-
-
-            //var list = sessions.Join(sesResults.DefaultIfEmpty(), s => s.Id, sr => sr.SessionId, (s, sr) => new {s, sr})
-            //    .Select(i => new SessionsWizardViewModel()
-            //    {
-            //        Attendance = i.s.Attendance,
-            //        Name = i.s.Name,
-            //        Rating = i.s.Rating,
-            //        Number = i.s.Number,
-            //        NeedScenarios = i.s.NeedScenarios,
-            //        EndOfReviewPeriod = i.s.EndOfReviewPeriod,
-            //        Done = i.sr.Done,
-            //        ObjectiveReport = i.s.ObjectiveReport,
-            //        Objectives = i.s.Objectives,
-            //        Report = i.s.Report,
-            //        CoachDetails = i.s.CoachDetails,
-            //        CoachDetailsName = i.s.CoachDetailsName,
-            //        CoachPicture = i.s.CoachPicture,
-            //        PlayerDetails = i.s.PlayerDetails,
-            //        PlayerDetailsName = i.s.PlayerDetailsName,
-            //        PlayerPicture = i.s.PlayerPicture,
-            //        StartOfReviewPeriod = i.s.StartOfReviewPeriod,
-            //        StartedOn = i.sr.StartedOn,
-            //        ComletedOn = i.sr.ComletedOn,
-            //        SessionId = i.s.Id,
-            //        TeamCurriculumId = team
-            //    });
-
-
-            return result.ToList();
-
-
-
-
-
+            return _curriculumProcessServices.GetCurriculumSessionsWizard(teamId);
         }
+
+        [Route("api/Curriculum/Wizard/Session/Save/{teamCurriculumId:int}/{sessionId:int}")]
+        public IHttpActionResult Post(int teamCurriculumId,int sessionId)
+        {
+
+            _curriculumProcessServices.SaveSession(sessionId,teamCurriculumId);
+
+            return Ok();
+        }
+
+        [Route("api/Curriculum/Wizard/Session/AttendanceTable/{teamId:int}/{sessionId:int}")]
+        public IEnumerable<SessionAttendanceTableViewModel> GetPlayersAttendance(int teamId, int sessionId)
+        {
+            return _curriculumProcessServices.GetPlayersTableForAttendance(teamId, sessionId);
+        }
+
+        [Route("api/Curriculum/Wizard/Session/AttendanceTable/{teamId:int}/{sessionId:int}")]
+        public IHttpActionResult Post(int teamId, int sessionId, [FromBody]IList<SessionAttendanceTableViewModel> sessionAttendanceTable)
+        {
+            var attendances =
+                Mapper.Map<IList<SessionAttendanceTableViewModel>, List<SessionAttendance>>(sessionAttendanceTable);
+            _curriculumProcessServices.UpdateAttendance(attendances,teamId,sessionId);
+            return Ok();
+        }
+
+        [Route("api/Curriculum/Wizard/Session/ObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerObjectives(int teamId, int sessionId)
+        {
+            return _curriculumProcessServices.GetPlayerObjectiveTable(teamId, sessionId);
+        }
+
+        [Route("api/Curriculum/Wizard/Session/ObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IHttpActionResult PostPlayerObjectives(int teamId, int sessionId, IList<PlayerObjectiveTableViewModel> playerObjectiveTable)
+        {
+            var objectives = Mapper.Map<IList<PlayerObjectiveTableViewModel>, List<PlayerObjective>>(playerObjectiveTable);
+
+            _curriculumProcessServices.UpdateObjectives(objectives, teamId, sessionId);
+
+            return Ok();
+        }
+
 
 
 
