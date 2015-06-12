@@ -69,10 +69,10 @@
                                                     </ui-select>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':myform.stateSt.$invalid && (myform.stateSt.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Statement:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input ng-model="newStatements.statement" required class="form-control" maxlength="50">
+                                                    <textarea name="stateSt" ng-model="newStatements.statement" required class="form-control" maxlength="50"></textarea>
                                                 </div>
                                             </div>
 

@@ -3772,6 +3772,7 @@
     <Content Include="Views\Partials\_UserAvaterPartial.cshtml" />
     <Content Include="Views\Partials\_MatchReports.cshtml" />
     <Content Include="Views\Partials\_Injuries.cshtml" />
+    <Content Include="Views\Partials\_VideoModalPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
