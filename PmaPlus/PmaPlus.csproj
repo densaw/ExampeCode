@@ -3209,6 +3209,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\ClubControllers.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
+    <Content Include="Scripts\controllers\MessageController.js" />
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\controllers\UserAvatarController.js" />
     <Content Include="Scripts\datapickersecond\bootstrap-datepicker.js" />
@@ -3771,6 +3772,7 @@
     <Content Include="Views\Partials\_UserAvaterPartial.cshtml" />
     <Content Include="Views\Partials\_MatchReports.cshtml" />
     <Content Include="Views\Partials\_Injuries.cshtml" />
+    <Content Include="Views\Partials\_PrivateMessage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

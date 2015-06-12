@@ -1,0 +1,146 @@
+﻿<div ng-controller="PrivateController">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Injuries</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li class="active">
+                    <strong>Communications</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-click="sendMessage()">Send Message</a>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content  animated fadeInRight" ng-cloak>
+        @*Modal*@
+        <div class="modal inmodal" id="sendMessage" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h3 class="modal-title text-left">{{modalTitle}}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form name="myform" class="form-horizontal" novalidate>
+                            <div class="form-group" ng-class="{'has-error':myform.courseName.$invalid && (myform.courseName.$dirty||myform.form_Submitted)}">
+                                <label class="col-lg-4 title-modal">Recipients:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <ui-select multiple ng-model="help.recipients" ng-disabled="disabled" theme="bootstrap">
+                                        <ui-select-match placeholder="Select Persons...">{{$item.name}}</ui-select-match>
+                                        <ui-select-choices repeat="person in persons">
+                                            <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Message:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-model="newMessage.messagePrivate.message" required class="form-control">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-click="cancel()" type="button" class="btn btn-white">Close</button>
+                        <button ng-click="ok()" ng-disabled="laddaLoading" type="button" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                            <span class="ladda-label" style="font-size: 14px;">Save changes</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Modal End*@
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Recent</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user"></ul>
+                            <a>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="feed-element" style="cursor: pointer;" ng-repeat="recent in recents" ng-click="selectGroup(recent)">
+
+                            <a style="width: 50px; height: 50px; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="pull-left">
+                                <img alt="image" class="img-circle" src="../../Images/Default_background.png">
+                            </a>
+                            <div class="media-body ">
+                                <strong>{{recent.id}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Message</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user"></ul>
+                            <a>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div>
+                            <div class="feed-activity-list">
+                                <fa-scroll-view>
+                                    <fa-view>
+                                        <div class="feed-element" ng-repeat="groupMsg in groupMessagesList">
+                                            <a style="width: 50px; height: 50px; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="pull-left">
+                                                <img alt="image" class="img-circle" src="img/a1.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="pull-right text-navy">{{groupMsg.sendAt}}</small>
+                                                <strong>{{groupMsg.userId}}</strong><br>
+                                                <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                                <div class="well">
+                                                    {{groupMsg.message}}
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </fa-view>
+                                </fa-scroll-view>
+                                
+                            </div>
+
+                            <div ng-if="haveGroup" class="row" style="margin-top: 20px;">
+                                <div class="col-lg-10">
+                                    <input ng-model="messageInGroupSend.messagePrivate.message" required class="form-control">
+                                </div>
+                                <div class="col-lg-2">
+                                    <button class="btn btn-primary" ng-click="sendMessageinGroup()"><strong>Send message</strong></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
