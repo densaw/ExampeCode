@@ -34,5 +34,7 @@ namespace PmaPlus.Model.Models
         public virtual User User { get; set; }
         public UserStatus Status { get; set; }
         public virtual ICollection<PlayerInjury> PlayerInjuries { get; set; }
+
+        public virtual ICollection<SessionAttendance> SessionAttendances { get; set; }
     }
 }

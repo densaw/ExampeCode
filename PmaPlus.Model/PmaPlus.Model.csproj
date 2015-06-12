@@ -88,6 +88,7 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\NutritionNew.cs" />
     <Compile Include="Models\PlayerNote.cs" />
+    <Compile Include="Models\PlayerObjective.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\CurriculumStatement.cs" />
     <Compile Include="Enums\AgeGroup.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserDetail.cs" />
     <Compile Include="Models\WelfareOfficer.cs" />
+    <Compile Include="ViewModels\CurriculumProcess\PlayerObjectiveTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\SessionAttendanceTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\SessionsWizardViewModel.cs" />
     <Compile Include="ViewModels\DashboardContent\ActivePlayersForLastYearViewModel.cs" />

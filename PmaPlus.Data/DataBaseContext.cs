@@ -27,6 +27,8 @@ namespace PmaPlus.Data
         public virtual DbSet<Session> CurriculumSessions { get; set; }
         public virtual DbSet<SessionAttendance> SessionAttendances { get; set; }
 
+        public virtual DbSet<PlayerObjective> PlayerObjectives { get; set; }
+
 
         public virtual DbSet<FACourse> FACourses { get; set; }
         public virtual DbSet<HeadOfAcademy> HeadOfAcademies { get; set; }

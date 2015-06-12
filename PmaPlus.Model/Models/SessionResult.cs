@@ -22,7 +22,8 @@ namespace PmaPlus.Model.Models
         public bool Done { get; set; }
 
 
-
         public virtual ICollection<SessionAttendance> SessionAttendances { get; set; }
+
+        public virtual ICollection<PlayerObjective> PlayerObjectives { get; set; } 
     }
 }
