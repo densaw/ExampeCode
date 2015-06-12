@@ -155,7 +155,7 @@ namespace PmaPlus.Data
                 {
                     cs.MapLeftKey("UserRefId");
                     cs.MapRightKey("MessageGroupRefId");
-                    cs.ToTable("User");
+                    cs.ToTable("UserToMessageGroup");
                 });
 
 

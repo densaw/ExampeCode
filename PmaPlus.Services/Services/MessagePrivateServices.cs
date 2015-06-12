@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PmaPlus.Data.Repository.Iterfaces;
 using PmaPlus.Model.Models;
-using PmaPlus.Model.ViewModels.MessagePrivate;
+using PmaPlus.Model.ViewModels.MessagePrivates;
 using PmaPlus.Services.Extensions;
 
 namespace PmaPlus.Services
@@ -23,17 +23,53 @@ namespace PmaPlus.Services
             _userRepository = userRepository;
         }
 
-        public MessagePrivate AddMessage()
+        public MessagePrivate AddMessage(int userId, int groupId, MessagePrivateViewModel msg, IList<int> usersInGroup = null)
         {
-            var msg = new MessagePrivate();
+            if (msg != null)
+            {
+                if (groupId == 0 && usersInGroup != null)
+                {
+                    usersInGroup.Add(userId);
+                    groupId = CreateMessageGroup(usersInGroup).MessageGroupId;
+                }
 
-            return _messagePrivateRepository.Add(msg);
+              return _messagePrivateRepository.Add(new MessagePrivate()
+              {
+                  MessageGroupId = groupId,
+                  UserId = userId,
+                  Image = msg.Image,
+                  SendAt = DateTime.Now,
+                  Text = msg.Message
+              });  
+            }
+            return null;
         }
 
-        public IQueryable<MessageGroupViewModel> GetGroupMessageForUser(int userId)
+        public bool IsGroupExist(int groupId)
+        {
+            return _messageGroupRepository.GetMany(x => x.MessageGroupId == groupId).Any();
+        }
+
+        public MessageGroup CreateMessageGroup(IList<int> usersInGroup)
+        {
+            return _messageGroupRepository.Add(new MessageGroup()
+            {
+                Users = _userRepository.GetMany(x => usersInGroup.Contains(x.Id)).ToList()
+            });
+        }
+
+        public string RenameGroup(int groupId, string groupName)
+        {
+            var group = _messageGroupRepository.GetById(groupId);
+            group.GroupName = groupName;
+            _messageGroupRepository.Update(group);
+            return groupName;
+        }
+
+        public IEnumerable<MessageGroupViewModel> GetGroupMessageForUser(int userId)
         {
             return _messageGroupRepository.GetAll()
-                .Where(x => x.Users.Select(u => u.Id).Contains(userId))
+                .Where(x => x.Users.Select(u => u.Id).Contains(userId)).ToList()
                 .Select(v => new MessageGroupViewModel()
             {
                 Id = v.MessageGroupId,
@@ -41,11 +77,11 @@ namespace PmaPlus.Services
                 Messages = _messagePrivateRepository.GetAll()
                 .Where(g => g.MessageGroupId == v.MessageGroupId)
                 .OrderBy(g => g.SendAt)
-                .QueryMessagePrivateViewModel(),
+                .QueryMessagePrivateViewModel().ToList(),
                 Users = _userRepository.GetAll()
                 .Where(g => g.MessageGroups.Select(y =>y.MessageGroupId).Contains(v.MessageGroupId))
                 .OrderBy(g => g.CreateAt)
-                .QueryUsersList()
+                .QueryUsersList().ToList()
             });
         }
     }

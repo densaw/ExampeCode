@@ -2,3 +2,7 @@
     ViewBag.Title = "PMA+";
     Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
 }
+@Html.Partial("~/Views/Partials/_PrivateMessage.cshtml")
+@section scripts{
+    <script src="~/Scripts/controllers/MessageController.js"></script>
+}
