@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AttendanceType.cs" />
     <Compile Include="Enums\AttributeType.cs" />
     <Compile Include="Enums\BodyPartType.cs" />
     <Compile Include="Enums\ClubStatus.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Models\Qualification.cs" />
     <Compile Include="Models\QualificationToFaCourse.cs" />
     <Compile Include="Models\Scenario.cs" />
+    <Compile Include="Models\SessionAttendance.cs" />
     <Compile Include="Models\SessionResult.cs" />
     <Compile Include="Models\SessionScenario.cs" />
     <Compile Include="Models\SkillLevel.cs" />
@@ -135,6 +137,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserDetail.cs" />
     <Compile Include="Models\WelfareOfficer.cs" />
+    <Compile Include="ViewModels\CurriculumProcess\SessionAttendanceTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\SessionsWizardViewModel.cs" />
     <Compile Include="ViewModels\DashboardContent\ActivePlayersForLastYearViewModel.cs" />
     <Compile Include="ViewModels\Club\AddClubViewModel.cs" />

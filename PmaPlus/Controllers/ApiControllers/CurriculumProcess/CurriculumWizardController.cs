@@ -28,15 +28,28 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
         [Route("api/Curriculum/Wizard/{teamId:int}")]
         public IEnumerable<SessionsWizardViewModel> GetWizard(int teamId)
         {
-            //var coach = _userServices.GetCoachByUserName(User.Identity.Name);
-
-            //if (coach == null)
-            //    return null;
-
             return _curriculumProcessServices.GetCurriculumSessionsWizard(teamId);
         }
 
 
+
+
+        [Route("api/Curriculum/Wizard/Session/Save/{teamCurriculumId:int}/{sessionId:int}")]
+        public IHttpActionResult Post(int teamCurriculumId,int sessionId)
+        {
+
+            _curriculumProcessServices.SaveSession(sessionId,teamCurriculumId);
+
+
+            return Ok();
+        }
+
+
+        [Route("api/Curriculum/Wizard/Session/AttendanceTable/{teamId:int}/{sessionId:int}")]
+        public IEnumerable<SessionAttendanceTableViewModel> GetPlayersAttendance(int teamId, int sessionId)
+        {
+            return _curriculumProcessServices.GetPlayersTableForAttendance(teamId, sessionId);
+        }
 
 
 

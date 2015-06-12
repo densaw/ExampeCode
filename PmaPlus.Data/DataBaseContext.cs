@@ -21,18 +21,21 @@ namespace PmaPlus.Data
         public virtual DbSet<Club> Clubs { get; set; }
         public virtual DbSet<ClubAdmin> ClubAdmins { get; set; }
         public virtual DbSet<Coach> Coaches { get; set; }
-        public virtual DbSet<SessionResult> SessionResults { get; set; } 
+        public virtual DbSet<SessionResult> SessionResults { get; set; }
         public virtual DbSet<Curriculum> Curriculums { get; set; }
-        public virtual DbSet<TeamCurriculum> TeamCurriculum { get; set; } 
+        public virtual DbSet<TeamCurriculum> TeamCurriculum { get; set; }
         public virtual DbSet<Session> CurriculumSessions { get; set; }
+        public virtual DbSet<SessionAttendance> SessionAttendances { get; set; }
+
+
         public virtual DbSet<FACourse> FACourses { get; set; }
         public virtual DbSet<HeadOfAcademy> HeadOfAcademies { get; set; }
         public virtual DbSet<HeadOfEducation> HeadOfEducations { get; set; }
         public virtual DbSet<Match> Matches { get; set; }
         public virtual DbSet<NutritionAlternative> NutritionAlternatives { get; set; }
         public virtual DbSet<NutritionFoodType> NutritionFoodTypes { get; set; }
-        public virtual DbSet<FoodTypeToWhen> FoodTypeToWhens { get; set; } 
-        public virtual DbSet<NutritionRecipe> NutritionRecipes { get; set; } 
+        public virtual DbSet<FoodTypeToWhen> FoodTypeToWhens { get; set; }
+        public virtual DbSet<NutritionRecipe> NutritionRecipes { get; set; }
         public virtual DbSet<Physiotherapist> Physiotherapists { get; set; }
         public virtual DbSet<PhysiotherapyExercise> PhysiotherapyExercises { get; set; }
         public virtual DbSet<Player> Players { get; set; }
@@ -60,7 +63,7 @@ namespace PmaPlus.Data
 
         public virtual DbSet<TalentIdentification> TalentIdentifications { get; set; }
         public virtual DbSet<TalentNote> TalentNotes { get; set; }
-        public virtual DbSet<AttributesOfTalent> AttributesOfTalents { get; set; } 
+        public virtual DbSet<AttributesOfTalent> AttributesOfTalents { get; set; }
 
 
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PmaPlus.Data.Repository.Iterfaces;
+using PmaPlus.Model.Enums;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.CurriculumProcess;
 
@@ -66,9 +67,63 @@ namespace PmaPlus.Services.Services
         }
 
 
+        public void SaveSession(int sessionId,int teamCurriculumId)
+        {
+            //TODO: Check can we save session
+            if (!_sessionResultRepository.GetMany(s =>s.SessionId == sessionId && s.TeamCurriculumId == teamCurriculumId).Any())
+            {
+                _sessionResultRepository.Add(new SessionResult()
+                {
+                    SessionId = sessionId,
+                    ComletedOn = DateTime.Now,
+                    Done = true,
+                    TeamCurriculumId = teamCurriculumId
+                });
+            }
+        }
 
 
+        public IEnumerable<SessionAttendanceTableViewModel> GetPlayersTableForAttendance(int teamId,int sessionId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            var playres = team.Players;
+            ICollection<SessionAttendance> atendance = new List<SessionAttendance>();
+            
+            var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
+            if (sessionResult != null)
+            {
+                atendance = sessionResult.SessionAttendances;
+            }
+           
+            var result = from player in playres
+                    join attned in atendance on player.Id equals attned == null ? 0 : attned.PlayerId into att
+                    from a in att.DefaultIfEmpty()
+                    select new SessionAttendanceTableViewModel()
+                    {
+                        Id = player.User.Id,
+                        Picture = player.User.UserDetail.ProfilePicture,
+                        Attendance = a != null? a.Attendance : AttendanceType.Undefined,
+                        Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
+                        AttPercent = 0,
+                        WbPercent = 0,
+                        Cur = 0
 
+                    };
+                return result.AsEnumerable();
+            }
 
+        public void UpdateAttendance(SessionAttendanceTableViewModel attendanceTable, int teamId, int sessionId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            if (!team.TeamCurriculum.SessionResults.Any(s =>s.SessionId == sessionId))
+            {
+                team.TeamCurriculum.SessionResults.Add(new SessionResult()
+                {
+                    SessionId = sessionId,
+                    TeamCurriculumId = team.TeamCurriculum.Id,
+                    
+                });
+            }
+        }
     }
 }

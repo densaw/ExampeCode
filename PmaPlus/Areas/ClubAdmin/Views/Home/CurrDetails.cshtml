@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "PMA+";
-    Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div ng-controller="CurrDetailsController">
@@ -25,7 +25,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a class="btn btn-primary" ng-href="@Url.Action("Curriculums", "Home", new { area = "HeadOfAcademy" })">Back to Curriculums</a>
+                <a class="btn btn-primary" ng-href="@Url.Action("Curriculums", "Home", new { area = "ClubAdmin" })">Back to Curriculums</a>
                 <a class="btn btn-primary" ng-click="open()">Add Detail</a>
             </div>
         </div>
@@ -70,7 +70,7 @@
                                             <div class="form-group" ng-class="{'has-error':myform.currNumber.$invalid && (myform.currNumber.$dirty||myform.form_Submitted)}">
                                                 <label class="col-lg-4 title-modal">Number:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input name="currNumber" ng-model="newCurrDet.number" required class="form-control" maxlength="50">
+                                                    <input name="currNumber" type="number" ng-model="newCurrDet.number" required class="form-control" maxlength="50">
                                                 </div>
                                             </div>
                                             <div class="form-group">

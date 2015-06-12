@@ -36,11 +36,16 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Scenarios/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
         public ScenarioPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
+            bool isSys = false;
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+            if (user != null && user.Role == Role.SystemAdmin)
+                isSys = true;
+
             var clubId = _userServices.GetClubByUserName(User.Identity.Name) == null ? 0 : _userServices.GetClubByUserName(User.Identity.Name).Id;
 
-            var count = _scenarioServices.GetScenarios(User.Identity.Name, clubId).Count();
+            var count = _scenarioServices.GetScenarios(User.Identity.Name, clubId,isSys).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var scenario = _scenarioServices.GetScenarios(User.Identity.Name, clubId).AsEnumerable();
+            var scenario = _scenarioServices.GetScenarios(User.Identity.Name, clubId, isSys).AsEnumerable();
             var items = Mapper.Map<IEnumerable<Scenario>, IEnumerable<ScenarioTableViewModel>>(scenario).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new ScenarioPage()
@@ -55,8 +60,13 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Scenarios/List")]
         public IEnumerable<ScenarioList> GetScenarioList()
         {
+            bool isSys = false;
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+            if (user != null && user.Role == Role.SystemAdmin)
+                isSys = true;
+
             var clubId = _userServices.GetClubByUserName(User.Identity.Name) == null ? 0 : _userServices.GetClubByUserName(User.Identity.Name).Id;
-            return Mapper.Map<IEnumerable<Scenario>, IEnumerable<ScenarioList>>(_scenarioServices.GetScenarios(User.Identity.Name,clubId));
+            return Mapper.Map<IEnumerable<Scenario>, IEnumerable<ScenarioList>>(_scenarioServices.GetScenarios(User.Identity.Name, clubId, isSys));
         }
 
         // GET: api/Scenarios/5
