@@ -36,5 +36,6 @@ namespace PmaPlus.Model.Models
         public virtual ICollection<PlayerInjury> PlayerInjuries { get; set; }
 
         public virtual ICollection<SessionAttendance> SessionAttendances { get; set; }
+        public virtual ICollection<PlayerObjective> PlayerObjectives { get; set; }
     }
 }

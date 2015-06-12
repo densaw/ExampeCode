@@ -12,9 +12,10 @@ namespace PmaPlus.Model.Models
         public int PlayerId { get; set; }
         public int SessionResultId { get; set; }
 
+        
         public string PreObjective { get; set; }
 
-        public bool Achieved { get; set; }
+     
 
         public virtual Player Player { get; set; }
 

@@ -72,6 +72,7 @@
     <Compile Include="Models\ActivityStatusChange.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AttributesOfTalent.cs" />
+    <Compile Include="Models\BlockObjectiveStatement.cs" />
     <Compile Include="Models\BodyPart.cs" />
     <Compile Include="Models\Certificate.cs" />
     <Compile Include="Models\Chairman.cs" />
