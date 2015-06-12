@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "PMA+";
-    Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Scouts/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div ng-controller="TalentIdController" ng-cloak>
@@ -19,7 +19,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a class="btn btn-primary" ng-href="@Url.Action("TalentIndefication", "Home", new {area = "HeadOfAcademy"})">Back</a>
+                <a class="btn btn-primary" ng-href="@Url.Action("TalentIndefication", "Home", new {area = "Scouts"})">Back</a>
                 <a class="btn btn-primary" ng-click="confInvite()">Invite to Club</a>
                 <a class="btn btn-primary" ng-click="addNotes()">Add Notes</a>
             </div>
@@ -282,7 +282,7 @@
                                             <div class="check-link">
                                                 <input ng-change="checkAtt(item)" type="checkbox" ng-model="item.haveAttribute">
                                             </div>
-                                            </td>
+                                        </td>
                                         <td>
                                             <input ng-click="checkScore(item)" type="number" ng-model="item.score" max="10" min="0" size="5px">
                                         </td>

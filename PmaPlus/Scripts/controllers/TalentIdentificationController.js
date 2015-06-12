@@ -21,7 +21,7 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
     function getParentCurr() {
         $http.get('/api/TalentIdentification/Detail/' + $scope.currId).success(function (result) {
             $scope.profileTalents = result;
-            console.log($scope.profileTalents);
+           
         });
     }
     //get Assesments
@@ -30,9 +30,7 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
     function getParentAssesmets() {
         $http.get('/api/TalentIdentificationNotes/' + $scope.currId).success(function (result) {
             $scope.profileAssesments = result;
-            console.log("ass");
-            console.log($scope.profileAssesments);
-            console.log("get");
+            
         });
     }
     //get Attributes
@@ -240,7 +238,22 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
     };
 
     //Notes end----------------------------------------------------------------------------------------------------
-    
+    $scope.checkAtt = function (item) {
+        
+        $http.post('/api/TalentPlayerAttributes', item).success(function() {
+
+
+        });
+
+    };
+    $scope.checkScore = function (item) {
+        console.log(" lox");
+        $http.post('/api/TalentPlayerAttributes', item).success(function () {
+
+
+        });
+
+    };
 }]);
 
 
