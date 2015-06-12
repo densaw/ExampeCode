@@ -60,6 +60,13 @@ namespace PmaPlus.Data.Repository
             _dataBaseContext.Entry(oldEntity).CurrentValues.SetValues(entity);
             _dataBaseContext.SaveChanges();
         }
+
+        public virtual void AddOrUpdate(T[] entities)
+        {
+            _dbset.AddOrUpdate(entities);
+            _dataBaseContext.SaveChanges();
+        }
+
         public virtual void Delete(T entity)
         {
             if (entity == null)
