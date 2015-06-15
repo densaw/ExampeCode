@@ -37,5 +37,7 @@ namespace PmaPlus.Model.Models
 
         public virtual ICollection<SessionAttendance> SessionAttendances { get; set; }
         public virtual ICollection<PlayerObjective> PlayerObjectives { get; set; }
+
+        public virtual ICollection<PlayerMatchStatistic> MatchStatistics { get; set; }
     }
 }

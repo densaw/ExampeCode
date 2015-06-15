@@ -20,5 +20,6 @@ namespace PmaPlus.Model.ViewModels.TrainingTeamMember
         public DateTime? FirstAidExpiry  { get; set; }
         public DateTime LastLogin  { get; set; }
         public string ProfilePicture { get; set; }
+        public string AboutMe { get; set; }
     }
 }

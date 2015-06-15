@@ -17,7 +17,7 @@ namespace PmaPlus.Model.ViewModels.Player
         public decimal Gls { get; set; }
         public decimal Frm { get; set; }
         public int Inj { get; set; }
-        public int Att { get; set; }
+        public decimal Att { get; set; }
         public int Wb { get; set; }
         public decimal Cur { get; set; }
 
