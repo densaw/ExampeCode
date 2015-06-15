@@ -211,14 +211,15 @@
                             <div style="width: 67px; height: 67px; position: relative; overflow: hidden; margin: inherit; border-radius: 50px; " class="img-circle">
                                 <img alt="logo" class="img-circle" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent />
                                 </div>
-                            <div class="m-t-xs font-bold">{{roles[item.role].name}}</div>
+                            <br />
+                            
                                 <h3>{{item.name}}</h3>
-                                <div class="text-muted font-bold m-b-xs">{{item.townCity}}</div>
+                                
                                 <address>
                                     {{roles[item.role].name}} - {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}} years old.<br>
-                                    {{item.mobile}} <br />
+                                    <br />
                                     <p>
-                                        {{item.aboutMe}}
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan.
                                     </p>
                                 </address>
                             </div>
