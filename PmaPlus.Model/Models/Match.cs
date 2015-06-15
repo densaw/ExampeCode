@@ -8,7 +8,6 @@ namespace PmaPlus.Model.Models
 {
     public  class Match
     {
-        
         public int Id { get; set; }
         public string OppositionName { get; set; }
         public MatchType Type { get; set; }
@@ -25,6 +24,7 @@ namespace PmaPlus.Model.Models
         public int Periods { get; set; }
         public int PeriodDuration { get; set; }
 
+        public string Notes { get; set; }
 
         public int TeamId { get; set; }
         public virtual Team Team { get; set; }
