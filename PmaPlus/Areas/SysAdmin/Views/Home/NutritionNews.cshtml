@@ -229,7 +229,7 @@
                                 </thead>
                                 <tbody>
                                     <tr dir-paginate="news in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{news.newsDate}}</td>
+                                        <td>{{news.newsDate | date:'dd-MM-yyyy HH:mm' }}</td>
                                         <td> {{news.title}}</td>
                                         <td>{{news.authorName}}</td>
                                         <td>
