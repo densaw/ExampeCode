@@ -5,8 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using PmaPlus.Model;
+using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
-using PmaPlus.Model.ViewModels.MessagePrivate;
+using PmaPlus.Model.ViewModels.MessagePrivates;
 using PmaPlus.Model.ViewModels.MessageWall;
 using PmaPlus.Services;
 
@@ -71,6 +72,21 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
             rating.UserAva = currentUser.UserDetail.ProfilePicture;
             var newReting = _messageServices.AddMessageRating(messageId, rating);
             return Ok(newReting.Id);
+        }
+        [Route("api/Message/Group")]
+        public IList<MessageGroupViewModel> GetGroup()
+        {
+            var currentUser = _userServices.GetUserByEmail(User.Identity.Name);
+            return _messagePrivateServices.GetGroupMessageForUser(currentUser.Id).ToList();
+        }
+
+        [Route("api/Message/Group/{groupId:int?}")]
+        public IHttpActionResult PostGroupMessage([FromBody] MessagePrivatePostModel mesgPrivate, int groupId = 0 )
+        {
+            var currentUser = _userServices.GetUserByEmail(User.Identity.Name);
+            var newPrivateMessage = _messagePrivateServices.AddMessage(currentUser.Id, groupId,
+                mesgPrivate.MessagePrivate, mesgPrivate.UsersInGroup);
+            return Ok(newPrivateMessage.Id);
         }
     }
 }

@@ -72,6 +72,7 @@
     <Compile Include="Models\ActivityStatusChange.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AttributesOfTalent.cs" />
+    <Compile Include="Models\BlockObjectiveStatement.cs" />
     <Compile Include="Models\BodyPart.cs" />
     <Compile Include="Models\Certificate.cs" />
     <Compile Include="Models\Chairman.cs" />
@@ -160,9 +161,10 @@
     <Compile Include="ViewModels\Diary\DiaryViewModel.cs" />
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />
     <Compile Include="ViewModels\DashboardContent\InfoBoxViewModel.cs" />
-    <Compile Include="ViewModels\MessagePrivate\GroupMessageViewModel.cs" />
-    <Compile Include="ViewModels\MessagePrivate\MessageGroupViewModel.cs" />
-    <Compile Include="ViewModels\MessagePrivate\MessagePrivateViewModel.cs" />
+    <Compile Include="ViewModels\MessagePrivates\GroupMessageViewModel.cs" />
+    <Compile Include="ViewModels\MessagePrivates\MessageGroupViewModel.cs" />
+    <Compile Include="ViewModels\MessagePrivates\MessagePrivatePostModel.cs" />
+    <Compile Include="ViewModels\MessagePrivates\MessagePrivateViewModel.cs" />
     <Compile Include="ViewModels\PictureLinkViewModel.cs" />
     <Compile Include="ViewModels\MessageWall\MessageCommentViewModel.cs" />
     <Compile Include="ViewModels\MessageWall\MessageViewModel.cs" />

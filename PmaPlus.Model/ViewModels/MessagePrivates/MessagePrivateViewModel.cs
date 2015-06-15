@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PmaPlus.Model.ViewModels.MessagePrivate
+namespace PmaPlus.Model.ViewModels.MessagePrivates
 {
-    public class GroupMessageViewModel
+    public class MessagePrivateViewModel
     {
         public int Id { get; set; }
         [Required]

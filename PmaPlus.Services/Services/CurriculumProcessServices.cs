@@ -29,7 +29,6 @@ namespace PmaPlus.Services.Services
             _playerObjectiveRepository = playerObjectiveRepository;
         }
 
-
         public IEnumerable<SessionsWizardViewModel> GetCurriculumSessionsWizard(int teamId)
         {
             var sessions = _teamRepository.GetById(teamId).TeamCurriculum.Curriculum.Sessions.ToList().OrderBy(s =>s.Number);
@@ -70,7 +69,6 @@ namespace PmaPlus.Services.Services
             return result.OrderBy(s => s.Number);
         }
 
-
         public void SaveSession(int sessionId, int teamCurriculumId)
         {
             //TODO: Check can we save session
@@ -85,7 +83,6 @@ namespace PmaPlus.Services.Services
                 });
             }
         }
-
 
         public IEnumerable<SessionAttendanceTableViewModel> GetPlayersTableForAttendance(int teamId, int sessionId)
         {
@@ -111,7 +108,7 @@ namespace PmaPlus.Services.Services
                              Attendance = a != null ? a.Attendance : AttendanceType.Undefined,
                              Duration = a != null ? a.Duration : 0,
                              AttPercent = (player.SessionAttendances.Count / player.SessionAttendances.Count != 0 ? (player.SessionAttendances.Count(atten => atten.Attendance == AttendanceType.Attended)) : 1) * 100,
-                             WbPercent = 0,
+                             WbPercent = 0, //TODO: Wellbieng!
                              Cur = 0
 
                          };
