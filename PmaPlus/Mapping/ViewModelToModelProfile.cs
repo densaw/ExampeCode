@@ -91,6 +91,11 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<SessionAttendanceTableViewModel, SessionAttendance>();
 
             Mapper.CreateMap<PlayerObjectiveTableViewModel, PlayerObjective>();
+
+            Mapper.CreateMap<PlayerBlockObjectiveTableViewModel, BlockObjectiveStatement>();
+
+            Mapper.CreateMap<PlayerRatingsTableViewModel, PlayerRatings>();
+
         }
     }
 }

@@ -11,8 +11,8 @@ namespace PmaPlus.Model.ViewModels.Player
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
-        public int Att { get; set; }
-        public int Atl { get; set; }
+        public decimal Att { get; set; }
+        public decimal Atl { get; set; }
         public int Mom { get; set; }
         public decimal Gls { get; set; }
         public int Sho { get; set; }

@@ -72,6 +72,48 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
         }
 
 
+        [Route("api/Curriculum/Wizard/Session/BlockObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IEnumerable<PlayerBlockObjectiveTableViewModel> GetPlayerBlockObjectiveTable(int teamId, int sessionId)
+        {
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+            if (user == null)
+            {
+                return null;
+            }
+
+            return _curriculumProcessServices.GetBlockObjectiveTable(teamId, sessionId, user.Id);
+
+
+        }
+
+
+        [Route("api/Curriculum/Wizard/Session/BlockObjective/{teamId:int}/{sessionId:int}")]
+        public IHttpActionResult PostPlayerBlockObjective(int teamId, int sessionId,[FromBody]PlayerBlockObjectiveTableViewModel blockObjectiveViewModel)
+        {
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+            var blockObj =
+                Mapper.Map<PlayerBlockObjectiveTableViewModel, BlockObjectiveStatement>(blockObjectiveViewModel);
+
+
+            _curriculumProcessServices.UpdateBlockObgectiveStatement(blockObj,blockObjectiveViewModel.PlayerId,teamId,sessionId,user.Id);
+            return Ok();
+        }
+
+
+        [Route("api/Curriculum/Wizard/Rating/AttendanceTable/{teamId:int}/{sessionId:int}")]
+        public IEnumerable<PlayerRatingsTableViewModel> GetPlayersRating(int teamId, int sessionId)
+        {
+            return _curriculumProcessServices.GetPlayerRatingsTable(teamId, sessionId);
+        }
+
+        [Route("api/Curriculum/Wizard/Rating/AttendanceTable/{teamId:int}/{sessionId:int}")]
+        public IHttpActionResult Post(int teamId, int sessionId, [FromBody]IList<PlayerRatingsTableViewModel> playerRatingsTable)
+        {
+            var ratings =
+                Mapper.Map<IList<PlayerRatingsTableViewModel>, List<PlayerRatings>>(playerRatingsTable);
+            _curriculumProcessServices.UpdatePlayersRating(ratings, teamId, sessionId);
+            return Ok();
+        }
 
 
 

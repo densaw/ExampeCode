@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.Design;
 using System.Data.Entity;
 using System.Reflection.Emit;
 using PmaPlus.Data.Migrations;
@@ -29,11 +30,19 @@ namespace PmaPlus.Data
 
         public virtual DbSet<PlayerObjective> PlayerObjectives { get; set; }
         public virtual DbSet<PlayerBlockObjective> PlayerBlockObjectives { get; set; }
+        public virtual DbSet<BlockObjectiveStatement> BlockObjectiveStatements { get; set; }
+        public virtual DbSet<PlayerRatings> PlayerRatingses { get; set; }
+
 
         public virtual DbSet<FACourse> FACourses { get; set; }
         public virtual DbSet<HeadOfAcademy> HeadOfAcademies { get; set; }
         public virtual DbSet<HeadOfEducation> HeadOfEducations { get; set; }
+
         public virtual DbSet<Match> Matches { get; set; }
+        public virtual DbSet<PlayerMatchObjective> MatchObjectives { get; set; }
+        public virtual DbSet<PlayerMatchStatistic> PlayerMatchStatistics { get; set; }
+
+
         public virtual DbSet<NutritionAlternative> NutritionAlternatives { get; set; }
         public virtual DbSet<NutritionFoodType> NutritionFoodTypes { get; set; }
         public virtual DbSet<FoodTypeToWhen> FoodTypeToWhens { get; set; }
