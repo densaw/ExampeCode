@@ -39,6 +39,9 @@
                     <li class="@Html.IsSelected(action: "Wellbeing")"><a href="@Url.Action("Wellbeing", "Home", new { area = "Scouts" })">Wellbeing</a></li>
                 </ul>
             </li>
+            <li class="@Html.IsSelected(controller: "Home", action: "MatchReports")">
+                <a href="@Url.Action("MatchReports", "Home", new { area = "Scouts" })"><i class="fa fa-futbol-o"></i> <span class="nav-label">Match Reports</span></a>
+            </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Profile")">
                 <a href="@Url.Action("Profile", "Home", new {area = "Scouts"})"><i class="fa fa-cogs"></i> <span class="nav-label">Profile</span></a>
             </li>

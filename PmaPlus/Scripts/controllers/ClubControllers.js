@@ -585,7 +585,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function ($scope
 
 }]);
 
-app.controller('MyCtrlDiary', function ($scope) {
+app.controller('MyCtrlDiary', ['$scope', '$rootScope', '$digest', '$watch', function ($scope, $rootScope, $digest, $watch) {
     $scope.cols = 0;
     $scope.colsChanged = function () {
         $scope.items = actual(+$scope.cols);
@@ -593,7 +593,11 @@ app.controller('MyCtrlDiary', function ($scope) {
 
     //optional: if you're starting with 1 or more "cols"
     $scope.colsChanged();
-});
+   
+
+
+   
+}]);
 
 app.controller('ClubDiaryController', [
     '$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function ($scope, $http, toaster, $compile, uiCalendarConfig) {
@@ -719,7 +723,12 @@ app.controller('ClubDiaryController', [
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-
+            
+            axisFormat: 'H:mm',
+            timeFormat: {
+                agenda: 'H:mm' //h:mm{ - h:mm}'
+            },
+            
             allDayDefault: true,
             defaultView: 'agendaWeek',
             aspectRatio: 1.5,
