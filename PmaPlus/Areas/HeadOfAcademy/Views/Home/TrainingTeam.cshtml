@@ -202,42 +202,220 @@
             </div>
         </div>
         @*Modal End*@
-        <div class="row">
-            <div class="col-lg-4" ng-repeat="item in items">
-                <div class="contact-box " onmouseenter="inside(this)" onmouseleave="out(this)">
+        @*Contacts*@      
+            <div class="row">            
+                <div class="col-lg-3" ng-repeat="item in items">
+                    <div class="hpanel hgreen contact-panel ">
 
-                    <div class="col-sm-4">
-                        <div class="text-center">
-                            <div style="width: 67px; height: 67px; position: relative; overflow: hidden;" class="img-circle">
-                                <img alt="image" class="prifile" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent />
-                            </div>
+                        <div class="panel-body " onmouseenter="inside(this)" onmouseleave="out(this)">
+                            <div style="width: 67px; height: 67px; position: relative; overflow: hidden; margin: inherit; border-radius: 50px; " class="img-circle">
+                                <img alt="logo" class="img-circle" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent />
+                                </div>
                             <div class="m-t-xs font-bold">{{roles[item.role].name}}</div>
+                                <h3>{{item.name}}</h3>
+                                <div class="text-muted font-bold m-b-xs">{{item.townCity}}</div>
+                                <address>
+                                    {{roles[item.role].name}} - {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}} years old.<br>
+                                    {{item.mobile}} <br />
+                                    <p>
+                                        {{item.aboutMe}}
+                                    </p>
+                                </address>
+                            </div>
+                        <div class="panel-footer contact-footer">
+                            <div class="row">
+                                <div class="col-md-4 border-right"> <div class="contact-stat"><span>Last Login:</span> <strong style="font-size: 10px">{{item.lastLogin | date:'dd.MM.yyyy'}}</strong></div> </div>
+                                <div class="col-md-4 border-right"> <div class="contact-stat"><span>CRB\DBS Expiry: </span> <strong style="font-size: 10px">  {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}</strong></div> </div>
+                                <div class="col-md-4"> <div class="contact-stat"><span>First Aid Expiry: </span> <strong style="font-size: 10px"> {{item.firstAidExpiry | date:'dd.MM.yyyy'}}</strong></div> </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-8">
-                        <h3>
-                            <strong>{{item.name}}</strong>
-                        </h3>
-                        <p>
-                            <i class="fa fa-map-marker"></i> {{item.townCity}}
-                        </p>
-                        <address>
-                            {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}}<br>
-                            {{item.mobile}} <br />
-                            <span style="font-size: 10px">CRB\DBS Expiry: {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}</span><br>
-                            <span style="font-size: 10px">First Aid Expiry: {{item.firstAidExpiry | date:'dd.MM.yyyy'}}</span><br>
-                            Last Login: <strong>{{item.lastLogin | date:'dd.MM.yyyy'}}</strong>
-                        </address>
-                    </div>
-                    <div class="clearfix"></div>
-
                 </div>
-            </div>
+                </div>
+        
+            @*Contacts End*@
         </div>
-    </div>
 </div>
 
 <style>
+    .animated-panel {
+        -webkit-animation-duration: .5s;
+        animation-duration: .5s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    .hpanel > .panel-footer {
+        color: inherit;
+        border: 1px solid #e4e5e7;
+        border-top: none;
+        font-size: 90%;
+        background: #f7f9fa;
+    }
+    .contact-stat span {
+        font-size: 10px;
+        font-weight: 500;
+        display: block;
+        color: #9d9fa2;
+        text-transform: uppercase;
+    }
+
+    .contact-stat {
+        padding: 8px 0px;
+        text-align: center;
+    }
+    .hpanel > .panel-heading {
+        color: inherit;
+        font-weight: 600;
+        padding: 10px 4px;
+        transition: all .3s;
+        border: 1px solid transparent;
+    }
+
+    .hpanel .hbuilt.panel-heading {
+        border-bottom: none;
+    }
+
+    .hpanel > .panel-footer {
+        color: inherit;
+        border: 1px solid #e4e5e7;
+        border-top: none;
+        font-size: 90%;
+        background: #f7f9fa;
+    }
+
+    .hpanel.panel-collapse > .panel-heading, .hpanel .hbuilt {
+        background: #fff;
+        border-color: #e4e5e7;
+        border: 1px solid #e4e5e7;
+        padding: 10px 10px;
+        border-radius: 2px;
+    }
+
+    .hpanel .panel-body {
+        background: #fff;
+        border: 1px solid #e4e5e7;
+        border-radius: 2px;
+        padding: 20px;
+        position: relative;
+    }
+
+    .panel-collapse .panel-body {
+        border: none;
+    }
+
+    .hpanel {
+        background-color: none;
+        border: none;
+        box-shadow: none;
+        margin-bottom: 25px;
+    }
+
+    .panel-tools {
+        display: inline-block;
+        float: right;
+        margin-top: 0;
+        padding: 0;
+        position: relative;
+    }
+
+    .hpanel .alert {
+        margin-bottom: 0;
+        border-radius: 0;
+        border: 1px solid #e4e5e7;
+        border-bottom: none;
+    }
+
+    .panel-tools a {
+        margin-left: 5px;
+        color: #9d9fa2;
+        cursor: pointer;
+    }
+
+  
+
+    .hpanel.hblue .panel-body {
+        border-top: 2px solid #3498db;
+    }
+
+    .hpanel.hyellow .panel-body {
+        border-top: 2px solid #ffb606;
+    }
+
+    .hpanel.hviolet .panel-body {
+        border-top: 2px solid #9b59b6;
+    }
+
+    .hpanel.horange .panel-body {
+        border-top: 2px solid #e67e22;
+    }
+
+    .hpanel.hred .panel-body {
+        border-top: 2px solid #e74c3c;
+    }
+
+    .hpanel.hreddeep .panel-body {
+        border-top: 2px solid #c0392b;
+    }
+
+    .hpanel.hnavyblue .panel-body {
+        border-top: 2px solid #34495e;
+    }
+
+    .hpanel.hbggreen .panel-body {
+        background: #62cb31;
+        color: #fff;
+        border: none;
+    }
+
+    .hpanel.hbgblue .panel-body {
+        background: #3498db;
+        color: #fff;
+        border: none;
+    }
+
+    .hpanel.hbgyellow .panel-body {
+        background: #ffb606;
+        color: #fff;
+        border: none;
+    }
+
+    .hpanel.hbgviolet .panel-body {
+        background: #9b59b6;
+        color: #fff;
+        border: none;
+    }
+
+    .hpanel.hbgorange .panel-body {
+        background: #e67e22;
+        color: #fff;
+        border: none;
+    }
+
+    .hpanel.hbgred .panel-body {
+        background: #e74c3c;
+        color: #fff;
+        border: none;
+    }
+
+    .hpanel.hbgreddeep .panel-body {
+        background: #c0392b;
+        color: #fff;
+        border: none;
+    }
+
+    .hpanel.hbgnavyblue .panel-body {
+        background: #34495e;
+        color: #fff;
+        border: none;
+    }
+
+    .panel-group .panel-heading {
+        background-color: #f7f9fa;
+    }
+
+    .small-header .hpanel {
+        margin-bottom: 0;
+    }
     .font-bold {
         font-size: 13px;
         font-weight: 600;
