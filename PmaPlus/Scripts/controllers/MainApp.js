@@ -100,6 +100,10 @@
         $scope.newComment = {};
         $scope.newRating = {};
         $scope.newMessage = {};
+        $scope.statmentsRev = [];
+
+        $scope.currentPage = 0;
+        $scope.isLastPage = false;
 
         function getCurrentUser(){
             $http.get('/api/Users/Avatar')
@@ -108,10 +112,13 @@
             });
         }
 
-        function getResultsPage() {
-            $http.get('/api/Message?page=0')
+        function getResultsPage(pageNumber) {
+            $http.get('/api/Message?page=' + pageNumber)
                 .success(function (result) {
-                    $scope.message = result.items;
+                    angular.forEach(result.items, function(item){
+                        this.push(item);
+                    }, $scope.message);
+                    $scope.isLastPage = $scope.currentPage == result.pages-1;
                 });
         }
 
@@ -150,8 +157,31 @@
             })
         }
 
+        $scope.showComments = function(index){
+            $scope.statmentsRev[index].comments = true;
+            $scope.statmentsRev[index].like = false;
+            $scope.statmentsRev[index].dislike = false;
+        }
+
+        $scope.showLike = function(index){
+            $scope.statmentsRev[index].comments = false;
+            $scope.statmentsRev[index].like = true;
+            $scope.statmentsRev[index].dislike = false;
+        }
+
+        $scope.showDislike = function(index){
+            $scope.statmentsRev[index].comments = false;
+            $scope.statmentsRev[index].like = false;
+            $scope.statmentsRev[index].dislike = true;
+        }
+
+        $scope.loadMore = function(){
+            $scope.currentPage++;
+            getResultsPage($scope.currentPage);
+        }
+
         getCurrentUser();
-        getResultsPage();
+        getResultsPage(0);
     }]);
 
     module.controller('MainController', ['$scope', '$cookies', 'toaster', '$http', function ($scope, $cookies, toaster, $http) {
