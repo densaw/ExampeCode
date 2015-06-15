@@ -108,24 +108,19 @@
                     <div class="ibox-content">
                         <div>
                             <div class="feed-activity-list">
-                                <fa-scroll-view>
-                                    <fa-view>
-                                        <div class="feed-element" ng-repeat="groupMsg in groupMessagesList">
-                                            <a style="width: 50px; height: 50px; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="pull-left">
-                                                <img alt="image" class="img-circle" src="img/a1.jpg">
-                                            </a>
-                                            <div class="media-body ">
-                                                <small class="pull-right text-navy">{{groupMsg.sendAt}}</small>
-                                                <strong>{{groupMsg.userId}}</strong><br>
-                                                <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-                                                <div class="well">
-                                                    {{groupMsg.message}}
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </fa-view>
-                                </fa-scroll-view>
-                                
+                                <div class="feed-element" ng-repeat="groupMsg in groupMessagesList">
+                                    <a style="width: 50px; height: 50px; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="pull-left">
+                                        <img alt="image" class="img-circle" src="img/a1.jpg">
+                                    </a>
+                                    <div class="media-body ">
+                                        <small class="pull-right text-navy">{{groupMsg.sendAt}}</small>
+                                        <strong>{{groupMsg.userId}}</strong><br>
+                                        <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                        <div class="well">
+                                            {{groupMsg.message}}
+                                        </div>
+                                    </div>
+                                 </div> 
                             </div>
 
                             <div ng-if="haveGroup" class="row" style="margin-top: 20px;">

@@ -7,7 +7,7 @@
 
 <div class="col-lg-9" ng-controller="MessageWallController">
     @*Modal*@
-    <div class="modal inmodal" id="addCurseModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal inmodal" id="addMessage" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
@@ -19,27 +19,15 @@
                         <div class="form-group">
                             <label class="col-lg-4 title-modal">Message:</label>
                             <div class="col-lg-7 pull-right">
-                                <input name="courseName" ng-model="newMessage.name" required class="form-control" maxlength="50">
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{'has-error':myform.courseDuration.$invalid && (myform.courseDuration.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Course Duration:</label>
-                            <div class="col-lg-7 pull-right">
-                                <input name="courseDuration" ng-model="newCourse.duration" required class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 title-modal">Description:</label>
-                            <div class="col-lg-7 pull-right">
-                                <textarea ng-model="newCourse.description" class="form-control"></textarea>
+                                <input ng-model="newMessage.message" required class="form-control" maxlength="50">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                    <button ng-click="ok(newCourse.id)" id="saveModal" ng-disabled="laddaLoading" type="button" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
-                        <span class="ladda-label" style="font-size: 14px;">Save changes</span>
+                    <button ng-click="sendMessage()" id="saveModal" ng-disabled="laddaLoading" type="button" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                        <span class="ladda-label" style="font-size: 14px;">Send</span>
                     </button>
                 </div>
             </div>
@@ -50,31 +38,87 @@
         <div class="ibox-title">
             <h5>Message Wall</h5>
             <div class="ibox-tools">
-                <a class="btn btn-primary" style="font-size: 10px;"><i class="fa fa-envelope-o"></i> Send Message</a>
+                <a class="btn btn-primary" style="font-size: 10px;" ng-click="openMessage()"><i class="fa fa-envelope-o"></i> Send Message</a>
             </div>
         </div>
         <div class="ibox-content">
-            <div class="chat-activity-list">
-                <div ng-repeat="msg in message">
-                    <div class="chat-element">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <div></div>
-                                <div class="col-lg-3">{{msg.message}}</div>
-                                <div class="col-lg-3 pull-right">{{msg.sendAt}}</div>
+            <div>
+                <div class="feed-activity-list">
+                    <div class="feed-element" ng-repeat="msg in message">
+                        <div style="width: 50px; height: 50px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
+                            <img class="prifile" ng-src="{{msg.userAva}}" style-parent />
+                        </div>
+                        <div class="media-body ">
+                            <small class="pull-right text-navy">{{msg.sendAt}}</small>
+                            <strong>{{msg.userName}}</strong><br>
+                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                            <div class="well">
+                                {{msg.message}}
                             </div>
-                            
-                        </form>
-                        
-                    </div>
-                    <div class="input-group m-b">
-                        <span class="input-group-addon">!</span>
-                        <input type="text" placeholder="Username" class="form-control">
+                            <hr style="width: 100%; color: #E5E6E7; height: 1px; background-color: #E5E6E7; margin-top: 5px; margin-bottom: 5px;"/>
+                            <div class="row" style="margin-left: 5px; margin-right: 5px;">
+                                <div class="pull-left">
+                                    <a class="btn btn-xs btn-white" ng-click="rateMessage(msg.id, true)"><i class="fa fa-thumbs-up"></i></a>
+                                    <a class="btn btn-xs btn-white" ng-click="rateMessage(msg.id, false)"><i class="fa fa-thumbs-down"></i></a>
+                                </div>
+                                <div class="pull-right">
+                                    <a class="btn btn-xs btn-white">{{msg.comments.length}} - Comments</a>
+                                    <a class="btn btn-xs btn-white">{{msg.ratingPositive.length}} - Like</a>
+                                    <a class="btn btn-xs btn-white">{{msg.ratingNegative.length}} - Dislike</a>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-left: 5px; margin-right: 5px;">
+                                <div ng-repeat="singlecomment in msg.comments" class="row" style="margin-left: 0px; margin-right: 5px;">
+                                    <div style="width: 40px; height: 40px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
+                                        <img alt="image" class="prifile" ng-src="{{singlecomment.userAva}}" style-parent />
+                                    </div>
+                                    <small class="pull-right text-navy"></small>
+                                    <strong>{{singlecomment.userName}}</strong><br>
+                                    <small class="text-muted">{{singlecomment.sendAt | date:'HH:mm - dd.MM.yyyy' }}</small>
+                                    <div class="col-lg-11 well">
+                                        {{singlecomment.comment}}
+                                    </div>
+                                </div>
+                                <div style="width: 40px; height: 40px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
+                                    <img alt="image" class="prifile" ng-src="{{currentUser.picture}}" style-parent/>
+                                </div>
+                                <div class="col-lg-10">
+                                    <input ng-model="tmpComment[$index].comment" type="text" class="form-control">
+                                </div>
+                                <div class="col-lg-1">
+                                    <button class="btn btn-primary" ng-click="sendComment(msg.id, $index)"><strong>Send</strong></button>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
+<style>
+    img.prifile {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
 
+    img.landscape {
+        height: 100%;
+        width: auto;
+    }
+
+    img.portrait {
+        width: 100%;
+        height: auto;
+    }
+</style>

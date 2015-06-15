@@ -92,7 +92,21 @@
 
     module.controller('MessageWallController', ['$scope', '$cookies', 'toaster', '$http', function ($scope, $cookies, toaster, $http) {
 
+        var sendMessageModal = angular.element('#addMessage');
+
         $scope.message = [];
+        $scope.currentUser = {};
+        $scope.tmpComment = [];
+        $scope.newComment = {};
+        $scope.newRating = {};
+        $scope.newMessage = {};
+
+        function getCurrentUser(){
+            $http.get('/api/Users/Avatar')
+            .success(function(result){
+                $scope.currentUser = result;
+            });
+        }
 
         function getResultsPage() {
             $http.get('/api/Message?page=0')
@@ -100,6 +114,43 @@
                     $scope.message = result.items;
                 });
         }
+
+        $scope.rateMessage = function(messageId, rating){
+            $scope.newRating.rating = rating; 
+            $http.post('/api/Message/Rating/' + messageId, $scope.newRating)
+            .success(function(result){
+                getResultsPage();
+            })
+        }
+
+        $scope.sendComment = function(messageId, index){
+            
+            $scope.newComment.comment =  $scope.tmpComment[index].comment
+            $http.post('/api/Message/Comment/'+messageId, $scope.newComment)
+            .success(function(result){
+                $scope.tmpComment = [];
+                getResultsPage();
+            });
+        }
+
+        $scope.openMessage = function(){
+            $scope.modalTitle = 'Send new message';
+            sendMessageModal.modal('show');
+        }
+
+        $scope.cancel = function(){
+            sendMessageModal.modal('hide');
+        }
+
+        $scope.sendMessage = function(){
+            $http.post('/api/Message', $scope.newMessage)
+            .success(function(result){
+                getResultsPage();
+                sendMessageModal.modal('hide');
+            })
+        }
+
+        getCurrentUser();
         getResultsPage();
     }]);
 

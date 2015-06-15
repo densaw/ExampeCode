@@ -16,6 +16,8 @@ namespace PmaPlus.Model
         public string Image { get; set; }
         public DateTime SendAt { get; set; }
         public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string UserAva { get; set; }
         public IList<MessageCommentViewModel> Comments { get; set; }
         public IList<MessageRatingViewModel> RatingPositive { get; set; }
         public IList<MessageRatingViewModel> RatingNegative { get; set; }

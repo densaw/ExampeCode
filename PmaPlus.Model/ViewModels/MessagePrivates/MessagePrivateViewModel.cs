@@ -15,5 +15,6 @@ namespace PmaPlus.Model.ViewModels.MessagePrivates
         public string Image { get; set; }
         public DateTime SendAt { get; set; }
         public int UserId { get; set; }
+        public string UserAva { get; set; }
     }
 }
