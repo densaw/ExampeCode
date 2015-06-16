@@ -84,7 +84,7 @@ namespace PmaPlus.Services
                 .OrderBy(g => g.SendAt)
                 .QueryMessagePrivateViewModel().ToList(),
                 Users = _userRepository.GetAll()
-                .Where(g => g.MessageGroups.Select(y =>y.MessageGroupId).Contains(v.MessageGroupId))
+                .Where(g => g.MessageGroups.Select(y => y.MessageGroupId).Contains(v.MessageGroupId) && g.Id != userId)
                 .OrderBy(g => g.CreateAt)
                 .QueryUsersList().ToList()
             });
