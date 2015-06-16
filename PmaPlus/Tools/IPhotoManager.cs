@@ -13,12 +13,14 @@ namespace PmaPlus.Tools
     {
         IEnumerable<PhotoViewModel> Get();
         PhotoActionResult Delete(string fileName);
+        Task<PhotoViewModel> AddMassageWallPhoto(HttpRequestMessage request);
         Task<PhotoViewModel> Add(HttpRequestMessage request);
         string GetPhoto(FileStorageTypes type, string filename, int id);
         string Copy(string fileName, string path);
         string MoveFromTemp(string tempFileName, FileStorageTypes storageType, int id, string newFileName);
         string SetDefaultPrifilePic(FileStorageTypes storageType, int id, string newFileName);
         FileStream GetFileStream(string fileName, FileStorageTypes storageTypes, int id);
+        FileStream GetFileStream(string fileName, FileStorageTypes storageTypes);
         byte[] GetFileBytes(string fileName, FileStorageTypes storageTypes, int id);
         bool FileExistInStorage(FileStorageTypes storageType, string fileName, int id);
         void Delete(FileStorageTypes storageType, int id);

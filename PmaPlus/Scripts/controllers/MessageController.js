@@ -34,16 +34,16 @@ app.controller('PrivateController', ['$scope', '$http','$q',function ($scope, $h
         }
 
         $scope.selectGroup = function(group){
+            console.log(group.messages)
             $scope.groupMessagesList = group.messages;
             $scope.haveGroup = true;
             selectGroupId = group.id;
         }
 
         $scope.sendMessageinGroup = function(){
-            console.log($scope.messageInGroupSend);
             $http.post(urlGroupTail + '/' + selectGroupId, $scope.messageInGroupSend)
             .success(function(){
-                getAllRecent();
+               getAllMessageForGroupById(selectGroupId)
             })
             .error(function (data, status, headers, config) {
 
@@ -52,16 +52,42 @@ app.controller('PrivateController', ['$scope', '$http','$q',function ($scope, $h
 
         $scope.ok = function(){
 
-            $scope.newMessage.usersInGroup = shuffle($scope.help.recipients);
 
-            $http.post(urlGroupTail, $scope.newMessage)
-            .success(function(result){
-                getAllRecent();
-                target.modal('hide');
-            })
-            .error(function (data, status, headers, config) {
+            var promises = [];
 
-            });
+                if ($scope.messagePic) {
+                    var fd = new FormData();
+                    fd.append('file', $scope.messagePic);
+                    var promise = $http.post('/api/Files/Wall', fd, {
+                        transformRequest: angular.identity,
+                        headers: { 'Content-Type': undefined }
+                    })
+                        .success(function (data) {
+                            $scope.newMessage.messagePrivate.image = data.name;
+                        })
+                        .error(function () {
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: 'File upload ERROR!'
+                            });
+                        });
+                    promises.push(promise);
+                }
+                $q.all(promises).then(function () {
+                    $scope.newMessage.usersInGroup = shuffle($scope.help.recipients);
+                    console.log($scope.newMessage);
+                    $http.post(urlGroupTail, $scope.newMessage)
+                    .success(function(result){
+                        getAllRecent();
+                        target.modal('hide');
+                    })
+                    .error(function (data, status, headers, config) {
+
+                    });
+                });
+
+
         }
 
         function getAllRecent(){
@@ -84,6 +110,17 @@ app.controller('PrivateController', ['$scope', '$http','$q',function ($scope, $h
 
             });
         };
+
+        function getAllMessageForGroupById(groupId){
+            $http.get('/api/Message/Group/'+ groupId)
+            .success(function (result) {
+                console.log(result);
+                $scope.groupMessagesList = result;
+            })
+            .error(function (data, status, headers, config) {
+
+            });
+        }
 
 
         getAllPersonToSend();

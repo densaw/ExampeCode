@@ -290,6 +290,9 @@
     <Compile Include="Controllers\ApiControllers\HealthandFitness\HAFNutritionController.cs" />
     <Compile Include="Controllers\ApiControllers\HealthandFitness\HAFNutritionRecipesController.cs" />
     <Compile Include="Controllers\ApiControllers\HealthandFitness\HAFNutritionTypesController.cs" />
+    <Compile Include="Controllers\ApiControllers\Matches\MatchObjectivesController.cs" />
+    <Compile Include="Controllers\ApiControllers\Matches\MatchReportsController.cs" />
+    <Compile Include="Controllers\ApiControllers\Matches\PlayerMatchStatisticController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionAlternativesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionFoodTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionNewsController.cs" />
@@ -457,6 +460,7 @@
     <Content Include="Images\Default_background.png" />
     <Content Include="Images\header-profile-skin-2.png" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\ProfilePicture.jpg" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-animate.min.js" />
     <Content Include="Scripts\angular\angular-aria.js" />
@@ -3203,6 +3207,8 @@
     <Content Include="Areas\HeadOfAcademy\Views\Home\CurrDetails.cshtml" />
     <Content Include="Areas\Scouts\Views\Home\TalentIndefication.cshtml" />
     <Content Include="Areas\Scouts\Views\Home\TalenIdProfile.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\PlayersTable.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Wizzard.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3786,6 +3792,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\FileStorage\DefaultPics\" />
+    <Folder Include="App_Data\FileStorage\MessageWall\" />
     <Folder Include="App_Data\FileStorage\temp\" />
     <Folder Include="Areas\App_Start\" />
     <Folder Include="Areas\ClubAdmin\Models\" />

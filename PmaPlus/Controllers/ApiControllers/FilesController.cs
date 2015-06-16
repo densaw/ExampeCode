@@ -32,7 +32,18 @@ namespace PmaPlus.Controllers.ApiControllers
 
                 return BadRequest("Unsuported type");
         }
+       
+        [Route("api/Files/Wall")]
+       public async Task<IHttpActionResult> PostWallPhoto()
+       {
+           if (Request.Content.IsMimeMultipartContent())
+           {
+               var photo = await _photoManager.AddMassageWallPhoto(Request);
+               return Ok(photo);
+           }
 
+           return BadRequest("Unsuported type");
+       }
         
 
         [Route("api/File/{storageType}/{fileName}/{id}")]
@@ -51,6 +62,26 @@ namespace PmaPlus.Controllers.ApiControllers
             result = Request.CreateResponse(HttpStatusCode.OK);
             result.Content = new StreamContent(_fileStream);
             result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(fileName)));
+            }
+            return result;
+        }
+
+        [Route("api/File/{storageType}/{fileName}")]
+        public HttpResponseMessage GetWallPic(string storageType, string fileName)
+        {
+            HttpResponseMessage result;
+            FileStorageTypes type;
+            Enum.TryParse(storageType, true, out type);
+            FileStream _fileStream = _photoManager.GetFileStream(fileName, type);
+            if (_fileStream == null)
+            {
+                result = Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                result = Request.CreateResponse(HttpStatusCode.OK);
+                result.Content = new StreamContent(_fileStream);
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(fileName)));
             }
             return result;
         }

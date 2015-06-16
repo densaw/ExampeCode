@@ -159,24 +159,24 @@
 
                         @*Modal*@
                         <div class="modal inmodal" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content animated bounceInRight">
-                                    <div class="modal-header">
+                            <div class="modal-dialog" style="width: 980px">
+                                <div class=" modal-content animated bounceinright">
+                                <div class="modal-header">
 
-                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        <h3 class="modal-title">2D Scenario Picture</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="thumbnail">
-                                            <img ng-src="/api/file/Scenarios/{{newScenario.picture}}/{{newScenario.id}}" style="width: auto; float: none !important;" />
-
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-footer">
-
-                                    </div>
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h3 class="modal-title">2D Scenario Picture</h3>
                                 </div>
+                                <div class="modal-body">
+                                    <div class="thumbnail">
+                                        <img ng-src="/api/file/Scenarios/{{newScenario.picture}}/{{newScenario.id}}" style="width: 900px; height: auto; float: none !important;" />
+
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
                             </div>
                         </div>
                         @*Modal End*@

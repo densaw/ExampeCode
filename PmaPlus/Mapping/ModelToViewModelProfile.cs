@@ -8,6 +8,7 @@ using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Model.ViewModels.CurriculumProcess;
 using PmaPlus.Model.ViewModels.Diary;
+using PmaPlus.Model.ViewModels.Matches;
 using PmaPlus.Model.ViewModels.News;
 using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Model.ViewModels.Physio;
@@ -164,6 +165,16 @@ namespace PmaPlus.Mapping
 
 
             Mapper.CreateMap<Session,SessionsWizardViewModel>();
+
+
+            #region Match Reports
+
+            Mapper.CreateMap<Match, MatchReportTableViewModel>()
+                .ForMember(d => d.Won, o => o.MapFrom(s => s.GoalsFor > s.GoalsAway))
+                .ForMember(d => d.Mom, o => o.MapFrom(s => s.MatchMom.Player.User.UserDetail.FirstName + " " + s.MatchMom.Player.User.UserDetail.LastName));
+
+            #endregion
+
         }
     }
 }

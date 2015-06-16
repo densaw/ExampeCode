@@ -45,11 +45,17 @@
                                     <input ng-model="newMessage.messagePrivate.message" required class="form-control">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Picture:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input file-model="messagePic" name="itempictureName" type="file" class="pma-fileupload">
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button ng-click="cancel()" type="button" class="btn btn-white">Close</button>
-                        <button ng-click="ok()" ng-disabled="laddaLoading" type="button" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                        <button ng-click="ok()" ng-disabled="laddaLoading" type="button" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color: @ViewBag.them;">
                             <span class="ladda-label" style="font-size: 14px;">Save changes</span>
                         </button>
                     </div>
@@ -77,12 +83,13 @@
                     </div>
                     <div class="ibox-content">
                         <div class="feed-element" style="cursor: pointer;" ng-repeat="recent in recents" ng-click="selectGroup(recent)">
-
-                            <a style="width: 50px; height: 50px; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="pull-left">
-                                <img alt="image" class="img-circle" src="../../Images/Default_background.png">
-                            </a>
+                            <div style="width: 50px; height: 50px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
+                                <img alt="image" class="prifile" src="../../Images/Default_background.png" style-parent />
+                            </div>
                             <div class="media-body ">
-                                <strong>{{recent.id}}</strong>
+                                <div ng-repeat="user in recent.users">
+                                    <strong>{{user.name}}</strong>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -108,33 +115,36 @@
                     <div class="ibox-content">
                         <div>
                             <div class="feed-activity-list">
-                                <fa-scroll-view>
-                                    <fa-view>
-                                        <div class="feed-element" ng-repeat="groupMsg in groupMessagesList">
-                                            <a style="width: 50px; height: 50px; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="pull-left">
-                                                <img alt="image" class="img-circle" src="img/a1.jpg">
-                                            </a>
-                                            <div class="media-body ">
-                                                <small class="pull-right text-navy">{{groupMsg.sendAt}}</small>
-                                                <strong>{{groupMsg.userId}}</strong><br>
-                                                <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-                                                <div class="well">
-                                                    {{groupMsg.message}}
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </fa-view>
-                                </fa-scroll-view>
-                                
+                                <div class="feed-element" ng-repeat="groupMsg in groupMessagesList">
+                                    <div style="width: 50px; height: 50px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
+                                        <img alt="image" class="prifile" ng-src="{{groupMsg.userAva}}" style-parent />
+                                    </div>
+                                    <div class="media-body ">
+                                        <small class="pull-right text-navy"></small>
+                                        <strong>{{groupMsg.userName}}</strong><br>
+                                        <small class="text-muted">{{groupMsg.sendAt | date:'HH:mm - dd.MM.yyyy'}}</small>
+                                        <div class="well">
+                                            {{groupMsg.message}}
+                                            <img style="width: 100%;" ng-show="groupMsg.image != null" ng-src="/api/file/MessageWall/{{groupMsg.image}}" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div ng-if="haveGroup" class="row" style="margin-top: 20px;">
-                                <div class="col-lg-10">
-                                    <input ng-model="messageInGroupSend.messagePrivate.message" required class="form-control">
-                                </div>
-                                <div class="col-lg-2">
-                                    <button class="btn btn-primary" ng-click="sendMessageinGroup()"><strong>Send message</strong></button>
-                                </div>
+                                <form class="form-horizontal" novalidate>
+                                    <div class="form-group">
+                                        <div class="col-lg-1">
+                                            <button class="btn btn-primary btn-block m"><i class="fa fa-paperclip"></i></button>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input ng-model="messageInGroupSend.messagePrivate.message" required class="form-control">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button class="btn btn-primary" ng-click="sendMessageinGroup()"><strong>Send message</strong></button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
 
                         </div>
@@ -144,3 +154,26 @@
         </div>
     </div>
 </div>
+
+<style>
+    img.prifile {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+
+    img.landscape {
+        height: 100%;
+        width: auto;
+    }
+
+    img.portrait {
+        width: 100%;
+        height: auto;
+    }
+</style>

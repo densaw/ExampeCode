@@ -4,6 +4,7 @@ using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Curriculum;
 using PmaPlus.Model.ViewModels.CurriculumProcess;
 using PmaPlus.Model.ViewModels.Diary;
+using PmaPlus.Model.ViewModels.Matches;
 using PmaPlus.Model.ViewModels.News;
 using PmaPlus.Model.ViewModels.Nutrition;
 using PmaPlus.Model.ViewModels.Physio;
@@ -91,6 +92,21 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<SessionAttendanceTableViewModel, SessionAttendance>();
 
             Mapper.CreateMap<PlayerObjectiveTableViewModel, PlayerObjective>();
+
+            Mapper.CreateMap<PlayerBlockObjectiveTableViewModel, BlockObjectiveStatement>();
+
+            Mapper.CreateMap<PlayerRatingsTableViewModel, PlayerRatings>();
+
+            #region Match Reports
+
+            Mapper.CreateMap<MatchReportViewModel, Match>();
+
+            Mapper.CreateMap<PlayersMatchObjectiveTableViewModel, PlayerMatchObjective>();
+
+            Mapper.CreateMap<PlayerMatchStatisticTableViewModel, PlayerMatchStatistic>();
+
+            #endregion
+
         }
     }
 }

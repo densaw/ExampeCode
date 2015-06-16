@@ -20,7 +20,10 @@ namespace PmaPlus.Services.Extensions
                     Image = x.Image,
                     Message = x.Text,
                     SendAt = x.SendAt,
-                    UserId = x.UserId
+                    UserId = x.UserId,
+                    UserAva = (x.User.UserDetail.ProfilePicture == null || x.User.UserDetail.ProfilePicture == String.Empty) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + x.User.UserDetail.ProfilePicture + "/" + x.User.Id,
+                    //UserAva = "/api/file/ProfilePicture/" + x.User.UserDetail.ProfilePicture + "/" + x.User.Id,
+                    UserName =  x.User.UserName
                 });
             }
             return null;

@@ -77,6 +77,35 @@ namespace PmaPlus.Tools
             }
         }
 
+
+        public async Task<PhotoViewModel> AddMassageWallPhoto(HttpRequestMessage request)
+        {
+            var provider = new PhotoStreamProvider(_workingFolder + "\\" + FileStorageTypes.MessageWall.ToString());
+
+            await request.Content.ReadAsMultipartAsync(provider);
+
+            var photos = new List<PhotoViewModel>();
+
+            var file = provider.FileData.First();
+            if (file == null)
+            {
+                return null;
+            }
+
+            var fileInfo = new FileInfo(file.LocalFileName);
+
+            return new PhotoViewModel
+            {
+                Name = fileInfo.Name,
+                //Created = fileInfo.CreationTime,
+                //Modified = fileInfo.LastWriteTime,
+                //Size = fileInfo.Length / 1024
+            };
+
+        }
+
+
+
         public async Task<PhotoViewModel> Add(HttpRequestMessage request)
         {
             var provider = new PhotoStreamProvider(_workingFolder + "\\temp");
@@ -179,6 +208,16 @@ namespace PmaPlus.Tools
         public FileStream GetFileStream(string fileName, FileStorageTypes storageTypes, int id)
         {
             var fullFilePath = _workingFolder + "\\" + storageTypes.ToString() + "\\" + id + "\\" + fileName;
+            if (File.Exists(fullFilePath))
+            {
+                return new FileStream(fullFilePath, FileMode.Open, FileAccess.Read);
+            }
+            return null;
+        }
+
+        public FileStream GetFileStream(string fileName, FileStorageTypes storageTypes)
+        {
+            var fullFilePath = _workingFolder + "\\" + storageTypes.ToString() + "\\" +  fileName;
             if (File.Exists(fullFilePath))
             {
                 return new FileStream(fullFilePath, FileMode.Open, FileAccess.Read);

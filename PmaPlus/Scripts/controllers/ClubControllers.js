@@ -585,7 +585,7 @@ app.controller('ToDoController', ['$scope', '$http', 'toaster', function ($scope
 
 }]);
 
-app.controller('MyCtrlDiary', function ($scope) {
+app.controller('MyCtrlDiary', ['$scope', '$rootScope', '$digest', '$watch', function ($scope, $rootScope, $digest, $watch) {
     $scope.cols = 0;
     $scope.colsChanged = function () {
         $scope.items = actual(+$scope.cols);
@@ -593,7 +593,11 @@ app.controller('MyCtrlDiary', function ($scope) {
 
     //optional: if you're starting with 1 or more "cols"
     $scope.colsChanged();
-});
+   
+
+
+   
+}]);
 
 app.controller('ClubDiaryController', [
     '$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function ($scope, $http, toaster, $compile, uiCalendarConfig) {
@@ -719,7 +723,12 @@ app.controller('ClubDiaryController', [
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-
+            
+            axisFormat: 'H:mm',
+            timeFormat: {
+                agenda: 'H:mm' //h:mm{ - h:mm}'
+            },
+            
             allDayDefault: true,
             defaultView: 'agendaWeek',
             aspectRatio: 1.5,
@@ -2121,13 +2130,13 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     $scope.cancel = function () {
         needToDelete = -1;
-        $scope.newCurrDet = {}
+        $scope.newCurrDet = {};
         target.modal('hide');
         deleteModal.modal('hide');
     };
 
     $scope.ok = function (id) {
-
+        
         //Files upload
         var promises = [];
 
@@ -2188,7 +2197,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
             if (id != null) {
                 //PUT it now have no url to Update date
                 $http.put(urlTail + '/' + id, $scope.newCurrDet).success(function () {
-                    $scope.newCurrDet = {}
+                    $scope.newCurrDet = {};
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
                 }).error(function (data, status, headers, config) {
@@ -2197,6 +2206,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
             } else {
                 //POST
                 $http.post(urlTail + '/' + $scope.currId, $scope.newCurrDet).success(function (result) {
+                    console.log($scope.currId);
                     getResultsPage($scope.pagination.current);
                     $scope.newCurrDet = {};
                     target.modal('hide');
@@ -2212,10 +2222,12 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
         $scope.modalTitle = 'Update Curriculum Session';
         $http.get(urlTail + '/' + id)
             .success(function (result) {
+                
+                
                 console.log(result);
 
-
                 $scope.newCurrDet = result;
+                
                 $scope.help.scenarios = reShuffle(result.scenarios);
 
                 toggleAttendance.bootstrapToggle(result.attendance ? 'on' : 'off');

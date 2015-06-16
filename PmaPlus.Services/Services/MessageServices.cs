@@ -65,7 +65,20 @@ namespace PmaPlus.Services
                 Rating = messageRating.Rating,
                 User = _userRepository.GetById(messageRating.UserId)
             };
-            return _messageRatingRepository.Add(rat);
+            if (CanUserRating(messageRating.UserId, messageId))
+            {
+                return null;
+            }
+            else
+            {
+                return _messageRatingRepository.Add(rat);
+            }
+            
+        }
+
+        public bool CanUserRating(int userId, int messageId)
+        {
+            return _messageRatingRepository.GetMany(x => x.MessagesId == messageId && x.UserId == userId).Any();
         }
 
         public int GetAllMessageCount()
@@ -73,12 +86,26 @@ namespace PmaPlus.Services
             return _messageRepository.GetAll().Count();
         }
 
+        public MessageViewModel ConvertToMessageViewModel(Message message)
+        {
+            return new MessageViewModel()
+            {
+                Id = message.MessageId,
+                Message = message.Text,
+                SendAt = message.SendAt,
+                UserId = message.User.Id,
+                Image = message.Image,
+                UserName = message.User.UserName,
+                UserAva = string.IsNullOrEmpty(message.User.UserDetail.ProfilePicture) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + message.User.UserDetail.ProfilePicture + "/" + message.User.Id 
+            };
+        }
+
         public IQueryable<MessageViewModel> GetAllWallMessage(int page)
         {
 
             return 
                 _messageRepository.GetAll()
-                .OrderBy(j => j.SendAt)
+                .OrderByDescending(j => j.SendAt)
                 .Skip(page * PageSize).Take(PageSize)
                 .Select(x => new MessageViewModel()
             {
@@ -86,7 +113,9 @@ namespace PmaPlus.Services
                 Message = x.Text,
                 SendAt = x.SendAt,
                 UserId = x.User.Id,
-                Image = x.User.UserDetail.ProfilePicture
+                Image = x.Image,
+                UserName = x.User.UserName,
+                UserAva = (x.User.UserDetail.ProfilePicture == null || x.User.UserDetail.ProfilePicture == String.Empty) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + x.User.UserDetail.ProfilePicture + "/" + x.User.Id
             });
         }
 
@@ -101,8 +130,9 @@ namespace PmaPlus.Services
                         Comment = c.Comment,
                         SendAt = c.SendAt,
                         UserName = c.User.UserName,
-                        UserAva = c.User.UserDetail.ProfilePicture,
-                        UserId = c.User.Id
+                        UserAva = (c.User.UserDetail.ProfilePicture == null || c.User.UserDetail.ProfilePicture == String.Empty) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + c.User.UserDetail.ProfilePicture + "/" + c.User.Id,
+                        UserId = c.User.Id,
+                        
                     });
         }
         public IQueryable<MessageRatingViewModel> GetMessageRatings(int messageId, bool rating)

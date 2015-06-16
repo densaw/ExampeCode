@@ -89,7 +89,10 @@
     <Compile Include="Repository\Iterfaces\IMessageRepository.cs" />
     <Compile Include="Repository\Iterfaces\INutritionNewsRepository.cs" />
     <Compile Include="Repository\Iterfaces\IPlayerBlockObjectiveRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IPlayerMatchObjectiveRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IPlayerMatchStatisticRepository.cs" />
     <Compile Include="Repository\Iterfaces\IPlayerObjectiveRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IPlayerRatingsRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISessionAttendanceRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISessionResultRepository.cs" />
     <Compile Include="Repository\MessageCommentRepository.cs" />
@@ -101,7 +104,10 @@
     <Compile Include="Repository\Iterfaces\ITalentNoteRepository.cs" />
     <Compile Include="Repository\NutritionNewsRepository.cs" />
     <Compile Include="Repository\PlayerBlockObjectiveRpository.cs" />
+    <Compile Include="Repository\PlayerMatchObjectiveRepository.cs" />
+    <Compile Include="Repository\PlayerMatchStatisticRepository.cs" />
     <Compile Include="Repository\PlayerObjectiveRepository.cs" />
+    <Compile Include="Repository\PlayerRatingsRepository.cs" />
     <Compile Include="Repository\SessionAttendanceRepository.cs" />
     <Compile Include="Repository\SessionRepository.cs" />
     <Compile Include="Repository\CurriculumStatementRepository.cs" />

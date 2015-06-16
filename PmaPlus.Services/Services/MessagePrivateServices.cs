@@ -58,6 +58,11 @@ namespace PmaPlus.Services
             });
         }
 
+        public IQueryable<MessagePrivateViewModel> GetMessagePrivatesByGroupId(int groupId)
+        {
+            return _messagePrivateRepository.GetAll().Where(x => x.MessageGroupId == groupId).QueryMessagePrivateViewModel();
+        } 
+
         public string RenameGroup(int groupId, string groupName)
         {
             var group = _messageGroupRepository.GetById(groupId);
@@ -79,7 +84,7 @@ namespace PmaPlus.Services
                 .OrderBy(g => g.SendAt)
                 .QueryMessagePrivateViewModel().ToList(),
                 Users = _userRepository.GetAll()
-                .Where(g => g.MessageGroups.Select(y =>y.MessageGroupId).Contains(v.MessageGroupId))
+                .Where(g => g.MessageGroups.Select(y => y.MessageGroupId).Contains(v.MessageGroupId) && g.Id != userId)
                 .OrderBy(g => g.CreateAt)
                 .QueryUsersList().ToList()
             });

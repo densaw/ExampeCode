@@ -26,11 +26,11 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
             _messagePrivateServices = messagePrivateServices;
         }
 
-        public IHttpActionResult Post(MessageViewModel message)
+        public MessageViewModel Post(MessageViewModel message)
         {
             message.UserId = _userServices.GetUserByEmail(User.Identity.Name).Id;
             var newMessage = _messageServices.AddMessage(message);
-            return Ok(newMessage.MessageId);
+            return _messageServices.ConvertToMessageViewModel(newMessage);
         }
 
         public MessageWallPage Get(int page)
@@ -58,8 +58,7 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
         {
             var currentUser = _userServices.GetUserByEmail(User.Identity.Name);
             comment.UserId = currentUser.Id;
-            comment.UserName = currentUser.UserDetail.FirstName;
-            comment.UserAva = currentUser.UserDetail.ProfilePicture;
+            comment.UserName = User.Identity.Name;
             var newComment = _messageServices.AddComment(messageId, comment);
             return Ok(newComment.Id);
         }
@@ -68,10 +67,17 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
         {
             var currentUser = _userServices.GetUserByEmail(User.Identity.Name);
             rating.UserId = currentUser.Id;
-            rating.UserName = currentUser.UserDetail.FirstName;
-            rating.UserAva = currentUser.UserDetail.ProfilePicture;
+            rating.UserName = User.Identity.Name;
             var newReting = _messageServices.AddMessageRating(messageId, rating);
-            return Ok(newReting.Id);
+            if (newReting == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+              return Ok(newReting.Id);  
+            }
+            
         }
         [Route("api/Message/Group")]
         public IList<MessageGroupViewModel> GetGroup()
@@ -80,6 +86,12 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
             return _messagePrivateServices.GetGroupMessageForUser(currentUser.Id).ToList();
         }
 
+        [Route("api/Message/Group/{groupId:int}")]
+        public IList<MessagePrivateViewModel> GetGroupMessagesList(int groupId)
+        {
+            return _messagePrivateServices.GetMessagePrivatesByGroupId(groupId).ToList();
+        }    
+            
         [Route("api/Message/Group/{groupId:int?}")]
         public IHttpActionResult PostGroupMessage([FromBody] MessagePrivatePostModel mesgPrivate, int groupId = 0 )
         {

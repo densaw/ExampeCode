@@ -90,17 +90,129 @@
         }
     }]);
 
-    module.controller('MessageWallController', ['$scope', '$cookies', 'toaster', '$http', function ($scope, $cookies, toaster, $http) {
+    module.controller('MessageWallController', ['$scope', '$cookies', 'toaster', '$http', '$q', function ($scope, $cookies, toaster, $http, $q) {
+
+        var sendMessageModal = angular.element('#addMessage');
 
         $scope.message = [];
+        $scope.currentUser = {};
+        $scope.tmpComment = [];
+        $scope.newComment = {};
+        $scope.newRating = {};
+        $scope.newMessage = {};
+        $scope.statmentsRev = [];
 
-        function getResultsPage() {
-            $http.get('/api/Message?page=0')
+        $scope.currentPage = 0;
+        $scope.isLastPage = false;
+
+        function getCurrentUser(){
+            $http.get('/api/Users/Avatar')
+            .success(function(result){
+                $scope.currentUser = result;
+            });
+        }
+
+        function getResultsPage(pageNumber) {
+            $http.get('/api/Message?page=' + pageNumber)
                 .success(function (result) {
-                    $scope.message = result.items;
+                    console.log(result);
+                    angular.forEach(result.items, function(item){
+                        this.push(item);
+                    }, $scope.message);
+                    $scope.isLastPage = $scope.currentPage == result.pages-1;
                 });
         }
-        getResultsPage();
+
+        $scope.rateMessage = function(messageId, rating){
+            $scope.newRating.rating = rating; 
+            $http.post('/api/Message/Rating/' + messageId, $scope.newRating)
+            .success(function(result){
+                getResultsPage($scope.currentPage);
+            })
+        }
+
+        $scope.sendComment = function(messageId, index){
+            $scope.newComment.comment =  $scope.tmpComment[index].comment
+            $http.post('/api/Message/Comment/'+messageId, $scope.newComment)
+                .success(function(result){
+                    $scope.tmpComment = [];
+                    getResultsPage($scope.currentPage);
+                });
+        }
+
+        $scope.openMessage = function(){
+            $scope.modalTitle = 'Send new message';
+            sendMessageModal.modal('show');
+        }
+
+        $scope.cancel = function(){
+            sendMessageModal.modal('hide');
+        }
+
+        $scope.sendMessage = function(){
+
+             //Files upload
+
+                var promises = [];
+
+                if ($scope.messagePic) {
+                    var fd = new FormData();
+                    fd.append('file', $scope.messagePic);
+                    var promise = $http.post('/api/Files/Wall', fd, {
+                        transformRequest: angular.identity,
+                        headers: { 'Content-Type': undefined }
+                    })
+                        .success(function (data) {
+                            $scope.newMessage.image = data.name;
+                        })
+                        .error(function () {
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: 'File upload ERROR!'
+                            });
+                        });
+                    promises.push(promise);
+                }
+                $q.all(promises).then(function () {
+                    $http.post('/api/Message', $scope.newMessage)
+                    .success(function(result){
+                        //getResultsPage($scope.currentPage);
+                        $scope.message.unshift(result);
+                        sendMessageModal.modal('hide');
+                    })
+                });
+
+
+
+            
+        }
+
+        $scope.showComments = function(index){
+            $scope.statmentsRev[index].comments = true;
+            $scope.statmentsRev[index].like = false;
+            $scope.statmentsRev[index].dislike = false;
+        }
+
+        $scope.showLike = function(index){
+            $scope.statmentsRev[index].comments = false;
+            $scope.statmentsRev[index].like = true;
+            $scope.statmentsRev[index].dislike = false;
+        }
+
+        $scope.showDislike = function(index){
+            $scope.statmentsRev[index].comments = false;
+            $scope.statmentsRev[index].like = false;
+            $scope.statmentsRev[index].dislike = true;
+        }
+
+        $scope.loadMore = function(){
+            $scope.currentPage++;
+            getResultsPage($scope.currentPage);
+        }
+
+        getCurrentUser();
+        getResultsPage(0);
     }]);
 
     module.controller('MainController', ['$scope', '$cookies', 'toaster', '$http', function ($scope, $cookies, toaster, $http) {
