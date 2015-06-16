@@ -80,7 +80,7 @@ namespace PmaPlus.Tools
 
         public async Task<PhotoViewModel> AddMassageWallPhoto(HttpRequestMessage request)
         {
-            var provider = new PhotoStreamProvider(_workingFolder + "\\");
+            var provider = new PhotoStreamProvider(_workingFolder + "\\" + FileStorageTypes.MessageWall.ToString());
 
             await request.Content.ReadAsMultipartAsync(provider);
 
