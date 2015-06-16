@@ -90,7 +90,7 @@
         }
     }]);
 
-    module.controller('MessageWallController', ['$scope', '$cookies', 'toaster', '$http', function ($scope, $cookies, toaster, $http) {
+    module.controller('MessageWallController', ['$scope', '$cookies', 'toaster', '$http', '$q', function ($scope, $cookies, toaster, $http, $q) {
 
         var sendMessageModal = angular.element('#addMessage');
 
@@ -115,6 +115,7 @@
         function getResultsPage(pageNumber) {
             $http.get('/api/Message?page=' + pageNumber)
                 .success(function (result) {
+                    console.log(result);
                     angular.forEach(result.items, function(item){
                         this.push(item);
                     }, $scope.message);
@@ -126,18 +127,17 @@
             $scope.newRating.rating = rating; 
             $http.post('/api/Message/Rating/' + messageId, $scope.newRating)
             .success(function(result){
-                getResultsPage();
+                getResultsPage($scope.currentPage);
             })
         }
 
         $scope.sendComment = function(messageId, index){
-            
             $scope.newComment.comment =  $scope.tmpComment[index].comment
             $http.post('/api/Message/Comment/'+messageId, $scope.newComment)
-            .success(function(result){
-                $scope.tmpComment = [];
-                getResultsPage();
-            });
+                .success(function(result){
+                    $scope.tmpComment = [];
+                    getResultsPage($scope.currentPage);
+                });
         }
 
         $scope.openMessage = function(){
@@ -150,11 +150,41 @@
         }
 
         $scope.sendMessage = function(){
-            $http.post('/api/Message', $scope.newMessage)
-            .success(function(result){
-                getResultsPage();
-                sendMessageModal.modal('hide');
-            })
+
+             //Files upload
+
+                var promises = [];
+
+                if ($scope.messagePic) {
+                    var fd = new FormData();
+                    fd.append('file', $scope.messagePic);
+                    var promise = $http.post('/api/Files', fd, {
+                        transformRequest: angular.identity,
+                        headers: { 'Content-Type': undefined }
+                    })
+                        .success(function (data) {
+                            $scope.newMessage.image = data.name;
+                        })
+                        .error(function () {
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: 'File upload ERROR!'
+                            });
+                        });
+                    promises.push(promise);
+                }
+                $q.all(promises).then(function () {
+                    $http.post('/api/Message', $scope.newMessage)
+                    .success(function(result){
+                        getResultsPage($scope.currentPage);
+                        sendMessageModal.modal('hide');
+                    })
+                });
+
+
+
+            
         }
 
         $scope.showComments = function(index){

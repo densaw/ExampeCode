@@ -60,6 +60,7 @@
                             <small class="text-muted">{{msg.sendAt | date:'HH:mm - dd.MM.yyyy' }}</small>
                             <div class="well">
                                 {{msg.message}}
+                                <img ng-show="msg.image != null" ng-src="{{msg.image}}" />
                             </div>
                             <hr style="width: 100%; color: #E5E6E7; height: 1px; background-color: #E5E6E7; margin-top: 5px; margin-bottom: 5px;"/>
                             <div class="row" style="margin-left: 5px; margin-right: 5px;">
