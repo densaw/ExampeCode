@@ -27,7 +27,7 @@ namespace PmaPlus.Controllers.ApiControllers.TalentIdentifications
 
 
         [Route("api/TalentIdentificationNotes/{talentId:int}/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
-        public TalentIdentificationNotesPage  Get(int talentId, int pageSize, int pageNumber, string orderBy = "", bool direction = false)
+        public TalentIdentificationNotesPage  Get(int talentId, int pageSize, int pageNumber, string orderBy = "", bool direction = true)
         {
 
             var count = _talentServices.GetTalentNotes(talentId).Count();
