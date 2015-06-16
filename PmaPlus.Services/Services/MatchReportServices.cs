@@ -40,6 +40,12 @@ namespace PmaPlus.Services.Services
             return _matchRepository.GetMany(m => m.Team.Coaches.Select(c => c.User.Id).Contains(coachUserId));
         }
 
+        public IEnumerable<Match> GetClubMatches(int clubId)
+        {
+            return _matchRepository.GetMany(m => m.Team.Club.Id == clubId);
+        }
+
+
         public Match GetMatchById(int id)
         {
             return _matchRepository.GetById(id);
@@ -138,7 +144,7 @@ namespace PmaPlus.Services.Services
             _playerMatchStatisticRepository.AddOrUpdate(matchStatistics.ToArray());
         }
 
-        public void AddPlayerMatchStatistic(PlayerMatchStatistic stat)
+        public void AddPlayerMatchStatistic(PlayerMatchStatistic stat,bool manOfMatch = false)
         {
             if (_playerMatchStatisticRepository.GetMany( s => s.MatchId == stat.MatchId && s.PlayerId == stat.PlayerId).Any())
             {
@@ -147,6 +153,28 @@ namespace PmaPlus.Services.Services
             else
             {
                 _playerMatchStatisticRepository.Add(stat);
+            }
+
+            if (manOfMatch)
+            {
+                var match = _matchRepository.GetById(stat.MatchId);
+                if (match != null)
+                {
+                    if (match.MatchMom == null)
+                    {
+                        match.MatchMom = new MatchMom()
+                        {
+                            MatchId = match.Id,
+                            PlayerId = stat.PlayerId
+                        };
+                    }
+                    else
+                    {
+                        match.MatchMom.PlayerId = stat.PlayerId;
+                    }
+
+                    _matchRepository.Update(match);
+                }
             }
         }
     }

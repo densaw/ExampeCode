@@ -30,13 +30,25 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
         public MatchesReportPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {
             var user = _userServices.GetUserByEmail(User.Identity.Name);
-            if (user == null || user.Role != Role.Coach)
+            if (user == null)
                 return null;
 
-            var maches = _matchReportServices.GetCoachMatches(user.Id);
+            IEnumerable<Match> maches;
+
+
+            if (user.Role != Role.Coach)
+            {
+                var club = _userServices.GetClubByUserName(User.Identity.Name);
+                maches = _matchReportServices.GetClubMatches(club.Id);
+            }
+            else
+            {
+                maches = _matchReportServices.GetCoachMatches(user.Id);
+            }
+
 
             var count = maches.Count();
-            var pages =(int)Math.Ceiling((double)count / pageSize);
+            var pages = (int)Math.Ceiling((double)count / pageSize);
             var items = Mapper.Map<IEnumerable<Match>, IEnumerable<MatchReportTableViewModel>>(maches).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new MatchesReportPage()
@@ -45,8 +57,6 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
                 Pages = pages,
                 Items = items
             };
-
-
         }
 
 

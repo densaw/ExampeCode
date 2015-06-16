@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using System.Net.Configuration;
 
 namespace PmaPlus.Model.ViewModels.Matches
 {
     public class PlayerMatchStatisticTableViewModel
     {
         public int PlayerId { get; set; }
+        public bool Mom { get; set; }
         public string PlayerName { get; set; }
         public string PlayerPicture { get; set; }
         public int MatchId { get; set; }
