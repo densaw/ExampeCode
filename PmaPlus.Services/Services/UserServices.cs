@@ -203,6 +203,7 @@ namespace PmaPlus.Services
                                    Mobile = user.UserDetail.Address.Mobile,
                                    LastLogin = user.LoggedAt,
                                    ProfilePicture = user.UserDetail.ProfilePicture,
+                                   AboutMe = user.UserDetail.AboutMe,
                                    BirthDay = user.UserDetail.Birthday,
                                    CrbDbsExpiry = user.UserDetail.CrbDbsExpiry,
                                    FirstAidExpiry = user.UserDetail.FirstAidExpiry,

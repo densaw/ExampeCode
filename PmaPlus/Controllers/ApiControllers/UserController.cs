@@ -67,6 +67,8 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
 
+
+
         [Route("api/Users/List")]
         public IEnumerable<UsersList> Get([FromUri] Role[] role)
         {
@@ -91,33 +93,38 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             var user = _userServices.GetUserByEmail(User.Identity.Name);
             string role = "";
-            string pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + user.Id;
+            string pic = "";
 
             switch (user.Role)
             {
                 case Role.HeadOfAcademies:
                 {
                     role = "Head Of Academy";
+                    pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + user.Id;
                     break;
                 }
                 case Role.Coach:
                 {
                     role = "Coach";
+                    pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + user.Id;
                     break;
                 }
                 case Role.HeadOfEducation:
                 {
                     role = "Head Of Education";
+                    pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + user.Id;
                     break;
                 }
                 case Role.Physiotherapist:
                 {
                     role = "Physio";
+                    pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + user.Id;
                     break;
                 }
                 case Role.Player:
                 {
                     role = "Player";
+                    pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + user.Id;
                     //var player = _playerServices.QueryPlayer(p => p.User.Id == user.Id);
                     //pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + player.Id;
 
@@ -127,17 +134,29 @@ namespace PmaPlus.Controllers.ApiControllers
                 case Role.Scout:
                 {
                     role = "Scout";
+                    pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + user.Id;
                     break;
                 }
                 case Role.SportsScientist:
                 {
                     role = "Sports Scientist";
+                    pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + user.Id;
                     break;
                 }
                 case Role.WelfareOfficer:
                 {
                     role = "Welfare Officer";
+                    pic = "/api/file/ProfilePicture/" + user.UserDetail.ProfilePicture + "/" + user.Id;
                     break;
+                }
+                case Role.SystemAdmin:
+                {
+                    return new UserAvatar()
+                    {
+                        Name = "System Administrator",
+                        Picture = "/Images/ProfilePicture.jpg",
+                        Role = role
+                    };
                 }
 
 

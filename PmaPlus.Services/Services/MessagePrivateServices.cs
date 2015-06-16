@@ -58,6 +58,11 @@ namespace PmaPlus.Services
             });
         }
 
+        public IQueryable<MessagePrivateViewModel> GetMessagePrivatesByGroupId(int groupId)
+        {
+            return _messagePrivateRepository.GetAll().Where(x => x.MessageGroupId == groupId).QueryMessagePrivateViewModel();
+        } 
+
         public string RenameGroup(int groupId, string groupName)
         {
             var group = _messageGroupRepository.GetById(groupId);

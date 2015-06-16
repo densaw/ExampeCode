@@ -20,7 +20,8 @@ namespace PmaPlus.Services.Extensions
                     Image = x.Image,
                     Message = x.Text,
                     SendAt = x.SendAt,
-                    UserId = x.UserId
+                    UserId = x.UserId,
+                    UserAva = "/api/file/ProfilePicture/" + x.User.UserDetail.ProfilePicture + "/" + x.User.Id
                 });
             }
             return null;

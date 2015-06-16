@@ -40,10 +40,9 @@ app.controller('PrivateController', ['$scope', '$http','$q',function ($scope, $h
         }
 
         $scope.sendMessageinGroup = function(){
-            console.log($scope.messageInGroupSend);
             $http.post(urlGroupTail + '/' + selectGroupId, $scope.messageInGroupSend)
             .success(function(){
-                getAllRecent();
+               getAllMessageForGroupById(selectGroupId)
             })
             .error(function (data, status, headers, config) {
 
@@ -84,6 +83,16 @@ app.controller('PrivateController', ['$scope', '$http','$q',function ($scope, $h
 
             });
         };
+
+        function getAllMessageForGroupById(groupId){
+            $http.get('/api/Message/Group/'+ groupId)
+            .success(function (result) {
+                $scope.groupMessagesList = result;
+            })
+            .error(function (data, status, headers, config) {
+
+            });
+        }
 
 
         getAllPersonToSend();

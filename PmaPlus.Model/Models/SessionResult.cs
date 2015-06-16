@@ -23,7 +23,8 @@ namespace PmaPlus.Model.Models
 
 
         public virtual ICollection<SessionAttendance> SessionAttendances { get; set; }
-
-        public virtual ICollection<PlayerObjective> PlayerObjectives { get; set; } 
+        public virtual ICollection<PlayerObjective> PlayerObjectives { get; set; }
+        public virtual ICollection<PlayerBlockObjective> PlayerBlockObjectives { get; set; }
+        public virtual ICollection<PlayerRatings> PlayerRatingses { get; set; }
     }
 }

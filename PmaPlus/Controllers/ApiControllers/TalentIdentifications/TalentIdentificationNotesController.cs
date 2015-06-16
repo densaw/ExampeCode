@@ -27,13 +27,13 @@ namespace PmaPlus.Controllers.ApiControllers.TalentIdentifications
 
 
         [Route("api/TalentIdentificationNotes/{talentId:int}/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
-        public TalentIdentificationNotesPage  Get(int talentId, int pageSize, int pageNumber, string orderBy = "", bool direction = false)
+        public TalentIdentificationNotesPage  Get(int talentId, int pageSize, int pageNumber, string orderBy = "", bool direction = true)
         {
 
             var count = _talentServices.GetTalentNotes(talentId).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var notes = _talentServices.GetTalentNotes(talentId);
-            var items = Mapper.Map<IEnumerable<TalentNote>,IEnumerable<TalentNoteViewModel>>(notes).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
+            var items = Mapper.Map<IEnumerable<TalentNote>,IEnumerable<TalentNoteViewModel>>(notes).OrderQuery(orderBy, x => x.AddDate, direction).Paged(pageNumber, pageSize);
 
             return new TalentIdentificationNotesPage()
             {
