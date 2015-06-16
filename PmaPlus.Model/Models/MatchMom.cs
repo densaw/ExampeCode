@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PmaPlus.Model.Enums;
 
 namespace PmaPlus.Model.Models
 {
-    public class PlayerMatchObjective
+    public class MatchMom
     {
-        public int Id { get; set; }
-
-        public string Objective { get; set; }
-        public OutcomeType Outcome { get; set; }
-
+        [Key,ForeignKey("Match")]
         public int MatchId { get; set; }
         public int PlayerId { get; set; }
 
-
-
-        public virtual Player Player { get; set; }
         public virtual Match Match { get; set; }
+        public virtual Player Player { get; set; }
     }
 }

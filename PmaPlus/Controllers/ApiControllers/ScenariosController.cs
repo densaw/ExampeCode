@@ -43,7 +43,7 @@ namespace PmaPlus.Controllers.ApiControllers
 
             var clubId = _userServices.GetClubByUserName(User.Identity.Name) == null ? 0 : _userServices.GetClubByUserName(User.Identity.Name).Id;
 
-            var count = _scenarioServices.GetScenarios(User.Identity.Name, clubId,isSys).Count();
+            var count = _scenarioServices.GetScenarios(User.Identity.Name, clubId, isSys).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var scenario = _scenarioServices.GetScenarios(User.Identity.Name, clubId, isSys).AsEnumerable();
             var items = Mapper.Map<IEnumerable<Scenario>, IEnumerable<ScenarioTableViewModel>>(scenario).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
@@ -85,28 +85,28 @@ namespace PmaPlus.Controllers.ApiControllers
             switch (_userServices.GetUserByEmail(User.Identity.Name).Role)
             {
                 case Role.SystemAdmin:
-                {
-                    scenario.UploadedBy = "SysAdmin";
-                    break;
-                }
+                    {
+                        scenario.UploadedBy = "SysAdmin";
+                        break;
+                    }
                 case Role.ClubAdmin:
-                {
-                    scenario.UploadedBy = _userServices.GetClubByUserName(User.Identity.Name).Name;
-                    break;
-                }
+                    {
+                        scenario.UploadedBy = _userServices.GetClubByUserName(User.Identity.Name).Name;
+                        break;
+                    }
                 case Role.Coach:
-                {
-                    scenario.UploadedBy = "Coach";
-                    break;
-                }
+                    {
+                        scenario.UploadedBy = "Coach";
+                        break;
+                    }
                 case Role.HeadOfAcademies:
-                {
-                    scenario.UploadedBy = "Head of Academy";
-                    break;
-                }
+                    {
+                        scenario.UploadedBy = "Head of Academy";
+                        break;
+                    }
             }
 
-            
+
             var newScenario = _scenarioServices.AddScenario(scenario);
             if (_photoManager.FileExists(newScenario.Picture))
             {
@@ -114,7 +114,7 @@ namespace PmaPlus.Controllers.ApiControllers
                     newScenario.Id, "ScenarioPicture");
                 _scenarioServices.UpdateScenario(newScenario, newScenario.Id);
             }
-            return Created(Request.RequestUri + newScenario.Id.ToString(), newScenario);
+            return Created(Request.RequestUri + newScenario.Id.ToString(), Mapper.Map<Scenario, ScenarioViewModel>(newScenario));
         }
 
         // PUT: api/Scenarios/5
