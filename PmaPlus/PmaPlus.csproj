@@ -290,6 +290,9 @@
     <Compile Include="Controllers\ApiControllers\HealthandFitness\HAFNutritionController.cs" />
     <Compile Include="Controllers\ApiControllers\HealthandFitness\HAFNutritionRecipesController.cs" />
     <Compile Include="Controllers\ApiControllers\HealthandFitness\HAFNutritionTypesController.cs" />
+    <Compile Include="Controllers\ApiControllers\Matches\MatchObjectivesController.cs" />
+    <Compile Include="Controllers\ApiControllers\Matches\MatchReportsController.cs" />
+    <Compile Include="Controllers\ApiControllers\Matches\PlayerMatchStatisticController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionAlternativesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionFoodTypesController.cs" />
     <Compile Include="Controllers\ApiControllers\NutritionNewsController.cs" />

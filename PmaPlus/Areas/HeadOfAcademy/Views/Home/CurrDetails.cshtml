@@ -281,12 +281,28 @@
                                 <tr dir-paginate="session in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalCourses">
                                     <td>{{session.name}}</td>
                                     <td>{{session.number}}</td>
-                                    <td>{{session.attendance}}</td>
-                                    <td>{{session.objectives}}</td>
-                                    <td>{{session.rating}}</td>
-                                    <td>{{session.report}}</td>
-                                    <td>{{session.startOfReviewPeriod}}</td>
-                                    <td>{{session.endOfReviewPeriod}}</td>
+                                    <td>
+                                        <a href="#" ng-click="" class="check-link"><i class="fa {{session.attendance | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                    </td>
+
+                                    <td>
+                                        <a href="#" ng-click="" class="check-link"><i class="fa {{session.objectives | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                    </td>
+                                   
+                                    <td>
+                                        <a href="#" ng-click="" class="check-link"><i class="fa {{session.rating | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                    </td>
+                                    <td>
+                                        <a href="#" ng-click="" class="check-link"><i class="fa {{session.report | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                    </td>
+
+                                    <td>
+                                        <a href="#" ng-click="" class="check-link"><i class="fa {{session.startOfReviewPeriod | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                    </td>
+                                    <td>
+                                        <a href="#" ng-click="" class="check-link"><i class="fa {{session.endOfReviewPeriod | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                    </td>
+                                    
                                     <td>
                                         <i ng-click="openEdit(session.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                         <i ng-click="openDelete(session.id)" class="fa fa-trash" style="cursor: pointer;"></i>

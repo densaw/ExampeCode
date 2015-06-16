@@ -63,6 +63,7 @@
     <Compile Include="Enums\BodyPartType.cs" />
     <Compile Include="Enums\ClubStatus.cs" />
     <Compile Include="Enums\Foot.cs" />
+    <Compile Include="Enums\OutcomeType.cs" />
     <Compile Include="Enums\PhysioExerciseType.cs" />
     <Compile Include="Enums\SideTypes.cs" />
     <Compile Include="Enums\ToDoPriority.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Models\Coach.cs" />
     <Compile Include="Models\Curriculum.cs" />
     <Compile Include="Models\ExcerciseNew.cs" />
+    <Compile Include="Models\MatchMom.cs" />
     <Compile Include="Models\MessageComment.cs" />
     <Compile Include="Models\MessageGroup.cs" />
     <Compile Include="Models\MessagePrivate.cs" />
@@ -167,6 +169,11 @@
     <Compile Include="ViewModels\Diary\DiaryViewModel.cs" />
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />
     <Compile Include="ViewModels\DashboardContent\InfoBoxViewModel.cs" />
+    <Compile Include="ViewModels\Matches\MatchesReportPage.cs" />
+    <Compile Include="ViewModels\Matches\MatchReportTableViewModel.cs" />
+    <Compile Include="ViewModels\Matches\MatchReportViewModel.cs" />
+    <Compile Include="ViewModels\Matches\PlayerMatchStatisticTableViewModel.cs" />
+    <Compile Include="ViewModels\Matches\PlayersMatchObjectiveTableViewModel.cs" />
     <Compile Include="ViewModels\MessagePrivates\GroupMessageViewModel.cs" />
     <Compile Include="ViewModels\MessagePrivates\MessageGroupViewModel.cs" />
     <Compile Include="ViewModels\MessagePrivates\MessagePrivatePostModel.cs" />
