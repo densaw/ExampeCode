@@ -203,43 +203,44 @@
         </div>
         @*Modal End*@
         @*Contacts*@      
-            <div class="row wrapper-content">            
-                <div class="col-lg-3" ng-repeat="item in items">
-                    <div class="hpanel hgreen contact-panel">
+        <div class="row wrapper-content" style="padding: 0px 15px 0px 5px;">
+            <div class=" col-lg-4" ng-repeat="item in items">
+                <div class="hpanel hgreen contact-panel">
 
-                        <div class="panel-body " onmouseenter="inside(this)" onmouseleave="out(this)">
-                            <div style="width: 67px; height: 67px; position: relative; overflow: hidden; margin: inherit; border-radius: 50px; " class="img-circle">
-                                <img alt="logo" class="img-circle" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent />
-                                <br />
-                            </div>
+                    <div class="panel-body " onmouseenter="inside(this)" onmouseleave="out(this)">
+                        <div style="width: 67px; height: 67px; position: relative; overflow: hidden; margin: inherit; border-radius: 50px; " class="img-circle">
+                            <img alt="logo" class="img-circle desaturate" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent />
 
-                            <h3>{{item.name}}</h3>
-
-                            <address>
-                                {{roles[item.role].name}} - {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}} years old.<br>
-                                <br />
-                                <p>
-                                    {{item.aboutMe}}
-                                </p>
-                            </address>
                         </div>
-                        <div class="panel-footer contact-footer">
-                            <div class="row">
-                                <div class="col-md-4 border-right"> <div class="contact-stat"><span>Last Login:</span> <strong style="font-size: 10px">{{item.lastLogin | date:'dd.MM.yyyy'}}</strong></div> </div>
-                                <div class="col-md-4 border-right"> <div class="contact-stat"><span>CRB\DBS Expiry: </span> <strong style="font-size: 10px">  {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}</strong></div> </div>
-                                <div class="col-md-4 border-right" > <div class="contact-stat"><span>First Aid Expiry: </span> <strong style="font-size: 10px"> {{item.firstAidExpiry | date:'dd.MM.yyyy'}}</strong></div> </div>
-                            </div>
+                        <br />
+                        <h3 style="font-family: 'Open Sans'; font-weight: 400; font-size: 24px; color: rgb(163, 150, 150);">{{item.name}}</h3>
+
+                        <p style="font-family: 'Open Sans'; font-weight:800;">{{roles[item.role].name}}</p><br />
+                        {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}} years old.<br><br />
+                        <p>{{item.aboutMe}} </p>
+
+                    </div>
+                    <div class="panel-footer contact-footer">
+                        <div class="row">
+                            <div class="col-md-4 border-right"> <div class="contact-stat"><span>LOGIN:</span> <strong style="font-size: 10px">{{item.lastLogin | date:'dd.MM.yyyy'}}</strong></div> </div>
+                            <div class="col-md-4 border-right"> <div class="contact-stat"><span>CRB\DBS: </span> <strong style="font-size: 10px">  {{item.crbDbsExpiry | date:'dd.MM.yyyy'}}</strong></div> </div>
+                            <div class="col-md-4 border-right"> <div class="contact-stat"><span>FIRST AID: </span> <strong style="font-size: 10px"> {{item.firstAidExpiry | date:'dd.MM.yyyy'}}</strong></div> </div>
                         </div>
                     </div>
-                    </div>
-                
                 </div>
+            </div>
+
+        </div>
         
             @*Contacts End*@
         </div>
 </div>
 
 <style>
+    img.desaturate {
+        -webkit-filter: grayscale(100%);
+        filter: grayscale(100%);
+    }
     .animated-panel {
         -webkit-animation-duration: .5s;
         animation-duration: .5s;
