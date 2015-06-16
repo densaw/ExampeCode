@@ -41,6 +41,7 @@ namespace PmaPlus.Data
         public virtual DbSet<Match> Matches { get; set; }
         public virtual DbSet<PlayerMatchObjective> MatchObjectives { get; set; }
         public virtual DbSet<PlayerMatchStatistic> PlayerMatchStatistics { get; set; }
+        public virtual DbSet<MatchMom> MatchMoms { get; set; }
 
 
         public virtual DbSet<NutritionAlternative> NutritionAlternatives { get; set; }
