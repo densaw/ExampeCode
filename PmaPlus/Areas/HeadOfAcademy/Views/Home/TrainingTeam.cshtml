@@ -209,15 +209,15 @@
 
                     <div class="panel-body " onmouseenter="inside(this)" onmouseleave="out(this)">
                         <div style="width: 67px; height: 67px; position: relative; overflow: hidden; margin: inherit; border-radius: 50px; " class="img-circle">
-                            <img alt="logo" class="img-circle desaturate" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent />
-
+                            <img alt="logo" class="img-circle desaturate" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent />                           
                         </div>
                         <br />
                         <h3 style="font-family: 'Open Sans'; font-weight: 400; font-size: 24px; color: rgb(163, 150, 150);">{{item.name}}</h3>
-
-                        <p style="font-family: 'Open Sans'; font-weight:800;">{{roles[item.role].name}}</p><br />
-                        {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}} years old.<br><br />
-                        <p>{{item.aboutMe}} </p>
+                       
+                        <p style="font-family: 'Open Sans'; font-weight:800;">{{roles[item.role].name}}</p>
+                        <br />
+                        {{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}} years old.
+                        <p>{{item.aboutMe}}</p>
 
                     </div>
                     <div class="panel-footer contact-footer">
