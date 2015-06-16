@@ -2136,7 +2136,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     };
 
     $scope.ok = function (id) {
-
+        
         //Files upload
         var promises = [];
 
@@ -2221,8 +2221,9 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
         $scope.modalTitle = 'Update Curriculum Session';
         $http.get(urlTail + '/' + id)
             .success(function (result) {
+                
+                
                 console.log(result);
-
 
                 $scope.newCurrDet = result;
                 $scope.help.scenarios = reShuffle(result.scenarios);
