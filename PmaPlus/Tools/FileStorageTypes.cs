@@ -20,6 +20,7 @@ namespace PmaPlus.Tools
         PlayerProfilePicture,
         Sessions,
         ExerciseNews,
-        NutritionNews
+        NutritionNews,
+        MessageWall
     }
 }
