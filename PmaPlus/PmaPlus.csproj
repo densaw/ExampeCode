@@ -3207,6 +3207,8 @@
     <Content Include="Areas\HeadOfAcademy\Views\Home\CurrDetails.cshtml" />
     <Content Include="Areas\Scouts\Views\Home\TalentIndefication.cshtml" />
     <Content Include="Areas\Scouts\Views\Home\TalenIdProfile.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\PlayersTable.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\Wizzard.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
