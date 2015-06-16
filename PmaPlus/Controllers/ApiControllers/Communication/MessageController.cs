@@ -26,11 +26,11 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
             _messagePrivateServices = messagePrivateServices;
         }
 
-        public IHttpActionResult Post(MessageViewModel message)
+        public MessageViewModel Post(MessageViewModel message)
         {
             message.UserId = _userServices.GetUserByEmail(User.Identity.Name).Id;
             var newMessage = _messageServices.AddMessage(message);
-            return Ok(newMessage.MessageId);
+            return _messageServices.ConvertToMessageViewModel(newMessage);
         }
 
         public MessageWallPage Get(int page)

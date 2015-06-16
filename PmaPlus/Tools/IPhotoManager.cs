@@ -20,6 +20,7 @@ namespace PmaPlus.Tools
         string MoveFromTemp(string tempFileName, FileStorageTypes storageType, int id, string newFileName);
         string SetDefaultPrifilePic(FileStorageTypes storageType, int id, string newFileName);
         FileStream GetFileStream(string fileName, FileStorageTypes storageTypes, int id);
+        FileStream GetFileStream(string fileName, FileStorageTypes storageTypes);
         byte[] GetFileBytes(string fileName, FileStorageTypes storageTypes, int id);
         bool FileExistInStorage(FileStorageTypes storageType, string fileName, int id);
         void Delete(FileStorageTypes storageType, int id);

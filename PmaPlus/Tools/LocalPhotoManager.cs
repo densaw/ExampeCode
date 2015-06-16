@@ -215,6 +215,16 @@ namespace PmaPlus.Tools
             return null;
         }
 
+        public FileStream GetFileStream(string fileName, FileStorageTypes storageTypes)
+        {
+            var fullFilePath = _workingFolder + "\\" + storageTypes.ToString() + "\\" +  fileName;
+            if (File.Exists(fullFilePath))
+            {
+                return new FileStream(fullFilePath, FileMode.Open, FileAccess.Read);
+            }
+            return null;
+        }
+
         public byte[] GetFileBytes(string fileName, FileStorageTypes storageTypes, int id)
         {
             var fullFilePath = _workingFolder + "\\" + storageTypes.ToString() + "\\" + id + "\\" + fileName;

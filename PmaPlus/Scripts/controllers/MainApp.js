@@ -158,7 +158,7 @@
                 if ($scope.messagePic) {
                     var fd = new FormData();
                     fd.append('file', $scope.messagePic);
-                    var promise = $http.post('/api/Files', fd, {
+                    var promise = $http.post('/api/Files/Wall', fd, {
                         transformRequest: angular.identity,
                         headers: { 'Content-Type': undefined }
                     })
@@ -177,7 +177,8 @@
                 $q.all(promises).then(function () {
                     $http.post('/api/Message', $scope.newMessage)
                     .success(function(result){
-                        getResultsPage($scope.currentPage);
+                        //getResultsPage($scope.currentPage);
+                        $scope.message.unshift(result);
                         sendMessageModal.modal('hide');
                     })
                 });

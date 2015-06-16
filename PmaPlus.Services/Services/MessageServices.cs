@@ -86,6 +86,20 @@ namespace PmaPlus.Services
             return _messageRepository.GetAll().Count();
         }
 
+        public MessageViewModel ConvertToMessageViewModel(Message message)
+        {
+            return new MessageViewModel()
+            {
+                Id = message.MessageId,
+                Message = message.Text,
+                SendAt = message.SendAt,
+                UserId = message.User.Id,
+                Image = message.Image,
+                UserName = message.User.UserName,
+                UserAva = string.IsNullOrEmpty(message.User.UserDetail.ProfilePicture) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + message.User.UserDetail.ProfilePicture + "/" + message.User.Id 
+            };
+        }
+
         public IQueryable<MessageViewModel> GetAllWallMessage(int page)
         {
 
