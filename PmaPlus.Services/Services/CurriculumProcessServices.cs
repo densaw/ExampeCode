@@ -12,7 +12,6 @@ namespace PmaPlus.Services.Services
 {
     public class CurriculumProcessServices
     {
-        private readonly CurriculumServices _curriculumServices;
         private readonly ITeamRepository _teamRepository;
         private readonly ITeamCurriculumRepository _teamCurriculumRepository;
         private readonly ISessionResultRepository _sessionResultRepository;
@@ -22,18 +21,18 @@ namespace PmaPlus.Services.Services
         private readonly IBlockObjectiveStatementRepository _blockObjectiveStatementRepository;
         private readonly IPlayerRatingsRepository _playerRatingsRepository;
 
-        public CurriculumProcessServices(CurriculumServices curriculumServices, ITeamRepository teamRepository, ISessionResultRepository sessionResultRepository, ITeamCurriculumRepository teamCurriculumRepository, ISessionAttendanceRepository sessionAttendanceRepository, IPlayerObjectiveRepository playerObjectiveRepository, IPlayerBlockObjectiveRepository playerBlockObjectiveRepository, IBlockObjectiveStatementRepository blockObjectiveStatementRepository, IPlayerRatingsRepository playerRatingsRepository)
+        public CurriculumProcessServices(ITeamRepository teamRepository, ITeamCurriculumRepository teamCurriculumRepository, ISessionResultRepository sessionResultRepository, ISessionAttendanceRepository sessionAttendanceRepository, IPlayerObjectiveRepository playerObjectiveRepository, IPlayerBlockObjectiveRepository playerBlockObjectiveRepository, IBlockObjectiveStatementRepository blockObjectiveStatementRepository, IPlayerRatingsRepository playerRatingsRepository)
         {
-            _curriculumServices = curriculumServices;
             _teamRepository = teamRepository;
-            _sessionResultRepository = sessionResultRepository;
             _teamCurriculumRepository = teamCurriculumRepository;
+            _sessionResultRepository = sessionResultRepository;
             _sessionAttendanceRepository = sessionAttendanceRepository;
             _playerObjectiveRepository = playerObjectiveRepository;
             _playerBlockObjectiveRepository = playerBlockObjectiveRepository;
             _blockObjectiveStatementRepository = blockObjectiveStatementRepository;
             _playerRatingsRepository = playerRatingsRepository;
         }
+
 
         public IEnumerable<SessionsWizardViewModel> GetCurriculumSessionsWizard(int teamId)
         {
@@ -77,7 +76,6 @@ namespace PmaPlus.Services.Services
 
         public void SaveSession(int sessionId, int teamCurriculumId)
         {
-            //TODO: Check can we save session
             if (!_sessionResultRepository.GetMany(s => s.SessionId == sessionId && s.TeamCurriculumId == teamCurriculumId).Any())
             {
                 _sessionResultRepository.Add(new SessionResult()
@@ -87,6 +85,13 @@ namespace PmaPlus.Services.Services
                     Done = true,
                     TeamCurriculumId = teamCurriculumId
                 });
+            }
+            else
+            {
+                var session = _sessionResultRepository.Get(s => s.SessionId == sessionId && s.TeamCurriculumId == teamCurriculumId);
+                session.ComletedOn = DateTime.Now;
+                session.Done = true;
+                _sessionResultRepository.Update(session);
             }
         }
 
@@ -367,7 +372,34 @@ namespace PmaPlus.Services.Services
 
         public IEnumerable<CurriculumPlayersStatisticViewModel> CurriculumPlayersStatistic(int teamId)
         {
-            throw new NotImplementedException();
+            var team = _teamRepository.GetById(teamId);
+            var players = team.Players;
+
+            var result = from player in players
+                select new CurriculumPlayersStatisticViewModel()
+                         {
+                             PlayerName = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
+                             Age = DateTime.Now.Year - (player.User.UserDetail.Birthday.HasValue ? player.User.UserDetail.Birthday.Value.Year : DateTime.Now.Year),
+                             Atl = player.PlayerRatingses.Select(r => r.Atl).DefaultIfEmpty().Average(),
+                             Att = player.PlayerRatingses.Select(r => r.Att).DefaultIfEmpty().Average(),
+                             Mom = player.MatchMoms.Count,
+                             Gls = player.MatchStatistics.Select(m => m.Goals).DefaultIfEmpty().Average(),
+                             Sho = player.MatchStatistics.Select(m => m.Shots).DefaultIfEmpty().Average(),
+                             Sht = player.MatchStatistics.Select(m => m.ShotsOnTarget).DefaultIfEmpty().Average(),
+                             Asi = player.MatchStatistics.Select(m => m.Assists).DefaultIfEmpty().Average(),
+                             Tck = player.MatchStatistics.Select(m => m.Tackles).DefaultIfEmpty().Average(),
+                             Pas = player.MatchStatistics.Select(m => m.Passes).DefaultIfEmpty().Average(),
+                             Sav = player.MatchStatistics.Select(m => m.Saves).DefaultIfEmpty().Average(),
+                             Crn = player.MatchStatistics.Select(m => m.Corners).DefaultIfEmpty().Average(),
+                             Frk = player.MatchStatistics.Select(m => m.FreeKicks).DefaultIfEmpty().Average(),
+                             Frm = player.MatchStatistics.Select(m => m.FormRating).DefaultIfEmpty().Average(),
+                             Inj = player.PlayerInjuries.Count,
+                             Cur = player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average(),
+                             AttPercent = (player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100
+                         };
+
+            return result.AsEnumerable();
+
         }
     }
 }

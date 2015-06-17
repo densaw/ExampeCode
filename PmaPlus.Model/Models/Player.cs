@@ -11,6 +11,7 @@ namespace PmaPlus.Model.Models
         public Player()
         {
             Teams = new HashSet<Team>();
+            PlayerRatingses = new HashSet<PlayerRatings>();
         }
         public int Id { get; set; }
 
@@ -35,9 +36,20 @@ namespace PmaPlus.Model.Models
         public UserStatus Status { get; set; }
         public virtual ICollection<PlayerInjury> PlayerInjuries { get; set; }
 
+        #region Curriculum process
+
         public virtual ICollection<SessionAttendance> SessionAttendances { get; set; }
         public virtual ICollection<PlayerObjective> PlayerObjectives { get; set; }
+        public virtual ICollection<PlayerBlockObjective> PlayerBlockObjectives { get; set; }
+        public virtual ICollection<PlayerRatings> PlayerRatingses { get; set; }
 
+        #endregion
+
+        public virtual ICollection<PlayerMatchObjective> PlayerMatchObjectives { get; set; }
         public virtual ICollection<PlayerMatchStatistic> MatchStatistics { get; set; }
+
+
+        public virtual ICollection<MatchMom> MatchMoms { get; set; }
+
     }
 }
