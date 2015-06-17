@@ -355,6 +355,7 @@
     <Content Include="Content\patterns\otis_redding.png" />
     <Content Include="Content\patterns\shattered.png" />
     <Content Include="Content\patterns\triangular.png" />
+    <Content Include="Content\angular-wizard.css" />
     <Content Include="Content\plugins\blueimp\css\blueimp-gallery-indicator.css" />
     <Content Include="Content\plugins\blueimp\css\blueimp-gallery-video.css" />
     <Content Include="Content\plugins\blueimp\css\blueimp-gallery.css" />
@@ -484,6 +485,7 @@
     <Content Include="Scripts\angular\angular-scenario.js" />
     <Content Include="Scripts\angular\angular-touch.js" />
     <Content Include="Scripts\angular\angular-touch.min.js" />
+    <Content Include="Scripts\angular\angular-wizard.js" />
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angular.min.js" />
     <Content Include="Scripts\angular\docs\components\bootstrap-3.1.1\css\bootstrap-theme.css" />
@@ -3221,6 +3223,7 @@
     <Content Include="Scripts\controllers\MessageController.js" />
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\controllers\UserAvatarController.js" />
+    <Content Include="Scripts\controllers\WizzardsControllers.js" />
     <Content Include="Scripts\datapickersecond\bootstrap-datepicker.js" />
     <Content Include="Scripts\datapickersecond\locales\bootstrap-datepicker.bg.js" />
     <Content Include="Scripts\datapickersecond\locales\bootstrap-datepicker.ca.js" />
