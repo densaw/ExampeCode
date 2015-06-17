@@ -13,7 +13,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a class="btn btn-primary" ng-click="sendMessage()">Send Message</a>
+                <a class="btn btn-primary" ng-click="sendMessage()">New Message</a>
             </div>
         </div>
     </div>
@@ -116,14 +116,14 @@
                         <div>
                             <div class="feed-activity-list">
                                 <div class="feed-element" ng-repeat="groupMsg in groupMessagesList">
-                                    <div style="width: 50px; height: 50px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
+                                    <div style="width: 60px; height: 60px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
                                         <img alt="image" class="prifile" ng-src="{{groupMsg.userAva}}" style-parent />
                                     </div>
                                     <div class="media-body ">
-                                        <small class="pull-right text-navy"></small>
-                                        <strong>{{groupMsg.userName}}</strong><br>
-                                        <small class="text-muted">{{groupMsg.sendAt | date:'HH:mm - dd.MM.yyyy'}}</small>
-                                        <div class="well">
+                                        <small class="pull-right text-navy" style="font-size: 12px;" >{{groupMsg.sendAt | date:'HH:mm - dd.MM.yyyy'}}</small>
+                                        <strong style="font-size: 14px;">{{groupMsg.userName}}</strong><br>
+                                        <small class="text-muted"></small>
+                                        <div class="well" style="font-size: 12px;">
                                             {{groupMsg.message}}
                                             <img style="width: 100%;" ng-show="groupMsg.image != null" ng-src="/api/file/MessageWall/{{groupMsg.image}}" />
                                         </div>

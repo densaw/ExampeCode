@@ -23,7 +23,7 @@ namespace PmaPlus.Services.Extensions
                     UserId = x.UserId,
                     UserAva = (x.User.UserDetail.ProfilePicture == null || x.User.UserDetail.ProfilePicture == String.Empty) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + x.User.UserDetail.ProfilePicture + "/" + x.User.Id,
                     //UserAva = "/api/file/ProfilePicture/" + x.User.UserDetail.ProfilePicture + "/" + x.User.Id,
-                    UserName =  x.User.UserName
+                    UserName = (x.User.UserDetail == null) ? x.User.UserName : x.User.UserDetail.FirstName + " " + x.User.UserDetail.LastName
                 });
             }
             return null;

@@ -114,7 +114,7 @@ namespace PmaPlus.Services
                 SendAt = x.SendAt,
                 UserId = x.User.Id,
                 Image = x.Image,
-                UserName = x.User.UserName,
+                UserName = (x.User.UserDetail == null) ? x.User.UserName : x.User.UserDetail.FirstName + " " + x.User.UserDetail.LastName,
                 UserAva = (x.User.UserDetail.ProfilePicture == null || x.User.UserDetail.ProfilePicture == String.Empty) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + x.User.UserDetail.ProfilePicture + "/" + x.User.Id
             });
         }
@@ -129,7 +129,7 @@ namespace PmaPlus.Services
                         Id = c.Id,
                         Comment = c.Comment,
                         SendAt = c.SendAt,
-                        UserName = c.User.UserName,
+                        UserName = (c.User.UserDetail == null) ? c.User.UserName : c.User.UserDetail.FirstName + " " + c.User.UserDetail.LastName,
                         UserAva = (c.User.UserDetail.ProfilePicture == null || c.User.UserDetail.ProfilePicture == String.Empty) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + c.User.UserDetail.ProfilePicture + "/" + c.User.Id,
                         UserId = c.User.Id,
                         
@@ -142,8 +142,8 @@ namespace PmaPlus.Services
                     .Where(x => x.MessagesId == messageId && x.Rating == rating)
                     .Select(c => new MessageRatingViewModel()
                     {
-                        UserName = c.User.UserName,
-                        UserAva = c.User.UserDetail.ProfilePicture,
+                        UserName = (c.User.UserDetail == null) ? c.User.UserName : c.User.UserDetail.FirstName + " " + c.User.UserDetail.LastName,
+                        UserAva = (c.User.UserDetail.ProfilePicture == null || c.User.UserDetail.ProfilePicture == String.Empty) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + c.User.UserDetail.ProfilePicture + "/" + c.User.Id,
                         UserId = c.User.Id,
                         Rating = c.Rating
                     });
