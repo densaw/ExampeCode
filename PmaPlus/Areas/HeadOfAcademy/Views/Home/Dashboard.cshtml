@@ -106,7 +106,7 @@
                     <a class="dropdown-toggle pull-right" data-toggle="dropdown" href="#" aria-expanded="false">
                         <i class="fa fa-wrench"></i>
                     </a>
-                    <h5>Week Attendance</h5>
+                    <h5>Month Attendance</h5>
                 </div>
                 <div class="ibox-content" ng-switch on="progressPlayer">
                     <h1 class="no-margins">@*{{amountPlayers}}*@0</h1>
@@ -119,9 +119,11 @@
                     <div ng-switch-default class="stat-percent font-bold-small text-warning">
                         @*{{percentage}}*@0%&nbsp;<i class="fa fa-arrow-circle-o-left"></i>
                     </div>
-                    <small>Last week </small>
+                    <small>Last month</small>
                 </div>
             </div>
+
+
         </div>
         <div class="col-lg-4" ng-controller="CoachsBoxController">
             <div class="ibox float-e-margins">
@@ -169,6 +171,37 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8" ng-controller="ClubsBoxController">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <a class="dropdown-toggle pull-right" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <h5>Players  who are at or below 70%</h5>
+                </div>
+                <div class="ibox-content" ng-switch on="progressClub">
+                    <table class="table table-responsive">
+                        <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Attendance %</th>
+                        </tr>
+                        </thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tbody>
+                        
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+      
     </div>
     <div class="row">
         @Html.Partial("~/Views/Messages/Index.cshtml")
