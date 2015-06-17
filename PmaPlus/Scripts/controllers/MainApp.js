@@ -108,6 +108,11 @@
         function getCurrentUser(){
             $http.get('/api/Users/Avatar')
             .success(function(result){
+                
+                if (result.picture.length === 0) {
+                    result.picture = '/api/Clubs/logo';
+                };
+                console.log(result);
                 $scope.currentUser = result;
             });
         }
@@ -127,7 +132,8 @@
             $scope.newRating.rating = rating; 
             $http.post('/api/Message/Rating/' + messageId, $scope.newRating)
             .success(function(result){
-                getResultsPage($scope.currentPage);
+                $scope.message = [];
+                getResultsPage(0);
             })
         }
 
