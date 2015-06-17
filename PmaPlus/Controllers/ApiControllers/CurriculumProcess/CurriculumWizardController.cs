@@ -25,6 +25,18 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             _teamServices = teamServices;
         }
 
+        [Route("api/Curriculum/Players/Statistic/{teamId:int}")]
+        public IEnumerable<CurriculumPlayersStatisticViewModel> GetPlayersStatistics(int teamId)
+        {
+            return _curriculumProcessServices.CurriculumPlayersStatistic(teamId);
+
+        }
+
+
+
+
+
+
         [Route("api/Curriculum/Wizard/{teamId:int}")]
         public IEnumerable<SessionsWizardViewModel> GetWizard(int teamId)
         {
@@ -32,10 +44,10 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
         }
 
         [Route("api/Curriculum/Wizard/Session/Save/{teamCurriculumId:int}/{sessionId:int}")]
-        public IHttpActionResult Post(int teamCurriculumId,int sessionId)
+        public IHttpActionResult Post(int teamCurriculumId, int sessionId)
         {
 
-            _curriculumProcessServices.SaveSession(sessionId,teamCurriculumId);
+            _curriculumProcessServices.SaveSession(sessionId, teamCurriculumId);
 
             return Ok();
         }
@@ -51,7 +63,7 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
         {
             var attendances =
                 Mapper.Map<IList<SessionAttendanceTableViewModel>, List<SessionAttendance>>(sessionAttendanceTable);
-            _curriculumProcessServices.UpdateAttendance(attendances,teamId,sessionId);
+            _curriculumProcessServices.UpdateAttendance(attendances, teamId, sessionId);
             return Ok();
         }
 
@@ -88,14 +100,14 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
 
 
         [Route("api/Curriculum/Wizard/Session/BlockObjective/{teamId:int}/{sessionId:int}")]
-        public IHttpActionResult PostPlayerBlockObjective(int teamId, int sessionId,[FromBody]PlayerBlockObjectiveTableViewModel blockObjectiveViewModel)
+        public IHttpActionResult PostPlayerBlockObjective(int teamId, int sessionId, [FromBody]PlayerBlockObjectiveTableViewModel blockObjectiveViewModel)
         {
             var user = _userServices.GetUserByEmail(User.Identity.Name);
             var blockObj =
                 Mapper.Map<PlayerBlockObjectiveTableViewModel, BlockObjectiveStatement>(blockObjectiveViewModel);
 
 
-            _curriculumProcessServices.UpdateBlockObgectiveStatement(blockObj,blockObjectiveViewModel.PlayerId,teamId,sessionId,user.Id);
+            _curriculumProcessServices.UpdateBlockObgectiveStatement(blockObj, blockObjectiveViewModel.PlayerId, teamId, sessionId, user.Id);
             return Ok();
         }
 
@@ -117,6 +129,30 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
 
 
 
+
+    }
+
+    public class CurriculumPlayersStatisticViewModel
+    {
+        public string PlayerName { get; set; }
+        public int Age { get; set; }
+        public decimal Atl { get; set; }
+        public decimal Att { get; set; }
+        public int Mom { get; set; }
+        public int Gls { get; set; }
+        public int Sho { get; set; }
+        public int Sht { get; set; }
+        public int Asi { get; set; }
+        public int Tck { get; set; }
+        public int Pas { get; set; }
+        public int Sav { get; set; }
+        public int Crn { get; set; }
+        public int Frk { get; set; }
+        public int Frm { get; set; }
+        public int Inj { get; set; }
+        public decimal AttPercent { get; set; }
+        public decimal WbPercent { get; set; }
+        public decimal Cur { get; set; }
 
     }
 }
