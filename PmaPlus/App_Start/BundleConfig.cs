@@ -73,6 +73,7 @@ namespace PmaPlus
             //Angular
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular/angular.js",
+                "~/Scripts/angular/angular-wizard.js",
                 "~/Scripts/angular/angular-route.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ladda-js").Include(
