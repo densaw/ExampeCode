@@ -48,12 +48,13 @@
 
                 <div class="ibox-content">
                    
-                    <h5>Basic ProgressBars</h5>
-                    <div class="progress">
-                        <div style="width: 35%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class="progress-bar progress-bar-success">
-                            <span class="sr-only">35% Complete (success)</span>
-                        </div>
+                    <h3>Static</h3>
+                    <div class="row">
+                       
+                        <div class="col-sm-12"><progressbar class="progress-striped active" max="10" value="wizard.step" type="danger"><i>{{myProgress}} / 10</i></progressbar></div>
                     </div>
+
+                    <input type="number" ng-model="wizard.step"> wizard.step
 
                 </div>
             </div>
