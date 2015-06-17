@@ -26,7 +26,7 @@ namespace PmaPlus.Data
               .Take(pageSize);
         }
 
-        public static IQueryable<T> OrderQuery<T, TProperty>(this IQueryable<T> source, string propertyName,Expression<Func<T,TProperty>> defaulProperty)
+        public static IQueryable<T> OrderQuery<T, TProperty>(this IQueryable<T> source, string propertyName, Expression<Func<T, TProperty>> defaulProperty)
         {
             if (typeof(T).GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) == null)
             {
@@ -36,45 +36,28 @@ namespace PmaPlus.Data
 
             var paramterExpression = Expression.Parameter(typeof(T));
 
-            var orderExpression =  (Expression<Func<T, string>>)Expression.Lambda(Expression.PropertyOrField(paramterExpression, propertyName), paramterExpression);
+            var orderExpression = (Expression<Func<T, string>>)Expression.Lambda(Expression.PropertyOrField(paramterExpression, propertyName), paramterExpression);
 
             return source.OrderBy(orderExpression);
         }
 
-        public static IEnumerable<T> OrderQuery<T, TProperty>(this IEnumerable<T> list, string sortExpression, Expression<Func<T, TProperty>> defaulProperty, bool direction )
+        public static IEnumerable<T> OrderQuery<T, TProperty>(this IEnumerable<T> list, string sortExpression, Expression<Func<T, TProperty>> defaulProperty, bool direction = false)
         {
-            sortExpression += "";
-            string[] parts = sortExpression.Split(' ');
-            bool descending = direction;
+            PropertyInfo prop = typeof(T).GetProperty(sortExpression, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
-
-            string property = "";
-
-            if (parts.Length > 0 && parts[0] != "")
+            if (prop == null)
             {
-                property = parts[0];
-
-                if (parts.Length > 1)
-                {
-                    descending = parts[1].ToLower().Contains("esc");
-                }
-
-                PropertyInfo prop = typeof(T).GetProperty(property, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-
-                if (prop == null)
-                {
-
-                    return list.OrderBy(x => typeof(T).GetProperty(defaulProperty.ToString()));
-                    throw new Exception("No property '" + property + "' in + " + typeof(T).Name + "'");
-                }
-
-                if (descending)
-                    return list.OrderByDescending(x => prop.GetValue(x, null));
+                if (direction)
+                    return list.AsQueryable().OrderByDescending(defaulProperty);
                 else
-                    return list.OrderBy(x => prop.GetValue(x, null));
+                    return list.AsQueryable().OrderBy(defaulProperty);
             }
 
-            return list;
+            if (direction)
+                return list.OrderByDescending(x => prop.GetValue(x, null));
+            else
+                return list.OrderBy(x => prop.GetValue(x, null));
+
         }
     }
 }

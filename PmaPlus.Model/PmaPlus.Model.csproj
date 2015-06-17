@@ -146,6 +146,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserDetail.cs" />
     <Compile Include="Models\WelfareOfficer.cs" />
+    <Compile Include="ViewModels\CurriculumProcess\CurriculumPlayersStatisticViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\PlayerBlockObjectiveTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\PlayerObjectiveTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\PlayerRatingsTableViewModel.cs" />

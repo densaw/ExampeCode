@@ -33,7 +33,7 @@ namespace PmaPlus.Controllers.ApiControllers.TalentIdentifications
             var count = _talentServices.GetTalentNotes(talentId).Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var notes = _talentServices.GetTalentNotes(talentId);
-            var items = Mapper.Map<IEnumerable<TalentNote>,IEnumerable<TalentNoteViewModel>>(notes).OrderQuery(orderBy, x => x.AddDate, direction).Paged(pageNumber, pageSize);
+            var items = Mapper.Map<IEnumerable<TalentNote>, IEnumerable<TalentNoteViewModel>>(notes).OrderQuery(orderBy, x => x.AddDate, direction).Paged(pageNumber, pageSize);
 
             return new TalentIdentificationNotesPage()
             {

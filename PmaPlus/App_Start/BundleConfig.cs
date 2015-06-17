@@ -73,6 +73,8 @@ namespace PmaPlus
             //Angular
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular/angular.js",
+                "~/Scripts/underscore-min.js",
+                "~/Scripts/angular/angular-wizard.js",
                 "~/Scripts/angular/angular-route.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ladda-js").Include(
@@ -97,7 +99,6 @@ namespace PmaPlus
                 "~/Scripts/userSripts.js"));
 
             bundles.Add(new ScriptBundle("~/plugins/angular-file").Include(
-
                 "~/Scripts/angular/angular-file-model.js"));
 
             bundles.Add(new ScriptBundle("~/plugins/angular-dateparser").Include(
