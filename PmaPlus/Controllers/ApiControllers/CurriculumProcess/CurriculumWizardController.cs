@@ -25,12 +25,12 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             _teamServices = teamServices;
         }
 
-        [Route("api/Curriculum/Players/Statistic/{teamId:int}")]
-        public IEnumerable<CurriculumPlayersStatisticViewModel> GetPlayersStatistics(int teamId)
-        {
-            return _curriculumProcessServices.CurriculumPlayersStatistic(teamId);
+        //[Route("api/Curriculum/Players/Statistic/{teamId:int}")]
+        //public IEnumerable<CurriculumPlayersStatisticViewModel> GetPlayersStatistics(int teamId)
+        //{
+        //    return _curriculumProcessServices.CurriculumPlayersStatistic(teamId);
 
-        }
+        //}
 
 
 
