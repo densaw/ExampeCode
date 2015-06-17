@@ -3,7 +3,7 @@
     Layout = "~/Areas/Coach/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row wrapper border-bottom white-bg page-heading" ng-controller="WizzardControllers">
+<div class="row wrapper border-bottom white-bg page-heading" ng-controller="WizzardController" cloak>
     <div class="col-lg-10">
         <h2>Wizzard</h2>
         <ol class="breadcrumb">
@@ -102,7 +102,7 @@
         </div>
         </div>
     </div>
+
 @section scripts{ 
-<script src="~/Scripts/angular/angular-wizard.js"></script>   
-<link href="~/Content/angular-wizard.css" rel="stylesheet" />
+<script src="~/Scripts/controllers/WizzardsControllers.js"></script>
 }
