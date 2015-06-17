@@ -23,7 +23,7 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', function ($sc
             }
 
             $scope.showWarning = (type === 'danger' || type === 'warning');
-
+    
             $scope.dynamic = value;
             $scope.type = type;
         };

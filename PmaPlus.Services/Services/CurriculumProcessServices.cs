@@ -364,5 +364,10 @@ namespace PmaPlus.Services.Services
 
             _playerRatingsRepository.AddOrUpdate(playerRatingses.ToArray());
         }
+
+        public IEnumerable<CurriculumPlayersStatisticViewModel> CurriculumPlayersStatistic(int teamId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
