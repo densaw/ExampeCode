@@ -3222,6 +3222,7 @@
     <Content Include="Scripts\controllers\MainApp.js" />
     <Content Include="Scripts\controllers\MessageController.js" />
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
+    <Content Include="Scripts\controllers\TeamPlayersTableController.js" />
     <Content Include="Scripts\controllers\UserAvatarController.js" />
     <Content Include="Scripts\controllers\WizzardsControllers.js" />
     <Content Include="Scripts\datapickersecond\bootstrap-datepicker.js" />

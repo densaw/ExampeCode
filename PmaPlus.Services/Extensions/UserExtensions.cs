@@ -17,7 +17,7 @@ namespace PmaPlus.Services.Extensions
                 return users.Select(x => new UsersList
                 {
                     Id = x.Id,
-                    Name = x.UserName
+                    Name = (x.UserDetail == null) ? x.UserName : x.UserDetail.FirstName + " " + x.UserDetail.LastName
                 });
             }
             return null;

@@ -54,7 +54,7 @@
     <Compile Include="Extensions\MessagePrivateExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
     <Compile Include="Services\ClubServices.cs" />
-    <Compile Include="Services\CoachSerivces.cs" />
+    <Compile Include="Services\CoachServices.cs" />
     <Compile Include="Services\CurriculumProcessServices.cs" />
     <Compile Include="Services\CurriculumServices.cs" />
     <Compile Include="Services\DiaryServices.cs" />
