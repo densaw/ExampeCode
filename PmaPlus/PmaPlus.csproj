@@ -3792,6 +3792,8 @@
     <Content Include="Views\Partials\_PrivateMessage.cshtml" />
     <Content Include="Views\Partials\_TraningTeam.cshtml" />
     <Content Include="Views\Partials\_WizardPartials\_JustSessionPartial.cshtml" />
+    <Content Include="Views\Partials\Curriculums\_CurriculumPartial.cshtml" />
+    <Content Include="Views\Partials\Curriculums\_CurrDetailPartial.cshtml" />
     <Content Include="Views\Partials\_WizardPartials\_Attendance.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -3817,6 +3819,7 @@
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
     <Folder Include="Areas\WelfareOfficer\Models\" />
     <Folder Include="Images\Clubs\" />
+    <Folder Include="Scripts\controllers\curriculumProcess\" />
     <Folder Include="Scripts\plugins\datapicker\icons\" />
   </ItemGroup>
   <ItemGroup>

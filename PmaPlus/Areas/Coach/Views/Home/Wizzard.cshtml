@@ -3,7 +3,7 @@
     Layout = "~/Areas/Coach/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row wrapper border-bottom white-bg page-heading" ng-controller="WizzardController" cloak>
+<div class="row wrapper border-bottom white-bg page-heading" >
     <div class="col-lg-10">
         <h2>Wizzard</h2>
         <ol class="breadcrumb">
@@ -18,58 +18,45 @@
     </div>
 
 </div>
-<div class="wrapper wrapper-content animated fadeInRight">
-    <wizard on-finish="finishedWizard()" hide-indicators="true">
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="WizzardController" ng-cloak>
+    <wizard on-finish="" hide-indicators="true">
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Progress Bars</h5>
                         <div class="ibox-tools" style="margin-top: -5px;">
-                            <a class=" btn btn-primary btn-sm" wz-previous >Prev</a>
-                            <a class="btn btn-primary btn-sm" wz-next ">Next</a>
+                            <a class=" btn btn-primary btn-sm" wz-previous>Prev</a>
+                            <a class="btn btn-primary btn-sm" wz-next>Next</a>
                             <a class="btn btn-primary btn-sm">Finish</a>
                         </div>
                     </div>
-
                     <div class="ibox-content">
-
                         <div class="row">
                             <div class="col-sm-12"><progressbar class="progress-striped active" max="10" value="wizard.step" type="danger"><i>{{myProgress}}</i></progressbar></div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
         </div>
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Wizzard</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
+        <wz-step ng-repeat="step in steps">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{step.name}}</h5>
+                    <div class="ibox-tools">
+                        <a><i class="fa fa-chevron-up"></i></a>
+                        <a><i class="fa fa-wrench"></i></a>
+                        <a><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+
+
+
                 </div>
             </div>
-            <div class="ibox-content">
-
-                <wz-step title="{{step.name}}" canexit="exitValidation" ng-repeat="step in steps">
-                    <h1>This is the first step</h1>
-                    <p>Here you can use whatever you want. You can use other directives, binding, etc.</p>
-                    <input type="submit" wz-next value="Continue" />
-                </wz-step>
-              
-
-            </div>
-        </div>
+        </wz-step>
     </wizard>
 </div>
 
