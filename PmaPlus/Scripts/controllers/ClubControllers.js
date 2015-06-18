@@ -2110,6 +2110,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     $scope.open = function () {
         $scope.modalTitle = 'Add Curriculum Session';
+        $scope.newCurrDet = {};
         target.modal('show');
     };
 

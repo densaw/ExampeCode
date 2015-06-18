@@ -3790,6 +3790,8 @@
     <Content Include="Views\Partials\_PrivateMessage.cshtml" />
     <Content Include="Views\Partials\_TraningTeam.cshtml" />
     <Content Include="Views\Partials\_WizardPartials\_JustSessionPartial.cshtml" />
+    <Content Include="Views\Partials\Curriculums\_CurriculumPartial.cshtml" />
+    <Content Include="Views\Partials\Curriculums\_CurrDetailPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
