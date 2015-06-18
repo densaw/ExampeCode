@@ -1,0 +1,78 @@
+﻿<script src="~/Scripts/controllers/curriculumProcess/CurrAdendanceController.js"></script>
+
+<div ng-controller="AtendanceController" ng-cloak>
+    <div class="wrapper wrapper-content animated fadeIn">
+        <div class="row">        
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title ">
+                        <h5>Attendance</h5>
+                        <div class="ibox-tools">
+                            <a @*class="collapse-link"*@>
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a @*class="dropdown-toggle" data-toggle="dropdown"*@ href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                @*<li>
+                                        <a href="#">Config option 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Config option 2</a>
+                                    </li>*@
+                            </ul>
+                            <a @*class="close-link"*@>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Scout Name</th>
+                                    <th>Date Found</th>
+                                    <th>Player Name</th>
+                                    <th>Present Club</th>
+                                    <th>Age</th>
+                                    <th>Contact Telephone</th>
+                                    <th>Rating</th>
+                                    <th>Invite</th>
+                                    <th>Attended</th>
+                                    <th>Joined</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contentTable">
+                                <tr dir-paginate="newScoutP in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                    <td>{{newScoutP.scouteName}}</td>
+                                    <td>{{newScoutP.dateIdentificated | date:'dd-MM-yyyy'}}</td>
+                                    <td>{{newScoutP.name}}</td>
+                                    <td>{{newScoutP.presentClub}}</td>
+                                    <td>{{newScoutP.age}}</td>
+                                    <td>{{newScoutP.parentsMobile}}</td>
+                                    <td>{{newScoutP.score}}</td>
+                                    <td>
+                                        <a href="#" ng-click="check(newScoutP)" class="check-link"><i class="fa {{newScoutP.invitedToTrial | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                    </td>
+                                    <td>
+                                        <a href="#" ng-click="check(newScoutP)" class="check-link"><i class="fa {{newScoutP.attendedTrail | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                    </td>
+                                    <td>
+                                        <a href="#" ng-click="check(newScoutP)" class="check-link"><i class="fa {{newScoutP.joinedClub | todo :'fa-check-square ':'fa-square-o'}}"></i> </a>
+                                    </td>
+
+                                    <td>
+                                        <i ng-click="openEdit(newScoutP.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                        <i ng-click="openDelete(newScoutP.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                        <a ng-href="TalenIdProfile/{{newScoutP.id}}" class="fa fa-graduation-cap"></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
