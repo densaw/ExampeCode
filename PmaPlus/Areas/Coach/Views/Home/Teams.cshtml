@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a class="btn btn-primary" ng-click="open()">Add a Team</a>
+               
             </div>
         </div>
     </div>
@@ -43,85 +43,8 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        @*Modal*@
-                        <div class="modal inmodal" id="addTeamModal" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content animated bounceInRight">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        <h3 class="modal-title text-left">{{modalTitle}}</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form name="myform" class="form-horizontal" novalidate>
-                                            <div class="form-group" ng-class="{'has-error':myform.teamName.$invalid && (myform.teamName.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Team Name:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input name="teamName" ng-model="newTeam.name" required class="form-control" maxlength="50">
-                                                </div>
-                                            </div>
-                                            <div ng-if="!isEditing" class="form-group">
-                                                <label class="col-lg-4 title-modal">Curriculum:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <select ng-model="selectedCurriculumTypeId" ng-options="type.name for type in curriculumTypesList | orderBy:'name'" class=" form-control m-b" name="account"></select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Coaches:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <ui-select multiple ng-model="teamMembers.coaches" ng-disabled="disabled" theme="bootstrap">
-                                                        <ui-select-match placeholder="Select Coaches...">{{$item.name}}</ui-select-match>
-                                                        <ui-select-choices repeat="coach in freeCoaches">
-                                                            <div ng-bind-html="coach.name | highlight: $select.search"></div>
-                                                        </ui-select-choices>
-                                                    </ui-select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Players:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <ui-select multiple ng-model="teamMembers.players" ng-disabled="disabled" theme="bootstrap">
-                                                        <ui-select-match placeholder="Select Players...">{{$item.name}}</ui-select-match>
-                                                        <ui-select-choices repeat="player in freePlayers">
-                                                            <div ng-bind-html="player.name | highlight: $select.search"></div>
-                                                        </ui-select-choices>
-                                                    </ui-select>
-                                                </div>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                        <button ng-click="ok(newTeam.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
-                                            <span class="ladda-label" style="font-size: 14px;">Save changes</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @*Modal End*@
-                        @*Modal*@
-                        <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content animated bounceInRight">
-                                    <div class="modal-header">
-
-                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        <h3 class="modal-title">Delete Record?</h3>
-
-
-                                    </div>
-                                    <div class="modal-body">
-                                        <h3 class="text-center">Are you sure you wish to delete this record?</h3>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
-                                        <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @*Modal End*@
+                       
+                      
                         <div class="row">
                             <div class="col-sm-9 m-b-xs">
                                 <form class="form-horizontal">
@@ -185,7 +108,7 @@
                                         <td>{{team.coachesCount}}</td>
                                         <td>{{team.playersCount}}</td>
                                         <td>
-                                            <a ng-href="PlayersTable/{{newScoutP.id}}" class="fa fa-graduation-cap" style="cursor: pointer;"></a>
+                                            <a ng-href="PlayersTable/{{team.id}}" class="fa fa-graduation-cap" style="cursor: pointer;"></a>
                                             
                                         </td>
                                     </tr>

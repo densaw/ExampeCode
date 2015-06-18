@@ -20,7 +20,7 @@
         <div class="col-sm-8">
             <div class="title-action">
 
-                <a class="btn btn-primary" ng-href="@Url.Action("Wizzard", "Home", new { area = "Coach" })">Start Curriculum</a>
+                <a class="btn btn-primary" ng-href="@Url.Action("Wizzard", "Home", new { area = "Coach" })/{{currId}}">Start Curriculum</a>
             </div>
         </div>
     </div>
@@ -131,7 +131,27 @@
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
-                                    <tr dir-paginate="player in players | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems"></tr>
+                                <tr dir-paginate="player in players | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                    <th>{{player.playerName}}</th>
+                                    <th>{{player.age}}</th>
+                                    <th>{{player.atl}}</th>
+                                    <th>{{player.att}}</th>
+                                    <th>{{player.mom}}</th>
+                                    <th>{{player.gls}}</th>
+                                    <th>{{player.sho}}</th>
+                                    <th>{{player.sht}}</th>
+                                    <th>{{player.asi}}</th>
+                                    <th>{{player.tck}}</th>
+                                    <th>{{player.pas}}</th>
+                                    <th>{{player.sav}}</th>
+                                    <th>{{player.crn}}</th>
+                                    <th>{{player.frk}}</th>
+                                    <th>{{player.frm}}</th>
+                                    <th>{{player.inj}}</th>
+                                    <th>{{player.attPercent}}</th>
+                                    <th>{{player.wbPercent}}</th>
+                                    <th>{{player.cur}}</th>
+                                </tr>
                                 </tbody>
                             </table>
                             
