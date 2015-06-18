@@ -47,15 +47,14 @@
                 </div>
 
                 <div class="ibox-content">
-                   
-                    <h3>Static</h3>
+                    <a class="btn btn-primary " ng-click="wizard.step = wizard.step - 1" >Prev</a>
+                    <a class="btn btn-primary " ng-click="wizard.step = wizard.step + 1" >Next</a>
+                    <a class="btn btn-primary " >Finish</a>
                     <div class="row">
-                       
-                        <div class="col-sm-12"><progressbar class="progress-striped active" max="10" value="wizard.step" type="danger"><i>{{myProgress}} / 10</i></progressbar></div>
+                        <div class="col-sm-12"><progressbar class="progress-striped active" max="10" value="wizard.step" type="danger"><i>{{myProgress}}</i></progressbar></div>
                     </div>
-
-                    <input type="number" ng-model="wizard.step"> wizard.step
-
+                    
+                        
                 </div>
             </div>
         </div>
@@ -86,19 +85,11 @@
         <div class="ibox-content">
             <wizard on-finish="finishedWizard()">
                 <wz-step title="Starting">
-                    <h1>This is the first step</h1>
-                    <p>Here you can use whatever you want. You can use other directives, binding, etc.</p>
+                    
+                    <a ng-href="TalenIdProfile/{{newScoutP.id}}"></a>
                     <input type="submit" wz-next value="Continue" />
                 </wz-step>
-                <wz-step title="Continuing">
-                    <h1>Continuing</h1>
-                    <p>You have continued here!</p>
-                    <input type="submit" wz-next value="Go on" />
-                </wz-step>
-                <wz-step title="More steps">
-                    <p>Even more steps!!</p>
-                    <input type="submit" wz-next value="Finish now" />
-                </wz-step>
+               
             </wizard>
         </div>
         </div>
