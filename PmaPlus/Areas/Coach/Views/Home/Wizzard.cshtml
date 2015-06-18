@@ -33,33 +33,27 @@
                     </div>
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-sm-12"><progressbar class="progress-striped active" max="10" value="wizard.step" type="danger"><i>{{myProgress}}</i></progressbar></div>
+                            <div class="col-sm-12"><progressbar class="progress-striped active" max="10" value="wizard.step" type="danger"></progressbar></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <wz-step ng-repeat="step in steps">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>{{step.name}}</h5>
-                    <div class="ibox-tools">
-                        <a><i class="fa fa-chevron-up"></i></a>
-                        <a><i class="fa fa-wrench"></i></a>
-                        <a><i class="fa fa-times"></i></a>
-                    </div>
-                </div>
-                <div class="ibox-content">
-
-
-
-
-                </div>
+           
+            <div ng-if="step.coachDetails">
+                @Html.Partial("~/Views/Partials/_WizardPartials/_JustSessionPartial.cshtml")
             </div>
+            <div ng-if="step.attendance">
+                @Html.Partial("~/Views/Partials/_WizardPartials/_Attendance.cshtml")
+            </div>
+
+
         </wz-step>
     </wizard>
 </div>
 
 @section scripts{
     <script src="~/Scripts/controllers/WizzardsControllers.js"></script>
+    <script src="~/Scripts/controllers/curriculumProcess/JustSessionController.js"></script> 
 }

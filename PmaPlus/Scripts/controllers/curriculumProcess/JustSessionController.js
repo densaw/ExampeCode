@@ -1,6 +1,6 @@
 ﻿var app = angular.module('MainApp');
 
-app.controller('SessionController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+app.controller('JustSessionController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
     // get image step 1
     var pathArray = $location.$$absUrl.split("/");

@@ -1,9 +1,9 @@
-﻿<script src="~/Scripts/controllers/curriculumProcess/JustSessionController.js"></script> 
+﻿
 
-<div ng-controller="SessionController" ng-cloak>
+<div ng-controller="JustSessionController" ng-cloak>
     <div class="ibox float-e-margins">
         <div class="ibox-title ">
-            <h5>Image</h5>
+            <h5>{{step.name}}</h5>
             <div class="ibox-tools">
                 <a @*class="collapse-link"*@>
                     <i class="fa fa-chevron-up"></i>
@@ -24,10 +24,11 @@
                 </a>
             </div>
         </div>
-        <div class="table-responsive">
-            <div class="inbox-content" style="width: 100%; height:auto;">
-                <img class="img-container" ng-src="{{item}}" />
+            <div class="ibox-content" >
+                <div class="img-thumbnail" >
+                    
+                <img class=" img-container" ng-src="{{step.coachPicture}}" style="width: 100%; height:auto; "/>
+                </div>
             </div>
-        </div>
     </div>
 </div>
