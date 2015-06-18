@@ -282,12 +282,12 @@
                                     <tr dir-paginate="session in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalCourses">
                                         <td>{{session.name}}</td>
                                         <td>{{session.number}}</td>
-                                        <td>{{session.attendance}}</td>
-                                        <td>{{session.objectives}}</td>
-                                        <td>{{session.rating}}</td>
-                                        <td>{{session.report}}</td>
-                                        <td>{{session.startOfReviewPeriod}}</td>
-                                        <td>{{session.endOfReviewPeriod}}</td>
+                                        <td>{{session.attendance?'Yes':'No'}}</td>
+                                        <td>{{session.objectives?'Yes':'No'}}</td>
+                                        <td>{{session.rating?'Yes':'No'}}</td>
+                                        <td>{{session.report?'Yes':'No'}}</td>
+                                        <td>{{session.startOfReviewPeriod?'Yes':'No'}}</td>
+                                        <td>{{session.endOfReviewPeriod?'Yes':'No'}}</td>
                                         <td>
                                             <i ng-click="openEdit(session.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(session.id)" class="fa fa-trash" style="cursor: pointer;"></i>
