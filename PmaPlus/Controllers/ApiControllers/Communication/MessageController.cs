@@ -54,16 +54,16 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
             };
         }
         [Route("api/Message/Comment/{messageId:int}")]
-        public IHttpActionResult PostComment(int messageId, [FromBody] MessageCommentViewModel comment)
+        public MessageCommentViewModel PostComment(int messageId, [FromBody] MessageCommentViewModel comment)
         {
             var currentUser = _userServices.GetUserByEmail(User.Identity.Name);
             comment.UserId = currentUser.Id;
             comment.UserName = User.Identity.Name;
             var newComment = _messageServices.AddComment(messageId, comment);
-            return Ok(newComment.Id);
+            return newComment;
         }
         [Route("api/Message/Rating/{messageId:int}")]
-        public IHttpActionResult PostRating(int messageId, [FromBody] MessageRatingViewModel rating)
+        public MessageRatingViewModel PostRating(int messageId, [FromBody] MessageRatingViewModel rating)
         {
             var currentUser = _userServices.GetUserByEmail(User.Identity.Name);
             rating.UserId = currentUser.Id;
@@ -71,11 +71,11 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
             var newReting = _messageServices.AddMessageRating(messageId, rating);
             if (newReting == null)
             {
-                return BadRequest();
+                return null;
             }
             else
             {
-              return Ok(newReting.Id);  
+              return newReting;  
             }
             
         }

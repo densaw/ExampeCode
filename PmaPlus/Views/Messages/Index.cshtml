@@ -49,24 +49,36 @@
         </div>
         <div class="ibox-content">
             <div>
-                <div class="feed-activity-list">
-                    <div class="feed-element" ng-repeat="msg in message">
-                        <div style="width: 60px; height: 60px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
-                            <img class="prifile" ng-src="{{msg.userAva}}" style-parent/>
+                <div>
+                    <div ng-repeat="msg in message">
+                        <div class="row">
+                            <div class="pull-left" style="margin-left: 20px;">
+                                <div style="width: 60px; height: 60px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed; margin: auto;" class="img-circle">
+                                    <img class="prifile" ng-src="{{msg.userAva}}" style-parent />
+                                </div>
+                            </div>
+                            <div class="col-xs-11">
+                                <small class="pull-right text-navy" style="font-size: 12px;">{{msg.sendAt | date:'HH:mm - dd.MM.yyyy' }}</small>
+                                <div class="container-fluid">
+                                    <div class="row-fluid">
+                                        <strong class="centering text-center" style="font-size: 14px; margin-top: 20px;">{{msg.userName}}</strong>
+                                    </div>
+                                </div> 
+                            </div>
                         </div>
-                        <div class="media-body ">
-                            <small class="pull-right text-navy" style="font-size: 12px;">{{msg.sendAt | date:'HH:mm - dd.MM.yyyy' }}</small>
-                            <strong style="font-size: 14px;">{{msg.userName}}</strong><br>
+
+                        <div style="margin-left: 80px;">
+
                             <small class="text-muted"></small>
                             <div class="well" style="font-size: 12px;">
                                 {{msg.message}} <br />
-                                <img style="width: 100%;" ng-show="msg.image != null" ng-src="/api/file/MessageWall/{{msg.image}}" />
                             </div>
-                            <hr style="width: 100%; color: #E5E6E7; height: 1px; background-color: #E5E6E7; margin-top: 5px; margin-bottom: 5px;"/>
+                            <img style="width: 98%; margin: 10px;" ng-show="msg.image != null" ng-src="/api/file/MessageWall/{{msg.image}}" />
+                            
                             <div class="row" style="margin-left: 5px; margin-right: 5px;">
                                 <div class="pull-left">
-                                    <a class="btn btn-xs btn-white" ng-click="rateMessage(msg.id, true)"><i class="fa fa-thumbs-up"></i></a>
-                                    <a class="btn btn-xs btn-white" ng-click="rateMessage(msg.id, false)"><i class="fa fa-thumbs-down"></i></a>
+                                    <a class="btn btn-xs btn-white" ng-click="rateMessage(msg, true)"><i class="fa fa-thumbs-up"></i></a>
+                                    <a class="btn btn-xs btn-white" ng-click="rateMessage(msg, false)"><i class="fa fa-thumbs-down"></i></a>
                                 </div>
                                 <div class="pull-right">
                                     <a class="btn btn-xs btn-white" ng-click="showComments($index)">{{msg.comments.length}} - Comments</a>
@@ -74,36 +86,41 @@
                                     <a class="btn btn-xs btn-white" ng-click="showDislike($index)">{{msg.ratingNegative.length}} - Dislike</a>
                                 </div>
                             </div>
-
+                            <hr style="width: 100%; color: #E5E6E7; height: 1px; background-color: #E5E6E7; margin-top: 5px; margin-bottom: 5px;" />
                             @*Comments*@
                             <div class="row" style="margin-left: 5px; margin-right: 5px;" ng-init="statmentsRev[$index].comments = true" ng-show="statmentsRev[$index].comments">
                                 <div ng-repeat="singlecomment in msg.comments" class="row" style="margin-left: 0px; margin-right: 5px;">
                                     <div style="width: 40px; height: 40px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
                                         <img alt="image" class="prifile" ng-src="{{singlecomment.userAva}}" style-parent/>
                                     </div>
-                                    <small class="pull-right text-navy"></small>
+                                    <small class="pull-right text-navy">{{singlecomment.sendAt | date:'HH:mm - dd.MM.yyyy' }}</small>
                                     <strong>{{singlecomment.userName}}</strong><br>
-                                    <small class="text-muted">{{singlecomment.sendAt | date:'HH:mm - dd.MM.yyyy' }}</small>
-                                    <div class="col-lg-11 well">
+                                    <small class="text-muted"></small>
+                                    <div class="well">
                                         {{singlecomment.comment}}
                                     </div>
                                 </div>
-                                <div style="width: 40px; height: 40px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
-                                    <img alt="image" class="prifile" ng-src="{{currentUser.picture}}" style-parent/>
+
+                                <div class="row">
+                                    <div class="pull-left" style="margin: 10px;">
+                                        <div style="width: 40px; height: 40px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
+                                            <img alt="image" class="prifile" ng-src="{{currentUser.picture}}" style-parent/>
+
+                                        </div>
+                                        <strong class="text-center" style="font-size: 12px;">{{currentUser.name}}</strong>
+                                    </div>
                                 </div>
-                                <div class="col-lg-10">
-                                    <input ng-model="tmpComment[$index].comment" type="text" class="form-control">
-                                </div>
-                                <div class="col-lg-1">
-                                    <button class="btn btn-primary" ng-click="sendComment(msg.id, $index)"><strong>Send</strong></button>
+                                <div>
+                                    <input ng-model="tmpComment[$index].comment" type="text" class="form-control" ng-enter="sendComment(msg, $index)">
                                 </div>
                             </div>
+
 
                             @*Like*@
                             <div class="row" style="margin-left: 5px; margin-right: 5px;" ng-init="statmentsRev[$index].like = false" ng-show="statmentsRev[$index].like">
                                 <div ng-repeat="singlePositive in msg.ratingPositive" class="row" style="margin-left: 0px; margin-right: 5px;">
                                     <div style="width: 40px; height: 40px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
-                                        <img alt="image" class="prifile" ng-src="{{singlePositive.userAva}}" style-parent/>
+                                        <img alt="image" class="prifile" ng-src="{{singlePositive.userAva}}" style-parent />
                                     </div>
                                     <small class="pull-right text-navy"></small>
                                     <strong>{{singlePositive.userName}}</strong><br>
@@ -115,7 +132,7 @@
                             <div class="row" style="margin-left: 5px; margin-right: 5px;" ng-init="statmentsRev[$index].dislike = false" ng-show="statmentsRev[$index].dislike">
                                 <div ng-repeat="singleNegative in msg.ratingNegative" class="row" style="margin-left: 0px; margin-right: 5px;">
                                     <div style="width: 40px; height: 40px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
-                                        <img alt="image" class="prifile" ng-src="{{singleNegative.userAva}}" style-parent/>
+                                        <img alt="image" class="prifile" ng-src="{{singleNegative.userAva}}" style-parent />
                                     </div>
                                     <small class="pull-right text-navy"></small>
                                     <strong>{{singleNegative.userName}}</strong><br>
@@ -159,5 +176,23 @@
     img.portrait {
         width: 100%;
         height: auto;
+    }
+
+    html, body{height:100%; margin:0;padding:0}
+ 
+    .container-fluid{
+      height:100%;
+      display:table;
+      width: 100%;
+      padding: 0;
+    }
+ 
+    .row-fluid {height: 100%; display:table-cell; vertical-align: middle;}
+ 
+ 
+
+    .centering {
+      float:none;
+      margin:0 auto;
     }
 </style>
