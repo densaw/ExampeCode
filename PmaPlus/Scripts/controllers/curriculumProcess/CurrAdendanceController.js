@@ -11,10 +11,10 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', function 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    $http.get('/api/Curriculum/Wizard/Session/AttendanceTable/')
+    $http.get('/api/Curriculum/Wizard/Session/AttendanceTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
         .success(function (result) {
             console.log(result);
-            $scope.item = result;
+            $scope.items = result;
 
         });
     $scope.ssesionDetail = function () {
