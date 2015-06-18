@@ -15,6 +15,7 @@ namespace PmaPlus.Model.Models
 
         public int MessageGroupId { get; set; }
         public string GroupName { get; set; }
+        public DateTime UpdateAt { get; set; }
         public virtual ICollection<MessagePrivate> MessagePrivates { get; set; }
         public virtual ICollection<User> Users { get; set; } 
     }

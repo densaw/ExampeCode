@@ -87,7 +87,7 @@
                                 <img alt="image" class="prifile" src="../../Images/Default_background.png" style-parent />
                             </div>
                             <div class="media-body ">
-                                <div ng-repeat="user in recent.users">
+                                <div ng-repeat="user in recent.users | orderObjectBy:updateAt">
                                     <strong>{{user.name}}</strong>
                                 </div>
                             </div>
@@ -114,16 +114,16 @@
                     </div>
                     <div class="ibox-content">
                         <div>
-                            <div class="feed-activity-list">
-                                <div class="feed-element" ng-repeat="groupMsg in groupMessagesList">
+                            <div>
+                                <div ng-repeat="groupMsg in groupMessagesList">
                                     <div style="width: 60px; height: 60px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
                                         <img alt="image" class="prifile" ng-src="{{groupMsg.userAva}}" style-parent />
                                     </div>
-                                    <div class="media-body ">
+                                    <div>
                                         <small class="pull-right text-navy" style="font-size: 12px;" >{{groupMsg.sendAt | date:'HH:mm - dd.MM.yyyy'}}</small>
                                         <strong style="font-size: 14px;">{{groupMsg.userName}}</strong><br>
                                         <small class="text-muted"></small>
-                                        <div class="well" style="font-size: 12px;">
+                                        <div class="well" style="font-size: 12px; margin-left: 1px;">
                                             {{groupMsg.message}}
                                             <img style="width: 100%;" ng-show="groupMsg.image != null" ng-src="/api/file/MessageWall/{{groupMsg.image}}" />
                                         </div>
@@ -131,20 +131,13 @@
                                 </div>
                             </div>
 
-                            <div ng-if="haveGroup" class="row" style="margin-top: 20px;">
-                                <form class="form-horizontal" novalidate>
-                                    <div class="form-group">
-                                        <div class="col-lg-1">
-                                            <button class="btn btn-primary btn-block m"><i class="fa fa-paperclip"></i></button>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <input ng-model="messageInGroupSend.messagePrivate.message" required class="form-control">
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <button class="btn btn-primary" ng-click="sendMessageinGroup()"><strong>Send message</strong></button>
-                                        </div>
-                                    </div>
-                                </form>
+                            <div ng-if="haveGroup" class="row" >
+                                <div class="col-xs-1">
+                                    <button class="btn btn-primary btn-block m"><i class="fa fa-paperclip"></i></button>
+                                </div>
+                                <div class="col-xs-11" style="margin-top: 15px;">
+                                    <input ng-model="messageInGroupSend.messagePrivate.message" required class="form-control" ng-enter="sendMessageinGroup()">
+                                </div>
                             </div>
 
                         </div>

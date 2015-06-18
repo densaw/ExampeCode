@@ -11,6 +11,7 @@ namespace PmaPlus.Model.ViewModels.MessagePrivates
     {
         public int Id { get; set; }
         public string GroupName { get; set; }
+        public DateTime UpdateAt { get; set; }
         public IList<UsersList> Users { get; set; }
         public IList<MessagePrivateViewModel> Messages { get; set; } 
     }
