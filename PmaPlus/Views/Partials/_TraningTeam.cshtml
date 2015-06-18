@@ -1,9 +1,4 @@
 ﻿
-@{
-    ViewBag.Title = "PMA+";
-    Layout = "~/Areas/ClubAdmin/Views/Shared/_AdminLayout.cshtml";
-}
-
 <div ng-controller="TrainingTeamController" ng-cloak>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
@@ -201,8 +196,8 @@
             </div>
         </div>
         @*Modal End*@
+        @*Contacts*@
         <div class="row wrapper-content" style="padding: 0px 15px 0px 5px;">
-
             <div class=" col-lg-4" ng-repeat="item in items">
                 <div class="hpanel hgreen contact-panel">
 
@@ -211,13 +206,12 @@
                             <img alt="logo" class="img-circle desaturate" ng-src="/api/File/ProfilePicture/{{item.profilePicture}}/{{item.id}}" style-parent />
                         </div>
                         <br />
-                        <a><i class="fa fa-cog" style="float: right; margin-top: 60px;" ng-click="edit(item.id)"></i></a>
+
                         <h3 style="font-family: 'Open Sans'; font-weight: 200; font-size: 24px; color: rgb(163, 150, 150);">{{item.name}}</h3>
 
                         <p style="font-family: 'Open Sans'; font-weight: 400; margin-top: -5px;">{{roles[item.role].name}}</p>
 
                         <p style=" margin-top: -5px;">{{item.birthDay | date:'dd.MM.yyyy'}} - {{item.age}} years old.</p>
-                        
 
 
                     </div>
@@ -232,6 +226,8 @@
             </div>
 
         </div>
+
+        @*Contacts End*@
     </div>
 </div>
 
