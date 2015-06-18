@@ -113,7 +113,7 @@
 
                                 <div class="col-lg-8">
 
-                                    <p class="form-control" style="border: none">{{profileTalents.invitedToTrial}}</p>
+                                    <p class="form-control" style="border: none">{{profileTalents.invitedToTrial?'Yes':'No'}}</p>
                                 </div>
                             </div>
                             <div class="form-group" style="margin-bottom: 0px;">
@@ -121,14 +121,14 @@
 
                                 <div class="col-lg-8">
 
-                                    <p class="form-control" style="border: none">{{profileTalents.attendedTrail}}</p>
+                                    <p class="form-control" style="border: none">{{profileTalents.attendedTrail?'Yes':'No'}}</p>
                                 </div>
                             </div>
                             <div class="form-group" style="margin-bottom: 0px;">
                                 <label class="col-lg-4 control-label" style="text-align: left; padding-left: 20px;">Joined:</label>
 
                                 <div class="col-lg-8">
-                                    <p class="form-control" style="border: none">{{profileTalents.joinedClub}}</p>
+                                    <p class="form-control" style="border: none">{{profileTalents.joinedClub?'Yes':'No'}}</p>
                                 </div>
                             </div>
                         </form>
@@ -182,7 +182,7 @@
                                             <tr dir-paginate="item in items1 | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
                                                 <td class="user-row" style="opacity: 1;">{{item.addDate | date:'dd-MM-yyyy' }}</td>
                                                 <td class="user-row" style="opacity: 1;">{{item.scout}}</td>
-                                                <td cclass="user-row" style="opacity: 1;">
+                                                <td class="user-row" style="opacity: 1;">
                                                     {{item.location}}
                                                 </td>
                                                 <td class="user-row" style="opacity: 1;" >{{item.note}}</td>
@@ -348,10 +348,10 @@
                                     <div class="form-group" ng-class="{'has-error':myform.eventTitle.$invalid && (myform.eventTitle.$dirty||myform.form_Submitted)}">
                                         <label class="col-lg-4 title-modal">Scout:</label>
                                         <div class="col-lg-7 pull-right">
-                                            <select name="scoutName" ng-model="newNote.scout" ng-options="scout.id as scout.name for scout in scouts" class=" form-control"></select>
+                                            <select name="scoutName" ng-model="newNote.scout" ng-options="scout.name as scout.name for scout in scouts" class=" form-control"></select>
                                         </div>
                                     </div>
-                                   
+
                                     <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
                                         <label class="col-lg-4 title-modal">Location:</label>
                                         <div class="col-lg-7 pull-right">

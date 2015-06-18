@@ -1,7 +1,7 @@
 ﻿var app = angular.module('MainApp');
 
 
-app.controller('TeamPlayersTableController', ['$scope', '$http', function ($scope, $http) {
+app.controller('TeamPlayersTableController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
