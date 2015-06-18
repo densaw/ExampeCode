@@ -3789,6 +3789,7 @@
     <Content Include="Views\Partials\_VideoModalPartial.cshtml" />
     <Content Include="Views\Partials\_PrivateMessage.cshtml" />
     <Content Include="Views\Partials\_TraningTeam.cshtml" />
+    <Content Include="Views\Partials\_WizardPartials\_JustSessionPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
