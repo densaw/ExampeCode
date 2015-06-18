@@ -6,7 +6,7 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', function ($sc
     var ProgressDemoCtrl = function ($scope) {
 
         $scope.max = 10;
-        $scope.wizard = { step: 1 }
+        $scope.wizard = { step: 0 }
 
         $scope.random = function () {
             var value = Math.floor((Math.random() * 100) + 1);
@@ -43,4 +43,5 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', function ($sc
         };
         $scope.randomStacked();
     };
+    
 }]);
