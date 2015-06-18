@@ -4,7 +4,7 @@
 }
 
 
-<div ng-controller="" ng-cloak>
+<div ng-controller="TeamPlayersTableController" ng-cloak>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
             <h2>Players Table</h2>
@@ -20,7 +20,7 @@
         <div class="col-sm-8">
             <div class="title-action">
 
-                <a class="btn btn-primary" ng-href="@Url.Action("Wizzard", "Home", new { area = "Coach" })">Start Curriculum</a>
+                <a class="btn btn-primary" ng-href="@Url.Action("Wizzard", "Home", new { area = "Coach" })/{{currId}}">Start Curriculum</a>
             </div>
         </div>
     </div>
@@ -44,115 +44,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <div class="modal inmodal" id="addScoutP" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content animated bounceInRight">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        <h3 class="modal-title text-left">Add</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form name="myform" class="form-horizontal" novalidate>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Scouts:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <select name="scoutName" ng-model="newScoutP.scoutId" ng-options="scout.id as scout.name for scout in scouts" class=" form-control"></select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.firstname.$invalid && (myform.firstname.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Player First Name:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input name="firstName" ng-model="newScoutP.firstName" required class="form-control" maxlength="50">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Player Last Name:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input name="lastName" ng-model="newScoutP.lastName" required class="form-control" maxlength="50">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-4 title-modal">Date Identified:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <div class="dropdown">
-                                                        <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" value="{{ newScoutP.dateIdentificated | date:'dd-MM-yyyy' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                            </div>
-                                                        </a>
-                                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                            <datetimepicker required name="dateIdentified" data-ng-model="newScoutP.dateIdentificated" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day', minView:'day' }" />
-                                                        </ul>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Preset Club:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input name="presentClub" ng-model="newScoutP.presentClub" required class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.eventEnd.$invalid && (myform.eventEnd.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Date of Birth:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <div class="dropdown">
-                                                        <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" value="{{ newScoutP.birthDate | date:'dd-MM-yyyy' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                            </div>
-                                                        </a>
-                                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                                            <datetimepicker required name="dateOfBirth" data-ng-model="newScoutP.birthDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day' }" />
-                                                        </ul>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Parents First Name:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input name="eventNote" ng-model="newScoutP.parentsFirstName" required class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Parents Last Name:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input name="eventNote" ng-model="newScoutP.parentsLastName" required class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Parents Email:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input name="eventNote" ng-model="newScoutP.parentsEmail" required class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Parents Mobile:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <input name="eventNote" ng-model="newScoutP.parentsMobile" required class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
-                                                <label class="col-lg-4 title-modal">Parents Notes:</label>
-                                                <div class="col-lg-7 pull-right">
-                                                    <textarea name="eventNote" ng-model="newScoutP.parentsNote" required class="form-control"></textarea>
-                                                </div>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-
-                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                        <button ng-click="ok(newScoutP.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color: @ViewBag.them;">
-                                            <span class="ladda-label" style="font-size: 14px;">Save changes</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                         @*Modal*@
                         <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog">
@@ -239,12 +131,30 @@
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
-                                    <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                      
-                                    </tr>
+                                <tr dir-paginate="player in players | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                    <th>{{player.playerName}}</th>
+                                    <th>{{player.age}}</th>
+                                    <th>{{player.atl}}</th>
+                                    <th>{{player.att}}</th>
+                                    <th>{{player.mom}}</th>
+                                    <th>{{player.gls}}</th>
+                                    <th>{{player.sho}}</th>
+                                    <th>{{player.sht}}</th>
+                                    <th>{{player.asi}}</th>
+                                    <th>{{player.tck}}</th>
+                                    <th>{{player.pas}}</th>
+                                    <th>{{player.sav}}</th>
+                                    <th>{{player.crn}}</th>
+                                    <th>{{player.frk}}</th>
+                                    <th>{{player.frm}}</th>
+                                    <th>{{player.inj}}</th>
+                                    <th>{{player.attPercent}}</th>
+                                    <th>{{player.wbPercent}}</th>
+                                    <th>{{player.cur}}</th>
+                                </tr>
                                 </tbody>
                             </table>
-                            <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                            
                         </div>
 
                     </div>
@@ -254,5 +164,5 @@
     </div>
 </div>
 @section scripts{
-    
+    <script src="~/Scripts/controllers/TeamPlayersTableController.js"></script>
 }

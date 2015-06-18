@@ -8,9 +8,10 @@ using PmaPlus.Model.Models;
 
 namespace PmaPlus.Data.Repository
 {
-    public class PlayerBlockObjectiveRpository : RepositoryBase<PlayerBlockObjective>, IPlayerBlockObjectiveRepository
+    public class PlayerBlockObjectiveRepository : RepositoryBase<PlayerBlockObjective>, IPlayerBlockObjectiveRepository
     {
-        public PlayerBlockObjectiveRpository(IDatabaseFactory databaseFactory) : base(databaseFactory)
+        public PlayerBlockObjectiveRepository(IDatabaseFactory databaseFactory)
+            : base(databaseFactory)
         {
         }
     }

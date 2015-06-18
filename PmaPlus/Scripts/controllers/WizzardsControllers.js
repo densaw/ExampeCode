@@ -2,45 +2,24 @@
 
 
 
-app.controller('WizzardController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
-    var ProgressDemoCtrl = function ($scope) {
+app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', function ($scope, $http, toaster, $location) {
 
-        $scope.max = 10;
-        $scope.wizard = { step: 1 }
+    var pathArray = $location.$$absUrl.split("/");
+    $scope.currId = pathArray[pathArray.length - 1];
 
-        $scope.random = function () {
-            var value = Math.floor((Math.random() * 100) + 1);
-            var type;
+   
 
-            if (value < 25) {
-                type = 'success';
-            } else if (value < 50) {
-                type = 'info';
-            } else if (value < 75) {
-                type = 'warning';
-            } else {
-                type = 'danger';
-            }
 
-            $scope.showWarning = (type === 'danger' || type === 'warning');
+    $http.get('/api/Curriculum/Wizard/' + $scope.currId)
+        .success(function (data) {
+            $scope.steps = data;
+       
+    });
+
+
+
+
     
-            $scope.dynamic = value;
-            $scope.type = type;
-        };
-        $scope.random();
 
-        $scope.randomStacked = function () {
-            $scope.stacked = [];
-            var types = ['success', 'info', 'warning', 'danger'];
 
-            for (var i = 0, n = Math.floor((Math.random() * 4) + 1) ; i < n; i++) {
-                var index = Math.floor((Math.random() * 4));
-                $scope.stacked.push({
-                    value: Math.floor((Math.random() * 30) + 1),
-                    type: types[index]
-                });
-            }
-        };
-        $scope.randomStacked();
-    };
 }]);

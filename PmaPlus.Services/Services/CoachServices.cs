@@ -7,12 +7,12 @@ using PmaPlus.Data.Repository.Iterfaces;
 
 namespace PmaPlus.Services.Services
 {
-    public class CoachSerivces
+    public class CoachServices
     {
         private readonly ICoachRepository _coachRepository;
         private readonly IUserRepository _userRepository;
 
-        public CoachSerivces(IUserRepository userRepository, ICoachRepository coachRepository)
+        public CoachServices(IUserRepository userRepository, ICoachRepository coachRepository)
         {
             _userRepository = userRepository;
             _coachRepository = coachRepository;

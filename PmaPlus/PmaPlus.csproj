@@ -3219,9 +3219,12 @@
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\ClubControllers.js" />
+    <Content Include="Scripts\controllers\curriculumProcess\CurrAdendanceController.js" />
+    <Content Include="Scripts\controllers\curriculumProcess\JustSessionController.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
     <Content Include="Scripts\controllers\MessageController.js" />
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
+    <Content Include="Scripts\controllers\TeamPlayersTableController.js" />
     <Content Include="Scripts\controllers\UserAvatarController.js" />
     <Content Include="Scripts\controllers\WizzardsControllers.js" />
     <Content Include="Scripts\datapickersecond\bootstrap-datepicker.js" />
@@ -3787,6 +3790,11 @@
     <Content Include="Views\Partials\_Injuries.cshtml" />
     <Content Include="Views\Partials\_VideoModalPartial.cshtml" />
     <Content Include="Views\Partials\_PrivateMessage.cshtml" />
+    <Content Include="Views\Partials\_TraningTeam.cshtml" />
+    <Content Include="Views\Partials\_WizardPartials\_JustSessionPartial.cshtml" />
+    <Content Include="Views\Partials\Curriculums\_CurriculumPartial.cshtml" />
+    <Content Include="Views\Partials\Curriculums\_CurrDetailPartial.cshtml" />
+    <Content Include="Views\Partials\_WizardPartials\_Attendance.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3811,6 +3819,7 @@
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
     <Folder Include="Areas\WelfareOfficer\Models\" />
     <Folder Include="Images\Clubs\" />
+    <Folder Include="Scripts\controllers\curriculumProcess\" />
     <Folder Include="Scripts\plugins\datapicker\icons\" />
   </ItemGroup>
   <ItemGroup>

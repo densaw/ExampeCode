@@ -25,6 +25,9 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             _teamServices = teamServices;
         }
 
+        
+        
+        
         [Route("api/Curriculum/Players/Statistic/{teamId:int}")]
         public IEnumerable<CurriculumPlayersStatisticViewModel> GetPlayersStatistics(int teamId)
         {
@@ -43,6 +46,12 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             return _curriculumProcessServices.GetCurriculumSessionsWizard(teamId);
         }
 
+
+
+
+
+
+
         [Route("api/Curriculum/Wizard/Session/Save/{teamCurriculumId:int}/{sessionId:int}")]
         public IHttpActionResult Post(int teamCurriculumId, int sessionId)
         {
@@ -51,6 +60,9 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
 
             return Ok();
         }
+
+
+
 
         [Route("api/Curriculum/Wizard/Session/AttendanceTable/{teamId:int}/{sessionId:int}")]
         public IEnumerable<SessionAttendanceTableViewModel> GetPlayersAttendance(int teamId, int sessionId)
