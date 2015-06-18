@@ -3788,6 +3788,7 @@
     <Content Include="Views\Partials\_Injuries.cshtml" />
     <Content Include="Views\Partials\_VideoModalPartial.cshtml" />
     <Content Include="Views\Partials\_PrivateMessage.cshtml" />
+    <Content Include="Views\Partials\_TraningTeam.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
