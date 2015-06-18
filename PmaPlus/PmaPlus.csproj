@@ -3813,6 +3813,7 @@
     <Folder Include="Areas\SysAdmin\Views\SysAdmin\" />
     <Folder Include="Areas\WelfareOfficer\Models\" />
     <Folder Include="Images\Clubs\" />
+    <Folder Include="Scripts\controllers\curriculumProcess\" />
     <Folder Include="Scripts\plugins\datapicker\icons\" />
   </ItemGroup>
   <ItemGroup>
