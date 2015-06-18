@@ -18,6 +18,20 @@
         };
     });
 
+    module.directive('ngEnter', function () {
+        return function (scope, element, attrs) {
+            element.bind("keydown keypress", function (event) {
+                if(event.which === 13) {
+                    scope.$apply(function (){
+                        scope.$eval(attrs.ngEnter);
+                    });
+
+                    event.preventDefault();
+                }
+            });
+        };
+    });
+
     
     module.config(['uiSelectConfig', function (uiSelectConfig) {
         uiSelectConfig.theme = 'bootstrap';
@@ -128,21 +142,27 @@
                 });
         }
 
-        $scope.rateMessage = function(messageId, rating){
+        $scope.rateMessage = function(message, rating){
             $scope.newRating.rating = rating; 
-            $http.post('/api/Message/Rating/' + messageId, $scope.newRating)
+            $http.post('/api/Message/Rating/' + message.id, $scope.newRating)
             .success(function(result){
-                $scope.message = [];
-                getResultsPage(0);
+                if(result.rating){
+                    message.ratingPositive.push(result);
+                }else{
+                    message.ratingNegative.push(result);
+                }
             })
         }
 
-        $scope.sendComment = function(messageId, index){
+        $scope.sendComment = function(message, index){
+            console.log(message);
             $scope.newComment.comment =  $scope.tmpComment[index].comment
-            $http.post('/api/Message/Comment/'+messageId, $scope.newComment)
+            $http.post('/api/Message/Comment/'+message.id, $scope.newComment)
                 .success(function(result){
                     $scope.tmpComment = [];
-                    getResultsPage($scope.currentPage);
+                    message.comments.push(result);
+                    console.log(result);
+                    //getResultsPage($scope.currentPage);
                 });
         }
 

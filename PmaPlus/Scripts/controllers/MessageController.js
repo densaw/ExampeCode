@@ -1,5 +1,23 @@
 ﻿var app = angular.module('MainApp');
 
+app.filter('orderObjectBy', function(){
+ return function(input, attribute) {
+    if (!angular.isObject(input)) return input;
+
+    var array = [];
+    for(var objectKey in input) {
+        array.push(input[objectKey]);
+    }
+
+    array.sort(function(a, b){
+        a = parseInt(a[attribute]);
+        b = parseInt(b[attribute]);
+        return a - b;
+    });
+    return array;
+ }
+});
+
 app.controller('PrivateController', ['$scope', '$http','$q',function ($scope, $http, $q) {
 
         var urlGroupTail = '/api/Message/Group';
@@ -93,7 +111,7 @@ app.controller('PrivateController', ['$scope', '$http','$q',function ($scope, $h
         function getAllRecent(){
             $http.get(urlGroupTail)
             .success(function(result){
-
+                console.log(result);
                 $scope.recents = result;
             })
             .error(function (data, status, headers, config) {

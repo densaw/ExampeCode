@@ -32,7 +32,9 @@ namespace PmaPlus.Services
                     usersInGroup.Add(userId);
                     groupId = CreateMessageGroup(usersInGroup).MessageGroupId;
                 }
-
+                var group = _messageGroupRepository.GetById(groupId);
+                group.UpdateAt = DateTime.Now;
+                _messageGroupRepository.Update(group);
               return _messagePrivateRepository.Add(new MessagePrivate()
               {
                   MessageGroupId = groupId,
@@ -54,9 +56,12 @@ namespace PmaPlus.Services
         {
             return _messageGroupRepository.Add(new MessageGroup()
             {
+                UpdateAt = DateTime.Now,
                 Users = _userRepository.GetMany(x => usersInGroup.Contains(x.Id)).ToList()
             });
         }
+
+        
 
         public IQueryable<MessagePrivateViewModel> GetMessagePrivatesByGroupId(int groupId)
         {
@@ -79,6 +84,7 @@ namespace PmaPlus.Services
             {
                 Id = v.MessageGroupId,
                 GroupName = v.GroupName,
+                UpdateAt = v.UpdateAt,
                 Messages = _messagePrivateRepository.GetAll()
                 .Where(g => g.MessageGroupId == v.MessageGroupId)
                 .OrderBy(g => g.SendAt)

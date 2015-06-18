@@ -45,7 +45,7 @@ namespace PmaPlus.Services
             return _messageRepository.Add(msg);
         }
 
-        public MessageComment AddComment(int messageId, MessageCommentViewModel comment)
+        public MessageCommentViewModel AddComment(int messageId, MessageCommentViewModel comment)
         {
             var cmt = new MessageComment()
             {
@@ -54,10 +54,10 @@ namespace PmaPlus.Services
                 Comment = comment.Comment,
                 User = _userRepository.GetById(comment.UserId)
             };
-            return _messageCommentRepository.Add(cmt);
+            return ConvertToCommentViewModel(_messageCommentRepository.Add(cmt));
         }
 
-        public MessageRating AddMessageRating(int messageId, MessageRatingViewModel messageRating)
+        public MessageRatingViewModel AddMessageRating(int messageId, MessageRatingViewModel messageRating)
         {
             var rat = new MessageRating()
             {
@@ -71,7 +71,7 @@ namespace PmaPlus.Services
             }
             else
             {
-                return _messageRatingRepository.Add(rat);
+                return ConvertToRatingViewModel(_messageRatingRepository.Add(rat));
             }
             
         }
@@ -97,6 +97,29 @@ namespace PmaPlus.Services
                 Image = message.Image,
                 UserName = message.User.UserName,
                 UserAva = string.IsNullOrEmpty(message.User.UserDetail.ProfilePicture) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + message.User.UserDetail.ProfilePicture + "/" + message.User.Id 
+            };
+        }
+
+        public MessageCommentViewModel ConvertToCommentViewModel(MessageComment comment)
+        {
+            return new MessageCommentViewModel()
+            {
+                Id = comment.Id,
+                Comment = comment.Comment,
+                SendAt = comment.SendAt,
+                UserName = (comment.User.UserDetail == null) ? comment.User.UserName : comment.User.UserDetail.FirstName + " " + comment.User.UserDetail.LastName,
+                UserAva = (comment.User.Role == Role.ClubAdmin || comment.User.Role == Role.SystemAdmin) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + comment.User.UserDetail.ProfilePicture + "/" + comment.User.Id
+            };
+        }
+
+        public MessageRatingViewModel ConvertToRatingViewModel(MessageRating rating)
+        {
+            return new MessageRatingViewModel()
+            {
+                UserId = rating.UserId,
+                Rating = rating.Rating,
+                UserAva = (rating.User.Role == Role.ClubAdmin || rating.User.Role == Role.SystemAdmin) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + rating.User.UserDetail.ProfilePicture + "/" + rating.User.Id,
+                UserName = (rating.User.UserDetail == null) ? rating.User.UserName : rating.User.UserDetail.FirstName + " " + rating.User.UserDetail.LastName
             };
         }
 
