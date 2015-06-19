@@ -32,7 +32,7 @@
                             </thead>
                             <tbody>
                                 <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                    <td>{{item.picture}}</td>
+                                    <td><img class="img-circle" ng-src="{{item.picture}}"></td>
                                     <td>{{item.name}}</td>
                                     <td>{{item.attPercent}}</td>
                                     <td>{{item.wbPercent}}</td>
