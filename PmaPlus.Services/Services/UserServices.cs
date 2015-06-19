@@ -160,6 +160,16 @@ namespace PmaPlus.Services
             return userList;
         }
 
+        public IEnumerable<User> GetUsersByRolesWithOutItSelf(IList<Role> roles, int userId)
+        {
+            List<User> userList = new List<User>();
+            foreach (var role in roles)
+            {
+                userList.AddRange(_userRepository.GetMany(u => u.Role == role).Where(x => x.Id != userId));
+            }
+            return userList;
+        }
+
         public bool UserExist(int id)
         {
             return _userRepository.GetMany(u => u.Id == id).Any();

@@ -35,7 +35,8 @@ namespace PmaPlus.Controllers.ApiControllers.Communication
 
         public MessageWallPage Get(int page)
         {
-            var messageList = _messageServices.GetAllWallMessage(page).ToList();
+            var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
+            var messageList = _messageServices.GetAllWallMessage(page, clubId).ToList();
             foreach (var message in messageList)
             {
                 var tmp = _messageServices.GetMessageComments(message.Id);

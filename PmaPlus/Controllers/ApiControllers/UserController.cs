@@ -76,6 +76,14 @@ namespace PmaPlus.Controllers.ApiControllers
             return Mapper.Map<IEnumerable<User>, IEnumerable<UsersList>>(users);
         }
 
+        [Route("api/Users/List/Wself")]
+        public IEnumerable<UsersList> GetWithOutItSelf([FromUri] Role[] role)
+        {
+            var userId = _userServices.GetUserByEmail(User.Identity.Name).Id;
+            var users = _userServices.GetUsersByRolesWithOutItSelf(role, userId);
+            return Mapper.Map<IEnumerable<User>, IEnumerable<UsersList>>(users);
+        }
+
         [Route("api/Scouts/List")]
         public IEnumerable<UsersList> GetScouts()
         {
