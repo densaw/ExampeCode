@@ -18,7 +18,12 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
     //    }
     //});
     $scope.progress = {}
-   
+
+    $http.get('/api/Teams/' + $scope.currId)
+        .success(function (data) {
+            $scope.teamname = data.name;
+           
+        });
 
     $http.get('/api/Curriculum/Wizard/' + $scope.currId)
         .success(function(data) {

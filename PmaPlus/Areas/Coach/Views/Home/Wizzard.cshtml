@@ -2,58 +2,58 @@
     ViewBag.Title = "PMA+";
     Layout = "~/Areas/Coach/Views/Shared/_AdminLayout.cshtml";
 }
+<div ng-controller="WizzardController" ng-cloak>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>{{teamname}} - Curriculum Process</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Home", "Wizzard")">Home</a>
+                </li>
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>Curriculum Process</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="@Url.Action("Home", "Wizzard")">Home</a>
-            </li>
+                <li class="active">
+                    <strong>Curriculum</strong>
+                </li>
+            </ol>
+        </div>
 
-            <li class="active">
-                <strong>Curriculum</strong>
-            </li>
-        </ol>
     </div>
-
-</div>
-<div class="wrapper wrapper-content animated fadeInRight" ng-controller="WizzardController" ng-cloak>
-    <wizard hide-indicators="true">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Progress Bars</h5>
-                        <div class="ibox-tools" style="margin-top: -5px;">
-                            <a class=" btn btn-primary btn-sm" wz-previous ng-click="updateProgress()">Prev</a>
-                            <a class="btn btn-primary btn-sm">Save Progress</a>
-                            <a class="btn btn-primary btn-sm" wz-next ng-click="updateProgress()">Next</a>
+    <div class="wrapper wrapper-content animated fadeInRight" ng-controller="WizzardController" ng-cloak>
+        <wizard hide-indicators="true">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Progress Bars</h5>
+                            <div class="ibox-tools" style="margin-top: -5px;">
+                                <a class=" btn btn-primary btn-sm" wz-previous ng-click="updateProgress()">Prev</a>
+                                <a class="btn btn-primary btn-sm">Save Progress</a>
+                                <a class="btn btn-primary btn-sm" wz-next ng-click="updateProgress()">Next</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="row">
-                            <div class="col-sm-12"><progressbar ng-if="progress.max" class="progress-striped active" max="progress.max" value="progress.current" type="danger"></progressbar></div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-sm-12"><progressbar ng-if="progress.max" class="progress-striped active" max="progress.max" value="progress.current" type="danger"></progressbar></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <wz-step ng-repeat="step in steps">
+            <wz-step ng-repeat="step in steps">
 
-            <div ng-if="step.coachDetails">
-                @Html.Partial("~/Views/Partials/_WizardPartials/_JustSessionPartial.cshtml")
-            </div>
-            <div ng-if="step.attendance">
-                @Html.Partial("~/Views/Partials/_WizardPartials/_Attendance.cshtml")
+                <div ng-if="step.coachDetails">
+                    @Html.Partial("~/Views/Partials/_WizardPartials/_JustSessionPartial.cshtml")
+                </div>
+                <div ng-if="step.attendance">
+                    @Html.Partial("~/Views/Partials/_WizardPartials/_Attendance.cshtml")
 
-            </div>
+                </div>
 
 
-        </wz-step>
-    </wizard>
+            </wz-step>
+        </wizard>
+    </div>
 </div>
-
 @section scripts{
     <script src="~/Scripts/controllers/WizzardsControllers.js"></script>
     <script src="~/Scripts/controllers/curriculumProcess/JustSessionController.js"></script>
