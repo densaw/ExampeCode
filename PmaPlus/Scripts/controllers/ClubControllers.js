@@ -2110,6 +2110,16 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     $scope.open = function () {
         $scope.modalTitle = 'Add Curriculum Session';
         $scope.newCurrDet = {};
+        toggleAttendance.bootstrapToggle('off');
+        toggleObjectives.bootstrapToggle('off');
+        toggleRating.bootstrapToggle('off');
+        toggleReport.bootstrapToggle('off');
+        toggleObjectiveReport.bootstrapToggle('off');
+        toggleCoachDetails.bootstrapToggle('off');
+        togglePlayerDetails.bootstrapToggle('off');
+        toggleStartofReviewPeriod.bootstrapToggle('off');
+        toggleEndofReviewPeriod.bootstrapToggle('off');
+        toggleNeedScenarios.bootstrapToggle('off');
         target.modal('show');
     };
 
