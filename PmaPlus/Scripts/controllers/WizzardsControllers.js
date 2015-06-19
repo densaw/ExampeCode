@@ -17,19 +17,18 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
     //    console.log(wizard);
     //    }
     //});
-    //$scope.progress = {
-    //    max: 1,
-    //    current: 0
-    //};
+    $scope.progress = {}
+   
 
     $http.get('/api/Curriculum/Wizard/' + $scope.currId)
         .success(function(data) {
             $scope.steps = data;
-            $scope.progress.max = data.length;
+            $scope.progress.max = data.length -1;
         });
 
+
+
     $scope.updateProgress = function() {
-        $scope.progress.current = WizardHandler.wizard().currentStepNumber();
-        console.log($scope.progress.current);
+        $scope.progress.current = WizardHandler.wizard().currentStepNumber() - 1;
     };
 }]);
