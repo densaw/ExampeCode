@@ -18,7 +18,7 @@ app.filter('orderObjectBy', function(){
  }
 });
 
-app.controller('PrivateController', ['$scope', '$http','$q',function ($scope, $http, $q) {
+app.controller('PrivateController', ['$scope', '$http','$q', '$filter',function ($scope, $http, $q, $filter) {
 
         var urlGroupTail = '/api/Message/Group';
         var target = angular.element('#sendMessage');
@@ -61,7 +61,8 @@ app.controller('PrivateController', ['$scope', '$http','$q',function ($scope, $h
         $scope.sendMessageinGroup = function(){
             $http.post(urlGroupTail + '/' + selectGroupId, $scope.messageInGroupSend)
             .success(function(){
-               getAllMessageForGroupById(selectGroupId)
+               getAllRecent();
+               //getAllMessageForGroupById(selectGroupId);
             })
             .error(function (data, status, headers, config) {
 
@@ -112,7 +113,12 @@ app.controller('PrivateController', ['$scope', '$http','$q',function ($scope, $h
             $http.get(urlGroupTail)
             .success(function(result){
                 console.log(result);
-                $scope.recents = result;
+                $scope.recents = $filter('orderBy')(result, 'updateAt', true);
+                if($scope.haveGroup){
+                    getAllMessageForGroupById(selectGroupId);
+                    messageInGroupSend.messagePrivate.message = '';
+                }
+                
             })
             .error(function (data, status, headers, config) {
 
@@ -120,7 +126,7 @@ app.controller('PrivateController', ['$scope', '$http','$q',function ($scope, $h
         }
 
         function getAllPersonToSend(){
-        	$http.get('/api/Users/List?role=1&role=2&role=3&role=4&role=5&role=6&role=7&role=8&role=9')
+        	$http.get('/api/Users/List/Wself?role=1&role=2&role=3&role=4&role=5&role=6&role=7&role=8&role=9')
             .success(function (result) {
                 $scope.persons = result;
             })

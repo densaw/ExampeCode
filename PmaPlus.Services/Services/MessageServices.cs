@@ -17,6 +17,7 @@ namespace PmaPlus.Services
         private readonly IUserRepository _userRepository;
         private readonly IMessageRatingRepository _messageRatingRepository;
         private readonly IMessageCommentRepository _messageCommentRepository;
+        private readonly UserServices _userServices;
 
         private const int PageSize = 20;
 
@@ -24,23 +25,25 @@ namespace PmaPlus.Services
             IMessageRepository messageRepository,
             IUserRepository userRepository,
             IMessageRatingRepository messageRatingRepository,
-            IMessageCommentRepository messageCommentRepository
-            )
+            IMessageCommentRepository messageCommentRepository, UserServices userServices)
         {
             _messageRepository = messageRepository;
             _userRepository = userRepository;
             _messageRatingRepository = messageRatingRepository;
             _messageCommentRepository = messageCommentRepository;
+            _userServices = userServices;
         }
 
         public Message AddMessage(MessageViewModel message)
         {
+            var clubeId = _userServices.GetClubByUserName(_userRepository.GetById(message.UserId).Email).Id;
             var msg = new Message()
             {
                 Image = message.Image,
                 SendAt = DateTime.Now,
                 Text = message.Message,
-                UserId = message.UserId
+                UserId = message.UserId,
+                ClubId = clubeId
             };
             return _messageRepository.Add(msg);
         }
@@ -123,11 +126,12 @@ namespace PmaPlus.Services
             };
         }
 
-        public IQueryable<MessageViewModel> GetAllWallMessage(int page)
+        public IQueryable<MessageViewModel> GetAllWallMessage(int page, int clubId)
         {
 
             return 
                 _messageRepository.GetAll()
+                .Where(x => x.ClubId == clubId)
                 .OrderByDescending(j => j.SendAt)
                 .Skip(page * PageSize).Take(PageSize)
                 .Select(x => new MessageViewModel()

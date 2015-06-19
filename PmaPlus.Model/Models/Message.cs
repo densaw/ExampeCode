@@ -21,6 +21,7 @@ namespace PmaPlus.Model.Models
         public string Image { get; set; }
         public DateTime SendAt { get; set; }
         public int UserId { get; set; }
+        public int ClubId { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<MessageComment> Comments { get; set; }
         public virtual ICollection<MessageRating> Ratings { get; set; } 

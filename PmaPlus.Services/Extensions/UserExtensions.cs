@@ -17,7 +17,8 @@ namespace PmaPlus.Services.Extensions
                 return users.Select(x => new UsersList
                 {
                     Id = x.Id,
-                    Name = (x.UserDetail == null) ? x.UserName : x.UserDetail.FirstName + " " + x.UserDetail.LastName
+                    Name = (x.UserDetail == null) ? x.UserName : x.UserDetail.FirstName + " " + x.UserDetail.LastName,
+                    UserAva = (x.Role == Role.ClubAdmin || x.Role == Role.SystemAdmin) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + x.UserDetail.ProfilePicture + "/" + x.Id,
                 });
             }
             return null;

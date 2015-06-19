@@ -1,7 +1,7 @@
 ﻿<div ng-controller="PrivateController">
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>Injuries</h2>
+            <h2>Communication</h2>
             <ol class="breadcrumb">
                 <li>
                     <a>Home</a>
@@ -82,15 +82,26 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <div class="feed-element" style="cursor: pointer;" ng-repeat="recent in recents" ng-click="selectGroup(recent)">
-                            <div style="width: 50px; height: 50px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
-                                <img alt="image" class="prifile" src="../../Images/Default_background.png" style-parent />
+                        <div class="row" style="cursor: pointer; margin-left: 5px;" ng-repeat="recent in recents  | orderObjectBy:updateAt" ng-click="selectGroup(recent)">
+                            <div ng-if="recent.users.length < 2" style="width: 50px; height: 50px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
+                                <img alt="image" class="prifile" ng-src="{{recent.users[0].userAva}}" style-parent />
                             </div>
-                            <div class="media-body ">
-                                <div ng-repeat="user in recent.users | orderObjectBy:updateAt">
-                                    <strong>{{user.name}}</strong>
+                            <div ng-if="recent.users.length > 1" style="width: 50px; height: 50px; position: relative; overflow: hidden; border-radius: 50%; border: solid #ebebed;" class="img-circle pull-left">
+                                <img alt="image" class="prifile" ng-src="/api/Clubs/logo" style-parent />
+                            </div>
+                            <div class="col-xs-9" style="margin-top: 15px;">
+                                <div class="container-fluid">
+                                    <div class="row-fluid">
+                                        <div ng-if="recent.users.length > 1">
+                                            <strong>Group Message</strong>
+                                        </div>
+                                        <div ng-if="recent.users.length < 2" ng-repeat="user in recent.users">
+                                            <strong>{{user.name}}</strong>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -120,10 +131,10 @@
                                         <img alt="image" class="prifile" ng-src="{{groupMsg.userAva}}" style-parent />
                                     </div>
                                     <div>
-                                        <small class="pull-right text-navy" style="font-size: 12px;" >{{groupMsg.sendAt | date:'HH:mm - dd.MM.yyyy'}}</small>
+                                        <small class="pull-right" style="font-size: 12px;" >{{groupMsg.sendAt | date:'HH:mm - dd.MM.yyyy'}}</small>
                                         <strong style="font-size: 14px;">{{groupMsg.userName}}</strong><br>
                                         <small class="text-muted"></small>
-                                        <div class="well" style="font-size: 12px; margin-left: 1px;">
+                                        <div class="well" style="font-size: 13px; margin-left: 1px;">
                                             {{groupMsg.message}}
                                             <img style="width: 100%;" ng-show="groupMsg.image != null" ng-src="/api/file/MessageWall/{{groupMsg.image}}" />
                                         </div>
@@ -169,4 +180,22 @@
         width: 100%;
         height: auto;
     }
+
+    html, body{height:100%; margin:0;padding:0}
+ 
+        .container-fluid{
+          height:100%;
+          display:table;
+          width: 100%;
+          padding: 0;
+        }
+ 
+        .row-fluid {height: 100%; display:table-cell; vertical-align: middle;}
+ 
+ 
+
+        .centering {
+          float:none;
+          margin:0 auto;
+        }
 </style>
