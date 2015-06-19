@@ -7,16 +7,6 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-
-    //$scope.$watch(function () {
-    //    return WizardHandler.wizard();
-    //}, function (wizard) {
-    //    if (wizard) {
-            
-           
-    //    console.log(wizard);
-    //    }
-    //});
     $scope.progress = {}
 
     $http.get('/api/Teams/' + $scope.currId)
@@ -28,7 +18,7 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
     $http.get('/api/Curriculum/Wizard/' + $scope.currId)
         .success(function(data) {
             $scope.steps = data;
-            $scope.progress.max = data.length -1;
+            $scope.progress.max = data.length - 1;
         });
 
     $scope.saveProgress = function() {
