@@ -31,7 +31,9 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
             $scope.progress.max = data.length -1;
         });
 
-
+    $scope.saveProgress = function() {
+            $scope.$broadcast ('saveProgressEvent');
+    };
 
     $scope.updateProgress = function() {
         $scope.progress.current = WizardHandler.wizard().currentStepNumber() - 1;
