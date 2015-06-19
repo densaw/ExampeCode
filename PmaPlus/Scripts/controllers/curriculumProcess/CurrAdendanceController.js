@@ -13,7 +13,6 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', function 
 
     $http.get('/api/Curriculum/Wizard/Session/AttendanceTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
         .success(function (result) {
-            console.log(result);
             $scope.items = result;
 
         });

@@ -1053,7 +1053,6 @@ app.controller('DairyNotifyController', ['$scope', '$http', 'toaster', function 
     function getResults() {
         $http.get(urlTail)
            .success(function (result) {
-               console.log(result);
                $scope.items = result;
                $scope.itemCount = result.length;
            });
