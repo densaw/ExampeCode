@@ -61,10 +61,10 @@ namespace PmaPlus.Services.Services
                              Report = s.Report,
                              CoachDetails = s.CoachDetails,
                              CoachDetailsName = s.CoachDetailsName,
-                             CoachPicture = s.CoachPicture,
+                             CoachPicture = "/api/file/Sessions/" + s.CoachPicture + "/" + s.Id,
                              PlayerDetails = s.PlayerDetails,
                              PlayerDetailsName = s.PlayerDetailsName,
-                             PlayerPicture = s.PlayerPicture,
+                             PlayerPicture = "/api/file/Sessions/" + s.PlayerPicture + "/" + s.Id,
                              StartOfReviewPeriod = s.StartOfReviewPeriod,
                              StartedOn = m == null ? null : m.StartedOn,
                              ComletedOn = m == null ? null : m.ComletedOn,
@@ -114,11 +114,11 @@ namespace PmaPlus.Services.Services
                          {
                              Id = a != null ? a.Id : 0,
                              PlayerId = player.Id,
-                             Picture = " /api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
+                             Picture = "/api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
                              Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                              Attendance = a != null ? a.Attendance : AttendanceType.Undefined,
                              Duration = a != null ? a.Duration : 0,
-                             AttPercent = (player.SessionAttendances.Count / player.SessionAttendances.Count != 0 ? (player.SessionAttendances.Count(atten => atten.Attendance == AttendanceType.Attended)) : 1) * 100,
+                             AttPercent = (player.SessionAttendances.Count / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count(atten => atten.Attendance == AttendanceType.Attended) : 1)) * 100,
                              WbPercent = 0, //TODO: Wellbieng!
                              Cur = 0
 
