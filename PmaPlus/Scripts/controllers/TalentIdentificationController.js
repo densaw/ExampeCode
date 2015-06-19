@@ -3,7 +3,7 @@
 
 app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
 
-    
+
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
@@ -21,7 +21,7 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
     function getParentCurr() {
         $http.get('/api/TalentIdentification/Detail/' + $scope.currId).success(function (result) {
             $scope.profileTalents = result;
-           
+
         });
     }
     //get Assesments
@@ -30,32 +30,32 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
     function getParentAssesmets() {
         $http.get('/api/TalentIdentificationNotes/' + $scope.currId).success(function (result) {
             $scope.profileAssesments = result;
-            
+
         });
     }
     //get Attributes
 
-   
+
     var toggleAttendance = angular.element('#toggleAttendance');
     var toggleInvite = angular.element('#toggleInvite');
     var toggleJoined = angular.element('#toggleJoined');
-   
+
 
     //invite-------------------------------------------------------------------------
     $scope.currName = '';
-    
+
     $scope.confInvite = function () {
 
-        toggleInvite.bootstrapToggle('off');
-        toggleJoined.bootstrapToggle('off');
-        toggleAttendance.bootstrapToggle('off');
+        toggleInvite.bootstrapToggle($scope.profileTalents.invitedToTrial ? 'on' : 'off');
+        toggleJoined.bootstrapToggle($scope.profileTalents.attendedTrail ? 'on' : 'off');
+        toggleAttendance.bootstrapToggle($scope.profileTalents.joinedClub ? 'on' : 'off');
 
         $scope.modalTitle = 'Invite Player';
         getParentCurr();
 
         console.log($scope.currId);
         $scope.modalTitle = "Update Type";
-        confInvite.modal('show');     
+        confInvite.modal('show');
     };
 
     $scope.cancelInvite = function () {
@@ -88,11 +88,11 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
                 });
             }
         });
-       
+
     };
 
     //ivite end---------------------------------------------------------------------
-   
+
     function createTail(pageNumber) {
         if (sortArray.length > 0) {
             return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
@@ -128,8 +128,8 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
     $scope.pagination = {
         current: 1
     };
-    
-   
+
+
     getResultsPage($scope.pagination.current);
 
     $scope.pageChanged = function (newPage) {
@@ -137,7 +137,7 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
         $scope.pagination.current = newPage;
     };
 
-    
+
     getParentAssesmets();
     getParentCurr();
 
@@ -183,7 +183,7 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
             });
     });
 
-   
+
 
     getPage($scope.pagination1.current);
 
@@ -239,8 +239,8 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
 
     //Notes end----------------------------------------------------------------------------------------------------
     $scope.checkAtt = function (item) {
-        
-        $http.post('/api/TalentPlayerAttributes', item).success(function() {
+
+        $http.post('/api/TalentPlayerAttributes', item).success(function () {
 
 
         });
@@ -260,36 +260,36 @@ app.controller('TalentIdController', ['$scope', '$http', 'toaster', '$q', '$rout
 app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $rootScope) {
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
-    
+
     //Variable section
     var date = new Date();
 
-    
+
     var needToDelete = -1;
 
     var urlTail = '/api/TalentIdentification';
     var target = angular.element('#addScoutP');
     var confDelete = angular.element('#confDelete');
-   
+
 
     var sortArray = [];
     //get scout
-    
+
 
     $scope.scouts = [];
-    
-    $http.get('/api/Scouts/List').success(function(result) {
+
+    $http.get('/api/Scouts/List').success(function (result) {
         $scope.scouts = result;
     });
 
-   //end
-   
+    //end
+
 
     $scope.newScoutP = {};
 
     $scope.curriculumTypesList = [];
-       
-    
+
+
     function createTail(pageNumber) {
         if (sortArray.length > 0) {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
@@ -304,7 +304,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
                 console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
-        
+
             });
     }
 
@@ -333,7 +333,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         $scope.pagination.current = newPage;
     };
 
-    
+
 
     $scope.open = function () {
         $scope.modalTitle = 'Add Scouted Player';
@@ -400,7 +400,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
         });
     };
 
-   
+
 
 
     $scope.check = function (playerObj) {
@@ -410,7 +410,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
 
         });
     }
-    
+
     function getClubName() {
         $http.get('/api/ClubAdminDashboard/ClubName').success(function (result) {
             $scope.clubName = result;
@@ -420,6 +420,6 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
     }
     getClubName();
 
-   
+
 
 }]);
