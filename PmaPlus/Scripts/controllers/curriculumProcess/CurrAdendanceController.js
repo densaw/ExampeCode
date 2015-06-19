@@ -35,4 +35,16 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', function 
     $scope.closeDetails = function ()
     { confDetail.modal('hide'); }
 
+    $scope.attendense = [
+       { id: 0, name: 'Attended' },
+       { id: 1, name: 'NotAttended' },
+       { id: 2, name: 'Holidays' },
+       { id: 3, name: 'Injured' },
+       { id: 4, name: 'School' },
+       { id: 5, name: 'Sick ' },
+       { id: 6, name: 'OtherTraining ' },
+       { id: -1, name: '' }
+       
+    ];
+    $scope.attendenseVisible = $scope.attendense[0];
 }]);

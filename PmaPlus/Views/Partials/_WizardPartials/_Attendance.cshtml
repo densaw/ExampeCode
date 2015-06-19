@@ -41,7 +41,7 @@
                                     <td>{{item.attPercent}}</td>
                                     <td>{{item.wbPercent}}</td>
                                     <td>{{item.cur}}</td>
-                                    <td><dropdown>{{item.attendance}}</dropdown></td>
+                                    <td><select name="attendense" ng-model="item.attendance" ng-options="attend.id as attend.name for attend in attendense" class=" form-control"></select></td>
                                     <td>
                                         
                                         <a ng-href="" class="fa fa-graduation-cap"></a>
