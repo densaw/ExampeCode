@@ -5,7 +5,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5 ng-if ="">Attendance - Date: {{addDate.time | date:'dd-MM-yyyy'}} Time: {{addDate.time | date:'HH:mm'}} Duration: {{addDate.duration}} </h5>
+                   <h5>Attendance</h5><h5 ng-if="addDate " style="font-weight: 200;"> - Date: {{addDate.time | date:'dd-MM-yyyy'}} Time: {{addDate.time | date:'HH:mm'}} Duration: {{addDate.duration}} </h5>
                     <div class="ibox-tools" style="margin-top: -5px;">
                         <a class=" btn btn-primary btn-sm" ng-click="confAtend()">All Attended</a>
                         <a class="btn btn-primary btn-sm" ng-click="ssesionDetail()">Session Detail</a>
@@ -32,12 +32,12 @@
                             </thead>
                             <tbody>
                                 <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                    <td><img class="img-circle" ng-src="{{item.picture}}"></td>
+                                    <td><img class="img-circle" style="border-radius: 50%; width: 50px; height: 50px;" ng-src="{{item.picture}}"></td>
                                     <td>{{item.name}}</td>
                                     <td>{{item.attPercent}}</td>
                                     <td>{{item.wbPercent}}</td>
                                     <td>{{item.cur}}</td>
-                                    <td>{{item.attendance}}</td>
+                                    <td><dropdown>{{item.attendance}}</dropdown></td>
                                     <td>
                                         
                                         <a ng-href="" class="fa fa-graduation-cap"></a>
