@@ -27,7 +27,7 @@
                         <h5>Progress Bars</h5>
                         <div class="ibox-tools" style="margin-top: -5px;">
                             <a class=" btn btn-primary btn-sm" wz-previous ng-click="updateProgress()">Prev</a>
-                            <a class="btn btn-primary btn-sm">Save Progress</a>
+                            <a class="btn btn-primary btn-sm" ng-click="saveProgress()">Save Progress</a>
                             <a class="btn btn-primary btn-sm" wz-next ng-click="updateProgress()">Next</a>
                         </div>
                     </div>
@@ -46,10 +46,13 @@
             </div>
             <div ng-if="step.attendance">
                 @Html.Partial("~/Views/Partials/_WizardPartials/_Attendance.cshtml")
-
             </div>
-
-
+            <div ng-if="step.objectives">
+                @Html.Partial("~/Views/Partials/_WizardPartials/_AddObjectivePartial.cshtml")
+            </div>
+            <div ng-if="step.objectiveReport">
+                @Html.Partial("~/Views/Partials/_WizardPartials/_ObjectiveReportPartial.cshtml")
+            </div>
         </wz-step>
     </wizard>
 </div>
@@ -58,4 +61,5 @@
     <script src="~/Scripts/controllers/WizzardsControllers.js"></script>
     <script src="~/Scripts/controllers/curriculumProcess/JustSessionController.js"></script>
     <script src="~/Scripts/controllers/curriculumProcess/CurrAdendanceController.js"></script>
+    <script src="~/Scripts/controllers/curriculumProcess/CurrObjectiveController.js"></script>
 }
