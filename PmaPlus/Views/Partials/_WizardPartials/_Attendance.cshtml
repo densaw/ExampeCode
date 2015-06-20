@@ -44,7 +44,7 @@
                                     <td><select name="attendense" ng-model="item.attendance" ng-options="attend.id as attend.name for attend in attendense" class=" form-control"></select></td>
                                     <td>
                                         
-                                        <a ng-href="" class="fa fa-graduation-cap"></a>
+                                        <a ng-click="openAtt()" class="fa fa-graduation-cap"></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -56,6 +56,53 @@
            
         </div>
     </div>
+    @*ModalATT*@
+    <div class="modal inmodal" id="openAtt" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title text-left">Session Details</h3>
+                </div>
+                <div class="modal-body">
+                    <form name="myform" class="form-horizontal" novalidate>
+
+
+                        <div class="form-group" ng-class="{'has-error':myform.eventStart.$invalid && (myform.eventStart.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Date:</label>
+                            <div class="col-lg-7 pull-right">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" id="dropdown10" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" value="{{fixDate.time | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        </div>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <datetimepicker required name="fixDate.time" data-ng-model="fixDate.time" data-datetimepicker-config="{ dropdownSelector: '#dropdown10', startView:'day'}" />
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Duration:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input type="number" name="fixDuration" ng-model="fixDate.duration" required class="form-control">
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="closeDetails()" id="closeInvite" type="button" class="btn btn-white">Close</button>
+                    <button ng-click="addDetails()" id="saveInvite" type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Modal End*@
     @*Modal*@
     <div class="modal inmodal" id="confDetail" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
@@ -111,39 +158,12 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="modal-title text-left">All Attend</h3>
                 </div>
-                <div class="modal-body">
-                    <form name="myform" class="form-horizontal" novalidate>
-
-                        <div class="form-group" ng-class="{'has-error':myform.eventStart.$invalid && (myform.eventStart.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Date:</label>
-                            <div class="col-lg-7 pull-right">
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle" id="dropdown10" role="button" data-toggle="dropdown" data-target="#" href="#">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" value="{{newNote.addDate | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                        </div>
-                                    </a>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                        <datetimepicker required name="eventStart" data-ng-model="newNote.addDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown10', startView:'day'}" />
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Duration:</label>
-                            <div class="col-lg-7 pull-right">
-                                <input type="number" name="sessionDuration" ng-model="newNote.note" required class="form-control">
-                            </div>
-                        </div>
-
-                    </form>
-
+                <div class="modal-body">               
+                        <h2>Attend all Player?</h2>
                 </div>
                 <div class="modal-footer">
-                    <button ng-click="c()" id="closeInvite" type="button" class="btn btn-white">Close</button>
-                    <button ng-click="o()" id="saveInvite" type="button" class="btn btn-primary">Save changes</button>
+                    <button ng-click="cancelAtt()" id="closeAtt" type="button" class="btn btn-white">No</button>
+                    <button ng-click="okAtt()" id="saveAtt" type="button" class="btn btn-primary">Yes</button>
                 </div>
             </div>
         </div>
