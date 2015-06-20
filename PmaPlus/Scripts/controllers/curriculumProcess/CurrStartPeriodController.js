@@ -1,17 +1,17 @@
 ﻿var app = angular.module('MainApp');
 
-app.controller('CurrObjectiveController', ['$scope', '$http', '$location', 'WizardHandler', function ($scope, $http, $location, WizardHandler) {
+app.controller('CurrStartPeriodController', ['$scope', '$http', '$location', 'WizardHandler', function ($scope, $http, $location, WizardHandler) {
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    $http.get('/api/Curriculum/Wizard/Session/ObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
+    $http.get('/api/Curriculum/Wizard/Session/BlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
         .success(function (result) {
             $scope.items = result;
 
         });
-    var saveObjectives = function () {
-        $http.post('/api/Curriculum/Wizard/Session/ObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
+    var savePeriod = function () {
+        $http.post('/api/Curriculum/Wizard/Session/BlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
             .success(function () {
 
             });
@@ -22,7 +22,7 @@ app.controller('CurrObjectiveController', ['$scope', '$http', '$location', 'Wiza
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
 
             console.log("save objectives");
-            saveObjectives();
+            savePeriod();
 
         }
     });

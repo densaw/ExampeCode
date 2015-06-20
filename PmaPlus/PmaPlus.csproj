@@ -3220,7 +3220,11 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\ClubControllers.js" />
     <Content Include="Scripts\controllers\curriculumProcess\CurrAdendanceController.js" />
+    <Content Include="Scripts\controllers\curriculumProcess\CurrRatingController.js" />
+    <Content Include="Scripts\controllers\curriculumProcess\CurrReportObjectiveController.js" />
     <Content Include="Scripts\controllers\curriculumProcess\CurrObjectiveController.js" />
+    <Content Include="Scripts\controllers\curriculumProcess\CurrReportPeriodController.js" />
+    <Content Include="Scripts\controllers\curriculumProcess\CurrStartPeriodController.js" />
     <Content Include="Scripts\controllers\curriculumProcess\JustSessionController.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
     <Content Include="Scripts\controllers\MessageController.js" />
@@ -3798,6 +3802,9 @@
     <Content Include="Views\Partials\_WizardPartials\_Attendance.cshtml" />
     <Content Include="Views\Partials\_WizardPartials\_AddObjectivePartial.cshtml" />
     <Content Include="Views\Partials\_WizardPartials\_ObjectiveReportPartial.cshtml" />
+    <Content Include="Views\Partials\_WizardPartials\_RatingPartial.cshtml" />
+    <Content Include="Views\Partials\_WizardPartials\_StartPeriodPartial.cshtml" />
+    <Content Include="Views\Partials\_WizardPartials\_ReportPeriodPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -169,6 +169,7 @@ namespace PmaPlus.Services.Services
             var team = _teamRepository.GetById(teamId);
             var playres = team.Players;
             ICollection<PlayerObjective> objectives = new List<PlayerObjective>();
+
             var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
             if (sessionResult != null)
             {
@@ -185,6 +186,51 @@ namespace PmaPlus.Services.Services
                              Picture = " /api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
                              Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                              Objective = o != null ? o.Objective : "",
+                             Outcome = o != null ? o.Outcome : "",
+                             FeedBack = o != null ? o.FeedBack : ""
+                         };
+            return result.AsEnumerable();
+        }
+
+
+        public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerObjectiveRepTable(int teamId, int sessionId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            var playres = team.Players;
+            ICollection<PlayerObjective> objectives = new List<PlayerObjective>();
+            ICollection<PlayerObjective> lastObjectives = new List<PlayerObjective>();
+
+
+            var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
+            var lastObjSessionResult =
+                team.TeamCurriculum.SessionResults.OrderBy(s => s.Session.Number)
+                    .LastOrDefault(o => o.Session.Objectives);
+
+
+
+            if (sessionResult != null)
+            {
+                objectives = sessionResult.PlayerObjectives;
+            }
+
+
+            if (lastObjSessionResult != null)
+            {
+                lastObjectives = lastObjSessionResult.PlayerObjectives;
+            }
+
+            var result = from player in playres
+                         join obj in objectives on player.Id equals obj == null ? 0 : obj.PlayerId into ob
+                         from o in ob.DefaultIfEmpty()
+                         join lobj in lastObjectives on player.Id equals lobj ==  null ? 0 : lobj.PlayerId into lob
+                         from lo in lob.DefaultIfEmpty()
+                         select new PlayerObjectiveTableViewModel()
+                         {
+                             Id = o != null ? o.Id : 0,
+                             PlayerId = player.Id,
+                             Picture = " /api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
+                             Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
+                             Objective = lo != null ? lo.Objective : "",
                              Outcome = o != null ? o.Outcome : "",
                              FeedBack = o != null ? o.FeedBack : ""
                          };

@@ -2064,7 +2064,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     function createTail(pageNumber) {
         if (sortArray.length > 0) {
-            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + !sortArray[1];
         } else {
             return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber;
         }
@@ -2213,7 +2213,12 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                     target.modal('hide');
                     angular.element('.pma-fileupload').fileinput('clear');
                 }).error(function (data, status, headers, config) {
-
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error',
+                        bodyOutputType: 'trustedHtml',
+                        body: 'Please complete the compulsory fields highlighted in red'
+                    });
                 });
             } else {
                 //POST
@@ -2224,7 +2229,12 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                     target.modal('hide');
                     angular.element('.pma-fileupload').fileinput('clear');
                 }).error(function (data, status, headers, config) {
-
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error',
+                        bodyOutputType: 'trustedHtml',
+                        body: 'Please complete the compulsory fields highlighted in red'
+                    });
                 });
             }
         });
@@ -2234,16 +2244,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     $scope.openEdit = function (id) {
         $scope.myform.form_Submitted = false;
         $scope.modalTitle = 'Update Curriculum Session';
-        toggleAttendance.bootstrapToggle('off');
-        toggleObjectives.bootstrapToggle('off');
-        toggleRating.bootstrapToggle('off');
-        toggleReport.bootstrapToggle('off');
-        toggleObjectiveReport.bootstrapToggle('off');
-        toggleCoachDetails.bootstrapToggle('off');
-        togglePlayerDetails.bootstrapToggle('off');
-        toggleStartofReviewPeriod.bootstrapToggle('off');
-        toggleEndofReviewPeriod.bootstrapToggle('off');
-        toggleNeedScenarios.bootstrapToggle('off');
+       
         $http.get(urlTail + '/' + id)
             .success(function (result) {
                 console.log(result);
