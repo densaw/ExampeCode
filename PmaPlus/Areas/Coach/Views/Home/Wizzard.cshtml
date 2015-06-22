@@ -31,9 +31,9 @@
                         <div class="ibox-title">
                             <h5>Progress Bars</h5>
                             <div class="ibox-tools" style="margin-top: -5px;">
-                                <a class=" btn btn-primary btn-sm" wz-previous ng-click="updateProgress()">Prev</a>
+                                <a class=" btn btn-primary btn-sm" ng-disabled="!nav.canBack" wz-previous ng-click="updateProgress()">Prev</a>
                                 <a class="btn btn-primary btn-sm" ng-click="saveProgress()">Save Progress</a>
-                                <a class="btn btn-primary btn-sm" wz-next ng-click="updateProgress()">Next</a>
+                                <a class="btn btn-primary btn-sm" ng-disabled="!nav.canNext" wz-next ng-click="updateProgress()">Next</a>
                             </div>
                         </div>
                         <div class="ibox-content">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <wz-step ng-repeat="step in steps">
+            <wz-step ng-repeat="step in steps" canexit="canNext">
 
                 <div ng-if="step.coachDetails">
                     @Html.Partial("~/Views/Partials/_WizardPartials/_JustSessionPartial.cshtml")
