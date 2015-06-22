@@ -5,6 +5,11 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
+    $http.get('/api/CurriculumStatement/List').success(function (data) {
+        $scope.statemants = data;
+    });
+
+
     $http.get('/api/Curriculum/Wizard/Session/BlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
         .success(function (result) {
             $scope.items = result;
@@ -27,6 +32,16 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
         }
     });
 
+    $scope.addObjective = function (player) {
+        angular.element('#objModal').appendTo("body").modal('show');
+        $scope.player = player;
 
+    }
+
+
+
+    $scope.saveObjective = function () {
+        angular.element('#objModal').modal('hide');
+    }
 
 }]);
