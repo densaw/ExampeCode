@@ -169,6 +169,7 @@ namespace PmaPlus.Services.Services
             var team = _teamRepository.GetById(teamId);
             var playres = team.Players;
             ICollection<PlayerObjective> objectives = new List<PlayerObjective>();
+
             var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
             if (sessionResult != null)
             {
@@ -185,6 +186,51 @@ namespace PmaPlus.Services.Services
                              Picture = " /api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
                              Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                              Objective = o != null ? o.Objective : "",
+                             Outcome = o != null ? o.Outcome : "",
+                             FeedBack = o != null ? o.FeedBack : ""
+                         };
+            return result.AsEnumerable();
+        }
+
+
+        public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerObjectiveRepTable(int teamId, int sessionId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            var playres = team.Players;
+            ICollection<PlayerObjective> objectives = new List<PlayerObjective>();
+            ICollection<PlayerObjective> lastObjectives = new List<PlayerObjective>();
+
+
+            var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
+            var lastObjSessionResult =
+                team.TeamCurriculum.SessionResults.OrderBy(s => s.Session.Number)
+                    .LastOrDefault(o => o.Session.Objectives);
+
+
+
+            if (sessionResult != null)
+            {
+                objectives = sessionResult.PlayerObjectives;
+            }
+
+
+            if (lastObjSessionResult != null)
+            {
+                lastObjectives = lastObjSessionResult.PlayerObjectives;
+            }
+
+            var result = from player in playres
+                         join obj in objectives on player.Id equals obj == null ? 0 : obj.PlayerId into ob
+                         from o in ob.DefaultIfEmpty()
+                         join lobj in lastObjectives on player.Id equals lobj ==  null ? 0 : lobj.PlayerId into lob
+                         from lo in lob.DefaultIfEmpty()
+                         select new PlayerObjectiveTableViewModel()
+                         {
+                             Id = o != null ? o.Id : 0,
+                             PlayerId = player.Id,
+                             Picture = " /api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
+                             Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
+                             Objective = lo != null ? lo.Objective : "",
                              Outcome = o != null ? o.Outcome : "",
                              FeedBack = o != null ? o.FeedBack : ""
                          };
@@ -239,9 +285,17 @@ namespace PmaPlus.Services.Services
                                       Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                                       PreObjective = o != null ? o.PreObjective : "",
                                       Statement = blockObjectiveStatement != null ? blockObjectiveStatement.Statement : "",
-                                      Achieved = blockObjectiveStatement != null ? blockObjectiveStatement.Achieved : false
+                                      Achieved = blockObjectiveStatement != null ? blockObjectiveStatement.Achieved : false,
+                                      Age = DateTime.Now.Year - (player.User.UserDetail.Birthday.HasValue ? player.User.UserDetail.Birthday.Value.Year : DateTime.Now.Year),
+                                      Atl = player.PlayerRatingses.Select(r => r.Atl).DefaultIfEmpty().Average(),
+                                      Att = player.PlayerRatingses.Select(r => r.Att).DefaultIfEmpty().Average(),
+                                      Frm = player.MatchStatistics.Select(m => m.FormRating).DefaultIfEmpty().Average(),
+                                      Inj = player.PlayerInjuries.Count,
+                                      Cur = player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average(),
+                                      AttPercent = (player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100,
+                                      PlaingTime = player.MatchStatistics.Select(m => m.PlayingTime).DefaultIfEmpty().Sum(),
+                                      TrainigTime = player.SessionAttendances.Select(s =>s.Duration).Sum()
 
-                                      //TODO: table data finish!
                                   };
 
             return result.AsEnumerable();

@@ -593,10 +593,10 @@ app.controller('MyCtrlDiary', ['$scope', '$rootScope', '$digest', '$watch', func
 
     //optional: if you're starting with 1 or more "cols"
     $scope.colsChanged();
-   
 
 
-   
+
+
 }]);
 
 app.controller('ClubDiaryController', [
@@ -723,12 +723,12 @@ app.controller('ClubDiaryController', [
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            
+
             axisFormat: 'H:mm',
             timeFormat: {
                 agenda: 'H:mm' //h:mm{ - h:mm}'
             },
-            
+
             allDayDefault: true,
             defaultView: 'agendaWeek',
             aspectRatio: 1.5,
@@ -2064,7 +2064,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     function createTail(pageNumber) {
         if (sortArray.length > 0) {
-            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + !sortArray[1];
         } else {
             return urlTail + '/' + $scope.currId + '/' + $scope.itemsPerPage + '/' + pageNumber;
         }
@@ -2109,6 +2109,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
     $scope.open = function () {
         $scope.modalTitle = 'Add Curriculum Session';
+        $scope.myform.form_Submitted = false;
         $scope.newCurrDet = {};
         toggleAttendance.bootstrapToggle('off');
         toggleObjectives.bootstrapToggle('off');
@@ -2146,7 +2147,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     };
 
     $scope.ok = function (id) {
-        
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
         //Files upload
         var promises = [];
 
@@ -2210,8 +2211,14 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                     $scope.newCurrDet = {};
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
+                    angular.element('.pma-fileupload').fileinput('clear');
                 }).error(function (data, status, headers, config) {
-
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error',
+                        bodyOutputType: 'trustedHtml',
+                        body: 'Please complete the compulsory fields highlighted in red'
+                    });
                 });
             } else {
                 //POST
@@ -2220,8 +2227,14 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                     getResultsPage($scope.pagination.current);
                     $scope.newCurrDet = {};
                     target.modal('hide');
+                    angular.element('.pma-fileupload').fileinput('clear');
                 }).error(function (data, status, headers, config) {
-
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error',
+                        bodyOutputType: 'trustedHtml',
+                        body: 'Please complete the compulsory fields highlighted in red'
+                    });
                 });
             }
         });
@@ -2229,15 +2242,15 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
     };
 
     $scope.openEdit = function (id) {
+        $scope.myform.form_Submitted = false;
         $scope.modalTitle = 'Update Curriculum Session';
+       
         $http.get(urlTail + '/' + id)
             .success(function (result) {
-                
-                
                 console.log(result);
 
                 $scope.newCurrDet = result;
-                
+
                 $scope.help.scenarios = reShuffle(result.scenarios);
 
                 toggleAttendance.bootstrapToggle(result.attendance ? 'on' : 'off');

@@ -1,11 +1,11 @@
 ﻿var app = angular.module('MainApp');
 
-app.controller('CurrObjectiveController', ['$scope', '$http', '$location', 'WizardHandler', function ($scope, $http, $location, WizardHandler) {
+app.controller('CurrReportObjectiveController', ['$scope', '$http', '$location', 'WizardHandler', function ($scope, $http, $location, WizardHandler) {
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    $http.get('/api/Curriculum/Wizard/Session/ObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
+    $http.get('/api/Curriculum/Wizard/Session/ReportObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
         .success(function (result) {
             $scope.items = result;
 

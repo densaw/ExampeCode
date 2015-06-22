@@ -32,7 +32,7 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             var pages = (int)Math.Ceiling((double)count / pageSize);
             var sessions = _curriculumServices.GetSessions(curriculumId);
 
-            var items = Mapper.Map<IEnumerable<Session>, IEnumerable<SessionTableViewModel>>(sessions).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
+            var items = Mapper.Map<IEnumerable<Session>, IEnumerable<SessionTableViewModel>>(sessions).OrderQuery(orderBy, x => x.Number, direction).Paged(pageNumber, pageSize);
 
             return new SessionPage()
             {

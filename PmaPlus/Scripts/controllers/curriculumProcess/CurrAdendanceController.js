@@ -4,7 +4,7 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', function 
 
     // get att step 2
     var confDetail = angular.element('#confDetail');
-   
+    
     var confAtend = angular.element('#confAtend');
 
     $scope.date = new Date();
@@ -18,15 +18,18 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', function 
             $scope.items = result;
 
         });
-
+   
     $scope.ssesionDetail = function () {
         $scope.modalTitle = "Details";
-        confDetail.modal('show');
+        //confDetail.modal('show');
         $('#confDetail').appendTo("body").modal('show');
     };
+    
+   
+
     $scope.confAtend = function () {
         $scope.modalTitle = "Details";
-        confAtend.modal('show');
+        //confAtend.modal('show');
         $('#confAtend').appendTo("body").modal('show');
     };
 
@@ -47,4 +50,16 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', function 
        
     ];
     $scope.attendenseVisible = $scope.attendense[0];
+
+    $scope.okAtt = function () {
+
+        angular.forEach($scope.items, function (item) {
+            item.attendance = 0;
+        });
+        confAtend.modal('hide');
+    };
+
+    $scope.cancelAtt = function () {
+        confAtend.modal('hide');
+    };
 }]);

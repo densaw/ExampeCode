@@ -85,6 +85,14 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             return _curriculumProcessServices.GetPlayerObjectiveTable(teamId, sessionId);
         }
 
+
+        [Route("api/Curriculum/Wizard/Session/ReportObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerReportObjectives(int teamId, int sessionId)
+        {
+            return _curriculumProcessServices.GetPlayerObjectiveRepTable(teamId, sessionId);
+        }
+
+
         [Route("api/Curriculum/Wizard/Session/ObjectiveTable/{teamId:int}/{sessionId:int}")]
         public IHttpActionResult PostPlayerObjectives(int teamId, int sessionId, IList<PlayerObjectiveTableViewModel> playerObjectiveTable)
         {
@@ -124,13 +132,13 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
         }
 
 
-        [Route("api/Curriculum/Wizard/Rating/AttendanceTable/{teamId:int}/{sessionId:int}")]
+        [Route("api/Curriculum/Wizard/Session/RatingTable/{teamId:int}/{sessionId:int}")]
         public IEnumerable<PlayerRatingsTableViewModel> GetPlayersRating(int teamId, int sessionId)
         {
             return _curriculumProcessServices.GetPlayerRatingsTable(teamId, sessionId);
         }
 
-        [Route("api/Curriculum/Wizard/Rating/AttendanceTable/{teamId:int}/{sessionId:int}")]
+        [Route("api/Curriculum/Wizard/Session/RatingTable/{teamId:int}/{sessionId:int}")]
         public IHttpActionResult Post(int teamId, int sessionId, [FromBody]IList<PlayerRatingsTableViewModel> playerRatingsTable)
         {
             var ratings =
