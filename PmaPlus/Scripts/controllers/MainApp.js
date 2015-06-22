@@ -6,6 +6,27 @@
         $rootScope.preOrderField = '';
     }]);
 
+  
+    module.directive('ratingUi', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, element, attrs, ngModel) {
+                element.on('click', function () {
+                    if (ngModel.$modelValue === '0' || ngModel.$modelValue === '1' || ngModel.$modelValue === '2' || ngModel.$modelValue === '3' || ngModel.$modelValue === '4') {
+                        element.css('color', 'red');
+                    }
+                    else if (ngModel.$modelValue === '5' || ngModel.$modelValue === '6') {
+                        element.css('color', 'yellow');
+                    }
+                    else {
+                        element.css('color', 'green');
+                    }
+                });
+            }
+        };
+
+    });
+
     module.directive('backImg', function () {
         return function (scope, element, attrs) {
             var url = attrs.backImg;
