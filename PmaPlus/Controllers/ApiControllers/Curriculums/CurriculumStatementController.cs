@@ -60,7 +60,19 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             return
                 Mapper.Map<CurriculumStatement, CurriculumStatementViewModel>(
                     _curriculumServices.GetCurriculumStatementById(id));
+        }
 
+
+        [Route("api/CurriculumStatement/List")]
+        public IEnumerable<CurriculumStatementViewModel> GetList()
+        {
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+
+            var statements =
+                _curriculumServices.GetCurriculumStatements(
+                    _userServices.GetClubByUserName(User.Identity.Name).Id)
+                    .Where(s => s.Roles.Select(r => r.Role).Contains(user.Role));
+            return Mapper.Map<IEnumerable<CurriculumStatement>, IEnumerable<CurriculumStatementViewModel>>(statements);
         }
 
         public IHttpActionResult Post(CurriculumStatementViewModel statementViewModel)
