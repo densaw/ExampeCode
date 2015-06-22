@@ -21,6 +21,7 @@ namespace PmaPlus.Tools
         Sessions,
         ExerciseNews,
         NutritionNews,
-        MessageWall
+        MessageWall,
+        UserDocuments
     }
 }

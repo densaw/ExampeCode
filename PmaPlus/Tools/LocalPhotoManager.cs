@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using PmaPlus.Filters;
+using PmaPlus.Model.ViewModels.Document;
 using PmaPlus.Models;
 
 namespace PmaPlus.Tools
@@ -214,6 +215,11 @@ namespace PmaPlus.Tools
             }
             return null;
         }
+
+        public IList<FileViewModel> GetListOfDocuments()
+        {
+            return new List<FileViewModel>();
+        } 
 
         public FileStream GetFileStream(string fileName, FileStorageTypes storageTypes)
         {
