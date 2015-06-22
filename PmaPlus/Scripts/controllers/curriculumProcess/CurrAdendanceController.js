@@ -10,7 +10,7 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
     
 
     $scope.date = new Date();
-
+    
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
@@ -20,7 +20,7 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
             $scope.items = result;
 
         });
-
+   
 
     var savePeriod = function () {
         $http.post('/api/Curriculum/Wizard/Session/AttendanceTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
@@ -34,8 +34,8 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
         //confDetail.modal('show');
         $('#confDetail').appendTo("body").modal('show');
     };
-
-
+    
+   
 
     $scope.confAtend = function () {
         $scope.modalTitle = "Details";
@@ -57,7 +57,7 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
        { id: 5, name: 'Sick ' },
        { id: 6, name: 'OtherTraining ' },
        { id: -1, name: '' }
-
+       
     ];
     //$scope.attendenseVisible = $scope.attendense[0];
 

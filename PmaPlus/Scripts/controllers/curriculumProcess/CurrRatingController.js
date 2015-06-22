@@ -1,6 +1,7 @@
 ﻿var app = angular.module('MainApp');
 
 
+
 app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardHandler', function ($scope, $http, $location, WizardHandler) {
     
     var pathArray = $location.$$absUrl.split("/");
