@@ -1,5 +1,7 @@
 ﻿var app = angular.module('MainApp');
 
+
+
 app.controller('AtendanceController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
     // get att step 2
