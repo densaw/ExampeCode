@@ -285,9 +285,17 @@ namespace PmaPlus.Services.Services
                                       Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                                       PreObjective = o != null ? o.PreObjective : "",
                                       Statement = blockObjectiveStatement != null ? blockObjectiveStatement.Statement : "",
-                                      Achieved = blockObjectiveStatement != null ? blockObjectiveStatement.Achieved : false
+                                      Achieved = blockObjectiveStatement != null ? blockObjectiveStatement.Achieved : false,
+                                      Age = DateTime.Now.Year - (player.User.UserDetail.Birthday.HasValue ? player.User.UserDetail.Birthday.Value.Year : DateTime.Now.Year),
+                                      Atl = player.PlayerRatingses.Select(r => r.Atl).DefaultIfEmpty().Average(),
+                                      Att = player.PlayerRatingses.Select(r => r.Att).DefaultIfEmpty().Average(),
+                                      Frm = player.MatchStatistics.Select(m => m.FormRating).DefaultIfEmpty().Average(),
+                                      Inj = player.PlayerInjuries.Count,
+                                      Cur = player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average(),
+                                      AttPercent = (player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100,
+                                      PlaingTime = player.MatchStatistics.Select(m => m.PlayingTime).DefaultIfEmpty().Sum(),
+                                      TrainigTime = player.SessionAttendances.Select(s =>s.Duration).Sum()
 
-                                      //TODO: table data finish!
                                   };
 
             return result.AsEnumerable();

@@ -23,10 +23,19 @@ app.controller('CurrStartPeriodController', ['$scope', '$http', '$location', 'Wi
 
             console.log("save objectives");
             savePeriod();
-
         }
     });
 
+    $scope.addObjective = function(player) {
+        angular.element('#objModal').appendTo("body").modal('show');
+        $scope.player = player;
+        console.log($scope.player);
+    }
 
+
+
+    $scope.saveObjective = function() {
+        angular.element('#objModal').modal('hide');
+    }
 
 }]);

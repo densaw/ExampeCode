@@ -23,13 +23,14 @@ namespace PmaPlus.Model.ViewModels.CurriculumProcess
         public int Age { get; set; }
         public decimal Atl { get; set; }
         public decimal Att { get; set; }
-        public int Frm { get;set; }
+        public double Frm { get;set; }
         public int Inj { get; set; }
         public decimal AttPercent { get; set; }
         public int WbPercent { get; set; }
         public decimal Cur { get; set; }
 
-
+        public int PlaingTime { get; set; }
+        public int TrainigTime { get; set; }
 
 
 
