@@ -28,14 +28,15 @@ namespace PmaPlus.Controllers.ApiControllers
         public IEnumerable<DirectoryViewModel> GetDirectories()
         {
             var user = _userServices.GetUserByEmail(User.Identity.Name);
-            
 
 
 
-             var dirs = _documentManager.GetUserDirectories(user.Id);
+
+            var dirs = _documentManager.GetUserDirectories(user.Id);
             return dirs.Select(dir => new DirectoryViewModel()
             {
-                Name = dir.Name, Roles = _sharingFoldersServices.GetDirectoryRoles(dir.Name, user.Id)
+                Name = dir.Name,
+                Roles = _sharingFoldersServices.GetDirectoryRoles(dir.Name, user.Id)
             }).ToList();
         }
 
@@ -46,10 +47,13 @@ namespace PmaPlus.Controllers.ApiControllers
             var user = _userServices.GetUserByEmail(User.Identity.Name);
             if (_documentManager.CreateDirectory(directory.Name, user.Id))
             {
-                _sharingFoldersServices.ShareDirectory(directory.Name, user.Id, directory.Roles);
+                if (directory.Roles.Count > 0)
+                {
+                    _sharingFoldersServices.ShareDirectory(directory.Name, user.Id, directory.Roles);
+                }
                 return Ok();
             }
-            
+
 
             return Conflict();
         }
