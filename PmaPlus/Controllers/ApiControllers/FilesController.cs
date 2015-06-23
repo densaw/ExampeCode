@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using PmaPlus.Model.ViewModels.Document;
 using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers
@@ -64,6 +65,12 @@ namespace PmaPlus.Controllers.ApiControllers
             result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(fileName)));
             }
             return result;
+        }
+
+        [Route("api/File/Doc/{userId:int}")]
+        public IList<FileViewModel> GetDir(int userId)
+        {
+            return _photoManager.GetListOfDocuments(userId);
         }
 
         [Route("api/File/{storageType}/{fileName}")]

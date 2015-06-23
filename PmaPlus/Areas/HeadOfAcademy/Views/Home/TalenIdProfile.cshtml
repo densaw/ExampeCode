@@ -169,10 +169,10 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Scout</th>
-                                        <th>Location</th>
-                                        <th>Notes</th>
+                                        <th style="width: 20% !important;">Date</th>
+                                        <th style="width: 20% !important;">Scout</th>
+                                        <th style="width: 20% !important;">Location</th>
+                                        <th style="width: 40% !important;">Notes</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -180,12 +180,12 @@
                                     <table class="table table-striped">
                                         <tbody id="user-rows">
                                             <tr dir-paginate="item in items1 | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
-                                                <td class="user-row" style="opacity: 1;">{{item.addDate | date:'dd-MM-yyyy' }}</td>
-                                                <td class="user-row" style="opacity: 1;">{{item.scout}}</td>
-                                                <td class="user-row" style="opacity: 1;">
+                                                <td class="user-row" style="opacity: 1;width: 20% !important;">{{item.addDate | date:'dd-MM-yyyy' }}</td>
+                                                <td class="user-row" style="opacity: 1;width: 20% !important;">{{item.scout}}</td>
+                                                <td class="user-row" style="opacity: 1;width: 20% !important;">
                                                     {{item.location}}
                                                 </td>
-                                                <td class="user-row" style="opacity: 1;" >{{item.note}}</td>
+                                                <td class="user-row" style="opacity: 1; width: 40% !important;" >{{item.note}}</td>
 
                                             </tr>
                                         </tbody>
@@ -397,12 +397,12 @@
         height: 385px !important;
         
     }
-    table thead > tr > th {
-        width: 25% !important; /* 20% for 5, 25% for 4, etc */
+    /*table thead > tr > th {
+        width: 25% !important; 
     }
 
     table tbody > tr > td {
-        width: 25% !important; /* 20% for 5, 25% for 4, etc */
-    }
+        width: 25% !important; 
+    }*/
 
 </style>
