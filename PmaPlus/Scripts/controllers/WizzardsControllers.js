@@ -13,7 +13,7 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    $scope.progress = {}
+    $scope.progress = {};
 
     $http.get('/api/Teams/' + $scope.currId)
         .success(function (data) {
