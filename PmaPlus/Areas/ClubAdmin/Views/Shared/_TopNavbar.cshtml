@@ -49,6 +49,7 @@
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-comments"></i>
+                    <span ng-if="itemCount > 0" class="label label-danger" style="border: 1px solid white;border-radius: 100%;background-color: #CC0000;">{{itemCount}}</span>
                 </a>
             </li>
             <li class="dropdown" ng-controller="ToDoNotifyController" ng-cloak>
