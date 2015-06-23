@@ -3816,6 +3816,8 @@
     <Folder Include="App_Data\FileStorage\DefaultPics\" />
     <Folder Include="App_Data\FileStorage\MessageWall\" />
     <Folder Include="App_Data\FileStorage\temp\" />
+    <Folder Include="App_Data\FileStorage\UserDocuments\1\tmp1\" />
+    <Folder Include="App_Data\FileStorage\UserDocuments\1\tmp2\" />
     <Folder Include="Areas\App_Start\" />
     <Folder Include="Areas\ClubAdmin\Models\" />
     <Folder Include="Areas\Coach\Models\" />

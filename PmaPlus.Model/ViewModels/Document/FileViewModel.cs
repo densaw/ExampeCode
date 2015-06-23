@@ -10,6 +10,7 @@ namespace PmaPlus.Model.ViewModels.Document
     {
         public bool IsDerectiry { get; set; }
         public string Name { get; set; }
-        public double Size { get; set; }
+        public long Size { get; set; }
+        public string FileType { get; set; }
     }
 }
