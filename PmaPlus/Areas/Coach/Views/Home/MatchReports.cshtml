@@ -3,4 +3,202 @@
     Layout = "~/Areas/Coach/Views/Shared/_AdminLayout.cshtml";
 }
 
-@Html.Partial("~/Views/Partials/_MatchReports.cshtml")
+
+<div ng-controller="AddReportController" ng-cloak>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Match Reports</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li class="active">
+                    <strong>Match Reports</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-click="addMatch()">Add Match Report</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="wrapper wrapper-content  animated fadeInRight" ng-cloak>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Match Reports</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user"></ul>
+                            <a>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        @*Modal*@
+                        <div class="modal inmodal" id="addMatchReports" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title text-left">{{modalTitle}}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form name="myform" class="form-horizontal" novalidate>
+                                            <div class="form-group" ng-class="{'has-error':myform.skillName.$invalid && (myform.skillName.$dirty||myform.form_Submitted) }">
+                                                <label class="col-lg-4 title-modal">Team:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <select name="teamList" ng-model="newMatch.teamId" ng-options="teamLists.id as teamLists.name for teamLists in teamList" class="form-control" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.skillName.$invalid && (myform.skillName.$dirty||myform.form_Submitted) }">
+                                                <label class="col-lg-4 title-modal">Opposition Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="skillName" ng-model="newMatch.oppositionName" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.skillDuration.$invalid && (myform.skillDuration.$dirty||myform.form_Submitted) }">
+                                                <label class="col-lg-4 title-modal">Match Type:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    
+                                                    <select name="matchType" ng-model="newMatch.type" ng-options="matchTypes.id as matchTypes.name for matchTypes in matchType" class="form-control" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.skillVideo.$invalid && (myform.skillVideo.$dirty||myform.form_Submitted) }">
+                                                <label class="col-lg-4 title-modal">Venue:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="skillVideo" ng-model="newMatch.venue" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.skillDescription.$invalid && (myform.skillDescription.$dirty||myform.form_Submitted) }">
+                                                <label class="col-lg-4 title-modal">Risk Assessment:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="skillDescription" ng-model="newMatch.riskAssessment" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.eventStart.$invalid && (myform.eventStart.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Date & Time</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <div class="dropdown">
+                                                        <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" value="{{newMatch.date | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                            </div>
+                                                        </a>
+                                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                            <datetimepicker required name="newMatch" data-ng-model="newMatch.date" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day' }" />
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.corners.$invalid && (myform.corners.$dirty||myform.form_Submitted) }">
+                                                <label class=" col-lg-4 title-modal">Side::</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <select name="sideType" ng-model="newMatch.side" ng-options="sideTypes.id as sideTypes.name for sideTypes in sideType" class="form-control" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Formation:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="crossing" ng-model="newMatch.formation" class="form-control" required>
+                                                </div>
+                                            </div>
+                                           
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancelMatch()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                        <button ng-click="okMatch()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        <div class="row">
+                            <div class="col-sm-9 m-b-xs">
+                                <form class="form-horizontal">
+                                    <div class=" form-group" style="margin-left: 0px;">
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <label ng-click="itemsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                            <label ng-click="itemsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
+                                            <label ng-click="itemsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                                        </div>
+                                        <div class="btn-group">
+                                            <label onclick=" $('.table').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                CSV
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                Excel
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                PDF
+                                            </label>
+                                            <label onclick=" print($('.table')) " class="btn btn-sm btn-white">
+                                                Print
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Won\Lost</th>
+                                        <th>Team Name</th>
+                                        <th>For (goals)</th>
+                                        <th>Away (goals)</th>
+                                        <th>Opposition Team</th>
+                                        <th>MoM (man of match)</th>
+                                        <th>Form</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                        <th>{{item.won}}</th>
+                                        <th>{{item.teamName}}</th>
+                                        <th>{{item.goalsFor}}</th>
+                                        <th>{{item.goalsAway}}</th>
+                                        <th>{{item.oppositionName}}</th>
+                                        <th>{{item.mom}}</th>
+                                        <th>{{item.formation}}</th>
+                                        <th>Action</th>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{    
+<script src="~/Scripts/controllers/MatchReportsController.js"></script>
+}

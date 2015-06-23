@@ -27,6 +27,18 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
             _userServices = userServices;
         }
 
+        [Route("api/Teams/Coach/List")]
+        public IEnumerable<TeamsList> GetCoachTeamsList()
+        {
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+            if (user == null || user.Role != Role.Coach)
+            {
+                return null;
+            }
+
+            return Mapper.Map<IEnumerable<Team>, IEnumerable<TeamsList>>(_teamServices.GetCoachTeams(user.Id));
+        }
+
         [Route("api/Teams/List")]
         public IEnumerable<TeamsList> GetTeamsList()
         {

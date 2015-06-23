@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using PmaPlus.Model.ViewModels.Document;
 using PmaPlus.Models;
 
 namespace PmaPlus.Tools
@@ -25,6 +26,6 @@ namespace PmaPlus.Tools
         bool FileExistInStorage(FileStorageTypes storageType, string fileName, int id);
         void Delete(FileStorageTypes storageType, int id);
         string Move(string fileName, string path, string newFileName);
-        bool FileExists(string fileName); 
+        bool FileExists(string fileName);
     }
 }

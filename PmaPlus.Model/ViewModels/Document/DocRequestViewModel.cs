@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace PmaPlus.Model.ViewModels.Document
 {
-    public class FileViewModel
+    public class DocRequestViewModel
     {
-        public string Name { get; set; }
-        public long Size { get; set; }
-        public string FileType { get; set; }
+        public string Path { get; set; }
+
     }
 }

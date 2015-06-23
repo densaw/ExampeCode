@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using PmaPlus.Filters;
@@ -216,10 +217,7 @@ namespace PmaPlus.Tools
             return null;
         }
 
-        public IList<FileViewModel> GetListOfDocuments()
-        {
-            return new List<FileViewModel>();
-        } 
+      
 
         public FileStream GetFileStream(string fileName, FileStorageTypes storageTypes)
         {

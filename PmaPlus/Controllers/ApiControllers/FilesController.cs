@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using PmaPlus.Model.ViewModels.Document;
 using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers
@@ -65,6 +66,8 @@ namespace PmaPlus.Controllers.ApiControllers
             }
             return result;
         }
+
+       
 
         [Route("api/File/{storageType}/{fileName}")]
         public HttpResponseMessage GetWallPic(string storageType, string fileName)

@@ -282,6 +282,7 @@
     <Compile Include="Controllers\ApiControllers\Curriculums\SessionsController.cs" />
     <Compile Include="Controllers\ApiControllers\DashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\DiaryController.cs" />
+    <Compile Include="Controllers\ApiControllers\DocumentsController.cs" />
     <Compile Include="Controllers\ApiControllers\ExerciseNewsController.cs" />
     <Compile Include="Controllers\ApiControllers\FaCoursesController.cs" />
     <Compile Include="Controllers\ApiControllers\FilesController.cs" />
@@ -320,6 +321,7 @@
     <Compile Include="Controllers\ApiControllers\UserController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Filters\CheckModelForNullFilter.cs" />
+    <Compile Include="Filters\DocumentStreamProvider.cs" />
     <Compile Include="Filters\PhotoStreamProvider.cs" />
     <Compile Include="Filters\ValidateModelStateFilter.cs" />
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
@@ -332,7 +334,9 @@
     <Compile Include="Stratup.cs" />
     <Compile Include="Tools\FileStorageTypes.cs" />
     <Compile Include="Tools\HttpRequestMessageExtensions.cs" />
+    <Compile Include="Tools\IDocumentManager.cs" />
     <Compile Include="Tools\IPhotoManager.cs" />
+    <Compile Include="Tools\LocalDocumentManager.cs" />
     <Compile Include="Tools\LocalPhotoManager.cs" />
     <Compile Include="Tools\PhotoActionResult.cs" />
     <Compile Include="Tools\TimeUtils.cs" />
@@ -3211,6 +3215,7 @@
     <Content Include="Areas\Scouts\Views\Home\TalenIdProfile.cshtml" />
     <Content Include="Areas\Coach\Views\Home\PlayersTable.cshtml" />
     <Content Include="Areas\Coach\Views\Home\Wizzard.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\ReportsWizard.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3227,6 +3232,7 @@
     <Content Include="Scripts\controllers\curriculumProcess\CurrStartPeriodController.js" />
     <Content Include="Scripts\controllers\curriculumProcess\JustSessionController.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
+    <Content Include="Scripts\controllers\MatchReportsController.js" />
     <Content Include="Scripts\controllers\MessageController.js" />
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\controllers\TeamPlayersTableController.js" />
@@ -3816,6 +3822,7 @@
     <Folder Include="App_Data\FileStorage\DefaultPics\" />
     <Folder Include="App_Data\FileStorage\MessageWall\" />
     <Folder Include="App_Data\FileStorage\temp\" />
+    <Folder Include="App_Data\FileStorage\UserDocuments\" />
     <Folder Include="Areas\App_Start\" />
     <Folder Include="Areas\ClubAdmin\Models\" />
     <Folder Include="Areas\Coach\Models\" />
