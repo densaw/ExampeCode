@@ -1078,6 +1078,23 @@ app.controller('ToDoNotifyController', ['$scope', '$http', 'toaster', function (
 
     getResults();
 }]);
+app.controller('MessageNotifyController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+
+    var urlTail = 'api/Message?page={page}';
+    $scope.itemCount = 0;
+
+
+    function getResults() {
+        $http.get(urlTail)
+           .success(function (result) {
+               $scope.items = result;
+               $scope.itemCount = result.length;
+           });
+
+    }
+
+    getResults();
+}]);
 
 app.controller('ClubProfileController', ['$scope', '$http', 'toaster', '$q', function ($scope, $http, toaster, $q) {
 
