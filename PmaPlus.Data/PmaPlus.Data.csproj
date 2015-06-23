@@ -95,6 +95,7 @@
     <Compile Include="Repository\Iterfaces\IPlayerRatingsRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISessionAttendanceRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISessionResultRepository.cs" />
+    <Compile Include="Repository\Iterfaces\ISharedFolderRepository.cs" />
     <Compile Include="Repository\MessageCommentRepository.cs" />
     <Compile Include="Repository\MessageGroupRepository.cs" />
     <Compile Include="Repository\MessagePrivateRepository.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Repository\ScenarioRepository.cs" />
     <Compile Include="Repository\ScoutRepository.cs" />
     <Compile Include="Repository\SessionResultRepository.cs" />
+    <Compile Include="Repository\SharedFolderRepository.cs" />
     <Compile Include="Repository\SkillLevelRepository.cs" />
     <Compile Include="Repository\SkillVideoRepository.cs" />
     <Compile Include="Repository\SportScientistRepository.cs" />

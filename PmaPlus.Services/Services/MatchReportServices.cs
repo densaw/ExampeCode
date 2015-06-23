@@ -177,5 +177,10 @@ namespace PmaPlus.Services.Services
                 }
             }
         }
+
+        public void AddMatchObjective(PlayerMatchObjective playerMatchObjective)
+        {
+            _playerMatchObjectiveRepository.AddOrUpdate(new PlayerMatchObjective[]{playerMatchObjective});
+        }
     }
 }

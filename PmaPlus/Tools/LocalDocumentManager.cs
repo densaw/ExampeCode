@@ -10,6 +10,8 @@ using PmaPlus.Model.ViewModels.Document;
 
 namespace PmaPlus.Tools
 {
+   
+
     public class LocalDocumentManager : IDocumentManager
     {
         private readonly string _workingFolder;
@@ -20,7 +22,7 @@ namespace PmaPlus.Tools
         }
 
 
-        public async Task<string> AddDocument(HttpRequestMessage request,int userId)
+        public async Task<string> AddDocument(HttpRequestMessage request, int userId)
         {
             string userPath = _workingFolder + "\\" + userId;
             if (!Directory.Exists(userPath))
@@ -49,21 +51,80 @@ namespace PmaPlus.Tools
         {
             try
             {
-                Directory.CreateDirectory(String.Format("{0}\\{1}\\{2}",_workingFolder, userId, dirName));
+                Directory.CreateDirectory(String.Format("{0}\\{1}\\{2}", _workingFolder, userId, dirName));
             }
             catch (Exception)
-            {return false;}
-            
+            { return false; }
+
             return true;
         }
 
-        public IEnumerable<string> GetUserDirectories(int userId)
+        public IEnumerable<DirectoryInfo> GetUserDirectories(int userId)
         {
-            if (userId>0)
+            var dirPath = String.Format("{0}\\{1}\\", _workingFolder, userId);
+            if (userId > 0)
             {
-                return Directory.GetDirectories(String.Format("{0}\\{1}\\", _workingFolder, userId));
+                DirectoryInfo info = new DirectoryInfo(dirPath);
+                return info.EnumerateDirectories();
             }
             return null;
+        }
+
+        public IEnumerable<FileViewModel> GetDirectoryFiles(string dirName, int userId)
+        {
+            var dirPath = String.Format("{0}\\{1}\\{2}", _workingFolder, userId, dirName);
+
+            if (Directory.Exists(dirPath))
+            {
+                DirectoryInfo dir = new DirectoryInfo(dirPath);
+
+                return from file in dir.EnumerateFiles()
+                       select new FileViewModel()
+                       {
+                           Name = file.Name,
+                           Size = file.Length,
+                           FileType = file.Extension
+                       };
+
+            }
+            return null;
+        }
+
+        public bool DeleteDirectory(string dirName, int userId)
+        {
+            var dirPath = String.Format("{0}\\{1}\\{2}", _workingFolder, userId, dirName);
+
+            if (Directory.Exists(dirPath))
+            {
+                try
+                {
+                    Directory.Delete(dirPath, true);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+
+            }
+            return false;
+        }
+
+        public bool DeleteFile(string fileName, string dirName, int userId)
+        {
+            var filePath = String.Format("{0}\\{1}\\{2}\\{3}", _workingFolder, userId, dirName, fileName);
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    File.Delete(filePath);
+                }
+                catch (Exception)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
     }
