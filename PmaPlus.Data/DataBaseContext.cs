@@ -90,6 +90,12 @@ namespace PmaPlus.Data
         public virtual DbSet<MessageComment> MessageComments { get; set; }
 
 
+        #region Documents Sharing
+        public virtual DbSet<SharedFolder> SharedFolders { get; set; }
+        public virtual DbSet<SharedFolderRole> SharedFolderRoles { get; set; }
+        #endregion
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

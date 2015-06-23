@@ -27,16 +27,21 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
             return _matchReportServices.GetMatchObjectives(matchId);
         }
 
-        public IHttpActionResult Post([FromBody] IList<PlayersMatchObjectiveTableViewModel> playersMatchObjectiveTable)
+        //public IHttpActionResult Post([FromBody] IList<PlayersMatchObjectiveTableViewModel> playersMatchObjectiveTable)
+        //{
+        //    var obj =
+        //        Mapper.Map<IList<PlayersMatchObjectiveTableViewModel>, List<PlayerMatchObjective>>(
+        //            playersMatchObjectiveTable);
+        //    _matchReportServices.UpdateMatchObjectives(obj);
+        //    return Ok();
+        //}
+
+        public IHttpActionResult Post(PlayersMatchObjectiveTableViewModel playersMatchObjective)
         {
-            var obj =
-                Mapper.Map<IList<PlayersMatchObjectiveTableViewModel>, List<PlayerMatchObjective>>(
-                    playersMatchObjectiveTable);
-            _matchReportServices.UpdateMatchObjectives(obj);
+            var obj = Mapper.Map<PlayersMatchObjectiveTableViewModel, PlayerMatchObjective>(playersMatchObjective);
+            _matchReportServices.AddMatchObjective(obj);
             return Ok();
         }
-
-
 
     }
 
