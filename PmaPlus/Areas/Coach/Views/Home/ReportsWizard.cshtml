@@ -2,7 +2,7 @@
     ViewBag.Title = "PMA+";
     Layout = "~/Areas/Coach/Views/Shared/_AdminLayout.cshtml";
 }
-
+<div ng-controller ="MatchWizardPageController">
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
         <h2>Wizard Page</h2>
@@ -18,8 +18,48 @@
     <div class="col-sm-8">
         <div class="title-action">
             <a class="btn btn-primary" ng-href="@Url.Action("MatchReports", "Home", new { area = "Coach" })">Back to Match Reports</a>
-            <a class="btn btn-primary" ng-href="@Url.Action("ReportsWizard", "Home", new { area = "Coach" })/{{currId}}">Add Match Report</a>
+            
         </div>
     </div>
 
 </div>
+<div class="wrapper wrapper-content animated fadeInRight">
+<wizard hide-indicators="true">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Progress Bars</h5>
+                    <div class="ibox-tools" style="margin-top: -5px;">
+                        <a class=" btn btn-primary btn-sm" ng-disabled="!nav.canBack" wz-previous ng-click="updateProgress()">Prev</a>
+                        @*<a class="btn btn-primary btn-sm" ng-click="saveProgress()">Save Progress</a>*@
+                        <a class="btn btn-primary btn-sm" ng-disabled="!nav.canNext" wz-next ng-click="updateProgress()">Next</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12"><progressbar  class="progress-striped active" max="5" value="1" type="danger"></progressbar></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <wz-step >     
+         @Html.Partial("~/Views/Partials/_MatchReportWizard/WizardPage2.cshtml")
+
+    </wz-step>
+    <wz-step>
+        @Html.Partial("~/Views/Partials/_MatchReportWizard/WizardPage2.cshtml")
+
+    </wz-step>
+    <wz-step>
+        @Html.Partial("~/Views/Partials/_MatchReportWizard/WizardPage2.cshtml")
+
+    </wz-step>
+</wizard>
+    </div>
+ </div>
+@section scripts{    
+<script src="~/Scripts/controllers/matchReportsProcess/MatchWizardPageController.js"></script>
+<script src="~/Scripts/controllers/matchReportsProcess/WizardPage2Controller.js"></script>
+}
