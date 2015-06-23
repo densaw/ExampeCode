@@ -1,15 +1,24 @@
 ﻿var app = angular.module('MainApp');
 
-app.controller('AddReportController', ['$scope', '$http', '$q', '$location', function ($scope, $http, $q, $location) {
+app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$rootScope', function ($scope, $http, $q, $location, $rootScope) {
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
     var addMatchReports = angular.element('#addMatchReports');
     //var cancelInvite = angular.element('#cancelInvite');
-    var urlTail = '/api/MatchReports/';
+    var urlTail = '/api/MatchReports';
 
     $scope.newMatch = {};
+
+    $scope.teamList = [];
+
+    
+
+    $http.get('/api/Teams/Coach/List').success(function (result) {
+        $scope.teamList = result;
+        console.log(result);
+    });
 
     $scope.matchType = [
         
@@ -75,7 +84,55 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', fun
                 });
             }
 
-        };
+    };
+
+    var sortArray = [];
+    $scope.items = [];
+    $scope.totalItems = 0;
+    $scope.itemsPerPage = 20;
+    $scope.flag = true;
+
+    $scope.pagination = {
+        current: 1
+    };
+
+    function createTail(pageNumber) {
+        if (sortArray.length > 0) {
+            return urlTail +  '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+        } else {
+            return urlTail +  '/' + $scope.itemsPerPage + '/' + pageNumber;
+        }
+    }
+
+    function getResultsPage(pageNumber) {
+        $http.get(createTail(pageNumber))
+            .success(function (result) {
+                console.log(result);
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+
+            });
+    }
+
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
+            .success(function (result) {
+                $scope.items = result.items;
+                $scope.totalItems = result.count;
+            });
+    });
+
+    
+
+
+    getResultsPage($scope.pagination.current);
+
+    $scope.pageChanged = function (newPage) {
+        getResultsPage(newPage);
+        $scope.pagination.current = newPage;
+    };
+
     
   
 }]);

@@ -55,6 +55,12 @@
                                     <div class="modal-body">
                                         <form name="myform" class="form-horizontal" novalidate>
                                             <div class="form-group" ng-class="{'has-error':myform.skillName.$invalid && (myform.skillName.$dirty||myform.form_Submitted) }">
+                                                <label class="col-lg-4 title-modal">Team:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <select name="teamList" ng-model="newMatch.teamId" ng-options="teamLists.id as teamLists.name for teamLists in teamList" class="form-control" required></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.skillName.$invalid && (myform.skillName.$dirty||myform.form_Submitted) }">
                                                 <label class="col-lg-4 title-modal">Opposition Name:</label>
                                                 <div class="col-lg-7 pull-right">
                                                     <input name="skillName" ng-model="newMatch.oppositionName" class="form-control" required>
@@ -169,6 +175,19 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                        <th>{{item.won}}</th>
+                                        <th>{{item.teamName}}</th>
+                                        <th>{{item.goalsFor}}</th>
+                                        <th>{{item.goalsAway}}</th>
+                                        <th>{{item.oppositionName}}</th>
+                                        <th>{{item.mom}}</th>
+                                        <th>{{item.formation}}</th>
+                                        <th>Action</th>
+                                        
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
 
