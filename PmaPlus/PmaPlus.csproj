@@ -3211,6 +3211,7 @@
     <Content Include="Areas\Scouts\Views\Home\TalenIdProfile.cshtml" />
     <Content Include="Areas\Coach\Views\Home\PlayersTable.cshtml" />
     <Content Include="Areas\Coach\Views\Home\Wizzard.cshtml" />
+    <Content Include="Areas\Coach\Views\Home\ReportsWizard.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3227,6 +3228,7 @@
     <Content Include="Scripts\controllers\curriculumProcess\CurrStartPeriodController.js" />
     <Content Include="Scripts\controllers\curriculumProcess\JustSessionController.js" />
     <Content Include="Scripts\controllers\MainApp.js" />
+    <Content Include="Scripts\controllers\MatchReportsController.js" />
     <Content Include="Scripts\controllers\MessageController.js" />
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\controllers\TeamPlayersTableController.js" />
