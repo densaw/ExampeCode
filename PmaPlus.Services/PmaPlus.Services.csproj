@@ -70,6 +70,7 @@
     <Compile Include="Services\PlayerServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ScenarioServices.cs" />
+    <Compile Include="Services\SharingFoldersServices.cs" />
     <Compile Include="Services\SiteSettingsServices.cs" />
     <Compile Include="Services\SkillServices.cs" />
     <Compile Include="Services\SportsScienceServices.cs" />

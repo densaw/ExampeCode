@@ -48,6 +48,10 @@ namespace PmaPlus
                 .As<IPhotoManager>()
                 .WithParameter("workingFolder", HttpContext.Current.Server.MapPath(@"~/App_Data/FileStorage"));
 
+            builder.RegisterType<LocalDocumentManager>()
+                .As<IDocumentManager>()
+                .WithParameter("workingFolder", HttpContext.Current.Server.MapPath(@"~/App_Data/FileStorage/UserDocuments"));
+
             builder.RegisterAssemblyTypes(typeof(UserRepository).Assembly)
            .Where(t => t.Name.EndsWith("Repository"))
            .AsImplementedInterfaces().InstancePerHttpRequest();

@@ -13,7 +13,7 @@ namespace PmaPlus.Model.ViewModels.Matches
         public int Id { get; set; }
         [Required]
         public int TeamId { get; set; }
-        [Required]
+        [Required,Range(1,Int32.MaxValue)]
         public string OppositionName { get; set; }
         public MatchType Type { get; set; }
         [Required]

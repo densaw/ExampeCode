@@ -67,11 +67,7 @@ namespace PmaPlus.Controllers.ApiControllers
             return result;
         }
 
-        [Route("api/File/Doc/{userId:int}")]
-        public IList<FileViewModel> GetDir(int userId)
-        {
-            return _photoManager.GetListOfDocuments(userId);
-        }
+       
 
         [Route("api/File/{storageType}/{fileName}")]
         public HttpResponseMessage GetWallPic(string storageType, string fileName)

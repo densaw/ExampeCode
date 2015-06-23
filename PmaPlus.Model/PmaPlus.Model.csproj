@@ -129,6 +129,8 @@
     <Compile Include="Models\SessionAttendance.cs" />
     <Compile Include="Models\SessionResult.cs" />
     <Compile Include="Models\SessionScenario.cs" />
+    <Compile Include="Models\SharedFolder.cs" />
+    <Compile Include="Models\SharedFolderRole.cs" />
     <Compile Include="Models\SkillLevel.cs" />
     <Compile Include="Models\StatementRoles.cs" />
     <Compile Include="Models\TalentIdentification.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="ViewModels\DashboardContent\GraphBoxViewModel.cs" />
     <Compile Include="ViewModels\Diary\AddDiaryViewModel.cs" />
     <Compile Include="ViewModels\Diary\DiaryViewModel.cs" />
+    <Compile Include="ViewModels\Document\DirectoryViewModel.cs" />
     <Compile Include="ViewModels\Document\DocRequestViewModel.cs" />
     <Compile Include="ViewModels\Document\FileViewModel.cs" />
     <Compile Include="ViewModels\FaCourse\FaCoursePage.cs" />

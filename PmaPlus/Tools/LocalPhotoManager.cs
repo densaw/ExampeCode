@@ -217,37 +217,7 @@ namespace PmaPlus.Tools
             return null;
         }
 
-        public IList<FileViewModel> GetListOfDocuments(int userId)
-        {
-            var fullFilePath = _workingFolder + "\\" + FileStorageTypes.UserDocuments.ToString() + "\\" + userId;
-            if (Directory.Exists(fullFilePath))
-            {
-                var d = new DirectoryInfo(fullFilePath);
-                var ds = d.GetDirectories();
-                var fs = d.GetFiles();
-                var result = new List<FileViewModel>();
-                foreach (var dir in ds)
-                {
-                    result.Add(new FileViewModel()
-                    {
-                        IsDerectiry = true,
-                        Name = dir.Name,
-                        Size = 0
-                    });
-                }
-                foreach (var fils in fs)
-                {
-                    result.Add(new FileViewModel()
-                    {
-                        IsDerectiry = false,
-                        Name = fils.Name,
-                        Size = fils.Length
-                    });   
-                }
-                return result;
-            }
-            return null;
-        } 
+      
 
         public FileStream GetFileStream(string fileName, FileStorageTypes storageTypes)
         {

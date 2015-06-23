@@ -27,6 +27,5 @@ namespace PmaPlus.Tools
         void Delete(FileStorageTypes storageType, int id);
         string Move(string fileName, string path, string newFileName);
         bool FileExists(string fileName);
-        IList<FileViewModel> GetListOfDocuments(int userId);
     }
 }
