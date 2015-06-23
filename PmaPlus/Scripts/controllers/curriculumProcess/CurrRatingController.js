@@ -27,11 +27,25 @@ app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardH
 
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-
-            console.log("save objectives");
             saveRatings();
+            $scope.nav.canNext = true;
+            $scope.nav.canBack = true;
 
         }
     });
+
+
+    $scope.$on('moveEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
+            if ($scope.$parent.step.done) {
+                $scope.nav.canNext = true;
+                $scope.nav.canBack = true;
+            } else {
+                $scope.nav.canNext = false;
+                $scope.nav.canBack = false;
+            }
+        }
+    });
+
 
 }]);
