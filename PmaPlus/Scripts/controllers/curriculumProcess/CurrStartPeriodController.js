@@ -31,6 +31,15 @@ app.controller('CurrStartPeriodController', ['$scope', '$http', '$location', 'Wi
         }
     });
 
+    $scope.$on('moveEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
+                $scope.nav.canNext = true;
+                $scope.nav.canBack = true;
+        }
+    });
+
+
+
     $scope.addObjective = function (player) {
         angular.element('#objModal').appendTo("body").modal('show');
         $scope.player = player;
@@ -42,5 +51,11 @@ app.controller('CurrStartPeriodController', ['$scope', '$http', '$location', 'Wi
     $scope.saveObjective = function () {
         angular.element('#objModal').modal('hide');
     }
+
+    //Next step allow
+    $scope.canNext = function () {
+        return true;
+    };
+
 
 }]);

@@ -14,6 +14,8 @@
                 element.on('click', function () {
                     if (ngModel.$modelValue === '0' || ngModel.$modelValue === '1' || ngModel.$modelValue === '2' || ngModel.$modelValue === '3' || ngModel.$modelValue === '4') {
                         element.css('color', 'red');
+                        console.log(ngModel.$modelValue);
+
                     }
                     else if (ngModel.$modelValue === '5' || ngModel.$modelValue === '6') {
                         element.css('color', 'yellow');

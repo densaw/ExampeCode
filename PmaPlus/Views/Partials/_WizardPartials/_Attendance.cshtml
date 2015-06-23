@@ -5,10 +5,11 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                   <h5>Attendance</h5><h5 ng-if="addDate" style="font-weight: 200;"> - Date: {{addDate.time | date:'dd-MM-yyyy'}} Time: {{addDate.time | date:'HH:mm'}} Duration: {{addDate.duration}} </h5>
+                   <h5>Attendance </h5><h5 ng-if="addDate" style="font-weight: 200;"> - Date: {{addDate.time | date:'dd-MM-yyyy'}} Time: {{addDate.time | date:'HH:mm'}} Duration: {{addDate.duration}} </h5>
                     <div class="ibox-tools" style="margin-top: -5px;">
                         <a class=" btn btn-primary btn-sm" ng-disabled="!addDate" ng-click="confAtend()">All Attended</a>
                         <a class="btn btn-primary btn-sm" ng-click="ssesionDetail()">Session Detail</a>
+                        <a class="btn btn-primary btn-sm" ng-click="ssesionNotCompletedModal()">Session not completed</a>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -18,7 +19,7 @@
 
                             </div>
                         </div>
-                        <table class="table tablea table-striped">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Picture</th>
@@ -43,7 +44,6 @@
                                     <td>{{item.cur}}</td>
                                     <td ><select  name="attendense" ng-model="item.attendance" ng-options="attend.id as attend.name for attend in attendense" class=" form-control"></select></td>
                                     <td>
-                                        
                                         <a ng-click="openAtt()" class="fa fa-graduation-cap"></a>
                                     </td>
                                 </tr>
@@ -122,4 +122,26 @@
         </div>
     </div>
     @*Modal End*@
+    
+    @*Modal*@
+    <div class="modal inmodal" id="confNotCompl" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title text-left">All Attend</h3>
+                </div>
+                <div class="modal-body">
+                    <h2>Please confirm the session was not completed as this will record zero hours training time against each player</h2>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" type="button" class="btn btn-white">No</button>
+                    <button ng-click="ssesionNotCompleted()" id="saveAtt" type="button" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Modal End*@
+    
+
 </div>

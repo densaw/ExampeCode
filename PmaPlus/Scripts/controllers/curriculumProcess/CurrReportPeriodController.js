@@ -32,6 +32,13 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
         }
     });
 
+    $scope.$on('moveEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
+            $scope.nav.canNext = true;
+            $scope.nav.canBack = true;
+        }
+    });
+
     $scope.addObjective = function (player) {
         angular.element('#objModal').appendTo("body").modal('show');
         $scope.player = player;
@@ -43,5 +50,11 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
     $scope.saveObjective = function () {
         angular.element('#objModal').modal('hide');
     }
+
+    //Next step allow
+    $scope.canNext = function () {
+        return true;
+    };
+
 
 }]);
