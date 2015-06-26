@@ -25,8 +25,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td ng-repeat="playersLists in playersList">
+                                <tr ng-repeat ="playersLists in playersList">
+                                    <td>
                                         <div style="width: 100px; height: 100px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
                                             <img class="prifile" ng-src="{{playersLists.playerPicture}}" style-parent />
                                         </div>
