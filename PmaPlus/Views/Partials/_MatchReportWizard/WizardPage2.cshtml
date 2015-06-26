@@ -37,7 +37,7 @@
                                     
                                     
                                     <td>
-                                        <a ng-click="openEdit()" class="fa fa-graduation-cap"></a>
+                                        <a ng-click="openEdit(playersLists)" class="fa fa-graduation-cap"></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -64,14 +64,14 @@
                         <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Player Name:</label>
                             <div class="col-lg-7 pull-right">
-                                <input  name="sessionDuration" ng-model="addDate.duration" required class="form-control">
+                                <input name="sessionDuration" ng-disabled="true" ng-model="playerName" class="form-control">
                             </div>
                         </div>
 
                         <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Match Objective:</label>
                             <div class="col-lg-7 pull-right">
-                                <textarea name="sessionDuration" ng-model="addDate.duration" required class="form-control"></textarea>
+                                <textarea name="playersLists" ng-model="objective" required class="form-control"></textarea>
                             </div>
                         </div>
 
@@ -79,8 +79,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button ng-click="closeDetails()" id="closeInvite" type="button" class="btn btn-white">Close</button>
-                    <button ng-click="addDetails()" id="saveInvite" type="button" class="btn btn-primary">Save changes</button>
+                    <button ng-click="closeDetails()" id="close" type="button" class="btn btn-white">Close</button>
+                    <button ng-click="addDetails(player, objective)" id="save" type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
