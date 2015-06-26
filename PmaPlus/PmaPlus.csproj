@@ -3815,6 +3815,7 @@
     <Content Include="Views\Partials\_WizardPartials\_StartPeriodPartial.cshtml" />
     <Content Include="Views\Partials\_WizardPartials\_ReportPeriodPartial.cshtml" />
     <Content Include="Views\Partials\_MatchReportWizard\WizardPage2.cshtml" />
+    <Content Include="Views\Partials\_MatchReportWizard\_WizardPage3.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
