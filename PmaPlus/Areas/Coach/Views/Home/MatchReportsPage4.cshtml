@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "PMA+";
+    Layout = "~/Areas/Coach/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div ng-controller="AddReportController" ng-cloak>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Match Reports</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li class="active">
+                    <strong>Match Reports</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-click="addMatch()">Add Match Report</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="wrapper wrapper-content  animated fadeInRight" ng-cloak>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Match Reports</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user"></ul>
+                            <a>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        @*Modal*@
+                        <div class="modal inmodal" id="addMatchReports" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title text-left">{{modalTitle}}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form name="myform" class="form-horizontal" novalidate>
+                                            <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Player Name</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="crossing" ng-model="newMatch.formation" class="form-control" required>
+                                                </div>
+                                            </div>
+
+
+                                            
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancelMatch()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                        <button ng-click="okMatch()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Player Name</th>
+                                        <th>Picture</th>
+                                        <th>MOM</th>
+                                        <th>GLS</th>
+                                        <th>SHO</th>
+                                        <th>SHT</th>
+                                        <th>ASI</th>
+                                        <th>TCK</th>
+                                        <th>PAS</th>
+                                        <th>SAV</th>
+                                        <th>CRN</th>
+                                        <th>FRK</th>
+                                        <th>FRM</th>
+                                        <th>PT</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                        <th>Player Name</th>
+                                        <th>Picture</th>
+                                        <th>MOM</th>
+                                        <th>GLS</th>
+                                        <th>SHO</th>
+                                        <th>SHT</th>
+                                        <th>ASI</th>
+                                        <th>TCK</th>
+                                        <th>PAS</th>
+                                        <th>SAV</th>
+                                        <th>CRN</th>
+                                        <th>FRK</th>
+                                        <th>FRM</th>
+                                        <th>PT</th>
+                                        <th>
+                                            <a ng-click="addMatch()" class="fa fa-graduation-cap" style="cursor: pointer;"></a>
+                                        </th>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
