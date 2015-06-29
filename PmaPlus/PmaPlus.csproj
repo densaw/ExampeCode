@@ -3238,6 +3238,7 @@
     <Content Include="Scripts\controllers\matchReportsProcess\MatchWizardPageController.js" />
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage2Controller.js" />
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage3Controller.js" />
+    <Content Include="Scripts\controllers\matchReportsProcess\WizardPage3endController.js" />
     <Content Include="Scripts\controllers\MessageController.js" />
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\controllers\TeamPlayersTableController.js" />
@@ -3818,6 +3819,7 @@
     <Content Include="Views\Partials\_WizardPartials\_ReportPeriodPartial.cshtml" />
     <Content Include="Views\Partials\_MatchReportWizard\WizardPage2.cshtml" />
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage3.cshtml" />
+    <Content Include="Views\Partials\_MatchReportWizard\_WizardPage3end.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
