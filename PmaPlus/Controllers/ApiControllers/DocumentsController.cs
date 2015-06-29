@@ -114,7 +114,7 @@ namespace PmaPlus.Controllers.ApiControllers
 
 
         [Route("api/Documents/{folder}/{file}")]
-        public HttpResponseMessage GetPhoto(string folder, string file)
+        public HttpResponseMessage GetFile(string folder, string file)
         {
             var adminId = _userServices.GetClubByUserName(User.Identity.Name).ClubAdmin.User.Id;
 
@@ -131,6 +131,14 @@ namespace PmaPlus.Controllers.ApiControllers
                 result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(file)));
             }
             return result;
+        }
+
+        [Route("api/Documents/{folder}/{file}")]
+        public IHttpActionResult DeleteFile(string folder, string file)
+        {
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+            _documentManager.DeleteFile(file, folder, user.Id);
+            return Ok();
         }
 
 
