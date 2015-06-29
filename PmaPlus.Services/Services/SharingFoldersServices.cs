@@ -26,6 +26,8 @@ namespace PmaPlus.Services.Services
         }
 
 
+        
+
         public void ShareDirectory(string name, int userId, IList<Role> roles)
         {
             if (_sharedFolderRepository.GetMany(f => f.FolderName.ToLower() == name.ToLower() && f.UserId == userId).Any())
@@ -34,7 +36,7 @@ namespace PmaPlus.Services.Services
 
                 foreach (var role in roles)
                 {
-                    if (dir.Roles.Any(r => r.Role == role))
+                    if (!dir.Roles.Any(r => r.Role == role))
                     {
                         dir.Roles.Add(new SharedFolderRole()
                         {
@@ -48,6 +50,7 @@ namespace PmaPlus.Services.Services
                 {
                     dir.Roles.Remove(role);
                 }
+                _sharedFolderRepository.Update(dir,dir.Id);
             }
             else
             {
@@ -65,6 +68,7 @@ namespace PmaPlus.Services.Services
                         FolderId = newDir.Id
                     });
                 }
+                _sharedFolderRepository.Update(newDir);
             }
 
         }
