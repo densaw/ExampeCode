@@ -5,20 +5,18 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    var confDetail = angular.element('#confDetail');
+    var confDetail1 = angular.element('#confDetail1');
 
-    $scope.openEdit = function () {
+    $scope.openEdit1 = function () {
         $scope.modalTitle = "Edit";
-        confDetail.modal('show');
+        confDetail1.modal('show');
     };
 
     $scope.closeDetails = function () {
 
-        confDetail.modal('hide');
+        confDetail1.modal('hide');
         //$scope.objective = "";
     };
-
-
 
     $http.get('/api/MatchObjectives/' + $scope.currId).success(function (result) {
         $scope.playersList = result;

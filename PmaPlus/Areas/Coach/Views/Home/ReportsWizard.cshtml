@@ -38,7 +38,7 @@
                 </div>
                 <div class="ibox-content">
                     <div class="row">
-                        <div class="col-sm-12"><progressbar class="progress-striped active" max="5" value="progress.current" type="danger"></progressbar></div>
+                        <div class="col-sm-12"><progressbar class="progress-striped active" max="4" value="progress.current" type="danger"></progressbar></div>
                     </div>
                 </div>
             </div>
@@ -54,6 +54,9 @@
         @Html.Partial("~/Views/Partials/_MatchReportWizard/_WizardPage3end.cshtml")
     </wz-step>
     <wz-step>
+        @Html.Partial("~/Views/Partials/_MatchReportWizard/_WizardPage4.cshtml")
+    </wz-step>
+    <wz-step>
         @Html.Partial("~/Views/Partials/_MatchReportWizard/_WizardPage5.cshtml")
     </wz-step>
 </wizard>
@@ -65,4 +68,5 @@
 <script src="~/Scripts/controllers/matchReportsProcess/WizardPage3Controller.js"></script>
 <script src="~/Scripts/controllers/matchReportsProcess/WizardPage3endController.js"></script>
 <script src="~/Scripts/controllers/matchReportsProcess/WizardPage5Controller.js"></script>
+<script src="~/Scripts/controllers/matchReportsProcess/WizardPage4Controller.js"></script>
 }

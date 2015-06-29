@@ -3216,7 +3216,6 @@
     <Content Include="Areas\Coach\Views\Home\PlayersTable.cshtml" />
     <Content Include="Areas\Coach\Views\Home\Wizzard.cshtml" />
     <Content Include="Areas\Coach\Views\Home\ReportsWizard.cshtml" />
-    <Content Include="Areas\Coach\Views\Home\MatchReportsPage4.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3823,6 +3822,7 @@
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage3.cshtml" />
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage3end.cshtml" />
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage5.cshtml" />
+    <Content Include="Views\Partials\_MatchReportWizard\_WizardPage4.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

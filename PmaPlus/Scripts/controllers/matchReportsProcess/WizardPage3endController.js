@@ -30,7 +30,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
         $scope.loginLoading = true;
         //$scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
-        $http.post('/api/MatchReports/' + $scope.currId, $scope.matchDetails).success(function () {
+        $http.put('/api/MatchReports/' + $scope.currId, $scope.matchDetails).success(function () {
         confConfirm1.modal('hide');
         }).error(function (data, status, headers, config) {
             if (status == 400) {
