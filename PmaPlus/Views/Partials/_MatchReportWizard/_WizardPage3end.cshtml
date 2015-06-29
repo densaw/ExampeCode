@@ -33,25 +33,24 @@
                             <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
                                 <label class="col-lg-4 title-modal">Duration:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <input name="playersOutcome" type="number" ng-model="matchDetails" required class="form-control" min="0">
+                                    <input name="playersOutcome" type="number" ng-model="matchDetails.duration" required class="form-control" min="0">
                                 </div>
                             </div>
                             <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
                                 <label class="col-lg-4 title-modal">Periods:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <input name="playersOutcome" ng-model="matchDetails" type="number" required class="form-control" min="0">
+                                    <input name="playersOutcome" ng-model="matchDetails.periods" type="number" required class="form-control" min="0">
                                 </div>
                             </div>
                             <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
                                 <label class="col-lg-4 title-modal">Period Duration:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <input name="playersOutcome" ng-model="matchDetails" type="number" required class="form-control" min="0">
+                                    <input name="playersOutcome" ng-model="matchDetails.periodDuration" type="number" required class="form-control" min="0">
                                 </div>
                             </div>
                         </form>
-                        <div class="modal-footer">
-                            <button ng-click="closeDetails()" id="close" type="button" class="btn btn-white">Close</button>
-                            <button ng-click="addDetails(player, objective)" id="save" type="button" class="btn btn-primary">Save changes</button>
+                        <div class="modal-footer">                           
+                            <button ng-click="addMatchDetails()" id="save" type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>

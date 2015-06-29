@@ -20,9 +20,10 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
 
     $scope.addMatchDetails = function () {
         $scope.loginLoading = true;
+        console.log('test');
         //$scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
-        $http.post('/api/MatchReports/' + $scope.currId).success(function () {
+        $http.put('/api/MatchReports/' + $scope.currId, $scope.matchDetails).success(function () {
         }).error(function (data, status, headers, config) {
             if (status == 400) {
                 console.log(data);
