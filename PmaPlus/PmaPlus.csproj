@@ -3239,6 +3239,7 @@
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage2Controller.js" />
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage3Controller.js" />
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage3endController.js" />
+    <Content Include="Scripts\controllers\matchReportsProcess\WizardPage4Controller.js" />
     <Content Include="Scripts\controllers\MessageController.js" />
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\controllers\TeamPlayersTableController.js" />
