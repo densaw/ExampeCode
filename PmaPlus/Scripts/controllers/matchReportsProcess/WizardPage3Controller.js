@@ -28,6 +28,12 @@ app.controller('WizardPage3Controller', ['$scope', '$http', '$q', '$location', '
         console.log(result);
     });
 
+    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
+        $scope.cuurrentMatch = result;
+        console.log('pre');
+        console.log(result);
+    });
+
 
     $scope.addDetails = function (player, objective, outcome) {
         $scope.loginLoading = true;
