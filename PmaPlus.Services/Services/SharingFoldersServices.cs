@@ -72,5 +72,11 @@ namespace PmaPlus.Services.Services
             }
 
         }
+
+        public void DeleteDirectory(string name, int userId)
+        {
+            _sharedFolderRepository.Delete(d => d.FolderName.ToLower() == name.ToLower() && d.UserId == userId);
+        }
+
     }
 }

@@ -60,9 +60,9 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
         }
 
 
-        public MatchReportTableViewModel Get(int id)
+        public MatchReportViewModel Get(int id)
         {
-            return Mapper.Map<Match, MatchReportTableViewModel>(_matchReportServices.GetMatchById(id));
+            return Mapper.Map<Match, MatchReportViewModel>(_matchReportServices.GetMatchById(id));
         }
 
 

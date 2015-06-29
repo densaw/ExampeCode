@@ -3225,6 +3225,7 @@
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controllers\ClubControllers.js" />
+    <Content Include="Scripts\controllers\ClubDocumentsController.js" />
     <Content Include="Scripts\controllers\curriculumProcess\CurrAdendanceController.js" />
     <Content Include="Scripts\controllers\curriculumProcess\CurrRatingController.js" />
     <Content Include="Scripts\controllers\curriculumProcess\CurrReportObjectiveController.js" />
