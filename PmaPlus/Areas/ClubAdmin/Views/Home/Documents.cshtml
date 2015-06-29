@@ -24,25 +24,16 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <div class="file-manager">
-                            <h5>Show:</h5>
-                            <a href="#" class="file-control active">All</a>
-                            <a href="#" class="file-control">Documents</a>
-                            <a href="#" class="file-control">Audio</a>
-                            <a href="#" class="file-control">Images</a>
-                            <div class="hr-line-dashed"></div>
+
 
                             <button type="file" id="file" class="btn btn-primary btn-block" ng-click="add()">Upload Files</button>
 
                             <div class="hr-line-dashed"></div>
-                            <h5>Folders</h5>
+                            <h5>Folders</h5><a class="pull-right" ng-click="newFolder()"><i class="fa fa-plus-square-o"></i></a>
 
                             <ul class="folder-list" style="padding: 0">
-                                <li><a href=""><i class="fa fa-folder"></i> Files</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Pictures</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Web pages</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Illustrations</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Films</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Books</a></li>
+                                <li ng-repeat="folder in folders"><a ng-click="getFiles(folder.name)"><i class="fa fa-folder"></i> {{folder.name}}</a><a ng-click="deleteFolder(folder.name)" class="pull-right" href=""><i class="fa fa-trash-o"></i></a> </li>
+
                             </ul>
 
                             @*
@@ -59,7 +50,7 @@
             <div class="col-lg-9 animated fadeInRight">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="file-box">
+                        <div class="file-box" ng-repeat="file in files">
                             <div class="file">
                                 <a href="#">
                                     <span class="corner"></span>
@@ -68,9 +59,9 @@
                                         <i class="fa fa-file"></i>
                                     </div>
                                     <div class="file-name">
-                                        Document_2014.doc
+                                        {{file.name}}
                                         <br>
-                                        <small>Added: Jan 11, 2014</small>
+                                        <small>Added: {{file.addDate}}</small>
                                     </div>
                                 </a>
                             </div>
@@ -81,4 +72,105 @@
             </div>
         </div>
     </div>
+    
+    @*Modal*@
+    <div class="modal inmodal" id="addFolder" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title text-left">Add Folder</h3>
+                </div>
+                <div class="modal-body">
+                    <form name="myform" class="form-horizontal" novalidate>
+                        <div class="form-group" ng-class="{'has-error':myform.fName.$invalid && (myform.fName.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Folder Name:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input name="fName" required class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-lg-4 title-modal">Coach:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input  type="checkbox"   class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Head Of Academy:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input type="checkbox"  class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Head Of Education:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input type="checkbox"  class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Scout:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input type="checkbox"  class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Physioterapist:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input type="checkbox" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Player:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input type="checkbox"  class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 title-modal">Sport Scientist:</label>
+                            <div class="col-lg-7 pull-right">
+                                <input type="checkbox"  class="form-control">
+                            </div>
+                        </div>
+
+                        
+                        
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                    <button ng-click="ok()" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                        <span class="ladda-label" style="font-size: 14px;">Save changes</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Modal End*@
+    @*Modal*@
+    <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title">Delete Record?</h3>
+
+
+                </div>
+                <div class="modal-body">
+                    <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
+                    <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Modal End*@
 </div>
+@section scripts{
+<script src="~/Scripts/controllers/ClubDocumentsController.js"></script>
+}

@@ -33,13 +33,13 @@
                                     </td>
                                     <td>{{playersLists.playerName}}</td>
                                     <td>{{playersLists.objective}}</td>
-                                    <td>{{playersLists.outcome}}</td>
+                                    <td>{{playersLists.outcome ? 'Achieved' : 'Not Achieved'}}</td>
                                     
-                                    
-                                    <td>
-                                        <a ng-click="openEdit(playersLists)" class="fa fa-graduation-cap"></a>
-                                    </td>
-                                </tr>
+
+                                        <td>
+                                            <a ng-click="openEdit(playersLists)" class="fa fa-graduation-cap"></a>
+                                        </td>
+</tr>
                             </tbody>
                         </table>
 

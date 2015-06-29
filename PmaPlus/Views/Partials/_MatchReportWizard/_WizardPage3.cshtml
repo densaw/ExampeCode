@@ -33,7 +33,7 @@
                                     </td>
                                     <td>{{playersLists.playerName}}</td>
                                     <td>{{playersLists.objective}}</td>
-                                    <td>{{playersLists.outcome}}</td>
+                                    <td>{{playersLists.outcome ? 'Achieved' : 'Not Achieved' }}</td>
 
 
                                     <td>
@@ -71,14 +71,14 @@
                         <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Match Objective:</label>
                             <div class="col-lg-7 pull-right">
-                                <textarea name="playersLists" ng-model="objective" required class="form-control"></textarea>
+                                <textarea name="playersLists" ng-disabled="true" ng-model="objective" required class="form-control"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Outcome:</label>
                             <div class="col-lg-7 pull-right">
-                                <textarea name="playersOutcome" ng-model="outcome" required class="form-control"></textarea>
+                                <select name="playersOutcome" ng-model="outcome" ng-options="o.v as o.n for o in [{ n: 'Not Achieved', v: false }, { n: 'Achieved', v: true }]" required class="form-control"></select>
                             </div>
                         </div>
                     </form>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="modal-footer">
                     <button ng-click="closeDetails()" id="close" type="button" class="btn btn-white">Close</button>
-                    <button ng-click="addDetails(player, objective, outcome)" id="save" type="button" class="btn btn-primary">Save changes</button>
+                    <button ng-click="addDetails(player, outcome)" id="save" type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>

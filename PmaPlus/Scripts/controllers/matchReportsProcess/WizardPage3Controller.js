@@ -22,6 +22,7 @@ app.controller('WizardPage3Controller', ['$scope', '$http', '$q', '$location', '
         //$scope.objective = "";
     };
 
+    
 
     $http.get('/api/MatchObjectives/' + $scope.currId).success(function (result) {
         $scope.playersList = result;
@@ -35,10 +36,10 @@ app.controller('WizardPage3Controller', ['$scope', '$http', '$q', '$location', '
     });
 
 
-    $scope.addDetails = function (player, objective, outcome) {
+    $scope.addDetails = function (player, outcome) {
         $scope.loginLoading = true;
-        player.objective = objective;
-
+        
+        player.outcome = outcome;
         //$scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
         $http.post('/api/MatchObjectives/', player).success(function () {

@@ -22,4 +22,6 @@ app.controller('MatchWizardPageController', ['$scope', '$http', '$q', '$location
 
     };
 
+   
+
 }]);
