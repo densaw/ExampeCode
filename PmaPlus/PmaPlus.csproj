@@ -3217,7 +3217,6 @@
     <Content Include="Areas\Coach\Views\Home\PlayersTable.cshtml" />
     <Content Include="Areas\Coach\Views\Home\Wizzard.cshtml" />
     <Content Include="Areas\Coach\Views\Home\ReportsWizard.cshtml" />
-    <Content Include="Areas\Coach\Views\Home\MatchReportsPage4.cshtml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
@@ -3241,6 +3240,7 @@
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage3Controller.js" />
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage3endController.js" />
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage4Controller.js" />
+    <Content Include="Scripts\controllers\matchReportsProcess\WizardPage5Controller.js" />
     <Content Include="Scripts\controllers\MessageController.js" />
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\controllers\TeamPlayersTableController.js" />
@@ -3822,6 +3822,8 @@
     <Content Include="Views\Partials\_MatchReportWizard\WizardPage2.cshtml" />
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage3.cshtml" />
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage3end.cshtml" />
+    <Content Include="Views\Partials\_MatchReportWizard\_WizardPage5.cshtml" />
+    <Content Include="Views\Partials\_MatchReportWizard\_WizardPage4.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
