@@ -91,7 +91,8 @@ namespace PmaPlus.Tools
                        {
                            Name = file.Name,
                            Size = file.Length,
-                           FileType = file.Extension
+                           FileType = file.Extension,
+                           AddDate = file.CreationTime
                        };
 
             }

@@ -88,7 +88,7 @@ namespace PmaPlus.Controllers.ApiControllers
         }
 
         [Route("api/Documents/{folder}")]
-        public async Task<IHttpActionResult> PostPhoto(string folder)
+        public async Task<IHttpActionResult> PostFile(string folder)
         {
             var club = _userServices.GetClubByUserName(User.Identity.Name);
 
@@ -99,6 +99,19 @@ namespace PmaPlus.Controllers.ApiControllers
             }
             return BadRequest("Unsuported type");
         }
+
+        [Route("api/Documents/{folder}")]
+        public IHttpActionResult DeleteFolder(string folder)
+        {
+              var user = _userServices.GetUserByEmail(User.Identity.Name);
+            if (_documentManager.DeleteDirectory(folder, user.Id))
+            {
+                _sharingFoldersServices.DeleteDirectory(folder, user.Id);
+            }
+            
+            return Ok();
+        }
+
 
         [Route("api/Documents/{folder}/{file}")]
         public HttpResponseMessage GetPhoto(string folder, string file)
