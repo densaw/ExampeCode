@@ -5,46 +5,24 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    var confDetail = angular.element('#confDetail2');
-
-    $scope.openEdit = function (player) {
-        $scope.modalTitle = "Edit";
-        $scope.player = player;
-        $scope.playerName = player.playerName;
-        $scope.objective = player.objective;
-        $scope.outcome = player.outcome;
-        confDetail.modal('show');
-    };
-
-    $scope.closeDetails = function () {
-
-        confDetail.modal('hide');
-        //$scope.objective = "";
-    };
-
     
 
-    $http.get('/api/MatchObjectives/' + $scope.currId).success(function (result) {
-        $scope.playersList = result;
+    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
+        $scope.matchDetails = result;
+        console.log('details');
         console.log(result);
     });
-
     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
         $scope.cuurrentMatch = result;
         console.log('pre');
         console.log(result);
     });
 
-
-    $scope.addDetails = function (player, outcome) {
+    $scope.addMatchDetails = function () {
         $scope.loginLoading = true;
-        
-        player.outcome = outcome;
         //$scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
-        $http.post('/api/MatchObjectives/', player).success(function () {
-
-            confDetail.modal('hide');
+        $http.post('/api/MatchReports/' + $scope.currId).success(function () {
         }).error(function (data, status, headers, config) {
             if (status == 400) {
                 console.log(data);

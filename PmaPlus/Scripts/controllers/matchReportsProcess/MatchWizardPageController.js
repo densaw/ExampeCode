@@ -22,14 +22,6 @@ app.controller('MatchWizardPageController', ['$scope', '$http', '$q', '$location
 
     };
 
-    //$scope.saveProgress = function () {
-        //$scope.$broadcast('saveProgressEvent');
-    //};
-
-    $scope.updateProgress = function () {
-        $scope.progress.current = WizardHandler.wizard().currentStepNumber() - 1;
-        $scope.$broadcast('moveEvent');
-
-    };
+   
 
 }]);
