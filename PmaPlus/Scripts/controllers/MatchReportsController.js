@@ -54,7 +54,7 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
                 $scope.loginLoading = false;
                 
                 $http.put(urlTail + '/' + id, $scope.newMatch).success(function () {
-                    //getResultsPage($scope.pagination.current);
+                    getResultsPage($scope.pagination.current);
                     addMatchReports.modal('hide');
                 }).error(function (data, status, headers, config) {
                     if (status == 400) {
@@ -70,7 +70,7 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
                 $scope.loginLoading = false;
                 //$scope.newAttr.type = $scope.selectedType.id;
                 $http.post(urlTail, $scope.newMatch).success(function () {
-                    //getResultsPage($scope.pagination.current);
+                    getResultsPage($scope.pagination.current);
                     addMatchReports.modal('hide');
                 }).error(function (data, status, headers, config) {
                     if (status == 400) {

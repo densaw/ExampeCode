@@ -1,10 +1,10 @@
-﻿<div ng-controller="WizardPage2Controller" ng-cloak>
+﻿<div ng-controller="WizardPage3Controller" ng-cloak>
 
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Match Objectives vs Opposition Name - Date - Time</h5><h5 ng-if="addDate" style="font-weight: 200;"> - Date: {{addDate.time | date:'dd-MM-yyyy'}} Time: {{addDate.time | date:'HH:mm'}} Duration: {{addDate.duration}} </h5>
+                    <h5>Match Objectives Outcome vs Opposition Name - Date - Time</h5><h5 ng-if="addDate" style="font-weight: 200;"> - Date: {{addDate.time | date:'dd-MM-yyyy'}} Time: {{addDate.time | date:'HH:mm'}} Duration: {{addDate.duration}} </h5>
 
                 </div>
                 <div class="table-responsive">
@@ -25,7 +25,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat ="playersLists in playersList">
+                                <tr ng-repeat="playersLists in playersList">
                                     <td>
                                         <div style="width: 100px; height: 100px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
                                             <img class="prifile" ng-src="{{playersLists.playerPicture}}" style-parent />
@@ -34,8 +34,8 @@
                                     <td>{{playersLists.playerName}}</td>
                                     <td>{{playersLists.objective}}</td>
                                     <td>{{playersLists.outcome}}</td>
-                                    
-                                    
+
+
                                     <td>
                                         <a ng-click="openEdit(playersLists)" class="fa fa-graduation-cap"></a>
                                     </td>
@@ -51,7 +51,7 @@
     </div>
 
     @*Modal*@
-    <div class="modal inmodal" id="confDetail" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal inmodal" id="confDetail2" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
@@ -75,12 +75,18 @@
                             </div>
                         </div>
 
+                        <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                            <label class="col-lg-4 title-modal">Outcome:</label>
+                            <div class="col-lg-7 pull-right">
+                                <textarea name="playersOutcome" ng-model="outcome" required class="form-control"></textarea>
+                            </div>
+                        </div>
                     </form>
 
                 </div>
                 <div class="modal-footer">
                     <button ng-click="closeDetails()" id="close" type="button" class="btn btn-white">Close</button>
-                    <button ng-click="addDetails(player, objective)" id="save" type="button" class="btn btn-primary">Save changes</button>
+                    <button ng-click="addDetails(player, objective, outcome)" id="save" type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
