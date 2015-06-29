@@ -89,7 +89,7 @@ namespace PmaPlus.Services.Services
                     PlayerName = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                     PlayerPicture ="/api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
                     Objective = o != null ? o.Objective : "",
-                    Outcome = o != null ? o.Outcome : OutcomeType.NotAchieved,
+                    Outcome = o != null ? o.Outcome : false,
                     MatchId = matchId
                 };
             return result;

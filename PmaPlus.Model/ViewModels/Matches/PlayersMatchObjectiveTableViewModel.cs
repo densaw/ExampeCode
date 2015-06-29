@@ -15,6 +15,6 @@ namespace PmaPlus.Model.ViewModels.Matches
         public string PlayerPicture { get; set; }
         public string PlayerName { get; set; }
         public string Objective { get; set; }
-        public OutcomeType Outcome { get; set; }
+        public bool Outcome { get; set; }
     }
 }
