@@ -99,6 +99,7 @@ namespace PmaPlus
                 "~/Scripts/userSripts.js"));
 
             bundles.Add(new ScriptBundle("~/plugins/angular-file").Include(
+                "~/Scripts/angular/checklist-model.js",
                 "~/Scripts/angular/angular-file-model.js"));
 
             bundles.Add(new ScriptBundle("~/plugins/angular-dateparser").Include(
