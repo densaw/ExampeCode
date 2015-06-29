@@ -22,7 +22,12 @@ namespace PmaPlus.Services.Services
 
         public IList<Role> GetDirectoryRoles(string dir, int id)
         {
-            return _sharedFolderRepository.Get(f => f.FolderName.ToLower() == dir.ToLower()).Roles.Select(r => r.Role).ToList();
+            var fldr = _sharedFolderRepository.Get(f => f.FolderName.ToLower() == dir.ToLower());
+            if (fldr == null)
+            {
+                return null;
+            }
+            return fldr.Roles.Select(r => r.Role).ToList();
         }
 
 
