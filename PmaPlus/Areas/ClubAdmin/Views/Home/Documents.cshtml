@@ -29,10 +29,19 @@
                             <button type="file" id="file" class="btn btn-primary btn-block" ng-click="add()">Upload Files</button>
 
                             <div class="hr-line-dashed"></div>
-                            <h5>Folders</h5><a class="pull-right" ng-click="newFolder()"><i class="fa fa-plus-square-o"></i></a>
+                            <div class="row">
+                                <div class="col-lg-7"><h5>Folders</h5></div>
+                                <div class="col-lg-4" style="padding-right:8px"><a class="pull-right" ng-click="newFolder()"><i class="fa fa-plus-square-o"></i></a></div>
+                                </div>
 
                             <ul class="folder-list" style="padding: 0">
-                                <li ng-repeat="folder in folders"><a ng-click="getFiles(folder.name)"><i class="fa fa-folder"></i> {{folder.name}}</a><a ng-click="deleteFolder(folder.name)" class="pull-right" href=""><i class="fa fa-trash-o"></i></a> </li>
+                                <li ng-repeat="folder in folders">
+                                    <div class="row">
+                                        <div class="col-lg-7"><a ng-click="getFiles(folder.name)"><i class="fa fa-folder"></i> {{folder.name}}</a></div>
+                                        <div class="col-lg-4" style="padding-right:0px"><a ng-click="deleteFolder(folder.name)" class="pull-right" href=""><i class="fa fa-trash-o"></i></a></div>
+                                    </div>
+                                </li>
+                                
 
                             </ul>
 
