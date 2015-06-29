@@ -11,7 +11,8 @@ namespace PmaPlus.Tools
 {
     public interface IDocumentManager
     {
-        Task<string> AddDocument(HttpRequestMessage request, int userId);
+        Task<string> AddDocument(HttpRequestMessage request,string folder, int userId);
+        FileStream GetFileStream(string fileName, string folder, int userId);
         bool CreateDirectory(string dirName, int userId);
         IEnumerable<DirectoryInfo> GetUserDirectories(int userId);
         IEnumerable<FileViewModel> GetDirectoryFiles(string dirName, int userId);

@@ -10,7 +10,7 @@ using PmaPlus.Model.ViewModels.Document;
 
 namespace PmaPlus.Tools
 {
-   
+
 
     public class LocalDocumentManager : IDocumentManager
     {
@@ -21,16 +21,15 @@ namespace PmaPlus.Tools
             _workingFolder = workingFolder;
         }
 
-
-        public async Task<string> AddDocument(HttpRequestMessage request, int userId)
+        public async Task<string> AddDocument(HttpRequestMessage request,string folder ,int userId)
         {
-            string userPath = _workingFolder + "\\" + userId;
+            string userPath = _workingFolder + "\\" + userId + "\\" + folder;
             if (!Directory.Exists(userPath))
             {
                 Directory.CreateDirectory(userPath);
             }
 
-            var provider = new DocumentStreamProvider(_workingFolder + "\\" + userId);
+            var provider = new DocumentStreamProvider(userPath);
 
             await request.Content.ReadAsMultipartAsync(provider);
 
@@ -45,7 +44,15 @@ namespace PmaPlus.Tools
             return fileInfo.Name;
         }
 
-
+        public FileStream GetFileStream(string fileName, string folder, int userId)
+        {
+            var fullFilePath = _workingFolder + "\\" + userId + "\\" + folder +"\\" + fileName;
+            if (File.Exists(fullFilePath))
+            {
+                return new FileStream(fullFilePath, FileMode.Open, FileAccess.Read);
+            }
+            return null;
+        }
 
         public bool CreateDirectory(string dirName, int userId)
         {
@@ -62,12 +69,13 @@ namespace PmaPlus.Tools
         public IEnumerable<DirectoryInfo> GetUserDirectories(int userId)
         {
             var dirPath = String.Format("{0}\\{1}\\", _workingFolder, userId);
-            if (userId > 0)
-            {
+            
                 DirectoryInfo info = new DirectoryInfo(dirPath);
-                return info.EnumerateDirectories();
-            }
-            return null;
+                if (info.Exists)
+                {
+                    return info.EnumerateDirectories();
+                }
+                return null;
         }
 
         public IEnumerable<FileViewModel> GetDirectoryFiles(string dirName, int userId)

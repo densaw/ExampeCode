@@ -12,6 +12,12 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
         confDetail.modal('show');
     };
 
+    $scope.closeDetails = function () {
+
+        confDetail.modal('hide');
+        //$scope.objective = "";
+    };
+
 
 
     $http.get('/api/MatchObjectives/' + $scope.currId).success(function (result) {
