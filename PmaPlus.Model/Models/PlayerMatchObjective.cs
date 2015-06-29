@@ -12,7 +12,7 @@ namespace PmaPlus.Model.Models
         public int Id { get; set; }
 
         public string Objective { get; set; }
-        public OutcomeType Outcome { get; set; }
+        public bool Outcome { get; set; }
 
         public int MatchId { get; set; }
         public int PlayerId { get; set; }
