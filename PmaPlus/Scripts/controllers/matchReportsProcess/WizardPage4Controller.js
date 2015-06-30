@@ -5,16 +5,16 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    var toggleInvitet = angular.element('#toggleMoMt');
+    //var toggleInvitet = angular.element('#toggleMoMt');
     
     var confInvitet = angular.element('#confInvitet');
-    $scope.playerAdd = {};
+    //$scope.playerAdd = {};
 
     $scope.openEdit1 = function (player) {     
         $scope.player = player;
-        toggleInvitet.bootstrapToggle($scope.player.mom ? 'on' : 'off');
+        //toggleInvitet.bootstrapToggle($scope.player.mom ? 'on' : 'off');
         
-        $scope.modalTitle = "Edit";
+        $scope.modalTitle = "Edit Table";
         confInvitet.modal('show');
     };
 
@@ -40,7 +40,7 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
         $scope.loginLoading = false;
         $http.post('/api/PlayerMatchStatistic/', $scope.player).success(function () {
             
-            $scope.playerAdd = {};
+            //$scope.playerAdd = {};
             confInvite.modal('hide');
         }).error(function (data, status, headers, config) {
             if (status == 400) {
