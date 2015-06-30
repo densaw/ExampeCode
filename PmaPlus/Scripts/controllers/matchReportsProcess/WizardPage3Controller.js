@@ -17,22 +17,17 @@ app.controller('WizardPage3Controller', ['$scope', '$http', '$q', '$location', '
     };
 
     $scope.closeDetails = function () {
-
-        confDetail.modal('hide');
-        //$scope.objective = "";
+        confDetail.modal('hide');        
     };
 
     
 
     $http.get('/api/MatchObjectives/' + $scope.currId).success(function (result) {
-        $scope.playersList = result;
-        console.log(result);
+        $scope.playersList = result;       
     });
 
     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-        $scope.cuurrentMatch = result;
-        console.log('pre');
-        console.log(result);
+        $scope.cuurrentMatch = result;               
     });
 
 

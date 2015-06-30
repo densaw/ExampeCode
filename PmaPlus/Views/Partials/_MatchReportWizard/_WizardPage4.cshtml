@@ -2,9 +2,13 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Match Objectives vs {{cuurrentMatch.oppositionName}} - {{cuurrentMatch.date | date:'dd-MM-yyyy HH:mm'}}</h5><h5 ng-if="addDate" style="font-weight: 200;"> - Date: {{addDate.time | date:'dd-MM-yyyy'}} Time: {{addDate.time | date:'HH:mm'}} Duration: {{addDate.duration}} </h5>
+
+                </div>
                 <div class="ibox-content">
                     @*Modal*@
-                    <div class="modal inmodal" id="confDetail1" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal inmodal" id="confInvite" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content animated bounceInRight">
                                 <div class="modal-header">
@@ -16,79 +20,79 @@
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Player Name:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control">
+                                                <input name="crossing" ng-model="player.playerName" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Man of the Match:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input id="manOfTheMatch" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="default">
+                                                <input type="checkbox" ng-model="player.mom" id="toggleMoM" checked data-toggle="toggle" data-on="Yes" data-off="NO" data-onstyle="success" data-offstyle="default">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Goals:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control" required>
+                                                <input name="crossing" ng-model="player.goals" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Shots:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control">
+                                                <input name="crossing" ng-model="player.shots" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Shots on Target:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control">
+                                                <input name="crossing" ng-model="player.shotsOnTarget" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Assists:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control">
+                                                <input name="crossing" ng-model="player.assists" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Takles:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control">
+                                                <input name="crossing" ng-model="player.tackles" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Passes:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control">
+                                                <input name="crossing" ng-model="player.passes" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Saves:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control">
+                                                <input name="crossing" ng-model="player.saves" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Corners:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control">
+                                                <input name="crossing" ng-model="player.corners" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Free Kicks:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control">
+                                                <input name="crossing" ng-model="player.freeKicks" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Form Rating(1-10):</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control" required>
+                                                <input name="crossing" ng-model="player.formRating" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Playing Time:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="newMatch.formation" class="form-control" required>
+                                                <input name="crossing" ng-model="player.playingTime" class="form-control" required>
                                             </div>
                                         </div>
 
@@ -97,12 +101,13 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button ng-click="closeDetails()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                                    <button ng-click="okMatch()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
+                                    <button ng-click="addPlayerStat()" id="saveModal" type="button" class="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @*Modal End*@
+
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -125,23 +130,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th>Player Name</th>
-                                    <th>Picture</th>
-                                    <th>MOM</th>
-                                    <th>GLS</th>
-                                    <th>SHO</th>
-                                    <th>SHT</th>
-                                    <th>ASI</th>
-                                    <th>TCK</th>
-                                    <th>PAS</th>
-                                    <th>SAV</th>
-                                    <th>CRN</th>
-                                    <th>FRK</th>
-                                    <th>FRM</th>
-                                    <th>PT</th>
+                                <tr ng-repeat="player in playersStat">
+                                    <td>{{player.playerName}}</td>
+                                    <td>
+                                        <div style="width: 100px; height: 100px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
+                                            <img class="prifile" ng-src="{{player.playerPicture}}" style-parent />
+                                        </div>
+                                    </td>
+                                    <td>{{player.mom ? 'YES' : 'NO'}}</td>
+                                    <td>{{player.goals}}</td>
+                                    <td>{{player.shots}}</td>
+                                    <td>{{player.shotsOnTarget}}</td>
+                                    <td>{{player.assists}}</td>
+                                    <td>{{player.tackles}}</td>
+                                    <td>{{player.passes}}</td>
+                                    <td>{{player.saves}}</td>
+                                    <td>{{player.corners}}</td>
+                                    <td>{{player.freeKicks}}</td>
+                                    <td>{{player.formRating}}</td>
+                                    <td>{{player.playingTime}}</td>
                                     <th>
-                                        <a ng-click="openEdit1()" class="fa fa-graduation-cap" style="cursor: pointer;"></a>
+                                        <a ng-click="openEdit1(player)" class="fa fa-graduation-cap" style="cursor: pointer;"></a>
                                     </th>
 
                                 </tr>
