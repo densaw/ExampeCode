@@ -5,21 +5,21 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    var toggleInvite = angular.element('#toggleMoM');
+    var toggleInvitet = angular.element('#toggleMoMt');
     
-    var confInvite = angular.element('#confInvite');
+    var confInvitet = angular.element('#confInvitet');
     $scope.playerAdd = {};
 
-    $scope.openEdit1 = function (player) {
-
-        //toggleInvite.bootstrapToggle($scope.profileTalents.invitedToTrial ? 'on' : 'off');
+    $scope.openEdit1 = function (player) {     
         $scope.player = player;
+        toggleInvitet.bootstrapToggle($scope.player.mom ? 'on' : 'off');
+        
         $scope.modalTitle = "Edit";
-        confInvite.modal('show');
+        confInvitet.modal('show');
     };
 
     $scope.closeDetails = function () {
-        confInvite.modal('hide');
+        confInvitet.modal('hide');
     };
 
     $http.get('/api/PlayerMatchStatistic/' + $scope.currId).success(function (result) {
