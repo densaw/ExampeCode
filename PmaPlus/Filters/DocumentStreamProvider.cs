@@ -25,6 +25,11 @@ namespace PmaPlus.Filters
             return base.GetStream(parent, headers);
 
         }
-        
+
+        public override string GetLocalFileName(HttpContentHeaders headers)
+        {
+            var name = !string.IsNullOrWhiteSpace(headers.ContentDisposition.FileName) ? headers.ContentDisposition.FileName : "NoName";
+            return name.Replace("\"", string.Empty);
+        }
     }
 }

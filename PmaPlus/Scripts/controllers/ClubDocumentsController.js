@@ -38,9 +38,35 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
             .success(function (data) {
                 $scope.files = data;
             });
+        $scope.currentFolder = folderName;
     };
 
 
+    $scope.$watch('uploadFile', function (nfile) {
+        if (nfile) {
+            var fd = new FormData();
+            fd.append('file', nfile);
+            $http.post('/api/Documents/' + $scope.currentFolder, fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            })
+                .success(function (data) {
+                    toaster.pop({
+                        type: 'success',
+                        title: 'Success',
+                        body: 'File upload Successful!'
+                    });
+                    $scope.getFiles($scope.currentFolder);
+                })
+                .error(function () {
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error',
+                        body: 'File upload ERROR!'
+                    });
+                });
+        }
+    });
 
 
     $scope.deleteFolder = function (folderName) {
@@ -51,7 +77,7 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
     };
 
     $scope.deleteFile = function (fileName) {
-        $http.delete('' + $scope.currentFolder + '/' + fileName)
+        $http.delete('/api/Documents/' + $scope.currentFolder + '/' + fileName)
             .success(function () {
                 $scope.getFiles($scope.currentFolder);
             });
@@ -74,9 +100,9 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
         });
     };
 
-    $scope.cancel = function() {
+    $scope.cancel = function () {
         folderModal.modal('hide');
-        
+
     };
     $scope.getFolders();
 }]);

@@ -26,7 +26,7 @@
                         <div class="file-manager">
 
 
-                            <button type="file" id="file" class="btn btn-primary btn-block" ng-click="add()">Upload Files</button>
+                            <input id="logoFile" file-model='uploadFile' type="file" class="doc-fileupload" data-show-preview="false">
 
                             <div class="hr-line-dashed"></div>
                             <div class="row">
@@ -68,13 +68,13 @@
                                         <i class="fa fa-file"></i>
                                     </div>
                                     <div class="file-name">
-                                        {{file.name}}
+                                        {{file.name | limitTo: 16}}{{file.name.length > 16 ? '...':''}}
                                         <br>
-                                        <small>Added: {{file.addDate}}</small>
+                                        <small>Added: {{file.addDate | date: 'yyyy-MM-dd'}}</small>
+                                        <a ng-click="deleteFile(file.name)"><i class="fa fa-trash-o"></i></a>
                                     </div>
                                 </a>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -145,6 +145,17 @@
     </div>
     @*Modal End*@
 </div>
+<script>
+    $(function () {
+        $(".doc-fileupload").fileinput({
+            browseClass: "btn btn-primary btn-block",
+            browseLabel: "Upload File",
+            showCaption: false,
+            showRemove: false,
+            showUpload: false
+        });
+    });
+</script>
 @section scripts{
 <script src="~/Scripts/controllers/ClubDocumentsController.js"></script>
 }
