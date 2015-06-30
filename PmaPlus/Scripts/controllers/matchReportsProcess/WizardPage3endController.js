@@ -31,17 +31,8 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
         //$scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
         $http.put('/api/MatchReports/' + $scope.currId, $scope.matchDetails).success(function () {
-        confConfirm1.modal('hide');
-        }).error(function (data, status, headers, config) {
-            if (status == 400) {
-                console.log(data);
-                toaster.pop({
-                    type: 'error',
-                    title: 'Error', bodyOutputType: 'trustedHtml',
-
-                });
-            }
-        });
+            confConfirm1.modal('hide');
+        }).error(function (data, status, headers, config) { });
     };
 
 }]);

@@ -1,6 +1,6 @@
 ﻿var app = angular.module('MainApp');
 
-app.controller('WizardPage3Controller', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', function ($scope, $http, $q, $location, $rootScope, toaster) {
+app.controller('WizardPage3Controller', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', 'WizardHandler', function ($scope, $http, $q, $location, $rootScope, toaster, WizardHandler) {
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
@@ -17,23 +17,28 @@ app.controller('WizardPage3Controller', ['$scope', '$http', '$q', '$location', '
     };
 
     $scope.closeDetails = function () {
-        confDetail.modal('hide');        
+        confDetail.modal('hide');
     };
 
-    
-
-    $http.get('/api/MatchObjectives/' + $scope.currId).success(function (result) {
-        $scope.playersList = result;       
-    });
+    $scope.getTable = function () {
+        $http.get('/api/MatchObjectives/' + $scope.currId).success(function (result) {
+            $scope.playersList = result;
+        });
+    };
 
     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-        $scope.cuurrentMatch = result;               
+        $scope.cuurrentMatch = result;
     });
 
+    $scope.$on('moveEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == 2) {
+            $scope.getTable();
+        }
+    });
 
     $scope.addDetails = function (player, outcome) {
         $scope.loginLoading = true;
-        
+
         player.outcome = outcome;
         //$scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
