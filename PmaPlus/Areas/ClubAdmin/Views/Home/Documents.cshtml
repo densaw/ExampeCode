@@ -71,7 +71,7 @@
                                         {{file.name | limitTo: 16}}{{file.name.length > 16 ? '...':''}}
                                         <br>
                                         <small>Added: {{file.addDate | date: 'yyyy-MM-dd'}}</small>
-                                        <a ng-click="deleteFile(file.name)"><i class="fa fa-trash-o"></i></a>
+                                        <a ng-click="deleteFile(file.name)" class="pull-right" style="color:#3D4D5D"><i class="fa fa-trash-o"></i></a>
                                     </div>
                                 </a>
                             </div>
