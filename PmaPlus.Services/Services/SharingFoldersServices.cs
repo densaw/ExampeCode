@@ -25,7 +25,7 @@ namespace PmaPlus.Services.Services
             var fldr = _sharedFolderRepository.Get(f => f.FolderName.ToLower() == dir.ToLower());
             if (fldr == null)
             {
-                return null;
+                return new List<Role>();
             }
             return fldr.Roles.Select(r => r.Role).ToList();
         }

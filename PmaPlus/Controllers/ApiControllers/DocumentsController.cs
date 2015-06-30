@@ -43,10 +43,10 @@ namespace PmaPlus.Controllers.ApiControllers
 
 
             return dirs.Select(dir => new DirectoryViewModel()
-        {
-            Name = dir.Name,
-            Roles = _sharingFoldersServices.GetDirectoryRoles(dir.Name, club.ClubAdmin.User.Id)
-        }).Where(d => d.Roles.Contains(user.Role)).ToList();
+            {
+                Name = dir.Name,
+                Roles = _sharingFoldersServices.GetDirectoryRoles(dir.Name, club.ClubAdmin.User.Id)
+            }).Where(d => d.Roles.Contains(user.Role)).ToList();
         }
 
 
@@ -103,12 +103,12 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Documents/{folder}")]
         public IHttpActionResult DeleteFolder(string folder)
         {
-              var user = _userServices.GetUserByEmail(User.Identity.Name);
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
             if (_documentManager.DeleteDirectory(folder, user.Id))
             {
                 _sharingFoldersServices.DeleteDirectory(folder, user.Id);
             }
-            
+
             return Ok();
         }
 
@@ -119,7 +119,7 @@ namespace PmaPlus.Controllers.ApiControllers
             var adminId = _userServices.GetClubByUserName(User.Identity.Name).ClubAdmin.User.Id;
 
             HttpResponseMessage result;
-            FileStream fileStream = _documentManager.GetFileStream(file,folder,adminId);
+            FileStream fileStream = _documentManager.GetFileStream(file, folder, adminId);
             if (fileStream == null)
             {
                 result = Request.CreateResponse(HttpStatusCode.NotFound);
@@ -156,16 +156,16 @@ namespace PmaPlus.Controllers.ApiControllers
 
             using (var stream = new MemoryStream())
             {
-            thumbnail. Save(stream, ImageFormat.Jpeg);
+                thumbnail.Save(stream, ImageFormat.Jpeg);
 
-            result = Request.CreateResponse(HttpStatusCode.OK);
-            result.Content = new ByteArrayContent(stream.ToArray());
-            result.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                result = Request.CreateResponse(HttpStatusCode.OK);
+                result.Content = new ByteArrayContent(stream.ToArray());
+                result.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
 
-            return result;
+                return result;
             }
         }
 
-        
+
     }
 }

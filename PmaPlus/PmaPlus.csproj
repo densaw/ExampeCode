@@ -3245,6 +3245,7 @@
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\controllers\TeamPlayersTableController.js" />
     <Content Include="Scripts\controllers\UserAvatarController.js" />
+    <Content Include="Scripts\controllers\UsersDocumetsController.js" />
     <Content Include="Scripts\controllers\WizzardsControllers.js" />
     <Content Include="Scripts\datapickersecond\bootstrap-datepicker.js" />
     <Content Include="Scripts\datapickersecond\locales\bootstrap-datepicker.bg.js" />
@@ -3824,6 +3825,7 @@
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage3end.cshtml" />
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage5.cshtml" />
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage4.cshtml" />
+    <Content Include="Views\Partials\_DocumentsPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
