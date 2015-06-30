@@ -33,6 +33,16 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
          });
     };
 
+    $scope.downloadFile = function(fileName) {
+        $http({
+            method: 'GET',
+            cache: false,
+            url: '/api/Documents/' + $scope.currentFolder +'/' + fileName ,
+            responseType: 'arraybuffer',
+            headers: {'Content-Type': 'application/json; charset=utf-8'}
+        });
+    };
+
     $scope.getFiles = function (folderName) {
         $http.get('/api/Documents/' + folderName)
             .success(function (data) {

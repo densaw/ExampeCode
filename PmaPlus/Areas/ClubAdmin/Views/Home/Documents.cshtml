@@ -61,9 +61,9 @@
                     <div class="col-lg-12">
                         <div class="file-box" ng-repeat="file in files">
                             <div class="file">
-                                <a href="#">
-                                    <span class="corner"></span>
+                                <a target="_self" href="{{ '/api/Documents/' + currentFolder + '/' + file.name}}" download="{{file.name}}">
 
+                                    <span class="corner"></span>
                                     <div class="icon">
                                         <i class="fa fa-file"></i>
                                     </div>
