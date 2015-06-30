@@ -38,19 +38,13 @@
                                 <li ng-repeat="folder in folders">
                                     <div class="row">
                                         <div class="col-lg-7"><a ng-click="getFiles(folder.name)"><i class="fa fa-folder"></i> {{folder.name}}</a></div>
-                                        <div class="col-lg-4" style="padding-right:0px"><a ng-click="deleteFolder(folder.name)" class="pull-right" href=""><i class="fa fa-trash-o"></i></a></div>
+                                        <div class="col-lg-4" style="padding-right:0px"><a ng-click="confirmDelFolder(folder.name)" class="pull-right" href=""><i class="fa fa-trash-o"></i></a></div>
                                     </div>
                                 </li>
                                 
 
                             </ul>
 
-                            @*
-                                <h5 class="tag-title">Tags</h5>
-                                <ul class="tag-list" style="padding: 0">
-                                    <li><a href="">Work</a></li>
-                                </ul>
-                            *@
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -71,7 +65,7 @@
                                         {{file.name | limitTo: 16}}{{file.name.length > 16 ? '...':''}}
                                         <br>
                                         <small>Added: {{file.addDate | date: 'yyyy-MM-dd'}}</small>
-                                        <a ng-click="deleteFile(file.name)" class="pull-right" style="color:#3D4D5D"><i class="fa fa-trash-o"></i></a>
+                                        <a ng-click="confirmDelFile(file.name)" class="pull-right" style="color:#3D4D5D"><i class="fa fa-trash-o"></i></a>
                                     </div>
                                 </a>
                             </div>
@@ -96,7 +90,6 @@
                             <label class="col-lg-4 title-modal">Folder Name:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="fName" ng-model="newDir.name" required class="form-control">
-
                             </div>
                         </div>
                         <div class="form-group" ng-repeat="role in roles" >
@@ -105,11 +98,6 @@
                                 <input type="checkbox" checklist-model="newDir.roles" checklist-value="role.id" class="form-control">
                             </div>
                         </div>
-                       
-
-                        
-                        
-
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -123,22 +111,38 @@
     </div>
     @*Modal End*@
     @*Modal*@
-    <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal inmodal" id="confDeleteFile" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
-
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="modal-title">Delete Record?</h3>
-
-
                 </div>
                 <div class="modal-body">
-                    <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                    <h3 class="text-center">Are you sure you wish to delete this file?</h3>
                 </div>
                 <div class="modal-footer">
-                    <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
-                    <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                    <button ng-click="cancelFile()" type="button" class="btn btn-white">No</button>
+                    <button ng-click="deleteFile(tFile)" type="button" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Modal End*@
+    @*Modal*@
+    <div class="modal inmodal" id="confDeleteFolder" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title">Delete Record?</h3>
+                </div>
+                <div class="modal-body">
+                    <h3 class="text-center">Are you sure you wish to delete this folder?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="cancelFolder()" type="button" class="btn btn-white">No</button>
+                    <button ng-click="deleteFolder(tFolder)" type="button" class="btn btn-primary">Yes</button>
                 </div>
             </div>
         </div>
