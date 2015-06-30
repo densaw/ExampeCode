@@ -492,6 +492,7 @@
     <Content Include="Scripts\angular\angular-wizard.js" />
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angular.min.js" />
+    <Content Include="Scripts\angular\checklist-model.js" />
     <Content Include="Scripts\angular\docs\components\bootstrap-3.1.1\css\bootstrap-theme.css" />
     <Content Include="Scripts\angular\docs\components\bootstrap-3.1.1\css\bootstrap-theme.min.css" />
     <Content Include="Scripts\angular\docs\components\bootstrap-3.1.1\css\bootstrap.css" />
