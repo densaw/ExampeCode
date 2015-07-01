@@ -8,6 +8,7 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
     var addMatchReports = angular.element('#addMatchReports');
     //var cancelInvite = angular.element('#cancelInvite');
     var urlTail = '/api/MatchReports';
+   
 
     $scope.newMatch = {};
 
@@ -133,6 +134,19 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
         $scope.pagination.current = newPage;
     };
 
+    var matchReportsResult = angular.element('#matchReportsResult');
+    
+
+    $scope.reportResult = function (player) {
+        //toggleInvite.bootstrapToggle($scope.profileTalents.invitedToTrial ? 'on' : 'off');
+        $scope.player = player;
+        $scope.modalTitle = "Edit";
+        matchReportsResult.modal('show');
+    };
+
+    $scope.closeResult = function () {
+        matchReportsResult.modal('hide');
+    }
     
   
 }]);
