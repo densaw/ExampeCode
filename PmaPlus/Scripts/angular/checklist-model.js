@@ -60,7 +60,8 @@ angular.module('checklist-model', [])
   }
 
     // watch UI checked change
-    scope.$watch('checked', function(newValue, oldValue) {
+  scope.$watch('checked', function (newValue, oldValue) {
+     
       if (newValue === oldValue) { 
         return;
       } 

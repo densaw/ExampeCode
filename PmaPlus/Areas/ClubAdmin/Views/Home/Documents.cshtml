@@ -22,8 +22,8 @@
                         <div class="form-group" ng-repeat="role in roles">
                             <label class="col-lg-4 title-modal">{{role.name}}:</label>
                             <div class="col-lg-7 pull-right">
-                                @*<input class="mytoggle" type="checkbox" checklist-model="newdir.roles" checklist-value="role.id" >*@
-                                <input toggle-checkbox class="mytoggle" type="checkbox" checklist-model="newdir.roles" checklist-value="role.id">
+                                
+                                <input toggle-checkbox type="checkbox"  checklist-model="newDir.roles" checklist-value="role.id" >
 
                             </div>
                         </div>
@@ -156,11 +156,6 @@
             showRemove: false,
             showUpload: false
         });
-
-        //$('.mytoggle').bootstrapToggle({
-        //    on: 'Yes',
-        //    off: 'No'
-        //});
 
     });
 </script>
