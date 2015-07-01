@@ -5,16 +5,16 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    //var toggleInvitet = angular.element('#toggleMoMt');
-
+    var toggleInvitet = angular.element('#toggleMoMt');
+    
     var confInvitet = angular.element('#confInvitet');
-    //$scope.playerAdd = {};
+    $scope.playerAdd = {};
 
-    $scope.openEdit1 = function (player) {
+    $scope.openEdit1 = function (player) {     
         $scope.player = player;
-        //toggleInvitet.bootstrapToggle($scope.player.mom ? 'on' : 'off');
-
-        $scope.modalTitle = "Edit Table";
+        toggleInvitet.bootstrapToggle($scope.player.mom ? 'on' : 'off');
+        
+        $scope.modalTitle = "Edit";
         confInvitet.modal('show');
     };
 
@@ -23,9 +23,9 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     };
 
     $scope.getTable = function () {
-        $http.get('/api/PlayerMatchStatistic/' + $scope.currId).success(function (result) {
-            $scope.playersStat = result;
-        });
+    $http.get('/api/PlayerMatchStatistic/' + $scope.currId).success(function (result) {
+        $scope.playersStat = result;       
+    });
     };
 
     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
@@ -40,14 +40,14 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
 
     //ADD==========================================
     $scope.addPlayerStat = function () {
-
+        
         $scope.loginLoading = true;
         //$scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
         $http.post('/api/PlayerMatchStatistic/', $scope.player).success(function () {
-
-            //$scope.playerAdd = {};
-            confInvite.modal('hide');
+            
+            $scope.playerAdd = {};
+            confInvitet.modal('hide');
         }).error(function (data, status, headers, config) {
             if (status == 400) {
                 console.log(data);
