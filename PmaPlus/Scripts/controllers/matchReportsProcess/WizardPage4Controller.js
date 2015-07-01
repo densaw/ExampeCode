@@ -1,6 +1,6 @@
 ﻿var app = angular.module('MainApp');
 
-app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', function ($scope, $http, $q, $location, $rootScope, toaster) {
+app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', 'WizardHandler', function ($scope, $http, $q, $location, $rootScope, toaster, WizardHandler) {
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
@@ -35,6 +35,8 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == 4) {
             $scope.getTable();
+            $scope.nav.canNext = true;
+            $scope.nav.canBack = true;
         }
     });
 

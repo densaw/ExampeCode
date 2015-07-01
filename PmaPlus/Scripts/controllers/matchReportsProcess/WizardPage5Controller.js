@@ -1,9 +1,11 @@
 ﻿var app = angular.module('MainApp');
 
-app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', function ($scope, $http, $q, $location, $rootScope, toaster) {
+app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', 'WizardHandler', function ($scope, $http, $q, $location, $rootScope, toaster, WizardHandler) {
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
+
+    
 
     var confConfirm = angular.element('#confConfirm');
 
@@ -22,6 +24,12 @@ app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '
     $scope.confirmAbort = function () {
         confConfirm.modal('hide');
     }
+
+    $scope.$on('moveEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == 5) {
+            $scope.nav.canNext = false;
+        }
+    });
 
     $scope.addMatchNotes = function () {
         $scope.loginLoading = true;
