@@ -134,6 +134,7 @@ namespace PmaPlus.Services.Services
                              Shots = s != null ? s.Shots : 0,
                              ShotsOnTarget = s != null ? s.ShotsOnTarget : 0,
                              Tackles = s != null ? s.Tackles : 0,
+                             Mom = s != null ? s.Match.MatchMom.PlayerId == player.Id : false
                          };
             return result;
 
