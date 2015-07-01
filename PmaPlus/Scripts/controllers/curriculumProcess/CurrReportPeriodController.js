@@ -9,12 +9,14 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
         $scope.statemants = data;
     });
 
+    var getTable = function () {
 
-    $http.get('/api/Curriculum/Wizard/Session/BlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
-        .success(function (result) {
-            $scope.items = result;
+        $http.get('/api/Curriculum/Wizard/Session/BlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
+            .success(function (result) {
+                $scope.items = result;
+            });
+    }
 
-        });
     var savePeriod = function () {
         $http.post('/api/Curriculum/Wizard/Session/BlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
             .success(function () {
@@ -36,6 +38,8 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
+
+            getTable();
         }
     });
 

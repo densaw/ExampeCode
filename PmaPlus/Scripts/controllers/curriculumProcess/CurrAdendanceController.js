@@ -7,20 +7,22 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
     var confAtend = angular.element('#confAtend');
 
 
-    
+
 
     $scope.date = new Date();
-    
+
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    $http.get('/api/Curriculum/Wizard/Session/AttendanceTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
-        .success(function (result) {
-            $scope.items = result;
+    var getTable = function () {
 
-        });
-   
+        $http.get('/api/Curriculum/Wizard/Session/AttendanceTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
+            .success(function (result) {
+                $scope.items = result;
+            });
+    }
+
 
     var savePeriod = function () {
         $http.post('/api/Curriculum/Wizard/Session/AttendanceTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
@@ -34,8 +36,8 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
         //confDetail.modal('show');
         $('#confDetail').appendTo("body").modal('show');
     };
-    
-   
+
+
 
     $scope.confAtend = function () {
         $scope.modalTitle = "Details";
@@ -57,7 +59,7 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
        { id: 5, name: 'Sick ' },
        { id: 6, name: 'OtherTraining ' },
        { id: -1, name: '' }
-       
+
     ];
     //$scope.attendenseVisible = $scope.attendense[0];
 
@@ -78,6 +80,8 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
                 $scope.nav.canNext = false;
                 $scope.nav.canBack = false;
             }
+
+            getTable();
         }
     });
 
@@ -101,13 +105,13 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
 
 
 
-    $scope.ssesionNotCompletedModal = function() {
+    $scope.ssesionNotCompletedModal = function () {
         angular.element('#confNotCompl').appendTo('body').modal('show');
     }
 
-    $scope.ssesionNotCompleted = function() {
+    $scope.ssesionNotCompleted = function () {
         angular.element('#confNotCompl').modal('hide');
-        angular.forEach($scope.items, function(item) {
+        angular.forEach($scope.items, function (item) {
             item.attendance = 1;
             item.duration = 0;
         });
