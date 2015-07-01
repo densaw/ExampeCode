@@ -18,7 +18,6 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
 
     $http.get('/api/Teams/Coach/List').success(function (result) {
         $scope.teamList = result;
-        console.log(result);
     });
 
     $scope.matchType = [
@@ -32,11 +31,11 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
 
     $scope.sideType = [
 
-        { id: 0, name: 's5a_side' },
-        { id: 1, name: 's6a_side' },
-        { id: 2, name: 's7a_side' },
-        { id: 3, name: 's9a_side' },
-        { id: 3, name: 's11a_side' }
+        { id: 0, name: '5A' },
+        { id: 1, name: '6A' },
+        { id: 2, name: '7A' },
+        { id: 3, name: '9A' },
+        { id: 3, name: '11A' }
     ];
 
     $scope.addMatch = function () {

@@ -1,36 +1,44 @@
 ﻿var app = angular.module('MainApp');
 
-app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', function ($scope, $http, $q, $location, $rootScope, toaster) {
+app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', 'WizardHandler', function ($scope, $http, $q, $location, $rootScope, toaster, WizardHandler) {
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    var toggleInvite = angular.element('#toggleMoM');
+    var toggleInvitet = angular.element('#toggleMoMt');
     
-    var confInvite = angular.element('#confInvite');
+    var confInvitet = angular.element('#confInvitet');
     $scope.playerAdd = {};
 
-    $scope.openEdit1 = function (player) {
-
-        //toggleInvite.bootstrapToggle($scope.profileTalents.invitedToTrial ? 'on' : 'off');
+    $scope.openEdit1 = function (player) {     
         $scope.player = player;
+        toggleInvitet.bootstrapToggle($scope.player.mom ? 'on' : 'off');
+        
         $scope.modalTitle = "Edit";
-        confInvite.modal('show');
+        confInvitet.modal('show');
     };
 
     $scope.closeDetails = function () {
-        confInvite.modal('hide');
+        confInvitet.modal('hide');
     };
 
+    $scope.getTable = function () {
     $http.get('/api/PlayerMatchStatistic/' + $scope.currId).success(function (result) {
         $scope.playersStat = result;       
     });
+    };
 
     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
         $scope.cuurrentMatch = result;
     });
 
-
+    $scope.$on('moveEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == 4) {
+            $scope.getTable();
+            $scope.nav.canNext = true;
+            $scope.nav.canBack = true;
+        }
+    });
 
     //ADD==========================================
     $scope.addPlayerStat = function () {
@@ -41,7 +49,7 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
         $http.post('/api/PlayerMatchStatistic/', $scope.player).success(function () {
             
             $scope.playerAdd = {};
-            confInvite.modal('hide');
+            confInvitet.modal('hide');
         }).error(function (data, status, headers, config) {
             if (status == 400) {
                 console.log(data);

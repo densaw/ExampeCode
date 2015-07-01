@@ -1,6 +1,6 @@
 ﻿var app = angular.module('MainApp');
 
-app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', function ($scope, $http, $q, $location, $rootScope, toaster) {
+app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', 'WizardHandler', function ($scope, $http, $q, $location, $rootScope, toaster, WizardHandler) {
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
@@ -17,13 +17,16 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
 
     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
         $scope.matchDetails = result;
-        console.log('details');
-        console.log(result);
     });
     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
         $scope.cuurrentMatch = result;
-        console.log('pre');
-        console.log(result);
+    });
+
+    $scope.$on('moveEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == 4) {
+            $scope.nav.canNext = true;
+            $scope.nav.canBack = true;
+        }
     });
 
     $scope.addMatchDetails = function () {
@@ -31,17 +34,8 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
         //$scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
         $http.put('/api/MatchReports/' + $scope.currId, $scope.matchDetails).success(function () {
-        confConfirm1.modal('hide');
-        }).error(function (data, status, headers, config) {
-            if (status == 400) {
-                console.log(data);
-                toaster.pop({
-                    type: 'error',
-                    title: 'Error', bodyOutputType: 'trustedHtml',
-
-                });
-            }
-        });
+            confConfirm1.modal('hide');
+        }).error(function (data, status, headers, config) { });
     };
 
 }]);
