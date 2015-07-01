@@ -82,6 +82,7 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
 
             var match = Mapper.Map<MatchReportViewModel, Match>(matchReportViewModel);
             match.Id = id;
+            match.Duration = match.Periods * match.PeriodDuration;
             _matchReportServices.UpdateMatchReport(match);
             return Ok();
 

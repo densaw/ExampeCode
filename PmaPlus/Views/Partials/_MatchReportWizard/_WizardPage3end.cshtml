@@ -31,12 +31,6 @@
                             </div>
 
                             <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
-                                <label class="col-lg-4 title-modal">Duration:</label>
-                                <div class="col-lg-7 pull-right">
-                                    <input name="playersOutcome" type="number" ng-model="matchDetails.duration" required class="form-control" min="0">
-                                </div>
-                            </div>
-                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
                                 <label class="col-lg-4 title-modal">Periods:</label>
                                 <div class="col-lg-7 pull-right">
                                     <input name="playersOutcome" ng-model="matchDetails.periods" type="number" required class="form-control" min="0">
@@ -46,6 +40,12 @@
                                 <label class="col-lg-4 title-modal">Period Duration:</label>
                                 <div class="col-lg-7 pull-right">
                                     <input name="playersOutcome" ng-model="matchDetails.periodDuration" type="number" required class="form-control" min="0">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 title-modal">Duration:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input name="playersOutcome" type="number" @*ng-model="matchDetails.duration"*@ value="{{matchDetails.periods * matchDetails.periodDuration}}" class="form-control" >
                                 </div>
                             </div>
                         </form>
