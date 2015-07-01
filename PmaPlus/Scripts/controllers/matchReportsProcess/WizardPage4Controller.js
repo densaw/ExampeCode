@@ -1,6 +1,6 @@
 ﻿var app = angular.module('MainApp');
 
-app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', function ($scope, $http, $q, $location, $rootScope, toaster) {
+app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '$rootScope', 'toaster', 'WizardHandler', function ($scope, $http, $q, $location, $rootScope, toaster, WizardHandler) {
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
@@ -20,16 +20,24 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
         confInvitet.modal('hide');
     };
 
+    $scope.getTable = function () {
     $http.get('/api/PlayerMatchStatistic/' + $scope.currId).success(function (result) {
         $scope.playersStat = result;       
     });
+    };
 
     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
         $scope.cuurrentMatch = result;
     });
 
+    $scope.$on('moveEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == 4) {
+            $scope.getTable();
+            $scope.nav.canNext = true;
+            $scope.nav.canBack = true;
+        }
+    });
 
-    
     //ADD==========================================
     $scope.addPlayerStat = function () {
         /*

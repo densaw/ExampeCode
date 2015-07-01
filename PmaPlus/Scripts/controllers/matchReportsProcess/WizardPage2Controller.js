@@ -30,6 +30,8 @@ app.controller('WizardPage2Controller', ['$scope', '$http', '$q', '$location', '
     $scope.$on('moveEvent', function() {
         if (WizardHandler.wizard().currentStepNumber() == 1) {
             $scope.getTable();
+            $scope.nav.canNext = true;
+            $scope.nav.canBack = false;
         }
     });
 

@@ -26,7 +26,7 @@ namespace PmaPlus.Model.ViewModels.Matches
         [Required]
         public string Formation { get; set; }
 
-
+        public string TeamName { get; set; }
         public int GoalsFor { get; set; }
         public int GoalsAway { get; set; }
         public int Duration { get; set; }
