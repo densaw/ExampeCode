@@ -144,7 +144,7 @@ namespace PmaPlus.Services.Services
             _playerMatchStatisticRepository.AddOrUpdate(matchStatistics.ToArray());
         }
 
-        public void AddPlayerMatchStatistic(PlayerMatchStatistic stat,bool manOfMatch = false)
+        public void AddPlayerMatchStatistic(PlayerMatchStatistic stat,bool manOfMatch)
         {
             if (_playerMatchStatisticRepository.GetMany( s => s.MatchId == stat.MatchId && s.PlayerId == stat.PlayerId).Any())
             {
