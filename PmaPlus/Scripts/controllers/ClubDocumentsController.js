@@ -22,6 +22,7 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
     var folderModal = angular.element('#addFolder');
     var delModalFolder = angular.element('#confDeleteFolder');
     var delModalFile = angular.element('#confDeleteFile');
+    
 
     $scope.getFolders = function () {
         $http.get('/api/Documents/Directories')
@@ -114,10 +115,11 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
     };
 
     $scope.ok = function () {
-        $http.post('/api/Documents/Directories', $scope.newDir).success(function () {
-            $scope.getFolders();
-        });
-        folderModal.modal('hide');
+        //$http.post('/api/Documents/Directories', $scope.newDir).success(function () {
+        //    $scope.getFolders();
+        //});
+        //folderModal.modal('hide');
+        console.log($scope.newDir);
     };
 
     $scope.cancel = function () {
@@ -125,4 +127,5 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
 
     };
     $scope.getFolders();
+    angular.element('.mytoggle').bootstrapToggle();
 }]);
