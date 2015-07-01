@@ -40,7 +40,7 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
 
     //ADD==========================================
     $scope.addPlayerStat = function () {
-        /*
+        
         $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
@@ -58,9 +58,9 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
                 });
             }
         });
-       */
-        console.log($scope.player.mom);
-        console.log(toggleInvitet);
+       
+        
+        
     };
     //ADD=========================================
 }]);
