@@ -134,6 +134,7 @@ namespace PmaPlus.Services.Services
                              Shots = s != null ? s.Shots : 0,
                              ShotsOnTarget = s != null ? s.ShotsOnTarget : 0,
                              Tackles = s != null ? s.Tackles : 0,
+                             Mom = s != null ? s.Match.MatchMom.PlayerId == player.Id : false
                          };
             return result;
 
@@ -144,7 +145,7 @@ namespace PmaPlus.Services.Services
             _playerMatchStatisticRepository.AddOrUpdate(matchStatistics.ToArray());
         }
 
-        public void AddPlayerMatchStatistic(PlayerMatchStatistic stat,bool manOfMatch = false)
+        public void AddPlayerMatchStatistic(PlayerMatchStatistic stat,bool manOfMatch)
         {
             if (_playerMatchStatisticRepository.GetMany( s => s.MatchId == stat.MatchId && s.PlayerId == stat.PlayerId).Any())
             {
