@@ -45,21 +45,29 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
         $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
-        $http.post('/api/PlayerMatchStatistic/', $scope.player).success(function () {
-            
-            $scope.playerAdd = {};
-            confInvitet.modal('hide');
-        }).error(function (data, status, headers, config) {
-            if (status == 400) {
-                console.log(data);
-                toaster.pop({
-                    type: 'error',
-                    title: 'Error', bodyOutputType: 'trustedHtml',
+        if ($scope.myform.$valid) {
+            $http.post('/api/PlayerMatchStatistic/', $scope.player).success(function () {
 
-                });
-            }
+                $scope.playerAdd = {};
+                confInvitet.modal('hide');
+            }).error(function (data, status, headers, config) {
+                if (status == 400) {
+                    console.log(data);
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error', bodyOutputType: 'trustedHtml',
+                        body: 'Please comptite compulsory fields'
+                    });
+                }
+            });
+        } else {       
+            toaster.pop({
+            type: 'error',
+            title: 'Error', bodyOutputType: 'trustedHtml',
+            body: 'Please comptite compulsory fields'
         });
-       
+        
+        }
         
         
     };
