@@ -36,7 +36,7 @@
                     <div class="ibox-content">
                         @*Modal*@
                         <div class="modal inmodal" id="matchReportsResult" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog" style="width:90%">
+                            <div class="modal-dialog" style="width: 90%; max-width: 700px;">
                                 <div class="modal-content animated bounceInRight">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -57,27 +57,27 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Player Name</th>
-                                                        <th>Form</th>
-                                                        <th>GLS</th>
-                                                        <th>SHO</th>
-                                                        <th>SHT</th>
-                                                        <th>ASI</th>
-                                                        <th>PAS</th>
-                                                        <th>TCK</th>
-                                                        <th>SAV</th>
+                                                        <th style="text-align: right">Form</th>
+                                                        <th style="text-align: right">GLS</th>
+                                                        <th style="text-align: right">SHO</th>
+                                                        <th style="text-align: right">SHT</th>
+                                                        <th style="text-align: right">ASI</th>
+                                                        <th style="text-align: right">PAS</th>
+                                                        <th style="text-align: right">TCK</th>
+                                                        <th style="text-align: right">SAV</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr ng-repeat="player in reportTable">
                                                         <td>{{player.playerName}}</td>
-                                                        <td>{{player.formRating}}</td>
-                                                        <td>{{player.goals}}</td>
-                                                        <td>{{player.shots}}</td>
-                                                        <td>{{player.shotsOnTarget}}</td>
-                                                        <td>{{player.assists}}</td>
-                                                        <td>{{player.passes}}</td>
-                                                        <td>{{player.tackles}}</td>
-                                                        <td>{{player.saves}}</td>
+                                                        <td style="text-align: right">{{player.formRating}}</td>
+                                                        <td style="text-align: right">{{player.goals}}</td>
+                                                        <td style="text-align: right">{{player.shots}}</td>
+                                                        <td style="text-align: right">{{player.shotsOnTarget}}</td>
+                                                        <td style="text-align: right">{{player.assists}}</td>
+                                                        <td style="text-align: right">{{player.passes}}</td>
+                                                        <td style="text-align: right">{{player.tackles}}</td>
+                                                        <td style="text-align: right">{{player.saves}}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
