@@ -115,11 +115,10 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
     };
 
     $scope.ok = function () {
-        //$http.post('/api/Documents/Directories', $scope.newDir).success(function () {
-        //    $scope.getFolders();
-        //});
-        //folderModal.modal('hide');
-        console.log($scope.newDir);
+        $http.post('/api/Documents/Directories', $scope.newDir).success(function () {
+            $scope.getFolders();
+        });
+        folderModal.modal('hide');
     };
 
     $scope.cancel = function () {
