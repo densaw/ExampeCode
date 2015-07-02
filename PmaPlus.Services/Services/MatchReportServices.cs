@@ -18,18 +18,21 @@ namespace PmaPlus.Services.Services
         private readonly IPlayerMatchObjectiveRepository _playerMatchObjectiveRepository;
         private readonly IPlayerMatchStatisticRepository _playerMatchStatisticRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IMatchMomRepository _matchMomRepository;
 
 
-        public MatchReportServices(IMatchRepository matchRepository, IPlayerMatchObjectiveRepository playerMatchObjectiveRepository, IPlayerMatchStatisticRepository playerMatchStatisticRepository, IPlayerRepository playerRepository)
+
+        public MatchReportServices(IMatchRepository matchRepository, IPlayerMatchObjectiveRepository playerMatchObjectiveRepository, IPlayerMatchStatisticRepository playerMatchStatisticRepository, IPlayerRepository playerRepository, IMatchMomRepository matchMomRepository)
         {
             _matchRepository = matchRepository;
             _playerMatchObjectiveRepository = playerMatchObjectiveRepository;
             _playerMatchStatisticRepository = playerMatchStatisticRepository;
             _playerRepository = playerRepository;
+            _matchMomRepository = matchMomRepository;
         }
 
         #region Maches
-        
+
         public bool MatchExist(int id)
         {
             return _matchRepository.GetMany(m => m.Id == id).Any();
@@ -79,19 +82,19 @@ namespace PmaPlus.Services.Services
 
 
             var result = from player in players
-                join objective in matchObjectives on player.Id equals objective == null ? 0 : objective.PlayerId into
-                    obj
-                from o in obj.DefaultIfEmpty()
-                select new PlayersMatchObjectiveTableViewModel()
-                {
-                    Id = o != null ? o.Id : 0,
-                    PlayerId = player.Id,
-                    PlayerName = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
-                    PlayerPicture ="/api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
-                    Objective = o != null ? o.Objective : "",
-                    Outcome = o != null ? o.Outcome : false,
-                    MatchId = matchId
-                };
+                         join objective in matchObjectives on player.Id equals objective == null ? 0 : objective.PlayerId into
+                             obj
+                         from o in obj.DefaultIfEmpty()
+                         select new PlayersMatchObjectiveTableViewModel()
+                         {
+                             Id = o != null ? o.Id : 0,
+                             PlayerId = player.Id,
+                             PlayerName = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
+                             PlayerPicture = "/api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
+                             Objective = o != null ? o.Objective : "",
+                             Outcome = o != null ? o.Outcome : false,
+                             MatchId = matchId
+                         };
             return result;
         }
 
@@ -123,7 +126,7 @@ namespace PmaPlus.Services.Services
                              PlayerName = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                              PlayerPicture = "/api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
                              MatchId = matchId,
-                             Assists = s != null? s.Assists:0,
+                             Assists = s != null ? s.Assists : 0,
                              Corners = s != null ? s.Corners : 0,
                              FormRating = s != null ? s.FormRating : 0,
                              FreeKicks = s != null ? s.FreeKicks : 0,
@@ -134,7 +137,7 @@ namespace PmaPlus.Services.Services
                              Shots = s != null ? s.Shots : 0,
                              ShotsOnTarget = s != null ? s.ShotsOnTarget : 0,
                              Tackles = s != null ? s.Tackles : 0,
-                             Mom = s != null ? s.Match.MatchMom.PlayerId == player.Id : false
+                             Mom = (s != null) ? (s.Match.MatchMom != null ? s.Match.MatchMom.PlayerId == player.Id : false) : false
                          };
             return result;
 
@@ -145,9 +148,9 @@ namespace PmaPlus.Services.Services
             _playerMatchStatisticRepository.AddOrUpdate(matchStatistics.ToArray());
         }
 
-        public void AddPlayerMatchStatistic(PlayerMatchStatistic stat,bool manOfMatch)
+        public void AddPlayerMatchStatistic(PlayerMatchStatistic stat, bool manOfMatch)
         {
-            if (_playerMatchStatisticRepository.GetMany( s => s.MatchId == stat.MatchId && s.PlayerId == stat.PlayerId).Any())
+            if (_playerMatchStatisticRepository.GetMany(s => s.MatchId == stat.MatchId && s.PlayerId == stat.PlayerId).Any())
             {
                 _playerMatchStatisticRepository.Update(stat);
             }
@@ -177,11 +180,25 @@ namespace PmaPlus.Services.Services
                     _matchRepository.Update(match);
                 }
             }
+            else
+            {
+                var match = _matchRepository.GetById(stat.MatchId);
+                if (match != null)
+                {
+                    if (match.MatchMom != null)
+                    {
+                        if (match.MatchMom.PlayerId == stat.PlayerId)
+                        {
+                          _matchMomRepository.Delete(m => m.MatchId == match.Id && m.PlayerId == stat.PlayerId);
+                        }
+                    }
+                }
+            }
         }
 
         public void AddMatchObjective(PlayerMatchObjective playerMatchObjective)
         {
-            _playerMatchObjectiveRepository.AddOrUpdate(new PlayerMatchObjective[]{playerMatchObjective});
+            _playerMatchObjectiveRepository.AddOrUpdate(new PlayerMatchObjective[] { playerMatchObjective });
         }
     }
 }

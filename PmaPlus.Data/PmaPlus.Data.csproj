@@ -82,6 +82,7 @@
     <Compile Include="Repository\Iterfaces\IAttributesOfTalentRepository.cs" />
     <Compile Include="Repository\Iterfaces\IBlockObjectiveStatementRepository.cs" />
     <Compile Include="Repository\Iterfaces\IExcerciseNewsRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IMatchMomRepository.cs" />
     <Compile Include="Repository\Iterfaces\IMessageCommentRepository.cs" />
     <Compile Include="Repository\Iterfaces\IMessageGroupRepository.cs" />
     <Compile Include="Repository\Iterfaces\IMessagePrivateRepository.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Repository\Iterfaces\ISessionAttendanceRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISessionResultRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISharedFolderRepository.cs" />
+    <Compile Include="Repository\MatchMomRepository.cs" />
     <Compile Include="Repository\MessageCommentRepository.cs" />
     <Compile Include="Repository\MessageGroupRepository.cs" />
     <Compile Include="Repository\MessagePrivateRepository.cs" />
