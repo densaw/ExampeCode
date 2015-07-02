@@ -48,11 +48,10 @@
                                         Result: <span style="font-size:20px; font-weight:600" ng-style="matchReport.goalsFor > matchReport.goalsAway ? {color:'green'} : (matchReport.goalsFor < matchReport.goalsAway ? {color:'red'} : {color:'yellow'})">{{matchReport.goalsFor > matchReport.goalsAway ? 'WON' : (matchReport.goalsFor < matchReport.goalsAway ? 'LOST' : 'DRAW')}} </span> - Goals For: <span style="font-size:20px; font-weight:600; color:green">{{matchReport.goalsFor}}</span> - Goals Away: <span style="font-size:20px; font-weight:600; color:red">{{matchReport.goalsAway}}</span>
 
 </div>
-                                    <div class="modal-body">
-                                       Match Report - {{matchReport.notes}}
-                                        
-                                        <div class="table-responsive" style="padding-top: 40px;
-">
+                                    <div class="modal-body" style="padding: 0px 0px 30px 0px;">
+                                        <div style="margin: 30px;">Match Report -{{matchReport.notes}}</div>
+                                        <img src="~/Images/playground.png" style="width: 100%; height: auto;"/>
+                                        <div class="table-responsive" style=" margin: 30px;">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
