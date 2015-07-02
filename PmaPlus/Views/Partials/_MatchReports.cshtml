@@ -45,7 +45,7 @@
                                        
                                         <h1 style="margin-top:0px">Match Report</h1>
                                         <h3>{{matchReport.teamName}} vs {{matchReport.oppositionName}}</h3>
-                                        Result: <span style="font-size:20px; font-weight:600" ng-style="matchReport.goalsFor > matchReport.goalsAway ? {color:'green'} : (matchReport.goalsFor < matchReport.goalsAway ? {color:'red'} : {color:'yellow'})">{{matchReport.goalsFor > matchReport.goalsAway ? 'WON' : (matchReport.goalsFor < matchReport.goalsAway ? 'LOSE' : 'DRAW')}} </span> - Goals For: <span style="font-size:20px; font-weight:600; color:green">{{matchReport.goalsFor}}</span> - Goals Away: <span style="font-size:20px; font-weight:600; color:red">{{matchReport.goalsAway}}</span>
+                                        Result: <span style="font-size:20px; font-weight:600" ng-style="matchReport.goalsFor > matchReport.goalsAway ? {color:'green'} : (matchReport.goalsFor < matchReport.goalsAway ? {color:'red'} : {color:'yellow'})">{{matchReport.goalsFor > matchReport.goalsAway ? 'WON' : (matchReport.goalsFor < matchReport.goalsAway ? 'LOST' : 'DRAW')}} </span> - Goals For: <span style="font-size:20px; font-weight:600; color:green">{{matchReport.goalsFor}}</span> - Goals Away: <span style="font-size:20px; font-weight:600; color:red">{{matchReport.goalsAway}}</span>
 
 </div>
                                     <div class="modal-body">
