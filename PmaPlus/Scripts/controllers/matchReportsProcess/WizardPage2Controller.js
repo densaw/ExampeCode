@@ -36,9 +36,7 @@ app.controller('WizardPage2Controller', ['$scope', '$http', '$q', '$location', '
         }
     });
 
-    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-        $scope.cuurrentMatch = result;
-    });
+ 
 
     $scope.addDetails = function (player, objective) {
         $scope.loginLoading = true;
