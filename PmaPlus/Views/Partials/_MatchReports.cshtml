@@ -144,7 +144,7 @@
                                 </thead>
                                 <tbody>
                                     <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{item.won ? 'WON':'LOSE'}}</td>
+                                        <td>{{item.won ? 'WON':'LOST'}}</td>
                                         <td>{{item.teamName}}</td>
                                         <td>{{item.goalsFor}}</td>
                                         <td>{{item.goalsAway}}</td>
@@ -152,7 +152,7 @@
                                         <td>{{item.mom}}</td>
                                         <td>{{item.formation}}</td>
                                         <td>
-                                            <i ng-click="openEdit(newScoutP.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                            @*<i ng-click="openEdit(newScoutP.id)" class="fa fa-cog" style="cursor: pointer;"></i>*@
 
                                             <a ng-click="reportResult(item.id)" class="fa fa-graduation-cap"></a>
                                         </td>
