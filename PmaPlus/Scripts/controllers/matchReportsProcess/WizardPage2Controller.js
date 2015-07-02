@@ -32,12 +32,11 @@ app.controller('WizardPage2Controller', ['$scope', '$http', '$q', '$location', '
             $scope.getTable();
             $scope.nav.canNext = true;
             $scope.nav.canBack = false;
+            $scope.nav.last = false;
         }
     });
 
-    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-        $scope.cuurrentMatch = result;
-    });
+ 
 
     $scope.addDetails = function (player, objective) {
         $scope.loginLoading = true;

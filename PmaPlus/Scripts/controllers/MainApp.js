@@ -13,21 +13,75 @@
             link: function (scope, element, attrs, ngModel) {
                 element.on('click', function () {
                     if (ngModel.$modelValue === '0' || ngModel.$modelValue === '1' || ngModel.$modelValue === '2' || ngModel.$modelValue === '3' || ngModel.$modelValue === '4') {
-                        element.css('color', 'red');
+                        element.css('background', '#FFC5C5');
                         console.log(ngModel.$modelValue);
 
                     }
                     else if (ngModel.$modelValue === '5' || ngModel.$modelValue === '6') {
-                        element.css('color', 'yellow');
+                        element.css('background', '#F4F49D');
                     }
                     else {
-                        element.css('color', 'green');
+                        element.css('background', '#B6FF98');
                     }
                 });
             }
         };
 
     });
+
+    module.directive('toggleCheckbox', function() {
+ 
+        /**
+         * Directive
+         */
+        return {
+            restrict: 'A',
+            transclude: true,
+            replace: false,
+            require: 'ngModel',
+            link: function ($scope, $element, $attr, require) {
+ 
+                var ngModel = require;
+ 
+                // update model from Element
+                var updateModelFromElement = function() {
+                    // If modified
+
+                    var checked = $element.prop('checked');
+                    if (checked != ngModel.$viewValue) {
+                        // Update ngModel
+                        ngModel.$setViewValue(checked);
+                        $scope.$apply();
+                    }
+                };
+ 
+                // Update input from Model
+                var updateElementFromModel = function() {
+                    // Update button state to match model
+                    $element.trigger('change');
+                };
+ 
+                // Observe: Element changes affect Model
+                $element.on('change', function() {
+                    updateModelFromElement();
+                });
+ 
+                // Observe: ngModel for changes
+                $scope.$watch(function() {
+                    return ngModel.$viewValue;
+                }, function() {
+                    updateElementFromModel();
+                });
+ 
+                // Initialise BootstrapToggle
+                $element.bootstrapToggle({
+                    on: 'Yes',
+                    off: 'No'
+                });
+            }
+        };
+    });
+
 
     module.directive('backImg', function () {
         return function (scope, element, attrs) {

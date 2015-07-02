@@ -165,7 +165,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Won\Lose</th>
+                                        <th>Won\Lost</th>
                                         <th>Team Name</th>
                                         <th>For (goals)</th>
                                         <th>Away (goals)</th>
@@ -177,7 +177,7 @@
                                 </thead>
                                 <tbody>
                                     <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{item.won ? 'Won':'Lose'}}</td>
+                                        <td>{{item.won ? 'Won':'Lost'}}</td>
                                         <td>{{item.teamName}}</td>
                                         <td>{{item.goalsFor}}</td>
                                         <td>{{item.goalsAway}}</td>

@@ -5,15 +5,13 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    var toggleInvitet = angular.element('#toggleMoMt');
+    
     
     var confInvitet = angular.element('#confInvitet');
     $scope.playerAdd = {};
 
     $scope.openEdit1 = function (player) {     
         $scope.player = player;
-        toggleInvitet.bootstrapToggle($scope.player.mom ? 'on' : 'off');
-        
         $scope.modalTitle = "Edit";
         confInvitet.modal('show');
     };
@@ -28,15 +26,13 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     });
     };
 
-    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-        $scope.cuurrentMatch = result;
-    });
 
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == 4) {
             $scope.getTable();
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
+            $scope.nav.last = false;
         }
     });
 
@@ -44,22 +40,33 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     $scope.addPlayerStat = function () {
         
         $scope.loginLoading = true;
-        //$scope.myform.form_Submitted = !$scope.myform.$valid;    
+        $scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
-        $http.post('/api/PlayerMatchStatistic/', $scope.player).success(function () {
-            
-            $scope.playerAdd = {};
-            confInvitet.modal('hide');
-        }).error(function (data, status, headers, config) {
-            if (status == 400) {
-                console.log(data);
-                toaster.pop({
-                    type: 'error',
-                    title: 'Error', bodyOutputType: 'trustedHtml',
+        if ($scope.myform.$valid) {
+            $http.post('/api/PlayerMatchStatistic/', $scope.player).success(function () {
 
-                });
-            }
+                $scope.playerAdd = {};
+                confInvitet.modal('hide');
+            }).error(function (data, status, headers, config) {
+                if (status == 400) {
+                    console.log(data);
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error', bodyOutputType: 'trustedHtml',
+                        body: 'Please comptite compulsory fields'
+                    });
+                }
+            });
+        } else {       
+            toaster.pop({
+            type: 'error',
+            title: 'Error', bodyOutputType: 'trustedHtml',
+            body: 'Please comptite compulsory fields'
         });
+        
+        }
+        
+        
     };
     //ADD=========================================
 }]);

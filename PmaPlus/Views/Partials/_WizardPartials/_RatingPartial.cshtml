@@ -22,7 +22,7 @@
                                     <th>AtL</th>
                                     <th>AtT</th>
                                     <th>Cur</th>
-                                    <th>Action</th>  
+                                    @*<th>Action</th>*@  
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,11 +33,10 @@
                                         </div>
                                     </td>
                                     <td>{{item.name}}</td>
-                                    <td>{{item.atl}}</td>
-                                    <td>{{item.att}}</td>
-                                   
+                                    <td><select rating-ui name="attendense" ng-model="item.atl" class="form-control" style="width: inherit;"><option>0</option><option ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option></select></td>
+                                    <td><select rating-ui name="attendense" ng-model="item.att" class="form-control" style="width: inherit;"><option>0</option><option ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option></select></td>
                                     <td><select rating-ui name="attendense" ng-model="item.cur" class="form-control" style="width: inherit;"><option >0</option><option ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option></select></td>
-                                    <td><a ng-href="" class="fa fa-graduation-cap"></a></td>
+                                    @*<td><a ng-href="" class="fa fa-graduation-cap"></a></td>*@
                                 </tr>
                             </tbody>
                         </table>

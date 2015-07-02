@@ -3,18 +3,24 @@
 
 
 app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardHandler', function ($scope, $http, $location, WizardHandler) {
-    
+
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
 
 
 
-    $http.get('/api/Curriculum/Wizard/Session/RatingTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
-      .success(function (result) {
-          $scope.items = result;
+    var getTable = function () {
 
-      });
+        $http.get('/api/Curriculum/Wizard/Session/RatingTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
+          .success(function (result) {
+              $scope.items = result;
+          });
+
+    }
+
+
+
     var saveRatings = function () {
         $http.post('/api/Curriculum/Wizard/Session/RatingTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
             .success(function () {
@@ -44,6 +50,8 @@ app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardH
                 $scope.nav.canNext = false;
                 $scope.nav.canBack = false;
             }
+
+            getTable();
         }
     });
 

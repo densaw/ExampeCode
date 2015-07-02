@@ -13,10 +13,7 @@ app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '
         $scope.matchNotes = result;
     });
 
-    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-        $scope.cuurrentMatch = result;
-    });
-
+  
     $scope.confirmModal = function () {
         confConfirm.modal('show');
     }
@@ -28,7 +25,12 @@ app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == 5) {
             $scope.nav.canNext = false;
+            $scope.nav.last = true;
         }
+    });
+
+    $scope.$on('finishWizardEvent', function () {
+        $scope.addMatchNotes();
     });
 
     $scope.addMatchNotes = function () {

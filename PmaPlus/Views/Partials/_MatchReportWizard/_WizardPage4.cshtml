@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Match Objectives vs {{cuurrentMatch.oppositionName}} - {{cuurrentMatch.date | date:'dd-MM-yyyy HH:mm'}}</h5><h5 ng-if="addDate" style="font-weight: 200;"> - Date: {{addDate.time | date:'dd-MM-yyyy'}} Time: {{addDate.time | date:'HH:mm'}} Duration: {{addDate.duration}} </h5>
+                    <h5>Player Ratings & Statistics</h5>
 
                 </div>
                 <div class="ibox-content">
@@ -25,10 +25,10 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="form-group" >                                        
+                                        <div class="form-group" >
                                             <label class="col-lg-4 title-modal">Man of Match:</label>
-                                            <div class="col-lg-7 pull-right" data-toggle="toggle">
-                                                <input name="crossing" type="checkbox" ng-model="player.mom">
+                                            <div class="col-lg-7 pull-right">
+                                                <input toggle-checkbox name="crossing" type="checkbox" ng-model ="player.mom" >
                                             </div>
                                         </div>
 
@@ -86,16 +86,16 @@
                                                 <input name="crossing" ng-model="player.freeKicks" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
+                                        <div class="form-group" ng-class="{'has-error':myform.formRating.$invalid && (myform.formRating.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Form Rating(1-10):</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="player.formRating" class="form-control" required>
+                                                <input name="formRating" type="number" ng-model="player.formRating" class="form-control" required min="1" max="10">
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.crossing.$invalid && (myform.crossing.$dirty||myform.form_Submitted)}">
+                                        <div class="form-group" ng-class="{'has-error':myform.playingTime.$invalid && (myform.playingTime.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">Playing Time:</label>
                                             <div class="col-lg-7 pull-right">
-                                                <input name="crossing" ng-model="player.playingTime" class="form-control" required>
+                                                <input name="playingTime" type="number"  ng-model="player.playingTime" class="form-control" required>
                                             </div>
                                         </div>
 
@@ -115,8 +115,8 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Player Name</th>
                                     <th>Picture</th>
+                                    <th>Player Name</th>
                                     <th>MOM</th>
                                     <th>GLS</th>
                                     <th>SHO</th>
@@ -134,12 +134,12 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="player in playersStat">
-                                    <td>{{player.playerName}}</td>
                                     <td>
-                                        <div style="width: 100px; height: 100px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
+                                        <div style="width: 50px; height: 50px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
                                             <img class="prifile" ng-src="{{player.playerPicture}}" style-parent />
                                         </div>
                                     </td>
+                                    <td>{{player.playerName}}</td>
                                     <td>{{player.mom ? 'Yes' : 'No'}}</td>
                                     <td>{{player.goals}}</td>
                                     <td>{{player.shots}}</td>

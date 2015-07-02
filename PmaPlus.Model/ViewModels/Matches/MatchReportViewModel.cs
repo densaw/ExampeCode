@@ -33,6 +33,7 @@ namespace PmaPlus.Model.ViewModels.Matches
         public int Periods { get; set; }
         public int PeriodDuration { get; set; }
 
+        public string Mom { get; set; }
         public string Notes { get; set; }
 
     }

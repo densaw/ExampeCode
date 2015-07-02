@@ -18,14 +18,14 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
         $scope.matchDetails = result;
     });
-    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-        $scope.cuurrentMatch = result;
-    });
+  
 
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == 4) {
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
+            $scope.nav.last = false;
+            $scope.addMatchDetails();
         }
     });
 

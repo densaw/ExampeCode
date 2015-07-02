@@ -5,11 +5,14 @@ app.controller('CurrObjectiveController', ['$scope', '$http', '$location', 'Wiza
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
+    var getTable = function() {
+        
     $http.get('/api/Curriculum/Wizard/Session/ObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
         .success(function (result) {
             $scope.items = result;
-
         });
+
+    }
     var saveObjectives = function () {
         $http.post('/api/Curriculum/Wizard/Session/ObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
             .success(function () {
@@ -45,6 +48,8 @@ app.controller('CurrObjectiveController', ['$scope', '$http', '$location', 'Wiza
                 $scope.nav.canNext = false;
                 $scope.nav.canBack = false;
             }
+
+            getTable();
         }
     });
 

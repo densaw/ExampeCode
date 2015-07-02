@@ -22,6 +22,7 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
     var folderModal = angular.element('#addFolder');
     var delModalFolder = angular.element('#confDeleteFolder');
     var delModalFile = angular.element('#confDeleteFile');
+    
 
     $scope.getFolders = function () {
         $http.get('/api/Documents/Directories')
@@ -125,4 +126,5 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
 
     };
     $scope.getFolders();
+    angular.element('.mytoggle').bootstrapToggle();
 }]);
