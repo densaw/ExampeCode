@@ -9,6 +9,7 @@ app.controller('MatchWizardPageController', ['$scope', '$http', '$q', '$location
 
     $scope.nav.canNext = true;
     $scope.nav.canBack = true;
+    $scope.nav.last = false;
 
     $scope.progress = {};
 
@@ -22,6 +23,12 @@ app.controller('MatchWizardPageController', ['$scope', '$http', '$q', '$location
 
     };
 
-    
+    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
+        $scope.cuurrentMatch = result;
+    });
+
+    $scope.finishWizard = function() {
+        $scope.$broadcast('finishWizardEvent');
+    }
 
 }]);

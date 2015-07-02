@@ -35,6 +35,7 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
             $scope.getTable();
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
+            $scope.nav.last = false;
         }
     });
 

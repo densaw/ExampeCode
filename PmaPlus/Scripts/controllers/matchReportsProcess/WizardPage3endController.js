@@ -26,6 +26,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
         if (WizardHandler.wizard().currentStepNumber() == 4) {
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
+            $scope.nav.last = false;
         }
     });
 

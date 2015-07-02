@@ -28,6 +28,7 @@ app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == 5) {
             $scope.nav.canNext = false;
+            $scope.nav.last = true;
         }
     });
 
