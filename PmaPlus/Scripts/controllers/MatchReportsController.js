@@ -134,18 +134,23 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
     };
 
     var matchReportsResult = angular.element('#matchReportsResult');
+
     
 
-    $scope.reportResult = function (player) {
-        //toggleInvite.bootstrapToggle($scope.profileTalents.invitedToTrial ? 'on' : 'off');
-        $scope.player = player;
-        $scope.modalTitle = "Edit";
-        matchReportsResult.modal('show');
+    $scope.reportResult = function (id) {
+        $http.get('/api/MatchReports/'+ id).success(function (result) {
+            $scope.matchReport = result;
+            $scope.modalTitle = "Edit";
+            matchReportsResult.modal('show');
+        });
+        $http.get('/api/PlayerMatchStatistic/' + id).success(function (result) {
+            $scope.reportTable = result;
+        });
     };
 
     $scope.closeResult = function () {
         matchReportsResult.modal('hide');
     }
     
-  
+    
 }]);

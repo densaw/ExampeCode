@@ -36,16 +36,53 @@
                     <div class="ibox-content">
                         @*Modal*@
                         <div class="modal inmodal" id="matchReportsResult" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog" style="width:90%">
                                 <div class="modal-content animated bounceInRight">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                         <img ng-src="/api/Clubs/logo" alt="Club logo" style="width: 150px; margin-bottom: 15px;" />
-                                        <h1>Match Report</h1>
-
-                                    </div>
-                                    <div class="modal-body">
+                                        
                                        
+                                        <h1 style="margin-top:0px">Match Report</h1>
+                                        <h3>{{matchReport.teamName}} vs {{matchReport.oppositionName}}</h3>
+                                        Result: <span style="font-size:20px; font-weight:600" ng-style="matchReport.goalsFor > matchReport.goalsAway ? {color:'green'} : (matchReport.goalsFor < matchReport.goalsAway ? {color:'red'} : {color:'yellow'})">{{matchReport.goalsFor > matchReport.goalsAway ? 'WON' : (matchReport.goalsFor < matchReport.goalsAway ? 'LOSE' : 'DRAW')}} </span> - Goals For: <span style="font-size:20px; font-weight:600; color:green">{{matchReport.goalsFor}}</span> - Goals Away: <span style="font-size:20px; font-weight:600; color:red">{{matchReport.goalsAway}}</span>
+
+</div>
+                                    <div class="modal-body">
+                                       Match Report - {{matchReport.notes}}
+                                        
+                                        <div class="table-responsive" style="padding-top: 40px;
+">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Player Name</th>
+                                                        <th>Form</th>
+                                                        <th>GLS</th>
+                                                        <th>SHO</th>
+                                                        <th>SHT</th>
+                                                        <th>ASI</th>
+                                                        <th>PAS</th>
+                                                        <th>TCK</th>
+                                                        <th>SAV</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="player in reportTable">
+                                                        <td>{{player.playerName}}</td>
+                                                        <td>{{player.formRating}}</td>
+                                                        <td>{{player.goals}}</td>
+                                                        <td>{{player.shots}}</td>
+                                                        <td>{{player.shotsOnTarget}}</td>
+                                                        <td>{{player.assists}}</td>
+                                                        <td>{{player.passes}}</td>
+                                                        <td>{{player.tackles}}</td>
+                                                        <td>{{player.saves}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
                                     </div>
                                     <div class="modal-footer">
                                         <button ng-click="closeResult()" id="closeResult" type="button" class="btn btn-white">Close</button>                                        
@@ -117,7 +154,7 @@
                                         <td>
                                             <i ng-click="openEdit(newScoutP.id)" class="fa fa-cog" style="cursor: pointer;"></i>
 
-                                            <a ng-click="reportResult(player)" class="fa fa-graduation-cap"></a>
+                                            <a ng-click="reportResult(item.id)" class="fa fa-graduation-cap"></a>
                                         </td>
 
                                     </tr>

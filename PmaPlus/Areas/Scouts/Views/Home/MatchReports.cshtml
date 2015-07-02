@@ -2,4 +2,9 @@
     ViewBag.Title = "PMA+";
     Layout = "~/Areas/Scouts/Views/Shared/_AdminLayout.cshtml";
 }
+
 @Html.Partial("~/Views/Partials/_MatchReports.cshtml")
+
+@section scripts{
+    <script src="~/Scripts/controllers/MatchReportsController.js"></script>
+}
