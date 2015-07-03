@@ -29,6 +29,17 @@ app.controller('MatchWizardPageController', ['$scope', '$http', '$q', '$location
 
     $scope.finishWizard = function() {
         $scope.$broadcast('finishWizardEvent');
+        confConfirm.modal('hide');
     }
 
+
+    var confConfirm = angular.element('#confConfirm5');
+
+    $scope.confirmModal = function () {
+        confConfirm.modal('show');
+    }
+
+    $scope.confirmAbort = function () {
+        confConfirm.modal('hide');
+    }
 }]);
