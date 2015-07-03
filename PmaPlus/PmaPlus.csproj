@@ -3835,10 +3835,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\FileStorage\DefaultPics\" />
-    <Folder Include="App_Data\FileStorage\MessageWall\" />
-    <Folder Include="App_Data\FileStorage\temp\" />
-    <Folder Include="App_Data\FileStorage\UserDocuments\" />
+    <Folder Include="App_Data\FileStorage\" />
     <Folder Include="Areas\App_Start\" />
     <Folder Include="Areas\ClubAdmin\Models\" />
     <Folder Include="Areas\Coach\Models\" />

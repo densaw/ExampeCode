@@ -177,7 +177,7 @@
                                 </thead>
                                 <tbody>
                                     <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{item.won ? 'Won':'Lost'}}</td>
+                                        <td>{{item.goalsFor > item.goalsAway ? 'WON' : (item.goalsFor < item.goalsAway ? 'LOST' : 'DRAW')}}</td>
                                         <td>{{item.teamName}}</td>
                                         <td>{{item.goalsFor}}</td>
                                         <td>{{item.goalsAway}}</td>
