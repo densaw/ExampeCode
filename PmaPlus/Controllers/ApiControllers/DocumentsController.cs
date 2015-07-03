@@ -80,6 +80,17 @@ namespace PmaPlus.Controllers.ApiControllers
             return Conflict();
         }
 
+        [Route("api/Documents/Directories")]
+        public IHttpActionResult PutDirectory(DirectoryViewModel directory)
+        {
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+            
+            _sharingFoldersServices.ShareDirectory(directory.Name, user.Id, directory.Roles);
+
+            return Ok();
+        }
+
+
         [Route("api/Documents/{folder}")]
         public IEnumerable<FileViewModel> GetFiles(string folder)
         {

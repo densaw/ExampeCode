@@ -83,6 +83,7 @@ namespace PmaPlus.Tools
         {
             var dirPath = String.Format("{0}\\{1}\\{2}", _workingFolder, userId, dirName);
 
+
             if (Directory.Exists(dirPath))
             {
                 DirectoryInfo dir = new DirectoryInfo(dirPath);
@@ -92,7 +93,7 @@ namespace PmaPlus.Tools
                        {
                            Name = file.Name,
                            Size = file.Length,
-                           FileType = file.Extension,
+                           IsImage = new[] {".jpg",".png",".bmp"}.Contains(file.Extension.ToLower()),
                            AddDate = file.CreationTime
                        };
 

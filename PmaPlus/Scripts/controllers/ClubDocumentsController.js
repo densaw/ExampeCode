@@ -105,17 +105,30 @@ app.controller('ClubDocumetsController', ['$scope', '$http', 'toaster', '$q', '$
 
     $scope.newFolder = function () {
         folderModal.modal('show');
-    };
-
-    $scope.addFolder = function () {
         $scope.newDir = {
             name: 'NewFolder',
             roles: []
-        }
+        };
+        $scope.isEdit = false;
     };
+
+   
+
+    $scope.editFolder = function(folder) {
+        $scope.newDir = folder;
+        $scope.isEdit = true;
+        folderModal.modal('show');
+    }
 
     $scope.ok = function () {
         $http.post('/api/Documents/Directories', $scope.newDir).success(function () {
+            $scope.getFolders();
+        });
+        folderModal.modal('hide');
+    };
+
+    $scope.edit = function () {
+        $http.put('/api/Documents/Directories', $scope.newDir).success(function () {
             $scope.getFolders();
         });
         folderModal.modal('hide');

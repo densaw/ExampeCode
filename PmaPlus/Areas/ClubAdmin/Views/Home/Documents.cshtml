@@ -16,14 +16,14 @@
                         <div class="form-group" ng-class="{'has-error':myform.fName.$invalid && (myform.fName.$dirty||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Folder Name:</label>
                             <div class="col-lg-7 pull-right">
-                                <input name="fName" ng-model="newDir.name" required class="form-control">
+                                <input name="fName" ng-disabled="isEdit" ng-model="newDir.name" required class="form-control">
                             </div>
                         </div>
                         <div class="form-group" ng-repeat="role in roles">
                             <label class="col-lg-4 title-modal">{{role.name}}:</label>
                             <div class="col-lg-7 pull-right">
-                                
-                                <input toggle-checkbox type="checkbox"  checklist-model="newDir.roles" checklist-value="role.id" >
+
+                                <input toggle-checkbox type="checkbox" checklist-model="newDir.roles" checklist-value="role.id">
 
                             </div>
                         </div>
@@ -31,7 +31,10 @@
                 </div>
                 <div class="modal-footer">
                     <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
-                    <button ng-click="ok()" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                    <button ng-if="!isEdit" ng-click="ok()" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                        <span class="ladda-label" style="font-size: 14px;">Save changes</span>
+                    </button>
+                    <button ng-if="isEdit" ng-click="edit()" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
                         <span class="ladda-label" style="font-size: 14px;">Save changes</span>
                     </button>
                 </div>
@@ -68,8 +71,14 @@
                             <ul class="folder-list" style="padding: 0">
                                 <li ng-repeat="folder in folders">
                                     <div class="row">
-                                        <div class="col-lg-7"><a ng-click="getFiles(folder.name)"><i class="fa fa-folder"></i> {{folder.name}}</a></div>
-                                        <div class="col-lg-4" style="padding-right:0px"><a ng-click="confirmDelFolder(folder.name)" class="pull-right" href=""><i class="fa fa-trash-o"></i></a></div>
+                                        <div class="col-lg-8"><a ng-click="getFiles(folder.name)"><i ng-if="folder.name == currentFolder" class="fa fa-folder-open"></i><i ng-if="folder.name != currentFolder" class="fa fa-folder"></i> {{folder.name}}</a></div>
+                                        <div class="col-lg-4 pull-right" style="padding-right: 0px; padding-left: 22px;">
+                                            <a>
+                                                <i ng-click="editFolder(folder)" class="fa fa-gear"></i>
+                                                <i ng-click="confirmDelFolder(folder.name)" class="fa fa-trash-o"></i>
+                                            </a>
+
+                                        </div>
                                     </div>
                                 </li>
 
@@ -90,6 +99,7 @@
 
                                     <span class="corner"></span>
                                     <div class="icon">
+                                        <img ng-if="file.isImage" ng-src="/api/Documents/{{currentFolder}}/{{file.name}}/Thumbnail/" />
                                         <i class="fa fa-file"></i>
                                     </div>
                                     <div class="file-name">

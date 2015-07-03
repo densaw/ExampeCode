@@ -10,7 +10,7 @@ namespace PmaPlus.Model.ViewModels.Document
     {
         public string Name { get; set; }
         public long Size { get; set; }
-        public string FileType { get; set; }
+        public bool IsImage { get; set; }
         public DateTime AddDate { get; set; }
     }
 }

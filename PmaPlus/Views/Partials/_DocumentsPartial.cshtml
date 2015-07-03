@@ -51,6 +51,7 @@
 
                                     <span class="corner"></span>
                                     <div class="icon">
+                                    <img ng-if="file.isImage" ng-src="/api/Documents/{{currentFolder}}/{{file.name}}/Thumbnail/" />
                                         <i class="fa fa-file"></i>
                                     </div>
                                     <div class="file-name">
