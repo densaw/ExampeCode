@@ -5,15 +5,18 @@ app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    
+
 
     var confConfirm = angular.element('#confConfirm');
 
-    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-        $scope.matchNotes = result;
-    });
+    var getTable = function () {
 
-  
+        $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
+            $scope.matchNotes = result;
+        });
+    }
+
+
     $scope.confirmModal = function () {
         confConfirm.modal('show');
     }
@@ -26,6 +29,7 @@ app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '
         if (WizardHandler.wizard().currentStepNumber() == 5) {
             $scope.nav.canNext = false;
             $scope.nav.last = true;
+            getTable();
         }
     });
 
@@ -40,9 +44,9 @@ app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '
             .success(function () {
                 confConfirm.modal('hide');
                 $scope.loginLoading = false;
-            }).error(function(data, status, headers, config) {
+            }).error(function (data, status, headers, config) {
                 $scope.loginLoading = false;
-        });
+            });
     };
 
 }]);
