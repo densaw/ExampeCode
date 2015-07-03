@@ -3,6 +3,28 @@
     Layout = "~/Areas/Coach/Views/Shared/_AdminLayout.cshtml";
 }
 <div ng-controller ="MatchWizardPageController">
+    @*Modal*@
+    <div class="modal inmodal" id="confConfirm5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title">Save Changes</h3>
+
+
+                </div>
+                <div class="modal-body">
+                    <h3 class="text-center">Are you sure as no details can be changed once you accept the match report is complete?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="confirmCancel()" type="button" class="btn btn-white">No</button>
+                    <a ng-click="finishWizard()" ng-href="@Url.Action("MatchReports", "Home", new { area = "Coach" })"  class="btn btn-primary">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Modal End*@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
         <h2>Match Reports</h2>
@@ -33,7 +55,7 @@
                     <div class="ibox-tools" style="margin-top: -5px;">
                         <a class=" btn btn-primary btn-sm" ng-disabled="!nav.canBack" wz-previous ng-click="updateProgress()">Prev</a>
                         <a class="btn btn-primary btn-sm" ng-if="!nav.last" ng-disabled="!nav.canNext" wz-next="updateProgress()" ng-click="updateProgress()">Next</a>
-                        <a class="btn btn-primary btn-sm" ng-if="nav.last" ng-click="finishWizard()" ng-href="@Url.Action("MatchReports", "Home", new { area = "Coach" })">Complete</a>
+                        <a class="btn btn-primary btn-sm" ng-if="nav.last" ng-click="confirmModal()">Complete</a>
                     </div>
                 </div>
                 <div class="ibox-content">
