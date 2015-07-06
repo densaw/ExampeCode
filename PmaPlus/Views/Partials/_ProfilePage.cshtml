@@ -90,6 +90,9 @@
                         <div class="form-group">
                             <label class="col-lg-4 title-modal">Profile Picture:</label>
                             <div class="col-lg-7 pull-right">
+                                <div class="thumbnail" ng-show="newMember.profilePicture != null" style="width: auto;float: none !important;margin-bottom: 5px;">
+                                    <img ng-src='/api/file/ProfilePicture/{{newMember.profilePicture}}/{{newMember.id}}' style=" width: auto;float: none !important;" />
+                                </div>  
                                 <input file-model="pic" type="file" accept="image/*" class="pma-fileupload">
                             </div>
                         </div>
