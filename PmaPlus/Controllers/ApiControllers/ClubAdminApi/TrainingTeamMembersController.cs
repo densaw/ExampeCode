@@ -38,6 +38,11 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
 
         public AddTrainingTeamMemberViewModel GetMemberProfile(int id)
         {
+            if (id == -1)
+            {
+                var user = _userServices.GetUserByEmail(User.Identity.Name);
+                return _userServices.GetDetailedTrainingTeamMemberViewModel(user.Id);
+            }
             return _userServices.GetDetailedTrainingTeamMemberViewModel(id);
         }
 
