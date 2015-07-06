@@ -834,9 +834,7 @@ app.controller('ClubDiaryController', [
                 return;
             }
            
-            
-            
-          
+
             $scope.newEvent.start = moment($scope.newEvent.start).format('YYYY-MM-DDTHH:mm');
             $scope.newEvent.end = moment($scope.newEvent.end).format('YYYY-MM-DDTHH:mm');
             if ($scope.newEvent.end < $scope.newEvent.start) {
