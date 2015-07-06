@@ -39,6 +39,7 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
     ];
 
     $scope.addMatch = function () {
+        $scope.newMatch = {};
         $scope.modalTitle = 'Add Match Report';
         addMatchReports.modal('show');
     };

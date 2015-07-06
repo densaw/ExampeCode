@@ -336,6 +336,7 @@ app.controller('TalentIdentificationController', ['$scope', '$http', 'toaster', 
 
 
     $scope.open = function () {
+        $scope.newScoutP = {};
         $scope.modalTitle = 'Add Scouted Player';
         target.modal('show');
     };
