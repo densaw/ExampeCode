@@ -141,8 +141,7 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
         [Route("api/Curriculum/Wizard/Session/RatingTable/{teamId:int}/{sessionId:int}")]
         public IHttpActionResult Post(int teamId, int sessionId, [FromBody]IList<PlayerRatingsTableViewModel> playerRatingsTable)
         {
-            var ratings =
-                Mapper.Map<IList<PlayerRatingsTableViewModel>, List<PlayerRatings>>(playerRatingsTable);
+            var ratings = Mapper.Map<IList<PlayerRatingsTableViewModel>, List<PlayerRatings>>(playerRatingsTable);
             _curriculumProcessServices.UpdatePlayersRating(ratings, teamId, sessionId);
             return Ok();
         }

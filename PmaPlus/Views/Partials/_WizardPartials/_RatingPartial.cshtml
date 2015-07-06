@@ -1,11 +1,31 @@
 ﻿<div ng-controller="CurrRatingController" ng-cloak>
-
+    @*Modal*@
+    <div class="modal inmodal" id="confNotComplRating" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title text-left">Player Ratings</h3>
+                </div>
+                <div class="modal-body">
+                    <h2>Please confirm the session was not completed</h2>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" type="button" class="btn btn-white">No</button>
+                    <button ng-click="ssesionNotCompleted()" id="saveAtt" type="button" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Modal End*@
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Player Ratings</h5>
-                    <div class="ibox-tools" style="margin-top: -5px;"></div>
+                    <div class="ibox-tools" style="margin-top: -5px;">
+                        <a class="btn btn-primary btn-sm" ng-click="ssesionNotCompletedModal()">Session not completed</a>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <div class="ibox-content">

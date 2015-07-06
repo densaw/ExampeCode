@@ -28,14 +28,15 @@ app.controller('CurrReportObjectiveController', ['$scope', '$http', '$location',
             var completed = true;
             angular.forEach($scope.items, function (item) {
                 if (item.outcome === '') {
-                    completed = false;
+                    if (item.objective !== '') {
+                        completed = false;
+                    }
                 }
             });
 
             if (completed) {
                 saveObjectives();
                 $scope.nav.canNext = true;
-                $scope.nav.canBack = true;
             }
 
         }
@@ -48,7 +49,6 @@ app.controller('CurrReportObjectiveController', ['$scope', '$http', '$location',
                 $scope.nav.canBack = true;
             } else {
                 $scope.nav.canNext = false;
-                $scope.nav.canBack = false;
             }
 
             getTable();

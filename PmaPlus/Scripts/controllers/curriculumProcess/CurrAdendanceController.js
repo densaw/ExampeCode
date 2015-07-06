@@ -112,11 +112,12 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
     $scope.ssesionNotCompleted = function () {
         angular.element('#confNotCompl').modal('hide');
         angular.forEach($scope.items, function (item) {
-            item.attendance = 1;
+            item.attendance = 0;
             item.duration = 0;
         });
         $scope.nav.canNext = true;
         $scope.nav.canBack = true;
+        savePeriod();
     };
 
 }]);

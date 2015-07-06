@@ -23,31 +23,31 @@ app.controller('CurrObjectiveController', ['$scope', '$http', '$location', 'Wiza
 
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-            var completed = true;
-            angular.forEach($scope.items, function (item) {
-                if (item.objective === '') {
-                    completed = false;
-                }
-            });
+            //var completed = true;
+            //angular.forEach($scope.items, function (item) {
+            //    if (item.objective === '') {
+            //        completed = false;
+            //    }
+            //});
 
-            if (completed) {
-                saveObjectives();
-                $scope.nav.canNext = true;
-                $scope.nav.canBack = true;
-            }
+            //if (completed) {
+            //    saveObjectives();
+            //    $scope.nav.canNext = true;
+            //    $scope.nav.canBack = true;
+            //}
         }
     });
 
 
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-            if ($scope.$parent.step.done) {
+            //if ($scope.$parent.step.done) {
                 $scope.nav.canNext = true;
                 $scope.nav.canBack = true;
-            } else {
-                $scope.nav.canNext = false;
-                $scope.nav.canBack = false;
-            }
+            //} else {
+            //    $scope.nav.canNext = false;
+            //    $scope.nav.canBack = false;
+            //}
 
             getTable();
         }

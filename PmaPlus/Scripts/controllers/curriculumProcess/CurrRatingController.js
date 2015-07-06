@@ -47,13 +47,29 @@ app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardH
                 $scope.nav.canNext = true;
                 $scope.nav.canBack = true;
             } else {
-                $scope.nav.canNext = false;
-                $scope.nav.canBack = false;
+                angular.forEach($scope.items, function (item) {
+                    if (item.atl < 1 || item.att < 1 || item.cur < 1) {
+                        $scope.nav.canBack = false;
+                        $scope.nav.canNext = false;
+                    }
+                });
             }
 
             getTable();
         }
     });
+
+    $scope.ssesionNotCompletedModal = function () {
+        angular.element('#confNotComplRating').appendTo('body').modal('show');
+    }
+
+    $scope.ssesionNotCompleted = function () {
+        angular.element('#confNotComplRating').modal('hide');
+       
+        $scope.nav.canNext = true;
+        $scope.nav.canBack = true;
+        
+    };
 
 
 }]);
