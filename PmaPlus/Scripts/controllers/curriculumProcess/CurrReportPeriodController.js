@@ -18,17 +18,19 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
     }
 
     var savePeriod = function () {
+        $scope.$parent.obj.laddaLoading = true;
         $http.post('/api/Curriculum/Wizard/Session/BlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
-            .success(function () {
-
-            });
+            .success(function() {
+                $scope.$parent.obj.laddaLoading = false;
+            }).error(function() {
+                $scope.$parent.obj.laddaLoading = false;
+        });
 
     };
 
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
 
-            console.log("save objectives");
             savePeriod();
 
         }

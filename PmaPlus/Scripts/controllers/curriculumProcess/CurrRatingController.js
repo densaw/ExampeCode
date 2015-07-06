@@ -22,9 +22,12 @@ app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardH
 
 
     var saveRatings = function () {
+        $scope.$parent.obj.laddaLoading = true;
         $http.post('/api/Curriculum/Wizard/Session/RatingTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
-            .success(function () {
-
+        .success(function () {
+            $scope.$parent.obj.laddaLoading = false;
+        }).error(function () {
+            $scope.$parent.obj.laddaLoading = false;
             });
 
     };

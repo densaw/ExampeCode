@@ -8,7 +8,9 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
 
     $scope.nav.canNext = true;
     $scope.nav.canBack = true;
-
+    $scope.obj = {
+        laddaLoading: false
+    }
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
@@ -44,7 +46,7 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
                 wizard.goTo(0);
                 $scope.updateProgress();
 
-            }, 500);
+            }, 1000);
 
         }
     });

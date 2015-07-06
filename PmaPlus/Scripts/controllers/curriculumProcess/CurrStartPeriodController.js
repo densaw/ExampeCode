@@ -22,17 +22,10 @@ app.controller('CurrStartPeriodController', ['$scope', '$http', '$location', 'Wi
     }
 
 
-    var savePeriod = function () {
-        $http.post('/api/Curriculum/Wizard/Session/BlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
-            .success(function () {
-
-            });
-
-    };
-
+    
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-            savePeriod();
+
         }
     });
 
@@ -55,7 +48,11 @@ app.controller('CurrStartPeriodController', ['$scope', '$http', '$location', 'Wi
 
 
 
-    $scope.saveObjective = function () {
+    $scope.saveObjective = function (player) {
+        $http.post('/api/Curriculum/Wizard/Session/BlockObjective/' + $scope.currId + '/' + $scope.$parent.step.sessionId, player)
+          .success(function () {
+          }).error(function () {
+          });
         angular.element('#objModal').modal('hide');
     }
 

@@ -24,10 +24,14 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
     }
 
 
-    var savePeriod = function () {
-        $http.post('/api/Curriculum/Wizard/Session/AttendanceTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
-            .success(function () {
 
+    var savePeriod = function () {
+        $scope.$parent.obj.laddaLoading = true;
+        $http.post('/api/Curriculum/Wizard/Session/AttendanceTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
+             .success(function () {
+                 $scope.$parent.obj.laddaLoading = false;
+             }).error(function () {
+                 $scope.$parent.obj.laddaLoading = false;
             });
     }
 
