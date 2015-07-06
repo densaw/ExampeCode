@@ -758,7 +758,7 @@ app.controller('ClubDiaryController', [
 
             eventRender: function (event, element) {
                 $scope.openEdit = element.bind('dblclick', function () {
-
+                    
                     $http.get('/api/Diary/' + event.id)
                         .success(function (result) {
 
@@ -806,6 +806,7 @@ app.controller('ClubDiaryController', [
         getResults();
 
         $scope.open = function () {
+            $scope.newEvent = {};
             $scope.windowTitle = 'Add Event';
             $scope.myform.form_Submitted = false;
             target.modal('show');
@@ -1300,6 +1301,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
 
 
     $scope.open = function () {
+        $scope.newCurr = {};
         $scope.modalTitle = 'Add Curriculums';
         target.modal('show');
     };
@@ -1351,6 +1353,7 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
         });
     };
     $scope.openEdit = function (id) {
+        
         console.log(id);
         $http.get(urlTail + '/' + id)
             .success(function (result) {
@@ -1734,6 +1737,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
 
 
     $scope.open = function () {
+        $scope.newTeam = {};
         $scope.isEditing = false;
         $scope.modalTitle = 'Add Team';
         target.modal('show');
