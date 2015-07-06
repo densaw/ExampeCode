@@ -821,9 +821,20 @@ app.controller('ClubDiaryController', [
         }
         $scope.ok = function () {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
+            console.log('valid');
+            console.log($scope.myform.$valid);
+            if ($scope.myform.$valid == false) {
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    bodyOutputType: 'trustedHtml',
+                    body: 'Please complete the compulsory fields highlighted in red'
+                });
+                return;
+            }
             $scope.loginLoading = true;
 
-
+          
             $scope.newEvent.start = moment($scope.newEvent.start).format('YYYY-MM-DDTHH:mm');
             $scope.newEvent.end = moment($scope.newEvent.end).format('YYYY-MM-DDTHH:mm');
 
@@ -831,7 +842,7 @@ app.controller('ClubDiaryController', [
             console.log('end' + $scope.newEvent.end);
 
             $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
-            $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
+           $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
 
             //put
             if (needToUpdate != -1) {
