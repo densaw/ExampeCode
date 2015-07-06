@@ -43,8 +43,10 @@ app.controller('PrivateController', ['$scope', '$http','$q', '$filter',function 
             return ids;
         }
 
-        $scope.sendMessage = function() {
+        $scope.sendMessage = function () {
+            $scope.newMessage = {};
             target.modal('show');
+            
         };
 
         $scope.cancel = function(){
