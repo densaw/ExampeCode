@@ -3827,6 +3827,7 @@
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage5.cshtml" />
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage4.cshtml" />
     <Content Include="Views\Partials\_DocumentsPartial.cshtml" />
+    <Content Include="Views\Partials\_ProfilePage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
