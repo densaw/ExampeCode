@@ -243,7 +243,8 @@
                 });
         }
 
-        $scope.openMessage = function(){
+        $scope.openMessage = function () {
+            $scope.newMessage = {};
             $scope.modalTitle = 'Send new message';
             sendMessageModal.modal('show');
         }
