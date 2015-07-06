@@ -3243,6 +3243,7 @@
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage4Controller.js" />
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage5Controller.js" />
     <Content Include="Scripts\controllers\MessageController.js" />
+    <Content Include="Scripts\controllers\ProfileController.js" />
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\controllers\TeamPlayersTableController.js" />
     <Content Include="Scripts\controllers\UserAvatarController.js" />
@@ -3827,6 +3828,7 @@
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage5.cshtml" />
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage4.cshtml" />
     <Content Include="Views\Partials\_DocumentsPartial.cshtml" />
+    <Content Include="Views\Partials\_ProfilePage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
