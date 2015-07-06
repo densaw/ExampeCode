@@ -64,6 +64,12 @@ namespace PmaPlus.Controllers.ApiControllers
 
         public AddPlayerViewModel Get(int id)
         {
+            if (id == -1)
+            {
+                var user = _userServices.GetUserByEmail(User.Identity.Name);
+                return _playerServices.GetPlayerViewModel(user.Id);
+            }
+
             return _playerServices.GetPlayerViewModel(id);
         }
 

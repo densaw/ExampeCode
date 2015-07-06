@@ -33,6 +33,9 @@
                             <div class="ibox-tools" style="margin-top: -5px;">
                                 <a class=" btn btn-primary btn-sm" ng-disabled="!nav.canBack" wz-previous ng-click="updateProgress()">Prev</a>
                                 <a class="btn btn-primary btn-sm" ng-click="saveProgress()">Save Progress</a>
+                                <a ng-click="ok(newTeam.id)" ng-disabled="laddaLoading" class="ladda-button btn btn-primary btn-sm" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                                    <span class="ladda-label" style="font-size: 14px;">Save changes</span>
+                                </a>
                                 <a class="btn btn-primary btn-sm" ng-disabled="!nav.canNext" wz-next ng-click="updateProgress()">Next</a>
                             </div>
                         </div>
