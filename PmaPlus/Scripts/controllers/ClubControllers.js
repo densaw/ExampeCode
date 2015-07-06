@@ -444,6 +444,16 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
                                 body: 'Please complete the compulsory fields highlighted in red'
                             });
                         }
+                        if (status == 409) {
+                            console.log(data);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                bodyOutputType: 'trustedHtml',
+                                body: 'This email already registered in system!'
+                            });
+                            $scope.loginLoading = false;
+                        }
                         $scope.loginLoading = false;
                     });
 
@@ -1591,6 +1601,16 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                                     title: 'Error',
                                     bodyOutputType: 'trustedHtml',
                                     body: 'Please complete the compulsory fields highlighted in red'
+                                });
+                                $scope.loginLoading = false;
+                            }
+                            if (status == 409) {
+                                console.log(data);
+                                toaster.pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    bodyOutputType: 'trustedHtml',
+                                    body: 'This email already registered in system!'
                                 });
                                 $scope.loginLoading = false;
                             }
