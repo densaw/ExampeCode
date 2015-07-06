@@ -71,6 +71,9 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             int clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
 
+            if (_userServices.UserExist(playerViewModel.Email))
+                return Conflict();
+
             var player = _playerServices.AddPlayer(playerViewModel, clubId);
             if (player.Id > 0)
             {

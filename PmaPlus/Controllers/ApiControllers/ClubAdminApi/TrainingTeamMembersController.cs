@@ -45,6 +45,10 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         {
 
             var newUser =  _userServices.AddTrainingTeamMember(memberViewModel,User.Identity.Name);
+
+            if (_userServices.UserExist(memberViewModel.Email))
+                return Conflict();
+
             if (newUser != null)
             {
                 if (_photoManager.FileExists(memberViewModel.ProfilePicture))

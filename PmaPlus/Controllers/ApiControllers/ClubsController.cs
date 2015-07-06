@@ -122,6 +122,12 @@ namespace PmaPlus.Controllers.ApiControllers
         public IHttpActionResult Post([FromBody]AddClubViewModel clubViewModel)
         {
             var newClub = _clubServices.AddClub(clubViewModel);
+
+            if (_userServices.UserExist(clubViewModel.ClubAdminEmail))
+            {
+                return Conflict();
+            }
+
             if (newClub != null)
             {
                 if (_photoManager.FileExists(clubViewModel.Logo))
