@@ -3243,6 +3243,7 @@
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage4Controller.js" />
     <Content Include="Scripts\controllers\matchReportsProcess\WizardPage5Controller.js" />
     <Content Include="Scripts\controllers\MessageController.js" />
+    <Content Include="Scripts\controllers\ProfileController.js" />
     <Content Include="Scripts\controllers\TalentIdentificationController.js" />
     <Content Include="Scripts\controllers\TeamPlayersTableController.js" />
     <Content Include="Scripts\controllers\UserAvatarController.js" />

@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<div class="wrapper wrapper-content" ng-controller="TrainingTeamController" ng-cloak>
+<div class="wrapper wrapper-content" ng-controller="ProfileController" ng-cloak>
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
@@ -25,44 +25,44 @@
                         <div class="form-group " ng-class="{'has-error':myform.firstName.$invalid && (myform.firstName.$dirty||myform.form_Submitted) }">
                             <label class="col-lg-4 title-modal">First Name: </label>
                             <div class="col-lg-7 pull-right">
-                                <input name="firstName" ng-model="newClub.name" required class="form-control">
+                                <input name="firstName" ng-model="newMember.name" required class="form-control">
                             </div>
                         </div>
                         <div class="form-group " ng-class="{'has-error':myform.lastName.$invalid && (myform.lastName.$dirty||myform.form_Submitted) }">
                             <label class="col-lg-4 title-modal">Last Name: </label>
                             <div class="col-lg-7 pull-right">
-                                <input name="lastName" ng-model="newClub.name" required class="form-control">
+                                <input name="lastName" ng-model="newMember.name" required class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 title-modal">About Me:</label>
                             <div class="col-lg-7 pull-right">
-                                <textarea ng-model="newClub.aboutMe" class="form-control"></textarea>
+                                <textarea ng-model="newMember.aboutMe" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':myform.telephone.$invalid && (myform.telephone.$dirty||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Telephone:</label>
                             <div class="col-lg-7 pull-right">
-                                <input name="telephone" ng-model="newClub.telephone" class="form-control" ng-pattern="/[0-9]\d{5}(\d{3})?/" maxlength="12">
+                                <input name="telephone" ng-model="newMember.telephone" class="form-control" ng-pattern="/[0-9]\d{5}(\d{3})?/" maxlength="12">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':myform.mobile.$invalid && (myform.mobile.$dirty||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Mobile:</label>
                             <div class="col-lg-7 pull-right">
-                                <input name="mobile" ng-model="newClub.mobile" class="form-control" ng-pattern="/[0-9]\d{5}(\d{3})?/" maxlength="12">
+                                <input name="mobile" ng-model="newMember.mobile" class="form-control" ng-pattern="/[0-9]\d{5}(\d{3})?/" maxlength="12">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':myform.email.$invalid && (myform.email||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Email:</label>
                             <div class="col-lg-7 pull-right">
-                                <input name="email" ng-model="newClub.email" required class="form-control">
+                                <input name="email" ng-model="newMember.email" required class="form-control">
 
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':myform.profPassword.$invalid && (myform.profPassword.$dirty||myform.form_Submitted)}">
                             <label class="col-lg-4 title-modal">Password:</label>
                             <div class="col-lg-7 pull-right">
-                                <input name="profPassword" ng-model="newClub.profPassword" required class="form-control">
+                                <input name="profPassword" ng-model="newMember.profPassword" required class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
