@@ -64,12 +64,21 @@ namespace PmaPlus.Controllers.ApiControllers
 
         public AddPlayerViewModel Get(int id)
         {
+            if (id == -1)
+            {
+                var user = _userServices.GetUserByEmail(User.Identity.Name);
+                return _playerServices.GetPlayerViewModel(user.Id);
+            }
+
             return _playerServices.GetPlayerViewModel(id);
         }
 
         public IHttpActionResult Post(AddPlayerViewModel playerViewModel)
         {
             int clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
+
+            if (_userServices.UserExist(playerViewModel.Email))
+                return Conflict();
 
             var player = _playerServices.AddPlayer(playerViewModel, clubId);
             if (player.Id > 0)

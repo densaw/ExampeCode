@@ -107,6 +107,9 @@
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Coach Picture:</label>
                                                 <div class="col-lg-7 pull-right">
+                                                    <div class="thumbnail" ng-show="newCurrDet.coachPicture != null" style="width: auto;float: none !important;margin-bottom: 5px;">
+                                                        <img ng-src='/api/file/Sessions/{{newCurrDet.coachPicture}}/{{newCurrDet.id}}' style=" width: auto;float: none !important;" />
+                                                    </div>  
                                                     <input file-model="picC" type="file" accept="image/*" class="pma-fileupload">
                                                 </div>
                                             </div>

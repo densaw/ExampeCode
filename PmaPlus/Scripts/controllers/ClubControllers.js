@@ -822,17 +822,37 @@ app.controller('ClubDiaryController', [
         }
         $scope.ok = function () {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
-            $scope.loginLoading = true;
-
+            console.log('valid');
+            console.log($scope.newEvent.start);
+            console.log($scope.newEvent.end);
+            if ($scope.myform.$valid == false) {
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    bodyOutputType: 'trustedHtml',
+                    body: 'Please complete the compulsory fields highlighted in red'
+                });
+                return;
+            }
+           
 
             $scope.newEvent.start = moment($scope.newEvent.start).format('YYYY-MM-DDTHH:mm');
             $scope.newEvent.end = moment($scope.newEvent.end).format('YYYY-MM-DDTHH:mm');
-
+            if ($scope.newEvent.end < $scope.newEvent.start) {
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error',
+                    bodyOutputType: 'trustedHtml',
+                    body: 'Wrong data end'
+                });
+                return;
+            }
+            $scope.loginLoading = true;
             console.log('start' + $scope.newEvent.start);
             console.log('end' + $scope.newEvent.end);
 
             $scope.newEvent.attendeeTypes = shuffle($scope.help.helpAttend);
-            $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
+           $scope.newEvent.specificPersons = shuffle($scope.help.helpSpecify);
 
             //put
             if (needToUpdate != -1) {
@@ -1417,8 +1437,8 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         { id: 2, name: 'Both' }
     ];
 
-    $scope.selectedStatus = $scope.statuses[0];
-    $scope.selectedFoot = $scope.playingFoot[0];
+    //$scope.selectedStatus = $scope.statuses[0];
+    //$scope.selectedFoot = $scope.playingFoot[1];
 
 
 
@@ -1428,16 +1448,13 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     $scope.help.teams = [];
 
     $http.get('/api/Teams/List').success(function (result) {
-        console.log(result);
         $scope.teams = result;
     });
 
     $scope.$watch('help.teams', function (newValue, oldValue, scope) {
         if (newValue.length > 2) {
             $scope.help.teams = oldValue;
-
         }
-        console.log($scope);
     });
 
 
@@ -1456,7 +1473,6 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     function getResultsPage(pageNumber) {
         $http.get(createTail(pageNumber))
             .success(function (result) {
-                console.log(result);
                 $scope.items = result.items;
                 $scope.totalItems = result.count;
             });
@@ -1527,15 +1543,13 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 promises.push(promise);
             }
             $q.all(promises).then(function () {
-                console.log();
-                $scope.newPlayer.status = $scope.selectedStatus.id;
-                $scope.newPlayer.playingFoot = $scope.selectedFoot.id;
+                //$scope.newPlayer.status = $scope.selectedStatus.id;
+                //$scope.newPlayer.playingFoot = $scope.selectedFoot.id;
                 if ($scope.help.teams == null) {
                     $scope.newPlayer.teams = [];
                 } else {
                     $scope.newPlayer.teams = shuffle($scope.help.teams);
                 }
-                console.log($scope.newPlayer);
                 if (id != null) {
                     $http.put(urlTail + '/' + id, $scope.newPlayer)
                         .success(function () {
@@ -1557,9 +1571,6 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                             }
                         });
                 } else {
-
-                    $scope.newPlayer.status = $scope.selectedStatus.id;
-                    $scope.newPlayer.playingFoot = $scope.selectedFoot.id;
 
                     if ($scope.help.teams == null) {
                         $scope.newPlayer.teams = [];
@@ -1596,6 +1607,9 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
     $scope.openAdd = function () {
         $scope.modalTitle = "Add an Player";
         $scope.newPlayer = {};
+        $scope.newPlayer.userStatus = 0;
+        $scope.newPlayer.playingFoot = 1;
+        $scope.selectedFoot = $scope.playingFoot[1];
         $scope.myform.form_Submitted = false;
         target.modal('show');
     };
@@ -1618,8 +1632,6 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
                 $scope.newPlayer = result;
                 $scope.newPlayer.id = id;
                 $scope.modalTitle = "Update an Player";
-                console.log('ResArray');
-                console.log($filter('filter')($scope.teams, result.teams));
                 $scope.help.teams = morph(result.teams, $scope.teams);
                 target.modal('show');
             });
@@ -1740,6 +1752,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
         $scope.newTeam = {};
         $scope.isEditing = false;
         $scope.modalTitle = 'Add Team';
+        $scope.newTeam = {};
         target.modal('show');
     };
 
@@ -1751,7 +1764,6 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     $scope.delete = function () {
         $http.delete(urlTail + '/' + needToDelete).success(function () {
             needToDelete = -1;
-            console.log('Delete DONE!');
             getResultsPage($scope.pagination.current);
             deleteModal.modal('hide');
         }).error(function (data, status, headers, config) {
@@ -1767,7 +1779,6 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
 
     $scope.ok = function (id) {
         $scope.loginLoading = true;
-        $scope.ok = function (id) {
 
             $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
             $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
@@ -1780,7 +1791,6 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
                     console.log('Team Update');
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
-                    $scope.newTeam = {};
                     $scope.teamMembers.coaches = [];
                     $scope.teamMembers.players = [];
                 }).error(function (data, status, headers, config) {
@@ -1792,10 +1802,8 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
                 //POST
 
                 $http.post(urlTail, $scope.newTeam).success(function (result) {
-                    console.log('Team Done');
                     getResultsPage($scope.pagination.current);
                     target.modal('hide');
-                    $scope.newTeam = {};
                     $scope.teamMembers.coaches = [];
                     $scope.teamMembers.players = [];
                     $scope.loginLoading = false;
@@ -1809,14 +1817,13 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
             $scope.isEditing = true;
             $http.get(urlTail + '/' + id)
                 .success(function (result) {
-                    console.log(result);
                     $scope.newTeam = result;
                     $scope.teamMembers.coaches = morph(result.coaches, $scope.freeCoaches);
                     $scope.teamMembers.players = morph(result.players, $scope.allPlayers);
                     target.modal('show');
                 });
         };
-    }
+    
 }]);
 
 app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', '$filter', '$rootScope', function ($scope, $http, toaster, $q, $routeParams, $location, $filter, $rootScope) {

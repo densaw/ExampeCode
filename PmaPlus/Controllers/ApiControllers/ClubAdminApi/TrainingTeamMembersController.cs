@@ -38,6 +38,11 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
 
         public AddTrainingTeamMemberViewModel GetMemberProfile(int id)
         {
+            if (id == -1)
+            {
+                var user = _userServices.GetUserByEmail(User.Identity.Name);
+                return _userServices.GetDetailedTrainingTeamMemberViewModel(user.Id);
+            }
             return _userServices.GetDetailedTrainingTeamMemberViewModel(id);
         }
 
@@ -45,6 +50,10 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
         {
 
             var newUser =  _userServices.AddTrainingTeamMember(memberViewModel,User.Identity.Name);
+
+            if (_userServices.UserExist(memberViewModel.Email))
+                return Conflict();
+
             if (newUser != null)
             {
                 if (_photoManager.FileExists(memberViewModel.ProfilePicture))
