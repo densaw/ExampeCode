@@ -119,7 +119,7 @@
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Birth Date:</label>
                                                 <div class="col-lg-7 pull-right">
-                                                    <input name="courseName" ng-model="newPlayer.birthDate" class="form-control" maxlength="50">
+                                                    <datetimepicer name="courseName" ng-model="newPlayer.birthDate" class="form-control" maxlength="50">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -354,7 +354,7 @@
                                 <tbody id="contentTable">
                                     <tr dir-paginate="player in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
                                         <td>
-                                            <div style="width: 100px; height: 100px; position: relative; overflow: hidden;" class="img-circle pull-left">
+                                            <div style="width: 100px; height: 100px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
                                                 <img class="prifile" ng-src="/api/File/ProfilePicture/{{player.profilePicture}}/{{player.id}}" style-parent />
                                             </div>
                                         </td>
