@@ -255,7 +255,7 @@ namespace PmaPlus.Services.Services
             if (sessinResult == null)
                 throw new Exception("Session didn't created");
 
-            objectives.ForEach(a => a.SessionResultId = sessinResult.Id);
+            objectives.ForEach(a => a.StartSessionResultId = sessinResult.Id);
 
             _playerObjectiveRepository.AddOrUpdate(objectives.ToArray());
         }

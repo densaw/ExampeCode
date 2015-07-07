@@ -93,8 +93,7 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
         {
             return _curriculumProcessServices.GetPlayerObjectiveRepTable(teamId, sessionId);
         }
-
-
+        
         [Route("api/Curriculum/Wizard/Session/ObjectiveTable/{teamId:int}/{sessionId:int}")]
         public IHttpActionResult PostPlayerObjectives(int teamId, int sessionId, IList<PlayerObjectiveTableViewModel> playerObjectiveTable)
         {
@@ -104,6 +103,7 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
 
             return Ok();
         }
+
 
 
 
@@ -133,6 +133,7 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             _curriculumProcessServices.UpdateBlockObgectiveStatement(blockObj, blockObjectiveViewModel.PlayerId, teamId, sessionId, user.Id);
             return Ok();
         }
+
 
 
 

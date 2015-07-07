@@ -148,8 +148,11 @@ namespace PmaPlus.Controllers.ApiControllers
         public IHttpActionResult DeleteFile(string folder, string file)
         {
             var user = _userServices.GetUserByEmail(User.Identity.Name);
-            _documentManager.DeleteFile(file, folder, user.Id);
+            if (_documentManager.DeleteFile(file, folder, user.Id))
+            {
             return Ok();
+            }
+            return Conflict();
         }
 
 

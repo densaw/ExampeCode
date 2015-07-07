@@ -132,10 +132,10 @@ namespace PmaPlus.Tools
                 }
                 catch (Exception)
                 {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
 
     }
