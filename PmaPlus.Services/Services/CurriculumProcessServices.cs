@@ -118,7 +118,7 @@ namespace PmaPlus.Services.Services
                              Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                              Attendance = a != null ? a.Attendance : AttendanceType.Undefined,
                              Duration = a != null ? a.Duration : 0,
-                             AttPercent = (player.SessionAttendances.Count / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count(atten => atten.Attendance == AttendanceType.Attended) : 1)) * 100,
+                             AttPercent = (player.SessionAttendances.Count(atten => atten.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100,
                              WbPercent = 0, //TODO: Wellbieng!
                              Cur = 0
 

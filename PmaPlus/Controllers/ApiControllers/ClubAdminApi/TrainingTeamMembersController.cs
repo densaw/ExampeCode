@@ -48,12 +48,10 @@ namespace PmaPlus.Controllers.ApiControllers.ClubAdminApi
 
         public IHttpActionResult Post(AddTrainingTeamMemberViewModel memberViewModel)
         {
-
-            var newUser =  _userServices.AddTrainingTeamMember(memberViewModel,User.Identity.Name);
-
             if (_userServices.UserExist(memberViewModel.Email))
                 return Conflict();
 
+            var newUser =  _userServices.AddTrainingTeamMember(memberViewModel,User.Identity.Name);
             if (newUser != null)
             {
                 if (_photoManager.FileExists(memberViewModel.ProfilePicture))

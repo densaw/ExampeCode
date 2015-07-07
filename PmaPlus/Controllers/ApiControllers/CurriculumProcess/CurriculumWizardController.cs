@@ -79,12 +79,14 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             return Ok();
         }
 
+
+
+
         [Route("api/Curriculum/Wizard/Session/ObjectiveTable/{teamId:int}/{sessionId:int}")]
         public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerObjectives(int teamId, int sessionId)
         {
             return _curriculumProcessServices.GetPlayerObjectiveTable(teamId, sessionId);
         }
-
 
         [Route("api/Curriculum/Wizard/Session/ReportObjectiveTable/{teamId:int}/{sessionId:int}")]
         public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerReportObjectives(int teamId, int sessionId)
@@ -104,6 +106,8 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
         }
 
 
+
+
         [Route("api/Curriculum/Wizard/Session/BlockObjectiveTable/{teamId:int}/{sessionId:int}")]
         public IEnumerable<PlayerBlockObjectiveTableViewModel> GetPlayerBlockObjectiveTable(int teamId, int sessionId)
         {
@@ -117,8 +121,7 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
 
 
         }
-
-
+        
         [Route("api/Curriculum/Wizard/Session/BlockObjective/{teamId:int}/{sessionId:int}")]
         public IHttpActionResult PostPlayerBlockObjective(int teamId, int sessionId, [FromBody]PlayerBlockObjectiveTableViewModel blockObjectiveViewModel)
         {
@@ -130,6 +133,9 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             _curriculumProcessServices.UpdateBlockObgectiveStatement(blockObj, blockObjectiveViewModel.PlayerId, teamId, sessionId, user.Id);
             return Ok();
         }
+
+
+
 
 
         [Route("api/Curriculum/Wizard/Session/RatingTable/{teamId:int}/{sessionId:int}")]

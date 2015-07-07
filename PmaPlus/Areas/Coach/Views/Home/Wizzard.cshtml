@@ -64,7 +64,7 @@
                 <div ng-if="step.rating">
                     @Html.Partial("~/Views/Partials/_WizardPartials/_RatingPartial.cshtml")
                 </div>
-                <div ng-if="step.startOfReviewPeriod">
+                <div ng-if="step.startOfReviewPeriod && !step.coachDetails">
                     @Html.Partial("~/Views/Partials/_WizardPartials/_StartPeriodPartial.cshtml")
                 </div>
                 <div ng-if="step.endOfReviewPeriod">
