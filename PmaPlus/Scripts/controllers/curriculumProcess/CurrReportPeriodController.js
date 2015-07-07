@@ -46,7 +46,7 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
     });
 
     $scope.addObjective = function (player) {
-        angular.element('#objModal').appendTo("body").modal('show');
+        angular.element('#reportPeriodModal').appendTo("body").modal('show');
         $scope.player = player;
 
     }
@@ -54,7 +54,7 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
 
 
     $scope.saveObjective = function () {
-        angular.element('#objModal').modal('hide');
+        angular.element('#reportPeriodModal').modal('hide');
     }
 
     //Next step allow

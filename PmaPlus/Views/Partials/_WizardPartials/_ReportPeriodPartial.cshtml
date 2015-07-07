@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Review Period Report</h5>
+                    <h5>{{step.name}}</h5>
                     <div class="ibox-tools" style="margin-top: -5px;"></div>
                 </div>
                 <div class="table-responsive">
@@ -17,34 +17,24 @@
                                 <tr>
                                     <th>Picture</th>
                                     <th>Player Name</th>
-                                    <th>Age</th>
-                                    <th>AtL</th>
-                                    <th>AtT</th>
-                                    <th>FRM</th>
-                                    <th>INJ</th>
-                                    <th>ATT%</th>
-                                    <th>WB%</th>
-                                    <th>Cur</th>
-                                    <th>Action</th>
+                                    <th>Pre-Period Objective</th>
+                                    <th>Pre-defined statement</th>
+                                    <th>End of Period Statement</th>     
+                                    <th>Objective achieved</th>                              
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
                                     <td>
-                                        <div style="width: 100px; height: 100px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
+                                        <div style="width: 80px; height: 80px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
                                             <img class="prifile" ng-src="{{item.picture}}" style-parent />
                                         </div>
                                     </td>
                                     <td>{{item.name}}</td>
-                                    <td>{{item.age}}</td>
-                                    <td>{{item.atl}}</td>
-                                    <td>{{item.att}}</td>
-                                    <td>{{item.frm}}</td>
-                                    <td>{{item.inj}}</td>
-                                    <td>{{item.attPercent}}</td>
-                                    <td>{{item.wbPercent}}</td>
-                                    <td>{{item.cur}}</td>
-                                    <td><a ng-click="addObjective(item)" class="fa fa-graduation-cap"></a></td>
+                                    <td><textarea style="height: 100%;width: 100%;" ng-model="item.preObjective"></textarea></td>
+                                    <td><select class="form-control" ng-model="item.statement" ng-options="statemant.statement as statemant.statement for statemant in statemants "></select></td>
+                                    <td><textarea style="height: 100%;width: 100%;" ng-model="item.statement"></textarea></td>
+                                    <td><input toggle-checkbox type="checkbox" ng-model="item.achieved"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -58,7 +48,7 @@
     
     
     @*Modal*@
-    <div class="modal inmodal" id="objModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal inmodal" id="reportPeriodModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
