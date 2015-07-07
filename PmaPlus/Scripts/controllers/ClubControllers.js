@@ -2211,7 +2211,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
             promises.push(promise);
         }
         $q.all(promises).then(function () {
-            $scope.newCurrDet.scenarioId = $scope.selectedScenario.id;
+            //$scope.newCurrDet.scenarioId = $scope.selectedScenario.id;
             $scope.newCurrDet.attendance = toggleAttendance.prop('checked');
             $scope.newCurrDet.objectives = toggleObjectives.prop('checked');
             $scope.newCurrDet.rating = toggleRating.prop('checked');
