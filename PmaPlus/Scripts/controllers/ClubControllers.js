@@ -598,8 +598,23 @@ app.controller('MyCtrlDiary', ['$scope', '$rootScope', '$digest', '$watch', func
 app.controller('ClubDiaryController', [
     '$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function ($scope, $http, toaster, $compile, uiCalendarConfig) {
 
+    
+        $scope.$watch('newEvent.start', function (newVal, oldVal) {
+            if (!newVal) return;
 
+            // if the new start date is bigger than the current end date .. update the end date
+            if ($scope.newEvent.end) {
+                if (+$scope.newEvent.end < +$scope.newEvent.start) {
+                    $scope.newEvent.end = newVal;
+                }
+            } else {
+                // just set the end date
+                $scope.newEvent.end = newVal;
+            }
 
+        });
+
+        
 
         var needToDelete = -1;
         var needToUpdate = -1;
