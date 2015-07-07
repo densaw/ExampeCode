@@ -44,6 +44,7 @@ app.controller('PrivateController', ['$scope', '$http','$q', '$filter',function 
         }
 
         $scope.sendMessage = function () {
+            angular.element('.pma-fileupload').fileinput('clear');
             $scope.newMessage = {};
             target.modal('show');
             

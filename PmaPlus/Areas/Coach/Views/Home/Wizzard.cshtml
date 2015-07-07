@@ -64,7 +64,7 @@
                 <div ng-if="step.rating">
                     @Html.Partial("~/Views/Partials/_WizardPartials/_RatingPartial.cshtml")
                 </div>
-                <div ng-if="step.startOfReviewPeriod">
+                <div ng-if="step.startOfReviewPeriod && !step.coachDetails">
                     @Html.Partial("~/Views/Partials/_WizardPartials/_StartPeriodPartial.cshtml")
                 </div>
                 <div ng-if="step.endOfReviewPeriod">
@@ -75,6 +75,7 @@
     </div>
 </div>
 @section scripts{
+    <script src="~/Scripts/controllers/WizzardsControllers.js"></script>
     <script src="~/Scripts/controllers/curriculumProcess/JustSessionController.js"></script>
     <script src="~/Scripts/controllers/curriculumProcess/CurrAdendanceController.js"></script>
     <script src="~/Scripts/controllers/curriculumProcess/CurrObjectiveController.js"></script>
@@ -82,5 +83,4 @@
     <script src="~/Scripts/controllers/curriculumProcess/CurrRatingController.js"></script>
     <script src="~/Scripts/controllers/curriculumProcess/CurrStartPeriodController.js"></script>
     <script src="~/Scripts/controllers/curriculumProcess/CurrReportPeriodController.js"></script>
-    <script src="~/Scripts/controllers/WizzardsControllers.js"></script>
 }

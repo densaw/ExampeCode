@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Start of Review Period</h5>
+                    <h5>{{step.name}}</h5>
                     <div class="ibox-tools" style="margin-top: -5px;"></div>
                 </div>
                 <div class="table-responsive">
@@ -17,34 +17,24 @@
                                 <tr>
                                     <th>Picture</th>
                                     <th>Player Name</th>
-                                    <th>Age</th>
-                                    <th>AtL</th>
-                                    <th>AtT</th>
-                                    <th>FRM</th>
-                                    <th>INJ</th>
+                                    <th>Pre-Period Objective</th>
                                     <th>ATT%</th>
                                     <th>WB%</th>
                                     <th>Cur</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
                                     <td>
-                                        <div style="width: 100px; height: 100px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
+                                        <div style="width: 80px; height: 80px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
                                             <img class="prifile" ng-src="{{item.picture}}" style-parent />
                                         </div>
                                     </td>
                                     <td>{{item.name}}</td>
-                                    <td>{{item.age}}</td>
-                                    <td>{{item.atl}}</td>
-                                    <td>{{item.att}}</td>
-                                    <td>{{item.frm}}</td>
-                                    <td>{{item.inj}}</td>
+                                    <td><textarea style="height: 100%;width: 100%;" ng-model="item.preObjective"></textarea></td>
                                     <td>{{item.attPercent}}</td>
                                     <td>{{item.wbPercent}}</td>
                                     <td>{{item.cur}}</td>
-                                    <td><a ng-click="addObjective(item)" class="fa fa-graduation-cap"></a></td>
                                 </tr>
                             </tbody>
                         </table>

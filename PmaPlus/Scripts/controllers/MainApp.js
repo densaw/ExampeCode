@@ -244,6 +244,7 @@
         }
 
         $scope.openMessage = function () {
+            angular.element('.pma-fileupload').fileinput('clear');
             $scope.newMessage = {};
             $scope.modalTitle = 'Send new message';
             sendMessageModal.modal('show');
@@ -2479,6 +2480,7 @@
             needToDelete = id;
         };
         $scope.openAdd2d = function () {
+            angular.element('.pma-fileupload').fileinput('clear');
             $scope.modalTitle = "Add a 2D Scenario";
             $scope.newScenario = {};
             $scope.selectedType = $scope.scenarioType[0];
