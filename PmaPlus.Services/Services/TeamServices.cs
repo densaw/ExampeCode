@@ -99,14 +99,14 @@ namespace PmaPlus.Services.Services
             {
                 if (!team.Coaches.Any(c => c.User.Id == coach))
                 {
-                    team.Coaches.Add(_coachRepository.GetById(coach));
+                    team.Coaches.Add(_coachRepository.Get(c => c.User.Id == coach));
                 }
             }
             foreach (var player in playersId)
             {
                 if (!team.Players.Any(p => p.User.Id == player))
                 {
-                    team.Players.Add(_playerRepository.GetById(player));
+                    team.Players.Add(_playerRepository.Get(p => p.User.Id == player));
                 }
             }
 
