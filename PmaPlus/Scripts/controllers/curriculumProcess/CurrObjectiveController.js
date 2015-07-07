@@ -34,9 +34,9 @@ app.controller('CurrObjectiveController', ['$scope', '$http', '$location', 'Wiza
             //});
 
             //if (completed) {
-                saveObjectives();
-            //    $scope.nav.canNext = true;
-            //    $scope.nav.canBack = true;
+            //    saveObjectives();
+                $scope.nav.canNext = true;
+                $scope.nav.canBack = true;
             //}
         }
     });
@@ -45,7 +45,7 @@ app.controller('CurrObjectiveController', ['$scope', '$http', '$location', 'Wiza
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
             //if ($scope.$parent.step.done) {
-                $scope.nav.canNext = true;
+                $scope.nav.canNext = false;
                 $scope.nav.canBack = true;
             //} else {
             //    $scope.nav.canNext = false;

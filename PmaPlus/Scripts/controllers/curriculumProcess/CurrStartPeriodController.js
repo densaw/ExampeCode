@@ -25,13 +25,14 @@ app.controller('CurrStartPeriodController', ['$scope', '$http', '$location', 'Wi
     
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-
+            $scope.nav.canNext = true;
+            $scope.nav.canBack = true;
         }
     });
 
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-            $scope.nav.canNext = true;
+            $scope.nav.canNext = false;
             $scope.nav.canBack = true;
 
             getTable();
