@@ -383,7 +383,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
 
 
         if ($scope.pic) {
-            $scope.loginLoading = false;
+            $scope.loginLoading = true;
             var fd = new FormData();
             fd.append('file', $scope.pic);
             var promise = $http.post('/api/Files', fd, {
@@ -599,8 +599,23 @@ app.controller('MyCtrlDiary', ['$scope', '$rootScope', '$digest', '$watch', func
 app.controller('ClubDiaryController', [
     '$scope', '$http', 'toaster', '$compile', 'uiCalendarConfig', function ($scope, $http, toaster, $compile, uiCalendarConfig) {
 
+    
+        $scope.$watch('newEvent.start', function (newVal, oldVal) {
+            if (!newVal) return;
 
+            // if the new start date is bigger than the current end date .. update the end date
+            if ($scope.newEvent.end) {
+                if (+$scope.newEvent.end < +$scope.newEvent.start) {
+                    $scope.newEvent.end = newVal;
+                }
+            } else {
+                // just set the end date
+                $scope.newEvent.end = newVal;
+            }
 
+        });
+
+        
 
         var needToDelete = -1;
         var needToUpdate = -1;
@@ -1626,6 +1641,7 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         confDelete.modal('hide');
     };
     $scope.openAdd = function () {
+        angular.element('.pma-fileupload').fileinput('clear');
         $scope.modalTitle = "Add an Player";
         $scope.newPlayer = {};
         $scope.newPlayer.userStatus = 0;
@@ -2126,6 +2142,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
 
     $scope.open = function () {
+        angular.element('.pma-fileupload').fileinput('clear');
         $scope.modalTitle = 'Add Curriculum Session';
         $scope.myform.form_Submitted = false;
         $scope.newCurrDet = {};
@@ -2209,7 +2226,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
             promises.push(promise);
         }
         $q.all(promises).then(function () {
-            $scope.newCurrDet.scenarioId = $scope.selectedScenario.id;
+            //$scope.newCurrDet.scenarioId = $scope.selectedScenario.id;
             $scope.newCurrDet.attendance = toggleAttendance.prop('checked');
             $scope.newCurrDet.objectives = toggleObjectives.prop('checked');
             $scope.newCurrDet.rating = toggleRating.prop('checked');
