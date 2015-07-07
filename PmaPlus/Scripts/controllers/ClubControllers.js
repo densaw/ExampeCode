@@ -337,6 +337,7 @@ app.controller('TrainingTeamController', ['$scope', '$http', 'toaster', '$q', '$
     var needstoReport = angular.element('#needstoReport');
 
     $scope.openModal = function () {
+        angular.element('.pma-fileupload').fileinput('clear');
         $scope.myform.form_Submitted = false;
         $scope.newMember = {};
         target.modal('show');
