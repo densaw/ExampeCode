@@ -84,17 +84,17 @@
 
                                             </div>
                                         </div>
-                                        <div class="form-group" ng-class="{'has-error':myform.eventEnd.$invalid && (myform.eventEnd.$dirty||myform.form_Submitted)}">
+                                        <div class="form-group" ng-class="{'has-error':(myform.eventEnd.$invalid || er) && (myform.eventEnd.$dirty||myform.form_Submitted)}">
                                             <label class="col-lg-4 title-modal">End:</label>
                                             <div class="col-lg-7 pull-right">
                                                 <div class="dropdown">
                                                     <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" value="{{newEvent.end | date:'dd-MM-yyyy HH:mm' }}" ><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                            <input type="text" class="form-control" value="{{newEvent.end | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                                         </div>
                                                     </a>
-                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel " >
-                                                        <datetimepicker  required name=" eventend" data-ng-model="newEvent.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel ">
+                                                        <datetimepicker required name="eventEnd" data-ng-model="newEvent.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day' }" />
                                                     </ul>
                                                 </div>
 
@@ -161,9 +161,9 @@
 </script>
 
 <style>
-    .text-muted {
+    /*.text-muted {
         color: transparent;
-    }
+    }*/
     .fc-unthemed .fc-today {
         background: #f1f1f1;
     }
@@ -174,6 +174,10 @@
 
     .skin-1 .wrapper-content {
         padding: 30px 0px;
+    }
+
+    .skin-1 .navbar-static-top {
+        background: #fafafa;
     }
 </style>
 
