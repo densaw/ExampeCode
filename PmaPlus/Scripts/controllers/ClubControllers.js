@@ -834,6 +834,7 @@ app.controller('ClubDiaryController', [
         $scope.open = function () {
             $scope.newEvent = {};
             $scope.windowTitle = 'Add Event';
+            $scope.er = false;
             $scope.myform.form_Submitted = false;
             target.modal('show');
         }
@@ -843,20 +844,25 @@ app.controller('ClubDiaryController', [
             $scope.windowTitle = 'Update Event';
             $scope.newEvent = event;
             needToUpdate = event.id;
+            $scope.er = false;
             $scope.myform.form_Submitted = false;
             target.modal('show');
         }
+
+        $scope.er = false;
         $scope.ok = function () {
             $scope.myform.form_Submitted = !$scope.myform.$valid;
-            console.log('valid');
-            console.log($scope.newEvent.start);
-            console.log($scope.newEvent.end);
+            
+            
+
+
             if ($scope.myform.$valid == false) {
                 toaster.pop({
                     type: 'error',
                     title: 'Error',
                     bodyOutputType: 'trustedHtml',
                     body: 'Please complete the compulsory fields highlighted in red'
+
                 });
                 return;
             }
@@ -864,13 +870,17 @@ app.controller('ClubDiaryController', [
 
             $scope.newEvent.start = moment($scope.newEvent.start).format('YYYY-MM-DDTHH:mm');
             $scope.newEvent.end = moment($scope.newEvent.end).format('YYYY-MM-DDTHH:mm');
+
             if ($scope.newEvent.end < $scope.newEvent.start) {
+                $scope.er = true;
                 toaster.pop({
+
                     type: 'error',
                     title: 'Error',
                     bodyOutputType: 'trustedHtml',
                     body: 'Wrong data end'
                 });
+                
                 return;
             }
             $scope.loginLoading = true;
@@ -932,6 +942,8 @@ app.controller('ClubDiaryController', [
             $scope.newEvent = {};
             needToUpdate = -1;
             needToDelete = -1;
+            $scope.er = false;
+            $scope.myform.form_Submitted = false;
             getResults();
             target.modal('hide');
 
@@ -1094,6 +1106,26 @@ app.controller('DairyNotifyController', ['$scope', '$http', 'toaster', function 
 
     getResults();
 }]);
+
+app.controller('MessageNotifyController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+
+    
+
+    $scope.itemCount = 0;
+
+
+    function getResults() {
+        $http.get(urlTail)
+           .success(function (result) {
+               $scope.items = result;
+               $scope.itemCount = result.length;
+           });
+
+    }
+
+    getResults();
+}]);
+
 app.controller('ToDoNotifyController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
     var urlTail = '/api/ToDo/Today';
@@ -1419,6 +1451,8 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     }
 
 }]);
+
+
 
 app.controller('StController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function ($scope, $http, toaster, $q, $routeParams, $location) {
 
