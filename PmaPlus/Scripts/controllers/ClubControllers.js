@@ -1106,6 +1106,26 @@ app.controller('DairyNotifyController', ['$scope', '$http', 'toaster', function 
 
     getResults();
 }]);
+
+app.controller('MessageNotifyController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
+
+    
+
+    $scope.itemCount = 0;
+
+
+    function getResults() {
+        $http.get(urlTail)
+           .success(function (result) {
+               $scope.items = result;
+               $scope.itemCount = result.length;
+           });
+
+    }
+
+    getResults();
+}]);
+
 app.controller('ToDoNotifyController', ['$scope', '$http', 'toaster', function ($scope, $http, toaster) {
 
     var urlTail = '/api/ToDo/Today';
@@ -1431,6 +1451,8 @@ app.controller('CurriculumsController', ['$scope', '$http', 'toaster', '$q', '$r
     }
 
 }]);
+
+
 
 app.controller('StController', ['$scope', '$http', 'toaster', '$q', '$routeParams', '$location', function ($scope, $http, toaster, $q, $routeParams, $location) {
 
