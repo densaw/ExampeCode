@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201506021244563_atributes.Designer.cs">
       <DependentUpon>201506021244563_atributes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507080910088_session_objective.cs" />
+    <Compile Include="Migrations\201507080910088_session_objective.Designer.cs">
+      <DependentUpon>201507080910088_session_objective.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ActivityStatusChangeRepository.cs" />
@@ -216,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506021244563_atributes.resx">
       <DependentUpon>201506021244563_atributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507080910088_session_objective.resx">
+      <DependentUpon>201507080910088_session_objective.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

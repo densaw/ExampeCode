@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using PmaPlus.Model;
+using PmaPlus.Model.Enums;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.Curriculum;
@@ -28,9 +29,9 @@ namespace PmaPlus.Mapping
 {
     class ModelToViewModelProfile : Profile
     {
-        
 
-        
+
+
 
         public override string ProfileName
         {
@@ -58,9 +59,9 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<PhysiotherapyExercise, PhysiotherapyExerciseViewModel>();
 
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeViewModel>()
-                .ForMember(d => d.Whens, o => o.MapFrom(s=> s.When.Select(t=>t.Type)));
+                .ForMember(d => d.Whens, o => o.MapFrom(s => s.When.Select(t => t.Type)));
             Mapper.CreateMap<NutritionFoodType, NutritionFoodTypeTableViewModel>()
-                .ForMember(d => d.When , o => o.MapFrom(s => s.When.Select(t=>t.Type)));
+                .ForMember(d => d.When, o => o.MapFrom(s => s.When.Select(t => t.Type)));
 
             Mapper.CreateMap<NutritionAlternative, NutritionAlternativeViewModel>();
             Mapper.CreateMap<NutritionAlternative, NutritionAlternativeTableViewModel>();
@@ -108,7 +109,7 @@ namespace PmaPlus.Mapping
                 .ForMember(d => d.ProfilePicture, o => o.MapFrom(s => s.UserDetail.ProfilePicture));
 
             Mapper.CreateMap<Scout, UsersList>()
-                .ForMember(d => d.Id, o => o.MapFrom(s=> s.Id))
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Name, o => o.MapFrom(s => s.User.UserDetail.FirstName + " " + s.User.UserDetail.LastName));
 
 
@@ -123,17 +124,17 @@ namespace PmaPlus.Mapping
                 .ForMember(d => d.Started, o => o.MapFrom(d => d.TeamCurricula.FirstOrDefault() != null ? d.TeamCurricula.FirstOrDefault().StartedOn.HasValue : false));
 
             Mapper.CreateMap<Session, SessionViewModel>()
-                .ForMember(d => d.Scenarios, o => o.MapFrom(s =>s.Scenarios.Select(sc=> sc.Id)));
+                .ForMember(d => d.Scenarios, o => o.MapFrom(s => s.Scenarios.Select(sc => sc.Id)));
             Mapper.CreateMap<Session, SessionTableViewModel>();
-                
-                
+
+
 
             Mapper.CreateMap<CurriculumStatement, CurriculumStatementViewModel>()
                 .ForMember(d => d.Roles, o => o.MapFrom(s => s.Roles.Select(r => r.Role)));
 
             Mapper.CreateMap<Team, TeamTableViewModel>()
                 .ForMember(d => d.CurriculumName, o => o.MapFrom(s => s.TeamCurriculum.Curriculum.Name))
-                .ForMember(d=>d.Progress, o=>  o.MapFrom(s =>s.TeamCurriculum.Progress));
+                .ForMember(d => d.Progress, o => o.MapFrom(s => s.TeamCurriculum.Progress));
 
             Mapper.CreateMap<Team, AddTeamViewModel>()
                 .ForMember(d => d.Coaches, o => o.MapFrom(s => s.Coaches.Select(c => c.User.Id)))
@@ -148,23 +149,71 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<TalentIdentification, TalentIdentificationViewModel>();
             Mapper.CreateMap<TalentIdentification, TalentIdentificationTableViewModel>()
                 .ForMember(d => d.Age, o => o.MapFrom(s => DateTime.Now.Year - s.BirthDate.Year))
-                .ForMember(d => d.Name, o=>o.MapFrom(s => s.FirstName + " " + s.LastName))
-                .ForMember(d => d.Score, o => o.MapFrom(s => (s.Attributes.Sum(a => a.Score) /  (s.Attributes.Sum(a => a.Attribute.MaxScore) == 0 ? 1: s.Attributes.Sum(a => a.Attribute.MaxScore)))*100 ))
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.FirstName + " " + s.LastName))
+                .ForMember(d => d.Score, o => o.MapFrom(s => (s.Attributes.Sum(a => a.Score) / (s.Attributes.Sum(a => a.Attribute.MaxScore) == 0 ? 1 : s.Attributes.Sum(a => a.Attribute.MaxScore))) * 100))
                 .ForMember(d => d.ScouteName, o => o.MapFrom(s => s.Scout.User.UserDetail.FirstName + " " + s.Scout.User.UserDetail.LastName));
 
             Mapper.CreateMap<TalentIdentification, TalentIdentificationDetailViewModel>()
                 .ForMember(d => d.AttributeScorePers, o => o.MapFrom(s => (s.Attributes.Sum(a => a.Score) / (s.Attributes.Sum(a => a.Attribute.MaxScore) == 0 ? 1 : s.Attributes.Sum(a => a.Attribute.MaxScore))) * 100));
 
             Mapper.CreateMap<AttributesOfTalent, AttributesOfTalentViewModel>()
-                .ForMember(d => d.AttributeName, o => o.MapFrom(s=> s.Attribute.Name));
+                .ForMember(d => d.AttributeName, o => o.MapFrom(s => s.Attribute.Name));
 
             Mapper.CreateMap<TalentNote, TalentNoteViewModel>();
 
 
-            //Mapper.CreateMap<Tuple<Session, SessionResult>, SessionsWizardViewModel>();
+            Mapper.CreateMap<Session, SessionsWizardViewModel>();
+
+            #region Curriculum Process
+
+            Mapper.CreateMap<SessionResult, SessionsWizardViewModel>()
+                .ForMember(d => d.Attendance, o => o.MapFrom(s => s.Session.Attendance))
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.Session.Name))
+                .ForMember(d => d.Rating, o => o.MapFrom(s => s.Session.Rating))
+                .ForMember(d => d.Number, o => o.MapFrom(s => s.Session.Number))
+                .ForMember(d => d.NeedScenarios, o => o.MapFrom(s => s.Session.NeedScenarios))
+                .ForMember(d => d.EndOfReviewPeriod, o => o.MapFrom(s => s.Session.EndOfReviewPeriod))
+                .ForMember(d => d.SessionId, o => o.MapFrom(s => s.Session.Id))
+                .ForMember(d => d.ObjectiveReport, o => o.MapFrom(s => s.Session.ObjectiveReport))
+                .ForMember(d => d.Objectives, o => o.MapFrom(s => s.Session.Objectives))
+                .ForMember(d => d.Report, o => o.MapFrom(s => s.Session.Report))
+                .ForMember(d => d.CoachDetails, o => o.MapFrom(s => s.Session.CoachDetails))
+                .ForMember(d => d.CoachDetailsName, o => o.MapFrom(s => s.Session.CoachDetailsName))
+                .ForMember(d => d.CoachPicture,o => o.MapFrom(s => "/api/file/Sessions/" + s.Session.CoachPicture + "/" + s.Session.Id))
+                .ForMember(d => d.PlayerDetails, o => o.MapFrom(s => s.Session.PlayerDetails))
+                .ForMember(d => d.PlayerDetailsName, o => o.MapFrom(s => s.Session.PlayerDetailsName))
+                .ForMember(d => d.PlayerPicture,o => o.MapFrom(s => "/api/file/Sessions/" + s.Session.PlayerPicture + "/" + s.Session.Id))
+                .ForMember(d => d.StartOfReviewPeriod, o => o.MapFrom(s => s.Session.StartOfReviewPeriod))
+                .ForMember(d => d.TeamCurriculumId, o => o.MapFrom(s => s.TeamCurriculumId));
+
+            Mapper.CreateMap<PlayerBlockObjective, AddPlayerBlockObjectiveTableViewModel>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.PlayerId, o => o.MapFrom(s => s.PlayerId))
+                .ForMember(d => d.Name,
+                    o => o.MapFrom(s => s.Player.User.UserDetail.FirstName + " " + s.Player.User.UserDetail.LastName))
+                .ForMember(d => d.Picture,
+                    o =>
+                        o.MapFrom(
+                            s =>
+                                "/api/file/ProfilePicture/" + s.Player.User.UserDetail.ProfilePicture + "/" +
+                                s.Player.User.Id))
+                .ForMember(d => d.PreObjective, o => o.MapFrom(s => s.PreObjective))
+                .ForMember(d => d.WbPercent, o => o.UseValue(0))
+                .ForMember(d => d.AttPercent,
+                    o =>
+                        o.MapFrom(
+                            s =>
+                                (s.Player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended)/
+                                 (s.Player.SessionAttendances.Count != 0 ? s.Player.SessionAttendances.Count : 1))*100))
+                .ForMember(d => d.Cur,
+                    o => o.MapFrom(s => s.Player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average()));
 
 
-            Mapper.CreateMap<Session,SessionsWizardViewModel>();
+
+
+
+            #endregion
+
 
 
             #region Match Reports

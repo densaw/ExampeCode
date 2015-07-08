@@ -31,7 +31,7 @@
                                         </div>
                                     </td>
                                     <td>{{item.name}}</td>
-                                    <td><textarea style="height: 100%;width: 100%;" ng-model="item.preObjective"></textarea></td>
+                                    <td><textarea ng-class="{'warnin-textArea':item.preObjective == '' || !item.preObjective && pressed }" style="height: 100%;width: 100%;" ng-model="item.preObjective"></textarea></td>
                                     <td>{{item.attPercent}}</td>
                                     <td>{{item.wbPercent}}</td>
                                     <td>{{item.cur}}</td>
@@ -46,4 +46,10 @@
         </div>
     </div>
 </div>
-
+<style>
+    .warnin-textArea {
+        border-color: rgba(225, 0, 0, 0.8);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 0, 0, 0.6);
+        outline: 0 none;
+    }
+</style>
