@@ -56,12 +56,12 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
 
     $scope.attendense = [
        { id: 0, name: 'Attended' },
-       { id: 1, name: 'NotAttended' },
+       { id: 1, name: 'Not Attended' },
        { id: 2, name: 'Holidays' },
        { id: 3, name: 'Injured' },
        { id: 4, name: 'School' },
-       { id: 5, name: 'Sick ' },
-       { id: 6, name: 'OtherTraining ' },
+       { id: 5, name: 'Sick' },
+       { id: 6, name: 'Other Training ' },
        { id: -1, name: '' }
 
     ];

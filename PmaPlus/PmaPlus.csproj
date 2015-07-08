@@ -467,6 +467,7 @@
     <Content Include="Images\logo.png" />
     <Content Include="Images\playground.png" />
     <Content Include="Images\ProfilePicture.jpg" />
+    <Content Include="Images\skoptimum-nutrition.png" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-animate.min.js" />
     <Content Include="Scripts\angular\angular-aria.js" />
@@ -3829,6 +3830,10 @@
     <Content Include="Views\Partials\_MatchReportWizard\_WizardPage4.cshtml" />
     <Content Include="Views\Partials\_DocumentsPartial.cshtml" />
     <Content Include="Views\Partials\_ProfilePage.cshtml" />
+    <Content Include="Views\Partials\HealthAndFitness\_Nutrition.cshtml" />
+    <Content Include="Views\Partials\HealthAndFitness\_Fitness.cshtml" />
+    <Content Include="Views\Partials\HealthAndFitness\_Tracker.cshtml" />
+    <Content Include="Views\Partials\HealthAndFitness\_WellBeing.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

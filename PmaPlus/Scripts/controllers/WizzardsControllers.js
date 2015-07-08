@@ -43,6 +43,7 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
     }, function (wizard) {
         if (wizard) {
             $timeout(function () {
+                //angular.forEach($scope.steps)
                 wizard.goTo(0);
                 $scope.updateProgress();
 

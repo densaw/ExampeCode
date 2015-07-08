@@ -23,21 +23,17 @@
                                     <th>Picture</th>
                                     <th>Player Name</th>
                                     <th>Objectives</th>
-                                    <th>Outcome</th>
-                                    <th>Feedback</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
                                     <td>
-                                        <div style="width: 50px; height: 50px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
+                                        <div style="width: 80px; height: 80px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
                                             <img class="prifile" ng-src="{{item.picture}}" style-parent />
                                         </div>
                                     </td>
                                     <td>{{item.name}}</td>
-                                    <td><textarea type="text" ng-model="item.objective" style="height:100%;"></textarea></td>
-                                    <td>{{item.outcome}}</td>
-                                    <td>{{item.feedBack}}</td>
+                                    <td><textarea type="text" ng-model="item.objective" style="height:100%; width:100%"></textarea></td>
                                 </tr>
                             </tbody>
                         </table>

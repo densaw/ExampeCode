@@ -174,6 +174,33 @@ namespace PmaPlus.Data
                 });
 
 
+
+
+            modelBuilder.Entity<PlayerObjective>()
+                .HasRequired(p => p.StartSessionResult)
+                .WithMany(s =>s.StartPlayerObjectives)
+                .HasForeignKey(p => p.StartSessionResultId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<PlayerObjective>()
+                .HasRequired(p => p.EndSessionResult)
+                .WithMany(s => s.EndPlayerObjectives)
+                .HasForeignKey(p => p.EndSessionResultId)
+                .WillCascadeOnDelete(false);
+
+
+            modelBuilder.Entity<PlayerBlockObjective>()
+                .HasRequired(p => p.StartSessionResult)
+                .WithMany(s => s.StartPlayerBlockObjectives)
+                .HasForeignKey(p => p.StartSessionResultId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<PlayerBlockObjective>()
+                .HasRequired(p => p.EndSessionResult)
+                .WithMany(s => s.EndPlayerBlockObjectives)
+                .HasForeignKey(p => p.EndSessionResultId)
+                .WillCascadeOnDelete(false);
+
             base.OnModelCreating(modelBuilder);
         }
     }

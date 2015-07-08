@@ -11,20 +11,20 @@ namespace PmaPlus.Model.Models
         public int Id { get; set; }
 
         public int SessionId { get; set; }
-        public virtual Session Session { get; set; }
         public int TeamCurriculumId { get; set; }
-        public virtual TeamCurriculum TeamCurriculum { get; set; }
-
         public DateTime? StartedOn { get; set; }
-
         public DateTime? ComletedOn { get; set; }
-
         public bool Done { get; set; }
+
+        public virtual Session Session { get; set; }
+        public virtual TeamCurriculum TeamCurriculum { get; set; }
 
 
         public virtual ICollection<SessionAttendance> SessionAttendances { get; set; }
-        public virtual ICollection<PlayerObjective> PlayerObjectives { get; set; }
-        public virtual ICollection<PlayerBlockObjective> PlayerBlockObjectives { get; set; }
+        public virtual ICollection<PlayerObjective> StartPlayerObjectives { get; set; }
+        public virtual ICollection<PlayerObjective> EndPlayerObjectives { get; set; }
+        public virtual ICollection<PlayerBlockObjective> StartPlayerBlockObjectives { get; set; }
+        public virtual ICollection<PlayerBlockObjective> EndPlayerBlockObjectives { get; set; }
         public virtual ICollection<PlayerRatings> PlayerRatingses { get; set; }
     }
 }

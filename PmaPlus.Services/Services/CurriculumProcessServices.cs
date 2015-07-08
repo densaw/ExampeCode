@@ -34,67 +34,47 @@ namespace PmaPlus.Services.Services
         }
 
 
-        public IEnumerable<SessionsWizardViewModel> GetCurriculumSessionsWizard(int teamId)
+        public IEnumerable<SessionResult> GetCurriculumSessionsWizard(int teamId)
         {
-            var sessions = _teamRepository.GetById(teamId).TeamCurriculum.Curriculum.Sessions.ToList().OrderBy(s => s.Number);
-            var sesResults = _teamRepository.GetById(teamId).TeamCurriculum.SessionResults;
+            var team = _teamRepository.GetById(teamId);
+            List<Session> sessions = team.TeamCurriculum.Curriculum.Sessions.OrderBy(s => s.Number).ToList();
+            var sesResults = team.TeamCurriculum.SessionResults;
+            sessions.ForEach(session =>
+            {
+                if (!sesResults.Any(r => r.SessionId == session.Id))
+                {
+                    sesResults.Add(new SessionResult()
+                    {
+                        SessionId = session.Id,
+                        TeamCurriculumId = team.TeamCurriculum.Id,
+                        Done = false
+                    });
+                }
+            });
+            _teamRepository.Update(team);
 
-            var team = _teamRepository.GetById(teamId).TeamCurriculum.Id;
 
-
-            var result = from s in sessions
-
-                         join sr in sesResults on s.Id equals sr == null ? 0 : sr.SessionId into leftm
-                         from m in leftm.DefaultIfEmpty()
-
-                         select new SessionsWizardViewModel()
-                         {
-                             Attendance = s.Attendance,
-                             Name = s.Name,
-                             Rating = s.Rating,
-                             Number = s.Number,
-                             NeedScenarios = s.NeedScenarios,
-                             EndOfReviewPeriod = s.EndOfReviewPeriod,
-                             Done = m == null ? false : m.Done,
-                             ObjectiveReport = s.ObjectiveReport,
-                             Objectives = s.Objectives,
-                             Report = s.Report,
-                             CoachDetails = s.CoachDetails,
-                             CoachDetailsName = s.CoachDetailsName,
-                             CoachPicture = "/api/file/Sessions/" + s.CoachPicture + "/" + s.Id,
-                             PlayerDetails = s.PlayerDetails,
-                             PlayerDetailsName = s.PlayerDetailsName,
-                             PlayerPicture = "/api/file/Sessions/" + s.PlayerPicture + "/" + s.Id,
-                             StartOfReviewPeriod = s.StartOfReviewPeriod,
-                             StartedOn = m == null ? null : m.StartedOn,
-                             ComletedOn = m == null ? null : m.ComletedOn,
-                             SessionId = s.Id,
-                             TeamCurriculumId = team
-                         };
-            return result.OrderBy(s => s.Number);
+            return sesResults;
         }
 
-        public void SaveSession(int sessionId, int teamCurriculumId)
+        public void SaveSession(int sessionId, int teamId)
         {
-            if (!_sessionResultRepository.GetMany(s => s.SessionId == sessionId && s.TeamCurriculumId == teamCurriculumId).Any())
+            var team = _teamRepository.GetById(teamId);
+
+            if (!team.TeamCurriculum.SessionResults.Any(s => s.SessionId == sessionId))
             {
-                _sessionResultRepository.Add(new SessionResult()
-                {
-                    SessionId = sessionId,
-                    ComletedOn = DateTime.Now,
-                    Done = true,
-                    TeamCurriculumId = teamCurriculumId
-                });
+                GetCurriculumSessionsWizard(teamId);
             }
             else
             {
-                var session = _sessionResultRepository.Get(s => s.SessionId == sessionId && s.TeamCurriculumId == teamCurriculumId);
+                var session = _sessionResultRepository.Get(s => s.SessionId == sessionId);
                 session.ComletedOn = DateTime.Now;
                 session.Done = true;
                 _sessionResultRepository.Update(session);
             }
         }
 
+        #region Attendance
         public IEnumerable<SessionAttendanceTableViewModel> GetPlayersTableForAttendance(int teamId, int sessionId)
         {
             var team = _teamRepository.GetById(teamId);
@@ -163,7 +143,10 @@ namespace PmaPlus.Services.Services
 
 
         }
+        #endregion
 
+
+        #region Players Objective
         public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerObjectiveTable(int teamId, int sessionId)
         {
             var team = _teamRepository.GetById(teamId);
@@ -173,7 +156,7 @@ namespace PmaPlus.Services.Services
             var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
             if (sessionResult != null)
             {
-                objectives = sessionResult.PlayerObjectives;
+                //  objectives = sessionResult.PlayerObjectives;
             }
 
             var result = from player in playres
@@ -186,51 +169,6 @@ namespace PmaPlus.Services.Services
                              Picture = " /api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
                              Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                              Objective = o != null ? o.Objective : "",
-                             Outcome = o != null ? o.Outcome : "",
-                             FeedBack = o != null ? o.FeedBack : ""
-                         };
-            return result.AsEnumerable();
-        }
-
-
-        public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerObjectiveRepTable(int teamId, int sessionId)
-        {
-            var team = _teamRepository.GetById(teamId);
-            var playres = team.Players;
-            ICollection<PlayerObjective> objectives = new List<PlayerObjective>();
-            ICollection<PlayerObjective> lastObjectives = new List<PlayerObjective>();
-
-
-            var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
-            var lastObjSessionResult =
-                team.TeamCurriculum.SessionResults.OrderBy(s => s.Session.Number)
-                    .LastOrDefault(o => o.Session.Objectives);
-
-
-
-            if (sessionResult != null)
-            {
-                objectives = sessionResult.PlayerObjectives;
-            }
-
-
-            if (lastObjSessionResult != null)
-            {
-                lastObjectives = lastObjSessionResult.PlayerObjectives;
-            }
-
-            var result = from player in playres
-                         join obj in objectives on player.Id equals obj == null ? 0 : obj.PlayerId into ob
-                         from o in ob.DefaultIfEmpty()
-                         join lobj in lastObjectives on player.Id equals lobj ==  null ? 0 : lobj.PlayerId into lob
-                         from lo in lob.DefaultIfEmpty()
-                         select new PlayerObjectiveTableViewModel()
-                         {
-                             Id = o != null ? o.Id : 0,
-                             PlayerId = player.Id,
-                             Picture = " /api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
-                             Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
-                             Objective = lo != null ? lo.Objective : "",
                              Outcome = o != null ? o.Outcome : "",
                              FeedBack = o != null ? o.FeedBack : ""
                          };
@@ -259,119 +197,95 @@ namespace PmaPlus.Services.Services
 
             _playerObjectiveRepository.AddOrUpdate(objectives.ToArray());
         }
+        #endregion
 
+        #region BloCk Objective
 
-
-        public IEnumerable<PlayerBlockObjectiveTableViewModel> GetBlockObjectiveTable(int teamId, int sessionId, int userId)
+        public IEnumerable<PlayerBlockObjective> GetBlockObjectiveTableForAdd(int teamId, int sessionId)
         {
             var team = _teamRepository.GetById(teamId);
-            var playres = team.Players;
-            ICollection<PlayerBlockObjective> objectives = new List<PlayerBlockObjective>();
+            var playres = team.Players.ToList();
             var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
-            if (sessionResult != null)
+            SessionResult endSessionResult = new SessionResult();
+
+            #region find end
+            bool startFound = false;
+            foreach (var sessionR in team.TeamCurriculum.SessionResults)
             {
-                objectives = sessionResult.PlayerBlockObjectives;
+                if (startFound)
+                {
+                    if (sessionR.Session.EndOfReviewPeriod)
+                    {
+                        endSessionResult = sessionR;
+                        break;
+                    }
+                }
+                else
+                {
+                    if (sessionR.SessionId == sessionId)
+                    {
+                        startFound = true;
+                    }
+                    
+                }
+
             }
+	        #endregion
 
-            var result = from player in playres
-                         join obj in objectives on player.Id equals obj == null ? 0 : obj.PlayerId into ob
-                         from o in ob.DefaultIfEmpty()
-                         let blockObjectiveStatement = o != null ? o.BlockObjectiveStatements.FirstOrDefault(b => b.UserId == userId) : null
-                         select new PlayerBlockObjectiveTableViewModel()
-                                  {
-                                      Id = o != null ? o.Id : 0,
-                                      PlayerId = player.Id,
-                                      Picture = " /api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
-                                      Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
-                                      PreObjective = o != null ? o.PreObjective : "",
-                                      Statement = blockObjectiveStatement != null ? blockObjectiveStatement.Statement : "",
-                                      Achieved = blockObjectiveStatement != null ? blockObjectiveStatement.Achieved : false,
-                                      Age = DateTime.Now.Year - (player.User.UserDetail.Birthday.HasValue ? player.User.UserDetail.Birthday.Value.Year : DateTime.Now.Year),
-                                      Atl = player.PlayerRatingses.Select(r => r.Atl).DefaultIfEmpty().Average(),
-                                      Att = player.PlayerRatingses.Select(r => r.Att).DefaultIfEmpty().Average(),
-                                      Frm = player.MatchStatistics.Select(m => m.FormRating).DefaultIfEmpty().Average(),
-                                      Inj = player.PlayerInjuries.Count,
-                                      Cur = player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average(),
-                                      AttPercent = (player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100,
-                                      PlaingTime = player.MatchStatistics.Select(m => m.PlayingTime).DefaultIfEmpty().Sum(),
-                                      TrainigTime = player.SessionAttendances.Select(s =>s.Duration).Sum()
 
-                                  };
+            if (sessionResult == null)
+            {
+                GetCurriculumSessionsWizard(teamId);
+            }
+            var objectives = sessionResult.StartPlayerBlockObjectives;
 
-            return result.AsEnumerable();
+            playres.ForEach(player =>
+            {
+                if (!objectives.Any(o => o.PlayerId == player.Id))
+                {
+                    objectives.Add(new PlayerBlockObjective()
+                    {
+                        PlayerId = player.Id,
+                        StartSessionResultId = sessionId,
+                        EndSessionResultId = endSessionResult.Id
 
+                    });
+                }
+            });
+
+            _sessionResultRepository.Update(sessionResult);
+
+
+            return objectives;
+          
         }
 
-        public void UpdateBlockPreObjective(List<PlayerBlockObjective> blockObjectives, int teamId, int sessionId)
+        public void AddBlockPreObjectives(IList<AddPlayerBlockObjectiveTableViewModel> newblockObjectives, int teamId, int sessionId)
         {
             var team = _teamRepository.GetById(teamId);
-            if (!team.TeamCurriculum.SessionResults.Any(s => s.SessionId == sessionId))
-            {
-                team.TeamCurriculum.SessionResults.Add(new SessionResult()
-                {
-                    SessionId = sessionId,
-                    TeamCurriculumId = team.TeamCurriculum.Id,
-
-                });
-            }
-
-            var sessinResult = team.TeamCurriculum.SessionResults.FirstOrDefault(sr => sr.SessionId == sessionId);
+           var sessinResult = team.TeamCurriculum.SessionResults.FirstOrDefault(sr => sr.SessionId == sessionId);
 
             if (sessinResult == null)
                 throw new Exception("Session didn't created");
 
-            blockObjectives.ForEach(a => a.SessionResultId = sessinResult.Id);
+            var blockObjectives = sessinResult.StartPlayerBlockObjectives.ToList();
 
+            blockObjectives.ForEach(objective =>
+            {
+                var preObj = newblockObjectives.FirstOrDefault(o => o.PlayerId == objective.PlayerId);
+                if (preObj != null)
+                    objective.PreObjective = preObj.PreObjective;
+            });
             _playerBlockObjectiveRepository.AddOrUpdate(blockObjectives.ToArray());
 
         }
 
-        public void UpdateBlockObgectiveStatement(BlockObjectiveStatement blockObjectiveStatement, int playerId, int teamId, int sessionId, int userId)
-        {
-            var team = _teamRepository.GetById(teamId);
-            if (!team.TeamCurriculum.SessionResults.Any(s => s.SessionId == sessionId))
-            {
-                team.TeamCurriculum.SessionResults.Add(new SessionResult()
-                {
-                    SessionId = sessionId,
-                    TeamCurriculumId = team.TeamCurriculum.Id,
-
-                });
-            }
-
-            var sessinResult = team.TeamCurriculum.SessionResults.FirstOrDefault(sr => sr.SessionId == sessionId);
-
-            if (sessinResult == null)
-                throw new Exception("Session didn't created");
-
-            var blockObjective = sessinResult.PlayerBlockObjectives.FirstOrDefault(o => o.PlayerId == playerId);
-
-            if (blockObjective == null)
-                throw new Exception("block obj didn't created");
-
-            var stmnt = blockObjective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId);
+        
 
 
-            if (stmnt == null)
-            {
-                blockObjectiveStatement.UserId = userId;
-                blockObjectiveStatement.BlockObjectiveId = blockObjective.Id;
-                blockObjective.BlockObjectiveStatements.Add(blockObjectiveStatement);
+        #endregion
 
-            }
-            else
-            {
-                stmnt.Statement = blockObjectiveStatement.Statement;
-                stmnt.Achieved = blockObjectiveStatement.Achieved;
-                _blockObjectiveStatementRepository.Update(stmnt);
-            }
-
-
-        }
-
-
-
-
+        #region Player Ratings
         public IEnumerable<PlayerRatingsTableViewModel> GetPlayerRatingsTable(int teamId, int sessionId)
         {
             var team = _teamRepository.GetById(teamId);
@@ -399,8 +313,6 @@ namespace PmaPlus.Services.Services
             return result.AsEnumerable();
         }
 
-
-
         public void UpdatePlayersRating(List<PlayerRatings> playerRatingses, int teamId, int sessionId)
         {
             var team = _teamRepository.GetById(teamId);
@@ -423,6 +335,7 @@ namespace PmaPlus.Services.Services
 
             _playerRatingsRepository.AddOrUpdate(playerRatingses.ToArray());
         }
+        #endregion
 
         public IEnumerable<CurriculumPlayersStatisticViewModel> CurriculumPlayersStatistic(int teamId)
         {
@@ -430,27 +343,27 @@ namespace PmaPlus.Services.Services
             var players = team.Players;
 
             var result = from player in players
-                select new CurriculumPlayersStatisticViewModel()
-                         {
-                             PlayerName = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
-                             Age = DateTime.Now.Year - (player.User.UserDetail.Birthday.HasValue ? player.User.UserDetail.Birthday.Value.Year : DateTime.Now.Year),
-                             Atl = player.PlayerRatingses.Select(r => r.Atl).DefaultIfEmpty().Average(),
-                             Att = player.PlayerRatingses.Select(r => r.Att).DefaultIfEmpty().Average(),
-                             Mom = player.MatchMoms.Count,
-                             Gls = player.MatchStatistics.Select(m => m.Goals).DefaultIfEmpty().Average(),
-                             Sho = player.MatchStatistics.Select(m => m.Shots).DefaultIfEmpty().Average(),
-                             Sht = player.MatchStatistics.Select(m => m.ShotsOnTarget).DefaultIfEmpty().Average(),
-                             Asi = player.MatchStatistics.Select(m => m.Assists).DefaultIfEmpty().Average(),
-                             Tck = player.MatchStatistics.Select(m => m.Tackles).DefaultIfEmpty().Average(),
-                             Pas = player.MatchStatistics.Select(m => m.Passes).DefaultIfEmpty().Average(),
-                             Sav = player.MatchStatistics.Select(m => m.Saves).DefaultIfEmpty().Average(),
-                             Crn = player.MatchStatistics.Select(m => m.Corners).DefaultIfEmpty().Average(),
-                             Frk = player.MatchStatistics.Select(m => m.FreeKicks).DefaultIfEmpty().Average(),
-                             Frm = player.MatchStatistics.Select(m => m.FormRating).DefaultIfEmpty().Average(),
-                             Inj = player.PlayerInjuries.Count,
-                             Cur = player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average(),
-                             AttPercent = (player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100
-                         };
+                         select new CurriculumPlayersStatisticViewModel()
+                                  {
+                                      PlayerName = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
+                                      Age = DateTime.Now.Year - (player.User.UserDetail.Birthday.HasValue ? player.User.UserDetail.Birthday.Value.Year : DateTime.Now.Year),
+                                      Atl = player.PlayerRatingses.Select(r => r.Atl).DefaultIfEmpty().Average(),
+                                      Att = player.PlayerRatingses.Select(r => r.Att).DefaultIfEmpty().Average(),
+                                      Mom = player.MatchMoms.Count,
+                                      Gls = player.MatchStatistics.Select(m => m.Goals).DefaultIfEmpty().Average(),
+                                      Sho = player.MatchStatistics.Select(m => m.Shots).DefaultIfEmpty().Average(),
+                                      Sht = player.MatchStatistics.Select(m => m.ShotsOnTarget).DefaultIfEmpty().Average(),
+                                      Asi = player.MatchStatistics.Select(m => m.Assists).DefaultIfEmpty().Average(),
+                                      Tck = player.MatchStatistics.Select(m => m.Tackles).DefaultIfEmpty().Average(),
+                                      Pas = player.MatchStatistics.Select(m => m.Passes).DefaultIfEmpty().Average(),
+                                      Sav = player.MatchStatistics.Select(m => m.Saves).DefaultIfEmpty().Average(),
+                                      Crn = player.MatchStatistics.Select(m => m.Corners).DefaultIfEmpty().Average(),
+                                      Frk = player.MatchStatistics.Select(m => m.FreeKicks).DefaultIfEmpty().Average(),
+                                      Frm = player.MatchStatistics.Select(m => m.FormRating).DefaultIfEmpty().Average(),
+                                      Inj = player.PlayerInjuries.Count,
+                                      Cur = player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average(),
+                                      AttPercent = (player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100
+                                  };
 
             return result.AsEnumerable();
 
