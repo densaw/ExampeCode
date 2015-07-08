@@ -1,5 +1,5 @@
 ﻿<div class="row border-bottom">
-    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0; @Html.IsSelected(controller: "Home", action: "Dashboard")background: #f4f6fa;">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0; @Html.IsSelected(controller: "Home", action: "Dashboard")background: #fafafa;">
         <div class="navbar-header">
             <a ng-click="navExpand()" id="mini" class="minimalize-styl-2 btn btn-primary " style="margin-left: 15px;" href="#"><i class="fa fa-bars"></i> </a>
             <span style="float: right; margin-top: 20px;" class="m-r-sm text-muted welcome-message">Good @PmaPlus.Tools.TimeUtils.GetGreetingTime() <b>Club Administrator</b></span>
@@ -12,7 +12,7 @@
             <li class="dropdown" ng-controller="DairyNotifyController" ng-cloak>
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-calendar"></i>
-                    <span  ng-if="itemCount > 0" class="label label-danger" style="border-radius: 100%;background-color: #CC0000;">{{itemCount}}</span>
+                    <span ng-if="itemCount > 0" class="label label-danger" style="border-radius: 100%;background-color: #CC0000;">{{itemCount}}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-alerts">
                     <li ng-repeat="item in items">
@@ -39,12 +39,12 @@
                             </div>
                         </div>
                         <div class="divider" style="margin-top:0px"></div>
-                    </li> 
+                    </li>
                     <li>
                         <div class="see-all"><a href="@Url.Action("ClubDiary", "Home", new { area="ClubAdmin" })">See all Diary Events ></a></div>
-                    </li>                    
+                    </li>
                 </ul>
-                
+
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">

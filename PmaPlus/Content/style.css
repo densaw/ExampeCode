@@ -3544,7 +3544,7 @@ body.body-small .footer.fixed {
     border-top: 1px solid #e7eaec;
     line-height: 1.42857;
     padding: 8px;
-    vertical-align: top;
+    vertical-align: middle;
 }
 /* PANELS */
 .panel.blank-panel {
@@ -5607,7 +5607,7 @@ body.skin-1 {
 }
 
 .skin-1 .navbar-static-top {
-    background: #ffffff;
+    background: #fafafa;
 }
 
 .skin-1 .dashboard-header {
@@ -5626,7 +5626,7 @@ body.skin-1 {
 }
 
 .skin-1 #page-wrapper {
-    background: #f4f6fa;
+    background: #fafafa;
 }
 
 .skin-1 .ibox-title,
