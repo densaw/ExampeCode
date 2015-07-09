@@ -162,10 +162,11 @@ namespace PmaPlus.Controllers.ApiControllers
             var adminId = _userServices.GetClubByUserName(User.Identity.Name).ClubAdmin.User.Id;
             HttpResponseMessage result;
 
-
-            Image img = Image.FromStream(_documentManager.GetFileStream(file, folder, adminId));
+            var FileStream = _documentManager.GetFileStream(file, folder, adminId);
+            Image img = Image.FromStream(FileStream);
             Size thumSize = TimeUtils.GetThumbnailSize(img, 150);
             var thumbnail = img.GetThumbnailImage(thumSize.Width, thumSize.Height, () => false, IntPtr.Zero);
+            FileStream.Dispose();
 
 
             using (var stream = new MemoryStream())
