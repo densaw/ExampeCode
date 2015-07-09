@@ -6127,7 +6127,7 @@ img.portrait {
 }
 
 textarea {
-    border-color: lightgrey;
+    border-color: lightgrey !important;
     overflow: auto;
     vertical-align: top;
 }
