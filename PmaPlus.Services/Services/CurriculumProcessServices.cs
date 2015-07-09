@@ -253,7 +253,7 @@ namespace PmaPlus.Services.Services
             {
                 var obj = playerObjectiveTable.FirstOrDefault(o => o.PlayerId == objective.PlayerId);
                 if (obj != null)
-                    objective.Objective = obj.Objective;
+                    objective.Outcome = obj.Outcome;
             });
             _playerObjectiveRepository.AddOrUpdate(objectives.ToArray());
 
@@ -338,7 +338,74 @@ namespace PmaPlus.Services.Services
             _playerBlockObjectiveRepository.AddOrUpdate(blockObjectives.ToArray());
         }
 
+        public IEnumerable<PlayerBlockObjectiveTableViewModel> GetBlockObjectiveTableForReport(int teamId, int sessionId,int userId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
 
+            if (sessionResult == null)
+            {
+                GetCurriculumSessionsWizard(teamId);
+            }
+            var objectives = sessionResult.EndPlayerBlockObjectives;
+
+            return from objective in objectives
+                select new PlayerBlockObjectiveTableViewModel()
+                {
+                    Id = objective.Id,
+                    Name = objective.Player.User.UserDetail.FirstName + " " + objective.Player.User.UserDetail.LastName,
+                    Picture =
+                        "/api/file/ProfilePicture/" + objective.Player.User.UserDetail.ProfilePicture + "/" +
+                        objective.Player.User.Id,
+                    PlayerId = objective.PlayerId,
+                    PreObjective = objective.PreObjective,
+                    Statement =
+                        objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId) != null
+                            ? objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId).Statement
+                            : "",
+                    Achieved =
+                        objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId) != null
+                            ? objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId).Achieved
+                            : false,
+                };
+        }
+
+        public void ReportBlockPreObjectives(IList<PlayerBlockObjectiveTableViewModel> playerObjectivesTable, int teamId, int sessionId,int userId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            var sessinResult = team.TeamCurriculum.SessionResults.FirstOrDefault(sr => sr.SessionId == sessionId);
+
+            if (sessinResult == null)
+                throw new Exception("Session didn't created");
+
+            var objectives = sessinResult.EndPlayerBlockObjectives.ToList();
+
+            objectives.ForEach(objective =>
+            {
+                var obj = playerObjectivesTable.FirstOrDefault(o => o.PlayerId == objective.PlayerId);
+                if (obj != null)
+                {
+                    var state = objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId);
+                    if (state == null)
+                    {
+                        objective.BlockObjectiveStatements.Add(new BlockObjectiveStatement()
+                        {
+                            UserId = userId,
+                            Achieved = obj.Achieved,
+                            Statement = obj.Statement,
+                            BlockObjectiveId = objective.Id
+                        });
+                    }
+                    else
+                    {
+                        state.Achieved = obj.Achieved;
+                        state.Statement = obj.Statement;
+                    }
+
+                }
+            });
+            _playerBlockObjectiveRepository.AddOrUpdate(objectives.ToArray());
+        }
 
 
         #endregion
@@ -362,7 +429,7 @@ namespace PmaPlus.Services.Services
                          {
                              Id = o != null ? o.Id : 0,
                              PlayerId = player.Id,
-                             Picture = " /api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
+                             Picture = "/api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
                              Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                              Atl = o != null ? o.Atl : 0,
                              Att = o != null ? o.Att : 0,
@@ -427,6 +494,7 @@ namespace PmaPlus.Services.Services
 
         }
 
-        
+
+       
     }
 }
