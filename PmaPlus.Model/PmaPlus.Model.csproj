@@ -151,6 +151,7 @@
     <Compile Include="ViewModels\CurriculumProcess\CurriculumPlayersStatisticViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\AddPlayerBlockObjectiveTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\PlayerBlockObjectiveTableViewModel.cs" />
+    <Compile Include="ViewModels\CurriculumProcess\AddPlayerObjectiveTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\PlayerObjectiveTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\PlayerRatingsTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\SessionAttendanceTableViewModel.cs" />

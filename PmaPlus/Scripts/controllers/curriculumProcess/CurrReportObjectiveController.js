@@ -6,7 +6,6 @@ app.controller('CurrReportObjectiveController', ['$scope', '$http', '$location',
     $scope.currId = pathArray[pathArray.length - 1];
 
     var getTable = function () {
-
         $http.get('/api/Curriculum/Wizard/Session/ReportObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
             .success(function (result) {
                 $scope.items = result;
@@ -16,9 +15,11 @@ app.controller('CurrReportObjectiveController', ['$scope', '$http', '$location',
 
     var saveObjectives = function () {
         $scope.$parent.obj.laddaLoading = true;
-        $http.post('/api/Curriculum/Wizard/Session/ObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
+        $http.post('/api/Curriculum/Wizard/Session/ReportObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
            .success(function () {
+               $http.post('/api/Curriculum/Wizard/Session/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId);
                $scope.$parent.obj.laddaLoading = false;
+               $scope.nav.canNext = true;
            }).error(function () {
                $scope.$parent.obj.laddaLoading = false;
             });
@@ -40,7 +41,7 @@ app.controller('CurrReportObjectiveController', ['$scope', '$http', '$location',
             if (completed) {
                 saveObjectives();
                 $scope.nav.canNext = true;
-            }
+            } else { $scope.pressed = true; }
 
         }
     });
