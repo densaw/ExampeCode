@@ -147,55 +147,116 @@ namespace PmaPlus.Services.Services
 
 
         #region Players Objective
-        public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerObjectiveTable(int teamId, int sessionId)
+        public IEnumerable<PlayerObjective> GetPlayerObjectiveTableForAdd(int teamId, int sessionId)
         {
             var team = _teamRepository.GetById(teamId);
-            var playres = team.Players;
-            ICollection<PlayerObjective> objectives = new List<PlayerObjective>();
-
+            var playres = team.Players.ToList();
             var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
-            if (sessionResult != null)
-            {
-                //  objectives = sessionResult.PlayerObjectives;
-            }
+            SessionResult endSessionResult = null;
 
-            var result = from player in playres
-                         join obj in objectives on player.Id equals obj == null ? 0 : obj.PlayerId into ob
-                         from o in ob.DefaultIfEmpty()
-                         select new PlayerObjectiveTableViewModel()
-                         {
-                             Id = o != null ? o.Id : 0,
-                             PlayerId = player.Id,
-                             Picture = " /api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
-                             Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
-                             Objective = o != null ? o.Objective : "",
-                             Outcome = o != null ? o.Outcome : "",
-                             FeedBack = o != null ? o.FeedBack : ""
-                         };
-            return result.AsEnumerable();
+            #region find end
+            bool startFound = false;
+            foreach (var sessionR in team.TeamCurriculum.SessionResults)
+            {
+                if (startFound)
+                {
+                    if (sessionR.Session.ObjectiveReport)
+                    {
+                        endSessionResult = sessionR;
+                        break;
+                    }
+                }
+                else
+                {
+                    if (sessionR.SessionId == sessionId)
+                    {
+                        startFound = true;
+                    }
+
+                }
+
+            }
+            if (endSessionResult == null)
+            {
+                throw new Exception("Not found end of Objective report");
+            }
+            #endregion
+
+            if (sessionResult == null)
+            {
+                GetCurriculumSessionsWizard(teamId);
+            }
+            var objectives = sessionResult.StartPlayerObjectives;
+
+            playres.ForEach(player =>
+            {
+                if (!objectives.Any(o => o.PlayerId == player.Id))
+                {
+                    objectives.Add(new PlayerObjective()
+                    {
+                        PlayerId = player.Id,
+                        StartSessionResultId = sessionId,
+                        EndSessionResultId = endSessionResult.Id
+                    });
+                }
+            });
+
+            _sessionResultRepository.Update(sessionResult);
+
+            return objectives;
         }
 
-        public void UpdateObjectives(List<PlayerObjective> objectives, int teamId, int sessionId)
+        public void AddObjectives(IList<AddPlayerObjectiveTableViewModel> newObjectives, int teamId, int sessionId)
         {
             var team = _teamRepository.GetById(teamId);
-            if (!team.TeamCurriculum.SessionResults.Any(s => s.SessionId == sessionId))
-            {
-                team.TeamCurriculum.SessionResults.Add(new SessionResult()
-                {
-                    SessionId = sessionId,
-                    TeamCurriculumId = team.TeamCurriculum.Id,
-
-                });
-            }
-
             var sessinResult = team.TeamCurriculum.SessionResults.FirstOrDefault(sr => sr.SessionId == sessionId);
 
             if (sessinResult == null)
                 throw new Exception("Session didn't created");
 
-            objectives.ForEach(a => a.StartSessionResultId = sessinResult.Id);
+            var objectives = sessinResult.StartPlayerObjectives.ToList();
 
+            objectives.ForEach(objective =>
+            {
+                var obj = newObjectives.FirstOrDefault(o => o.PlayerId == objective.PlayerId);
+                if (obj != null)
+                    objective.Objective = obj.Objective;
+            });
             _playerObjectiveRepository.AddOrUpdate(objectives.ToArray());
+        }
+
+        public IEnumerable<PlayerObjective> GetPlayerObjectiveTableForReport(int teamId, int sessionId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
+
+            if (sessionResult == null)
+            {
+                GetCurriculumSessionsWizard(teamId);
+            }
+            var objectives = sessionResult.EndPlayerObjectives;
+
+            return objectives;
+        }
+
+        public void AddReportObjectives(IList<PlayerObjectiveTableViewModel> playerObjectiveTable, int teamId, int sessionId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            var sessinResult = team.TeamCurriculum.SessionResults.FirstOrDefault(sr => sr.SessionId == sessionId);
+
+            if (sessinResult == null)
+                throw new Exception("Session didn't created");
+
+            var objectives = sessinResult.EndPlayerObjectives.ToList();
+
+            objectives.ForEach(objective =>
+            {
+                var obj = playerObjectiveTable.FirstOrDefault(o => o.PlayerId == objective.PlayerId);
+                if (obj != null)
+                    objective.Objective = obj.Objective;
+            });
+            _playerObjectiveRepository.AddOrUpdate(objectives.ToArray());
+
         }
         #endregion
 
@@ -206,7 +267,7 @@ namespace PmaPlus.Services.Services
             var team = _teamRepository.GetById(teamId);
             var playres = team.Players.ToList();
             var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
-            SessionResult endSessionResult = new SessionResult();
+            SessionResult endSessionResult = null;
 
             #region find end
             bool startFound = false;
@@ -223,14 +284,12 @@ namespace PmaPlus.Services.Services
                 else
                 {
                     if (sessionR.SessionId == sessionId)
-                    {
                         startFound = true;
-                    }
-                    
                 }
-
             }
-	        #endregion
+            if (endSessionResult == null)
+                throw new Exception("Not found end of Objective report");
+            #endregion
 
 
             if (sessionResult == null)
@@ -257,13 +316,13 @@ namespace PmaPlus.Services.Services
 
 
             return objectives;
-          
+
         }
 
         public void AddBlockPreObjectives(IList<AddPlayerBlockObjectiveTableViewModel> newblockObjectives, int teamId, int sessionId)
         {
             var team = _teamRepository.GetById(teamId);
-           var sessinResult = team.TeamCurriculum.SessionResults.FirstOrDefault(sr => sr.SessionId == sessionId);
+            var sessinResult = team.TeamCurriculum.SessionResults.FirstOrDefault(sr => sr.SessionId == sessionId);
 
             if (sessinResult == null)
                 throw new Exception("Session didn't created");
@@ -277,10 +336,9 @@ namespace PmaPlus.Services.Services
                     objective.PreObjective = preObj.PreObjective;
             });
             _playerBlockObjectiveRepository.AddOrUpdate(blockObjectives.ToArray());
-
         }
 
-        
+
 
 
         #endregion
@@ -368,5 +426,7 @@ namespace PmaPlus.Services.Services
             return result.AsEnumerable();
 
         }
+
+        
     }
 }

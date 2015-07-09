@@ -189,28 +189,26 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<PlayerBlockObjective, AddPlayerBlockObjectiveTableViewModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.PlayerId, o => o.MapFrom(s => s.PlayerId))
-                .ForMember(d => d.Name,
-                    o => o.MapFrom(s => s.Player.User.UserDetail.FirstName + " " + s.Player.User.UserDetail.LastName))
-                .ForMember(d => d.Picture,
-                    o =>
-                        o.MapFrom(
-                            s =>
-                                "/api/file/ProfilePicture/" + s.Player.User.UserDetail.ProfilePicture + "/" +
-                                s.Player.User.Id))
-                .ForMember(d => d.PreObjective, o => o.MapFrom(s => s.PreObjective))
-                .ForMember(d => d.WbPercent, o => o.UseValue(0))
-                .ForMember(d => d.AttPercent,
-                    o =>
-                        o.MapFrom(
-                            s =>
-                                (s.Player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended)/
-                                 (s.Player.SessionAttendances.Count != 0 ? s.Player.SessionAttendances.Count : 1))*100))
-                .ForMember(d => d.Cur,
-                    o => o.MapFrom(s => s.Player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average()));
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.Player.User.UserDetail.FirstName + " " + s.Player.User.UserDetail.LastName))
+                .ForMember(d => d.Picture,o => o.MapFrom( s => "/api/file/ProfilePicture/" + s.Player.User.UserDetail.ProfilePicture + "/" + s.Player.User.Id))
+                .ForMember(d => d.PreObjective, o => o.MapFrom(s => s.PreObjective));
 
 
+            Mapper.CreateMap<PlayerObjective, AddPlayerObjectiveTableViewModel>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.PlayerId, o => o.MapFrom(s => s.PlayerId))
+                .ForMember(d => d.Picture,o => o.MapFrom(s => "/api/file/ProfilePicture/" + s.Player.User.UserDetail.ProfilePicture + "/" +s.Player.User.Id))
+                .ForMember(d => d.Name,o => o.MapFrom(s => s.Player.User.UserDetail.FirstName + " " + s.Player.User.UserDetail.LastName))
+                .ForMember(d => d.Objective, o => o.MapFrom(s => s.Objective));
 
-
+            Mapper.CreateMap<PlayerObjective, PlayerObjectiveTableViewModel>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.PlayerId, o => o.MapFrom(s => s.PlayerId))
+                .ForMember(d => d.Picture,o =>o.MapFrom(s =>"/api/file/ProfilePicture/" + s.Player.User.UserDetail.ProfilePicture + "/" +s.Player.User.Id))
+                .ForMember(d => d.Name,o => o.MapFrom(s => s.Player.User.UserDetail.FirstName + " " + s.Player.User.UserDetail.LastName))
+                .ForMember(d => d.Objective, o => o.MapFrom(s => s.Objective))
+                .ForMember(d => d.Outcome, o => o.MapFrom(s => s.Outcome))
+                .ForMember(d => d.FeedBack, o => o.MapFrom(s => s.FeedBack));
 
             #endregion
 

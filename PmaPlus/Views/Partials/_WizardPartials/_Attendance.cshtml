@@ -7,8 +7,8 @@
                 <div class="ibox-title">
                     <h5>{{step.name}}</h5><h5 ng-if="addDate" style="font-weight: 200;"> - Date: {{addDate.time | date:'dd-MM-yyyy'}} Time: {{addDate.time | date:'HH:mm'}} Duration: {{addDate.duration}} </h5>
                     <div class="ibox-tools" style="margin-top: -5px;">
-                        <a class=" btn btn-primary btn-sm" ng-disabled="!addDate" ng-click="confAtend()">All Attended</a>
                         <a class="btn btn-primary btn-sm" ng-click="ssesionDetail()">Session Detail</a>
+                        <a class=" btn btn-primary btn-sm" ng-disabled="!addDate" ng-click="confAtendOpen()">All Attended</a>
                         <a class="btn btn-primary btn-sm" ng-click="ssesionNotCompletedModal()">Session not completed</a>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                                     <th>WB</th>
                                     <th>CUR</th>
                                     <th>Attendance</th>
-                                    <th>Action</th>
+                                    <th>Duration</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,10 +42,8 @@
                                     <td>{{item.attPercent}}</td>
                                     <td>{{item.wbPercent}}</td>
                                     <td>{{item.cur}}</td>
-                                    <td ><select  name="attendense" ng-model="item.attendance" ng-options="attend.id as attend.name for attend in attendense" class=" form-control"></select></td>
-                                    <td>
-                                        <a ng-click="openAtt()" class="fa fa-graduation-cap"></a>
-                                    </td>
+                                    <td ><select ng-change="item.attendance != 0 ? item.duration = 0:''" name="attendense" ng-model="item.attendance" ng-options="attend.id as attend.name for attend in attendense" class=" form-control"></select></td>
+                                    <td><input type="number" ng-model="item.duration" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -56,12 +54,14 @@
            
         </div>
     </div>
+    
+    
     @*Modal*@
-    <div class="modal inmodal" id="confDetail" tabindex="-1" role="dialog" aria-hidden="true">
+    <div modal="confDetail" close="closeDetails()">
         <div class="modal-dialog">
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span ng-click="closeDetails()" aria-hidden="true">&times;</span><span  class="sr-only">Close</span></button>
                     <h3 class="modal-title text-left">Session Details</h3>
                 </div>
                 <div class="modal-body">
@@ -96,23 +96,25 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button ng-click="closeDetails()" id="closeInvite" type="button" class="btn btn-white">Close</button>
-                    <button ng-click="addDetails()" id="saveInvite" type="button" class="btn btn-primary">Save changes</button>
+                    <button ng-click="closeDetails()"  type="button" class="btn btn-white">Close</button>
+                    <button ng-click="saveDetails()" type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
     @*Modal End*@
+    
+
     @*Modal*@
-    <div class="modal inmodal" id="confAtend" tabindex="-1" role="dialog" aria-hidden="true">
+    <div modal="confAtend"  close="cancelAtt()">
         <div class="modal-dialog">
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span ng-click="cancelAtt()">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="modal-title text-left">All Attend</h3>
                 </div>
-                <div class="modal-body">               
-                        <h2>Attend all Player?</h2>
+                <div class="modal-body">
+                    <h2>Attend all Player?</h2>
                 </div>
                 <div class="modal-footer">
                     <button ng-click="cancelAtt()" id="closeAtt" type="button" class="btn btn-white">No</button>
@@ -124,18 +126,18 @@
     @*Modal End*@
     
     @*Modal*@
-    <div class="modal inmodal" id="confNotCompl" tabindex="-1" role="dialog" aria-hidden="true">
+    <div modal="notComplSes" close="ssesionnotcompletedcancel">
         <div class="modal-dialog">
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span ng-click="ssesionNotCompletedCancel()">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="modal-title text-left">All Attend</h3>
                 </div>
                 <div class="modal-body">
                     <h2>Please confirm the session was not completed as this will record zero hours training time against each player</h2>
                 </div>
                 <div class="modal-footer">
-                    <button data-dismiss="modal" type="button" class="btn btn-white">No</button>
+                    <button ng-click="ssesionNotCompletedCancel()" type="button" class="btn btn-white">No</button>
                     <button ng-click="ssesionNotCompleted()" id="saveAtt" type="button" class="btn btn-primary">Yes</button>
                 </div>
             </div>

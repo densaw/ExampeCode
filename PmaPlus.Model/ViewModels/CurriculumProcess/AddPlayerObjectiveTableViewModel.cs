@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace PmaPlus.Model.ViewModels.CurriculumProcess
 {
-    public class AddPlayerBlockObjectiveTableViewModel
+    public class AddPlayerObjectiveTableViewModel
     {
         public int Id { get; set; }
         public int PlayerId { get; set; }
         public string Picture { get; set; }
         public string Name { get; set; }
-        public string PreObjective { get; set; }
+        public string Objective { get; set; }
     }
 }

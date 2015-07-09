@@ -14,7 +14,8 @@ namespace PmaPlus.Model.Enums
         Injured = 3,
         School = 4,
         Sick = 5,
-        OtherTraining = 6,
+        Other = 6,
+        Training = 7,
         Undefined = -1
     }
 }

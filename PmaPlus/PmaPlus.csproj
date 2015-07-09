@@ -463,11 +463,15 @@
     <Content Include="Images\DRFC Logo.jpg" />
     <Content Include="Images\DRFC_Logo_mini.png" />
     <Content Include="Images\Default_background.png" />
+    <Content Include="Images\fitness.jpg" />
     <Content Include="Images\header-profile-skin-2.png" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\nutrition.jpg" />
     <Content Include="Images\playground.png" />
     <Content Include="Images\ProfilePicture.jpg" />
     <Content Include="Images\skoptimum-nutrition.png" />
+    <Content Include="Images\tracking.jpg" />
+    <Content Include="Images\welbeing.jpg" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-animate.min.js" />
     <Content Include="Scripts\angular\angular-aria.js" />
@@ -491,6 +495,7 @@
     <Content Include="Scripts\angular\angular-scenario.js" />
     <Content Include="Scripts\angular\angular-touch.js" />
     <Content Include="Scripts\angular\angular-touch.min.js" />
+    <Content Include="Scripts\angular\angular-ui-bootstrap-modal.js" />
     <Content Include="Scripts\angular\angular-wizard.js" />
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angular.min.js" />

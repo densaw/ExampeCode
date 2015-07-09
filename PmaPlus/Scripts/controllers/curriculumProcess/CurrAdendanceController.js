@@ -3,14 +3,16 @@
 app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHandler', function ($scope, $http, $location, WizardHandler) {
 
     // get att step 2
-    var confDetail = angular.element('#confDetail');
-    var confAtend = angular.element('#confAtend');
+    //var confDetail = angular.element('#confDetail');
+    //var confAtend = angular.element('#confAtend');
+    //var notComplSes = angular.element('#confNotCompl');
 
-
+    $scope.confDetail = false;
+    $scope.confAtend = false;
+    $scope.notComplSes = false;
 
 
     $scope.date = new Date();
-
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
@@ -23,13 +25,14 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
             });
     }
 
-
-
     var savePeriod = function () {
         $scope.$parent.obj.laddaLoading = true;
         $http.post('/api/Curriculum/Wizard/Session/AttendanceTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
              .success(function () {
+                 $http.post('/api/Curriculum/Wizard/Session/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId);
                  $scope.$parent.obj.laddaLoading = false;
+                 $scope.nav.canNext = true;
+                 $scope.nav.canBack = true;
              }).error(function () {
                  $scope.$parent.obj.laddaLoading = false;
             });
@@ -37,22 +40,15 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
 
     $scope.ssesionDetail = function () {
         $scope.modalTitle = "Details";
-        //confDetail.modal('show');
-        $('#confDetail').appendTo("body").modal('show');
+        $scope.confDetail = true;
     };
-
-
-
-    $scope.confAtend = function () {
-        $scope.modalTitle = "Details";
-        //confAtend.modal('show');
-        $('#confAtend').appendTo("body").modal('show');
-    };
-
-    $scope.addDetails = function ()
-    { confDetail.modal('hide'); }
-    $scope.closeDetails = function ()
-    { confDetail.modal('hide'); }
+    $scope.saveDetails = function () {
+        $scope.confDetail = false;
+    }
+    $scope.closeDetails = function () {
+        $scope.addDate = null;
+        $scope.confDetail = false;
+    }
 
     $scope.attendense = [
        { id: 0, name: 'Attended' },
@@ -61,17 +57,25 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
        { id: 3, name: 'Injured' },
        { id: 4, name: 'School' },
        { id: 5, name: 'Sick' },
-       { id: 6, name: 'Other Training ' },
+       { id: 6, name: 'Other' },
+       { id: 7, name: 'Training ' },
        { id: -1, name: '' }
 
     ];
-    //$scope.attendenseVisible = $scope.attendense[0];
 
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-            savePeriod();
-            $scope.nav.canNext = true;
-            $scope.nav.canBack = true;
+            var completed = true;
+            angular.forEach($scope.items, function (item) {
+                if (item.attendance == -1) {
+                    completed = false;
+                } 
+            });
+            if (completed) {
+                savePeriod();
+            } else {
+                $scope.pressed = true;
+            }
         }
     });
 
@@ -82,46 +86,42 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
                 $scope.nav.canBack = true;
             } else {
                 $scope.nav.canNext = false;
-                $scope.nav.canBack = false;
             }
-
             getTable();
         }
     });
 
 
-
-
+    $scope.confAtendOpen = function () {
+        $scope.modalTitle = "Details";
+        $scope.confAtend = true;
+    };
     $scope.okAtt = function () {
-
         angular.forEach($scope.items, function (item) {
             item.attendance = 0;
             item.duration = $scope.addDate.duration;
         });
-        confAtend.modal('hide');
-        $scope.nav.canNext = true;
-        $scope.nav.canBack = true;
+        $scope.confAtend = false;
     };
 
     $scope.cancelAtt = function () {
-        confAtend.modal('hide');
+        $scope.confAtend = false;
     };
 
-
-
     $scope.ssesionNotCompletedModal = function () {
-        angular.element('#confNotCompl').appendTo('body').modal('show');
+        $scope.notComplSes = true;
+    }
+
+    $scope.ssesionNotCompletedCancel = function () {
+        $scope.notComplSes = false;
     }
 
     $scope.ssesionNotCompleted = function () {
-        angular.element('#confNotCompl').modal('hide');
         angular.forEach($scope.items, function (item) {
             item.attendance = 0;
             item.duration = 0;
         });
-        $scope.nav.canNext = true;
-        $scope.nav.canBack = true;
-        savePeriod();
+        $scope.notComplSes = false;
     };
 
 }]);
