@@ -3545,7 +3545,12 @@ body.body-small .footer.fixed {
     line-height: 1.42857;
     padding: 8px;
     vertical-align: middle;
+    text-align:center;
+    text-align: -webkit-center;
 }
+    /*.table > thead > tr > th:nth-child(1) {
+        text-align:left;
+    }*/
 /* PANELS */
 .panel.blank-panel {
     background: none;
@@ -6127,7 +6132,7 @@ img.portrait {
 }
 
 textarea {
-    border-color: lightgrey;
+    border-color: lightgrey !important;
     overflow: auto;
     vertical-align: top;
 }
