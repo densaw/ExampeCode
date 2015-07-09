@@ -12,55 +12,58 @@ app.controller('CurrStartPeriodController', ['$scope', '$http', '$location', 'Wi
 
 
     var getTable = function () {
-
-        $http.get('/api/Curriculum/Wizard/Session/BlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
+        $http.get('/api/Curriculum/Wizard/Session/StartBlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
             .success(function (result) {
                 $scope.items = result;
-                console.log(result);
             });
-
     }
 
 
-    
+
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-            $scope.nav.canNext = true;
-            $scope.nav.canBack = true;
+
+            var completed = true;
+            angular.forEach($scope.items, function (item) {
+                if (!item.preObjective) {
+                    completed = false;
+                }
+            });
+            if (completed) {
+                $scope.saveObjective();
+                $scope.nav.canNext = true;
+                $scope.nav.canBack = true;
+
+            } else {
+                $scope.pressed = true;
+            }
         }
     });
 
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-            $scope.nav.canNext = false;
-            $scope.nav.canBack = true;
+            if ($scope.$parent.step.done) {
+                $scope.nav.canNext = true;
+            } else {
+                $scope.nav.canNext = false;
+            }
 
+            $scope.nav.canBack = true;
             getTable();
         }
     });
 
 
 
-    $scope.addObjective = function (player) {
-        angular.element('#objModal').appendTo("body").modal('show');
-        $scope.player = player;
-
-    }
-
-
-
-    $scope.saveObjective = function (player) {
-        $http.post('/api/Curriculum/Wizard/Session/BlockObjective/' + $scope.currId + '/' + $scope.$parent.step.sessionId, player)
+    $scope.saveObjective = function () {
+        $http.post('/api/Curriculum/Wizard/Session/StartBlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
           .success(function () {
+              $http.post('/api/Curriculum/Wizard/Session/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId);
           }).error(function () {
           });
-        angular.element('#objModal').modal('hide');
     }
 
-    //Next step allow
-    $scope.canNext = function () {
-        return true;
-    };
+
 
 
 }]);

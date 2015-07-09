@@ -24,43 +24,31 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             _userServices = userServices;
             _teamServices = teamServices;
         }
+        //Wizard tools
 
-        
-        
-        
+        #region Wizard tools
+
+
         [Route("api/Curriculum/Players/Statistic/{teamId:int}")]
         public IEnumerable<CurriculumPlayersStatisticViewModel> GetPlayersStatistics(int teamId)
         {
             return _curriculumProcessServices.CurriculumPlayersStatistic(teamId);
-
         }
-
-
-
-
-
 
         [Route("api/Curriculum/Wizard/{teamId:int}")]
         public IEnumerable<SessionsWizardViewModel> GetWizard(int teamId)
         {
-            return _curriculumProcessServices.GetCurriculumSessionsWizard(teamId);
+            return Mapper.Map<IEnumerable<SessionResult>,IEnumerable<SessionsWizardViewModel>>(_curriculumProcessServices.GetCurriculumSessionsWizard(teamId));
         }
 
-
-
-
-
-
-
-        [Route("api/Curriculum/Wizard/Session/Save/{teamCurriculumId:int}/{sessionId:int}")]
-        public IHttpActionResult Post(int teamCurriculumId, int sessionId)
+        [Route("api/Curriculum/Wizard/Session/Save/{teamId:int}/{sessionId:int}")]
+        public IHttpActionResult Post(int teamId, int sessionId)
         {
-
-            _curriculumProcessServices.SaveSession(sessionId, teamCurriculumId);
-
+            _curriculumProcessServices.SaveSession(sessionId, teamId);
             return Ok();
         }
 
+        #endregion
 
 
 
@@ -91,7 +79,7 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
         [Route("api/Curriculum/Wizard/Session/ReportObjectiveTable/{teamId:int}/{sessionId:int}")]
         public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerReportObjectives(int teamId, int sessionId)
         {
-            return _curriculumProcessServices.GetPlayerObjectiveRepTable(teamId, sessionId);
+            return _curriculumProcessServices.GetPlayerObjectiveTable(teamId, sessionId);
         }
         
         [Route("api/Curriculum/Wizard/Session/ObjectiveTable/{teamId:int}/{sessionId:int}")]
@@ -106,31 +94,18 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
 
 
 
-
-
-        [Route("api/Curriculum/Wizard/Session/BlockObjectiveTable/{teamId:int}/{sessionId:int}")]
-        public IEnumerable<PlayerBlockObjectiveTableViewModel> GetPlayerBlockObjectiveTable(int teamId, int sessionId)
+        //Block Objectives
+        [Route("api/Curriculum/Wizard/Session/StartBlockObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IEnumerable<AddPlayerBlockObjectiveTableViewModel> GetPlayerBlockObjectiveTable(int teamId, int sessionId)
         {
-            var user = _userServices.GetUserByEmail(User.Identity.Name);
-            if (user == null)
-            {
-                return null;
-            }
-
-            return _curriculumProcessServices.GetBlockObjectiveTable(teamId, sessionId, user.Id);
-
-
+            return Mapper.Map<IEnumerable<PlayerBlockObjective>,IEnumerable<AddPlayerBlockObjectiveTableViewModel>>(_curriculumProcessServices.GetBlockObjectiveTableForAdd(teamId, sessionId));
         }
-        
-        [Route("api/Curriculum/Wizard/Session/BlockObjective/{teamId:int}/{sessionId:int}")]
-        public IHttpActionResult PostPlayerBlockObjective(int teamId, int sessionId, [FromBody]PlayerBlockObjectiveTableViewModel blockObjectiveViewModel)
+
+        [Route("api/Curriculum/Wizard/Session/StartBlockObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IHttpActionResult PostPlayerBlockObjectiveTable(int teamId, int sessionId,
+            [FromBody] IList<AddPlayerBlockObjectiveTableViewModel> playerObjectivesTable)
         {
-            var user = _userServices.GetUserByEmail(User.Identity.Name);
-            var blockObj =
-                Mapper.Map<PlayerBlockObjectiveTableViewModel, BlockObjectiveStatement>(blockObjectiveViewModel);
-
-
-            _curriculumProcessServices.UpdateBlockObgectiveStatement(blockObj, blockObjectiveViewModel.PlayerId, teamId, sessionId, user.Id);
+            _curriculumProcessServices.AddBlockPreObjectives(playerObjectivesTable,teamId,sessionId);
             return Ok();
         }
 
