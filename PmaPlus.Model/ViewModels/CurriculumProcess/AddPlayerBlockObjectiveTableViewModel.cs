@@ -12,12 +12,6 @@ namespace PmaPlus.Model.ViewModels.CurriculumProcess
         public int PlayerId { get; set; }
         public string Picture { get; set; }
         public string Name { get; set; }
-
         public string PreObjective { get; set; }
-        
-        public decimal AttPercent { get; set; }
-        public int WbPercent { get; set; }
-        public decimal Cur { get; set; }
-
     }
 }

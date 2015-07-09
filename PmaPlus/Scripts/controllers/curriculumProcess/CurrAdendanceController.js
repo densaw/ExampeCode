@@ -99,8 +99,7 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
             item.duration = $scope.addDate.duration;
         });
         confAtend.modal('hide');
-        $scope.nav.canNext = true;
-        $scope.nav.canBack = true;
+        
     };
 
     $scope.cancelAtt = function () {

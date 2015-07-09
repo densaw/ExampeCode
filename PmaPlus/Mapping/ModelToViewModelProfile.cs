@@ -197,16 +197,7 @@ namespace PmaPlus.Mapping
                             s =>
                                 "/api/file/ProfilePicture/" + s.Player.User.UserDetail.ProfilePicture + "/" +
                                 s.Player.User.Id))
-                .ForMember(d => d.PreObjective, o => o.MapFrom(s => s.PreObjective))
-                .ForMember(d => d.WbPercent, o => o.UseValue(0))
-                .ForMember(d => d.AttPercent,
-                    o =>
-                        o.MapFrom(
-                            s =>
-                                (s.Player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended)/
-                                 (s.Player.SessionAttendances.Count != 0 ? s.Player.SessionAttendances.Count : 1))*100))
-                .ForMember(d => d.Cur,
-                    o => o.MapFrom(s => s.Player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average()));
+                .ForMember(d => d.PreObjective, o => o.MapFrom(s => s.PreObjective));
 
 
 
