@@ -107,6 +107,7 @@ namespace PmaPlus
 
             //Angular Controllers
             bundles.Add(new ScriptBundle("~/bundles/SysAdminCtr").Include(
+                "~/Scripts/angular/angular-ui-bootstrap-modal.js",
                 "~/Scripts/controllers/MainApp.js"));
             bundles.Add(new ScriptBundle("~/bundles/ClubAdminCtr").Include(
                 "~/Scripts/controllers/ClubControllers.js"));

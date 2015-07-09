@@ -1,5 +1,5 @@
 (function () {
-    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster', 'file-model', 'ngSanitize', 'ui.select', 'ui.bootstrap.datetimepicker', 'ui.calendar', 'ngRoute', 'ladda', 'mgo-angular-wizard', 'checklist-model']);
+    var module = angular.module('MainApp', ['tc.chartjs', 'angularUtils.directives.dirPagination', 'ui.bootstrap', 'ngCookies', 'toaster', 'file-model', 'ngSanitize', 'ui.select', 'ui.bootstrap.datetimepicker', 'ui.calendar', 'ngRoute', 'ladda', 'mgo-angular-wizard', 'checklist-model', 'ui.bootstrap.modal']);
 
     module.run(['$rootScope', function($rootScope){
         $rootScope.revers = true;

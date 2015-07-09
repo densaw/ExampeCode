@@ -189,19 +189,26 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<PlayerBlockObjective, AddPlayerBlockObjectiveTableViewModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.PlayerId, o => o.MapFrom(s => s.PlayerId))
-                .ForMember(d => d.Name,
-                    o => o.MapFrom(s => s.Player.User.UserDetail.FirstName + " " + s.Player.User.UserDetail.LastName))
-                .ForMember(d => d.Picture,
-                    o =>
-                        o.MapFrom(
-                            s =>
-                                "/api/file/ProfilePicture/" + s.Player.User.UserDetail.ProfilePicture + "/" +
-                                s.Player.User.Id))
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.Player.User.UserDetail.FirstName + " " + s.Player.User.UserDetail.LastName))
+                .ForMember(d => d.Picture,o => o.MapFrom( s => "/api/file/ProfilePicture/" + s.Player.User.UserDetail.ProfilePicture + "/" + s.Player.User.Id))
                 .ForMember(d => d.PreObjective, o => o.MapFrom(s => s.PreObjective));
 
 
+            Mapper.CreateMap<PlayerObjective, AddPlayerObjectiveTableViewModel>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.PlayerId, o => o.MapFrom(s => s.PlayerId))
+                .ForMember(d => d.Picture,o => o.MapFrom(s => "/api/file/ProfilePicture/" + s.Player.User.UserDetail.ProfilePicture + "/" +s.Player.User.Id))
+                .ForMember(d => d.Name,o => o.MapFrom(s => s.Player.User.UserDetail.FirstName + " " + s.Player.User.UserDetail.LastName))
+                .ForMember(d => d.Objective, o => o.MapFrom(s => s.Objective));
 
-
+            Mapper.CreateMap<PlayerObjective, PlayerObjectiveTableViewModel>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.PlayerId, o => o.MapFrom(s => s.PlayerId))
+                .ForMember(d => d.Picture,o =>o.MapFrom(s =>"/api/file/ProfilePicture/" + s.Player.User.UserDetail.ProfilePicture + "/" +s.Player.User.Id))
+                .ForMember(d => d.Name,o => o.MapFrom(s => s.Player.User.UserDetail.FirstName + " " + s.Player.User.UserDetail.LastName))
+                .ForMember(d => d.Objective, o => o.MapFrom(s => s.Objective))
+                .ForMember(d => d.Outcome, o => o.MapFrom(s => s.Outcome))
+                .ForMember(d => d.FeedBack, o => o.MapFrom(s => s.FeedBack));
 
             #endregion
 

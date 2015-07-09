@@ -27,6 +27,10 @@ app.controller('CurrStartPeriodController', ['$scope', '$http', '$location', 'Wi
             angular.forEach($scope.items, function (item) {
                 if (!item.preObjective) {
                     completed = false;
+                } else {
+                    if (item.preObjective.length < 1) {
+                        completed = false;
+                    }
                 }
             });
             if (completed) {

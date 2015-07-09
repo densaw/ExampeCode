@@ -50,6 +50,7 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
 
         #endregion
 
+        #region Attendance
 
 
         [Route("api/Curriculum/Wizard/Session/AttendanceTable/{teamId:int}/{sessionId:int}")]
@@ -67,34 +68,40 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             return Ok();
         }
 
+        #endregion
 
-
-
-        [Route("api/Curriculum/Wizard/Session/ObjectiveTable/{teamId:int}/{sessionId:int}")]
-        public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerObjectives(int teamId, int sessionId)
+        #region Sesion Objectives
+        //Add objectives
+        [Route("api/Curriculum/Wizard/Session/StartObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IEnumerable<AddPlayerObjectiveTableViewModel> GetPlayerObjectives(int teamId, int sessionId)
         {
-            return _curriculumProcessServices.GetPlayerObjectiveTable(teamId, sessionId);
+            return Mapper.Map<IEnumerable<PlayerObjective>,IEnumerable<AddPlayerObjectiveTableViewModel>>(_curriculumProcessServices.GetPlayerObjectiveTableForAdd(teamId, sessionId));
         }
 
-        [Route("api/Curriculum/Wizard/Session/ReportObjectiveTable/{teamId:int}/{sessionId:int}")]
-        public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerReportObjectives(int teamId, int sessionId)
+        [Route("api/Curriculum/Wizard/Session/StartObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IHttpActionResult PostPlayerObjectives(int teamId, int sessionId, IList<AddPlayerObjectiveTableViewModel> playerObjectiveTable)
         {
-            return _curriculumProcessServices.GetPlayerObjectiveTable(teamId, sessionId);
-        }
-        
-        [Route("api/Curriculum/Wizard/Session/ObjectiveTable/{teamId:int}/{sessionId:int}")]
-        public IHttpActionResult PostPlayerObjectives(int teamId, int sessionId, IList<PlayerObjectiveTableViewModel> playerObjectiveTable)
-        {
-            var objectives = Mapper.Map<IList<PlayerObjectiveTableViewModel>, List<PlayerObjective>>(playerObjectiveTable);
-
-            _curriculumProcessServices.UpdateObjectives(objectives, teamId, sessionId);
-
+            _curriculumProcessServices.AddObjectives(playerObjectiveTable, teamId, sessionId);
             return Ok();
         }
 
+        //add Outcaome for objective
+        [Route("api/Curriculum/Wizard/Session/ReportObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IEnumerable<PlayerObjectiveTableViewModel> GetPlayerReportObjectives(int teamId, int sessionId)
+        {
+            return Mapper.Map<IEnumerable<PlayerObjective>, IEnumerable<PlayerObjectiveTableViewModel>>(_curriculumProcessServices.GetPlayerObjectiveTableForReport(teamId, sessionId)); ;
+        }
+        [Route("api/Curriculum/Wizard/Session/ReportObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IHttpActionResult PostPlayerReportObjectives(int teamId, int sessionId, [FromBody]IList<PlayerObjectiveTableViewModel> playerObjectiveTable)
+        {
+            _curriculumProcessServices.AddReportObjectives(playerObjectiveTable, teamId, sessionId);
+            return Ok();
+        }
+        #endregion
 
 
         //Block Objectives
+        #region Block Objectives
         [Route("api/Curriculum/Wizard/Session/StartBlockObjectiveTable/{teamId:int}/{sessionId:int}")]
         public IEnumerable<AddPlayerBlockObjectiveTableViewModel> GetPlayerBlockObjectiveTable(int teamId, int sessionId)
         {
@@ -108,7 +115,7 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             _curriculumProcessServices.AddBlockPreObjectives(playerObjectivesTable,teamId,sessionId);
             return Ok();
         }
-
+        #endregion
 
 
 
