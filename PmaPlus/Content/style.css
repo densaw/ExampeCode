@@ -3546,6 +3546,7 @@ body.body-small .footer.fixed {
     padding: 8px;
     vertical-align: middle;
     text-align:center;
+    text-align: -webkit-center;
 }
     /*.table > thead > tr > th:nth-child(1) {
         text-align:left;
