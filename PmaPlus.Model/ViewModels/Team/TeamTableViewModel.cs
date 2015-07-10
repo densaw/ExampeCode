@@ -14,6 +14,7 @@ namespace PmaPlus.Model.ViewModels.Team
 
         public decimal Progress { get; set; }
 
+        public bool Archived { get; set; }
         public int CoachesCount { get; set; }
 
         public string CurriculumName { get; set; }

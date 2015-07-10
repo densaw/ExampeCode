@@ -496,6 +496,11 @@ namespace PmaPlus.Services.Services
         }
 
 
-       
+        public void ArchiveTeam(int teamId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            team.TeamCurriculum.Archived = true;
+            _teamRepository.Update(team);
+        }
     }
 }
