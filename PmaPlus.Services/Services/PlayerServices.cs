@@ -55,8 +55,14 @@ namespace PmaPlus.Services
                        Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                        Age = DateTime.Now.Year - (player.User.UserDetail.Birthday ?? DateTime.Now).Year,
                        ProfilePicture = player.User.UserDetail.ProfilePicture,
-                       Teams = player.Teams.Select(t => t.Name)
-                       //TODO:Finish player table
+                       Teams = player.Teams.Select(t => t.Name),
+                       Att = ((decimal)player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100,
+                       Mom = player.MatchMoms.Count,
+                       Gls = (decimal)player.MatchStatistics.Select(m => m.Goals).DefaultIfEmpty().Average(),
+                       Frm = (decimal)player.MatchStatistics.Select(m => m.FormRating).DefaultIfEmpty().Average(),
+                       Inj = player.PlayerInjuries.Count,
+                       Cur = player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average(),
+                       Wb = 0
                    };
         }
 
