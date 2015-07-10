@@ -22,6 +22,7 @@ app.controller('JustSessionController', ['$scope', '$http', '$location', 'Wizard
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
             $http.post('/api/Curriculum/Wizard/Session/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
                 .success(function () {
+                    $scope.$parent.step.done = true;
                     $scope.nav.canNext = true;
                     $scope.nav.canBack = true;
                 });

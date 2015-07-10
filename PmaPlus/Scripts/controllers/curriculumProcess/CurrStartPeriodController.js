@@ -63,6 +63,9 @@ app.controller('CurrStartPeriodController', ['$scope', '$http', '$location', 'Wi
         $http.post('/api/Curriculum/Wizard/Session/StartBlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
           .success(function () {
               $http.post('/api/Curriculum/Wizard/Session/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId);
+              $scope.$parent.step.done = true;
+              $scope.nav.canNext = true;
+              $scope.nav.canBack = true;
           }).error(function () {
           });
     }
