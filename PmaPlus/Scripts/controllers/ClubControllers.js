@@ -878,7 +878,7 @@ app.controller('ClubDiaryController', [
                     type: 'error',
                     title: 'Error',
                     bodyOutputType: 'trustedHtml',
-                    body: 'Wrong data end'
+                    body: 'Please enter an end date and time after the start date and time'
                 });
                 
                 return;
