@@ -68,5 +68,5 @@ app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardH
 
     };
 
-
+    $scope.nav.loadedSteps++;
 }]);

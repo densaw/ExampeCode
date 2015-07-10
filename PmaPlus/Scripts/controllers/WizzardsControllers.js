@@ -6,6 +6,8 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
 
     $scope.nav = {};
 
+    $scope.nav.loadedSteps = 0;
+
     $scope.nav.canNext = true;
     $scope.nav.canBack = true;
     $scope.obj = {
@@ -29,27 +31,47 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
            $scope.steps = data;
            $scope.progress.max = data.length - 1;
 
-           $scope.$watch(function () {
-               return WizardHandler.wizard();
-           }, function (wizard) {
-               if (wizard) {
-                   $timeout(function () {
+           $scope.$watch(
+               function () { return $scope.nav.loadedSteps },
+               function (loadedSteps) {
+                   console.log(loadedSteps);
+                   if (loadedSteps == $scope.steps.length) {
                        var last = 0;
                        for (var i = 0; i < $scope.steps.length; i++) {
                            if ($scope.steps[i].done) {
                                last = i;
                            }
                        }
-                       wizard.goTo(last);
-                       $scope.updateProgress();
+                       WizardHandler.wizard().goTo(last + 1);
 
-                   }, 1000);
-
+                      }
                }
-           });
+               );
+
+
+           //$scope.$watch(function () {
+           //    return WizardHandler.wizard();
+           //}, function (wizard) {
+           //    if (wizard) {
+           //        $timeout(function () {
+           //            var last = 0;
+           //            for (var i = 0; i < $scope.steps.length; i++) {
+           //                if ($scope.steps[i].done) {
+           //                    last = i;
+           //                }
+           //            }
+           //            wizard.goTo(last + 1);
+           //            $scope.progress.current = WizardHandler.wizard().currentStepNumber() - 1;
+                       
+           //        }, 500);
+
+           //    }
+           //});
        });
     }
-
+    $scope.$on('wizard:stepChanged', function() {
+        $scope.updateProgress();
+    });
 
     $scope.saveProgress = function () {
         $scope.$broadcast('saveProgressEvent');
@@ -58,7 +80,6 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
     $scope.updateProgress = function () {
         $scope.progress.current = WizardHandler.wizard().currentStepNumber() - 1;
         $scope.$broadcast('moveEvent');
-        console.log('aaaa');
     };
     getWizard();
 }]);

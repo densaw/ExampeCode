@@ -68,6 +68,6 @@ app.controller('CurrStartPeriodController', ['$scope', '$http', '$location', 'Wi
     }
 
 
-
+    $scope.nav.loadedSteps++;
 
 }]);

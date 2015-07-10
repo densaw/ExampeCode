@@ -80,6 +80,7 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
     });
 
     $scope.$on('moveEvent', function () {
+
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
             if ($scope.$parent.step.done) {
                 $scope.nav.canNext = true;
@@ -123,5 +124,5 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
         });
         $scope.notComplSes = false;
     };
-
+    $scope.nav.loadedSteps++;
 }]);

@@ -66,5 +66,5 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
 
 
 
-
+    $scope.nav.loadedSteps++;
 }]);

@@ -63,5 +63,5 @@ app.controller('CurrReportObjectiveController', ['$scope', '$http', '$location',
             getTable();
         }
     });
-
+    $scope.nav.loadedSteps++;
 }]);

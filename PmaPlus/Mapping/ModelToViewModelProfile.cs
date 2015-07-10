@@ -134,7 +134,7 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<Team, TeamTableViewModel>()
                 .ForMember(d => d.CurriculumName, o => o.MapFrom(s => s.TeamCurriculum.Curriculum.Name))
-                .ForMember(d => d.Progress, o => o.MapFrom(s => s.TeamCurriculum.Progress));
+                .ForMember(d => d.Progress, o => o.MapFrom(s => ((decimal)s.TeamCurriculum.SessionResults.Count(sr => sr.Done) / (s.TeamCurriculum.SessionResults.Count == 0 ? 1 : s.TeamCurriculum.SessionResults.Count)) * 100));
 
             Mapper.CreateMap<Team, AddTeamViewModel>()
                 .ForMember(d => d.Coaches, o => o.MapFrom(s => s.Coaches.Select(c => c.User.Id)))
@@ -150,7 +150,7 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<TalentIdentification, TalentIdentificationTableViewModel>()
                 .ForMember(d => d.Age, o => o.MapFrom(s => DateTime.Now.Year - s.BirthDate.Year))
                 .ForMember(d => d.Name, o => o.MapFrom(s => s.FirstName + " " + s.LastName))
-                .ForMember(d => d.Score, o => o.MapFrom(s => (s.Attributes.Sum(a => a.Score) / (s.Attributes.Sum(a => a.Attribute.MaxScore) == 0 ? 1 : s.Attributes.Sum(a => a.Attribute.MaxScore))) * 100))
+                .ForMember(d => d.Score, o => o.MapFrom(s => ((decimal)s.Attributes.Sum(a => a.Score) / (s.Attributes.Sum(a => a.Attribute.MaxScore) == 0 ? 1 : s.Attributes.Sum(a => a.Attribute.MaxScore))) * 100))
                 .ForMember(d => d.ScouteName, o => o.MapFrom(s => s.Scout.User.UserDetail.FirstName + " " + s.Scout.User.UserDetail.LastName));
 
             Mapper.CreateMap<TalentIdentification, TalentIdentificationDetailViewModel>()

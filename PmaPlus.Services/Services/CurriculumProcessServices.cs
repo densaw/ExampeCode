@@ -98,7 +98,7 @@ namespace PmaPlus.Services.Services
                              Name = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                              Attendance = a != null ? a.Attendance : AttendanceType.Undefined,
                              Duration = a != null ? a.Duration : 0,
-                             AttPercent = (player.SessionAttendances.Count(atten => atten.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100,
+                             AttPercent = ((decimal)player.SessionAttendances.Count(atten => atten.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100,
                              WbPercent = 0, //TODO: Wellbieng!
                              Cur = 0
 
@@ -488,7 +488,7 @@ namespace PmaPlus.Services.Services
                                       Frm = player.MatchStatistics.Select(m => m.FormRating).DefaultIfEmpty().Average(),
                                       Inj = player.PlayerInjuries.Count,
                                       Cur = player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average(),
-                                      AttPercent = (player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100
+                                      AttPercent = ((decimal)player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100
                                   };
 
             return result.AsEnumerable();

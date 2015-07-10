@@ -59,5 +59,5 @@ app.controller('CurrObjectiveController', ['$scope', '$http', '$location', 'Wiza
     });
 
 
-
+    $scope.nav.loadedSteps++;
 }]);

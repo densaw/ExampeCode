@@ -12,7 +12,7 @@ namespace PmaPlus.Model.ViewModels.Team
 
         public string Name { get; set; }
 
-        public int Progress { get; set; }
+        public decimal Progress { get; set; }
 
         public int CoachesCount { get; set; }
 

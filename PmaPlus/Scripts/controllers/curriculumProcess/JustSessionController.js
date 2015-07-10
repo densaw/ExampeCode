@@ -28,5 +28,5 @@ app.controller('JustSessionController', ['$scope', '$http', '$location', 'Wizard
         }
     });
 
-
+    $scope.nav.loadedSteps++;
 }]);
