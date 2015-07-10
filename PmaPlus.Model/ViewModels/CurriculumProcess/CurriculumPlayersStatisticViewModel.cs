@@ -8,6 +8,7 @@ namespace PmaPlus.Model.ViewModels.CurriculumProcess
 {
     public class CurriculumPlayersStatisticViewModel
     {
+        public string PlayerPicture { get; set; }   
         public string PlayerName { get; set; }
         public int Age { get; set; }
         public decimal Atl { get; set; }

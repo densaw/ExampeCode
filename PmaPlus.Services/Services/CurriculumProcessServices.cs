@@ -470,6 +470,7 @@ namespace PmaPlus.Services.Services
             var result = from player in players
                          select new CurriculumPlayersStatisticViewModel()
                                   {
+                                      PlayerPicture = "/api/file/ProfilePicture/" + player.User.UserDetail.ProfilePicture + "/" + player.User.Id,
                                       PlayerName = player.User.UserDetail.FirstName + " " + player.User.UserDetail.LastName,
                                       Age = DateTime.Now.Year - (player.User.UserDetail.Birthday.HasValue ? player.User.UserDetail.Birthday.Value.Year : DateTime.Now.Year),
                                       Atl = player.PlayerRatingses.Select(r => r.Atl).DefaultIfEmpty().Average(),
