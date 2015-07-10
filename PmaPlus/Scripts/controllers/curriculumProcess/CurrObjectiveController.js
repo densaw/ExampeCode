@@ -19,6 +19,7 @@ app.controller('CurrObjectiveController', ['$scope', '$http', '$location', 'Wiza
             .success(function () {
                 $http.post('/api/Curriculum/Wizard/Session/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId);
                 $scope.$parent.obj.laddaLoading = false;
+                $scope.$parent.step.done = true;
                 $scope.nav.canNext = true;
             }).error(function () {
                 $scope.$parent.obj.laddaLoading = false;

@@ -58,7 +58,8 @@
                                 <a ng-disabled="obj.laddaLoading" ng-click="saveProgress()" class="ladda-button btn btn-primary btn-sm" ladda-button="obj.laddaLoading" data-style="expand-right" data-size="sm" style="background-color:@ViewBag.them;">
                                     <span class="ladda-label">Save Progress</span>
                                 </a>
-                                <a class="btn btn-primary btn-sm" ng-disabled="!nav.canNext" wz-next @*ng-click="updateProgress()"*@>Next</a>
+                                <a class="btn btn-primary btn-sm" ng-if="!isLast" ng-disabled="!nav.canNext" wz-next >Next</a>
+                                <a class="btn btn-primary btn-sm" ng-if="isLast"  wz-next >Archive Curriculum</a>
                             </div>
                         </div>
                         <div class="ibox-content">

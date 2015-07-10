@@ -27,6 +27,7 @@ app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardH
         .success(function () {
             $http.post('/api/Curriculum/Wizard/Session/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId);
             $scope.$parent.obj.laddaLoading = false;
+            $scope.$parent.step.done = true;
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
         }).error(function () {
