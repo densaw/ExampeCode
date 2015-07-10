@@ -110,15 +110,16 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Player Picture</th>
                                         <th>Player Name</th>
                                         <th>Age</th>
                                         <th>AtL</th>
                                         <th>AtT</th>
-                                        <th>MOM</th>
+                                        
                                         <th>GLS</th>                                        
-                                        <th>FRK</th>
+                                        
                                         <th>FRM</th>
-                                        <th>INJ</th>
+                                        
                                         <th>ATT%</th>
                                         <th>WB%</th>
                                         <th>CUR</th>
@@ -126,15 +127,20 @@
                                 </thead>
                                 <tbody id="contentTable">
                                 <tr dir-paginate="player in players | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                    <td>
+                                        <div style="width: 80px; height: 80px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
+                                            <img class="prifile" ng-src="{{player.playerPicture}}" style-parent />
+                                        </div>
+                                    </td>
                                     <td>{{player.playerName}}</td>
                                     <td>{{player.age}}</td>
-                                    <td>{{player.atl}}</td>
-                                    <td>{{player.att}}</td>
-                                    <td>{{player.mom}}</td>
+                                    <td>{{player.atl | number:1}}</td>
+                                    <td>{{player.att | number:1}}</td>
+                                    
                                     <td>{{player.gls}}</td>
-                                    <td>{{player.frk}}</td>
+                                    
                                     <td>{{player.frm}}</td>
-                                    <td>{{player.inj}}</td>
+                                    
                                     <td>{{player.attPercent}}</td>
                                     <td>{{player.wbPercent}}</td>
                                     <td>{{player.cur}}</td>
