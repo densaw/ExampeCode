@@ -20,6 +20,7 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
     $scope.submitOk = function () {
         $http.put('/api/Curriculum/Wizard/Team/Archive/' + $scope.currId).success(function () {
             console.log('ok');
+            submitArhive.modal('hide');
         });
     }
 
