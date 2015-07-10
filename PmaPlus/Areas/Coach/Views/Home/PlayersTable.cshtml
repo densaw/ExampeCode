@@ -110,7 +110,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Player Picture</th>
+                                        <th style ="text-align:left; padding-left: 26px;">Picture</thstyle>
                                         <th>Player Name</th>
                                         <th>Age</th>
                                         <th>AtL</th>
@@ -127,7 +127,7 @@
                                 </thead>
                                 <tbody id="contentTable">
                                 <tr dir-paginate="player in players | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                    <td>
+                                    <td style="width: 80px;">
                                         <div style="width: 80px; height: 80px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
                                             <img class="prifile" ng-src="{{player.playerPicture}}" style-parent />
                                         </div>
