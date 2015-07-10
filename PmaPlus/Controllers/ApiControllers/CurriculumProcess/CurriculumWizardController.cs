@@ -28,7 +28,6 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
 
         #region Wizard tools
 
-
         [Route("api/Curriculum/Players/Statistic/{teamId:int}")]
         public IEnumerable<CurriculumPlayersStatisticViewModel> GetPlayersStatistics(int teamId)
         {
