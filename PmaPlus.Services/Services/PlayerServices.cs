@@ -48,7 +48,7 @@ namespace PmaPlus.Services
         }
         public IEnumerable<PlayerTableViewModel> GetPlayersTable(int clubId)
         {
-            return from player in _playerRepository.GetMany(p => p.Club.Id == clubId)
+            return from player in _playerRepository.GetMany(p => p.Club.Id == clubId).ToList()
                    select new PlayerTableViewModel()
                    {
                        Id = player.User.Id,

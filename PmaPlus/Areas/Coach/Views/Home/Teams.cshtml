@@ -108,8 +108,8 @@
                                         <td>{{team.coachesCount}}</td>
                                         <td>{{team.playersCount}}</td>
                                         <td>
-                                            <a ng-href="PlayersTable/{{team.id}}" class="fa fa-graduation-cap" style="cursor: pointer;"></a>
-                                            
+                                            <a ng-if="!team.archived" ng-href="PlayersTable/{{team.id}}" class="fa fa-graduation-cap" style="cursor: pointer;"></a>
+                                            <span ng-if="team.archived">Archived</span>
                                         </td>
                                     </tr>
                                 </tbody>

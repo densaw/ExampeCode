@@ -134,7 +134,14 @@ namespace PmaPlus.Mapping
 
             Mapper.CreateMap<Team, TeamTableViewModel>()
                 .ForMember(d => d.CurriculumName, o => o.MapFrom(s => s.TeamCurriculum.Curriculum.Name))
-                .ForMember(d => d.Progress, o => o.MapFrom(s => ((decimal)s.TeamCurriculum.SessionResults.Count(sr => sr.Done) / (s.TeamCurriculum.SessionResults.Count == 0 ? 1 : s.TeamCurriculum.SessionResults.Count)) * 100));
+                .ForMember(d => d.Progress,
+                    o =>
+                        o.MapFrom(
+                            s =>
+                                ((decimal) s.TeamCurriculum.SessionResults.Count(sr => sr.Done)/
+                                 (s.TeamCurriculum.SessionResults.Count == 0 ? 1 : s.TeamCurriculum.SessionResults.Count))*
+                                100))
+                .ForMember(d => d.Archived, o => o.MapFrom(s => s.TeamCurriculum.Archived));
 
             Mapper.CreateMap<Team, AddTeamViewModel>()
                 .ForMember(d => d.Coaches, o => o.MapFrom(s => s.Coaches.Select(c => c.User.Id)))
