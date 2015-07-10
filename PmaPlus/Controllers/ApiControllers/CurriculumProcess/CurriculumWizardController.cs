@@ -115,11 +115,27 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             _curriculumProcessServices.AddBlockPreObjectives(playerObjectivesTable,teamId,sessionId);
             return Ok();
         }
+
+        [Route("api/Curriculum/Wizard/Session/ReportBlockObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IEnumerable<PlayerBlockObjectiveTableViewModel> GetReportPlayerBlockObjectiveTable(int teamId, int sessionId)
+        {
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+            return _curriculumProcessServices.GetBlockObjectiveTableForReport(teamId, sessionId,user.Id);
+        }
+
+        [Route("api/Curriculum/Wizard/Session/ReportBlockObjectiveTable/{teamId:int}/{sessionId:int}")]
+        public IHttpActionResult PostReportPlayerBlockObjectiveTable(int teamId, int sessionId,[FromBody] IList<PlayerBlockObjectiveTableViewModel> playerObjectivesTable)
+        {
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+            _curriculumProcessServices.ReportBlockPreObjectives(playerObjectivesTable, teamId, sessionId,user.Id);
+            return Ok();
+        }
         #endregion
 
 
 
-
+        #region Ratings
+        
 
         [Route("api/Curriculum/Wizard/Session/RatingTable/{teamId:int}/{sessionId:int}")]
         public IEnumerable<PlayerRatingsTableViewModel> GetPlayersRating(int teamId, int sessionId)
@@ -135,6 +151,7 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             return Ok();
         }
 
+        #endregion
 
 
 

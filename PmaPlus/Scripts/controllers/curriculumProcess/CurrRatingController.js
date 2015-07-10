@@ -25,11 +25,13 @@ app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardH
         $scope.$parent.obj.laddaLoading = true;
         $http.post('/api/Curriculum/Wizard/Session/RatingTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
         .success(function () {
+            $http.post('/api/Curriculum/Wizard/Session/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId);
             $scope.$parent.obj.laddaLoading = false;
+            $scope.nav.canNext = true;
+            $scope.nav.canBack = true;
         }).error(function () {
             $scope.$parent.obj.laddaLoading = false;
-            });
-
+        });
     };
 
 
@@ -37,9 +39,6 @@ app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardH
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
             saveRatings();
-            $scope.nav.canNext = true;
-            $scope.nav.canBack = true;
-
         }
     });
 
@@ -50,12 +49,7 @@ app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardH
                 $scope.nav.canNext = true;
                 $scope.nav.canBack = true;
             } else {
-                angular.forEach($scope.items, function (item) {
-                    if (item.atl < 1 || item.att < 1 || item.cur < 1) {
-                        $scope.nav.canBack = false;
-                        $scope.nav.canNext = false;
-                    }
-                });
+                $scope.nav.canNext = false;
             }
 
             getTable();
@@ -68,10 +62,10 @@ app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardH
 
     $scope.ssesionNotCompleted = function () {
         angular.element('#confNotComplRating').modal('hide');
-       
+
         $scope.nav.canNext = true;
         $scope.nav.canBack = true;
-        
+
     };
 
 
