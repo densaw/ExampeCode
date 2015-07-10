@@ -47,6 +47,13 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             return Ok();
         }
 
+        [Route("api/Curriculum/Wizard/Team/Archive/{teamId:int}/")]
+        public IHttpActionResult PutTeamArchive(int teamId)
+        {
+            _curriculumProcessServices.ArchiveTeam(teamId);
+            return Ok();
+        }
+
         #endregion
 
         #region Attendance
