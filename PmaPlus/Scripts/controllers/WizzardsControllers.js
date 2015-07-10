@@ -3,6 +3,26 @@
 
 
 app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 'WizardHandler', '$timeout', function ($scope, $http, toaster, $location, WizardHandler, $timeout) {
+    var pathArray = $location.$$absUrl.split("/");
+    $scope.currId = pathArray[pathArray.length - 1];
+
+    var submitArhive = angular.element('#submitArhive');
+    
+
+    $scope.showArhive = function () {
+        submitArhive.modal('show');
+    }
+
+    $scope.submitCancel = function () {
+        submitArhive.modal('hide');
+    }
+
+    $scope.submitOk = function () {
+        $http.put('/api/Curriculum/Wizard/Team/Archive/' + $scope.currId).success(function () {
+            console.log('ok');
+        });
+    }
+
 
     $scope.nav = {};
 
@@ -14,8 +34,7 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
         laddaLoading: false
     }
 
-    var pathArray = $location.$$absUrl.split("/");
-    $scope.currId = pathArray[pathArray.length - 1];
+   
 
     $scope.progress = {};
 

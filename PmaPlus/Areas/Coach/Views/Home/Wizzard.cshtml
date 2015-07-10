@@ -10,7 +10,7 @@
                 <div class="modal-header">
 
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title">Save Report</h3>
+                    <h3 class="modal-title">Arhive Curriculum</h3>
 
 
                 </div>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="modal-footer">
                     <button ng-click="submitCancel()" type="button" class="btn btn-white">No</button>
-                    <button ng-click="sumbitOk()" type="button" class="btn btn-primary">Yes</button>
+                    <button ng-click="sumbitOk()" ng-href="@Url.Action("Teams", "Home")" type="button" class="btn btn-primary">Yes</button>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                                     <span class="ladda-label">Save Progress</span>
                                 </a>
                                 <a class="btn btn-primary btn-sm" ng-if="!isLast" ng-disabled="!nav.canNext" wz-next >Next</a>
-                                <a class="btn btn-primary btn-sm" ng-if="isLast"  wz-next >Archive Curriculum</a>
+                                <a class="btn btn-primary btn-sm" ng-if="isLast" ng-click="showArhive()" wz-next >Archive Curriculum</a>
                             </div>
                         </div>
                         <div class="ibox-content">
