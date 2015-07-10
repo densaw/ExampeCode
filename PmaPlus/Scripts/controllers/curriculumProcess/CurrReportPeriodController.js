@@ -11,7 +11,7 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
 
     var getTable = function () {
 
-        $http.get('/api/Curriculum/Wizard/Session/BlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
+        $http.get('/api/Curriculum/Wizard/Session/ReportBlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
             .success(function (result) {
                 $scope.items = result;
             });
@@ -19,48 +19,52 @@ app.controller('CurrReportPeriodController', ['$scope', '$http', '$location', 'W
 
     var savePeriod = function () {
         $scope.$parent.obj.laddaLoading = true;
-        $http.post('/api/Curriculum/Wizard/Session/BlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
-            .success(function() {
+        $http.post('/api/Curriculum/Wizard/Session/ReportBlockObjectiveTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
+            .success(function () {
+                $http.post('/api/Curriculum/Wizard/Session/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId);
                 $scope.$parent.obj.laddaLoading = false;
-            }).error(function() {
+                $scope.nav.canNext = true;
+            }).error(function () {
                 $scope.$parent.obj.laddaLoading = false;
-        });
+            });
 
     };
 
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-
-            savePeriod();
-
+            var completed = true;
+            angular.forEach($scope.items, function (item) {
+                if (!item.statement) {
+                    completed = false;
+                } else {
+                    if (item.statement.length < 1) {
+                        completed = false;
+                    }
+                }
+            });
+            if (completed) {
+                savePeriod();
+                $scope.nav.canNext = true;
+                $scope.nav.canBack = true;
+            } else {
+                $scope.pressed = true;
+            }
         }
     });
 
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-            $scope.nav.canNext = true;
-            $scope.nav.canBack = true;
-
+            if ($scope.$parent.step.done) {
+                $scope.nav.canNext = true;
+                $scope.nav.canBack = true;
+            } else {
+                $scope.nav.canNext = false;
+            }
             getTable();
         }
     });
 
-    $scope.addObjective = function (player) {
-        angular.element('#reportPeriodModal').appendTo("body").modal('show');
-        $scope.player = player;
 
-    }
-
-
-
-    $scope.saveObjective = function () {
-        angular.element('#reportPeriodModal').modal('hide');
-    }
-
-    //Next step allow
-    $scope.canNext = function () {
-        return true;
-    };
 
 
 }]);

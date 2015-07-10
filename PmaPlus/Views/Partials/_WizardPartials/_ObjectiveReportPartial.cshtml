@@ -20,7 +20,7 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Picture</th>
+                                    <th style="text-align:left; padding-left: 26px;">Picture</th>
                                     <th>Player Name</th>
                                     <th>Objectives</th>
                                     <th>Outcome</th>
@@ -36,7 +36,7 @@
                                     </td>
                                     <td>{{item.name}}</td>
                                     <td>{{item.objective}}</td>
-                                    <td><textarea ng-class="{'warnin-textArea':item.objective == '' || !item.objective && pressed }" type="text" ng-model="item.outcome" style="height:100%;"></textarea></td>
+                                    <td><textarea ng-class="{'warnin-textArea':item.outcome == '' || !item.outcome && pressed }" type="text" ng-model="item.outcome" style="height:100%;"></textarea></td>
                                     <td>{{item.feedBack}}</td>
                                 </tr>
                             </tbody>

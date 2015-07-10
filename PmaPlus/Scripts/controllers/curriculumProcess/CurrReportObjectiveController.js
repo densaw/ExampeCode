@@ -22,7 +22,7 @@ app.controller('CurrReportObjectiveController', ['$scope', '$http', '$location',
                $scope.nav.canNext = true;
            }).error(function () {
                $scope.$parent.obj.laddaLoading = false;
-            });
+           });
 
     };
 
@@ -31,17 +31,22 @@ app.controller('CurrReportObjectiveController', ['$scope', '$http', '$location',
 
             var completed = true;
             angular.forEach($scope.items, function (item) {
-                if (item.outcome === '') {
-                    if (item.objective !== '') {
+                if (!item.outcome) {
+                    completed = false;
+                } else {
+                    if (item.outcome.length < 1) {
                         completed = false;
                     }
                 }
             });
-
             if (completed) {
                 saveObjectives();
                 $scope.nav.canNext = true;
-            } else { $scope.pressed = true; }
+                $scope.nav.canBack = true;
+
+            } else {
+                $scope.pressed = true;
+            }
 
         }
     });

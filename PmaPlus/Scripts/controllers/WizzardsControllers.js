@@ -23,11 +23,33 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
 
         });
 
-    $http.get('/api/Curriculum/Wizard/' + $scope.currId)
-        .success(function (data) {
-            $scope.steps = data;
-            $scope.progress.max = data.length - 1;
-        });
+    var getWizard = function () {
+        $http.get('/api/Curriculum/Wizard/' + $scope.currId)
+       .success(function (data) {
+           $scope.steps = data;
+           $scope.progress.max = data.length - 1;
+
+           $scope.$watch(function () {
+               return WizardHandler.wizard();
+           }, function (wizard) {
+               if (wizard) {
+                   $timeout(function () {
+                       var last = 0;
+                       for (var i = 0; i < $scope.steps.length; i++) {
+                           if ($scope.steps[i].done) {
+                               last = i;
+                           }
+                       }
+                       wizard.goTo(last);
+                       $scope.updateProgress();
+
+                   }, 1000);
+
+               }
+           });
+       });
+    }
+
 
     $scope.saveProgress = function () {
         $scope.$broadcast('saveProgressEvent');
@@ -36,19 +58,7 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
     $scope.updateProgress = function () {
         $scope.progress.current = WizardHandler.wizard().currentStepNumber() - 1;
         $scope.$broadcast('moveEvent');
-        console.log($scope.progress.current);
+        console.log('aaaa');
     };
-    $scope.$watch(function () {
-        return WizardHandler.wizard();
-    }, function (wizard) {
-        if (wizard) {
-            $timeout(function () {
-                //angular.forEach($scope.steps)
-                wizard.goTo(0);
-                $scope.updateProgress();
-
-            }, 1000);
-
-        }
-    });
+    getWizard();
 }]);

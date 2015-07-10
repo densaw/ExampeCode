@@ -15,7 +15,7 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Picture</th>
+                                    <th style="text-align:left; padding-left: 26px;">Picture</th>
                                     <th>Player Name</th>
                                     <th>Pre-Period Objective</th>
                                     <th>Pre-defined statement</th>
@@ -33,7 +33,7 @@
                                     <td>{{item.name}}</td>
                                     <td>{{item.preObjective}}</td>
                                     <td style="width:300px;"><select class="form-control" ng-model="item.statement" ng-options="statemant.statement as statemant.statement for statemant in statemants "></select></td>
-                                    <td><textarea style="height: 100%;width: 100%;" ng-model="item.statement"></textarea></td>
+                                    <td><textarea ng-class="{'warnin-textArea':item.statement == '' || !item.statement && pressed }" style="height: 100%;width: 100%;" ng-model="item.statement"></textarea></td>
                                     <td style="vertical-align: middle;text-align: center;"><input toggle-checkbox type="checkbox" ng-model="item.achieved"></td>
                                 </tr>
                             </tbody>
@@ -45,7 +45,11 @@
 
         </div>
     </div>
-    
-
 </div>
-
+<style>
+    .warnin-textArea {
+        border-color: rgba(225, 0, 0, 0.8);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 0, 0, 0.6);
+        outline: 0 none;
+    }
+</style>
