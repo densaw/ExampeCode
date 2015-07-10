@@ -42,35 +42,25 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
                                last = i;
                            }
                        }
-                       WizardHandler.wizard().goTo(last + 1);
+                      
+                           WizardHandler.wizard().goTo(last);
+                      
 
-                      }
+                   }
                }
                );
 
 
-           //$scope.$watch(function () {
-           //    return WizardHandler.wizard();
-           //}, function (wizard) {
-           //    if (wizard) {
-           //        $timeout(function () {
-           //            var last = 0;
-           //            for (var i = 0; i < $scope.steps.length; i++) {
-           //                if ($scope.steps[i].done) {
-           //                    last = i;
-           //                }
-           //            }
-           //            wizard.goTo(last + 1);
-           //            $scope.progress.current = WizardHandler.wizard().currentStepNumber() - 1;
-                       
-           //        }, 500);
-
-           //    }
-           //});
+           
        });
     }
-    $scope.$on('wizard:stepChanged', function() {
+    $scope.$on('wizard:stepChanged', function () {
         $scope.updateProgress();
+        if ($scope.steps.length == WizardHandler.wizard().currentStepNumber()) {
+            $scope.isLast = true;
+        } else {
+            $scope.isLast = false;
+        }
     });
 
     $scope.saveProgress = function () {
