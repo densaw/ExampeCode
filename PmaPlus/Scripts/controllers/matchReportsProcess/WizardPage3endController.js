@@ -30,15 +30,15 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
     });
 
     //$scope.addMatchDetails = function () {
-    //    $scope.loginLoading = true;
-    //    //$scope.myform.form_Submitted = !$scope.myform.$valid;    
+    //   $scope.loginLoading = true;
+    //   //$scope.myform.form_Submitted = !$scope.myform.$valid;    
     //    $scope.loginLoading = false;
-    //    $http.put('/api/MatchReports/' + $scope.currId, $scope.matchDetails).success(function () {
-    //        confConfirm1.modal('hide');
-    //    }).error(function (data, status, headers, config) { });
+    //   $http.put('/api/MatchReports/' + $scope.currId, $scope.matchDetails).success(function () {
+    //       confConfirm1.modal('hide');
+    //   }).error(function (data, status, headers, config) { });
     //};
 
-    $scope.addMatchDetails = function (id) {
+    $scope.addMatchDetails = function () {
         $scope.loginLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;    
         $scope.loginLoading = false;
@@ -54,7 +54,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
                 headers: { 'Content-Type': undefined }
             })
                 .success(function (data) {
-                    $scope.cuurrentMatch.picture = data.name;
+                    $scope.matchDetails.picture = data.name;
                 })
                 .error(function () {
                     toaster.pop({
@@ -70,9 +70,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
             //$scope.newMember.needReport = needstoReport.prop('checked');
             //$scope.newMember.profilePicture = 'tmp.png';
 
-            if (id != null) {
-
-                $http.put('/api/MatchReports/' + +$scope.currId, $scope.matchDetails)
+            $http.put('/api/MatchReports/' + $scope.currId, $scope.matchDetails)
                 .success(function (result) {
                     $scope.loginLoading = false;
                 }).error(function (data, status, headers, config) {
@@ -89,7 +87,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
                 });
 
 
-            }
+            
 
         });
 
