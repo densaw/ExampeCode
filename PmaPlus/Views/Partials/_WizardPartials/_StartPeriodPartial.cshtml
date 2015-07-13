@@ -29,7 +29,7 @@
                                         </div>
                                     </td>
                                     <td>{{item.name}}</td>
-                                    <td><textarea ng-class="{'warnin-textArea':item.preObjective == '' || !item.preObjective && pressed }" style="height: 100%;width: 100%;" ng-model="item.preObjective"></textarea></td>
+                                    <td><textarea ng-disabled="team.archived" ng-class="{'warnin-textArea':item.preObjective == '' || !item.preObjective && pressed }" style="height: 100%;width: 100%;" ng-model="item.preObjective"></textarea></td>
                                 </tr>
                             </tbody>
                         </table>

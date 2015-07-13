@@ -10,6 +10,7 @@ namespace PmaPlus.Model.ViewModels.Team
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool Archived { get; set; }
         public int CurriculumId { get; set; }
         public List<int> Coaches { get; set; }
         public List<int> Players { get; set; } 
