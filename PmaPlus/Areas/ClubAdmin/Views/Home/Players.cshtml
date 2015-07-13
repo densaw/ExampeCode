@@ -346,9 +346,9 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Picture</th>
-                                        <th order-header head="Player Name" order="name"></th>
-                                        <th>Team</th>
+                                        <th order-header head="Picture" order="picture">Picture</th>
+                                        <th order-header head="Player Name" order="name" style="text-align:left"></th>
+                                        <th order-header head="Team" order="team" style="text-align:left">Team</th>
                                         <th order-header head="Age" order="age"></th>
                                         <th order-header head="MOM" order="mom"></th>
                                         <th order-header head="GLS" order="gls"></th>
@@ -357,7 +357,7 @@
                                         <th order-header head="ATT%" order="att"></th>
                                         <th order-header head="WB%" order="wb"></th>
                                         <th order-header head="CUR" order="cur"></th>
-                                        <th>Action</th>
+                                        <th order-header head="Action" order="action">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
@@ -368,8 +368,8 @@
                                             </div>
                                         </td>
 
-                                        <td>{{player.name}}</td>
-                                        <td>
+                                        <td style="text-align:left">{{player.name}}</td>
+                                        <td style="text-align:left">
                                             <div ng-repeat="team in player.teams">{{team}} </div>
                                         </td>
                                         <td>{{player.age}}</td>

@@ -12,5 +12,6 @@ namespace PmaPlus.Model.ViewModels.Document
         public long Size { get; set; }
         public bool IsImage { get; set; }
         public DateTime AddDate { get; set; }
+        public bool IsMy { get; set; }
     }
 }

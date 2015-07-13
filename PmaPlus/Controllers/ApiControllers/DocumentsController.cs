@@ -15,6 +15,7 @@ using PmaPlus.Model.ViewModels.Document;
 using PmaPlus.Services;
 using PmaPlus.Services.Services;
 using PmaPlus.Tools;
+using WebGrease.Css.Extensions;
 
 namespace PmaPlus.Controllers.ApiControllers
 {
@@ -84,7 +85,7 @@ namespace PmaPlus.Controllers.ApiControllers
         public IHttpActionResult PutDirectory(DirectoryViewModel directory)
         {
             var user = _userServices.GetUserByEmail(User.Identity.Name);
-            
+
             _sharingFoldersServices.ShareDirectory(directory.Name, user.Id, directory.Roles);
 
             return Ok();
@@ -95,21 +96,19 @@ namespace PmaPlus.Controllers.ApiControllers
         public IEnumerable<FileViewModel> GetFiles(string folder)
         {
             var club = _userServices.GetClubByUserName(User.Identity.Name);
-            return _documentManager.GetDirectoryFiles(folder, club.ClubAdmin.User.Id);
-        }
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+            var files = _documentManager.GetDirectoryFiles(folder, club.ClubAdmin.User.Id);
 
-        [Route("api/Documents/{folder}")]
-        public async Task<IHttpActionResult> PostFile(string folder)
-        {
-            var club = _userServices.GetClubByUserName(User.Identity.Name);
-
-            if (Request.Content.IsMimeMultipartContent())
+            if (user.Role != Role.ClubAdmin)
             {
-                var doc = await _documentManager.AddDocument(Request, folder, club.ClubAdmin.User.Id);
-                return Ok(doc);
+                files.ForEach(f =>
+                {
+                    f.IsMy = _sharingFoldersServices.IsUserOwner(f.Name, folder, user.Id);
+                });
             }
-            return BadRequest("Unsuported type");
+            return files;
         }
+
 
         [Route("api/Documents/{folder}")]
         public IHttpActionResult DeleteFolder(string folder)
@@ -121,6 +120,27 @@ namespace PmaPlus.Controllers.ApiControllers
             }
 
             return Ok();
+        }
+
+        [Route("api/Documents/{folder}")]
+        public async Task<IHttpActionResult> PostFile(string folder)
+        {
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            var user = _userServices.GetUserByEmail(User.Identity.Name);
+
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                var doc = await _documentManager.AddDocument(Request, folder, club.ClubAdmin.User.Id);
+
+                if (user.Role != Role.ClubAdmin)
+                {
+                    _sharingFoldersServices.SetFileOwner(doc, folder, user.Id);
+                }
+
+
+                return Ok(doc);
+            }
+            return BadRequest("Unsuported type");
         }
 
 
@@ -150,7 +170,11 @@ namespace PmaPlus.Controllers.ApiControllers
             var user = _userServices.GetUserByEmail(User.Identity.Name);
             if (_documentManager.DeleteFile(file, folder, user.Id))
             {
-            return Ok();
+                if (user.Role != Role.ClubAdmin)
+                {
+                    _sharingFoldersServices.DeleteFile(file, folder, user.Id);
+                }
+                return Ok();
             }
             return Conflict();
         }

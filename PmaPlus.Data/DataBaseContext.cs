@@ -93,6 +93,7 @@ namespace PmaPlus.Data
         #region Documents Sharing
         public virtual DbSet<SharedFolder> SharedFolders { get; set; }
         public virtual DbSet<SharedFolderRole> SharedFolderRoles { get; set; }
+        public virtual DbSet<FileOvner> FileOvners { get; set; }
         #endregion
 
 

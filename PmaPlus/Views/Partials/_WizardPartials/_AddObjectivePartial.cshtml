@@ -21,8 +21,8 @@
                             <thead>
                                 <tr>
                                     <th style ="text-align:left; padding-left: 26px;">Picture</th>
-                                    <th>Player Name</th>
-                                    <th>Objectives</th>
+                                    <th style="text-align:left">Player Name</th>
+                                    <th style="text-align:left">Objectives</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,8 +32,8 @@
                                             <img class="prifile" ng-src="{{item.picture}}" style-parent />
                                         </div>
                                     </td>
-                                    <td>{{item.name}}</td>
-                                    <td><textarea ng-disabled="team.archived" ng-class="{'warnin-textArea':item.objective == '' || !item.objective && pressed }" type="text" ng-model="item.objective" style="height:100%; width:100%"></textarea></td>
+                                    <td style="text-align:left">{{item.name}}</td>
+                                    <td style="text-align:left"><textarea ng-disabled="team.archived" ng-class="{'warnin-textArea':item.objective == '' || !item.objective && pressed }" type="text" ng-model="item.objective" style="height:100%; width:100%"></textarea></td>
                                 </tr>
                             </tbody>
                         </table>

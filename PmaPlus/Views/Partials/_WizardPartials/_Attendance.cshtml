@@ -23,12 +23,12 @@
                             <thead>
                                 <tr>
                                     <th style="text-align:left; padding-left: 26px;">Picture</th>
-                                    <th>Player Name</th>
+                                    <th style="text-align:left">Player Name</th>
                                     <th>ATT%</th>
                                     <th>WB</th>
                                     <th>CUR</th>
-                                    <th>Attendance</th>
-                                    <th>Duration</th>
+                                    <th style="text-align:left">Attendance</th>
+                                    <th style="text-align:left">Duration</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,12 +38,12 @@
                                             <img class="prifile" ng-src="{{item.picture}}" style-parent />
                                         </div>
                                     </td>
-                                    <td>{{item.name}}</td>
+                                    <td style="text-align:left">{{item.name}}</td>
                                     <td>{{item.attPercent | number: 1}}%</td>
                                     <td>{{item.wbPercent}}</td>
                                     <td>{{item.cur}}</td>
-                                    <td ><select ng-disabled="team.archived" ng-change="item.attendance != 0 ? item.duration = 0:''" name="attendense" ng-model="item.attendance" ng-options="attend.id as attend.name for attend in attendense | orderBy:'name'" class=" form-control"></select></td>
-                                    <td><input ng-disabled="team.archived" type="number" style="width: 120px;" ng-model="item.duration" class=" form-control" /></td>
+                                    <td style="text-align:left"><select ng-disabled="team.archived" ng-change="item.attendance != 0 ? item.duration = 0:''" name="attendense" ng-model="item.attendance" ng-options="attend.id as attend.name for attend in attendense | orderBy:'name'" class=" form-control"></select></td>
+                                    <td style="text-align:left"><input ng-disabled="team.archived" type="number" style="width: 120px;" ng-model="item.duration" class=" form-control" /></td>
                                 </tr>
                             </tbody>
                         </table>

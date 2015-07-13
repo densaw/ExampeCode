@@ -21,10 +21,10 @@
                             <thead>
                                 <tr>
                                     <th style="text-align:left; padding-left: 26px;">Picture</th>
-                                    <th>Player Name</th>
-                                    <th>Objectives</th>
-                                    <th>Outcome</th>
-                                    <th>Feedback</th>
+                                    <th style="text-align:left">Player Name</th>
+                                    <th style="text-align:left">Objectives</th>
+                                    <th style="text-align:left">Outcome</th>
+                                    <th style="text-align:left">Feedback</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,10 +34,10 @@
                                             <img class="prifile" ng-src="{{item.picture}}" style-parent />
                                         </div>
                                     </td>
-                                    <td>{{item.name}}</td>
-                                    <td>{{item.objective}}</td>
-                                    <td><textarea ng-disabled="team.archived" ng-class="{'warnin-textArea':item.outcome == '' || !item.outcome && pressed }" type="text" ng-model="item.outcome" style="height:100%;"></textarea></td>
-                                    <td>{{item.feedBack}}</td>
+                                    <td style="text-align:left">{{item.name}}</td>
+                                    <td style="text-align:left">{{item.objective}}</td>
+                                    <td style="text-align:left"><textarea ng-disabled="team.archived" ng-class="{'warnin-textArea':item.outcome == '' || !item.outcome && pressed }" type="text" ng-model="item.outcome" style="height:100%; width:100%"></textarea></td>
+                                    <td style="text-align:left">{{item.feedBack}}</td>
                                 </tr>
                             </tbody>
                         </table>

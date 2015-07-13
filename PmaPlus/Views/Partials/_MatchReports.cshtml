@@ -131,24 +131,24 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Won\Lost</th>
-                                        <th>Team Name</th>
+                                        <th style="text-align:left">Won\Lost</th>
+                                        <th style="text-align:left">Team Name</th>
                                         <th>For (goals)</th>
                                         <th>Away (goals)</th>
-                                        <th>Opposition Team</th>
-                                        <th>MoM (man of match)</th>
+                                        <th style="text-align:left">Opposition Team</th>
+                                        <th style="text-align:left">MoM (man of match)</th>
                                         <th>Form</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{item.goalsFor > item.goalsAway ? 'WON' : (item.goalsFor < item.goalsAway ? 'LOST' : 'DRAW')}}</td>
-                                        <td>{{item.teamName}}</td>
+                                        <td style="text-align:left">{{item.goalsFor > item.goalsAway ? 'WON' : (item.goalsFor < item.goalsAway ? 'LOST' : 'DRAW')}}</td>
+                                        <td style="text-align:left">{{item.teamName}}</td>
                                         <td>{{item.goalsFor}}</td>
                                         <td>{{item.goalsAway}}</td>
-                                        <td>{{item.oppositionName}}</td>
-                                        <td>{{item.mom}}</td>
+                                        <td style="text-align:left">{{item.oppositionName}}</td>
+                                        <td style="text-align:left">{{item.mom}}</td>
                                         <td>{{item.formation}}</td>
                                         <td>
                                             @*<i ng-click="openEdit(newScoutP.id)" class="fa fa-cog" style="cursor: pointer;"></i>*@

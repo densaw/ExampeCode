@@ -20,7 +20,7 @@
                             <thead>
                                 <tr>
                                     <th style="text-align:left; padding-left: 26px;">Picture</th>
-                                    <th>Player Name</th>
+                                    <th style="text-align:left">Player Name</th>
                                     <th>AtL</th>
                                     <th>AtT</th>
                                     <th>Cur</th>
@@ -33,7 +33,7 @@
                                             <img class="prifile" ng-src="{{item.picture}}" style-parent />
                                         </div>
                                     </td>
-                                    <td>{{item.name}}</td>
+                                    <td style="text-align:left">{{item.name}}</td>
                                     <td><select ng-disabled="team.archived" rating-ui name="attendense" ng-model="item.atl" class="form-control" style="width: inherit;"><option>0</option><option ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option></select></td>
                                     <td><select ng-disabled="team.archived" rating-ui name="attendense" ng-model="item.att" class="form-control" style="width: inherit;"><option>0</option><option ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option></select></td>
                                     <td><select ng-disabled="team.archived" rating-ui name="attendense" ng-model="item.cur" class="form-control" style="width: inherit;"><option>0</option><option ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option></select></td>

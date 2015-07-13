@@ -159,7 +159,7 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th order-header head="Attribute Name" order="name"></th>
+                                    <th order-header head="Attribute Name" order="name" style="text-align:left"></th>
                                     <th order-header head="Type" order="type"></th>
                                     <th order-header head="From (age)" order="ageFrom"></th>
                                     <th order-header head="To (age)" order="ageTo"></th>
@@ -169,7 +169,7 @@
                                 </thead>
                                 <tbody id="contentTable">
                                 <tr dir-paginate="attribute in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                    <td>{{attribute.name}}</td>
+                                    <td style ="text-align:left">{{attribute.name}}</tdstyle>
                                     <td>{{attrTypes[attribute.type].name}}</td>
                                     <td>{{attribute.ageFrom}}</td>
                                     <td>{{attribute.ageTo}}</td>

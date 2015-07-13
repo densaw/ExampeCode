@@ -86,9 +86,9 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Team Name</th>
-                                        <th>Curriculums</th>
-                                        <th>Progress Bar</th>
+                                        <th style="text-align:left">Team Name</th>
+                                        <th style="text-align:left">Curriculums</th>
+                                        <th style="text-align:left">Progress Bar</th>
                                         <th>Progress %</th>
                                         <th>Coaches</th>
                                         <th>Players</th>
@@ -97,9 +97,9 @@
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="team in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalCourses">
-                                        <td>{{team.name}}</td>
-                                        <td>{{team.curriculumName}}</td>
-                                        <td>
+                                        <td style="text-align:left">{{team.name}}</td>
+                                        <td style="text-align:left">{{team.curriculumName}}</td>
+                                        <td style="text-align:left">
                                             <div class="progress progress-mini">
                                                 <div ng-style="{ 'width': team.progress + '%' }" class="progress-bar"></div>
                                             </div>

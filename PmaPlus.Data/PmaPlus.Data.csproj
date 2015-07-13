@@ -83,9 +83,11 @@
     <Compile Include="Repository\ClubRepository.cs" />
     <Compile Include="Repository\CoachRepository.cs" />
     <Compile Include="Repository\ExcerciseNewRepository.cs" />
+    <Compile Include="Repository\FileOvnerRepository.cs" />
     <Compile Include="Repository\Iterfaces\IAttributesOfTalentRepository.cs" />
     <Compile Include="Repository\Iterfaces\IBlockObjectiveStatementRepository.cs" />
     <Compile Include="Repository\Iterfaces\IExcerciseNewsRepository.cs" />
+    <Compile Include="Repository\Iterfaces\IFileOvnerRepository.cs" />
     <Compile Include="Repository\Iterfaces\IMatchMomRepository.cs" />
     <Compile Include="Repository\Iterfaces\IMessageCommentRepository.cs" />
     <Compile Include="Repository\Iterfaces\IMessageGroupRepository.cs" />
