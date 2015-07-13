@@ -26,6 +26,19 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
             _userServices = userServices;
         }
 
+        [Route("api/MatchReports/Archive/{matchId:int}")]
+        public IHttpActionResult PutArchive(int matchId)
+        {
+            if (!_matchReportServices.MatchExist(matchId))
+            {
+                return NotFound();
+            }
+
+            _matchReportServices.ArchiveMatch(matchId);
+            return Ok();
+        }
+
+
         [Route("api/MatchReports/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
         public MatchesReportPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
         {

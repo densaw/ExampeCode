@@ -23,7 +23,7 @@ namespace PmaPlus.Model.Models
         public int Duration { get; set; }
         public int Periods { get; set; }
         public int PeriodDuration { get; set; }
-
+        public bool Archived { get; set; }
         public string Notes { get; set; }
 
         public int TeamId { get; set; }

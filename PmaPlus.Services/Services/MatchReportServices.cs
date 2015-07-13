@@ -200,5 +200,12 @@ namespace PmaPlus.Services.Services
         {
             _playerMatchObjectiveRepository.AddOrUpdate(new PlayerMatchObjective[] { playerMatchObjective });
         }
+
+        public void ArchiveMatch(int matchId)
+        {
+            var match = _matchRepository.GetById(matchId);
+            match.Archived = true;
+            _matchRepository.Update(match);
+        }
     }
 }

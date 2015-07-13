@@ -37,7 +37,7 @@
 
 
                                     <td>
-                                        <a ng-click="openEdit(playersLists)" class="fa fa-graduation-cap"></a>
+                                        <a ng-if="!cuurrentMatch.archived" ng-click="openEdit(playersLists)" class="fa fa-graduation-cap"></a>
                                     </td>
                                 </tr>
                             </tbody>
