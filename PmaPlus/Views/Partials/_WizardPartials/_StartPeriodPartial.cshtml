@@ -16,8 +16,8 @@
                             <thead>
                                 <tr>
                                     <th style="text-align:left; padding-left: 26px;">Picture</th>
-                                    <th>Player Name</th>
-                                    <th>Pre-Period Objective</th>
+                                    <th style="text-align:left">Player Name</th>
+                                    <th style="text-align:left">Pre-Period Objective</th>
                                   
                                 </tr>
                             </thead>
@@ -28,8 +28,8 @@
                                             <img class="prifile" ng-src="{{item.picture}}" style-parent />
                                         </div>
                                     </td>
-                                    <td>{{item.name}}</td>
-                                    <td><textarea ng-disabled="team.archived" ng-class="{'warnin-textArea':item.preObjective == '' || !item.preObjective && pressed }" style="height: 100%;width: 100%;" ng-model="item.preObjective"></textarea></td>
+                                    <td style="text-align:left">{{item.name}}</td>
+                                    <td style="text-align:left"><textarea ng-disabled="team.archived" ng-class="{'warnin-textArea':item.preObjective == '' || !item.preObjective && pressed }" style="height: 100%;width: 100%;" ng-model="item.preObjective"></textarea></td>
                                 </tr>
                             </tbody>
                         </table>
