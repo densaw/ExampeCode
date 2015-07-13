@@ -12,6 +12,7 @@ using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Matches;
 using PmaPlus.Services;
 using PmaPlus.Services.Services;
+using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers.Matches
 {
@@ -19,11 +20,13 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
     {
         private readonly MatchReportServices _matchReportServices;
         private readonly UserServices _userServices;
+        private readonly IPhotoManager _photoManager;
 
-        public MatchReportsController(MatchReportServices matchReportServices, UserServices userServices)
+        public MatchReportsController(MatchReportServices matchReportServices, UserServices userServices, IPhotoManager photoManager)
         {
             _matchReportServices = matchReportServices;
             _userServices = userServices;
+            _photoManager = photoManager;
         }
 
         [Route("api/MatchReports/Archive/{matchId:int}")]

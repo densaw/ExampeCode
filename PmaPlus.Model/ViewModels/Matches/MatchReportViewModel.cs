@@ -36,5 +36,6 @@ namespace PmaPlus.Model.ViewModels.Matches
         public string Mom { get; set; }
         public string Notes { get; set; }
 
+        public string Picture { get; set; }
     }
 }

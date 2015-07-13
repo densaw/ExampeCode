@@ -17,5 +17,6 @@ namespace PmaPlus.Model.ViewModels.Matches
         public string OppositionName { get; set; }
         public string Mom { get; set; }
         public string Formation { get; set; }
+        public string Picture { get; set; }
     }
 }

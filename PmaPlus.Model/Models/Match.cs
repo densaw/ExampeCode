@@ -16,7 +16,8 @@ namespace PmaPlus.Model.Models
         public DateTime Date { get; set; }
         public SideTypes Side { get; set; }
         public string Formation { get; set; }
-      
+        public string Picture { get; set; }
+
 
         public int GoalsFor { get; set; }
         public int GoalsAway { get; set; }
