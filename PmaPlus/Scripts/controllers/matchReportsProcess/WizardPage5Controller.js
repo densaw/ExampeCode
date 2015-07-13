@@ -35,11 +35,13 @@ app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '
 
     $scope.$on('finishWizardEvent', function () {
         $scope.addMatchNotes();
+       
     });
 
     $scope.addMatchNotes = function () {
         $scope.loginLoading = true;
         //$scope.myform.form_Submitted = !$scope.myform.$valid;    
+        $scope.matchNotes.archived = true;
         $http.put('/api/MatchReports/' + $scope.currId, $scope.matchNotes)
             .success(function () {
                 confConfirm.modal('hide');

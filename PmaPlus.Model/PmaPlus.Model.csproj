@@ -84,6 +84,7 @@
     <Compile Include="Models\Coach.cs" />
     <Compile Include="Models\Curriculum.cs" />
     <Compile Include="Models\ExcerciseNew.cs" />
+    <Compile Include="Models\FileOvner.cs" />
     <Compile Include="Models\MatchMom.cs" />
     <Compile Include="Models\MessageComment.cs" />
     <Compile Include="Models\MessageGroup.cs" />

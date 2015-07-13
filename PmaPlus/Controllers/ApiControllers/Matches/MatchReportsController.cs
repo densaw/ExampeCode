@@ -12,6 +12,7 @@ using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.Matches;
 using PmaPlus.Services;
 using PmaPlus.Services.Services;
+using PmaPlus.Tools;
 
 namespace PmaPlus.Controllers.ApiControllers.Matches
 {
@@ -19,12 +20,27 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
     {
         private readonly MatchReportServices _matchReportServices;
         private readonly UserServices _userServices;
+        private readonly IPhotoManager _photoManager;
 
-        public MatchReportsController(MatchReportServices matchReportServices, UserServices userServices)
+        public MatchReportsController(MatchReportServices matchReportServices, UserServices userServices, IPhotoManager photoManager)
         {
             _matchReportServices = matchReportServices;
             _userServices = userServices;
+            _photoManager = photoManager;
         }
+
+        [Route("api/MatchReports/Archive/{matchId:int}")]
+        public IHttpActionResult PutArchive(int matchId)
+        {
+            if (!_matchReportServices.MatchExist(matchId))
+            {
+                return NotFound();
+            }
+
+            _matchReportServices.ArchiveMatch(matchId);
+            return Ok();
+        }
+
 
         [Route("api/MatchReports/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
         public MatchesReportPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
@@ -79,7 +95,11 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
             {
                 return NotFound();
             }
-
+            if (_photoManager.FileExists(matchReportViewModel.Picture))
+            {
+                matchReportViewModel.Picture = _photoManager.MoveFromTemp(matchReportViewModel.Picture,
+                    FileStorageTypes.MatchReportPictures, id, "ReportPicture");
+            }
             var match = Mapper.Map<MatchReportViewModel, Match>(matchReportViewModel);
             match.Id = id;
             match.Duration = match.Periods * match.PeriodDuration;

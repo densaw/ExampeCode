@@ -225,12 +225,13 @@ namespace PmaPlus.Mapping
             #region Match Reports
 
             Mapper.CreateMap<Match, MatchReportViewModel>()
-                .ForMember(d => d.Mom, o => o.MapFrom(s => s.MatchMom.Player.User.UserDetail.FirstName + " " + s.MatchMom.Player.User.UserDetail.LastName));
+                .ForMember(d => d.Mom,o => o.MapFrom(s => s.MatchMom.Player.User.UserDetail.FirstName + " " + s.MatchMom.Player.User.UserDetail.LastName))
+                .ForMember(d => d.Picture, o => o.MapFrom(s => "/api/file/MatchReportPictures/" + s.Picture + "/" + s.Id));
 
             Mapper.CreateMap<Match, MatchReportTableViewModel>()
                 .ForMember(d => d.Won, o => o.MapFrom(s => s.GoalsFor > s.GoalsAway))
-                .ForMember(d => d.Mom, o => o.MapFrom(s => s.MatchMom.Player.User.UserDetail.FirstName + " " + s.MatchMom.Player.User.UserDetail.LastName));
-
+                .ForMember(d => d.Mom, o => o.MapFrom(s => s.MatchMom.Player.User.UserDetail.FirstName + " " + s.MatchMom.Player.User.UserDetail.LastName))
+                .ForMember(d => d.Picture, o => o.MapFrom(s => "/api/file/MatchReportPictures/" + s.Picture + "/" + s.Id));
             #endregion
 
         }

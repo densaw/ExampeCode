@@ -153,7 +153,7 @@
                                     <td>{{player.formRating}}</td>
                                     <td>{{player.playingTime}}</td>
                                     <th>
-                                        <a ng-click="openEdit1(player)" class="fa fa-graduation-cap" style="cursor: pointer;"></a>
+                                        <a ng-if="!cuurrentMatch.archived" ng-click="openEdit1(player)" class="fa fa-graduation-cap" style="cursor: pointer;"></a>
                                     </th>
 
                                 </tr>

@@ -13,12 +13,13 @@ namespace PmaPlus.Services.Services
     public class SharingFoldersServices
     {
         private readonly ISharedFolderRepository _sharedFolderRepository;
+        private readonly IFileOvnerRepository _fileOvnerRepository;
 
-        public SharingFoldersServices(ISharedFolderRepository sharedFolderRepository)
+        public SharingFoldersServices(ISharedFolderRepository sharedFolderRepository, IFileOvnerRepository fileOvnerRepository)
         {
             _sharedFolderRepository = sharedFolderRepository;
+            _fileOvnerRepository = fileOvnerRepository;
         }
-
 
         public IList<Role> GetDirectoryRoles(string dir, int id)
         {
@@ -29,9 +30,6 @@ namespace PmaPlus.Services.Services
             }
             return fldr.Roles.Select(r => r.Role).ToList();
         }
-
-
-        
 
         public void ShareDirectory(string name, int userId, IList<Role> roles)
         {
@@ -83,5 +81,31 @@ namespace PmaPlus.Services.Services
             _sharedFolderRepository.Delete(d => d.FolderName.ToLower() == name.ToLower() && d.UserId == userId);
         }
 
+        public void SetFileOwner(string fileName, string folderName, int userId)
+        {
+            _fileOvnerRepository.Add(new FileOvner()
+            {
+                FileName = fileName,
+                FolderName = folderName,
+                UserId = userId
+            });
+        }
+
+        public bool IsUserOwner(string fileName, string folderName, int userId)
+        {
+            return
+                _fileOvnerRepository.GetMany(
+                    f =>
+                        f.FileName.ToLower() == fileName.ToLower() && f.FolderName.ToLower() == folderName.ToLower() &&
+                        f.UserId == userId).Any();
+        }
+
+        public void DeleteFile(string fileName, string folderName, int userId)
+        {
+            if (IsUserOwner(fileName, folderName,userId))
+            {
+                _fileOvnerRepository.Delete(f =>f.FileName.ToLower() == fileName.ToLower() && f.FolderName.ToLower() == folderName.ToLower() &&f.UserId == userId);
+            }
+        }
     }
 }

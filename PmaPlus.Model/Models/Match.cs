@@ -16,14 +16,15 @@ namespace PmaPlus.Model.Models
         public DateTime Date { get; set; }
         public SideTypes Side { get; set; }
         public string Formation { get; set; }
-      
+        public string Picture { get; set; }
+
 
         public int GoalsFor { get; set; }
         public int GoalsAway { get; set; }
         public int Duration { get; set; }
         public int Periods { get; set; }
         public int PeriodDuration { get; set; }
-
+        public bool Archived { get; set; }
         public string Notes { get; set; }
 
         public int TeamId { get; set; }

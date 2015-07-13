@@ -22,6 +22,7 @@ namespace PmaPlus.Tools
         ExerciseNews,
         NutritionNews,
         MessageWall,
-        UserDocuments
+        UserDocuments,
+        MatchReportPictures
     }
 }
