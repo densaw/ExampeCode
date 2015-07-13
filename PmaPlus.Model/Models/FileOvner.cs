@@ -8,6 +8,7 @@ namespace PmaPlus.Model.Models
 {
     public class FileOvner
     {
+        public int Id { get; set; }
         public string FileName { get; set; }
         public string FolderName { get; set; }
         public int UserId { get; set; }

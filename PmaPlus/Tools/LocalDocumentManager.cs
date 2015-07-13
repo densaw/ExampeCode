@@ -21,7 +21,7 @@ namespace PmaPlus.Tools
             _workingFolder = workingFolder;
         }
 
-        public async Task<string> AddDocument(HttpRequestMessage request,string folder ,int userId)
+        public async Task<string> AddDocument(HttpRequestMessage request, string folder, int userId)
         {
             string userPath = _workingFolder + "\\" + userId + "\\" + folder;
             if (!Directory.Exists(userPath))
@@ -47,7 +47,7 @@ namespace PmaPlus.Tools
 
         public FileStream GetFileStream(string fileName, string folder, int userId)
         {
-            var fullFilePath = _workingFolder + "\\" + userId + "\\" + folder +"\\" + fileName;
+            var fullFilePath = _workingFolder + "\\" + userId + "\\" + folder + "\\" + fileName;
             if (File.Exists(fullFilePath))
             {
                 return new FileStream(fullFilePath, FileMode.Open, FileAccess.Read);
@@ -70,13 +70,13 @@ namespace PmaPlus.Tools
         public IEnumerable<DirectoryInfo> GetUserDirectories(int userId)
         {
             var dirPath = String.Format("{0}\\{1}\\", _workingFolder, userId);
-            
-                DirectoryInfo info = new DirectoryInfo(dirPath);
-                if (info.Exists)
-                {
-                    return info.EnumerateDirectories();
-                }
-                return null;
+
+            DirectoryInfo info = new DirectoryInfo(dirPath);
+            if (info.Exists)
+            {
+                return info.EnumerateDirectories();
+            }
+            return null;
         }
 
         public IEnumerable<FileViewModel> GetDirectoryFiles(string dirName, int userId)
@@ -93,7 +93,7 @@ namespace PmaPlus.Tools
                        {
                            Name = file.Name,
                            Size = file.Length,
-                           IsImage = new[] {".jpg",".png",".bmp"}.Contains(file.Extension.ToLower()),
+                           IsImage = new[] { ".jpg", ".png", ".bmp" }.Contains(file.Extension.ToLower()),
                            AddDate = file.CreationTime
                        };
 
@@ -134,6 +134,10 @@ namespace PmaPlus.Tools
                 {
                     return false;
                 }
+            }
+            else
+            {
+                return true;
             }
             return true;
         }

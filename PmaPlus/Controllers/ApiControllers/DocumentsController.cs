@@ -99,14 +99,15 @@ namespace PmaPlus.Controllers.ApiControllers
             var user = _userServices.GetUserByEmail(User.Identity.Name);
             var files = _documentManager.GetDirectoryFiles(folder, club.ClubAdmin.User.Id);
 
+            var fileViewModels = files as FileViewModel[] ?? files.ToArray();
             if (user.Role != Role.ClubAdmin)
             {
-                files.ForEach(f =>
+                foreach (var file in fileViewModels)
                 {
-                    f.IsMy = _sharingFoldersServices.IsUserOwner(f.Name, folder, user.Id);
-                });
+                    file.IsMy = _sharingFoldersServices.IsUserOwner(file.Name, folder, user.Id);
+                }
             }
-            return files;
+            return fileViewModels;
         }
 
 
@@ -167,8 +168,9 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Documents/{folder}/{file}")]
         public IHttpActionResult DeleteFile(string folder, string file)
         {
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
             var user = _userServices.GetUserByEmail(User.Identity.Name);
-            if (_documentManager.DeleteFile(file, folder, user.Id))
+            if (_documentManager.DeleteFile(file, folder, club.ClubAdmin.User.Id))
             {
                 if (user.Role != Role.ClubAdmin)
                 {

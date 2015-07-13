@@ -93,11 +93,13 @@ namespace PmaPlus.Services.Services
 
         public bool IsUserOwner(string fileName, string folderName, int userId)
         {
-            return
+            var my =
                 _fileOvnerRepository.GetMany(
                     f =>
                         f.FileName.ToLower() == fileName.ToLower() && f.FolderName.ToLower() == folderName.ToLower() &&
                         f.UserId == userId).Any();
+
+            return my;
         }
 
         public void DeleteFile(string fileName, string folderName, int userId)

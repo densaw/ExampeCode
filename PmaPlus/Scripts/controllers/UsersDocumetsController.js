@@ -7,6 +7,7 @@ app.controller('UsersDocumetsController', ['$scope', '$http', 'toaster', '$q', '
     $scope.currentFolder = '';
     var folderModal = angular.element('#addFolder');
     var delModal = angular.element('#confDelete');
+    var delModalFile = angular.element('#confDeleteFile');
 
     $scope.getFolders = function () {
         $http.get('/api/Documents/Directories/Shared')
@@ -19,7 +20,23 @@ app.controller('UsersDocumetsController', ['$scope', '$http', 'toaster', '$q', '
          });
     };
 
+    $scope.confirmDelFile = function (tFile) {
+        delModalFile.modal('show');
+        $scope.tFile = tFile;
+    };
 
+    $scope.cancelFile = function () {
+        delModalFile.modal('hide');
+        $scope.tFile = '';
+    };
+
+    $scope.deleteFile = function (fileName) {
+        $http.delete('/api/Documents/' + $scope.currentFolder + '/' + fileName)
+            .success(function () {
+                $scope.getFiles($scope.currentFolder);
+            });
+        delModalFile.modal('hide');
+    };
 
     $scope.getFiles = function (folderName) {
         $http.get('/api/Documents/' + folderName)

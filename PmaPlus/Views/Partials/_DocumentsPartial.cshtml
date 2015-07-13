@@ -57,7 +57,7 @@
                                         {{file.name | limitTo: 16}}{{file.name.length > 16 ? '...':''}}
                                         <br>
                                         <small>Added: {{file.addDate | date: 'yyyy-MM-dd'}}</small>
-                                       
+                                        <a ng-if="file.isMy" ng-click="confirmDelFile(file.name)" class="pull-right" style="color:#3D4D5D"><i class="fa fa-trash-o"></i></a>
                                     </div>
                                 </a>
                             </div>
@@ -103,23 +103,21 @@
         </div>
     </div>
     @*Modal End*@
+  
     @*Modal*@
-    <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal inmodal" id="confDeleteFile" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
-
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="modal-title">Delete Record?</h3>
-
-
                 </div>
                 <div class="modal-body">
-                    <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                    <h3 class="text-center">Are you sure you wish to delete this file?</h3>
                 </div>
                 <div class="modal-footer">
-                    <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
-                    <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                    <button ng-click="cancelFile()" type="button" class="btn btn-white">No</button>
+                    <button ng-click="deleteFile(tFile)" type="button" class="btn btn-primary">Yes</button>
                 </div>
             </div>
         </div>
