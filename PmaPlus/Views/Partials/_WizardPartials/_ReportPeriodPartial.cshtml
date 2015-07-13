@@ -16,10 +16,10 @@
                             <thead>
                                 <tr>
                                     <th style="text-align:left; padding-left: 26px;">Picture</th>
-                                    <th>Player Name</th>
-                                    <th>Pre-Period Objective</th>
-                                    <th>Pre-defined statement</th>
-                                    <th>End of Period Statement</th>     
+                                    <th style="text-align:left">Player Name</th>
+                                    <th style="text-align:left">Pre-Period Objective</th>
+                                    <th style="text-align:left">Pre-defined statement</th>
+                                    <th style="text-align:left">End of Period Statement</th>     
                                     <th>Objective achieved</th>                              
                                 </tr>
                             </thead>
@@ -30,10 +30,10 @@
                                             <img class="prifile" ng-src="{{item.picture}}" style-parent />
                                         </div>
                                     </td>
-                                    <td>{{item.name}}</td>
-                                    <td>{{item.preObjective}}</td>
-                                    <td style="width:300px;"><select ng-disabled="team.archived" class="form-control" ng-model="item.statement" ng-options="statemant.statement as statemant.statement for statemant in statemants "></select></td>
-                                    <td><textarea ng-disabled="team.archived" ng-class="{'warnin-textArea':item.statement == '' || !item.statement && pressed }" style="height: 100%;width: 100%;" ng-model="item.statement"></textarea></td>
+                                    <td style="text-align:left">{{item.name}}</td>
+                                    <td style="text-align:left">{{item.preObjective}}</td>
+                                    <td style="width:300px;text-align:left"><select ng-disabled="team.archived" class="form-control" ng-model="item.statement" ng-options="statemant.statement as statemant.statement for statemant in statemants "></select></td>
+                                    <td style="text-align:left"><textarea ng-disabled="team.archived" ng-class="{'warnin-textArea':item.statement == '' || !item.statement && pressed }" style="height: 100%;width: 100%;" ng-model="item.statement"></textarea></td>
                                     <td style="vertical-align: middle;text-align: center;"><input ng-disabled="team.archived" toggle-checkbox type="checkbox" ng-model="item.achieved"></td>
                                 </tr>
                             </tbody>
