@@ -15,32 +15,30 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
         confConfirm1.modal('hide');
     }
 
-    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-        $scope.matchDetails = result;
-    });
-  
+    var getMatchReport = function () {
+        $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
+            $scope.matchDetails = result;
+        });
+    }
+
 
     $scope.$on('moveEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == 3) {
+            getMatchReport();
+        }
+
         if (WizardHandler.wizard().currentStepNumber() == 4) {
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
+            
             $scope.nav.last = false;
             $scope.addMatchDetails();
         }
     });
 
-    //$scope.addMatchDetails = function () {
-    //   $scope.loginLoading = true;
-    //   //$scope.myform.form_Submitted = !$scope.myform.$valid;    
-    //    $scope.loginLoading = false;
-    //   $http.put('/api/MatchReports/' + $scope.currId, $scope.matchDetails).success(function () {
-    //       confConfirm1.modal('hide');
-    //   }).error(function (data, status, headers, config) { });
-    //};
-
     $scope.addMatchDetails = function () {
         $scope.loginLoading = true;
-        $scope.myform.form_Submitted = !$scope.myform.$valid;    
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
         $scope.loginLoading = false;
         var promises = [];
 
@@ -55,6 +53,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
             })
                 .success(function (data) {
                     $scope.matchDetails.picture = data.name;
+                    angular.element('.pma-fileupload').fileinput('clear');
                 })
                 .error(function () {
                     toaster.pop({
@@ -66,10 +65,6 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
             promises.push(promise);
         }
         $q.all(promises).then(function () {
-            //$scope.newMember.role = $scope.selectedRole.id;
-            //$scope.newMember.needReport = needstoReport.prop('checked');
-            //$scope.newMember.profilePicture = 'tmp.png';
-
             $http.put('/api/MatchReports/' + $scope.currId, $scope.matchDetails)
                 .success(function (result) {
                     $scope.loginLoading = false;
@@ -87,7 +82,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
                 });
 
 
-            
+
 
         });
 
