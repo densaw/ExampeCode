@@ -146,6 +146,7 @@ namespace PmaPlus.Mapping
             Mapper.CreateMap<Team, AddTeamViewModel>()
                 .ForMember(d => d.Coaches, o => o.MapFrom(s => s.Coaches.Select(c => c.User.Id)))
                 .ForMember(d => d.Players, o => o.MapFrom(s => s.Players.Select(p => p.User.Id)))
+                .ForMember(d => d.Archived, o => o.MapFrom(s => s.TeamCurriculum.Archived))
                 .ForMember(d => d.CurriculumId, o => o.MapFrom(s => s.TeamCurriculum.Curriculum.Id));
             Mapper.CreateMap<Team, TeamsList>();
 

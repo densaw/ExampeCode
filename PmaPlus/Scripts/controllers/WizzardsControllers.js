@@ -7,7 +7,7 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
     $scope.currId = pathArray[pathArray.length - 1];
 
     var submitArhive = angular.element('#submitArhive');
-    
+
 
     $scope.showArhive = function () {
         submitArhive.modal('show');
@@ -35,14 +35,14 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
         laddaLoading: false
     }
 
-   
+
 
     $scope.progress = {};
 
     $http.get('/api/Teams/' + $scope.currId)
         .success(function (data) {
             $scope.teamname = data.name;
-
+            $scope.team = data;
         });
 
     var getWizard = function () {
@@ -62,16 +62,16 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
                                last = i;
                            }
                        }
-                      
-                           WizardHandler.wizard().goTo(last);
-                      
+
+                       WizardHandler.wizard().goTo(last);
+
 
                    }
                }
                );
 
 
-           
+
        });
     }
     $scope.$on('wizard:stepChanged', function () {

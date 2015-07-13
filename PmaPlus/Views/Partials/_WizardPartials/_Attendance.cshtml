@@ -42,8 +42,8 @@
                                     <td>{{item.attPercent | number: 1}}%</td>
                                     <td>{{item.wbPercent}}</td>
                                     <td>{{item.cur}}</td>
-                                    <td ><select ng-change="item.attendance != 0 ? item.duration = 0:''" name="attendense" ng-model="item.attendance" ng-options="attend.id as attend.name for attend in attendense | orderBy:'name'" class=" form-control"></select></td>
-                                    <td><input type="number" style="width: 120px;" ng-model="item.duration" class=" form-control" /></td>
+                                    <td ><select ng-disabled="team.archived" ng-change="item.attendance != 0 ? item.duration = 0:''" name="attendense" ng-model="item.attendance" ng-options="attend.id as attend.name for attend in attendense | orderBy:'name'" class=" form-control"></select></td>
+                                    <td><input ng-disabled="team.archived" type="number" style="width: 120px;" ng-model="item.duration" class=" form-control" /></td>
                                 </tr>
                             </tbody>
                         </table>

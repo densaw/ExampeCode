@@ -67,7 +67,7 @@ namespace PmaPlus.Services.Services
             }
             else
             {
-                var session = _sessionResultRepository.Get(s => s.SessionId == sessionId);
+                var session = team.TeamCurriculum.SessionResults.First(s => s.SessionId == sessionId);
                 session.ComletedOn = DateTime.Now;
                 session.Done = true;
                 _sessionResultRepository.Update(session);
@@ -115,7 +115,6 @@ namespace PmaPlus.Services.Services
                 {
                     SessionId = sessionId,
                     TeamCurriculumId = team.TeamCurriculum.Id,
-
                 });
             }
 
@@ -127,20 +126,6 @@ namespace PmaPlus.Services.Services
             attendanceTable.ForEach(a => a.SessionResultId = sessinResult.Id);
 
             _sessionAttendanceRepository.AddOrUpdate(attendanceTable.ToArray());
-
-            //foreach (var attendance in attendanceTable)
-            //{
-            //    if (attendance.Id == 0)
-            //    {
-            //        _sessionAttendanceRepository.Add(attendance);
-            //    }
-            //    else
-            //    {
-            //        _sessionAttendanceRepository.Update(attendance);
-            //    }
-            //}
-            //_sessionAttendanceRepository
-
 
         }
         #endregion
