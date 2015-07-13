@@ -95,7 +95,11 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
             {
                 return NotFound();
             }
-
+            if (_photoManager.FileExists(matchReportViewModel.Picture))
+            {
+                matchReportViewModel.Picture = _photoManager.MoveFromTemp(matchReportViewModel.Picture,
+                    FileStorageTypes.MatchReportPictures, id, "ReportPicture");
+            }
             var match = Mapper.Map<MatchReportViewModel, Match>(matchReportViewModel);
             match.Id = id;
             match.Duration = match.Periods * match.PeriodDuration;
