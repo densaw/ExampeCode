@@ -204,8 +204,10 @@ namespace PmaPlus.Data
 
             modelBuilder.Entity<TalentIdentification>()
                 .HasRequired(t => t.Club)
-                .WithOptional()
+                .WithMany(c=> c.TalentIdentifications)
+                .HasForeignKey(t => t.ClubId)
                 .WillCascadeOnDelete(false);
+                
 
 
             base.OnModelCreating(modelBuilder);
