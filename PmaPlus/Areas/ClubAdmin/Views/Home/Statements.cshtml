@@ -149,17 +149,17 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>User Type</th>
-                                        <th order-header head="Statement" order="statement"></th>
+                                        <th style="text-align:left"> user type</th>
+                                        <th order-header head="Statement" order="statement" style="text-align:left"></th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="state in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalCourses">
-                                        <td>
+                                        <td style="text-align:left">
                                             <div ng-repeat="role in state.roles">{{rolesDate[role].name}}</div>
                                         </td>
-                                        <td>{{state.statement}}</td>
+                                        <td style="text-align:left">{{state.statement}}</td>
                                         <td>
                                             <i ng-click="openEdit(state.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(state.id)" class="fa fa-trash" style="cursor: pointer;"></i>

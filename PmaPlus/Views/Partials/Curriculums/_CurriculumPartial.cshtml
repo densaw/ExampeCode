@@ -182,7 +182,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th order-header head="Curriculum Name" order="name">Curriculum Name</th>
+                                        <th order-header head="Curriculum Name" order="name" style="text-align:left">Curriculum Name</th>
                                         <th order-header head="Age" order="ageGroup">Age</th>
                                         <th order-header head="Sessions" order="sessionsCount">Sessions</th>
                                         <th order-header head="Status" order="isLive">Status</th>
@@ -191,7 +191,7 @@
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="curr in items | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
-                                        <td>{{curr.name}}</td>
+                                        <td style="text-align:left">{{curr.name}}</td>
                                         <td>{{ageGroups[curr.ageGroup].name}}</td>
                                         <td>{{curr.sessionsCount}}</td>
                                         <td>

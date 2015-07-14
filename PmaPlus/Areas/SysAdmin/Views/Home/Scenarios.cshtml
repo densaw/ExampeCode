@@ -222,8 +222,8 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th order-header head="Scenario Name" order="name"></th>
-                                            <th order-header head="Type" order="scenarioType"></th>
+                                            <th order-header head="Scenario Name" order="name" style="text-align:left"></th>
+                                            <th order-header head="Type" order="scenarioType" style="text-align:left"></th>
                                             <th order-header head="Age Range" order="maxAge"></th>
                                             <th order-header head="Picture" order="picture"></th>
                                             <th order-header head="Uploaded By" order="uploadedBy"></th>
@@ -232,8 +232,8 @@
                                     </thead>
                                     <tbody id="contentTable">
                                         <tr dir-paginate="scenario in scenarios | filter:q | itemsPerPage: scenariosPerPage" total-items="totalScenarios">
-                                            <td>{{scenario.name}}</td>
-                                            <td>{{scenarioType[scenario.scenarioType].name}}</td>
+                                            <td style="text-align:left">{{scenario.name}}</td>
+                                            <td style="text-align:left">{{scenarioType[scenario.scenarioType].name}}</td>
                                             <td>{{scenario.minAge}} - {{scenario.maxAge}}</td>
                                             <td>{{scenario.picture}}</td>
                                             <td>{{scenario.uploadedBy}}</td>

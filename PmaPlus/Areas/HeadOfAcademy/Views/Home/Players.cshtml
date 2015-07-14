@@ -2,3 +2,436 @@
     ViewBag.Title = "PMA+";
     Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
 }
+
+<div ng-controller="ClubPlayerController" ng-cloak>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Club Players</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a>Home</a>
+                </li>
+                <li>
+                    <a>Club</a>
+                </li>
+                <li class="active">
+                    <strong>Players</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a class="btn btn-primary" ng-click="openAdd()">Add a Player</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Players</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user"></ul>
+                            <a>
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        @*Modal*@
+                        <div class="modal inmodal" id="addPlayerModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title text-left">{{modalTitle}}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form name="myform" class="form-horizontal" novalidate>
+                                            <div class="form-group" ng-class="{'has-error':myform.playaerName.$invalid && (myform.playaerName.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">First Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="playaerName" ng-model="newPlayer.firstName" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.playerLast.$invalid && (myform.playerLast.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Last Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="playerLast" ng-model="newPlayer.lastName" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Team Names:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <ui-select multiple ng-model="help.teams" ng-disabled="disabled" theme="bootstrap">
+                                                        <ui-select-match placeholder="Select Team...">{{$item.name}}</ui-select-match>
+                                                        <ui-select-choices repeat="team in teams">
+                                                            <div ng-bind-html="team.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">User Status:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <select ng-model="newPlayer.userStatus" ng-options="status.id as status.name for status in statuses | orderBy:'name'" class=" form-control m-b" name="account"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.playerEmail.$invalid && (myform.playerEmail.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Email:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="playerEmail" ng-model="newPlayer.email" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':myform.playerPassword.$invalid && (myform.playerPassword.$dirty||myform.form_Submitted)}">
+                                                <label class="col-lg-4 title-modal">Password:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="playerPassword" ng-model="newPlayer.password" required class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Telephone:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newPlayer.telephone" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Mobile:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.mobile" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">FA Number:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.faNumber" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Birth Date:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <div class="dropdown">
+                                                        <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" value="{{newPlayer.birthDate | date:'dd-MM-yyyy' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                            </div>
+                                                        </a>
+                                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                            <datetimepicker name="courseName" data-ng-model="newPlayer.birthDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day', minView:'day' }" />
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Playing Foot:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <select ng-model="newPlayer.playingFoot" ng-options="foot.id as foot.name for foot in playingFoot | orderBy:'name'" class=" form-control m-b" name="account"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Profile Picture:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input file-model="pic" type="file" accept="image/*" class="pma-fileupload">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Nationality:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.nationality" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Address 1:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.address1" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Address 2:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.address2" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Address 3:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.address3" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Town\City:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.townCity" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Post Code:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.postcode" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Parents First Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.parentsFirstName" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Parents Last Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.parentsLastName" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Parents Contact Number:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.parentsContactNumber" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Player Health Conditions:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.playerHealthConditions" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">School Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolName" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">School Telephone:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolTelephone" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">School Contact Name:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolContactName" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">School Contact Email:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolContactEmail" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Address 1:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolAddress1" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Address 2:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input name="courseName" ng-model="newPlayer.schoolAddress2" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Town\City:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newPlayer.schoolTownCity" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 title-modal">Postcode:</label>
+                                                <div class="col-lg-7 pull-right">
+                                                    <input ng-model="newPlayer.schoolPostcode" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                        <button ng-click="ok(newPlayer.id)" id="saveModal" type="button" ng-disabled="laddaLoading" class="ladda-button btn btn-primary" ladda-button="loginLoading" data-style="expand-right" data-size="s" style="background-color:@ViewBag.them;">
+                                            <span class="ladda-label" style="font-size: 14px;">Save changes</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        @*Modal*@
+                        <div class="modal inmodal" id="confDelete" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Delete Record?</h3>
+
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="text-center">Are you sure you wish to delete this record?</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
+                                        <button ng-click="delete()" type="button" class="btn btn-primary">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+
+
+                        @*Modal*@
+                        <div class="modal inmodal" id="videoModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" onclick="$('#videoModal iframe').attr('src', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title">Video</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div style="text-align:center">
+                                            <iframe width="480" height="360" frameborder="0" allowfullscreen=""></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Modal End*@
+                        <div class="row">
+                            <div class="col-sm-9 m-b-xs">
+                                <form class="form-horizontal">
+                                    <div class="form-group" style="margin-left: 0px;">
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <label ng-click="itemsPerPage = 10" class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> 10 </label>
+                                            <label ng-click="itemsPerPage = 20" class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> 20 </label>
+                                            <label ng-click="itemsPerPage = 30" class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> 30 </label>
+                                        </div>
+                                        <div class="btn-group">
+                                            <label onclick=" $('.table').tableExport({ type: 'csv', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                CSV
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'excel', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                Excel
+                                            </label>
+                                            <label onclick=" $('.table').tableExport({ type: 'pdf', escape: 'false' }); " class="btn btn-sm btn-white">
+                                                PDF
+                                            </label>
+                                            <label onclick=" print($('.table')) " class="btn btn-sm btn-white">
+                                                Print
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th order-header head="Picture" order="picture">Picture</th>
+                                        <th order-header head="Player Name" order="name" style="text-align:left"></th>
+                                        <th order-header head="Team" order="team" style="text-align:left">Team</th>
+                                        <th order-header head="Age" order="age"></th>
+                                        <th order-header head="MOM" order="mom"></th>
+                                        <th order-header head="GLS" order="gls"></th>
+                                        <th order-header head="FRM" order="frm"></th>
+                                        <th order-header head="INJ" order="inj"></th>
+                                        <th order-header head="ATT%" order="att"></th>
+                                        <th order-header head="WB%" order="wb"></th>
+                                        <th order-header head="CUR" order="cur"></th>
+                                        <th order-header head="Action" order="action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contentTable">
+                                    <tr dir-paginate="player in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                        <td style="width: 80px;">
+                                            <div style="width: 80px; height: 80px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
+                                                <img class="prifile" ng-src="/api/File/ProfilePicture/{{player.profilePicture}}/{{player.id}}" style-parent />
+                                            </div>
+                                        </td>
+
+                                        <td style="text-align:left">{{player.name}}</td>
+                                        <td style="text-align:left">
+                                            <div ng-repeat="team in player.teams">{{team}} </div>
+                                        </td>
+                                        <td>{{player.age}}</td>
+                                        <td>{{player.mom}}</td>
+                                        <td>{{player.gls}}</td>
+                                        <td>{{player.frm}}</td>
+                                        <td>{{player.inj}}</td>
+                                        <td>{{player.att | number:1}}%</td>
+                                        <td>{{player.wb}}</td>
+                                        <td>{{player.cur}}</td>
+                                        <td>
+                                            <i ng-click="openEdit(player.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                            <i ng-click="openDelete(player.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                            <i class="fa fa-print" style="cursor: pointer;"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    .m-b {
+        margin-bottom: 0px;
+    }
+
+    .table td {
+        text-align: left;
+    }
+
+    .table > tbody > tr > td {
+        vertical-align: middle;
+    }
+
+    img.prifile {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+
+    img.landscape {
+        height: 100%;
+        width: auto;
+    }
+
+    img.portrait {
+        width: 100%;
+        height: auto;
+    }
+</style>
+

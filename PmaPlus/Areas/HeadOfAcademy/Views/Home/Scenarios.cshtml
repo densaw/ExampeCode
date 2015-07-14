@@ -224,18 +224,18 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Uploaded By</th>
-                                        <th>Scenario Name</th>
-                                        <th>Type</th>
+                                        <th style="text-align:left">Uploaded By</th>
+                                        <th style="text-align:left">Scenario Name</th>
+                                        <th style="text-align:left">Type</th>
                                         <th>Age Range</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="scenario in scenarios | filter:q | itemsPerPage: scenariosPerPage" total-items="totalScenarios">
-                                        <td>{{scenario.uploadedBy}}</td>
-                                        <td>{{scenario.name}}</td>
-                                        <td>{{scenarioType[scenario.scenarioType].name}}</td>
+                                        <td style="text-align:left">{{scenario.uploadedBy}}</td>
+                                        <td style="text-align:left">{{scenario.name}}</td>
+                                        <td style="text-align:left">{{scenarioType[scenario.scenarioType].name}}</td>
                                         <td>{{scenario.minAge}} - {{scenario.maxAge}}</td>
                                         <td>
                                             <i ng-if="scenario.uploadedBy != 'SystemAdmin'" ng-click="openEdit(scenario.id)" class="fa fa-cog" style="cursor: pointer;"></i>
