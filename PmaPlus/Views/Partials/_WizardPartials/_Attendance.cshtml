@@ -9,7 +9,7 @@
                     <div class="ibox-tools" style="margin-top: -5px;">
                         <a class="btn btn-primary btn-sm" ng-click="ssesionDetail()">Session Detail</a>
                         <a class=" btn btn-primary btn-sm" ng-disabled="!addDate" ng-click="confAtendOpen()">All Attended</a>
-                        <a class="btn btn-primary btn-sm" ng-click="ssesionNotCompletedModal()">Session not completed</a>
+                        <a class="btn btn-primary btn-sm" ng-disabled="team.archived" ng-click="ssesionNotCompletedModal()">Session not completed</a>
                     </div>
                 </div>
                 <div class="table-responsive">
