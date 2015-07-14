@@ -16,7 +16,7 @@
                                 
                             </div>
                         </div>
-                        <form name="myform" class="form-horizontal" novalidate>
+                       
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -37,11 +37,11 @@
                                         <td style="text-align:left">{{item.name}}</td>
                                         <td><select ng-disabled="team.archived" rating-ui name="attendense" ng-model="item.atl" class="form-control" style="width: inherit;"><option>0</option><option ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option></select></td>
                                         <td><select ng-disabled="team.archived" rating-ui name="attendense" ng-model="item.att" class="form-control" style="width: inherit;"><option>0</option><option ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option></select></td>
-                                        <td><select ng-class="{'has-error':myform.attendense.$invalid && (myform.attendense.$dirty||myform.form_Submitted)}" ng-disabled="team.archived" rating-ui name="attendense" ng-model="item.cur" class="form-control" style="width: inherit;"><option>0</option><option ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option></select></td>
+                                        <td><select ng-disabled="team.archived" rating-ui name="attendense" ng-model="item.cur" class="form-control" style="width: inherit;"><option>0</option><option ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option></select></td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </form>
+                        
                     </div>
                 </div>
             </div>
