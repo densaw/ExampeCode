@@ -167,6 +167,7 @@
                                     <tr>
                                         <th style="text-align:left">Won\Lost</th>
                                         <th style="text-align:left">Team Name</th>
+                                        <th style="text-align:left">Date</th>
                                         <th>For (goals)</th>
                                         <th>Away (goals)</th>
                                         <th style="text-align:left">Opposition Team</th>
@@ -179,6 +180,7 @@
                                     <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
                                         <td style="text-align:left">{{item.goalsFor > item.goalsAway ? 'WON' : (item.goalsFor < item.goalsAway ? 'LOST' : 'DRAW')}}</td>
                                         <td style="text-align:left">{{item.teamName}}</td>
+                                        <td style="text-align:left">{{item.date | date: 'dd-MM-yyyy'}}</td>
                                         <td>{{item.goalsFor}}</td>
                                         <td>{{item.goalsAway}}</td>
                                         <td style="text-align:left">{{item.oppositionName}}</td>

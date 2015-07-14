@@ -51,22 +51,23 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Curriculum Progress</h5>
+                            <h5>Curriculum Progress <span style="font-weight: 600; " ng-show="team.archived"> Curriculum Acrhived</span></h5>
                             <div class="ibox-tools" style="margin-top: -5px;">
                                 <div class="grey">
                                     <a class=" btn btn-primary btn-sm grey" ng-disabled="!nav.canBack" wz-previous @*ng-click="updateProgress()"*@>Previous</a>
                                 
-                                    <a ng-disabled="obj.laddaLoading" ng-click="saveProgress()" class="ladda-button btn btn-primary btn-sm" ladda-button="obj.laddaLoading" data-style="expand-right" data-size="sm" >
+                                    <a ng-hide="team.archived" ng-disabled="obj.laddaLoading" ng-click="saveProgress()" class="ladda-button btn btn-primary btn-sm" ladda-button="obj.laddaLoading" data-style="expand-right" data-size="sm">
                                         <span class="ladda-label">Save Progress</span>
                                     </a>
                                     <a class="btn btn-primary btn-sm" ng-if="!isLast" ng-disabled="!nav.canNext" wz-next >Next</a>
-                                    <a class="btn btn-primary btn-sm" ng-if="isLast" ng-click="showArhive()" wz-next >Archive Curriculum</a>
+                                    <a class="btn btn-primary btn-sm" ng-hide="team.archived" ng-if="isLast" ng-click="showArhive()" wz-next>Archive Curriculum</a>
                                 </div>
                             </div>
                         </div>
                         <div class="ibox-content">
                             <div class="row" style="margin-bottom: -20px;">
-                                <div class="col-sm-12"><progressbar ng-if="progress.max" class="progress-striped active" max="progress.max" value="progress.current" type="danger"></progressbar></div>
+                                <div ng-hide="team.archived" class="col-sm-12"><progressbar ng-if="progress.max" class="progress-striped active" max="progress.max" value="progress.current" type="danger"></progressbar></div>
+                                <div ng-show="team.archived" class="col-sm-12"><progressbar ng-if="progress.max" class="progress-striped active" max="1" value="1" type="danger"></progressbar></div>
                             </div>
                         </div>
                     </div>

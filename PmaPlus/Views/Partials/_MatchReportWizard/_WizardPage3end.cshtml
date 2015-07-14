@@ -47,7 +47,7 @@
                                     <div class="thumbnail" ng-show="matchDetails.picture != null" style="width: auto; float: none !important;margin-bottom: 5px;">
                                         <img ng-src="/api/file/MatchReportPictures/{{matchDetails.picture}}/{{matchDetails.id}}" style=" width:auto; float:none !important;" />
                                     </div>
-                                    <div ng-if="!cuurrentMatch.archived">
+                                    <div ng-show="!cuurrentMatch.archived">
 
                                         <input file-model="pic" type="file" accept="image/*" class="pma-fileupload">
                                     </div>

@@ -65,7 +65,7 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
 
             var count = maches.Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var items = Mapper.Map<IEnumerable<Match>, IEnumerable<MatchReportTableViewModel>>(maches).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
+            var items = Mapper.Map<IEnumerable<Match>, IEnumerable<MatchReportTableViewModel>>(maches).OrderQuery(orderBy, x => x.Date, direction).Paged(pageNumber, pageSize);
 
             return new MatchesReportPage()
             {
