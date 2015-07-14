@@ -63,13 +63,11 @@
                 <a href="@Url.Action("Scenarios", "Home", new {area = "Coach"})"><i class="fa fa-futbol-o"></i> <span class="nav-label">Scenarios</span></a>
             </li>
 
-            <li class="@Html.IsSelectedMultyActions(controller: "Home", action: new string[] {"SkillsAndKnowledge", "SkillVideos", "SkillTestRequests"})">
-                <a href="@Url.Action("SkillsAndKnowledge", "Home", new {area = "Coach"})"><i class="fa fa-film"></i> <span class="nav-label">Skills & Knowledge</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li class="@Html.IsSelected(action: "SkillVideos")"><a href="@Url.Action("SkillVideos", "Home", new {area = "Coach"})">Skill Videos</a></li>
-                    <li class="@Html.IsSelected(action: "SkillTestRequests")"><a href="@Url.Action("SkillTestRequests", "Home", new {area = "Coach"})">Skill Test Requests</a></li>
-                </ul>
+            <li class="@Html.IsSelected(controller: "Home", action: "SkillsAndKnowledge")">
+                <a href="@Url.Action("SkillsAndKnowledge", "Home", new { area = "Coach" })"><i class="fa fa-film"></i> <span class="nav-label">Skills & Knowledge</span></a>
             </li>
+
+           
 
             <li class="@Html.IsSelected(controller: "Home", action: "Teams")">
                 <a href="@Url.Action("Teams", "Home", new {area = "Coach"})"><i class="fa fa-users"></i> <span class="nav-label">Teams</span></a>
