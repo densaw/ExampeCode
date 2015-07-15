@@ -43,7 +43,7 @@ namespace PmaPlus.Controllers.ApiControllers.Matches
 
 
         [Route("api/MatchReports/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
-        public MatchesReportPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
+        public MatchesReportPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = true)
         {
             var user = _userServices.GetUserByEmail(User.Identity.Name);
             if (user == null)
