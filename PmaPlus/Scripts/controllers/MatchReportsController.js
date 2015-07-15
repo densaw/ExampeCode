@@ -115,8 +115,9 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
             });
     }
 
-    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, v, scope) {
         sortArray = newValue;
+       
         $http.get(createTail($scope.pagination.current))
             .success(function (result) {
                 $scope.items = result.items;

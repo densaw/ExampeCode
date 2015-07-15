@@ -202,6 +202,14 @@ namespace PmaPlus.Data
                 .HasForeignKey(p => p.EndSessionResultId)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<TalentIdentification>()
+                .HasRequired(t => t.Club)
+                .WithMany(c=> c.TalentIdentifications)
+                .HasForeignKey(t => t.ClubId)
+                .WillCascadeOnDelete(false);
+                
+
+
             base.OnModelCreating(modelBuilder);
         }
     }

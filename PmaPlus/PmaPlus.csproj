@@ -3224,6 +3224,7 @@
     <Content Include="Areas\Coach\Views\Home\PlayersTable.cshtml" />
     <Content Include="Areas\Coach\Views\Home\Wizzard.cshtml" />
     <Content Include="Areas\Coach\Views\Home\ReportsWizard.cshtml" />
+    <None Include="Properties\PublishProfiles\www.mektest1.co.uk.pubxml" />
     <None Include="Properties\PublishProfiles\www.pmaplus.com.pubxml" />
     <Content Include="Areas\SysAdmin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SysAdmin\Views\Home\FaCourses.cshtml" />
