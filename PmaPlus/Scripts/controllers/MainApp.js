@@ -13,15 +13,15 @@
             link: function (scope, element, attrs, ngModel) {
                 element.on('click', function () {
                     if (ngModel.$modelValue === '0' || ngModel.$modelValue === '1' || ngModel.$modelValue === '2' || ngModel.$modelValue === '3' || ngModel.$modelValue === '4') {
-                        element.css('background', 'red');
+                        element.css('background', '#ffb9b9');
                         console.log(ngModel.$modelValue);
 
                     }
                     else if (ngModel.$modelValue === '5' || ngModel.$modelValue === '6') {
-                        element.css('background', 'yellow');
+                        element.css('background', '#feff9e');
                     }
                     else {
-                        element.css('background', 'green');
+                        element.css('background', '#caffb9');
                     }
                 });
             }
