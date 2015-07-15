@@ -333,19 +333,19 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th order-header head="Food Name" order="foodName"></th>
-                                        <th>When</th>
-                                        <th order-header head="Portion Size" order="portionSize"></th>
-                                        <th order-header head="Good For" order="goodFor"></th>
+                                        <th order-header head="Food Name" order="foodName" style="text-align:left"></th>
+                                        <th order-header head="When" order="When" style="text-align:left">When</th>
+                                        <th order-header head="Portion Size" order="portionSize" style="text-align:left"></th>
+                                        <th order-header head="Good For" order="goodFor" style="text-align:left"></th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr dir-paginate="foodType in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{foodType.foodName}}</td>
-                                        <td> <div ng-repeat="whenone in foodType.when">{{when[whenone].name}},</div> </td>
-                                        <td>{{foodType.portionSize}}</td>
-                                        <td>{{foodType.goodFor}}</td>
+                                        <td style="text-align:left">{{foodType.foodName}}</td>
+                                        <td style="text-align:left"> <div ng-repeat="whenone in foodType.when">{{when[whenone].name}},</div> </td>
+                                        <td style="text-align:left">{{foodType.portionSize}}</td>
+                                        <td style="text-align:left">{{foodType.goodFor}}</td>
                                         <td>
                                             <i ng-click="openEdit(foodType.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(foodType.id)" class="fa fa-trash" style="cursor: pointer;"></i>

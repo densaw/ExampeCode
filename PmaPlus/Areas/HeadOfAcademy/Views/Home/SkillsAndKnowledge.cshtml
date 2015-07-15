@@ -327,16 +327,16 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Level Name</th>
-                                        <th>Training Item Name</th>
+                                        <th style="text-align:left">Level Name</th>
+                                        <th style="text-align:left">Training Item Name</th>
                                         <th>Practice Time</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="skill in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{skill.skillLevelName}}</td>
-                                        <td>{{skill.trainingItemName}}</td>
+                                        <td style="text-align:left">{{skill.skillLevelName}}</td>
+                                        <td style="text-align:left">{{skill.trainingItemName}}</td>
                                         <td>{{skill.time}}</td>
                                         <td>
                                             <i ng-click="modalVideoStart(skill.videoLink)" class="fa fa-film" style="cursor: pointer;"></i>

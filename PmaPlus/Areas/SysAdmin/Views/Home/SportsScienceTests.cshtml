@@ -208,8 +208,8 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th order-header head="Test Type" order="type"></th>
-                                        <th order-header head="Test Name" order="name"></th>
+                                        <th order-header head="Test Type" order="type" style="text-align:left"></th>
+                                        <th order-header head="Test Name" order="name" style="text-align:left"></th>
                                         <th order-header head="Measure" order="measure"></th>
                                         <th order-header head="Min Score" order="lowValue"></th>
                                         <th order-header head="Max Score" order="hightValue"></th>
@@ -219,8 +219,8 @@
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="test in sportTests | filter:q | itemsPerPage: testsPerPage" total-items="totalTests">
-                                        <td>{{testTypes[test.type].name}}</td>
-                                        <td>{{test.name}}</td>
+                                        <td style="text-align:left">{{testTypes[test.type].name}}</td>
+                                        <td style="text-align:left">{{test.name}}</td>
                                         <td>{{test.measure}}</td>
                                         <td>{{test.lowValue}}</td>
                                         <td>{{test.hightValue}}</td>

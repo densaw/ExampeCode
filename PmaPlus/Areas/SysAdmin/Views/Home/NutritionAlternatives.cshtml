@@ -205,15 +205,15 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th order-header head="Bad Item" order="badItemName"></th>
-                                        <th order-header head="Alternative" order="alternativeName"></th>
+                                        <th order-header head="Bad Item" order="badItemName" style="text-align:left"></th>
+                                        <th order-header head="Alternative" order="alternativeName" style="text-align:left"></th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="alt in items | filter:q | itemsPerPage: clubsPerPage" total-items="totalItems">
-                                        <td>{{alt.badItemName}}</td>
-                                        <td>{{alt.alternativeName}}</td>
+                                        <td style="text-align:left">{{alt.badItemName}}</td>
+                                        <td style="text-align:left">{{alt.alternativeName}}</td>
                                         <td>
                                             <i ng-click="openEdit(alt.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(alt.id)" class="fa fa-trash" style="cursor: pointer;"></i>

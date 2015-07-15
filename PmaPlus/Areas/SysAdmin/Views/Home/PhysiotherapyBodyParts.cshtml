@@ -186,15 +186,15 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th order-header head="Body Area" order="type"></th>
-                                        <th order-header head="Injury" order="injuryName"></th>
+                                        <th order-header head="Body Area" order="type" style="text-align:left"></th>
+                                        <th order-header head="Injury" order="injuryName" style="text-align:left"></th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="part in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{parts[part.type].name}}</td>
-                                        <td>{{part.injuryName}}</td>
+                                        <td style="text-align:left">{{parts[part.type].name}}</td>
+                                        <td style="text-align:left">{{part.injuryName}}</td>
                                         <td>
                                             <i ng-click="openEdit(part.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(part.id)" class="fa fa-trash" style="cursor: pointer;"></i>

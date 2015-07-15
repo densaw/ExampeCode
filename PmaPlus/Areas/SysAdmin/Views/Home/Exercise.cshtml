@@ -218,17 +218,17 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Date Added</th>
-                                        <th>News Title</th>
-                                        <th>Author</th>
+                                        <th style="text-align:left">Date Added</th>
+                                        <th style="text-align:left">News Title</th>
+                                        <th style="text-align:left">Author</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr dir-paginate="news in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{news.newsDate | date:'dd-MM-yyyy'}}</td>
-                                        <td>{{news.title}}</td>
-                                        <td>{{news.authorName}}</td>
+                                        <td style="text-align:left">{{news.newsDate | date:'dd-MM-yyyy'}}</td>
+                                        <td style="text-align:left">{{news.title}}</td>
+                                        <td style="text-align:left">{{news.authorName}}</td>
                                         <td>
                                             <i ng-click="openEdit(news.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(news.id)" class="fa fa-trash" style="cursor: pointer;"></i>

@@ -142,16 +142,16 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th order-header head="Name" order="name"></th>
-                                <th order-header head="Description" order="description"></th>
+                                <th order-header head="Name" order="name" style="text-align:left"></th>
+                                <th order-header head="Description" order="description" style="text-align:left"></th>
                                 <th order-header head="Total Skills" order="skillVideosCount"></th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="contentTable">
                             <tr dir-paginate="skill in skills | filter:q | itemsPerPage: skillsPerPage" total-items="totalSkills">
-                                <td>{{skill.name}}</td>
-                                <td>{{skill.description}}</td>
+                                <td style="text-align:left">{{skill.name}}</td>
+                                <td style="text-align:left">{{skill.description}}</td>
                                 <td>{{skill.skillVideosCount}}</td>
                                 <td>
                                     <i ng-click="openEdit(skill.id)" class="fa fa-cog" style="cursor: pointer;"></i>
