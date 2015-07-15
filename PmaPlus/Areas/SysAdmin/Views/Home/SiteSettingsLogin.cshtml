@@ -149,22 +149,22 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Date Changed</th>
-                                        <th>Changed By</th>
-                                        <th>Username</th>
+                                        <th style="text-align:left">Date Changed</th>
+                                        <th style="text-align:left">Changed By</th>
+                                        <th style="text-align:left">Username</th>
                                         <th>Password</th>
-                                        <th>Last Login</th>
-                                        <th>IP</th>
+                                        <th style="text-align:left">Last Login</th>
+                                        <th style="text-align:left">IP</th>
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="pwdHis in passwordHistory | filter:q | itemsPerPage: historyPerPage" total-items="totalHistory">
-                                        <td>{{pwdHis.changeAt | date:'dd/MM/yyyy - HH:mm'}}</td>
-                                        <td>{{pwdHis.changedBy}}</td>
-                                        <td>{{pwdHis.userEmail}}</td>
+                                        <td style="text-align:left">{{pwdHis.changeAt | date:'dd/MM/yyyy - HH:mm'}}</td>
+                                        <td style="text-align:left">{{pwdHis.changedBy}}</td>
+                                        <td style="text-align:left">{{pwdHis.userEmail}}</td>
                                         <td>{{pwdHis.password}}</td>
-                                        <td>{{pwdHis.loggedAt | date:'dd/MM/yyyy - HH:mm'}}</td>
-                                        <td>{{pwdHis.ip}}</td>
+                                        <td style="text-align:left">{{pwdHis.loggedAt | date:'dd/MM/yyyy - HH:mm'}}</td>
+                                        <td style="text-align:left">{{pwdHis.ip}}</td>
                                     </tr>
                                 </tbody>
                             </table>

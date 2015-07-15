@@ -154,17 +154,17 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th order-header head="Name" order="name"></th>
+                                    <th order-header head="Name" order="name" style="text-align:left"></th>
                                     <th order-header head="Duration" order="duration"></th>
-                                    <th order-header head="Description" order="description"></th>
+                                    <th order-header head="Description" order="description" style="text-align:left"></th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="contentTable">
                                 <tr dir-paginate="course in courses | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
-                                    <td>{{course.name}}</td>
+                                    <td style="text-align:left">{{course.name}}</td>
                                     <td>{{course.duration}}</td>
-                                    <td style="max-width: 300px;">{{course.description}}</td>
+                                    <td style="text-align:left; max-width: 300px;">{{course.description}}</td>
                                     <td>
                                             <i ng-click="openEdit(course.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                         <i ng-click="openDelete(course.id)" class="fa fa-trash" style="cursor: pointer;"></i>

@@ -255,23 +255,23 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th order-header head="Name" order="name"></th>
-                        <th order-header head="TownCity" order="townCity"></th>
+                        <th order-header head="Name" order="name" style="text-align:left"></th>
+                        <th order-header head="TownCity" order="townCity" style="text-align:left"></th>
                         <th order-header head="Coaches" order="coaches"></th>
                         <th order-header head="Players" order="players"></th>
-                        <th order-header head="LastLogin" order="lastLogin"></th>
-                        <th order-header head="Status" order="status"></th>
+                        <th order-header head="LastLogin" order="lastLogin" style="text-align:left"></th>
+                        <th order-header head="Status" order="status" style="text-align:left"></th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody id="contentTable">
                     <tr dir-paginate="club in clubs | filter:q | itemsPerPage: clubsPerPage" total-items="totalClubs">
-                        <td>{{club.name}}</td>
-                        <td>{{club.townCity}}</td>
+                        <td style="text-align:left">{{club.name}}</td>
+                        <td style="text-align:left">{{club.townCity}}</td>
                         <td>{{club.coaches}}</td>
                         <td>{{club.players}}</td>
-                        <td>{{club.lastLogin | date:'dd/MM/yyyy - HH:mm'}}</td>
-                        <td>{{statuses[club.status].name}}</td>
+                        <td style="text-align:left">{{club.lastLogin | date:'dd/MM/yyyy - HH:mm'}}</td>
+                        <td style="text-align:left">{{statuses[club.status].name}}</td>
                         <td>
                             <i ng-click="openEdit(club.id)" class="fa fa-cog" style="cursor: pointer;"></i>
 

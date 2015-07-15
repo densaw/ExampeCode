@@ -144,15 +144,15 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Target</th>
+                                        <th style="text-align:left">Date</th>
+                                        <th style="text-align:left">Target</th>
                                         <th>Value</th>
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="target in targets | filter:q | itemsPerPage: targetsPerPage" total-items="totalTargets">
-                                        <td>{{target.updateDate | date:'dd/MM/yyyy - HH:mm'}}</td>
-                                        <td>{{target.target}}</td>
+                                        <td style="text-align:left">{{target.updateDate | date:'dd/MM/yyyy - HH:mm'}}</td>
+                                        <td style="text-align:left">{{target.target}}</td>
                                         <td>{{target.value}}</td>
                                     </tr>
                                 </tbody>

@@ -317,7 +317,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th order-header head="Recipe Name" order="name"></th>
+                                        <th order-header head="Recipe Name" order="name" style="text-align:left"></th>
                                         <th order-header head="Calories" order="calories"></th>
                                         <th order-header head="Sat Fat" order="saturatedFat"></th>
                                         <th order-header head="Carbs" order="totalCarbohydrate"></th>
@@ -327,7 +327,7 @@
                                 </thead>
                                 <tbody>
                                     <tr dir-paginate="reciptType in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{reciptType.name}}</td>
+                                        <td style="text-align:left">{{reciptType.name}}</td>
                                         <td>{{reciptType.calories}}</td>
                                         <td>{{reciptType.saturatedFat}}</td>
                                         <td>{{reciptType.totalCarbohydrate}}</td>

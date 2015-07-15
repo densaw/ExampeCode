@@ -211,15 +211,15 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th order-header head="Exercise Type" order="type"></th>
-                                        <th order-header head="Exercise Name" order="name"></th>
+                                        <th order-header head="Exercise Type" order="type" style="text-align:left"></th>
+                                        <th order-header head="Exercise Name" order="name" style="text-align:left"></th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="exercise in sportExercises | filter:q | itemsPerPage: exercisesPerPage" total-items="totalExercises">
-                                        <td>{{exerciseTypes[exercise.type].name}}</td>
-                                        <td>{{exercise.name}}</td>
+                                        <td style="text-align:left">{{exerciseTypes[exercise.type].name}}</td>
+                                        <td style="text-align:left">{{exercise.name}}</td>
                                         <td>
                                             <i ng-click="openEdit(exercise.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(exercise.id)" class="fa fa-trash" style="cursor: pointer;"></i>
