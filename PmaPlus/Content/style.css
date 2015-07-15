@@ -6154,3 +6154,7 @@ textarea {
     overflow: auto;
     vertical-align: top;
 }
+
+.modal.in .modal-dialog {
+    width:940px;
+}

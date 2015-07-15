@@ -125,14 +125,22 @@ namespace PmaPlus.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Login(LoginViewModel model)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+                                   
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("loginValid", "Email address or password");
+                if (String.IsNullOrEmpty(model.Password))
+                {
+                    ModelState.AddModelError("loginValid", "Please enter a password");
+                    return View(model);
+                }
+
+                ModelState.AddModelError("loginValid", "Username or password not recognised");
                 return View(model);
             }
-
+            
+             
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -151,8 +159,10 @@ namespace PmaPlus.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.Failure:
+              
                 default:
-                    ModelState.AddModelError("loginValid", "Email address or password");
+                    
+                    ModelState.AddModelError("loginValid", "Username or password not recognised");
                     return View(model);
             }
 
