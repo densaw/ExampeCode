@@ -72,7 +72,8 @@ namespace PmaPlus.Controllers.ApiControllers
         [Route("api/Users/List")]
         public IEnumerable<UsersList> Get([FromUri] Role[] role)
         {
-            var users = _userServices.GetUsersByRoles(role);
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            var users = _userServices.GetUsersByRoles(role,club.Id);
             return Mapper.Map<IEnumerable<User>, IEnumerable<UsersList>>(users);
         }
 
@@ -80,7 +81,8 @@ namespace PmaPlus.Controllers.ApiControllers
         public IEnumerable<UsersList> GetWithOutItSelf([FromUri] Role[] role)
         {
             var userId = _userServices.GetUserByEmail(User.Identity.Name).Id;
-            var users = _userServices.GetUsersByRolesWithOutItSelf(role, userId);
+            var club = _userServices.GetClubByUserName(User.Identity.Name);
+            var users = _userServices.GetUsersByRolesWithOutItSelf(role, userId,club.Id);
             return Mapper.Map<IEnumerable<User>, IEnumerable<UsersList>>(users);
         }
 
