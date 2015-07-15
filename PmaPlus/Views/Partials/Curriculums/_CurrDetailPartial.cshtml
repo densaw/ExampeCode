@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">;
+                    <div class="ibox-title">
                         <h5>Sessions</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
@@ -270,20 +270,20 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th order-header head="Name" order="name"></th>
+                                        <th order-header head="Name" order="name" style="text-align:left"></th>
                                         <th order-header head="Number" order="number"></th>
                                         <th order-header head="Attendance" order="attendance"></th>
                                         <th order-header head="Objectives" order="objectives"></th>
                                         <th order-header head="Rating" order="rating"></th>
                                         <th order-header head="Report" order="report"></th>
-                                        <th order-header head="Start Of Review Period" order="startOfReviewPeriod"></th>
-                                        <th order-header head="End Of Review Period" order="endOfReviewPeriod"></th>
-                                        <th>Action</th>
+                                        <th order-header head="Start Of Review" order="startOfReviewPeriod"></th>
+                                        <th order-header head="End Of Review" order="endOfReviewPeriod"></th>
+                                        <th order-header head="Action" order="action">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="session in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalCourses">
-                                        <td>{{session.name}}</td>
+                                        <td style="text-align:left">{{session.name}}</td>
                                         <td>{{session.number}}</td>
                                         <td>{{session.attendance?'Yes':'No'}}</td>
                                         <td>{{session.objectives?'Yes':'No'}}</td>

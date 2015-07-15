@@ -29,6 +29,8 @@
 
     });
 
+  
+
     module.directive('toggleCheckbox', function() {
  
         /**
