@@ -150,23 +150,134 @@ namespace PmaPlus.Services
         }
 
 
-        public IEnumerable<User> GetUsersByRoles(IList<Role> roles)
+        public IEnumerable<User> GetUsersByRoles(IList<Role> roles,int clubId)
         {
             List<User> userList = new List<User>();
             foreach (var role in roles)
             {
-                userList.AddRange(_userRepository.GetMany(u => u.Role == role));
+                switch (role)
+                {
+                    case Role.Player:
+                        {
+                            userList.AddRange(_playerRepository.GetMany(c => c.Club.Id == clubId).Select(p=>p.User));
+                            break;
+                        }
+                    case Role.ClubAdmin:
+                        {
+                            userList.AddRange(_clubAdminRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User));
+                            break;
+                        }
+
+                    case Role.Coach:
+                        {
+                            userList.AddRange(_coachRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User));
+                            break;
+                        }
+                    case Role.HeadOfAcademies:
+                        {
+                            userList.AddRange(_headOfAcademyRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User));
+                            break;
+                        }
+                    case Role.HeadOfEducation:
+                        {
+                            userList.AddRange(_headOfEducationRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User));
+                            break;
+                        }
+                    case Role.Scout:
+                        {
+                            userList.AddRange(_scoutRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User));
+                            break;
+                        }
+                    case Role.Physiotherapist:
+                        {
+                            userList.AddRange(_physiotherapistRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User));
+                            break;
+                        }
+                    case Role.SportsScientist:
+                        {
+                            userList.AddRange(_sportScientistRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User));
+                            break;
+                        }
+                    case Role.WelfareOfficer:
+                        {
+                            userList.AddRange(_welfareOfficerRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User));
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+
+
+
             }
             return userList;
         }
 
-        public IEnumerable<User> GetUsersByRolesWithOutItSelf(IList<Role> roles, int userId)
+        public IEnumerable<User> GetUsersByRolesWithOutItSelf(IList<Role> roles, int userId,int clubId)
         {
             List<User> userList = new List<User>();
             foreach (var role in roles)
             {
-                userList.AddRange(_userRepository.GetMany(u => u.Role == role).Where(x => x.Id != userId));
+                switch (role)
+                {
+                    case Role.Player:
+                        {
+                            userList.AddRange(_playerRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User).Where(x => x.Id != userId));
+                            break;
+                        }
+                    case Role.ClubAdmin:
+                        {
+                            userList.AddRange(_clubAdminRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User).Where(x => x.Id != userId));
+                            break;
+                        }
+
+                    case Role.Coach:
+                        {
+                            userList.AddRange(_coachRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User).Where(x => x.Id != userId));
+                            break;
+                        }
+                    case Role.HeadOfAcademies:
+                        {
+                            userList.AddRange(_headOfAcademyRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User).Where(x => x.Id != userId));
+                            break;
+                        }
+                    case Role.HeadOfEducation:
+                        {
+                            userList.AddRange(_headOfEducationRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User).Where(x => x.Id != userId));
+                            break;
+                        }
+                    case Role.Scout:
+                        {
+                            userList.AddRange(_scoutRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User).Where(x => x.Id != userId));
+                            break;
+                        }
+                    case Role.Physiotherapist:
+                        {
+                            userList.AddRange(_physiotherapistRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User).Where(x => x.Id != userId));
+                            break;
+                        }
+                    case Role.SportsScientist:
+                        {
+                            userList.AddRange(_sportScientistRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User).Where(x => x.Id != userId));
+                            break;
+                        }
+                    case Role.WelfareOfficer:
+                        {
+                            userList.AddRange(_welfareOfficerRepository.GetMany(c => c.Club.Id == clubId).Select(p => p.User).Where(x => x.Id != userId));
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+
+
             }
+
+            
             return userList;
         }
 

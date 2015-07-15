@@ -39,7 +39,19 @@ app.controller('CurrRatingController', ['$scope', '$http', '$location', 'WizardH
 
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == $scope.$parent.steps.indexOf($scope.$parent.step) + 1) {
-            saveRatings();
+            var completed = true;
+            angular.forEach($scope.items, function (item) {
+                if (item.cur == 0) {
+                    completed = false;
+                } 
+            });
+
+            if (completed) {
+                saveRatings();
+            } else { $scope.pressed = true; }
+
+
+            
         }
     });
 
