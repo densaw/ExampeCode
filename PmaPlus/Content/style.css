@@ -3295,7 +3295,7 @@ a {
 .font-bold {
     font-family: 'Open Sans', sans-serif;
     font-size: 50px;
-    font-weight: 600;
+    font-weight: 800;
 }
 
 .font-bold-small {
@@ -3367,7 +3367,7 @@ video {
 }
 
 .modal-body {
-    padding: 20px 30px 30px 30px;
+    padding: 20px 35px 30px 35px;
 }
 
 .inmodal .modal-body {
@@ -3386,8 +3386,19 @@ video {
     transform: none;
 }
 
+.modal-header .close {
+    margin-top: -18px !important;
+}
+
 .inmodal .modal-title {
-    font-size: 26px;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.title-modal{
+  padding-right: 0px;
+  font-size: 15px !important;
+  line-height: 30px !important;
 }
 
 .inmodal .modal-icon {
@@ -3836,11 +3847,11 @@ table.table-mail tr td {
 
     .ibox-tools a.btn-primary {
       color: #fff;
-      font-size: 13px;
+      font-size: 13px !important;
 }
 
     a.btn-primary:hover {
-      border-color: #CC0000;
+      /*border-color: #CC0000;*/
 }
 
 
