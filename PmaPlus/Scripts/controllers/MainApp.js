@@ -6,28 +6,90 @@
         $rootScope.preOrderField = '';
     }]);
 
-  
     module.directive('ratingUi', function () {
         return {
-            require: 'ngModel',
-            link: function (scope, element, attrs, ngModel) {
-                element.on('click', function () {
-                    if (ngModel.$modelValue === '0' || ngModel.$modelValue === '1' || ngModel.$modelValue === '2' || ngModel.$modelValue === '3' || ngModel.$modelValue === '4') {
-                        element.css('background', '#ffb9b9');
-                        console.log(ngModel.$modelValue);
 
+            restrict: 'A',
+
+            link: function (scope, elem, attrs) {
+                scope.$watch(attrs.ngModel, function () {
+                    if (elem.html() >= 0 && elem.html() <= 5) {
+                        elem.css('background', '#E60000');
                     }
-                    else if (ngModel.$modelValue === '5' || ngModel.$modelValue === '6') {
-                        element.css('background', '#feff9e');
+                    else if (elem.html() >= 5, 1 && elem.html() <= 6) {
+                        elem.css('background', '#ED7800');
+                    }
+                    else if (elem.html() >= 6, 1 && elem.html() <= 6, 5) {
+                        elem.css('background', '#F4D600');
+                    }
+                    else if (elem.html() >= 6, 6 && elem.html() <= 7) {
+                        elem.css('background', '#8AB40C');
+                    }
+                    else if (elem.html() >= 7, 1 && elem.html() <= 8) {
+                        elem.css('background', '#617E08');
                     }
                     else {
-                        element.css('background', '#caffb9');
+                        elem.css('background', '#303F04');
                     }
+                   
+                    
                 });
             }
         };
-
     });
+    module.directive('ratingAi', function () {
+        return {
+
+            restrict: 'A',
+
+            link: function (scope, elem, attrs) {
+                scope.$watch(attrs.ngModel, function () {
+                    if (parseFloat(elem.html()) >= 0 && parseFloat(elem.html()) <= 75) {
+                    elem.css('background', '#E60000');
+                }
+                    else if (parseFloat(elem.html()) >= 76 && parseFloat(elem.html()) <= 80) {
+                    elem.css('background', '#ED7800');
+                }
+                else if (parseFloat(elem.html()) >= 81 && parseFloat(elem.html()) <= 90) {
+                    elem.css('background', '#F4D600');
+                }
+                else if (parseFloat(elem.html()) >= 91 && parseFloat(elem.html()) <= 93) {
+                    elem.css('background', '#8AB40C');
+                }
+                else if (parseFloat(elem.html()) >= 94 && parseFloat(elem.html()) <= 97) {
+                    elem.css('background', '#617E08');
+                }
+                else {
+                    elem.css('background', '#303F04');
+                }
+                console.log(elem.html());
+                console.log(elem);
+                });
+            }
+        };
+    });
+
+    //module.directive('ratingUi', function () {
+    //    return {
+    //        require: 'ngModel',
+    //        link: function (scope, element, attrs, ngModel) {
+    //            element.on('click', function () {
+    //                if (ngModel.$modelValue === '0' || ngModel.$modelValue === '1' || ngModel.$modelValue === '2' || ngModel.$modelValue === '3' || ngModel.$modelValue === '4') {
+    //                    element.css('background', '#ffb9b9');
+    //                    console.log(ngModel.$modelValue);
+
+    //                }
+    //                else if (ngModel.$modelValue === '5' || ngModel.$modelValue === '6') {
+    //                    element.css('background', '#feff9e');
+    //                }
+    //                else {
+    //                    element.css('background', '#caffb9');
+    //                }
+    //            });
+    //        }
+    //    };
+
+    //});
 
   
 
