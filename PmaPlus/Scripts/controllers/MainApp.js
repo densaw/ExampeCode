@@ -28,7 +28,7 @@
                     else if (elem.html() >= 7,1 && elem.html() <= 8) {
                         elem.css('background', '#617E08');
                     }
-                    else {
+                    else if (elem.html() >= 8,1 && elem.html() <= 10) {
                         elem.css('background', '#303F04');
                     }
                    
@@ -59,7 +59,7 @@
                 else if (parseFloat(elem.html()) >= 94 && parseFloat(elem.html()) <= 97) {
                     elem.css('background', '#617E08');
                 }
-                else {
+                else if (parseFloat(elem.html()) >= 98 && parseFloat(elem.html()) <= 100) {
                     elem.css('background', '#303F04');
                 }
                 console.log(elem.html());
