@@ -8,20 +8,20 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
     var addMatchReports = angular.element('#addMatchReports');
     //var cancelInvite = angular.element('#cancelInvite');
     var urlTail = '/api/MatchReports';
-   
+
 
     $scope.newMatch = {};
 
     $scope.teamList = [];
 
-    
+
 
     $http.get('/api/Teams/Coach/List').success(function (result) {
         $scope.teamList = result;
     });
 
     $scope.matchType = [
-        
+
         { id: 0, name: 'Cup' },
         { id: 1, name: 'Friendly' },
         { id: 2, name: 'International' },
@@ -48,42 +48,42 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
         addMatchReports.modal('hide');
     }
 
-    $scope.okMatch = function (id) {      
-            $scope.loginLoading = true;
-            $scope.myform.form_Submitted = !$scope.myform.$valid;
-            if (id != null) {
-                $scope.loginLoading = false;
-                
-                $http.put(urlTail + '/' + id, $scope.newMatch).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    addMatchReports.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
-                        });
-                    }
-                });
-            } else {
-                $scope.loginLoading = false;
-                //$scope.newAttr.type = $scope.selectedType.id;
-                $http.post(urlTail, $scope.newMatch).success(function () {
-                    getResultsPage($scope.pagination.current);
-                    addMatchReports.modal('hide');
-                }).error(function (data, status, headers, config) {
-                    if (status == 400) {
-                        console.log(data);
-                        toaster.pop({
-                            type: 'error',
-                            title: 'Error', bodyOutputType: 'trustedHtml',
-                            body: data.message.join("<br />")
-                        });
-                    }
-                });
-            }
+    $scope.okMatch = function (id) {
+        $scope.loginLoading = true;
+        $scope.myform.form_Submitted = !$scope.myform.$valid;
+        if (id != null) {
+            $scope.loginLoading = false;
+
+            $http.put(urlTail + '/' + id, $scope.newMatch).success(function () {
+                getResultsPage($scope.pagination.current);
+                addMatchReports.modal('hide');
+            }).error(function (data, status, headers, config) {
+                if (status == 400) {
+                    console.log(data);
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error', bodyOutputType: 'trustedHtml',
+                        body: data.message.join("<br />")
+                    });
+                }
+            });
+        } else {
+            $scope.loginLoading = false;
+            //$scope.newAttr.type = $scope.selectedType.id;
+            $http.post(urlTail, $scope.newMatch).success(function () {
+                getResultsPage($scope.pagination.current);
+                addMatchReports.modal('hide');
+            }).error(function (data, status, headers, config) {
+                if (status == 400) {
+                    console.log(data);
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Error', bodyOutputType: 'trustedHtml',
+                        body: data.message.join("<br />")
+                    });
+                }
+            });
+        }
 
     };
 
@@ -99,9 +99,14 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
 
     function createTail(pageNumber) {
         if (sortArray.length > 0) {
-            return urlTail +  '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            if (sortArray[0]) {
+                return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+
+            } else {
+                return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/date/true';
+            }
         } else {
-            return urlTail +  '/' + $scope.itemsPerPage + '/' + pageNumber;
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
         }
     }
 
@@ -117,7 +122,7 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
 
     $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, v, scope) {
         sortArray = newValue;
-       
+
         $http.get(createTail($scope.pagination.current))
             .success(function (result) {
                 $scope.items = result.items;
@@ -125,7 +130,7 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
             });
     });
 
-    
+
 
 
     getResultsPage($scope.pagination.current);
@@ -137,10 +142,10 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
 
     var matchReportsResult = angular.element('#matchReportsResult');
 
-    
+
 
     $scope.reportResult = function (id) {
-        $http.get('/api/MatchReports/'+ id).success(function (result) {
+        $http.get('/api/MatchReports/' + id).success(function (result) {
             $scope.matchReport = result;
             $scope.modalTitle = "Edit";
             matchReportsResult.modal('show');
@@ -153,6 +158,6 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
     $scope.closeResult = function () {
         matchReportsResult.modal('hide');
     }
-    
-    
+
+
 }]);
