@@ -346,18 +346,21 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th order-header head="Picture" order="picture">Picture</th>
-                                        <th order-header head="Player Name" order="name" style="text-align:left"></th>
-                                        <th order-header head="Team" order="team" style="text-align:left">Team</th>
-                                        <th order-header head="Age" order="age"></th>
-                                        <th order-header head="MOM" order="mom"></th>
-                                        <th order-header head="GLS" order="gls"></th>
-                                        <th order-header head="FRM" order="frm"></th>
-                                        <th order-header head="INJ" order="inj"></th>
-                                        <th order-header head="ATT%" order="att"></th>
-                                        <th order-header head="WB%" order="wb"></th>
-                                        <th order-header head="CUR" order="cur"></th>
-                                        <th order-header head="Action" order="action">Action</th>
+                                        <th>Picture</th>
+                                        <th>Player Name</th>
+                                        <th>Age</th>
+                                        <th>ATl</th>
+                                        <th>ATt</th>
+                                        <th>GLS</th>
+                                        <th>FRM</th>
+                                        <th>WB%</th>
+                                        <th>TT</th>
+                                        <th>PT</th>
+                                        <th>TT%</th>
+                                        <th>PT%</th>
+                                        <th>ATT%</th>
+                                        <th>CUR</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
@@ -369,16 +372,17 @@
                                         </td>
 
                                         <td style="text-align:left">{{player.name}}</td>
-                                        <td style="text-align:left">
-                                            <div ng-repeat="team in player.teams">{{team}} </div>
-                                        </td>
                                         <td>{{player.age}}</td>
-                                        <td>{{player.mom}}</td>
+                                        <td>{{player.atl | number:0}}</td>
+                                        <td>{{player.att | number:0}}</td>
                                         <td>{{player.gls}}</td>
-                                        <td>{{player.frm}}</td>
-                                        <td>{{player.inj}}</td>
-                                        <td><div rating-ai style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.att | number:1}}%</div></td>
-                                        <td>{{player.wb | number:1 }}</td>
+                                        <td>{{player.frm  | number:0}}</td>
+                                        <td>{{player.wbPercent}}</td>
+                                        <td>{{player.tt | time:'mm':'hh:mm':false}}</td>
+                                        <td>{{player.pt | time:'mm':'hh:mm':false}}</td>
+                                        <td><div rating-ai style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ttPercent | number:0}}%</div></td>
+                                        <td><div rating-ai style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ptPercent | number:0}}%</div></td>
+                                        <td><div rating-ai style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.attPercent | number:0}}%</div></td>
                                         <td><div rating-ui style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.cur}}</div></td>
                                         <td>
                                             <i ng-click="openEdit(player.id)" class="fa fa-cog" style="cursor: pointer;"></i>

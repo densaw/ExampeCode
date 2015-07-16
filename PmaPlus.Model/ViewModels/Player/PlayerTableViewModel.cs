@@ -18,8 +18,15 @@ namespace PmaPlus.Model.ViewModels.Player
         public decimal Frm { get; set; }
         public int Inj { get; set; }
         public decimal Att { get; set; }
+        public decimal Atl { get; set; }
         public int Wb { get; set; }
+        public decimal WbPercent { get; set; }
         public decimal Cur { get; set; }
+        public decimal AttPercent { get; set; }
 
+        public int TT { get; set; }
+        public int PT { get; set; }
+        public decimal TTPercent { get; set; }
+        public decimal PTPercent { get; set; }
     }
 }
