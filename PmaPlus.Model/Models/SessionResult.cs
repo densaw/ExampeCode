@@ -18,7 +18,7 @@ namespace PmaPlus.Model.Models
 
         public virtual Session Session { get; set; }
         public virtual TeamCurriculum TeamCurriculum { get; set; }
-
+        public virtual SessionAttendanceDetail AttendanceDetail { get; set; }
 
         public virtual ICollection<SessionAttendance> SessionAttendances { get; set; }
         public virtual ICollection<PlayerObjective> StartPlayerObjectives { get; set; }

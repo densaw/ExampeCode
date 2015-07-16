@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -46,6 +47,22 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
             _curriculumProcessServices.SaveSession(sessionId, teamId);
             return Ok();
         }
+
+        [Route("api/Curriculum/Wizard/AttendanceDetail/Save/{teamId:int}/{sessionId:int}")]
+        public IHttpActionResult PostAttendanceDetail(int teamId, int sessionId,[FromBody]SessionAttendanceDetailViewModel attendanceDetailViewModel)
+        {
+            _curriculumProcessServices.SaveAttendanceDetail(Mapper.Map<SessionAttendanceDetailViewModel, SessionAttendanceDetail>(attendanceDetailViewModel),teamId,sessionId);
+            return Ok();
+        }
+
+        [Route("api/Curriculum/Wizard/AttendanceDetail/{teamId:int}/{sessionId:int}")]
+        public SessionAttendanceDetailViewModel GetAttendanceDetail(int teamId, int sessionId)
+        {
+            return Mapper.Map<SessionAttendanceDetail, SessionAttendanceDetailViewModel>(_curriculumProcessServices.GetAttendanceDetail(teamId, sessionId));
+        }
+
+
+
 
         [Route("api/Curriculum/Wizard/Team/Archive/{teamId:int}/")]
         public IHttpActionResult PutTeamArchive(int teamId)

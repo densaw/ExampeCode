@@ -174,6 +174,8 @@ namespace PmaPlus.Mapping
 
             #region Curriculum Process
 
+            Mapper.CreateMap<SessionAttendanceDetail, SessionAttendanceDetailViewModel>();
+
             Mapper.CreateMap<SessionResult, SessionsWizardViewModel>()
                 .ForMember(d => d.Attendance, o => o.MapFrom(s => s.Session.Attendance))
                 .ForMember(d => d.Name, o => o.MapFrom(s => s.Session.Name))

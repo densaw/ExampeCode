@@ -5,7 +5,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>{{step.name}}</h5><h5 ng-if="addDate" style="font-weight: 200;"> - Date: {{addDate.time | date:'dd-MM-yyyy'}} Time: {{addDate.time | date:'HH:mm'}} Duration: {{addDate.duration}} </h5>
+                    <h5>{{step.name}}</h5><h5 ng-if="addDate" style="font-weight: 200;"> - Date: {{addDate.date | date:'dd-MM-yyyy'}} Time: {{addDate.date | date:'HH:mm'}} Duration: {{addDate.duration}} mins</h5>
                     <div class="ibox-tools" style="margin-top: -5px;">
                         <a class="btn btn-primary btn-sm" ng-disabled="team.archived" ng-click="ssesionDetail()">Session Detail</a>
                         <a class=" btn btn-primary btn-sm" ng-disabled="!addDate" ng-click="confAtendOpen()">All Attended</a>
@@ -42,7 +42,7 @@
                                     <td>{{item.attPercent | number: 1}}%</td>
                                     <td>{{item.wbPercent}}</td>
                                     <td>{{item.cur}}</td>
-                                    <td style="text-align:left"><select ng-disabled="team.archived" ng-change="item.attendance != 0 ? item.duration = 0:''" name="attendense" ng-model="item.attendance" ng-options="attend.id as attend.name for attend in attendense | orderBy:'name'" class=" form-control"></select></td>
+                                    <td style="text-align:left"><select ng-disabled="team.archived || !addDate" ng-change="item.attendance == 0 ? item.duration = addDate.duration :item.duration = 0" name="attendense" ng-model="item.attendance" ng-options="attend.id as attend.name for attend in attendense | orderBy:'name'" class=" form-control"></select></td>
                                     <td style="text-align:left"><input ng-disabled="team.archived" type="number" style="width: 120px;" ng-model="item.duration" class=" form-control" /></td>
                                 </tr>
                             </tbody>
@@ -74,11 +74,11 @@
                                 <div class="dropdown">
                                     <a class="dropdown-toggle" id="dropdown10" role="button" data-toggle="dropdown" data-target="#" href="#">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" value="{{addDate.time | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            <input type="text" class="form-control" value="{{addDate.date | date:'dd-MM-yyyy HH:mm' }}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                        <datetimepicker required name="addDate.time" data-ng-model="addDate.time" data-datetimepicker-config="{ dropdownSelector: '#dropdown10', startView:'day'}" />
+                                        <datetimepicker required name="addDate.date" data-ng-model="addDate.date" data-datetimepicker-config="{ dropdownSelector: '#dropdown10', startView:'day'}" />
                                     </ul>
                                 </div>
 
@@ -114,7 +114,7 @@
                     <h3 class="modal-title text-left">All Attend</h3>
                 </div>
                 <div class="modal-body">
-                    <h2>Attend all Player?</h2>
+                    <h2>Please confirm you wish to mark all players as attended</h2>
                 </div>
                 <div class="modal-footer">
                     <button ng-click="cancelAtt()" id="closeAtt" type="button" class="btn btn-white">No</button>
