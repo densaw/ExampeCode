@@ -252,6 +252,10 @@ namespace PmaPlus.Controllers
             return View();
         }
 
-
+        public ActionResult ContactUs(ContactViewModel model)
+        {
+            
+            return View(model);
+        }
     }
 }

@@ -36,7 +36,7 @@
 
         <a href="@Url.Action("ForgotPassword","Account")"><small>Forgot password?</small></a>
         <p class="text-muted text-center"><small>Do not have an account?</small></p>
-        <a class="btn btn-sm btn-white btn-block" href="#">Contact Us</a>
+    <a href="@Url.Action("ContactUs","Account")" class="btn btn-sm btn-white btn-block" href="#">Contact Us</a>
 }  
     @if (!ViewData.ModelState.IsValid)
          {
