@@ -57,12 +57,20 @@ namespace PmaPlus.Services
                        ProfilePicture = player.User.UserDetail.ProfilePicture,
                        Teams = player.Teams.Select(t => t.Name),
                        Att = ((decimal)player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100,
+                       Atl = player.PlayerRatingses.Select(r => r.Atl).DefaultIfEmpty().Average(),
                        Mom = player.MatchMoms.Count,
                        Gls = (decimal)player.MatchStatistics.Select(m => m.Goals).DefaultIfEmpty().Average(),
                        Frm = (decimal)player.MatchStatistics.Select(m => m.FormRating).DefaultIfEmpty().Average(),
                        Inj = player.PlayerInjuries.Count,
                        Cur = player.PlayerRatingses.Select(r => r.Cur).DefaultIfEmpty().Average(),
-                       Wb = 0
+                       Wb = 0,
+                       AttPercent = ((decimal)player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100,
+                       PT = player.MatchStatistics.Select(m => m.PlayingTime).DefaultIfEmpty().Sum(),
+                       TT = player.SessionAttendances.Select(a => a.Duration).DefaultIfEmpty().Sum(),
+                       PTPercent = ((decimal)player.MatchStatistics.Select(m => m.PlayingTime).DefaultIfEmpty().Sum() /
+                                 (player.MatchStatistics.Select(m => m.Match.Duration).DefaultIfEmpty().Sum() != 0 ? player.MatchStatistics.Select(m => m.Match.Duration).DefaultIfEmpty().Sum() : 1)) * 100,
+                       TTPercent = ((decimal)player.SessionAttendances.Select(a => a.Duration).DefaultIfEmpty().Sum() /
+                                 (player.SessionAttendances.Select(s => s.SessionResult).Select(r => r.AttendanceDetail).DefaultIfEmpty().Sum(a => a == null ? 0 : a.Duration) != 0 ? player.SessionAttendances.Select(s => s.SessionResult).Select(r => r.AttendanceDetail).DefaultIfEmpty().Sum(a => a == null ? 0 : a.Duration) : 1)) * 100
                    };
         }
 
