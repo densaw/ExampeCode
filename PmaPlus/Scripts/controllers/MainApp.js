@@ -241,7 +241,36 @@
         }
     }]);
 
+    module.filter('time', function () {
 
+        var conversions = {
+            'ss': angular.identity,
+            'mm': function (value) { return value * 60; },
+            'hh': function (value) { return value * 3600; }
+        };
+
+        var padding = function (value, length) {
+            var zeroes = length - ('' + (value)).length,
+                pad = '';
+            while (zeroes-- > 0) pad += '0';
+            return pad + value;
+        };
+
+        return function (value, unit, format, isPadded) {
+            var totalSeconds = conversions[unit || 'ss'](value),
+                hh = Math.floor(totalSeconds / 3600),
+                mm = Math.floor((totalSeconds % 3600) / 60),
+                ss = totalSeconds % 60;
+
+            format = format || 'hh:mm:ss';
+            isPadded = angular.isDefined(isPadded) ? isPadded : true;
+            hh = isPadded ? padding(hh, 2) : hh;
+            mm = isPadded ? padding(mm, 2) : mm;
+            ss = isPadded ? padding(ss, 2) : ss;
+
+            return format.replace(/hh/, hh).replace(/mm/, mm).replace(/ss/, ss);
+        };
+    });
 
     module.filter('curr', function () {
         return function (v, yes, no) {
@@ -2484,9 +2513,9 @@
         var picModal = angular.element('#photoModal');
         var modalVideo = angular.element('#videoModal');
 
-        $scope.modalVideoStart = function (src) {
-            console.log(src);
+        $scope.modalVideoStart = function (src,name) {
             //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
+            $scope.skillName = name;
             modalVideo.modal('show');
             $('#videoModal iframe').attr('src', src);
         }
@@ -2853,8 +2882,9 @@
         var target = angular.element('#addSkill');
         var confDelete = angular.element('#confDelete');
         var modalVideo = angular.element('#videoModal');
-        $scope.modalVideoStart = function (src) {
+        $scope.modalVideoStart = function (src,name) {
             //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
+            $scope.skillName = name;
             modalVideo.modal('show');
             $('#videoModal iframe').attr('src', src);
         }

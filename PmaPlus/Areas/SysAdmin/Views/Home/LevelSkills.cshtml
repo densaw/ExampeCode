@@ -293,7 +293,24 @@
                     @*Modal End*@
 
                         @*Modal*@
-                        @Html.Partial("~/Views/Partials/_VideoModalPartial.cshtml")
+                        <div class="modal inmodal" id="videoModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" style="width: 940px">
+                                <div class="modal-content animated bounceInRight">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" onclick="$('#videoModal iframe').attr('src', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title text-left">{{skillName}}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div style="text-align:center">
+                                            <iframe width="850" height="480" frameborder="0" allowfullscreen=""></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" onclick="$('#videoModal iframe').attr('src', '')" id="closeModal" type="button" class="btn btn-white">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @*Modal End*@
 
 
@@ -351,7 +368,7 @@
                                         <td>
                                             <i ng-click="openEdit(skill.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(skill.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                            <i ng-click="modalVideoStart(skill.videoLink)" class="fa fa-film" style="cursor: pointer;"></i>
+                                            <i ng-click="modalVideoStart(skill.videoLink,skill.trainingItemName)" class="fa fa-film" style="cursor: pointer;"></i>
                                         </td>
                                     </tr>
                                 </tbody>

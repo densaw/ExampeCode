@@ -3840,6 +3840,8 @@
     <Content Include="Views\Partials\HealthAndFitness\_Fitness.cshtml" />
     <Content Include="Views\Partials\HealthAndFitness\_Tracker.cshtml" />
     <Content Include="Views\Partials\HealthAndFitness\_WellBeing.cshtml" />
+    <Content Include="Views\Partials\_VideoModalPartialWithTitle.cshtml" />
+    <Content Include="Views\Account\ContactUs.cshtml" />
     <Content Include="Views\Account\Contact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

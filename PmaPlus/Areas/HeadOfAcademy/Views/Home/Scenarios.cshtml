@@ -156,7 +156,7 @@
                         @*Modal End*@
 
                         @*Modal*@
-                        @Html.Partial("~/Views/Partials/_VideoModalPartial.cshtml")
+                        @Html.Partial("~/Views/Partials/_VideoModalPartialWithTitle.cshtml")
                         @*Modal End*@
 
                         @*Modal*@
@@ -240,7 +240,7 @@
                                         <td>
                                             <i ng-if="scenario.uploadedBy != 'SystemAdmin'" ng-click="openEdit(scenario.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-if="scenario.uploadedBy != 'SystemAdmin'" ng-click="openDelete(scenario.id)" class="fa fa-trash" style="cursor: pointer;"></i>
-                                            <i ng-click="modalVideoStart(scenario.video)" class="fa fa-film" style="cursor: pointer;"></i>
+                                            <i ng-click="modalVideoStart(scenario.video,scenario.name)" class="fa fa-film" style="cursor: pointer;"></i>
                                             <i ng-click="openPic(scenario.id)" class="fa fa-camera" style="cursor: pointer;"></i>
 
                                         </td>

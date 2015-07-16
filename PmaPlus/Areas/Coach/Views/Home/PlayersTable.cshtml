@@ -51,11 +51,8 @@
                             <div class="modal-dialog">
                                 <div class="modal-content animated bounceInRight">
                                     <div class="modal-header">
-
                                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                         <h3 class="modal-title">Delete Record?</h3>
-
-
                                     </div>
                                     <div class="modal-body">
                                         <h3 class="text-center">Are you sure you wish to delete this record?</h3>
@@ -113,15 +110,16 @@
                                         <th style ="text-align:left; padding-left: 26px;">Picture</th>
                                         <th style="text-align:left">Player Name</th>
                                         <th>Age</th>
-                                        <th>Attitude - Learning</th>
-                                        <th>Attitude - Teammates</th>
-                                        
+                                        <th>ATl</th>
+                                        <th>ATt</th>
                                         <th>GLS</th>                                        
-                                        
                                         <th>FRM</th>
-                                        
-                                        <th>ATT%</th>
                                         <th>WB%</th>
+                                        <th>TT</th>
+                                        <th>PT</th>
+                                        <th>TT%</th>
+                                        <th>PT%</th>
+                                        <th>ATT%</th>
                                         <th>CUR</th>
                                     </tr>
                                 </thead>
@@ -136,13 +134,14 @@
                                     <td>{{player.age}}</td>
                                     <td>{{player.atl | number:1}}</td>
                                     <td>{{player.att | number:1}}</td>
-                                    
                                     <td>{{player.gls}}</td>
-                                    
                                     <td>{{player.frm  | number:1}}</td>
-                                    
-                                    <td><div rating-ai style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.attPercent | number:1}}%</div></td>
                                     <td>{{player.wbPercent}}</td>
+                                    <td>{{player.tt | time:'mm':'hh:mm':false}}</td>
+                                    <td>{{player.pt | time:'mm':'hh:mm':false}}</td>
+                                    <td><div rating-ai style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ttPercent | number:1}}%</div></td>
+                                    <td><div rating-ai style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ptPercent | number:1}}%</div></td>
+                                    <td><div rating-ai style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.attPercent | number:1}}%</div></td>
                                     <td><div rating-ui style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.cur}}</div></td>
                                 </tr>
                                 </tbody>
