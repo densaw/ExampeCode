@@ -286,7 +286,7 @@
                                 <div class="modal-content animated bounceInRight">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" onclick="$('#videoModal iframe').attr('src', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        <h3 class="modal-title text-left">Video</h3>
+                                        <h3 class="modal-title text-left">{{skillName}}</h3>
                                     </div>
                                     <div class="modal-body">
                                         <div style="text-align:center">
@@ -294,7 +294,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-
+                                        <button data-dismiss="modal" onclick="$('#videoModal iframe').attr('src', '')" id="closeModal" type="button" class="btn btn-white">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -356,7 +356,7 @@
                                         <td style="text-align:left">{{skill.trainingItemName}}</td>
                                         <td>{{skill.time}}</td>
                                         <td>
-                                            <i ng-click="modalVideoStart(skill.videoLink)" class="fa fa-film" style="cursor: pointer;"></i>
+                                            <i ng-click="modalVideoStart(skill.videoLink,skill.trainingItemName)" class="fa fa-film" style="cursor: pointer;"></i>
                                         </td>
                                     </tr>
                                 </tbody>
