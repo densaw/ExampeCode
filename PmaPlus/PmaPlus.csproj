@@ -3841,6 +3841,7 @@
     <Content Include="Views\Partials\HealthAndFitness\_Tracker.cshtml" />
     <Content Include="Views\Partials\HealthAndFitness\_WellBeing.cshtml" />
     <Content Include="Views\Partials\_VideoModalPartialWithTitle.cshtml" />
+    <Content Include="Views\Account\ContactUs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
