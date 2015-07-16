@@ -29,5 +29,10 @@ namespace PmaPlus.Model.ViewModels.CurriculumProcess
         public decimal WbPercent { get; set; }
         public decimal Cur { get; set; }
 
+        public int TT { get; set; }
+        public int PT { get; set; }
+        public decimal TTPercent { get; set; }
+        public decimal PTPercent { get; set; }
+
     }
 }

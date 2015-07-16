@@ -1013,9 +1013,10 @@ app.controller('SkillVidController', ['$scope', '$http', 'toaster', '$location',
     var target = angular.element('#addSkill');
     var confDelete = angular.element('#confDelete');
     var modalVideo = angular.element('#videoModal');
-    $scope.modalVideoStart = function (src) {
+    $scope.modalVideoStart = function (src,name) {
         //var src = 'http://www.youtube.com/v/Qmh9qErJ5-Q&amp;autoplay=1';
         modalVideo.modal('show');
+        $scope.skillName = name;
         $('#videoModal iframe').attr('src', src);
     }
 
