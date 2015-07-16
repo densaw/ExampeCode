@@ -23,13 +23,21 @@ app.controller('AtendanceController', ['$scope', '$http', '$location', 'WizardHa
             .success(function (result) {
                 $scope.items = result;
             });
+        $http.get('/api/Curriculum/Wizard/AttendanceDetail/' + $scope.currId + '/' + $scope.$parent.step.sessionId)
+            .success(function (result) {
+                if (result) {
+                    $scope.addDate = result;
+                }
+            });
     }
 
     var savePeriod = function () {
         $scope.$parent.obj.laddaLoading = true;
         $http.post('/api/Curriculum/Wizard/Session/AttendanceTable/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.items)
              .success(function () {
-                 $http.post('/api/Curriculum/Wizard/Session/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId);
+                 $http.post('/api/Curriculum/Wizard/Session/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId).success(function () {
+                     $http.post('/api/Curriculum/Wizard/AttendanceDetail/Save/' + $scope.currId + '/' + $scope.$parent.step.sessionId, $scope.addDate);
+                 });
                  $scope.$parent.obj.laddaLoading = false;
                  $scope.$parent.step.done = true;
                  $scope.nav.canNext = true;

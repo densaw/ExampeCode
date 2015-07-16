@@ -128,6 +128,7 @@
     <Compile Include="Models\QualificationToFaCourse.cs" />
     <Compile Include="Models\Scenario.cs" />
     <Compile Include="Models\SessionAttendance.cs" />
+    <Compile Include="Models\SessionAttendanceDetail.cs" />
     <Compile Include="Models\SessionResult.cs" />
     <Compile Include="Models\SessionScenario.cs" />
     <Compile Include="Models\SharedFolder.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="ViewModels\CurriculumProcess\AddPlayerObjectiveTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\PlayerObjectiveTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\PlayerRatingsTableViewModel.cs" />
+    <Compile Include="ViewModels\CurriculumProcess\SessionAttendanceDetailViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\SessionAttendanceTableViewModel.cs" />
     <Compile Include="ViewModels\CurriculumProcess\SessionsWizardViewModel.cs" />
     <Compile Include="ViewModels\DashboardContent\ActivePlayersForLastYearViewModel.cs" />

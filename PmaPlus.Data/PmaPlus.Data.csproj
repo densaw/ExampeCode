@@ -88,6 +88,7 @@
     <Compile Include="Repository\Iterfaces\IPlayerMatchStatisticRepository.cs" />
     <Compile Include="Repository\Iterfaces\IPlayerObjectiveRepository.cs" />
     <Compile Include="Repository\Iterfaces\IPlayerRatingsRepository.cs" />
+    <Compile Include="Repository\Iterfaces\ISessionAttendanceDetailRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISessionAttendanceRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISessionResultRepository.cs" />
     <Compile Include="Repository\Iterfaces\ISharedFolderRepository.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Repository\PlayerMatchStatisticRepository.cs" />
     <Compile Include="Repository\PlayerObjectiveRepository.cs" />
     <Compile Include="Repository\PlayerRatingsRepository.cs" />
+    <Compile Include="Repository\SessionAttendanceDetailRepository.cs" />
     <Compile Include="Repository\SessionAttendanceRepository.cs" />
     <Compile Include="Repository\SessionRepository.cs" />
     <Compile Include="Repository\CurriculumStatementRepository.cs" />

@@ -107,6 +107,7 @@ namespace PmaPlus.Mapping
 
             #endregion
 
+            Mapper.CreateMap<SessionAttendanceDetailViewModel, SessionAttendanceDetail>();
         }
     }
 }

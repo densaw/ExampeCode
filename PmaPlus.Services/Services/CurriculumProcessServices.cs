@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -323,7 +324,7 @@ namespace PmaPlus.Services.Services
             _playerBlockObjectiveRepository.AddOrUpdate(blockObjectives.ToArray());
         }
 
-        public IEnumerable<PlayerBlockObjectiveTableViewModel> GetBlockObjectiveTableForReport(int teamId, int sessionId,int userId)
+        public IEnumerable<PlayerBlockObjectiveTableViewModel> GetBlockObjectiveTableForReport(int teamId, int sessionId, int userId)
         {
             var team = _teamRepository.GetById(teamId);
             var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
@@ -335,27 +336,27 @@ namespace PmaPlus.Services.Services
             var objectives = sessionResult.EndPlayerBlockObjectives;
 
             return from objective in objectives
-                select new PlayerBlockObjectiveTableViewModel()
-                {
-                    Id = objective.Id,
-                    Name = objective.Player.User.UserDetail.FirstName + " " + objective.Player.User.UserDetail.LastName,
-                    Picture =
-                        "/api/file/ProfilePicture/" + objective.Player.User.UserDetail.ProfilePicture + "/" +
-                        objective.Player.User.Id,
-                    PlayerId = objective.PlayerId,
-                    PreObjective = objective.PreObjective,
-                    Statement =
-                        objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId) != null
-                            ? objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId).Statement
-                            : "",
-                    Achieved =
-                        objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId) != null
-                            ? objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId).Achieved
-                            : false,
-                };
+                   select new PlayerBlockObjectiveTableViewModel()
+                   {
+                       Id = objective.Id,
+                       Name = objective.Player.User.UserDetail.FirstName + " " + objective.Player.User.UserDetail.LastName,
+                       Picture =
+                           "/api/file/ProfilePicture/" + objective.Player.User.UserDetail.ProfilePicture + "/" +
+                           objective.Player.User.Id,
+                       PlayerId = objective.PlayerId,
+                       PreObjective = objective.PreObjective,
+                       Statement =
+                           objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId) != null
+                               ? objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId).Statement
+                               : "",
+                       Achieved =
+                           objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId) != null
+                               ? objective.BlockObjectiveStatements.FirstOrDefault(s => s.UserId == userId).Achieved
+                               : false,
+                   };
         }
 
-        public void ReportBlockPreObjectives(IList<PlayerBlockObjectiveTableViewModel> playerObjectivesTable, int teamId, int sessionId,int userId)
+        public void ReportBlockPreObjectives(IList<PlayerBlockObjectiveTableViewModel> playerObjectivesTable, int teamId, int sessionId, int userId)
         {
             var team = _teamRepository.GetById(teamId);
             var sessinResult = team.TeamCurriculum.SessionResults.FirstOrDefault(sr => sr.SessionId == sessionId);
@@ -486,6 +487,44 @@ namespace PmaPlus.Services.Services
             var team = _teamRepository.GetById(teamId);
             team.TeamCurriculum.Archived = true;
             _teamRepository.Update(team);
+        }
+
+        public void SaveAttendanceDetail(SessionAttendanceDetail sessionAttendanceDetail, int teamId, int sessionId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
+            if (sessionResult == null)
+            {
+                throw new NoNullAllowedException("No such session was saved");
+            }
+
+            if (sessionResult.AttendanceDetail == null)
+            {
+                sessionResult.AttendanceDetail = new SessionAttendanceDetail()
+                {
+                    Date = sessionAttendanceDetail.Date,
+                    Duration = sessionAttendanceDetail.Duration
+                };
+            }
+            else
+            {
+                sessionResult.AttendanceDetail.Date = sessionAttendanceDetail.Date;
+                sessionResult.AttendanceDetail.Duration = sessionAttendanceDetail.Duration;
+            }
+
+
+            _sessionResultRepository.Update(sessionResult);
+        }
+
+        public SessionAttendanceDetail GetAttendanceDetail(int teamId, int sessionId)
+        {
+            var team = _teamRepository.GetById(teamId);
+            var sessionResult = team.TeamCurriculum.SessionResults.FirstOrDefault(s => s.SessionId == sessionId);
+            if (sessionResult == null)
+            {
+                throw new NoNullAllowedException("No such session was saved");
+            }
+            return sessionResult.AttendanceDetail;
         }
     }
 }
