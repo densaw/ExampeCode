@@ -7,7 +7,6 @@ using System.Web.Http;
 using AutoMapper;
 using PmaPlus.Model;
 using PmaPlus.Model.Models;
-using PmaPlus.Model;
 using PmaPlus.Model.ViewModels;
 using PmaPlus.Model.ViewModels.TrainingTeamMember;
 using PmaPlus.Model.ViewModels.Users;

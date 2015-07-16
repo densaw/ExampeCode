@@ -54,18 +54,14 @@ namespace PmaPlus.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
-    public class ContactViewModel
+    public class EmailFormModel
     {
+        [Required, Display(Name = "Your name")]
+        public string FromName { get; set; }
+        [Required, Display(Name = "Your email"), EmailAddress]
+        public string FromEmail { get; set; }
         [Required]
-        [EmailAddress]
-        [Display(Name = "Contact Us")]
-        public string title { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string email { get; set; }
-        public string phone { get; set; }
-        public string mobile { get; set; }
-        public string message { get; set; }
+        public string Message { get; set; }
     }
 
 }
