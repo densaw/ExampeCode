@@ -69,27 +69,34 @@
         };
     });
 
-    //module.directive('ratingUi', function () {
-    //    return {
-    //        require: 'ngModel',
-    //        link: function (scope, element, attrs, ngModel) {
-    //            element.on('click', function () {
-    //                if (ngModel.$modelValue === '0' || ngModel.$modelValue === '1' || ngModel.$modelValue === '2' || ngModel.$modelValue === '3' || ngModel.$modelValue === '4') {
-    //                    element.css('background', '#ffb9b9');
-    //                    console.log(ngModel.$modelValue);
+    module.directive('ratingOi', function () {
+        return {
+           require: 'ngModel',
+           link: function (scope, element, attrs, ngModel) {
+               element.on('click', function () {
+                   if (ngModel.$modelValue == 0 || ngModel.$modelValue <= 75) {
+                       elem.css('background', '#E60000');
+                   }
+                   else if (ngModel.$modelValue >= 76 && ngModel.$modelValue <= 80) {
+                       elem.css('background', '#ED7800');
+                   }
+                   else if (ngModel.$modelValue >= 81 && ngModel.$modelValue <= 90) {
+                       elem.css('background', '#F4D600');
+                   }
+                   else if (ngModel.$modelValue >= 91 && ngModel.$modelValue <= 93) {
+                       elem.css('background', '#8AB40C');
+                   }
+                   else if (ngModel.$modelValue >= 94 && ngModel.$modelValue <= 97) {
+                       elem.css('background', '#617E08');
+                   }
+                   else {
+                       elem.css('background', '#303F04');
+                   }
+               });
+            }
+        };
 
-    //                }
-    //                else if (ngModel.$modelValue === '5' || ngModel.$modelValue === '6') {
-    //                    element.css('background', '#feff9e');
-    //                }
-    //                else {
-    //                    element.css('background', '#caffb9');
-    //                }
-    //            });
-    //        }
-    //    };
-
-    //});
+    });
 
   
 
