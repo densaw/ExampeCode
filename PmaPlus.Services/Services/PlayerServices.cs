@@ -56,7 +56,7 @@ namespace PmaPlus.Services
                        Age = DateTime.Now.Year - (player.User.UserDetail.Birthday ?? DateTime.Now).Year,
                        ProfilePicture = player.User.UserDetail.ProfilePicture,
                        Teams = player.Teams.Select(t => t.Name),
-                       Att = ((decimal)player.SessionAttendances.Count(a => a.Attendance == AttendanceType.Attended) / (player.SessionAttendances.Count != 0 ? player.SessionAttendances.Count : 1)) * 100,
+                       Att = player.PlayerRatingses.Select(r => r.Att).DefaultIfEmpty().Average(),
                        Atl = player.PlayerRatingses.Select(r => r.Atl).DefaultIfEmpty().Average(),
                        Mom = player.MatchMoms.Count,
                        Gls = (decimal)player.MatchStatistics.Select(m => m.Goals).DefaultIfEmpty().Average(),
