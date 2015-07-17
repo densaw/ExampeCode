@@ -15,14 +15,14 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
         confConfirm1.modal('hide');
     }
 
-    
+
 
 
     $scope.$on('moveEvent', function () {
-       if (WizardHandler.wizard().currentStepNumber() == 4) {
+        if (WizardHandler.wizard().currentStepNumber() == 4) {
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
-            
+
             $scope.nav.last = false;
             $scope.addMatchDetails();
         }
@@ -64,7 +64,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
                         $scope.cuurrentMatch.picture = result.picture;
                     });
                 }).error(function (data, status, headers, config) {
-                    
+
                     if (status == 400) {
                         console.log(data);
                         toaster.pop({
