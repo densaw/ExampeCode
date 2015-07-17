@@ -16,20 +16,20 @@
                     if (elem.html() >= 0 && elem.html() <= 5) {
                         elem.css('background', '#E60000');
                     }
-                    else if (elem.html() >= 5,1 && elem.html() <= 6) {
+                    else if (elem.html() > 5 && elem.html() <= 6) {
                         elem.css('background', '#ED7800');
                     }
-                    else if (elem.html() >= 6,1 && elem.html() <= 6,5) {
+                    else if (elem.html() > 6 && elem.html() <= 6.5) {
                         elem.css('background', '#F4D600');
                     }
-                    else if (elem.html() >= 6,6 && elem.html() <= 7) {
+                    else if (elem.html() > 6.5 && elem.html() <= 7) {
                         elem.css('background', '#8AB40C');
                     }
-                    else if (elem.html() >= 7,1 && elem.html() <= 8) {
+                    else if (elem.html() > 7 && elem.html() <= 8) {
                         elem.css('background', '#617E08');
                     }
-                    else if (elem.html() >= 8,1 && elem.html() <= 10) {
-                        elem.css('background', '#4E6506');
+                    else if (elem.html() > 8 && elem.html() <= 10) {
+                        elem.css('background', '#303F04');
                     }
                    
                     
@@ -64,6 +64,37 @@
                 }
                 console.log(elem.html());
                 console.log(elem);
+                });
+            }
+        };
+    });
+    module.directive('ratingTt', function () {
+        return {
+
+            restrict: 'A',
+
+            link: function (scope, elem, attrs) {
+                scope.$watch(attrs.ngModel, function () {
+                    if (parseFloat(elem.html()) >= 0 && parseFloat(elem.html()) <= 50) {
+                        elem.css('background', '#E60000');
+                    }
+                    else if (parseFloat(elem.html()) >= 51 && parseFloat(elem.html()) <= 55) {
+                        elem.css('background', '#ED7800');
+                    }
+                    else if (parseFloat(elem.html()) >= 56 && parseFloat(elem.html()) <= 60) {
+                        elem.css('background', '#F4D600');
+                    }
+                    else if (parseFloat(elem.html()) >= 61 && parseFloat(elem.html()) <= 70) {
+                        elem.css('background', '#8AB40C');
+                    }
+                    else if (parseFloat(elem.html()) >= 71 && parseFloat(elem.html()) <= 80) {
+                        elem.css('background', '#617E08');
+                    }
+                    else if (parseFloat(elem.html()) >= 81 && parseFloat(elem.html()) <= 100) {
+                        elem.css('background', '#303F04');
+                    }
+                    console.log(elem.html());
+                    console.log(elem);
                 });
             }
         };
