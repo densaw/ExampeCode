@@ -211,10 +211,10 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Scout Name</th>
+                                    <th style="text-align:left;">Scout Name</th>
                                     <th>Date Found</th>
-                                    <th>Player Name</th>
-                                    <th>Present Club</th>
+                                    <th style="text-align:left;">Player Name</th>
+                                    <th style="text-align:left;">Present Club</th>
                                     <th>Age</th>
                                     <th>Contact Telephone</th>
                                     <th>Rating</th>
@@ -226,10 +226,10 @@
                                 </thead>
                                 <tbody id="contentTable">
                                     <tr dir-paginate="newScoutP in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{newScoutP.scouteName}}</td>
+                                        <td style="text-align:left;">{{newScoutP.scouteName}}</td>
                                         <td>{{newScoutP.dateIdentificated | date:'dd-MM-yyyy'}}</td>
-                                        <td>{{newScoutP.name}}</td>
-                                        <td>{{newScoutP.presentClub}}</td>
+                                        <td style="text-align:left;">{{newScoutP.name}}</td>
+                                        <td style="text-align:left;">{{newScoutP.presentClub}}</td>
                                         <td>{{newScoutP.age}}</td>
                                         <td>{{newScoutP.parentsMobile}}</td>
                                         <td>{{newScoutP.score}}</td>
