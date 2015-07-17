@@ -15,16 +15,18 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
         confConfirm1.modal('hide');
     }
 
-    
+
 
 
     $scope.$on('moveEvent', function () {
-       if (WizardHandler.wizard().currentStepNumber() == 4) {
+        if (WizardHandler.wizard().currentStepNumber() == 4) {
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
-            
+
             $scope.nav.last = false;
-            $scope.addMatchDetails();
+            if (!$scope.$parent.cuurrentMatch.archived) {
+                $scope.addMatchDetails();
+            }
         }
     });
 
@@ -44,7 +46,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
                 headers: { 'Content-Type': undefined }
             })
                 .success(function (data) {
-                    $scope.cuurrentMatch.picture = data.name;
+                    $scope.$parent.cuurrentMatch.picture = data.name;
                     angular.element('.pma-fileupload').fileinput('clear');
                 })
                 .error(function () {
@@ -57,14 +59,14 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
             promises.push(promise);
         }
         $q.all(promises).then(function () {
-            $http.put('/api/MatchReports/' + $scope.currId, $scope.cuurrentMatch)
+            $http.put('/api/MatchReports/' + $scope.currId, $scope.$parent.cuurrentMatch)
                 .success(function (result) {
                     $scope.loginLoading = false;
                     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-                        $scope.cuurrentMatch.picture = result.picture;
+                        $scope.$parent.cuurrentMatch.picture = result.picture;
                     });
                 }).error(function (data, status, headers, config) {
-                    
+
                     if (status == 400) {
                         console.log(data);
                         toaster.pop({

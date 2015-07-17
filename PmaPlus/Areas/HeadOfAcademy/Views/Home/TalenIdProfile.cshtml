@@ -169,10 +169,10 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th style="width: 20% !important;">Date</th>
-                                        <th style="width: 20% !important;">Scout</th>
-                                        <th style="width: 20% !important;">Location</th>
-                                        <th style="width: 40% !important;">Notes</th>
+                                        <th style="width: 19% !important;">Date</th>
+                                        <th style="width: 19% !important; text-align:left;">Scout</th>
+                                        <th style="width: 19% !important; text-align:left;">Location</th>
+                                        <th style="width: 40% !important; text-align:left;">Notes</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -181,18 +181,16 @@
                                         <tbody id="user-rows">
                                             <tr dir-paginate="item in items1 | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
                                                 <td class="user-row" style="opacity: 1;width: 20% !important;">{{item.addDate | date:'dd-MM-yyyy' }}</td>
-                                                <td class="user-row" style="opacity: 1;width: 20% !important;">{{item.scout}}</td>
-                                                <td class="user-row" style="opacity: 1;width: 20% !important;">
+                                                <td class="user-row" style="opacity: 1;width: 20% !important; text-align:left;">{{item.scout}}</td>
+                                                <td class="user-row" style="opacity: 1;width: 20% !important; text-align:left;">
                                                     {{item.location}}
                                                 </td>
-                                                <td class="user-row" style="opacity: 1; width: 40% !important;" >{{item.note}}</td>
+                                                <td class="user-row" style="opacity: 1; width: 40% !important; text-align:left;" >{{item.note}}</td>
 
                                             </tr>
                                         </tbody>
-
                                     </table>
-                                    </div>
-                                
+                                    </div>                                
                             </form>                       
                         </div>
                     </div>
@@ -269,14 +267,14 @@
                             <table class="table tablea table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Attribute Name</th>
+                                        <th style="text-align:left;">Attribute Name</th>
                                         <th>Player</th>
                                         <th>Score</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr dir-paginate="item in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                        <td>{{item.attributeName}}</td>
+                                        <td style="text-align:left;">{{item.attributeName}}</td>
                                         <td>
                                             <div class="check-link">
                                                 <input ng-change="checkAtt(item)" type="checkbox" ng-model="item.haveAttribute">

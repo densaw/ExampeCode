@@ -56,10 +56,10 @@
                                 <div class="grey">
                                     <a class=" btn btn-primary btn-sm grey" ng-disabled="!nav.canBack" wz-previous @*ng-click="updateProgress()"*@>Previous</a>
                                 
-                                    <a ng-hide="team.archived" ng-disabled="obj.laddaLoading" ng-click="saveProgress()" class="ladda-button btn btn-primary btn-sm" ladda-button="obj.laddaLoading" data-style="expand-right" data-size="sm">
+                                    <a ng-hide="team.archived" ng-disabled="obj.laddaLoading || team.archived" ng-click="saveProgress()" class="ladda-button btn btn-primary btn-sm grey" ladda-button="obj.laddaLoading" data-style="expand-right" data-size="sm">
                                         <span class="ladda-label">Save Progress</span>
                                     </a>
-                                    <a class="btn btn-primary btn-sm" ng-if="!isLast" ng-disabled="!nav.canNext" wz-next >Next</a>
+                                    <a class="btn btn-primary btn-sm grey" ng-if="!isLast" ng-disabled="!nav.canNext" wz-next>Next</a>
                                     <a class="btn btn-primary btn-sm" ng-hide="team.archived" ng-if="isLast" ng-click="showArhive()" wz-next>Archive Curriculum</a>
                                 </div>
                             </div>
@@ -111,18 +111,14 @@
     <script src="~/Scripts/controllers/curriculumProcess/CurrReportPeriodController.js"></script>
 }
 
-@*<style>
-    .ibox-tools .grey a.btn-primary {
+<style>
+     .grey:disabled,
+     .grey[disabled] {
       font-size: 13px;
       background-color: #bababa;
       color: #fff;
       background-image: -webkit-linear-gradient(top, #bababa 0%, #bababa 100%);
       border-color: #bababa;
 }
-     .ibox-tools .grey a.btn-primary:hover {
-           font-size: 13px;
-           background-image: -webkit-linear-gradient(top, #CC0000 0%, #CC0000 100%);
-           background-color: #CC0000;
-           border-color: #CC0000;
-        }
-</style>*@
+    
+</style>
