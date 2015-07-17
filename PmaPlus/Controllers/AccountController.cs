@@ -267,7 +267,7 @@ namespace PmaPlus.Controllers
                 {
                     MailMessage msg = new MailMessage();
                     SmtpClient smtp = new SmtpClient();
-                    msg.To.Add("denys5dev@gmail.com");
+                    msg.To.Add("you@gmail.com");
                     msg.Subject = "Contact Us";
                     msg.Body = "First Name: " + c.FirstName;
                     msg.Body += "Last Name: " + c.LastName;
@@ -279,7 +279,7 @@ namespace PmaPlus.Controllers
                     smtp.EnableSsl = true;
                     smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                     smtp.UseDefaultCredentials = false; // 
-                    smtp.Credentials = new NetworkCredential("denys5dev@gmail.com", "password");
+                    smtp.Credentials = new NetworkCredential("you@gmail.com", "password");
                     smtp.Host = "smtp.gmail.com";
                     smtp.Send(msg);
                     msg.Dispose();
