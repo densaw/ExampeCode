@@ -19,7 +19,7 @@
                     else if (elem.html() >= 5,1 && elem.html() <= 6) {
                         elem.css('background', '#ED7800');
                     }
-                    else if (elem.html() >= 6,1 && elem.html() <= 6, 5) {
+                    else if (elem.html() >= 6,1 && elem.html() <= 6,5) {
                         elem.css('background', '#F4D600');
                     }
                     else if (elem.html() >= 6,6 && elem.html() <= 7) {
@@ -29,7 +29,7 @@
                         elem.css('background', '#617E08');
                     }
                     else if (elem.html() >= 8,1 && elem.html() <= 10) {
-                        elem.css('background', '#303F04');
+                        elem.css('background', '#4E6506');
                     }
                    
                     
@@ -60,7 +60,7 @@
                     elem.css('background', '#617E08');
                 }
                 else if (parseFloat(elem.html()) >= 98 && parseFloat(elem.html()) <= 100) {
-                    elem.css('background', '#303F04');
+                    elem.css('background', '#4E6506');
                 }
                 console.log(elem.html());
                 console.log(elem);

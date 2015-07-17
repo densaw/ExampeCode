@@ -259,7 +259,7 @@ namespace PmaPlus.Controllers
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public async Task<ActionResult> Contact(EmailFormModel model)
         {
             if (ModelState.IsValid)

@@ -377,9 +377,9 @@
                                         <td>{{player.gls}}</td>
                                         <td>{{player.frm}}</td>
                                         <td>{{player.inj}}</td>
-                                        <td><div rating-ai style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.att | number:1}}%</div></td>
+                                        <td><div rating-ai style="width:50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.att | number:1}}%</div></td>
                                         <td>{{player.wb | number:1 }}</td>
-                                        <td><div rating-ui style="color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.cur}}</div></td>
+                                        <td><div rating-ui style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.cur}}</div></td>
                                         <td>
                                             <i ng-click="openEdit(player.id)" class="fa fa-cog" style="cursor: pointer;"></i>
                                             <i ng-click="openDelete(player.id)" class="fa fa-trash" style="cursor: pointer;"></i>
@@ -400,6 +400,15 @@
     .form-group {
         margin-bottom: 5px;
     }
+    .circle-inside {
+    
+        width: 50px;
+        height: 50px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+    }
+    
 
     .m-b {
         margin-bottom: 0px;
