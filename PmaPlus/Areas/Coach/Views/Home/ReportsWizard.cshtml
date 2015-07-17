@@ -10,12 +10,12 @@
                 <div class="modal-header">
 
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title">Save Changes</h3>
+                    <h3 class="modal-title" style="text-align:left">Save Changes</h3>
 
 
                 </div>
                 <div class="modal-body">
-                    <h3 class="text-center">Are you sure as no details can be changed once you accept the match report is complete?</h3>
+                    <h3 class="text-left">Are you sure as no details can be changed once you accept the match report is complete?</h3>
                 </div>
                 <div class="modal-footer">
                     <button ng-click="confirmAbort()" type="button" class="btn btn-white">No</button>
@@ -93,3 +93,9 @@
 <script src="~/Scripts/controllers/matchReportsProcess/WizardPage5Controller.js"></script>
 <script src="~/Scripts/controllers/matchReportsProcess/WizardPage4Controller.js"></script>
 }
+
+<style>
+    .title-modal {
+        font-size: 13px !important;
+    }
+</style>
