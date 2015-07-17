@@ -81,6 +81,10 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
         } else {
             $scope.isLast = false;
         }
+
+        if (WizardHandler.wizard().currentStepNumber() == 1) {
+            $scope.nav.canBack = false;
+        }
     });
 
     $scope.saveProgress = function () {
