@@ -8,7 +8,7 @@
                     <h5>{{step.name}}</h5><h5 ng-if="addDate" style="font-weight: 200;"> - Date: {{addDate.date | date:'dd-MM-yyyy'}} Time: {{addDate.date | date:'HH:mm'}} Duration: {{addDate.duration}} mins</h5>
                     <div class="ibox-tools" style="margin-top: -5px;">
                         <a class="btn btn-primary btn-sm" ng-disabled="team.archived" ng-click="ssesionDetail()">Session Detail</a>
-                        <a class=" btn btn-primary btn-sm" ng-disabled="!addDate" ng-click="confAtendOpen()">All Attended</a>
+                        <a class=" btn btn-primary btn-sm" ng-disabled="!addDate || team.archived" ng-click="confAtendOpen()">All Attended</a>
                         <a class="btn btn-primary btn-sm" ng-disabled="team.archived" ng-click="ssesionNotCompletedModal()">Session not completed</a>
                     </div>
                 </div>
