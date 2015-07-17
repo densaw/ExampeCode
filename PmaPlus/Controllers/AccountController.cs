@@ -15,8 +15,7 @@ using PmaPlus.Models;
 using PmaPlus.Services;
 using PmaPlus.Tools;
 using System.Net;
-using System.Net.Mail;
-
+using System.Net.Mail; 
 namespace PmaPlus.Controllers
 {
     public class AccountController : Controller
@@ -260,34 +259,41 @@ namespace PmaPlus.Controllers
         }
         [HttpPost]
         
-        public async Task<ActionResult> Contact(EmailFormModel model)
+        public async Task<ActionResult> Contact(ContactModels c)
         {
             if (ModelState.IsValid)
             {
-                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
-                var message = new MailMessage();
-                message.To.Add(new MailAddress("recipient@gmail.com"));  // replace with valid value 
-                message.From = new MailAddress("sender@outlook.com");  // replace with valid value
-                message.Subject = "Your email subject";
-                message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
-                message.IsBodyHtml = true;
-
-                using (var smtp = new SmtpClient())
+                try
                 {
-                    var credential = new NetworkCredential
-                    {
-                        UserName = "user@outlook.com",  // replace with valid value
-                        Password = "password"  // replace with valid value
-                    };
-                    smtp.Credentials = credential;
-                    smtp.Host = "smtp-mail.outlook.com";
+                    MailMessage msg = new MailMessage();
+                    SmtpClient smtp = new SmtpClient();
+                    msg.To.Add("denys5dev@gmail.com");
+                    msg.Subject = "Contact Us";
+                    msg.Body = "First Name: " + c.FirstName;
+                    msg.Body += "Last Name: " + c.LastName;
+                    msg.Body += "Email: " + c.Email;
+                    msg.Body += "Comments: " + c.Comment;
+                    msg.IsBodyHtml = false;
+                    smtp.Host = "smtp.gmail.com";
                     smtp.Port = 587;
                     smtp.EnableSsl = true;
-                    await smtp.SendMailAsync(message);
-                    return RedirectToAction("Sent");
+                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtp.UseDefaultCredentials = false; // 
+                    smtp.Credentials = new NetworkCredential("denys5dev@gmail.com", "password");
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Send(msg);
+                    msg.Dispose();
+
+                    return View("Success");
                 }
+                catch (Exception)
+                {
+                    return View("Error");
+                }
+
             }
-            return View(model);
+            return View();
+
         }
         
     }
