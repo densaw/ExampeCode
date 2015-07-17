@@ -82,7 +82,7 @@ app.controller('WizzardController', ['$scope', '$http', 'toaster', '$location', 
             $scope.isLast = false;
         }
 
-        if (WizardHandler.wizard().currentStepNumber() == 1) {
+        if (WizardHandler.wizard().currentStepNumber() == 0) {
             $scope.nav.canBack = false;
         }
     });

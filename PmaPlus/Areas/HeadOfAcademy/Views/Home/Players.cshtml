@@ -380,8 +380,8 @@
                                         <td>{{player.wbPercent}}</td>
                                         <td>{{player.tt | time:'mm':'hh':false}}</td>
                                         <td>{{player.pt | time:'mm':'hh':false}}</td>
-                                        <td><div class="circle-inside" rating-tt style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ttPercent | number:0}}</div></td>
-                                        <td><div class="circle-inside" rating-tt style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ptPercent | number:0}}</div></td>
+                                        <td><div class="circle-inside" rating-tt style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ttPercent > 100 ? 100 : player.ttPercen  | number:0}}</div></td>
+                                        <td><div class="circle-inside" rating-tt style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ptPercent > 100 ? 100 : player.ptPercent | number:0}}</div></td>
                                         <td><div class="circle-inside" rating-ai style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.attPercent | number:0}}</div></td>
                                         <td><div class="circle-inside" rating-ui style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.cur}}</div></td>
                                         <td>
