@@ -15,19 +15,11 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
         confConfirm1.modal('hide');
     }
 
-    var getMatchReport = function () {
-        $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-            $scope.matchDetails = result;
-        });
-    }
+    
 
 
     $scope.$on('moveEvent', function () {
-        if (WizardHandler.wizard().currentStepNumber() == 3) {
-            getMatchReport();
-        }
-
-        if (WizardHandler.wizard().currentStepNumber() == 4) {
+       if (WizardHandler.wizard().currentStepNumber() == 4) {
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
             
@@ -52,7 +44,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
                 headers: { 'Content-Type': undefined }
             })
                 .success(function (data) {
-                    $scope.matchDetails.picture = data.name;
+                    $scope.cuurrentMatch.picture = data.name;
                     angular.element('.pma-fileupload').fileinput('clear');
                 })
                 .error(function () {
@@ -65,11 +57,14 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
             promises.push(promise);
         }
         $q.all(promises).then(function () {
-            $http.put('/api/MatchReports/' + $scope.currId, $scope.matchDetails)
+            $http.put('/api/MatchReports/' + $scope.currId, $scope.cuurrentMatch)
                 .success(function (result) {
                     $scope.loginLoading = false;
+                    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
+                        $scope.cuurrentMatch.picture = result.picture;
+                    });
                 }).error(function (data, status, headers, config) {
-                    console.log(data);
+                    
                     if (status == 400) {
                         console.log(data);
                         toaster.pop({

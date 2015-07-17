@@ -26,9 +26,7 @@ app.controller('WizardPage3Controller', ['$scope', '$http', '$q', '$location', '
         });
     };
 
-    $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
-        $scope.cuurrentMatch = result;
-    });
+    
 
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == 2) {
