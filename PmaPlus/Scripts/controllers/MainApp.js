@@ -29,7 +29,7 @@
                         elem.css('background', '#617E08');
                     }
                     else if (elem.html() > 8 && elem.html() <= 10) {
-                        elem.css('background', '#303F04');
+                        elem.css('background', '#4E6506');
                     }
                    
                     
@@ -91,7 +91,7 @@
                         elem.css('background', '#617E08');
                     }
                     else if (parseFloat(elem.html()) >= 81 && parseFloat(elem.html()) <= 100) {
-                        elem.css('background', '#303F04');
+                        elem.css('background', '#4E6506');
                     }
                     console.log(elem.html());
                     console.log(elem);
