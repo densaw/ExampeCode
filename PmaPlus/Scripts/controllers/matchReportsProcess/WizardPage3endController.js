@@ -28,9 +28,9 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
 
 
     $scope.addMatchDetails = function () {
-        $scope.loginLoading = true;
+        $scope.$parent.obj.laddaLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;
-        $scope.loginLoading = false;
+       
         var promises = [];
 
 
@@ -58,7 +58,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
         $q.all(promises).then(function () {
             $http.put('/api/MatchReports/' + $scope.currId, $scope.$parent.cuurrentMatch)
                 .success(function (result) {
-                    $scope.loginLoading = false;
+                    $scope.$parent.obj.laddaLoading = false;
                     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
                         $scope.$parent.cuurrentMatch.picture = result.picture;
                     });
@@ -72,7 +72,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
                             body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
-                    $scope.loginLoading = false;
+                    $scope.$parent.obj.laddaLoading = false;
                 });
 
 

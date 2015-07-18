@@ -57,11 +57,11 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
 
     //ADD==========================================
     $scope.addPlayerStat = function () {
-
+        $scope.$parent.obj.laddaLoading = true;
 
         $http.post('/api/PlayerMatchStatistic/Table', $scope.playersStat).success(function () {
 
-
+            $scope.$parent.obj.laddaLoading = false;
         }).error(function (data, status, headers, config) {
             if (status == 400) {
                 console.log(data);
@@ -71,6 +71,7 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
                     body: 'Please comptite compulsory fields'
                 });
             }
+            $scope.$parent.obj.laddaLoading = false;
         });
 
     };

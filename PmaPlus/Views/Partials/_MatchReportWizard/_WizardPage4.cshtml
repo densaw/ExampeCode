@@ -35,18 +35,18 @@
                                         </div>
                                     </td>
                                     <td style="text-align:left">{{player.playerName}}</td>
-                                    <td><input toggle-checkbox type="checkbox" ng-model="player.mom" ng-change="updateMom(player)"></td>
-                                    <td><input class="form-control" type="number" ng-model="player.goals"  /></td>
-                                    <td><input class="form-control" type="number" ng-model="player.shots" /></td>
-                                    <td><input class="form-control" type="number" ng-model="player.shotsOnTarget" /></td>
-                                    <td><input class="form-control" type="number" ng-model="player.assists" /></td>
-                                    <td><input class="form-control" type="number" ng-model="player.tackles" /></td>
-                                    <td><input class="form-control" type="number" ng-model="player.passes" /></td>
-                                    <td><input class="form-control" type="number" ng-model="player.saves" /></td>
-                                    <td><input class="form-control" type="number" ng-model="player.corners" /></td>
-                                    <td><input class="form-control" type="number" ng-model="player.freeKicks" /></td>
-                                    <td><input class="form-control" type="number" ng-model="player.formRating" min="1"/></td>
-                                    <td><input class="form-control" type="number" ng-model="player.playingTime" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" toggle-checkbox type="checkbox" ng-model="player.mom" ng-change="updateMom(player)"></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.goals" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.shots" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.shotsOnTarget" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.assists" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.tackles" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.passes" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.saves" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.corners" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.freeKicks" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.formRating" min="1" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.playingTime" /></td>
                                 </tr>
                             </tbody>
                         </table>
