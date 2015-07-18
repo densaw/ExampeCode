@@ -38,6 +38,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-lg-4 title-modal" style="font-size: 13px;">Duration:</label>
+                                <div class="col-lg-7 pull-right">
+                                    <input ng-disabled="cuurrentMatch.archived" name="playersOutcome" type="number" value="{{cuurrentMatch.periods * cuurrentMatch.periodDuration}}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-lg-4 title-modal" style="font-size: 13px;">Picture:</label>
                                 <div class="col-lg-7 pull-right">
                                     <div class="thumbnail" ng-show="cuurrentMatch.picture != null" style="width: auto; float: none !important;margin-bottom: 5px;">
@@ -48,40 +54,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-lg-4 title-modal" style="font-size: 13px;">Duration:</label>
-                                <div class="col-lg-7 pull-right">
-                                    <input ng-disabled="cuurrentMatch.archived" name="playersOutcome" type="number" value="{{cuurrentMatch.periods * cuurrentMatch.periodDuration}}" class="form-control">
-                                </div>
-                            </div>
                         </form>
-                        @*<div class="modal-footer">                           
-                            <button ng-click="confirmModal1()" id="save" type="button" class="btn btn-primary">Save changes</button>
-                        </div>*@
+                      
                     </div>
                 </div>
-                @*Modal*@
-                <div class="modal inmodal" id="confConfirm1" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content animated bounceInRight">
-                            <div class="modal-header">
-
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h3 class="modal-title">Save Changes</h3>
-
-
-                            </div>
-                            <div class="modal-body">
-                                <h3 class="text-center">Are you sure you wish to save this changes?</h3>
-                            </div>
-                            <div class="modal-footer">
-                                <button ng-click="confirmCancel()" type="button" class="btn btn-white">No</button>
-                                <button ng-click="addMatchDetails()" type="button" class="btn btn-primary">Yes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*Modal End*@
+             
             </div>
 
         </div>

@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using PmaPlus.Data;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels.CurriculumProcess;
 using PmaPlus.Services;
@@ -29,10 +30,10 @@ namespace PmaPlus.Controllers.ApiControllers.CurriculumProcess
 
         #region Wizard tools
 
-        [Route("api/Curriculum/Players/Statistic/{teamId:int}")]
-        public IEnumerable<CurriculumPlayersStatisticViewModel> GetPlayersStatistics(int teamId)
+        [Route("api/Curriculum/Players/Statistic/{teamId:int}/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
+        public IEnumerable<CurriculumPlayersStatisticViewModel> GetPlayersStatistics(int teamId,int pageSize, int pageNumber, string orderBy = "",bool direction = false)
         {
-            return _curriculumProcessServices.CurriculumPlayersStatistic(teamId);
+            return _curriculumProcessServices.CurriculumPlayersStatistic(teamId).OrderQuery(orderBy, x => x.PlayerName, direction);
         }
 
         [Route("api/Curriculum/Wizard/{teamId:int}")]

@@ -5,30 +5,27 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    var confConfirm1 = angular.element('#confConfirm1');
-
-    $scope.confirmModal1 = function () {
-        confConfirm1.modal('show');
-    }
-
-    $scope.confirmCancel = function () {
-        confConfirm1.modal('hide');
-    }
-
-
-
-
     $scope.$on('moveEvent', function () {
-        if (WizardHandler.wizard().currentStepNumber() == 4) {
+        if (WizardHandler.wizard().currentStepNumber() == 3) {
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
 
             $scope.nav.last = false;
+           
+        }
+    });
+
+    $scope.$on('saveProgressEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == 3) {
             if (!$scope.$parent.cuurrentMatch.archived) {
                 $scope.addMatchDetails();
             }
+
         }
+
     });
+
+
 
     $scope.addMatchDetails = function () {
         $scope.loginLoading = true;

@@ -54,6 +54,7 @@
                     <h5>Match Report Progress <span style="font-weight: 400; font-size: 12px;">- vs {{cuurrentMatch.oppositionName}} {{cuurrentMatch.date | date:'dd-MM-yyyy HH:mm'}}</span><span style="font-weight: 600; " ng-show="cuurrentMatch.archived"> Archived</span></h5>
                     <div class="ibox-tools" style="margin-top: -5px;">
                         <a class=" btn btn-primary btn-sm" ng-disabled="!nav.canBack" wz-previous ng-click="updateProgress()">Previous</a>
+                        <a class="btn btn-primary btn-sm" ng-click="saveProgress()">Save Progress</a>
                         <a class="btn btn-primary btn-sm" ng-if="!nav.last" ng-disabled="!nav.canNext" wz-next="updateProgress()" ng-click="updateProgress()">Next</a>
                         <a class="btn btn-primary btn-sm" ng-disabled="cuurrentMatch.archived" ng-if="nav.last" ng-click="confirmModal()">Complete</a>
                     </div>

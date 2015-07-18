@@ -5,25 +5,14 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    
-    
-    var confInvitet = angular.element('#confInvitet');
-    $scope.playerAdd = {};
 
-    $scope.openEdit1 = function (player) {     
-        $scope.player = player;
-        $scope.modalTitle = "Edit";
-        confInvitet.modal('show');
-    };
 
-    $scope.closeDetails = function () {
-        confInvitet.modal('hide');
-    };
+
 
     $scope.getTable = function () {
-    $http.get('/api/PlayerMatchStatistic/' + $scope.currId).success(function (result) {
-        $scope.playersStat = result;       
-    });
+        $http.get('/api/PlayerMatchStatistic/' + $scope.currId).success(function (result) {
+            $scope.playersStat = result;
+        });
     };
 
 
@@ -36,37 +25,54 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
         }
     });
 
-    //ADD==========================================
-    $scope.addPlayerStat = function () {
-        
-        $scope.loginLoading = true;
-        $scope.myform.form_Submitted = !$scope.myform.$valid;    
-        $scope.loginLoading = false;
-        if ($scope.myform.$valid) {
-            $http.post('/api/PlayerMatchStatistic/', $scope.player).success(function () {
-
-                $scope.playerAdd = {};
-                confInvitet.modal('hide');
-            }).error(function (data, status, headers, config) {
-                if (status == 400) {
-                    console.log(data);
-                    toaster.pop({
-                        type: 'error',
-                        title: 'Error', bodyOutputType: 'trustedHtml',
-                        body: 'Please comptite compulsory fields'
-                    });
+    $scope.$on('saveProgressEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == 4) {
+            var completed = true;
+            angular.forEach($scope.playersStat, function (player) {
+                if (player.formRating < 1 && player.formRating > 10) {
+                    completed = false;
                 }
             });
-        } else {       
-            toaster.pop({
-            type: 'error',
-            title: 'Error', bodyOutputType: 'trustedHtml',
-            body: 'Please comptite compulsory fields'
-        });
-        
+
+            if (completed) {
+                $scope.addPlayerStat();
+            } else { $scope.pressed = true; }
         }
-        
-        
+
+    });
+
+    $scope.updateMom = function (player) {
+        if (player.mom) {
+            angular.forEach($scope.playersStat, function (item) {
+                if (item.playerId != player.playerId) {
+                    item.mom = false;
+                }
+
+            });
+        }
+
+
+
+    }
+
+    //ADD==========================================
+    $scope.addPlayerStat = function () {
+
+
+        $http.post('/api/PlayerMatchStatistic/Table', $scope.playersStat).success(function () {
+
+
+        }).error(function (data, status, headers, config) {
+            if (status == 400) {
+                console.log(data);
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error', bodyOutputType: 'trustedHtml',
+                    body: 'Please comptite compulsory fields'
+                });
+            }
+        });
+
     };
     //ADD=========================================
 }]);

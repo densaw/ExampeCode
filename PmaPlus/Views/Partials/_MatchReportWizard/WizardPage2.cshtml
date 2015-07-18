@@ -18,9 +18,8 @@
                                 <tr>
                                     <th style="text-align:left; padding-left: 26px;">Picture</th>
                                     <th style="text-align:left; width: 200px;">Player Name</th>
-                                    <th style="text-align:left;width:28%;">Objective</th>
-                                    <th style="text-align:left;width:28%;">Outcome</th>
-                                    <th>Action</th>
+                                    <th style="text-align:left;">Objective</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,13 +30,8 @@
                                         </div>
                                     </td>
                                     <td style="text-align:left">{{playersLists.playerName}}</td>
-                                    <td style="text-align:left">{{playersLists.objective}}</td>
-                                    <td style="text-align:left">{{playersLists.outcome ? 'Achieved' : 'Not Achieved'}}</td>
-                                    
-
-                                        <td>
-                                            <a ng-if="!cuurrentMatch.archived" ng-click="openEdit(playersLists)" class="fa fa-graduation-cap"></a>
-                                        </td>
+                                    <td style="text-align: left;"><textarea style=" width: 100%; height: 100%;" ng-class="{'warnin-textArea':playersLists.objective == '' || !playersLists.objective && pressed }" ng-disabled="cuurrentMatch.archived" ng-model="playersLists.objective"></textarea></td>
+                               
                                 </tr>
                             </tbody>
                         </table>
@@ -48,41 +42,4 @@
 
         </div>
     </div>
-
-    @*Modal*@
-    <div class="modal inmodal" id="confDetail" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title text-left">Set Objective</h3>
-                </div>
-                <div class="modal-body">
-                    <form name="myform" class="form-horizontal" novalidate>
-
-                        <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Player Name:</label>
-                            <div class="col-lg-7 pull-right">
-                                <input name="sessionDuration" ng-disabled="true" ng-model="playerName" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Match Objective:</label>
-                            <div class="col-lg-7 pull-right">
-                                <textarea name="playersLists" ng-model="objective" required class="form-control"></textarea>
-                            </div>
-                        </div>
-
-                    </form>
-
-                </div>
-                <div class="modal-footer">
-                    <button ng-click="closeDetails()" id="close" type="button" class="btn btn-white">Close</button>
-                    <button ng-click="addDetails(player, objective)" id="save" type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    @*Modal End*@
 </div>

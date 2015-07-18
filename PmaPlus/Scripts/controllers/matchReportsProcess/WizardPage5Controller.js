@@ -22,6 +22,10 @@ app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '
         }
     });
 
+    $scope.$on('saveProgressEvent', function () {
+        $http.put('/api/MatchReports/' + $scope.currId, $scope.$parent.cuurrentMatch);
+    });
+
     $scope.$on('finishWizardEvent', function () {
         $scope.addMatchNotes();
     });
