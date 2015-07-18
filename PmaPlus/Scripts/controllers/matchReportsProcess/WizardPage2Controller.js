@@ -57,13 +57,13 @@ app.controller('WizardPage2Controller', ['$scope', '$http', '$q', '$location', '
 
 
     $scope.addDetails = function () {
-        $scope.loginLoading = true;
+        $scope.$parent.obj.laddaLoading = true;
 
         $scope.loginLoading = false;
         $http.post('/api/MatchObjectives/Table', $scope.playersList)
             .success(function () {
                 $scope.nav.canNext = true;
-                $scope.loginLoading = false;
+                $scope.$parent.obj.laddaLoading = false;
             })
             .error(function (data, status, headers, config) {
 

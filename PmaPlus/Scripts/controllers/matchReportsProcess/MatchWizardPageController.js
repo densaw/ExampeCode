@@ -4,6 +4,9 @@ app.controller('MatchWizardPageController', ['$scope', '$http', '$q', '$location
 
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
+    $scope.obj = {
+        laddaLoading:false
+    }
 
     $scope.nav = {};
 
