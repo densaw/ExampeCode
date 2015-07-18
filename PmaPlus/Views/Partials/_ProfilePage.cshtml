@@ -24,56 +24,56 @@
                 <div class="ibox-content">
                     <form name="myform" class="form-horizontal" novalidate>
                         <div class="form-group " ng-class="{'has-error':myform.firstName.$invalid && (myform.firstName.$dirty||myform.form_Submitted) }">
-                            <label class="col-lg-4 title-modal">First Name: </label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">First Name: </label>
                             <div class="col-lg-7 pull-right">
                                 <input name="firstName" ng-model="newMember.firstName" required class="form-control">
                             </div>
                         </div>
                         <div class="form-group " ng-class="{'has-error':myform.lastName.$invalid && (myform.lastName.$dirty||myform.form_Submitted) }">
-                            <label class="col-lg-4 title-modal">Last Name: </label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Last Name: </label>
                             <div class="col-lg-7 pull-right">
                                 <input name="lastName" ng-model="newMember.lastName" required class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">About Me:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">About Me:</label>
                             <div class="col-lg-7 pull-right">
                                 <textarea ng-model="newMember.aboutMe" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':myform.telephone.$invalid && (myform.telephone.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Telephone:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Telephone:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="telephone" ng-model="newMember.telephone" class="form-control" ng-pattern="/[0-9]\d{5}(\d{3})?/" maxlength="12">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':myform.mobile.$invalid && (myform.mobile.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Mobile:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Mobile:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="mobile" ng-model="newMember.mobile" class="form-control" ng-pattern="/[0-9]\d{5}(\d{3})?/" maxlength="12">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':myform.email.$invalid && (myform.email||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Email:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Email:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="email" ng-model="newMember.email" required class="form-control">
 
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':myform.profPassword.$invalid && (myform.profPassword.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Password:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Password:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="profPassword" ng-model="newMember.password" required class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">FA Number:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">FA Number:</label>
                             <div class="col-lg-7 pull-right">
                                 <input ng-model="newMember.faNumber" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Birth Date:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Birth Date:</label>
                             <div class="col-lg-7 pull-right">
                                 <div class="dropdown">
                                     <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Profile Picture:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Profile Picture:</label>
                             <div class="col-lg-7 pull-right">
                                 <div class="thumbnail" ng-show="newMember.profilePicture != null" style="width: auto;float: none !important;margin-bottom: 5px;">
                                     <img ng-src='/api/file/ProfilePicture/{{newMember.profilePicture}}/{{newMember.id}}' style=" width: auto;float: none !important;" />
@@ -97,37 +97,37 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Nationality:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Nationality:</label>
                             <div class="col-lg-7 pull-right">
                                 <input ng-model="newMember.nationality" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Address 1:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Address 1:</label>
                             <div class="col-lg-7 pull-right">
                                 <input ng-model="newMember.address1" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Address 2:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Address 2:</label>
                             <div class="col-lg-7 pull-right">
                                 <input ng-model="newMember.address2" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Address 3:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Address 3:</label>
                             <div class="col-lg-7 pull-right">
                                 <input ng-model="newMember.address3" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Town City:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Town City:</label>
                             <div class="col-lg-7 pull-right">
                                 <input ng-model="newMember.townCity" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Post Code:</label>
+                            <label class="col-lg-4 title-modal" style="font-size:15px;">Post Code:</label>
                             <div class="col-lg-7 pull-right">
                                 <input ng-model="newMember.postcode" class="form-control" />
                             </div>
@@ -169,7 +169,7 @@
 
 <style>
     .title-modal {
-        font-size: 13px !important;
+        font-size: 15px !important;
 }
 
 </style>
