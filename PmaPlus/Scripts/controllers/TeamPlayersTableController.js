@@ -14,7 +14,7 @@ app.controller('TeamPlayersTableController', ['$scope', '$http', '$location', '$
     
     
 
-    var urlTail = '/api/Curriculum/Players/Statistic';
+    var urlTail = '/api/Curriculum/Players/Statistic/' + $scope.currId;
 
     function createTail(pageNumber) {
         if (sortArray.length > 0) {
