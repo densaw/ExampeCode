@@ -8,13 +8,19 @@ app.controller('TeamPlayersTableController', ['$scope', '$http', '$location', '$
     $scope.players = {};
     var sortArray = [];
 
-    $http.get('/api/Curriculum/Players/Statistic/' + $scope.currId).success(function (data) {
-        $scope.players = data;
-    });
+  
     
     
 
     var urlTail = '/api/Curriculum/Players/Statistic/' + $scope.currId;
+
+    $scope.items = [];
+    $scope.totalItems = 0;
+    $scope.itemsPerPage = 20;
+
+    $scope.pagination = {
+        current: 1
+    };
 
     function createTail(pageNumber) {
         if (sortArray.length > 0) {
@@ -24,13 +30,22 @@ app.controller('TeamPlayersTableController', ['$scope', '$http', '$location', '$
         }
     }
 
+   
+
     function getResultsPage(pageNumber) {
         $http.get(createTail(pageNumber))
             .success(function (result) {
-                $scope.items = result.items;
+                $scope.players = result;
                 $scope.totalItems = result.count;
             });
     };
+
+    getResultsPage($scope.pagination.current);
+    $scope.pageChanged = function (newPage) {
+        getResultsPage(newPage);
+        $scope.pagination.current = newPage;
+    };
+    
     $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
         sortArray = newValue;
         $http.get(createTail($scope.pagination.current))
@@ -40,17 +55,6 @@ app.controller('TeamPlayersTableController', ['$scope', '$http', '$location', '$
             });
     });
 
-    $scope.items = [];
-    $scope.totalItems = 0;
-    $scope.itemsPerPage = 20;
-
-    $scope.pagination = {
-        current: 1
-    };
-    getResultsPage($scope.pagination.current);
-    $scope.pageChanged = function (newPage) {
-        getResultsPage(newPage);
-        $scope.pagination.current = newPage;
-    };
+    getResultsPage();
 
 }]);
