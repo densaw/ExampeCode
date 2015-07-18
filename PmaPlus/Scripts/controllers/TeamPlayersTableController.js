@@ -14,13 +14,9 @@ app.controller('TeamPlayersTableController', ['$scope', '$http', '$location', '$
 
     var urlTail = '/api/Curriculum/Players/Statistic/' + $scope.currId;
 
-    $scope.items = [];
-    $scope.totalItems = 0;
-    $scope.itemsPerPage = 20;
+    
 
-    $scope.pagination = {
-        current: 1
-    };
+   
 
     function createTail(pageNumber) {
         if (sortArray.length > 0) {
@@ -28,16 +24,36 @@ app.controller('TeamPlayersTableController', ['$scope', '$http', '$location', '$
         } else {
             return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
         }
-    }
-
-   
+    };
 
     function getResultsPage(pageNumber) {
         $http.get(createTail(pageNumber))
             .success(function (result) {
-                $scope.players = result;
+                $scope.items = result;
                 $scope.totalItems = result.count;
             });
+    };
+
+    $scope.items = [];
+    $scope.totalItems = 0;
+    $scope.itemsPerPage = 20;
+
+    
+   
+
+    
+
+    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
+        sortArray = newValue;
+        $http.get(createTail($scope.pagination.current))
+            .success(function (result) {
+                $scope.items = result;
+                $scope.totalItems = result.count;
+            });
+    });
+
+    $scope.pagination = {
+        current: 1
     };
 
     getResultsPage($scope.pagination.current);
@@ -45,16 +61,8 @@ app.controller('TeamPlayersTableController', ['$scope', '$http', '$location', '$
         getResultsPage(newPage);
         $scope.pagination.current = newPage;
     };
-    
-    $rootScope.$watchGroup(['orderField', 'revers'], function (newValue, oldValue, scope) {
-        sortArray = newValue;
-        $http.get(createTail($scope.pagination.current))
-            .success(function (result) {
-                $scope.items = result.items;
-                $scope.totalItems = result.count;
-            });
-    });
 
     getResultsPage();
+
 
 }]);
