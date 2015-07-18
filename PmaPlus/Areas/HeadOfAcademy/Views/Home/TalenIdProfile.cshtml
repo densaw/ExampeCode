@@ -169,7 +169,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th style="width: 19% !important;">Date</th>
+                                        <th style="width: 19% !important; text-align:left;">Date</th>
                                         <th style="width: 19% !important; text-align:left;">Scout</th>
                                         <th style="width: 19% !important; text-align:left;">Location</th>
                                         <th style="width: 40% !important; text-align:left;">Notes</th>
@@ -180,7 +180,7 @@
                                     <table class="table table-striped">
                                         <tbody id="user-rows">
                                             <tr dir-paginate="item in items1 | filter:q | itemsPerPage: coursePerPage" total-items="totalCourses">
-                                                <td class="user-row" style="opacity: 1;width: 20% !important;">{{item.addDate | date:'dd-MM-yyyy' }}</td>
+                                                <td class="user-row" style="opacity: 1; width: 20% !important; text-align: left; ">{{item.addDate | date:'dd-MM-yyyy' }}</td>
                                                 <td class="user-row" style="opacity: 1;width: 20% !important; text-align:left;">{{item.scout}}</td>
                                                 <td class="user-row" style="opacity: 1;width: 20% !important; text-align:left;">
                                                     {{item.location}}
