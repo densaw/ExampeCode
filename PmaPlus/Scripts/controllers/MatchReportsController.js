@@ -44,6 +44,15 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
         addMatchReports.modal('show');
     };
 
+    $scope.editMatch = function (id) {
+        $scope.newMatch = {};
+        $http.get('/api/MatchReports/' + id).success(function (result) {
+            $scope.newMatch = result;
+            $scope.modalTitle = 'Edit Match Report';
+            addMatchReports.modal('show');
+        });       
+    };
+
     $scope.cancelMatch = function () {
         addMatchReports.modal('hide');
     }
