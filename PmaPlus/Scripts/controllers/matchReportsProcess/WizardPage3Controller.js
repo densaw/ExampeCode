@@ -5,20 +5,7 @@ app.controller('WizardPage3Controller', ['$scope', '$http', '$q', '$location', '
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    var confDetail = angular.element('#confDetail2');
 
-    $scope.openEdit = function (player) {
-        $scope.modalTitle = "Edit";
-        $scope.player = player;
-        $scope.playerName = player.playerName;
-        $scope.objective = player.objective;
-        $scope.outcome = player.outcome;
-        confDetail.modal('show');
-    };
-
-    $scope.closeDetails = function () {
-        confDetail.modal('hide');
-    };
 
     $scope.getTable = function () {
         $http.get('/api/MatchObjectives/' + $scope.currId).success(function (result) {
@@ -26,36 +13,37 @@ app.controller('WizardPage3Controller', ['$scope', '$http', '$q', '$location', '
         });
     };
 
-    
+
 
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == 2) {
             $scope.getTable();
-            $scope.nav.canNext = true;
+            $scope.nav.canNext = false;
             $scope.nav.canBack = true;
             $scope.nav.last = false;
         }
     });
 
-    $scope.addDetails = function (player, outcome) {
-        $scope.loginLoading = true;
+    $scope.$on('saveProgressEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == 2) {
+            $scope.addDetails();
 
-        player.outcome = outcome;
-        //$scope.myform.form_Submitted = !$scope.myform.$valid;    
-        $scope.loginLoading = false;
-        $http.post('/api/MatchObjectives/', player).success(function () {
+        }
 
-            confDetail.modal('hide');
-        }).error(function (data, status, headers, config) {
-            if (status == 400) {
-                console.log(data);
-                toaster.pop({
-                    type: 'error',
-                    title: 'Error', bodyOutputType: 'trustedHtml',
+    });
 
-                });
-            }
-        });
+
+
+    $scope.addDetails = function () {
+        $scope.$parent.obj.laddaLoading = true;
+        $http.post('/api/MatchObjectives/Table', $scope.playersList)
+            .success(function () {
+                $scope.nav.canNext = true;
+                $scope.$parent.obj.laddaLoading = false;
+            })
+            .error(function (data, status, headers, config) {
+
+            });
     };
 
 }]);

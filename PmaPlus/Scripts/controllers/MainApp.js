@@ -62,8 +62,7 @@
                 else if (parseFloat(elem.html()) >= 98 && parseFloat(elem.html()) <= 100) {
                     elem.css('background', '#4E6506');
                 }
-                console.log(elem.html());
-                console.log(elem);
+             
                 });
             }
         };
@@ -93,8 +92,7 @@
                     else if (parseFloat(elem.html()) >= 81 && parseFloat(elem.html()) <= 100) {
                         elem.css('background', '#4E6506');
                     }
-                    console.log(elem.html());
-                    console.log(elem);
+                  
                 });
             }
         };

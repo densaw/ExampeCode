@@ -28,68 +28,68 @@
                 <div class="ibox-content">
                     <form name="myform" class="form-horizontal" novalidate>
                         <div class="form-group" ng-class="{'has-error':myform.playaerName.$invalid && (myform.playaerName.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">First Name:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">First Name:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="playaerName" ng-model="newPlayer.firstName" required class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':myform.playerLast.$invalid && (myform.playerLast.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Last Name:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Last Name:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="playerLast" ng-model="newPlayer.lastName" required class="form-control" maxlength="50">
                             </div>
                         </div>
                        
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">User Status:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">User Status:</label>
                             <div class="col-lg-7 pull-right">
                                 <select ng-model="newPlayer.userStatus" ng-options="status.id as status.name for status in statuses | orderBy:'name'" class=" form-control m-b" name="account"></select>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':myform.playerEmail.$invalid && (myform.playerEmail.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Email:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Email:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="playerEmail" ng-model="newPlayer.email" required class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':myform.playerPassword.$invalid && (myform.playerPassword.$dirty||myform.form_Submitted)}">
-                            <label class="col-lg-4 title-modal">Password:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Password:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="playerPassword" ng-model="newPlayer.password" required class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Telephone:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Telephone:</label>
                             <div class="col-lg-7 pull-right">
                                 <input ng-model="newPlayer.telephone" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Mobile:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Mobile:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.mobile" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">FA Number:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">FA Number:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.faNumber" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Birth Date:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Birth Date:</label>
                             <div class="col-lg-7 pull-right">
                                 <datetimepicer name="courseName" ng-model="newPlayer.birthDate" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Playing Foot:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Playing Foot:</label>
                             <div class="col-lg-7 pull-right">
                                 <select ng-model="newPlayer.playingFoot" ng-options="foot.id as foot.name for foot in playingFoot | orderBy:'name'" class=" form-control m-b" name="account"></select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Profile Picture:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Profile Picture:</label>
                             <div class="col-lg-7 pull-right">
                                 <div class="thumbnail" ng-show="newPlayer.profilePicture != null" style="width: auto;float: none !important;margin-bottom: 5px;">
                                     <img ng-src='/api/file/ProfilePicture/{{newPlayer.profilePicture}}/{{newPlayer.id}}' style=" width: auto;float: none !important;" />
@@ -98,109 +98,109 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Nationality:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Nationality:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.nationality" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Address 1:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Address 1:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.address1" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Address 2:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Address 2:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.address2" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Address 3:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Address 3:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.address3" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Town\City:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Town\City:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.townCity" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Post Code:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Post Code:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.postcode" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Parents First Name:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Parents First Name:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.parentsFirstName" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Parents Last Name:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Parents Last Name:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.parentsLastName" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Parents Contact Number:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Parents Contact Number:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.parentsContactNumber" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Player Health Conditions:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Player Health Conditions:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.playerHealthConditions" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">School Name:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">School Name:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.schoolName" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">School Telephone:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">School Telephone:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.schoolTelephone" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">School Contact Name:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">School Contact Name:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.schoolContactName" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">School Contact Email:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">School Contact Email:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.schoolContactEmail" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Address 1:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Address 1:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.schoolAddress1" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Address 2:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Address 2:</label>
                             <div class="col-lg-7 pull-right">
                                 <input name="courseName" ng-model="newPlayer.schoolAddress2" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Town\City:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Town\City:</label>
                             <div class="col-lg-7 pull-right">
                                 <input ng-model="newPlayer.schoolTownCity" class="form-control" maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 title-modal">Postcode:</label>
+                            <label class="col-lg-4 title-modal" style="font-size: 15px;">Postcode:</label>
                             <div class="col-lg-7 pull-right">
                                 <input ng-model="newPlayer.schoolPostcode" class="form-control" maxlength="50">
                             </div>
@@ -241,7 +241,11 @@
 
 
 </div>
-
+<style>
+    .title-modal {
+        font-size: 13px !important;
+    }
+</style>
 @section scripts{
     
 <script src="~/Scripts/controllers/ProfileController.js"></script>

@@ -64,9 +64,10 @@ app.controller('PrivateController', ['$scope', '$http','$q', '$filter',function 
         $scope.sendMessageinGroup = function(){
             $http.post(urlGroupTail + '/' + selectGroupId, $scope.messageInGroupSend)
             .success(function(){
-               getAllRecent();
-               //getAllMessageForGroupById(selectGroupId);
-            })
+                getAllRecent();
+                    $scope.messageInGroupSend.messagePrivate.message = '';
+                    //getAllMessageForGroupById(selectGroupId);
+                })
             .error(function (data, status, headers, config) {
 
             });

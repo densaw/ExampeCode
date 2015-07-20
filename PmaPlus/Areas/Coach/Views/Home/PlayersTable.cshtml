@@ -107,43 +107,44 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th style ="text-align:left; padding-left: 26px;">Picture</th>
-                                        <th style="text-align:left">Player Name</th>
-                                        <th>Age</th>
-                                        <th>ATl</th>
-                                        <th>ATt</th>
-                                        <th>GLS</th>                                        
-                                        <th>FRM</th>
-                                        <th>WB%</th>
-                                        <th>TT</th>
-                                        <th>PT</th>
-                                        <th>TT%</th>
-                                        <th>PT%</th>
-                                        <th>ATT%</th>
-                                        <th>CUR</th>
+                                        <th order-header head="Picture">Picture</th>
+                                        <th style="text-align:left" order-header head="Player Name" order="playerName">Player Name</th>
+                                        <th order-header head="Age" order="age">Age</th>
+                                        <th order-header head="ATl" order="atl">ATl</th>
+                                        <th order-header head="ATt" order="att">ATt</th>
+                                        <th order-header head="GLS" order="gls">GLS</th>
+                                        <th order-header head="FRM" order="frm">FRM</th>
+                                        <th order-header head="WB%" order="wbPercent">WB%</th>
+                                        <th order-header head="TT" order="tt">TT</th>
+                                        <th order-header head="PT" order="pt">PT</th>
+                                        <th order-header head="TT%" order="ttPercent">TT%</th>
+                                        <th order-header head="PT%" order="ptPercent">PT%</th>
+                                        <th order-header head="ATT%" order="attPercent">ATT%</th>
+                                        <th order-header head="CUR" order="cur">CUR</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
-                                <tr dir-paginate="player in players | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
-                                    <td style="width: 80px;">
-                                        <div style="width: 80px; height: 80px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
-                                            <img class="prifile" ng-src="{{player.playerPicture}}" style-parent />
-                                        </div>
-                                    </td>
-                                    <td style="text-align:left">{{player.playerName}}</td>
-                                    <td>{{player.age}}</td>
-                                    <td>{{player.atl | number:0}}</td>
-                                    <td>{{player.att | number:0}}</td>
-                                    <td>{{player.gls}}</td>
-                                    <td>{{player.frm  | number:0}}</td>
-                                    <td>{{player.wbPercent}}</td>
-                                    <td>{{player.tt | time:'mm':'hh':false}}</td>
-                                    <td>{{player.pt | time:'mm':'hh':false}}</td>
-                                    <td><div class="circle-inside" rating-tt style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ttPercent > 100 ? 100 : player.ttPercent | number:0}}</div></td>
-                                    <td><div class="circle-inside" rating-tt style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ptPercent > 100 ? 100 : player.ptPercent | number:0}}</div></td>
-                                    <td><div class="circle-inside" rating-ai style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.attPercent | number:0}}</div></td>
-                                    <td><div class="circle-inside" rating-ui style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.cur}}</div></td>
-                                </tr>
+                                    <tr dir-paginate="player in items| filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                        <td style="width: 80px;">
+                                            <div style="width: 80px; height: 80px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
+                                                <img class="prifile" ng-src="{{player.playerPicture}}" style-parent />
+                                            </div>
+                                        </td>
+                                        <td style="text-align:left">{{player.playerName}}</td>
+                                        <td>{{player.age}}</td>
+                                        <td>{{player.atl | number:0}}</td>
+                                        <td>{{player.att | number:0}}</td>
+                                        <td>{{player.gls}}</td>
+                                        <td>{{player.frm  | number:0}}</td>
+                                        <td>{{player.wbPercent}}</td>
+                                        <td>{{player.tt | time:'mm':'hh':false}}</td>
+                                        <td>{{player.pt | time:'mm':'hh':false}}</td>
+                                        <td><div class="circle-inside" rating-tt style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ttPercent > 100 ? 100 : player.ttPercent | number:0}}</div></td>
+                                        <td><div class="circle-inside" rating-tt style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.ptPercent > 100 ? 100 : player.ptPercent | number:0}}</div></td>
+                                        <td><div class="circle-inside" rating-ai style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.attPercent | number:0}}</div></td>
+                                        <td><div class="circle-inside" rating-ui style="width: 50px; color: white; text-align: center; vertical-align: middle; line-height: 30px;">{{player.cur}}</div></td>
+                                    </tr>
                                 </tbody>
                             </table>
                             

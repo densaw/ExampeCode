@@ -5,35 +5,32 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
     var pathArray = $location.$$absUrl.split("/");
     $scope.currId = pathArray[pathArray.length - 1];
 
-    var confConfirm1 = angular.element('#confConfirm1');
-
-    $scope.confirmModal1 = function () {
-        confConfirm1.modal('show');
-    }
-
-    $scope.confirmCancel = function () {
-        confConfirm1.modal('hide');
-    }
-
-
-
-
     $scope.$on('moveEvent', function () {
-        if (WizardHandler.wizard().currentStepNumber() == 4) {
+        if (WizardHandler.wizard().currentStepNumber() == 3) {
             $scope.nav.canNext = true;
             $scope.nav.canBack = true;
 
             $scope.nav.last = false;
-            if (!$scope.$parent.cuurrentMatch.archived) {
-                $scope.addMatchDetails();
-            }
+           
         }
     });
 
+    $scope.$on('saveProgressEvent', function () {
+        if (WizardHandler.wizard().currentStepNumber() == 3) {
+            if (!$scope.$parent.cuurrentMatch.archived) {
+                $scope.addMatchDetails();
+            }
+
+        }
+
+    });
+
+
+
     $scope.addMatchDetails = function () {
-        $scope.loginLoading = true;
+        $scope.$parent.obj.laddaLoading = true;
         $scope.myform.form_Submitted = !$scope.myform.$valid;
-        $scope.loginLoading = false;
+       
         var promises = [];
 
 
@@ -61,7 +58,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
         $q.all(promises).then(function () {
             $http.put('/api/MatchReports/' + $scope.currId, $scope.$parent.cuurrentMatch)
                 .success(function (result) {
-                    $scope.loginLoading = false;
+                    $scope.$parent.obj.laddaLoading = false;
                     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
                         $scope.$parent.cuurrentMatch.picture = result.picture;
                     });
@@ -75,7 +72,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
                             body: 'Please complete the compulsory fields highlighted in red'
                         });
                     }
-                    $scope.loginLoading = false;
+                    $scope.$parent.obj.laddaLoading = false;
                 });
 
 

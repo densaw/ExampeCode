@@ -98,7 +98,7 @@ namespace PmaPlus.Services
                 SendAt = message.SendAt,
                 UserId = message.User.Id,
                 Image = message.Image,
-                UserName = message.User.UserName,
+                UserName = message.User.Role == Role.ClubAdmin ? "Club Administrator" : message.User.UserDetail.FirstName + " " + message.User.UserDetail.LastName,
                 UserAva = string.IsNullOrEmpty(message.User.UserDetail.ProfilePicture) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + message.User.UserDetail.ProfilePicture + "/" + message.User.Id 
             };
         }
@@ -141,7 +141,7 @@ namespace PmaPlus.Services
                 SendAt = x.SendAt,
                 UserId = x.User.Id,
                 Image = x.Image,
-                UserName = (x.User.UserDetail == null) ? x.User.UserName : x.User.UserDetail.FirstName + " " + x.User.UserDetail.LastName,
+                UserName = (x.User.UserDetail == null) || (x.User.Role == Role.ClubAdmin) ? "Club Administrator" : x.User.UserDetail.FirstName + " " + x.User.UserDetail.LastName,
                 UserAva = (x.User.UserDetail.ProfilePicture == null || x.User.UserDetail.ProfilePicture == String.Empty) ? "/Images/ProfilePicture.jpg" : "/api/file/ProfilePicture/" + x.User.UserDetail.ProfilePicture + "/" + x.User.Id
             });
         }
