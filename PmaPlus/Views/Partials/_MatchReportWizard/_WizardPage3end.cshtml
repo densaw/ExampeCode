@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label class="col-lg-4 title-modal" style="font-size: 13px;">Duration:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <input ng-disabled="cuurrentMatch.archived" type="number" value="{{cuurrentMatch.periods * cuurrentMatch.periodDuration}}" class="form-control">
+                                    <input ng-disabled="cuurrentMatch.archived" type="number" ng-model="cuurrentMatch.periods * cuurrentMatch.periodDuration"  class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
