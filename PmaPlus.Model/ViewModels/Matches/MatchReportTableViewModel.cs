@@ -18,5 +18,6 @@ namespace PmaPlus.Model.ViewModels.Matches
         public string Mom { get; set; }
         public string Formation { get; set; }
         public string Picture { get; set; }
+        public bool Archived { get; set; }
     }
 }
