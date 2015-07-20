@@ -63,6 +63,7 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
         $q.all(promises).then(function () {
             $http.put('/api/MatchReports/' + $scope.currId, $scope.$parent.cuurrentMatch)
                 .success(function (result) {
+                    $scope.nav.canNext = true;
                     $scope.$parent.obj.laddaLoading = false;
                     $http.get('/api/MatchReports/' + $scope.currId).success(function (result) {
                         $scope.$parent.cuurrentMatch.picture = result.picture;
