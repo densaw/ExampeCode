@@ -7,35 +7,40 @@ app.controller('WizardPage3endController', ['$scope', '$http', '$q', '$location'
 
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == 3) {
-            $scope.nav.canNext = true;
-            $scope.nav.canBack = true;
+            if ($scope.$parent.cuurrentMatch.periods < 1 || $scope.$parent.cuurrentMatch.periodDuration < 1) {
+                $scope.nav.canNext = false;
+            } else {
+                $scope.nav.canNext = true;
+            }
 
+            $scope.nav.canBack = true;
             $scope.nav.last = false;
-           
         }
     });
 
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == 3) {
             if (!$scope.$parent.cuurrentMatch.archived) {
-                $scope.addMatchDetails();
+                if (!$scope.matchDetailsForm.$valid) {
+                    $scope.matchDetailsForm.form_Submitted = !$scope.matchDetailsForm.$valid;
+                } else {
+                    $scope.addMatchDetails();
+                }
             }
-
         }
-
     });
 
 
 
     $scope.addMatchDetails = function () {
         $scope.$parent.obj.laddaLoading = true;
-        $scope.myform.form_Submitted = !$scope.myform.$valid;
-       
+
+
         var promises = [];
 
 
         if ($scope.pic) {
-            $scope.loginLoading = false;
+
             var fd = new FormData();
             fd.append('file', $scope.pic);
             var promise = $http.post('/api/Files', fd, {

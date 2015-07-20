@@ -11,36 +11,36 @@
                             <div class="col-sm-9 m-b-xs">
                             </div>
                         </div>
-                        <form name="myform" class="form-horizontal" novalidate>
-                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                        <form name="matchDetailsForm" class="form-horizontal" novalidate>
+                            <div class="form-group" >
                                 <label class="col-lg-4 title-modal" style="font-size: 13px;">Goals For:</label> <div class="col-lg-7 pull-right">
-                              <input ng-disabled="cuurrentMatch.archived" name="sessionDuration" type="number" ng-model="$parent.cuurrentMatch.goalsFor" class="form-control" min="0">
+                              <input ng-disabled="cuurrentMatch.archived"  type="number" ng-model="$parent.cuurrentMatch.goalsFor" class="form-control">
                                 </div>
                             </div>
 
-                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                            <div class="form-group" >
                                 <label class="col-lg-4 title-modal" style="font-size: 13px;">Goals Away:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <input ng-disabled="cuurrentMatch.archived" name="playersLists" type="number" ng-model="$parent.cuurrentMatch.goalsAway" required class="form-control" min="0">
+                                    <input ng-disabled="cuurrentMatch.archived" type="number" ng-model="$parent.cuurrentMatch.goalsAway" required class="form-control">
                                 </div>
                             </div>
 
-                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                            <div class="form-group" ng-class="{'has-error':matchDetailsForm.periods.$invalid && (matchDetailsForm.periods.$dirty||matchDetailsForm.form_Submitted)}">
                                 <label class="col-lg-4 title-modal" style="font-size: 13px;">Periods:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <input ng-disabled="cuurrentMatch.archived" name="playersOutcome" ng-model="$parent.cuurrentMatch.periods" type="number" required class="form-control" min="0">
+                                    <input ng-disabled="cuurrentMatch.archived" name="periods" ng-model="$parent.cuurrentMatch.periods" type="number" required class="form-control" min="1">
                                 </div>
                             </div>
-                            <div class="form-group" ng-class="{'has-error':myform.eventNote.$invalid && (myform.eventNote.$dirty||myform.form_Submitted)}">
+                            <div class="form-group" ng-class="{'has-error':matchDetailsForm.perDuration.$invalid && (matchDetailsForm.perDuration.$dirty||matchDetailsForm.form_Submitted)}">
                                 <label class="col-lg-4 title-modal" style="font-size: 13px;">Period Duration:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <input ng-disabled="cuurrentMatch.archived" name="playersOutcome" ng-model="$parent.cuurrentMatch.periodDuration" type="number" required class="form-control" min="0">
+                                    <input ng-disabled="cuurrentMatch.archived" name="perDuration" ng-model="$parent.cuurrentMatch.periodDuration" type="number" required class="form-control" min="1">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4 title-modal" style="font-size: 13px;">Duration:</label>
                                 <div class="col-lg-7 pull-right">
-                                    <input ng-disabled="cuurrentMatch.archived" name="playersOutcome" type="number" value="{{cuurrentMatch.periods * cuurrentMatch.periodDuration}}" class="form-control">
+                                    <input ng-disabled="cuurrentMatch.archived" type="number" value="{{cuurrentMatch.periods * cuurrentMatch.periodDuration}}" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
