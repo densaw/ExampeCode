@@ -23,8 +23,8 @@
                                     <th>SAV</th>
                                     <th>CRN</th>
                                     <th>FRK</th>
-                                    <th>FRM</th>
                                     <th>PT</th>
+                                    <th>FRM</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,8 +45,8 @@
                                     <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.saves" /></td>
                                     <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.corners" /></td>
                                     <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.freeKicks" /></td>
-                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.formRating" min="1" /></td>
                                     <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.playingTime" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.formRating" ng-class="{'warnin-textArea':(player.playingTime > 0 && player.formRating < 1) || player.formRating > 10 }" /></td>
                                 </tr>
                             </tbody>
                         </table>

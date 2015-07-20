@@ -12,6 +12,17 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     $scope.getTable = function () {
         $http.get('/api/PlayerMatchStatistic/' + $scope.currId).success(function (result) {
             $scope.playersStat = result;
+            var completed = true;
+            angular.forEach($scope.playersStat, function (player) {
+               
+                if (player.formRating < 1 && player.playingTime > 0) {
+                    completed = false;
+                }
+            });
+
+            if (completed) {
+                $scope.nav.canNext = true;
+            } else { $scope.nav.canNext = false; }
         });
     };
 
@@ -19,7 +30,7 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
     $scope.$on('moveEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == 4) {
             $scope.getTable();
-            $scope.nav.canNext = true;
+            $scope.nav.canNext = false;
             $scope.nav.canBack = true;
             $scope.nav.last = false;
         }
@@ -32,9 +43,14 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
                 if (player.formRating < 1 && player.formRating > 10) {
                     completed = false;
                 }
+
+                if (player.formRating < 1 && player.playingTime > 0) {
+                    completed = false;
+                }
             });
 
             if (completed) {
+                $scope.nav.canNext = true;
                 $scope.addPlayerStat();
             } else { $scope.pressed = true; }
         }

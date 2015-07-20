@@ -23,7 +23,10 @@ app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '
     });
 
     $scope.$on('saveProgressEvent', function () {
-        $http.put('/api/MatchReports/' + $scope.currId, $scope.$parent.cuurrentMatch);
+        if (WizardHandler.wizard().currentStepNumber() == 5) {
+            $http.put('/api/MatchReports/' + $scope.currId, $scope.$parent.cuurrentMatch);
+        }
+
     });
 
     $scope.$on('finishWizardEvent', function () {
@@ -36,8 +39,8 @@ app.controller('WizardPage5Controller', ['$scope', '$http', '$q', '$location', '
         $scope.$parent.cuurrentMatch.archived = true;
         $http.put('/api/MatchReports/' + $scope.currId, $scope.$parent.cuurrentMatch)
             .success(function () {
-               
-                $scope.$parent.obj.laddaLoading =  false;
+
+                $scope.$parent.obj.laddaLoading = false;
             }).error(function (data, status, headers, config) {
                 $scope.$parent.obj.laddaLoading = false;
             });
