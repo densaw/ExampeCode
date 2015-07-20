@@ -142,12 +142,12 @@
                                 </div>
                             </div>
 
-                            <div ng-if="haveGroup" class="row" >
-                                @*<div class="col-xs-1">
-                                    <button class="btn btn-primary btn-block m"><i class="fa fa-paperclip"></i></button>
-                                </div>*@
+                            <div ng-if="haveGroup" class="row" >                             
                                 <div class="col-xs-12" style="margin-top: 15px;">
-                                    <input ng-model="messageInGroupSend.messagePrivate.message" required class="form-control" ng-enter="sendMessageinGroup()">
+                                    <div class="input-group">
+                                        <input ng-model="messageInGroupSend.messagePrivate.message" required class="form-control" ng-enter="sendMessageinGroup()">
+                                        <span class="input-group-addon btn btn-primary" ng-click="sendMessageinGroup()" style="color:white">Send</span>
+                                    </div>
                                 </div>
                             </div>
 
