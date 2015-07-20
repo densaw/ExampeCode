@@ -3843,6 +3843,7 @@
     <Content Include="Views\Partials\_VideoModalPartialWithTitle.cshtml" />
     <Content Include="Views\Account\Contact.cshtml" />
     <Content Include="Views\Shared\Success.cshtml" />
+    <Content Include="Views\Partials\_ScenariousPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,9 +1,4 @@
 ﻿
-@{
-    ViewBag.Title = "PMA+";
-    Layout = "~/Areas/HeadOfAcademy/Views/Shared/_AdminLayout.cshtml";
-}
-
 <div ng-controller="ScenariosController" ng-cloak>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
@@ -17,13 +12,13 @@
                 </li>
             </ol>
         </div>
-        <div class="col-sm-8">
+        @*<div class="col-sm-8">
             <div class="title-action">
                 <a class="btn btn-primary" ng-click="openAdd2d()">Add a 2D Scenario</a>
                 <a class="btn btn-primary" ng-click="">Add a 3D Scenario</a>
             </div>
 
-        </div>
+        </div>*@
     </div>
 
     <div class="wrapper wrapper-content  animated fadeInRight">
@@ -144,7 +139,7 @@
 
                                     </div>
                                     <div class="modal-body">
-                                        <h3 class="text-left" style="font-weight:400">Are you sure you wish to delete this record?</h3>
+                                        <h3 class="text-center">Are you sure you wish to delete this record?</h3>
                                     </div>
                                     <div class="modal-footer">
                                         <button ng-click="cancel()" type="button" class="btn btn-white">No</button>
@@ -161,7 +156,7 @@
 
                         @*Modal*@
                         <div class="modal inmodal" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog" style="width: 980px">
+                            <div class="modal-dialog" style="width: 940px">
                                 <div class="modal-content animated bounceInRight">
                                     <div class="modal-header">
 
@@ -238,8 +233,8 @@
                                         <td style="text-align:left">{{scenarioType[scenario.scenarioType].name}}</td>
                                         <td>{{scenario.minAge}} - {{scenario.maxAge}}</td>
                                         <td>
-                                            <i ng-if="scenario.uploadedBy != 'SystemAdmin'" ng-click="openEdit(scenario.id)" class="fa fa-cog" style="cursor: pointer;"></i>
-                                            <i ng-if="scenario.uploadedBy != 'SystemAdmin'" ng-click="openDelete(scenario.id)" class="fa fa-trash" style="cursor: pointer;"></i>
+                                            @*<i ng-if="scenario.uploadedBy != 'SystemAdmin'" ng-click="openEdit(scenario.id)" class="fa fa-cog" style="cursor: pointer;"></i>
+                                            <i ng-if="scenario.uploadedBy != 'SystemAdmin'" ng-click="openDelete(scenario.id)" class="fa fa-trash" style="cursor: pointer;"></i>*@
                                             <i ng-click="modalVideoStart(scenario.video,scenario.name)" class="fa fa-film" style="cursor: pointer;"></i>
                                             <i ng-click="openPic(scenario.id)" class="fa fa-camera" style="cursor: pointer;"></i>
 
@@ -264,6 +259,7 @@
         margin-bottom: 0px;
     }
 </style>
+
 
 
 
