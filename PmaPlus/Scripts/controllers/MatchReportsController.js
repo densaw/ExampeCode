@@ -26,7 +26,7 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
         { id: 1, name: 'Friendly' },
         { id: 2, name: 'International' },
         { id: 3, name: 'League' },
-        { id: 3, name: 'Tournament' }
+        { id: 4, name: 'Tournament' }
     ];
 
     $scope.sideType = [
@@ -35,7 +35,7 @@ app.controller('AddReportController', ['$scope', '$http', '$q', '$location', '$r
         { id: 1, name: '6A' },
         { id: 2, name: '7A' },
         { id: 3, name: '9A' },
-        { id: 3, name: '11A' }
+        { id: 4, name: '11A' }
     ];
 
     $scope.addMatch = function () {
