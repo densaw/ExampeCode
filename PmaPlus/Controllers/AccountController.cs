@@ -272,7 +272,8 @@ namespace PmaPlus.Controllers
                     msg.Body = "First Name: " + c.FirstName;
                     msg.Body += "Last Name: " + c.LastName;
                     msg.Body += "Email: " + c.Email;
-                    msg.Body += "Comments: " + c.Comment;
+                    msg.Body += "Details: " + c.Details;
+                    msg.Body += "Phone Number: " + c.PhoneNumber;
                     msg.IsBodyHtml = false;
                     smtp.Host = "smtp.gmail.com";
                     smtp.Port = 587;

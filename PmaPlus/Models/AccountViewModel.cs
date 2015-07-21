@@ -59,7 +59,13 @@ namespace PmaPlus.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Comment { get; set; } 
+
+        [Display(Name = "Confirm email")]
+        [Compare("Email", ErrorMessage = "The email and confirmation email do not match.")]
+        public string ConfirmEmail { get; set; }
+
+        public string PhoneNumber { get; set; }
+        public string Details { get; set; } 
 
     }
 

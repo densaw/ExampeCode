@@ -19,10 +19,17 @@
         @Html.ValidationMessageFor(model => model.FirstName)
     </div>   
     <div class="row">       
-        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @placeholder = "Where can email you back?" } })
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @placeholder = "Where can email you back?", type = "email" } })
+    </div>
+    <div class="row">       
+        @Html.EditorFor(model => model.ConfirmEmail, new { htmlAttributes = new { @placeholder = "Confirm you email", type="email" } })
+        @Html.ValidationMessageFor(model => model.ConfirmEmail)
+    </div>
+    <div class="row">       
+        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @placeholder = "Enter you phone number" } })
     </div>
     <div class="row">
-        @Html.TextAreaFor(model => model.Comment, new{@placeholder = "  What's on your mind?"})
+        @Html.TextAreaFor(model => model.Details, new{@placeholder = "  What's on your mind?"})
     </div>
     <div class="row">
         <input class="btn btn-primary" type="submit" value="Send" />
