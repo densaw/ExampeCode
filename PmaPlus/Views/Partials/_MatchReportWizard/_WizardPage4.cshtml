@@ -45,8 +45,8 @@
                                     <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.saves" /></td>
                                     <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.corners" /></td>
                                     <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.freeKicks" /></td>
-                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.playingTime" /></td>
-                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.formRating" ng-class="{'warnin-textArea':(player.playingTime > 0 && player.formRating < 1) || player.formRating > 10 }" /></td>
+                                    <td><input ng-disabled="cuurrentMatch.archived" class="form-control" type="number" ng-model="player.playingTime" ng-change="checkForMaxDuration(player)" /></td>
+                                    <td><select ng-disabled="cuurrentMatch.archived" class="form-control" ng-model="player.formRating" style="width: 70px;" ng-class="{'warnin-textArea':(player.playingTime > 0 && player.formRating < 1)}"><option ng-repeat="i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option></select> </td>
                                 </tr>
                             </tbody>
                         </table>
