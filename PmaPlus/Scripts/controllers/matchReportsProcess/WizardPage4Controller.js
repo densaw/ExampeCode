@@ -36,6 +36,8 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
         }
     });
 
+
+
     $scope.$on('saveProgressEvent', function () {
         if (WizardHandler.wizard().currentStepNumber() == 4) {
             var completed = true;
@@ -66,11 +68,14 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
 
             });
         }
-
-
-
     }
 
+
+    $scope.checkForMaxDuration = function(player){
+        if (player.playingTime > ($scope.$parent.cuurrentMatch.periods * $scope.$parent.cuurrentMatch.periodDuration)) {
+            player.playingTime = ($scope.$parent.cuurrentMatch.periods * $scope.$parent.cuurrentMatch.periodDuration);
+        }
+    }
     //ADD==========================================
     $scope.addPlayerStat = function () {
         $scope.$parent.obj.laddaLoading = true;
