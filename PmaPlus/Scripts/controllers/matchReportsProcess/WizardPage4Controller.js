@@ -18,6 +18,9 @@ app.controller('WizardPage4Controller', ['$scope', '$http', '$q', '$location', '
                 if (player.formRating < 1 && player.playingTime > 0) {
                     completed = false;
                 }
+
+                $scope.checkForMaxDuration(player);
+
             });
 
             if (completed) {
