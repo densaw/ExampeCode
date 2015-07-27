@@ -5609,7 +5609,7 @@ body.rtls.top-navigation .footer.fixed {
 
 .skin-1 .nav > li.active {
     border-left: 4px solid #0c9aef;
-    background: #e0e0e0;
+    background: #f5f5f5;
 }
 
 .skin-1 .nav > li > a {
@@ -6166,8 +6166,15 @@ textarea {
     background-color: white;
 }
 
-.nav>li {
+#side-menu > li {
       border-bottom: 1px solid #EBEBED;
+}
+
+.skin-1 .nav > li.active{
+    background: #f5f5f5 !important;
+}
+.skin-1 .navbar-default .nav > li > a:hover, .skin-1 .navbar-default .nav > li > a:focus{
+    background: #f5f5f5 !important;
 }
 
 
