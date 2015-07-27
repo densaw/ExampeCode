@@ -6162,6 +6162,14 @@ textarea {
     }
 
 
+.nav {
+    background-color: white;
+}
+
+.nav>li {
+      border-bottom: 1px solid #EBEBED;
+}
+
 
 /*.modal.in .modal-dialog {
     width:940px;
