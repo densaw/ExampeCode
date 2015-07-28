@@ -3411,6 +3411,7 @@ video {
 }
 /* WRAPPERS */
 #wrapper {
+    background-color: white;
     width: 100%;
     overflow-x: hidden;
 }
@@ -6162,7 +6163,7 @@ textarea {
     }
 
 
-.nav {
+#side-menu {
     background-color: white;
 }
 
