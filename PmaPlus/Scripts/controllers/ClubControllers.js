@@ -1497,43 +1497,12 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         { id: 1, name: 'Right' },
         { id: 2, name: 'Both' }
     ];
-    //$scope.addScale = function (cur) {
-
-    //    if (cur == '0' || cur == '1' || cur == '2' || cur == '3' || cur == '4' || cur == '5') {
-    //        return { "background": "rgb(210, 0, 24)" };
-    //    }
-    //    else if (cur == '6') {
-    //        return { "background": "rgb(255, 221, 50)" };
-    //    }
-    //    else {
-    //        return { "background": "rgb(0, 210, 58)" };
-    //    }
-
-    //};
-
-    //$scope.addScale = function (att) {
-
-    //    if (att == '0' || att == '1' || att == '2' || att == '3' || att == '4' || att == '5') {
-    //        return { "background": "rgb(210, 0, 24)" };
-    //    }
-    //    else if (att == '6') {
-    //        return { "background": "rgb(255, 221, 50)" };
-    //    }
-    //    else {
-    //        return { "background": "rgb(0, 210, 58)" };
-    //    }
-
-    //};
-
-    //$scope.selectedStatus = $scope.statuses[0];
-    //$scope.selectedFoot = $scope.playingFoot[1];
-
-
-
+  
     $scope.newPlayer = {};
     $scope.newPlayer.teams = [];
     $scope.help = {};
     $scope.help.teams = [];
+    $scope.searchFilter = '';
 
     $http.get('/api/Teams/List').success(function (result) {
         $scope.teams = result;
@@ -1552,9 +1521,9 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
 
     function createTail(pageNumber) {
         if (sortArray.length > 0) {
-            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1];
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1] + '/' + $scope.searchFilter;
         } else {
-            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber;
+            return urlTail + '/' + $scope.itemsPerPage + '/' + pageNumber + '/' + sortArray[0] + '/' + sortArray[1] + '/' + $scope.searchFilter;
         }
     }
 
@@ -1588,6 +1557,11 @@ app.controller('ClubPlayerController', ['$scope', '$http', 'toaster', '$q', '$ro
         getResultsPage(newPage);
         $scope.pagination.current = newPage;
     };
+
+    $scope.search = function() {
+        getResultsPage(1);
+    }
+
 
     var target = angular.element('#addPlayerModal');
     var confDelete = angular.element('#confDelete');

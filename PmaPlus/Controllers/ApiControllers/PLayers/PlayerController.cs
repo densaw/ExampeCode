@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Web.Http;
+using System.Web.WebPages;
 using PmaPlus.Data;
 using PmaPlus.Model.Models;
 using PmaPlus.Model.ViewModels;
@@ -27,15 +29,16 @@ namespace PmaPlus.Controllers.ApiControllers
             _userServices = userServices;
             _photoManager = photoManager;
         }
-        [Route("api/Player/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
-        public PlayersPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false)
+        [Route("api/Player/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}/{filter?}")]
+        public PlayersPage Get(int pageSize, int pageNumber, string orderBy = "", bool direction = false, string filter = "")
         {
             var clubId = _userServices.GetClubByUserName(User.Identity.Name).Id;
 
+            var players = filter.IsEmpty() ? _playerServices.GetPlayersTable(clubId) : _playerServices.GetPlayersTable(clubId).Where(p => p.Name.ToLower().Contains(filter.ToLower()));
 
-            var count = _playerServices.GetPlayersTable(clubId).Count();
+            var count = players.Count();
             var pages = (int)Math.Ceiling((double)count / pageSize);
-            var items = _playerServices.GetPlayersTable(clubId).OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
+            var items = players.OrderQuery(orderBy, x => x.Id, direction).Paged(pageNumber, pageSize);
 
             return new PlayersPage()
             {

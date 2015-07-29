@@ -336,8 +336,8 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group">
-                                    <input ng-model="q" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                                    <input ng-model="searchFilter" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button ng-click="search()" type="button" class="btn btn-sm btn-primary"> Go!</button>
                                     </span>
                                 </div>
                             </div>
@@ -364,7 +364,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
-                                    <tr dir-paginate="player in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
+                                    <tr dir-paginate="player in items |  itemsPerPage: itemsPerPage" total-items="totalItems">
                                         <td style="width: 80px;">
                                             <div style="width: 80px; height: 80px; position: relative; overflow: hidden; border-radius: 50%;" class="img-circle pull-left">
                                                 <img class="prifile" ng-src="/api/File/ProfilePicture/{{player.profilePicture}}/{{player.id}}" style-parent />
