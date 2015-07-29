@@ -22,37 +22,37 @@ namespace PmaPlus.Controllers.ApiControllers
         {
             _photoManager = photoManager;
         }
-       [Route("api/Files")]
+        [Route("api/Files")]
         public async Task<IHttpActionResult> PostPhoto()
         {
             if (Request.Content.IsMimeMultipartContent())
             {
-            var photo = await _photoManager.Add(Request);
-            return Ok(photo);
+                var photo = await _photoManager.Add(Request);
+                return Ok(photo);
             }
 
-                return BadRequest("Unsuported type");
+            return BadRequest("Unsuported type");
         }
-       
-        [Route("api/Files/Wall")]
-       public async Task<IHttpActionResult> PostWallPhoto()
-       {
-           if (Request.Content.IsMimeMultipartContent())
-           {
-               var photo = await _photoManager.AddMassageWallPhoto(Request);
-               return Ok(photo);
-           }
 
-           return BadRequest("Unsuported type");
-       }
-        
+        [Route("api/Files/Wall")]
+        public async Task<IHttpActionResult> PostWallPhoto()
+        {
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                var photo = await _photoManager.AddMassageWallPhoto(Request);
+                return Ok(photo);
+            }
+
+            return BadRequest("Unsuported type");
+        }
+
 
         [Route("api/File/{storageType}/{fileName}/{id}")]
-        public HttpResponseMessage GetPhoto(string storageType,string fileName , int id)
+        public HttpResponseMessage GetPhoto(string storageType, string fileName, int id)
         {
             HttpResponseMessage result;
             FileStorageTypes type;
-            Enum.TryParse(storageType,true, out type);
+            Enum.TryParse(storageType, true, out type);
             FileStream _fileStream = _photoManager.GetFileStream(fileName, type, id);
             if (_fileStream == null)
             {
@@ -60,14 +60,15 @@ namespace PmaPlus.Controllers.ApiControllers
             }
             else
             {
-            result = Request.CreateResponse(HttpStatusCode.OK);
-            result.Content = new StreamContent(_fileStream);
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(fileName)));
+                result = Request.CreateResponse(HttpStatusCode.OK);
+                result.Content = new StreamContent(_fileStream);
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(Path.GetExtension(fileName)));
             }
+
             return result;
         }
 
-       
+
 
         [Route("api/File/{storageType}/{fileName}")]
         public HttpResponseMessage GetWallPic(string storageType, string fileName)
@@ -88,7 +89,7 @@ namespace PmaPlus.Controllers.ApiControllers
             }
             return result;
         }
-     
+
 
     }
 }

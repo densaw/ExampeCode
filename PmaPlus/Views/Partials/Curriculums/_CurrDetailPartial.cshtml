@@ -131,6 +131,9 @@
                                             <div class="form-group">
                                                 <label class="col-lg-4 title-modal">Players Picture:</label>
                                                 <div class="col-lg-7 pull-right">
+                                                    <div class="thumbnail" ng-show="newCurrDet.playerPicture != null" style="width: auto;float: none !important;margin-bottom: 5px;">
+                                                        <img ng-src='/api/file/Sessions/{{newCurrDet.playerPicture}}/{{newCurrDet.id}}' style=" width: auto;float: none !important;" />
+                                                    </div>  
                                                     <input file-model="picPF" type="file" accept="image/*" class="pma-fileupload">
                                                 </div>
                                             </div>

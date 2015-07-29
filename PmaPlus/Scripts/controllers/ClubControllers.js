@@ -2196,6 +2196,8 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
         toggleEndofReviewPeriod.bootstrapToggle('off');
         toggleNeedScenarios.bootstrapToggle('off');
         $scope.help.scenarios = [];
+        $scope.picC = null;
+        $scope.picPF = null;
         target.modal('show');
     };
 
@@ -2235,8 +2237,10 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
             })
                 .success(function (data) {
                     $scope.newCurrDet.coachPicture = data.name;
+                    $scope.picC = null;
                 })
                 .error(function () {
+                    $scope.picC = null;
                     toaster.pop({
                         type: 'error',
                         title: 'Error',
@@ -2255,8 +2259,10 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
             })
                 .success(function (data) {
                     $scope.newCurrDet.playerPicture = data.name;
+                    $scope.picPF = null;
                 })
                 .error(function () {
+                    $scope.picPF = null;
                     toaster.pop({
                         type: 'error',
                         title: 'Error',
@@ -2322,12 +2328,8 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
 
         $http.get(urlTail + '/' + id)
             .success(function (result) {
-                console.log(result);
-
                 $scope.newCurrDet = result;
-
                 $scope.help.scenarios = reShuffle(result.scenarios);
-
                 toggleAttendance.bootstrapToggle(result.attendance ? 'on' : 'off');
                 toggleObjectives.bootstrapToggle(result.objectives ? 'on' : 'off');
                 toggleRating.bootstrapToggle(result.rating ? 'on' : 'off');
@@ -2338,7 +2340,8 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                 toggleStartofReviewPeriod.bootstrapToggle(result.startOfReviewPeriod ? 'on' : 'off');
                 toggleEndofReviewPeriod.bootstrapToggle(result.endOfReviewPeriod ? 'on' : 'off');
                 toggleNeedScenarios.bootstrapToggle(result.needScenarios ? 'on' : 'off');
-
+                $scope.picC = null;
+                $scope.picPF = null;
                 target.modal('show');
             });
     };

@@ -24,7 +24,6 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             _photoManager = photoManager;
         }
 
-
         [Route("api/Sessions/{curriculumId:int}/{pageSize:int}/{pageNumber:int}/{orderBy:alpha?}/{direction:bool?}")]
         public SessionPage Get(int curriculumId, int pageSize, int pageNumber, string orderBy = "",bool direction = false)
         {
@@ -50,7 +49,6 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             return Mapper.Map<Session, SessionViewModel>(sess);
         }
 
-
         [Route("api/Sessions/{curriculumId:int}")]
         public IHttpActionResult Post(int curriculumId, [FromBody]SessionViewModel sessionViewModel)
         {
@@ -62,13 +60,13 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
                 if (_photoManager.FileExists(newSession.CoachPicture))
                 {
                     newSession.CoachPicture = _photoManager.MoveFromTemp(newSession.CoachPicture,
-                        FileStorageTypes.Sessions, newSession.Id, "CoachPicture");
+                        FileStorageTypes.Sessions, newSession.Id, Guid.NewGuid().ToString());
                 }
 
                 if (_photoManager.FileExists(newSession.PlayerPicture))
                 {
-                    newSession.CoachPicture = _photoManager.MoveFromTemp(newSession.PlayerPicture,
-                        FileStorageTypes.Sessions, newSession.Id, "PlayerPicture");
+                    newSession.PlayerPicture = _photoManager.MoveFromTemp(newSession.PlayerPicture,
+                        FileStorageTypes.Sessions, newSession.Id, Guid.NewGuid().ToString());
                 }
 
                 _curriculumServices.UpdateSession(newSession,newSession.Id);
@@ -79,7 +77,6 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             return Ok();
 
         }
-
 
         [Route("api/Sessions/{id:int}")]
         public IHttpActionResult Put(int id, [FromBody] SessionViewModel sessionViewModel)
@@ -92,13 +89,13 @@ namespace PmaPlus.Controllers.ApiControllers.Curriculums
             if (_photoManager.FileExists(sessionViewModel.CoachPicture))
             {
                 sessionViewModel.CoachPicture = _photoManager.MoveFromTemp(sessionViewModel.CoachPicture,
-                    FileStorageTypes.Sessions, id, "CoachPicture");
+                    FileStorageTypes.Sessions, id, Guid.NewGuid().ToString());
             }
 
             if (_photoManager.FileExists(sessionViewModel.PlayerPicture))
             {
-                sessionViewModel.CoachPicture = _photoManager.MoveFromTemp(sessionViewModel.PlayerPicture,
-                    FileStorageTypes.Sessions, id, "PlayerPicture");
+                sessionViewModel.PlayerPicture = _photoManager.MoveFromTemp(sessionViewModel.PlayerPicture,
+                    FileStorageTypes.Sessions, id, Guid.NewGuid().ToString());
             }
 
 
