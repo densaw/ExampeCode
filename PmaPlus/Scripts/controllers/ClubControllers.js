@@ -1944,6 +1944,7 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
        { id: 3, name: 'Coach' },
        { id: 4, name: 'Head Of Education' },
        { id: 5, name: 'Welfare Officer' },
+       { id: 6, name: 'Scout' },
        { id: 7, name: 'Physiotherapist' },
        { id: 8, name: 'Sports Scientist' }
     ];
@@ -1955,6 +1956,7 @@ app.controller('CurrStatementsController', ['$scope', '$http', 'toaster', '$q', 
        { id: 3, name: 'Coach' },
        { id: 4, name: 'Head Of Education' },
        { id: 5, name: 'Welfare Officer' },
+       { id: 6, name: 'Scout' },
        { id: 7, name: 'Physiotherapist' },
        { id: 8, name: 'Sports Scientist' }
     ];
