@@ -282,7 +282,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="contentTable">
-                                    <tr dir-paginate="session in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalCourses">
+                                    <tr dir-paginate="session in items | filter:q | itemsPerPage: itemsPerPage" total-items="totalItems">
                                         <td style="text-align:left">{{session.name}}</td>
                                         <td>{{session.number}}</td>
                                         <td>{{session.attendance?'Yes':'No'}}</td>
