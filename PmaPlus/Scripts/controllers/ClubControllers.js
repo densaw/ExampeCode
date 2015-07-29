@@ -2244,7 +2244,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
                     toaster.pop({
                         type: 'error',
                         title: 'Error',
-                        body: 'File upload ERROR!'
+                         body: 'File upload ERROR!'
                     });
                 });
             promises.push(promise);
