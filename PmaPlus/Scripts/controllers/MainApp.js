@@ -118,35 +118,20 @@
         };
 
     });
-    //module.directive('ratingOi', function () {
-    //    return {
-    //       require: 'ngModel',
-    //       link: function (scope, element, attrs, ngModel) {
-    //           element.on('click', function () {
-    //               if (ngModel.$modelValue >= 0 && ngModel.$modelValue <= 5) {
-    //                   element.css('background', '#E60000');
-    //               }
-    //               else if (ngModel.$modelValue >= 5, 1 && ngModel.$modelValue <= 6) {
-    //                   element.css('background', '#ED7800');
-    //               }
-    //               else if (ngModel.$modelValue >= 6, 1 && ngModel.$modelValue <= 6, 5) {
-    //                   element.css('background', '#F4D600');
-    //               }
-    //               else if (ngModel.$modelValue >= 6, 6 && ngModel.$modelValue <= 7) {
-    //                   element.css('background', '#8AB40C');
-    //               }
-    //               else if (ngModel.$modelValue >= 7, 1 && ngModel.$modelValue <= 8) {
-    //                   element.css('background', '#617E08');
-    //               }
-    //               else {
-    //                   element.css('background', '#303F04');
-    //               }
-    //           });
-    //        }
-    //    };
-
-    //});
-
+   
+    module.directive('ngEnter', function () {
+        return function (scope, element, attrs) {
+            element.bind("keydown keypress", function (event) {
+                if(event.which === 13) {
+                    scope.$apply(function (){
+                        scope.$eval(attrs.ngEnter);
+                    });
+ 
+                    event.preventDefault();
+                }
+            });
+        };
+    });
   
 
     module.directive('toggleCheckbox', function() {

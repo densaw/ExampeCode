@@ -336,7 +336,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group">
-                                    <input ng-model="searchFilter" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                    <input ng-model="searchFilter" ng-enter="search()" type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
                                         <button ng-click="search()" type="button" class="btn btn-sm btn-primary"> Go!</button>
                                     </span>
                                 </div>

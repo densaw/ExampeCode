@@ -2195,6 +2195,7 @@ app.controller('CurrDetailsController', ['$scope', '$http', 'toaster', '$q', '$r
         toggleStartofReviewPeriod.bootstrapToggle('off');
         toggleEndofReviewPeriod.bootstrapToggle('off');
         toggleNeedScenarios.bootstrapToggle('off');
+        $scope.help.scenarios = [];
         target.modal('show');
     };
 
