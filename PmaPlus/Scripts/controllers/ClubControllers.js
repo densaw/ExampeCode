@@ -1797,7 +1797,7 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     function getCurrType() {
         $http.get('/api/Curriculums/List').success(function (result) {
             $scope.curriculumTypesList = result;
-            $scope.selectedCurriculumTypeId = $scope.curriculumTypesList[0];
+            ///$scope.selectedCurriculumTypeId = $scope.curriculumTypesList[0];
         });
     }
 
@@ -1826,7 +1826,6 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
         $scope.newTeam = {};
         $scope.isEditing = false;
         $scope.modalTitle = 'Add Team';
-        $scope.newTeam = {};
         target.modal('show');
     };
 
@@ -1854,7 +1853,11 @@ app.controller('TeamsController', ['$scope', '$http', 'toaster', '$q', '$routePa
     $scope.ok = function (id) {
         $scope.laddaLoading = true;
 
-        $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
+        if (!$scope.newTeam.curriculumId) {
+            $scope.newTeam.curriculumId = 0;
+        }
+
+       /// $scope.newTeam.curriculumId = $scope.selectedCurriculumTypeId.id;
         $scope.newTeam.coaches = shuffle($scope.teamMembers.coaches);
         $scope.newTeam.players = shuffle($scope.teamMembers.players);
         if (id != null) {

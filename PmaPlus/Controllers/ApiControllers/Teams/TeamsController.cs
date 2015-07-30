@@ -103,7 +103,7 @@ namespace PmaPlus.Controllers.ApiControllers.Teams
             {
                 return NotFound();
             }
-            _teamServices.UpdateTeam(teamViewModel.Name,teamViewModel.Players,teamViewModel.Coaches,id);
+            _teamServices.UpdateTeam(teamViewModel.Name,teamViewModel.Players,teamViewModel.Coaches,id,teamViewModel.CurriculumId);
             return Ok();
         }
 

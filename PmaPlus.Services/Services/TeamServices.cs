@@ -70,8 +70,7 @@ namespace PmaPlus.Services.Services
 
 
 
-            if (curriculum != null)
-            {
+           
                 var newTeam = _teamRepository.Add(team);
                 
                 foreach (var coach in coaches)
@@ -84,15 +83,25 @@ namespace PmaPlus.Services.Services
                 }
 
                 _teamRepository.Update(newTeam, newTeam.Id);
-            }
+         
 
         }
 
 
-        public void UpdateTeam(string teamName, IList<int> playersId, IList<int> coachesId, int teamId)
+        public void UpdateTeam(string teamName, IList<int> playersId, IList<int> coachesId, int teamId,int curriculumId)
         {
             var team = _teamRepository.GetById(teamId);
             team.Name = teamName;
+
+            if (curriculumId != 0)
+            {
+                var curriculum = _curriculumRepository.GetById(curriculumId);
+                team.TeamCurriculum = new TeamCurriculum()
+                {
+                    Curriculum = curriculum,
+                };
+            }
+
 
 
             foreach (var coach in coachesId)
