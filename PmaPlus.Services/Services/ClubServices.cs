@@ -183,6 +183,7 @@ namespace PmaPlus.Services
                 entity.Address.PostCode = club.PostCode;
                 entity.ClubAdmin.User.UserDetail.FirstName = club.ClubAdminName;
                 entity.ClubAdmin.User.UserName = club.ClubAdminEmail;
+                entity.ClubAdmin.User.Email = club.ClubAdminEmail;
                 entity.ClubAdmin.User.Password = club.ClubAdminPassword;
                 entity.Chairman.Name = club.Chairman;
                 entity.Chairman.Email = club.ChairmanEmail;
